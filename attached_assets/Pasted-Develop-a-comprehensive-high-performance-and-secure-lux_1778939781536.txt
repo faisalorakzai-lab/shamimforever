@@ -1,0 +1,143 @@
+Develop a comprehensive, high-performance, and secure luxury e-commerce platform for "Shamim Forever," encompassing a customer-facing website and a powerful administrative control panel. The entire project should embody a minimalist, elegant, black and gold aesthetic, reflecting the brand's high-end perfume, cosmetics, and jewelry offerings.
+​1. Project Overview
+​This project aims to create a full-stack web application that serves as the digital backbone for the "Shamim Forever" luxury brand. It will provide a seamless shopping experience for customers and an intuitive, robust management system for administrators to control all aspects of the business.
+​2. Brand Identity & Design Principles
+​Aesthetic: Ultra-minimalist, elegant, luxurious. Predominantly black and gold color palette with rich dark overtones. Clean typography. High-resolution imagery.
+​Logo Integration: The provided "SF" monogram with the diamond crown and "SHAMIM FOREVER" text must be consistently integrated and embossed/engraved where appropriate.
+​Responsiveness: Fully responsive design for optimal viewing on all devices (desktop, tablet, mobile).
+​Performance: Optimized for fast loading times, edge-caching for 8K product photography, and smooth user interactions.
+​3. Recommended Technology Stack
+​Front-end (Customer & Admin UI): Next.js (React.js for UI, Server-Side Rendering/Static Site Generation for SEO and performance) with TypeScript and Tailwind CSS for styling.
+​Back-end (API & Logic): Node.js with NestJS (for structured, scalable API development) or Python with FastAPI. Use TypeScript for Node.js.
+​Database: PostgreSQL (for relational product, order, user data) and Redis (for shopping cart caching and session management).
+​Authentication: JWT (JSON Web Tokens) for secure API authentication with HTTP-only cookies, and Role-Based Access Control (RBAC).
+​Storage & CDN: Cloudinary or AWS S3 integrated with a CDN for lightning-fast delivery of ultra-premium, high-resolution media assets.
+​4. Front-End: Customer-Facing Website (11 Pages)
+​Develop a sophisticated and intuitive customer-facing website with the following pages and functionalities:
+​Home Page (/):
+​Large, cinematic hero banner featuring current premium campaigns.
+​Featured product collections (Perfume, Cosmetics, Jewelry) with high-quality visuals.
+​Brief brand philosophy statement.
+​Newsletter subscription and automatic Geo-IP currency switcher.
+​Footer with navigation, social media links, and legal information.
+​Shop All (/shop):
+​Grid view of all available products.
+​Advanced filtering options: Category (Perfume, Cosmetics, Jewelry), Price Range, New Arrivals, Best Sellers.
+​Sorting options: Price (low to high, high to low), Name (A-Z, Z-A).
+​Pagination/Infinite scroll.
+​Fragrance Scent Finder (/shop/scent-finder):
+​An interactive, elegant multi-step quiz wizard asking customers about their preferences (e.g., woody, fresh, floral notes, day/night wear).
+​Dynamic algorithm backend that analyzes answers and recommends their perfect signature Shamim Forever scent.
+​Product Detail Page (/product/[slug]):
+​Multiple high-resolution, zoomable product images/videos.
+​Detailed product description, ingredients/materials, usage instructions, scent notes (for perfumes).
+​High-End Customization Nexus: An elegant custom text/option input allowing users to request custom laser-engraving for perfume bottles or jewelry rings.
+​Pricing, active currency conversion, and live stock availability.
+​"Add to Cart" (or "Add to Vault") button.
+​Customer reviews and ratings section.
+​Related product recommendations.
+​Our Story (/about):
+​Engaging narrative about the "Shamim Forever" brand's origin, vision, and commitment to luxury and quality.
+​High-quality brand imagery and a short cinematic brand video.
+​The Atelier (/atelier):
+​Showcase of craftsmanship: behind-the-scenes premium content (images, videos) demonstrating the creation process of perfumes, jewelry, or cosmetics.
+​Emphasis on quality, artistry, and attention to detail.
+​Virtual Concierge (/concierge):
+​Booking system for personalized consultations (e.g., personal perfume selection, bespoke jewelry customization).
+​Calendar integration for scheduling appointments with live availability.
+​Form for specific high-end requests or inquiries.
+​My Vault (/account):
+​User dashboard displaying order history, shipping status, and real-time tracking links.
+​Wishlist management.
+​Profile settings (address book, payment methods).
+​Personalized recommendations based on purchase history.
+​Secure Checkout (/checkout):
+​Multi-step, ultra-secure checkout process.
+​Order summary, shipping options, payment gateway integration (Stripe, PayPal, Local Premium Methods).
+​Guest checkout option.
+​Global Boutiques (/boutiques):
+​Interactive map displaying physical store locations.
+​Store details: address, contact, opening hours.
+​Option to book in-store appointments.
+​Contact & Support (/contact):
+​Contact form.
+​FAQ section categorized by product lines.
+​Direct links for email support, WhatsApp Business integration, and live chat concierge.
+​5. Back-End: Admin Panel (Empire Command Center - 10 Modules)
+​Develop a secure, role-based access control (RBAC) admin panel with the following modules:
+​Command Center (Dashboard):
+​Overview of key performance indicators (KPIs): total sales, new orders, active users, inventory alerts.
+​Real-time sales charts and multi-currency revenue analytics.
+​Quick links to frequently used operational features.
+​Inventory Vault (Product & Batch Management):
+​CRUD (Create, Read, Update, Delete) operations for products.
+​Manage product details: name, description, category, price, images, variants (size, color, scent).
+​Smart Batch Tracking & Expiry System: Track specific production batches, manufacturing dates, and shelf-life/expiry notifications for cosmetics and perfumes.
+​Stock management with automated low-stock notifications.
+​Bulk import/export of product data.
+​Order Nexus (Order Management):
+​View, filter, and search all customer orders.
+​Highlight specific custom orders requiring laser-engraving or specific jewelry changes.
+​Update order status (pending, processing, shipped, delivered, cancelled).
+​Generate invoices and custom shipping labels via third-party logistics APIs.
+​Process refunds/returns.
+​Customer Dynasty (CRM):
+​Manage customer profiles: contact information, purchase history, preferences.
+​Segmentation of customers (e.g., VIP Tier, frequent buyers).
+​Communication tools (send targeted emails, view interaction history).
+​Marketing Engine (Promotions & Campaigns):
+​Create and manage discount codes, coupons, and seasonal promotions.
+​Set up marketing campaigns (e.g., email marketing integration).
+​Manage banners and promotional content for the front-end homepage.
+​Content Studio (CMS):
+​Manage static pages (About Us, Atelier, Contact).
+​Blog management: create, edit, publish articles.
+​Upload and manage media assets via CDN storage integrations.
+​Analytics Lab (Reporting):
+​Detailed sales reports (by product, category, date range).
+​Customer behavior analytics (popular products, conversion rates, abandoned carts).
+​Website traffic and performance reports.
+​Export data functionality (CSV, PDF).
+​Team Access (User & Role Management):
+​Create and manage admin user accounts.
+​Assign roles with specific permissions (e.g., Super Admin, Inventory Manager, Customer Support Concierge).
+​Audit Logs: Strict logging of all actions taken by admin users for corporate compliance.
+​Supply Chain (Vendor & Raw Material Management):
+​Manage suppliers and vendor contacts.
+​Track raw material inventory (e.g., perfume oils, premium glass bottles, gold, diamonds).
+​Generate purchase orders.
+​Financial Ledger (Basic Accounting):
+​Overview of global revenue, tax collections, shipping costs, and profit margins.
+​Integration hooks for premium accounting systems.
+​Tax settings per region (VAT, Custom Duties, Sales Tax).
+​6. System Architecture & Required APIs
+​The system must run on a secure, RESTful API architecture connecting the front-end to the back-end and necessary third-party services:
+​A. Internal Application APIs
+​Authentication & Access: POST /api/auth/login, POST /api/auth/register, GET /api/admin/audit-logs (Protected).
+​Product Catalogue: GET /api/products (With advanced filtering/sorting), POST /api/products/scent-finder (Processes quiz logic).
+​Order Engine: POST /api/orders/create (Handles custom engraving data strings), GET /api/orders/track/[orderId].
+​Cart & Stock Validation: POST /api/cart/validate (Real-time check against database stock before checkout processing).
+​B. Third-Party Integrations & APIs
+​Payment Gateways: Stripe API / PayPal API for global card settlements and regional payment methods.
+​Logistics & Fulfillment: DHL / FedEx or ShipEngine API for automated shipping labels, customs documentation, and live transit webhooks.
+​Communications: Twilio / WhatsApp Business API for automated transaction receipts, delivery status updates, and concierge reminders.
+​Media Processing: Cloudinary or AWS S3 API for edge-optimized delivery of heavy graphic assets without sacrificing site speed.
+​7. Database Schema (Key Entities - PostgreSQL)
+​Design a robust relational database schema with the following core tables and their relationships:
+​Users: id, name, email, password_hash, role (customer, admin), created_at, updated_at.
+​Products: id, name, description, price, category_id, stock_quantity, sku, image_urls (JSONB), has_engraving_option (boolean), created_at, updated_at.
+​Batches: id, product_id, batch_number, manufacture_date, expiry_date, quantity.
+​Categories: id, name, description.
+​Orders: id, user_id, total_amount, currency, status, shipping_address, payment_status, tracking_number, created_at, updated_at.
+​OrderItems: id, order_id, product_id, quantity, unit_price, custom_engraving_text (nullable text).
+​Reviews: id, product_id, user_id, rating, comment, created_at.
+​Wishlists: id, user_id, product_id, created_at.
+​AdminUsers: id, username, email, password_hash, role_id, created_at, updated_at.
+​Roles & Permissions: Tables managing Access Control (Roles, Permissions, RolePermissions junction table).
+​Suppliers & RawMaterials: Management tables for procurement tracking.
+​8. Security & Deployment Considerations
+​Data Encryption: Passwords must use Argon2id or bcrypt hashing. All traffic must be enforced over HTTPS with TLS 1.3. Sensitive parameters must use data encryption at rest.
+​Input Cleansing: Strict schema validation on inputs using libraries like Zod or Joi to prevent SQL Injection and XSS attacks.
+​Rate Limiting: Protect crucial endpoints (/api/auth/*, /api/checkout/*) against brute-force attacks using rate-limiting middleware.
+​Deployment Target: Optimized for repository maintenance via GitHub (monorepo format). Simple environment setup using a .env configuration file managing API keys, database credentials, and production URLs securely.
+​Execution Step: Begin by implementing the repository boilerplate, setting up the PostgreSQL database migration scripts, and creating a pristine home screen layout focusing strictly on the premium luxury black-and-gold visual theme.

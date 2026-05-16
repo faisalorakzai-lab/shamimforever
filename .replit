@@ -18,3 +18,39 @@ expertMode = true
 [postMerge]
 path = "scripts/post-merge.sh"
 timeoutMs = 20000
+
+[userenv]
+
+[userenv.shared]
+SUPABASE_URL = "https://uvgtgeauhjbdatrmmaob.supabase.co"
+VITE_SUPABASE_URL = "https://uvgtgeauhjbdatrmmaob.supabase.co"
+VITE_SUPABASE_PUBLISHABLE_KEY = "sb_publishable_VuaEqan3EBtGHbpTI0KdJg_OimrHkqM"
+VITE_MAPBOX_TOKEN = "pk.eyJ1IjoiZmFpc2Fsb3Jha3phaSIsImEiOiJjbXA2azVhMGQwMWxuMnRzZWhzcmxsdHkzIn0.Pbzn7woFh0PwCKXHzxcbHA"
+VITE_MAPBOX_STYLE = "mapbox://styles/faisalorakzai/cmp6m332s001a01s93rqk58ew"
+CLOUDINARY_CLOUD_NAME = "shamimforever"
+VITE_CLOUDINARY_CLOUD_NAME = "shamimforever"
+VITE_CLOUDINARY_API_KEY = "612796494885864"
+ADMIN_EMAIL = "faisalorakzaiofficial@gmail.com"
+EASYPAISA_NUMBER = "03367970004"
+EASYPAISA_NAME = "Muhammad Faisal"
+UBL_ACCOUNT = "0909318870498"
+UBL_IBAN = "PK13UNIL0109000318870498"
+SUPABASE_DB_URL = "postgresql://postgres:Faisal%408686%40@db.uvgtgeauhjbdatrmmaob.supabase.co:5432/postgres"
+CLOUDINARY_SECRET_KEY = "goXfE_2saVGk0Kro95592uWV0I4"
+CLOUDINARY_API_KEY = "612796494885864"
+SUPABASE_SECRET_KEY = "sb_secret_z9ve_Dx3VF9A9L5bhsnKYg_jIGEAaIT"
+ANTHROPIC_API_KEY = "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"
+GITHUB_TOKEN = "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"
+VERCEL_TOKEN = "vcp_4UO37O6UT7sFiRPf8dQyizepA8eIVKLVLwUeQ4OXX1jZPthlCb4SsnpO"
+MAPBOX_SK_TOKEN = "sk.eyJ1IjoiZmFpc2Fsb3Jha3phaSIsImEiOiJjbXA2azVhMGQwMWxuMnRzZWhzcmxsdHkzIn0.Pbzn7woFh0PwCKXHzxcbHA"
+
+[nix]
+channel = "stable-25_05"
+
+[[ports]]
+localPort = 8080
+externalPort = 80
+
+[[ports]]
+localPort = 20898
+externalPort = 3000
