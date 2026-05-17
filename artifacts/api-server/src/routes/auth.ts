@@ -104,4 +104,45 @@ router.patch("/auth/profile", async (req, res): Promise<void> => {
   res.json({ id: user.id, email: user.email, name: user.name, role: user.role, phone: user.phone, address: user.address, createdAt: user.createdAt.toISOString() });
 });
 
+// Secure admin setup — requires X-Setup-Token header matching SESSION_SECRET
+// Used to create or reset the first admin account without direct DB access
+router.post("/auth/setup-admin", async (req, res): Promise<void> => {
+  const setupToken = req.headers["x-setup-token"];
+  const secret = process.env.SESSION_SECRET;
+
+  if (!secret || setupToken !== secret) {
+    res.status(403).json({ error: "Forbidden" });
+    return;
+  }
+
+  const { email, name, password } = req.body as { email?: string; name?: string; password?: string };
+  if (!email || !password || !name) {
+    res.status(400).json({ error: "email, name, and password are required" });
+    return;
+  }
+
+  const passwordHash = hashPassword(password);
+
+  const [existing] = await db.select().from(usersTable).where(eq(usersTable.email, email));
+
+  let user;
+  if (existing) {
+    [user] = await db
+      .update(usersTable)
+      .set({ passwordHash, role: "admin", name })
+      .where(eq(usersTable.email, email))
+      .returning();
+  } else {
+    [user] = await db
+      .insert(usersTable)
+      .values({ email, name, passwordHash, role: "admin" })
+      .returning();
+  }
+
+  res.json({
+    message: existing ? "Admin account updated" : "Admin account created",
+    user: { id: user.id, email: user.email, name: user.name, role: user.role },
+  });
+});
+
 export default router;
