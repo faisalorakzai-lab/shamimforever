@@ -1,7 +1,5 @@
 {
   "version": 2,
-  "installCommand": "cd /vercel/path0 && pnpm install --no-frozen-lockfile",
-  "buildCommand": "cd /vercel/path0 && pnpm run typecheck:libs && pnpm --filter @workspace/api-server run build",
   "builds": [
     {
       "src": "dist/vercel.js",
