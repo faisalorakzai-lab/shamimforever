@@ -1,12 +1,8 @@
 {
   "version": 2,
-  "builds": [
-    {
-      "src": "dist/vercel.js",
-      "use": "@vercel/node"
-    }
-  ],
+  "installCommand": "echo 'pre-built bundle — no install needed'",
+  "buildCommand": "echo 'pre-built bundle — no build needed'",
   "routes": [
-    { "src": "/(.*)", "dest": "dist/vercel.js" }
+    { "src": "/(.*)", "dest": "/api/index.js" }
   ]
 }

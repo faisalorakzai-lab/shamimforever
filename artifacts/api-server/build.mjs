@@ -134,13 +134,15 @@ async function buildAll() {
     banner,
   });
 
-  // Vercel serverless bundle (CJS, exports Express app — used by Vercel)
+  // Vercel serverless bundle (CJS, exports Express app — placed in api/ dir)
+  // api/index.js is committed to git so Vercel can serve it without running pnpm install.
+  const apiDir = path.resolve(artifactDir, "api");
   await esbuild({
     entryPoints: [path.resolve(artifactDir, "src/vercel-entry.ts")],
     platform: "node",
     bundle: true,
     format: "cjs",
-    outfile: path.resolve(distDir, "vercel.js"),
+    outfile: path.resolve(apiDir, "index.js"),
     external: externalList,
     logLevel: "info",
     sourcemap: false,
