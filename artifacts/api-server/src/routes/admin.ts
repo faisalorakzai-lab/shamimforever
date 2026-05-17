@@ -1,179 +1,125 @@
 import { Router, type IRouter } from "express";
-import { eq, desc, ilike, sql } from "drizzle-orm";
-import { db, ordersTable, usersTable, productsTable, discountsTable } from "@workspace/db";
-import {
-  ListCustomersQueryParams,
-  GetCustomerParams,
-  CreateDiscountBody,
-  GetRevenueDataQueryParams,
-} from "@workspace/api-zod";
+  import { supabase } from "@workspace/db";
+  import { ListCustomersQueryParams, GetCustomerParams, CreateDiscountBody, GetRevenueDataQueryParams } from "@workspace/api-zod";
 
-const router: IRouter = Router();
+  const router: IRouter = Router();
 
-router.get("/admin/stats", async (_req, res): Promise<void> => {
-  const [revenueResult] = await db
-    .select({ total: sql<string>`coalesce(sum(${ordersTable.totalAmount}), 0)` })
-    .from(ordersTable)
-    .where(eq(ordersTable.paymentStatus, "paid"));
+  router.get("/admin/stats", async (_req, res): Promise<void> => {
+    const [{ data: allOrders }, { data: allUsers }, { data: topProducts }, { data: recentOrdersRaw }] = await Promise.all([
+      supabase.from("orders").select("total_amount, payment_status, status, created_at"),
+      supabase.from("users").select("id"),
+      supabase.from("products").select("*").eq("is_bestseller", true).limit(5),
+      supabase.from("orders").select("*").order("created_at", { ascending: false }).limit(5),
+    ]);
 
-  const [orderCount] = await db.select({ count: sql<string>`count(*)` }).from(ordersTable);
-  const [customerCount] = await db.select({ count: sql<string>`count(*)` }).from(usersTable);
-  const [pendingCount] = await db.select({ count: sql<string>`count(*)` }).from(ordersTable).where(eq(ordersTable.status, "pending"));
-  const [lowStockCount] = await db.select({ count: sql<string>`count(*)` }).from(productsTable).where(sql`${productsTable.stock} < 5`);
+    const orders = (allOrders || []) as Record<string, unknown>[];
+    const paidOrders = orders.filter((o) => o.payment_status === "paid");
+    const totalRevenue = paidOrders.reduce((s, o) => s + Number(o.total_amount), 0);
+    const pendingOrders = orders.filter((o) => o.status === "pending").length;
 
-  const revenueByMonth = await db
-    .select({
-      month: sql<string>`to_char(${ordersTable.createdAt}, 'Mon')`,
-      revenue: sql<string>`coalesce(sum(${ordersTable.totalAmount}), 0)`,
-    })
-    .from(ordersTable)
-    .groupBy(sql`to_char(${ordersTable.createdAt}, 'Mon'), date_trunc('month', ${ordersTable.createdAt})`)
-    .orderBy(sql`date_trunc('month', ${ordersTable.createdAt}) desc`)
-    .limit(6);
+    const { data: lowStockRaw } = await supabase.from("products").select("id").lt("stock", 5);
 
-  const topProducts = await db.select().from(productsTable).where(eq(productsTable.isBestseller, true)).limit(5);
-  const recentOrders = await db.select().from(ordersTable).orderBy(desc(ordersTable.createdAt)).limit(5);
+    const monthMap: Record<string, number> = {};
+    for (const o of paidOrders) {
+      const label = new Date(o.created_at as string).toLocaleString("en-US", { month: "short" });
+      monthMap[label] = (monthMap[label] || 0) + Number(o.total_amount);
+    }
+    const revenueByMonth = Object.entries(monthMap).map(([month, revenue]) => ({ month, revenue }));
 
-  res.json({
-    totalRevenue: Number(revenueResult.total),
-    totalOrders: Number(orderCount.count),
-    totalCustomers: Number(customerCount.count),
-    pendingOrders: Number(pendingCount.count),
-    lowStockProducts: Number(lowStockCount.count),
-    revenueByMonth: revenueByMonth.map((r) => ({ month: r.month, revenue: Number(r.revenue) })),
-    ordersByStatus: {},
-    topProducts: topProducts.map((p) => ({ ...p, price: Number(p.price), originalPrice: p.originalPrice ? Number(p.originalPrice) : null, averageRating: null, reviewCount: 0 })),
-    recentOrders: recentOrders.map((o) => ({
-      ...o,
-      totalAmount: Number(o.totalAmount),
-      createdAt: o.createdAt.toISOString(),
-      items: [],
-    })),
+    res.json({
+      totalRevenue,
+      totalOrders: orders.length,
+      totalCustomers: (allUsers || []).length,
+      pendingOrders,
+      lowStockProducts: (lowStockRaw || []).length,
+      revenueByMonth,
+      ordersByStatus: {},
+      topProducts: (topProducts || []).map((p: Record<string, unknown>) => ({ ...p, price: Number(p.price), originalPrice: p.original_price ? Number(p.original_price) : null, averageRating: null, reviewCount: 0 })),
+      recentOrders: (recentOrdersRaw || []).map((o: Record<string, unknown>) => ({ ...o, totalAmount: Number(o.total_amount), createdAt: o.created_at, items: [] })),
+    });
   });
-});
 
-router.get("/admin/customers", async (req, res): Promise<void> => {
-  const params = ListCustomersQueryParams.safeParse(req.query);
-  const search = params.success ? params.data.search : undefined;
+  router.get("/admin/customers", async (req, res): Promise<void> => {
+    const params = ListCustomersQueryParams.safeParse(req.query);
+    const search = params.success ? params.data.search : undefined;
 
-  const users = search
-    ? await db.select().from(usersTable).where(ilike(usersTable.email, `%${search}%`)).orderBy(desc(usersTable.createdAt)).limit(50)
-    : await db.select().from(usersTable).orderBy(desc(usersTable.createdAt)).limit(50);
+    let q = supabase.from("users").select("*").order("created_at", { ascending: false }).limit(50);
+    if (search) q = q.ilike("email", `%${search}%`);
+    const { data: users } = await q;
 
-  const customers = await Promise.all(users.map(async (user) => {
-    const [orderStats] = await db
-      .select({
-        count: sql<string>`count(*)`,
-        total: sql<string>`coalesce(sum(${ordersTable.totalAmount}), 0)`,
-      })
-      .from(ordersTable)
-      .where(eq(ordersTable.userId, user.id));
+    const customers = await Promise.all((users || []).map(async (user: Record<string, unknown>) => {
+      const { data: orders } = await supabase.from("orders").select("total_amount").eq("user_id", user.id);
+      const orderList = (orders || []) as Record<string, unknown>[];
+      return {
+        id: user.id, email: user.email, name: user.name, phone: user.phone ?? null, role: user.role,
+        orderCount: orderList.length,
+        totalSpent: orderList.reduce((s, o) => s + Number(o.total_amount), 0),
+        createdAt: user.created_at,
+      };
+    }));
 
-    return {
-      id: user.id,
-      email: user.email,
-      name: user.name,
-      phone: user.phone,
-      role: user.role,
-      orderCount: Number(orderStats.count),
-      totalSpent: Number(orderStats.total),
-      createdAt: user.createdAt.toISOString(),
-    };
-  }));
-
-  res.json(customers);
-});
-
-router.get("/admin/customers/:id", async (req, res): Promise<void> => {
-  const params = GetCustomerParams.safeParse(req.params);
-  if (!params.success) {
-    res.status(400).json({ error: params.error.message });
-    return;
-  }
-
-  const [user] = await db.select().from(usersTable).where(eq(usersTable.id, params.data.id));
-  if (!user) {
-    res.status(404).json({ error: "Customer not found" });
-    return;
-  }
-
-  const [orderStats] = await db
-    .select({
-      count: sql<string>`count(*)`,
-      total: sql<string>`coalesce(sum(${ordersTable.totalAmount}), 0)`,
-    })
-    .from(ordersTable)
-    .where(eq(ordersTable.userId, user.id));
-
-  res.json({
-    id: user.id,
-    email: user.email,
-    name: user.name,
-    phone: user.phone,
-    role: user.role,
-    orderCount: Number(orderStats.count),
-    totalSpent: Number(orderStats.total),
-    createdAt: user.createdAt.toISOString(),
+    res.json(customers);
   });
-});
 
-router.get("/admin/discounts", async (_req, res): Promise<void> => {
-  const discounts = await db.select().from(discountsTable);
-  res.json(discounts.map((d) => ({
-    ...d,
-    value: Number(d.value),
-    minOrderAmount: d.minOrderAmount ? Number(d.minOrderAmount) : null,
-    expiresAt: d.expiresAt ? d.expiresAt.toISOString() : null,
-  })));
-});
+  router.get("/admin/customers/:id", async (req, res): Promise<void> => {
+    const params = GetCustomerParams.safeParse(req.params);
+    if (!params.success) { res.status(400).json({ error: params.error.message }); return; }
 
-router.post("/admin/discounts", async (req, res): Promise<void> => {
-  const parsed = CreateDiscountBody.safeParse(req.body);
-  if (!parsed.success) {
-    res.status(400).json({ error: parsed.error.message });
-    return;
-  }
+    const { data: user } = await supabase.from("users").select("*").eq("id", params.data.id).maybeSingle();
+    if (!user) { res.status(404).json({ error: "Customer not found" }); return; }
 
-  const data = parsed.data;
-  const [discount] = await db.insert(discountsTable).values({
-    code: data.code.toUpperCase(),
-    type: data.type,
-    value: String(data.value),
-    minOrderAmount: data.minOrderAmount ? String(data.minOrderAmount) : null,
-    maxUses: data.maxUses ?? null,
-    expiresAt: data.expiresAt ? new Date(data.expiresAt) : null,
-  }).returning();
+    const { data: orders } = await supabase.from("orders").select("total_amount").eq("user_id", user.id);
+    const orderList = (orders || []) as Record<string, unknown>[];
 
-  res.status(201).json({
-    ...discount,
-    value: Number(discount.value),
-    minOrderAmount: discount.minOrderAmount ? Number(discount.minOrderAmount) : null,
-    expiresAt: discount.expiresAt ? discount.expiresAt.toISOString() : null,
+    res.json({
+      id: user.id, email: user.email, name: user.name, phone: user.phone ?? null, role: user.role,
+      orderCount: orderList.length,
+      totalSpent: orderList.reduce((s, o) => s + Number(o.total_amount), 0),
+      createdAt: user.created_at,
+    });
   });
-});
 
-router.get("/admin/revenue", async (req, res): Promise<void> => {
-  const params = GetRevenueDataQueryParams.safeParse(req.query);
-  const period = params.success ? params.data.period : "monthly";
-
-  const data = await db
-    .select({
-      label: sql<string>`to_char(${ordersTable.createdAt}, 'Mon YYYY')`,
-      revenue: sql<string>`coalesce(sum(${ordersTable.totalAmount}), 0)`,
-      orders: sql<string>`count(*)`,
-    })
-    .from(ordersTable)
-    .groupBy(sql`to_char(${ordersTable.createdAt}, 'Mon YYYY'), date_trunc('month', ${ordersTable.createdAt})`)
-    .orderBy(sql`date_trunc('month', ${ordersTable.createdAt}) desc`)
-    .limit(12);
-
-  const total = data.reduce((sum, d) => sum + Number(d.revenue), 0);
-
-  res.json({
-    period: period ?? "monthly",
-    total,
-    data: data.map((d) => ({ label: d.label, revenue: Number(d.revenue), orders: Number(d.orders) })),
+  router.get("/admin/discounts", async (_req, res): Promise<void> => {
+    const { data: discounts } = await supabase.from("discounts").select("*");
+    res.json((discounts || []).map((d: Record<string, unknown>) => ({
+      ...d, value: Number(d.value),
+      minOrderAmount: d.min_order_amount ? Number(d.min_order_amount) : null,
+      expiresAt: d.expires_at ?? null,
+    })));
   });
-});
 
-export default router;
+  router.post("/admin/discounts", async (req, res): Promise<void> => {
+    const parsed = CreateDiscountBody.safeParse(req.body);
+    if (!parsed.success) { res.status(400).json({ error: parsed.error.message }); return; }
+
+    const data = parsed.data;
+    const { data: discount, error } = await supabase.from("discounts").insert({
+      code: data.code.toUpperCase(), type: data.type, value: String(data.value),
+      min_order_amount: data.minOrderAmount ? String(data.minOrderAmount) : null,
+      max_uses: data.maxUses ?? null, expires_at: data.expiresAt ?? null,
+    }).select().single();
+
+    if (error || !discount) { res.status(500).json({ error: "Failed to create discount" }); return; }
+    res.status(201).json({ ...discount, value: Number(discount.value), minOrderAmount: discount.min_order_amount ? Number(discount.min_order_amount) : null, expiresAt: discount.expires_at ?? null });
+  });
+
+  router.get("/admin/revenue", async (req, res): Promise<void> => {
+    const params = GetRevenueDataQueryParams.safeParse(req.query);
+    const period = params.success ? params.data.period : "monthly";
+
+    const { data: orders } = await supabase.from("orders").select("total_amount, created_at").order("created_at", { ascending: false });
+
+    const monthMap: Record<string, { revenue: number; orders: number }> = {};
+    for (const o of ((orders || []) as Record<string, unknown>[])) {
+      const label = new Date(o.created_at as string).toLocaleString("en-US", { month: "short", year: "numeric" });
+      if (!monthMap[label]) monthMap[label] = { revenue: 0, orders: 0 };
+      monthMap[label].revenue += Number(o.total_amount);
+      monthMap[label].orders += 1;
+    }
+
+    const data = Object.entries(monthMap).slice(0, 12).map(([label, v]) => ({ label, revenue: v.revenue, orders: v.orders }));
+    res.json({ period: period ?? "monthly", total: data.reduce((s, d) => s + d.revenue, 0), data });
+  });
+
+  export default router;
+  

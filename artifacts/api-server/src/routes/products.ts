@@ -1,197 +1,139 @@
 import { Router, type IRouter } from "express";
-import { eq, ilike, gte, lte, desc, asc, and, sql, inArray } from "drizzle-orm";
-import { db, productsTable, reviewsTable } from "@workspace/db";
-import {
-  ListProductsQueryParams,
-  CreateProductBody,
-  GetProductParams,
-  UpdateProductParams,
-  UpdateProductBody,
-  DeleteProductParams,
-} from "@workspace/api-zod";
+  import { supabase } from "@workspace/db";
+  import { ListProductsQueryParams, CreateProductBody, GetProductParams, UpdateProductParams, UpdateProductBody, DeleteProductParams } from "@workspace/api-zod";
 
-const router: IRouter = Router();
+  const router: IRouter = Router();
 
-// Helper to add review stats to products
-async function withReviewStats(products: (typeof productsTable.$inferSelect)[]) {
-  const productIds = products.map((p) => p.id);
-  if (productIds.length === 0) return products;
+  function mapProduct(p: Record<string, unknown>, reviewStats?: { avg: number; count: number }) {
+    return { ...p, price: Number(p.price), originalPrice: p.original_price ? Number(p.original_price) : null, averageRating: reviewStats ? Math.round(reviewStats.avg * 10) / 10 : null, reviewCount: reviewStats ? reviewStats.count : 0 };
+  }
 
-  const reviews = await db
-    .select({
-      productId: reviewsTable.productId,
-      avg: sql<string>`avg(${reviewsTable.rating})`,
-      count: sql<string>`count(*)`,
-    })
-    .from(reviewsTable)
-    .where(inArray(reviewsTable.productId, productIds))
-    .groupBy(reviewsTable.productId);
+  async function withReviews(products: Record<string, unknown>[]) {
+    if (products.length === 0) return [];
+    const ids = products.map((p) => p.id as number);
+    const { data: reviews } = await supabase.from("reviews").select("product_id, rating").in("product_id", ids);
+    const rmap = new Map<number, { sum: number; count: number }>();
+    for (const r of ((reviews || []) as Record<string, unknown>[])) {
+      const pid = r.product_id as number;
+      if (!rmap.has(pid)) rmap.set(pid, { sum: 0, count: 0 });
+      const cur = rmap.get(pid)!;
+      cur.sum += r.rating as number;
+      cur.count += 1;
+    }
+    return products.map((p) => {
+      const r = rmap.get(p.id as number);
+      return mapProduct(p, r ? { avg: r.sum / r.count, count: r.count } : undefined);
+    });
+  }
 
-  const reviewMap = new Map(reviews.map((r) => [r.productId, r]));
+  router.get("/products", async (req, res): Promise<void> => {
+    const params = ListProductsQueryParams.safeParse(req.query);
+    if (!params.success) { res.status(400).json({ error: params.error.message }); return; }
 
-  return products.map((p) => {
-    const r = reviewMap.get(p.id);
-    return {
-      ...p,
-      price: Number(p.price),
-      originalPrice: p.originalPrice ? Number(p.originalPrice) : null,
-      averageRating: r ? Math.round(Number(r.avg) * 10) / 10 : null,
-      reviewCount: r ? Number(r.count) : 0,
-    };
+    const { category, search, minPrice, maxPrice, sort, page = 1, limit = 12 } = params.data;
+    const offset = (Number(page) - 1) * Number(limit);
+
+    let q = supabase.from("products").select("*", { count: "exact" });
+    if (category) q = q.eq("category", category);
+    if (search) q = q.ilike("name", `%${search}%`);
+    if (minPrice) q = q.gte("price", String(minPrice));
+    if (maxPrice) q = q.lte("price", String(maxPrice));
+
+    switch (sort) {
+      case "price_asc": q = q.order("price", { ascending: true }); break;
+      case "price_desc": q = q.order("price", { ascending: false }); break;
+      case "name_asc": q = q.order("name", { ascending: true }); break;
+      case "name_desc": q = q.order("name", { ascending: false }); break;
+      default: q = q.order("created_at", { ascending: false });
+    }
+
+    const { data: products, count } = await q.range(offset, offset + Number(limit) - 1);
+    const enriched = await withReviews((products || []) as Record<string, unknown>[]);
+    res.json({ products: enriched, total: count ?? 0, page: Number(page), limit: Number(limit) });
   });
-}
 
-router.get("/products", async (req, res): Promise<void> => {
-  const params = ListProductsQueryParams.safeParse(req.query);
-  if (!params.success) {
-    res.status(400).json({ error: params.error.message });
-    return;
-  }
+  router.get("/products/featured", async (_req, res): Promise<void> => {
+    const { data } = await supabase.from("products").select("*").eq("is_featured", true).limit(8);
+    res.json(await withReviews((data || []) as Record<string, unknown>[]));
+  });
 
-  const { category, search, minPrice, maxPrice, sort, page = 1, limit = 12 } = params.data;
+  router.get("/products/bestsellers", async (_req, res): Promise<void> => {
+    const { data } = await supabase.from("products").select("*").eq("is_bestseller", true).limit(8);
+    res.json(await withReviews((data || []) as Record<string, unknown>[]));
+  });
 
-  const conditions = [];
-  if (category) conditions.push(eq(productsTable.category, category));
-  if (search) conditions.push(ilike(productsTable.name, `%${search}%`));
-  if (minPrice) conditions.push(gte(productsTable.price, String(minPrice)));
-  if (maxPrice) conditions.push(lte(productsTable.price, String(maxPrice)));
+  router.get("/products/new-arrivals", async (_req, res): Promise<void> => {
+    const { data } = await supabase.from("products").select("*").eq("is_new_arrival", true).limit(8);
+    res.json(await withReviews((data || []) as Record<string, unknown>[]));
+  });
 
-  const whereClause = conditions.length > 0 ? and(...conditions) : undefined;
+  router.get("/products/:slug", async (req, res): Promise<void> => {
+    const params = GetProductParams.safeParse(req.params);
+    if (!params.success) { res.status(400).json({ error: params.error.message }); return; }
 
-  let orderBy;
-  switch (sort) {
-    case "price_asc": orderBy = asc(productsTable.price); break;
-    case "price_desc": orderBy = desc(productsTable.price); break;
-    case "name_asc": orderBy = asc(productsTable.name); break;
-    case "name_desc": orderBy = desc(productsTable.name); break;
-    default: orderBy = desc(productsTable.createdAt);
-  }
+    const { data: product } = await supabase.from("products").select("*").eq("slug", params.data.slug).maybeSingle();
+    if (!product) { res.status(404).json({ error: "Product not found" }); return; }
 
-  const offset = (Number(page) - 1) * Number(limit);
+    const [enriched] = await withReviews([product as Record<string, unknown>]);
+    res.json(enriched);
+  });
 
-  const [products, countResult] = await Promise.all([
-    db.select().from(productsTable).where(whereClause).orderBy(orderBy).limit(Number(limit)).offset(offset),
-    db.select({ count: sql<string>`count(*)` }).from(productsTable).where(whereClause),
-  ]);
+  router.post("/products", async (req, res): Promise<void> => {
+    const parsed = CreateProductBody.safeParse(req.body);
+    if (!parsed.success) { res.status(400).json({ error: parsed.error.message }); return; }
 
-  const enriched = await withReviewStats(products);
-  res.json({ products: enriched, total: Number(countResult[0].count), page: Number(page), limit: Number(limit) });
-});
+    const d = parsed.data;
+    const { data: product, error } = await supabase.from("products").insert({
+      name: d.name, slug: d.name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "") + "-" + Date.now(),
+      description: d.description, price: String(d.price),
+      original_price: d.originalPrice ? String(d.originalPrice) : null,
+      category: d.category, category_id: d.categoryId, stock: d.stock ?? 0, sku: d.sku,
+      images: d.images ?? [], is_featured: d.isFeatured ?? false, is_bestseller: d.isBestseller ?? false,
+      is_new_arrival: d.isNewArrival ?? false, has_engraving_option: d.hasEngravingOption ?? false,
+      scent_notes: d.scentNotes, ingredients: d.ingredients, usage_instructions: d.usageInstructions,
+    }).select().single();
 
-router.get("/products/featured", async (_req, res): Promise<void> => {
-  const products = await db.select().from(productsTable).where(eq(productsTable.isFeatured, true)).limit(8);
-  const enriched = await withReviewStats(products);
-  res.json(enriched);
-});
+    if (error || !product) { res.status(500).json({ error: "Failed to create product" }); return; }
+    const [enriched] = await withReviews([product as Record<string, unknown>]);
+    res.status(201).json(enriched);
+  });
 
-router.get("/products/bestsellers", async (_req, res): Promise<void> => {
-  const products = await db.select().from(productsTable).where(eq(productsTable.isBestseller, true)).limit(8);
-  const enriched = await withReviewStats(products);
-  res.json(enriched);
-});
+  router.patch("/products/:slug", async (req, res): Promise<void> => {
+    const params = UpdateProductParams.safeParse(req.params);
+    if (!params.success) { res.status(400).json({ error: params.error.message }); return; }
 
-router.get("/products/new-arrivals", async (_req, res): Promise<void> => {
-  const products = await db.select().from(productsTable).where(eq(productsTable.isNewArrival, true)).limit(8);
-  const enriched = await withReviewStats(products);
-  res.json(enriched);
-});
+    const parsed = UpdateProductBody.safeParse(req.body);
+    if (!parsed.success) { res.status(400).json({ error: parsed.error.message }); return; }
 
-router.get("/products/:slug", async (req, res): Promise<void> => {
-  const params = GetProductParams.safeParse(req.params);
-  if (!params.success) {
-    res.status(400).json({ error: params.error.message });
-    return;
-  }
+    const d = parsed.data;
+    const upd: Record<string, unknown> = {};
+    if (d.name !== undefined) upd.name = d.name;
+    if (d.description !== undefined) upd.description = d.description;
+    if (d.price !== undefined) upd.price = String(d.price);
+    if (d.originalPrice !== undefined) upd.original_price = String(d.originalPrice);
+    if (d.category !== undefined) upd.category = d.category;
+    if (d.stock !== undefined) upd.stock = d.stock;
+    if (d.images !== undefined) upd.images = d.images;
+    if (d.isFeatured !== undefined) upd.is_featured = d.isFeatured;
+    if (d.isBestseller !== undefined) upd.is_bestseller = d.isBestseller;
+    if (d.isNewArrival !== undefined) upd.is_new_arrival = d.isNewArrival;
+    if (d.hasEngravingOption !== undefined) upd.has_engraving_option = d.hasEngravingOption;
+    if (d.scentNotes !== undefined) upd.scent_notes = d.scentNotes;
 
-  const [product] = await db.select().from(productsTable).where(eq(productsTable.slug, params.data.slug));
-  if (!product) {
-    res.status(404).json({ error: "Product not found" });
-    return;
-  }
+    const { data: product } = await supabase.from("products").update(upd).eq("slug", params.data.slug).select().single();
+    if (!product) { res.status(404).json({ error: "Product not found" }); return; }
 
-  const [enriched] = await withReviewStats([product]);
-  res.json(enriched);
-});
+    const [enriched] = await withReviews([product as Record<string, unknown>]);
+    res.json(enriched);
+  });
 
-router.post("/products", async (req, res): Promise<void> => {
-  const parsed = CreateProductBody.safeParse(req.body);
-  if (!parsed.success) {
-    res.status(400).json({ error: parsed.error.message });
-    return;
-  }
+  router.delete("/products/:slug", async (req, res): Promise<void> => {
+    const params = DeleteProductParams.safeParse(req.params);
+    if (!params.success) { res.status(400).json({ error: params.error.message }); return; }
 
-  const data = parsed.data;
-  const [product] = await db.insert(productsTable).values({
-    name: data.name,
-    slug: data.name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "") + "-" + Date.now(),
-    description: data.description,
-    price: String(data.price),
-    originalPrice: data.originalPrice ? String(data.originalPrice) : null,
-    category: data.category,
-    categoryId: data.categoryId,
-    stock: data.stock ?? 0,
-    sku: data.sku,
-    images: data.images ?? [],
-    isFeatured: data.isFeatured ?? false,
-    isBestseller: data.isBestseller ?? false,
-    isNewArrival: data.isNewArrival ?? false,
-    hasEngravingOption: data.hasEngravingOption ?? false,
-    scentNotes: data.scentNotes,
-    ingredients: data.ingredients,
-    usageInstructions: data.usageInstructions,
-  }).returning();
+    await supabase.from("products").delete().eq("slug", params.data.slug);
+    res.sendStatus(204);
+  });
 
-  const [enriched] = await withReviewStats([product]);
-  res.status(201).json(enriched);
-});
-
-router.patch("/products/:slug", async (req, res): Promise<void> => {
-  const params = UpdateProductParams.safeParse(req.params);
-  if (!params.success) {
-    res.status(400).json({ error: params.error.message });
-    return;
-  }
-
-  const parsed = UpdateProductBody.safeParse(req.body);
-  if (!parsed.success) {
-    res.status(400).json({ error: parsed.error.message });
-    return;
-  }
-
-  const data = parsed.data;
-  const updateData: Record<string, unknown> = {};
-  if (data.name !== undefined) updateData.name = data.name;
-  if (data.description !== undefined) updateData.description = data.description;
-  if (data.price !== undefined) updateData.price = String(data.price);
-  if (data.originalPrice !== undefined) updateData.originalPrice = String(data.originalPrice);
-  if (data.category !== undefined) updateData.category = data.category;
-  if (data.stock !== undefined) updateData.stock = data.stock;
-  if (data.images !== undefined) updateData.images = data.images;
-  if (data.isFeatured !== undefined) updateData.isFeatured = data.isFeatured;
-  if (data.isBestseller !== undefined) updateData.isBestseller = data.isBestseller;
-  if (data.isNewArrival !== undefined) updateData.isNewArrival = data.isNewArrival;
-  if (data.hasEngravingOption !== undefined) updateData.hasEngravingOption = data.hasEngravingOption;
-  if (data.scentNotes !== undefined) updateData.scentNotes = data.scentNotes;
-
-  const [product] = await db.update(productsTable).set(updateData).where(eq(productsTable.slug, params.data.slug)).returning();
-  if (!product) {
-    res.status(404).json({ error: "Product not found" });
-    return;
-  }
-
-  const [enriched] = await withReviewStats([product]);
-  res.json(enriched);
-});
-
-router.delete("/products/:slug", async (req, res): Promise<void> => {
-  const params = DeleteProductParams.safeParse(req.params);
-  if (!params.success) {
-    res.status(400).json({ error: params.error.message });
-    return;
-  }
-
-  await db.delete(productsTable).where(eq(productsTable.slug, params.data.slug));
-  res.sendStatus(204);
-});
-
-export default router;
+  export default router;
+  
