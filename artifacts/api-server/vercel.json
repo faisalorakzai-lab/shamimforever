@@ -1,8 +1,5 @@
 {
   "version": 2,
   "installCommand": "echo 'pre-built bundle — no install needed'",
-  "buildCommand": "mkdir -p public",
-  "rewrites": [
-    { "source": "/(.*)", "destination": "/api/index" }
-  ]
+  "buildCommand": "node build-vercel-output.mjs"
 }
