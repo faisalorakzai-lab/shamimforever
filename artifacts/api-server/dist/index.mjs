@@ -57916,9 +57916,10 @@ app.use((0, import_cookie_parser.default)());
 app.use("/api", routes_default);
 app.use((err, _req, res, _next) => {
   const message = err instanceof Error ? err.message : String(err);
-  const stack = err instanceof Error ? err.stack : void 0;
+  const cause = err instanceof Error && err.cause instanceof Error ? err.cause.message : void 0;
+  const stack = err instanceof Error ? err.stack?.split("\n").slice(0, 6).join("\n") : void 0;
   logger.error({ err }, "Unhandled error");
-  res.status(500).json({ error: "Internal Server Error", message, stack });
+  res.status(500).json({ error: "Internal Server Error", message, cause, stack });
 });
 var app_default = app;
 
