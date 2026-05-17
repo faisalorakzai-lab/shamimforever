@@ -134,18 +134,21 @@ async function buildAll() {
     banner,
   });
 
-  // Vercel serverless bundle (CJS, exports Express app — placed in api/ dir)
+  // Vercel serverless bundle (ESM, exports Express app — placed in api/ dir)
   // api/index.js is committed to git so Vercel can serve it without running pnpm install.
+  // Must be ESM because the package has "type":"module" — CJS .js files are rejected.
+  // The root api/index.js CJS wrapper loads this via dynamic import().
   const apiDir = path.resolve(artifactDir, "api");
   await esbuild({
     entryPoints: [path.resolve(artifactDir, "src/vercel-entry.ts")],
     platform: "node",
     bundle: true,
-    format: "cjs",
+    format: "esm",
     outfile: path.resolve(apiDir, "index.js"),
     external: externalList,
     logLevel: "info",
     sourcemap: false,
+    banner,
   });
 }
 
