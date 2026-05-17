@@ -1,51 +1,113 @@
 import { useEffect, useRef, useState } from "react";
 import mapboxgl from "mapbox-gl";
-import 'mapbox-gl/dist/mapbox-gl.css';
+import "mapbox-gl/dist/mapbox-gl.css";
 import { useListBoutiques } from "@workspace/api-client-react";
 import { motion } from "framer-motion";
 import { MapPin, Phone, Clock, Mail } from "lucide-react";
 
+const FALLBACK_BOUTIQUES = [
+  {
+    id: 1,
+    name: "Shamim Forever — Karachi",
+    address: "Dolmen Mall, Shop No. 118, Ground Floor, Tariq Rd, Delhi CHS P.E.C.H.S.",
+    city: "Karachi",
+    country: "Pakistan",
+    phone: "+92 21 3529 8686",
+    email: "Team@shamimforever.com",
+    openingHours: "Mon–Sun 11:00–22:00",
+    lat: 24.8763,
+    lng: 67.0601,
+  },
+  {
+    id: 2,
+    name: "Shamim Forever — Lahore",
+    address: "Shop no G-32, Dolmen Mall, Sector A DHA Phase 6",
+    city: "Lahore",
+    country: "Pakistan",
+    phone: "+92 42 3576 8686",
+    email: "lahore@shamimforever.com",
+    openingHours: "Mon–Sun 11:00–21:00",
+    lat: 31.4726,
+    lng: 74.3843,
+  },
+  {
+    id: 3,
+    name: "Shamim Forever — Islamabad",
+    address: "Giga Mall, Sector F DHA Phase II",
+    city: "Islamabad",
+    country: "Pakistan",
+    phone: "+92 51 2826 868",
+    email: "Islamabad@shamimforever.com",
+    openingHours: "Mon–Sun 11:00–21:00",
+    lat: 33.5434,
+    lng: 72.9836,
+  },
+  {
+    id: 4,
+    name: "Shamim Forever — Peshawar",
+    address: "HBK Hyper Market Main Ring Road Achini Road, Achini Payan",
+    city: "Peshawar",
+    country: "Pakistan",
+    phone: "+92 91 5700 868",
+    email: "peshawar@shamimforever.com",
+    openingHours: "Mon–Sun 11:00–21:00",
+    lat: 33.9884,
+    lng: 71.5386,
+  },
+];
+
 export default function Boutiques() {
   const mapContainer = useRef<HTMLDivElement>(null);
   const map = useRef<mapboxgl.Map | null>(null);
-  const { data: boutiques, isLoading } = useListBoutiques();
+  const { data: apiBoutiques } = useListBoutiques();
   const [activeBoutique, setActiveBoutique] = useState<number | null>(null);
 
+  const boutiques =
+    apiBoutiques && apiBoutiques.length > 0 ? apiBoutiques : FALLBACK_BOUTIQUES;
+
   useEffect(() => {
-    if (!mapContainer.current || !boutiques || boutiques.length === 0) return;
-    
-    // Using a public demo token if env var is missing for preview purposes
-    mapboxgl.accessToken = import.meta.env.VITE_MAPBOX_TOKEN || "pk.eyJ1IjoiZGVtbyIsImEiOiJjbGlubzc0bzkwMW92M2pwZmVpY3V1MThkIn0.d-YQ1W6g5zZqW7xQ2oG_hQ";
-    
-    const style = import.meta.env.VITE_MAPBOX_STYLE || "mapbox://styles/mapbox/dark-v11";
+    if (!mapContainer.current || boutiques.length === 0) return;
+
+    mapboxgl.accessToken =
+      import.meta.env.VITE_MAPBOX_TOKEN ||
+      "pk.eyJ1IjoiZGVtbyIsImEiOiJjbGlubzc0bzkwMW92M2pwZmVpY3V1MThkIn0.d-YQ1W6g5zZqW7xQ2oG_hQ";
+
+    const style =
+      import.meta.env.VITE_MAPBOX_STYLE || "mapbox://styles/mapbox/dark-v11";
 
     if (!map.current) {
       map.current = new mapboxgl.Map({
         container: mapContainer.current,
-        style: style,
+        style,
         center: [boutiques[0].lng, boutiques[0].lat],
-        zoom: 11,
-        pitch: 45,
+        zoom: 5.5,
+        pitch: 30,
       });
 
       map.current.addControl(new mapboxgl.NavigationControl(), "bottom-right");
 
-      // Add markers
       boutiques.forEach((boutique) => {
-        const el = document.createElement('div');
-        el.className = 'w-6 h-6 bg-primary rounded-full border-2 border-background shadow-[0_0_15px_rgba(212,175,55,0.5)] cursor-pointer hover:scale-110 transition-transform';
-        
-        el.addEventListener('click', () => {
+        const el = document.createElement("div");
+        el.style.cssText =
+          "width:14px;height:14px;background:#D4AF37;border-radius:50%;border:2px solid #0a0a0a;box-shadow:0 0 16px rgba(212,175,55,0.7);cursor:pointer;transition:transform 0.2s";
+        el.addEventListener("mouseenter", () => (el.style.transform = "scale(1.5)"));
+        el.addEventListener("mouseleave", () => (el.style.transform = "scale(1)"));
+        el.addEventListener("click", () => {
           setActiveBoutique(boutique.id);
-          map.current?.flyTo({
-            center: [boutique.lng, boutique.lat],
-            zoom: 15,
-            essential: true
-          });
+          map.current?.flyTo({ center: [boutique.lng, boutique.lat], zoom: 14, essential: true });
         });
+
+        const popup = new mapboxgl.Popup({ offset: 20, className: "boutique-popup", closeButton: false })
+          .setHTML(
+            `<div style="background:#0f0f0f;border:1px solid #2a2a1a;padding:12px 16px;color:#d4b45a;font-family:'Cormorant Garamond',serif">
+              <p style="font-size:14px;font-weight:600;margin:0 0 4px">${boutique.name}</p>
+              <p style="font-size:11px;opacity:0.7;margin:0;letter-spacing:0.05em">${boutique.city}, ${boutique.country}</p>
+            </div>`,
+          );
 
         new mapboxgl.Marker(el)
           .setLngLat([boutique.lng, boutique.lat])
+          .setPopup(popup)
           .addTo(map.current!);
       });
     }
@@ -56,69 +118,77 @@ export default function Boutiques() {
         map.current = null;
       }
     };
-  }, [boutiques]);
+  }, [boutiques.length]);
 
-  if (isLoading) {
-    return <div className="min-h-screen bg-background flex items-center justify-center"><div className="w-8 h-8 border-t-2 border-primary rounded-full animate-spin"></div></div>;
-  }
+  const handleSelectBoutique = (boutique: (typeof boutiques)[0]) => {
+    setActiveBoutique(boutique.id);
+    map.current?.flyTo({ center: [boutique.lng, boutique.lat], zoom: 14, essential: true });
+  };
 
   return (
     <div className="min-h-[90vh] bg-background flex flex-col lg:flex-row">
-      {/* Sidebar */}
-      <div className="w-full lg:w-[450px] bg-secondary/30 border-r border-border flex flex-col h-auto lg:h-[calc(100vh-80px)] shrink-0 z-10 overflow-y-auto">
+      <div className="w-full lg:w-[420px] bg-secondary/20 border-r border-border flex flex-col shrink-0 z-10 overflow-y-auto lg:h-[calc(100vh-80px)]">
         <div className="p-8 border-b border-border">
+          <p className="text-primary tracking-[0.4em] uppercase text-xs font-medium mb-3">Sovereign Footprint</p>
           <h1 className="text-4xl font-serif text-gold-gradient mb-2">Our Boutiques</h1>
-          <p className="text-muted-foreground font-serif">Discover the House of Shamim in person.</p>
+          <p className="text-muted-foreground font-serif text-sm">
+            Four flagship houses of luxury across Pakistan.
+          </p>
         </div>
-        
-        <div className="flex-1 overflow-y-auto divide-y divide-border">
-          {boutiques?.map((boutique) => (
-            <div 
-              key={boutique.id} 
-              className={`p-8 cursor-pointer transition-colors hover:bg-secondary/50 ${activeBoutique === boutique.id ? 'bg-secondary/50 border-l-4 border-l-primary' : 'border-l-4 border-l-transparent'}`}
-              onClick={() => {
-                setActiveBoutique(boutique.id);
-                map.current?.flyTo({
-                  center: [boutique.lng, boutique.lat],
-                  zoom: 15,
-                  essential: true
-                });
-              }}
+
+        <div className="flex-1 divide-y divide-border">
+          {boutiques.map((boutique) => (
+            <motion.div
+              key={boutique.id}
+              initial={{ opacity: 0, x: -10 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: boutique.id * 0.08 }}
+              className={`p-6 cursor-pointer transition-all hover:bg-secondary/40 ${
+                activeBoutique === boutique.id
+                  ? "bg-secondary/50 border-l-2 border-l-primary pl-5"
+                  : "border-l-2 border-l-transparent"
+              }`}
+              onClick={() => handleSelectBoutique(boutique)}
             >
-              <h3 className="text-2xl font-serif text-foreground mb-4">{boutique.name}</h3>
-              <div className="space-y-3 text-sm text-muted-foreground">
-                <p className="flex items-start gap-3">
-                  <MapPin className="w-4 h-4 text-primary shrink-0 mt-0.5" />
-                  <span>{boutique.address}<br/>{boutique.city}, {boutique.country}</span>
+              <h3 className="text-lg font-serif text-foreground mb-3">{boutique.name}</h3>
+              <div className="space-y-2 text-sm text-muted-foreground">
+                <p className="flex items-start gap-2">
+                  <MapPin className="w-3.5 h-3.5 text-primary shrink-0 mt-0.5" />
+                  <span className="leading-relaxed">
+                    {boutique.address}
+                    <br />
+                    {boutique.city}, {boutique.country}
+                  </span>
                 </p>
+                {boutique.email && (
+                  <p className="flex items-center gap-2">
+                    <Mail className="w-3.5 h-3.5 text-primary shrink-0" />
+                    <a href={`mailto:${boutique.email}`} className="hover:text-primary transition-colors">
+                      {boutique.email}
+                    </a>
+                  </p>
+                )}
                 {boutique.phone && (
-                  <p className="flex items-center gap-3">
-                    <Phone className="w-4 h-4 text-primary shrink-0" />
+                  <p className="flex items-center gap-2">
+                    <Phone className="w-3.5 h-3.5 text-primary shrink-0" />
                     <span>{boutique.phone}</span>
                   </p>
                 )}
-                {boutique.email && (
-                  <p className="flex items-center gap-3">
-                    <Mail className="w-4 h-4 text-primary shrink-0" />
-                    <span>{boutique.email}</span>
-                  </p>
-                )}
                 {boutique.openingHours && (
-                  <p className="flex items-start gap-3">
-                    <Clock className="w-4 h-4 text-primary shrink-0 mt-0.5" />
-                    <span className="whitespace-pre-line">{boutique.openingHours}</span>
+                  <p className="flex items-start gap-2">
+                    <Clock className="w-3.5 h-3.5 text-primary shrink-0 mt-0.5" />
+                    <span>{boutique.openingHours}</span>
                   </p>
                 )}
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>
 
-      {/* Map Container */}
-      <div className="flex-1 relative min-h-[500px] lg:h-[calc(100vh-80px)] border-t lg:border-t-0 border-border">
+      <div className="flex-1 relative min-h-[500px] lg:h-[calc(100vh-80px)]">
         <div ref={mapContainer} className="absolute inset-0" />
-        <div className="absolute inset-0 pointer-events-none shadow-[inset_0_0_100px_rgba(10,10,10,1)] z-10" />
+        <div className="absolute inset-0 pointer-events-none shadow-[inset_0_0_80px_rgba(5,5,5,0.9)] z-10" />
       </div>
     </div>
   );
