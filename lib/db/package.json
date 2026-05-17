@@ -12,7 +12,6 @@
       "push-force": "drizzle-kit push --force --config ./drizzle.config.ts"
     },
     "dependencies": {
-      "@supabase/supabase-js": "^2.49.4",
       "drizzle-orm": "catalog:",
       "drizzle-zod": "^0.8.3",
       "pg": "^8.20.0",
