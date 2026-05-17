@@ -1,9 +1,8 @@
 {
   "version": 2,
   "installCommand": "echo 'pre-built bundle — no install needed'",
-  "buildCommand": "echo 'pre-built bundle — no build needed'",
-  "outputDirectory": ".",
-  "routes": [
-    { "src": "/(.*)", "dest": "/api/index.js" }
+  "buildCommand": "mkdir -p public",
+  "rewrites": [
+    { "source": "/(.*)", "destination": "/api/index" }
   ]
 }
