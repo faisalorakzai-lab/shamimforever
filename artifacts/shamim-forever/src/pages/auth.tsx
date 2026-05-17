@@ -31,7 +31,7 @@ export default function Auth() {
           login.mutate(
             { data: { email: formData.email, password: formData.password } },
             {
-              onSuccess: (data) => {
+              onSuccess: (data: { token: string }) => {
                 localStorage.setItem("token", data.token);
                 queryClient.invalidateQueries({ queryKey: getGetProfileQueryKey() });
                 setLocation("/account");
@@ -47,7 +47,7 @@ export default function Auth() {
           register.mutate(
             { data: formData },
             {
-              onSuccess: (data) => {
+              onSuccess: (data: { token: string }) => {
                 localStorage.setItem("token", data.token);
                 queryClient.invalidateQueries({ queryKey: getGetProfileQueryKey() });
                 setLocation("/account");
