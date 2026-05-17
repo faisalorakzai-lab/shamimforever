@@ -1,5 +1,5 @@
 {
-  "buildCommand": "BASE_PATH=/ PORT=3000 pnpm --filter @workspace/shamim-forever run build",
+  "buildCommand": "pnpm --filter @workspace/api-server run build && BASE_PATH=/ PORT=3000 pnpm --filter @workspace/shamim-forever run build",
   "outputDirectory": "artifacts/shamim-forever/dist/public",
   "installCommand": "pnpm install",
   "framework": null,
