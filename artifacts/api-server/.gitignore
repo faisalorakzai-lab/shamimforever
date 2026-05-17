@@ -1,0 +1,3 @@
+# Allow dist/vercel.js for Vercel serverless deployment
+!dist/
+!dist/vercel.js
