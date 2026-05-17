@@ -1,7 +1,3 @@
-import { initializeApp } from "firebase/app";
-import { getAuth } from "firebase/auth";
-import { getAnalytics } from "firebase/analytics";
-
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_FIREBASE_API_KEY || "AIzaSyDy68zNh9354-QPtEeg1vkm478M1azIJmI",
   authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN || "shamimforever-e3d05.firebaseapp.com",
@@ -12,6 +8,51 @@ const firebaseConfig = {
   measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID || "G-MDMZZLR3P9",
 };
 
-export const firebaseApp = initializeApp(firebaseConfig);
-export const firebaseAuth = getAuth(firebaseApp);
-export const analytics = typeof window !== "undefined" ? getAnalytics(firebaseApp) : null;
+let _app: unknown = null;
+
+async function getApp() {
+  if (!_app) {
+    const { initializeApp } = await import("firebase/app");
+    _app = initializeApp(firebaseConfig);
+  }
+  return _app as import("firebase/app").FirebaseApp;
+}
+
+export async function getFirebaseAuth() {
+  const app = await getApp();
+  const { getAuth } = await import("firebase/auth");
+  return getAuth(app);
+}
+
+export async function signInWithFirebase(email: string, password: string) {
+  try {
+    const auth = await getFirebaseAuth();
+    const { signInWithEmailAndPassword } = await import("firebase/auth");
+    return await signInWithEmailAndPassword(auth, email, password);
+  } catch {
+    return null;
+  }
+}
+
+export async function registerWithFirebase(email: string, password: string, name: string) {
+  try {
+    const auth = await getFirebaseAuth();
+    const { createUserWithEmailAndPassword, updateProfile } = await import("firebase/auth");
+    const cred = await createUserWithEmailAndPassword(auth, email, password);
+    await updateProfile(cred.user, { displayName: name });
+    return cred;
+  } catch {
+    return null;
+  }
+}
+
+export function initAnalytics() {
+  if (typeof window === "undefined") return;
+  getApp().then(async (app) => {
+    try {
+      const { getAnalytics } = await import("firebase/analytics");
+      getAnalytics(app);
+    } catch {
+    }
+  });
+}

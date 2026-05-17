@@ -5,12 +5,7 @@ import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import { useQueryClient } from "@tanstack/react-query";
 import { getGetProfileQueryKey } from "@workspace/api-client-react";
-import { firebaseAuth } from "@/lib/firebase";
-import {
-  signInWithEmailAndPassword,
-  createUserWithEmailAndPassword,
-  updateProfile,
-} from "firebase/auth";
+import { signInWithFirebase, registerWithFirebase } from "@/lib/firebase";
 
 export default function Auth() {
   const [isLogin, setIsLogin] = useState(true);
@@ -31,10 +26,7 @@ export default function Auth() {
 
     try {
       if (isLogin) {
-        try {
-          await signInWithEmailAndPassword(firebaseAuth, formData.email, formData.password);
-        } catch {
-        }
+        signInWithFirebase(formData.email, formData.password);
         await new Promise<void>((resolve, reject) => {
           login.mutate(
             { data: { email: formData.email, password: formData.password } },
@@ -50,15 +42,7 @@ export default function Auth() {
           );
         });
       } else {
-        try {
-          const fbUser = await createUserWithEmailAndPassword(
-            firebaseAuth,
-            formData.email,
-            formData.password,
-          );
-          await updateProfile(fbUser.user, { displayName: formData.name });
-        } catch {
-        }
+        registerWithFirebase(formData.email, formData.password, formData.name);
         await new Promise<void>((resolve, reject) => {
           register.mutate(
             { data: formData },
@@ -101,9 +85,7 @@ export default function Auth() {
         <form onSubmit={handleSubmit} className="space-y-6">
           {!isLogin && (
             <div className="space-y-2">
-              <label className="text-xs uppercase tracking-widest text-muted-foreground">
-                Full Name
-              </label>
+              <label className="text-xs uppercase tracking-widest text-muted-foreground">Full Name</label>
               <input
                 required
                 type="text"
@@ -124,9 +106,7 @@ export default function Auth() {
             />
           </div>
           <div className="space-y-2">
-            <label className="text-xs uppercase tracking-widest text-muted-foreground">
-              Password
-            </label>
+            <label className="text-xs uppercase tracking-widest text-muted-foreground">Password</label>
             <input
               required
               type="password"
