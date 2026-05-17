@@ -1,26 +1,46 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useGetProduct, useUpdateProduct } from "@workspace/api-client-react";
 import { Link, useLocation, useParams } from "wouter";
 import { Button } from "@/components/ui/button";
 import { getGetProductQueryKey, getListProductsQueryKey } from "@workspace/api-client-react";
 import { useQueryClient } from "@tanstack/react-query";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, Upload, X } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+
+async function uploadToCloudinary(file: File): Promise<string> {
+  const base64 = await new Promise<string>((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(reader.result as string);
+    reader.onerror = reject;
+    reader.readAsDataURL(file);
+  });
+
+  const res = await fetch("/api/admin/upload", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    credentials: "include",
+    body: JSON.stringify({ file: base64 }),
+  });
+
+  if (!res.ok) throw new Error("Image upload failed");
+  const data = (await res.json()) as { url: string };
+  return data.url;
+}
 
 export default function EditProduct() {
   const { slug } = useParams<{ slug: string }>();
   const [, setLocation] = useLocation();
   const queryClient = useQueryClient();
   const { toast } = useToast();
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const { data: product, isLoading } = useGetProduct(slug!, {
-    query: {
-      enabled: !!slug,
-      queryKey: getGetProductQueryKey(slug!)
-    }
+    query: { enabled: !!slug, queryKey: getGetProductQueryKey(slug!) },
   });
 
   const updateProduct = useUpdateProduct();
+  const [images, setImages] = useState<string[]>([]);
+  const [uploading, setUploading] = useState(false);
 
   const [formData, setFormData] = useState({
     name: "",
@@ -32,7 +52,7 @@ export default function EditProduct() {
     isFeatured: false,
     isNewArrival: false,
     hasEngravingOption: false,
-    scentNotes: ""
+    scentNotes: "",
   });
 
   useEffect(() => {
@@ -47,16 +67,18 @@ export default function EditProduct() {
         isFeatured: product.isFeatured || false,
         isNewArrival: product.isNewArrival || false,
         hasEngravingOption: product.hasEngravingOption || false,
-        scentNotes: product.scentNotes || ""
+        scentNotes: product.scentNotes || "",
       });
+      setImages(product.images || []);
     }
   }, [product]);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>,
+  ) => {
     const { name, value, type } = e.target;
     if (type === "checkbox") {
-      const checked = (e.target as HTMLInputElement).checked;
-      setFormData({ ...formData, [name]: checked });
+      setFormData({ ...formData, [name]: (e.target as HTMLInputElement).checked });
     } else if (type === "number") {
       setFormData({ ...formData, [name]: Number(value) });
     } else {
@@ -64,31 +86,48 @@ export default function EditProduct() {
     }
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    updateProduct.mutate({
-      slug: slug!,
-      data: {
-        ...formData,
-        originalPrice: formData.originalPrice > 0 ? formData.originalPrice : undefined,
-      }
-    }, {
-      onSuccess: () => {
-        toast({ title: "Product Updated", description: "Changes have been saved successfully." });
-        queryClient.invalidateQueries({ queryKey: getListProductsQueryKey() });
-        queryClient.invalidateQueries({ queryKey: getGetProductQueryKey(slug!) });
-        setLocation("/admin/products");
-      }
-    });
+  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = Array.from(e.target.files || []);
+    if (!files.length) return;
+    setUploading(true);
+    try {
+      const urls = await Promise.all(files.map(uploadToCloudinary));
+      setImages((prev) => [...prev, ...urls]);
+      toast({ title: "Images Uploaded", description: `${urls.length} image(s) added.` });
+    } catch {
+      toast({ title: "Upload Failed", description: "Could not upload image.", variant: "destructive" });
+    } finally {
+      setUploading(false);
+      if (fileInputRef.current) fileInputRef.current.value = "";
+    }
   };
 
-  if (isLoading) {
-    return <div className="animate-pulse h-96 bg-secondary/30 rounded"></div>;
-  }
+  const removeImage = (idx: number) => setImages((prev) => prev.filter((_, i) => i !== idx));
 
-  if (!product) {
-    return <div>Product not found.</div>;
-  }
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    updateProduct.mutate(
+      {
+        slug: slug!,
+        data: {
+          ...formData,
+          originalPrice: formData.originalPrice > 0 ? formData.originalPrice : undefined,
+          images,
+        },
+      },
+      {
+        onSuccess: () => {
+          toast({ title: "Product Updated", description: "Changes saved successfully." });
+          queryClient.invalidateQueries({ queryKey: getListProductsQueryKey() });
+          queryClient.invalidateQueries({ queryKey: getGetProductQueryKey(slug!) });
+          setLocation("/admin/products");
+        },
+      },
+    );
+  };
+
+  if (isLoading) return <div className="animate-pulse h-96 bg-secondary/30 rounded" />;
+  if (!product) return <div>Product not found.</div>;
 
   return (
     <div className="max-w-4xl space-y-8">
@@ -103,30 +142,70 @@ export default function EditProduct() {
       </header>
 
       <form onSubmit={handleSubmit} className="space-y-8">
+        {/* Images */}
+        <div className="bg-secondary/30 border border-border p-6 space-y-4">
+          <h2 className="text-xl font-serif text-foreground border-b border-border pb-2">
+            Product Images
+          </h2>
+          <div className="flex flex-wrap gap-4">
+            {images.map((url, i) => (
+              <div key={i} className="relative w-24 h-28 border border-border overflow-hidden group">
+                <img src={url} alt="" className="w-full h-full object-cover" />
+                <button
+                  type="button"
+                  onClick={() => removeImage(i)}
+                  className="absolute top-1 right-1 w-5 h-5 bg-background/90 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
+                >
+                  <X className="w-3 h-3 text-destructive" />
+                </button>
+                {i === 0 && (
+                  <span className="absolute bottom-0 left-0 right-0 bg-primary/80 text-primary-foreground text-[9px] text-center py-0.5 uppercase tracking-widest">
+                    Primary
+                  </span>
+                )}
+              </div>
+            ))}
+            <button
+              type="button"
+              onClick={() => fileInputRef.current?.click()}
+              disabled={uploading}
+              className="w-24 h-28 border border-dashed border-border hover:border-primary flex flex-col items-center justify-center gap-2 transition-colors text-muted-foreground hover:text-primary disabled:opacity-50"
+            >
+              {uploading ? (
+                <div className="w-4 h-4 border-t-2 border-primary rounded-full animate-spin" />
+              ) : (
+                <>
+                  <Upload className="w-4 h-4" />
+                  <span className="text-[10px] uppercase tracking-widest">Add</span>
+                </>
+              )}
+            </button>
+          </div>
+          <input ref={fileInputRef} type="file" accept="image/*" multiple className="hidden" onChange={handleImageUpload} />
+        </div>
+
+        {/* Basic Info */}
         <div className="bg-secondary/30 border border-border p-6 space-y-6">
-          <h2 className="text-xl font-serif text-foreground border-b border-border pb-2">Basic Information</h2>
-          
+          <h2 className="text-xl font-serif text-foreground border-b border-border pb-2">
+            Basic Information
+          </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="space-y-2 md:col-span-2">
               <label className="text-xs uppercase tracking-widest text-muted-foreground">Product Name *</label>
               <input required type="text" name="name" value={formData.name} onChange={handleChange} className="w-full bg-background border border-border px-4 py-2 text-foreground focus:outline-none focus:border-primary transition-colors font-serif" />
             </div>
-            
             <div className="space-y-2 md:col-span-2">
               <label className="text-xs uppercase tracking-widest text-muted-foreground">Description</label>
               <textarea rows={4} name="description" value={formData.description} onChange={handleChange} className="w-full bg-background border border-border px-4 py-2 text-foreground focus:outline-none focus:border-primary transition-colors font-serif resize-none" />
             </div>
-
             <div className="space-y-2">
               <label className="text-xs uppercase tracking-widest text-muted-foreground">Price (Rs) *</label>
               <input required type="number" name="price" value={formData.price} onChange={handleChange} className="w-full bg-background border border-border px-4 py-2 text-foreground focus:outline-none focus:border-primary transition-colors font-serif" />
             </div>
-
             <div className="space-y-2">
-              <label className="text-xs uppercase tracking-widest text-muted-foreground">Original Price (Rs) - For Sales</label>
+              <label className="text-xs uppercase tracking-widest text-muted-foreground">Original Price (Rs)</label>
               <input type="number" name="originalPrice" value={formData.originalPrice} onChange={handleChange} className="w-full bg-background border border-border px-4 py-2 text-foreground focus:outline-none focus:border-primary transition-colors font-serif" />
             </div>
-
             <div className="space-y-2">
               <label className="text-xs uppercase tracking-widest text-muted-foreground">Category *</label>
               <select required name="category" value={formData.category} onChange={handleChange} className="w-full bg-background border border-border px-4 py-2 text-foreground focus:outline-none focus:border-primary transition-colors font-serif cursor-pointer">
@@ -135,17 +214,20 @@ export default function EditProduct() {
                 <option value="cosmetics">Cosmetics</option>
               </select>
             </div>
-
             <div className="space-y-2">
               <label className="text-xs uppercase tracking-widest text-muted-foreground">Stock *</label>
               <input required type="number" name="stock" value={formData.stock} onChange={handleChange} className="w-full bg-background border border-border px-4 py-2 text-foreground focus:outline-none focus:border-primary transition-colors font-serif" />
             </div>
+            <div className="space-y-2 md:col-span-2">
+              <label className="text-xs uppercase tracking-widest text-muted-foreground">Scent Notes</label>
+              <textarea rows={2} name="scentNotes" value={formData.scentNotes} onChange={handleChange} className="w-full bg-background border border-border px-4 py-2 text-foreground focus:outline-none focus:border-primary transition-colors font-serif resize-none" />
+            </div>
           </div>
         </div>
 
+        {/* Flags */}
         <div className="bg-secondary/30 border border-border p-6 space-y-6">
           <h2 className="text-xl font-serif text-foreground border-b border-border pb-2">Flags</h2>
-          
           <div className="flex flex-col gap-4">
             <label className="flex items-center gap-3 cursor-pointer">
               <input type="checkbox" name="isFeatured" checked={formData.isFeatured} onChange={handleChange} className="w-4 h-4 accent-primary" />
@@ -168,7 +250,7 @@ export default function EditProduct() {
               Cancel
             </Button>
           </Link>
-          <Button type="submit" disabled={updateProduct.isPending} className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-none font-serif tracking-widest uppercase px-8">
+          <Button type="submit" disabled={updateProduct.isPending || uploading} className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-none font-serif tracking-widest uppercase px-8">
             {updateProduct.isPending ? "Saving..." : "Save Changes"}
           </Button>
         </div>
