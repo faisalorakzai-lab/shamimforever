@@ -3,10 +3,19 @@
   "outputDirectory": "artifacts/shamim-forever/dist/public",
   "installCommand": "pnpm install",
   "framework": null,
-  "rewrites": [
+  "functions": {
+    "api/index.js": {
+      "maxDuration": 30
+    }
+  },
+  "routes": [
     {
-      "source": "/(.*)",
-      "destination": "/index.html"
+      "src": "/api/(.*)",
+      "dest": "/api/index.js"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/index.html"
     }
   ],
   "headers": [
