@@ -33,4 +33,12 @@ app.use(cookieParser());
 
 app.use("/api", router);
 
+// Error handler — returns JSON so Vercel function errors are visible
+app.use((err: unknown, _req: express.Request, res: express.Response, _next: express.NextFunction) => {
+  const message = err instanceof Error ? err.message : String(err);
+  const stack = err instanceof Error ? err.stack : undefined;
+  logger.error({ err }, "Unhandled error");
+  res.status(500).json({ error: "Internal Server Error", message, stack });
+});
+
 export default app;

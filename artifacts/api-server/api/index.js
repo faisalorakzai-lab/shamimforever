@@ -57899,6 +57899,12 @@ app.use(import_express10.default.json({ limit: "10mb" }));
 app.use(import_express10.default.urlencoded({ extended: true }));
 app.use((0, import_cookie_parser.default)());
 app.use("/api", routes_default);
+app.use((err, _req, res, _next) => {
+  const message = err instanceof Error ? err.message : String(err);
+  const stack = err instanceof Error ? err.stack : void 0;
+  logger.error({ err }, "Unhandled error");
+  res.status(500).json({ error: "Internal Server Error", message, stack });
+});
 var app_default = app;
 
 // src/vercel-entry.ts
