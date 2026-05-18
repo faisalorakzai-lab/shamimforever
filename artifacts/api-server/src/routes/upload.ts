@@ -1,52 +1,51 @@
 import { Router, type IRouter } from "express";
-import multer from "multer";
-import { v2 as cloudinary } from "cloudinary";
+import crypto from "node:crypto";
 
 const router: IRouter = Router();
 
-// Configure Cloudinary
-cloudinary.config({
-  cloud_name: process.env.CLOUDINARY_CLOUD_NAME || "shamimforever",
-  api_key: process.env.CLOUDINARY_API_KEY!,
-  api_secret: process.env.CLOUDINARY_API_SECRET!,
-});
+router.post("/admin/upload", async (req, res): Promise<void> => {
+  const cloudName = process.env.CLOUDINARY_CLOUD_NAME || "faisalorakzai";
+  const apiKey = process.env.CLOUDINARY_API_KEY;
+  const apiSecret = process.env.CLOUDINARY_API_SECRET;
 
-// Configure Multer for in-memory storage
-const storage = multer.memoryStorage();
-const upload = multer({ storage: storage });
-
-router.post("/admin/upload", upload.single("file"), async (req, res): Promise<void> => {
-  if (!cloudinary.config().api_key || !cloudinary.config().api_secret) {
-    res.status(503).json({ error: "Cloudinary not configured" });
+  if (!apiKey || !apiSecret) {
+    res.status(503).json({ error: "Cloudinary not configured on server" });
     return;
   }
 
-  if (!req.file) {
-    res.status(400).json({ error: "No file provided" });
+  const { data } = req.body as { data?: string; filename?: string };
+  if (!data) {
+    res.status(400).json({ error: "No file data provided. Send { data: 'data:image/...' }" });
     return;
   }
 
-  const folder = req.body.folder || "shamimforever/products";
+  const timestamp = Math.floor(Date.now() / 1000);
+  const folder = "shamimforever/products";
+
+  const signStr = `folder=${folder}&timestamp=${timestamp}${apiSecret}`;
+  const signature = crypto.createHash("sha1").update(signStr).digest("hex");
+
+  const fd = new FormData();
+  fd.append("file", data);
+  fd.append("api_key", apiKey);
+  fd.append("timestamp", String(timestamp));
+  fd.append("folder", folder);
+  fd.append("signature", signature);
 
   try {
-    const uploadStream = cloudinary.uploader.upload_stream(
-      { folder: folder },
-      (error, result) => {
-        if (error) {
-          console.error("Cloudinary upload error:", error);
-          res.status(500).json({ error: "Cloudinary upload failed", detail: error.message });
-          return;
-        }
-        if (result) {
-          res.json({ url: result.secure_url, publicId: result.public_id });
-        } else {
-          res.status(500).json({ error: "Cloudinary upload failed", detail: "No result from Cloudinary" });
-        }
-      }
+    const response = await fetch(
+      `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`,
+      { method: "POST", body: fd },
     );
 
-    uploadStream.end(req.file.buffer);
+    if (!response.ok) {
+      const errText = await response.text();
+      res.status(500).json({ error: "Cloudinary upload failed", detail: errText });
+      return;
+    }
 
+    const result = (await response.json()) as { secure_url: string; public_id: string };
+    res.json({ url: result.secure_url, publicId: result.public_id });
   } catch (err) {
     const message = err instanceof Error ? err.message : "Upload failed";
     res.status(500).json({ error: message });

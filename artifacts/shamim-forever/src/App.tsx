@@ -22,6 +22,9 @@ const Atelier = lazy(() => import("@/pages/atelier"));
 const Concierge = lazy(() => import("@/pages/concierge"));
 const Boutiques = lazy(() => import("@/pages/boutiques"));
 const Contact = lazy(() => import("@/pages/contact"));
+const Terms = lazy(() => import("@/pages/terms"));
+const ShippingReturns = lazy(() => import("@/pages/shipping-returns"));
+const FAQ = lazy(() => import("@/pages/faq"));
 
 // Lazy load Admin Pages
 const AdminDashboard = lazy(() => import("@/pages/admin/dashboard"));
@@ -66,7 +69,6 @@ function Router() {
       <Route path="/admin/analytics">
         <AdminLayout><AdminAnalytics /></AdminLayout>
       </Route>
-      {/* Fallback for unimplemented admin routes */}
       <Route path="/admin/:rest*">
         <AdminLayout><div className="p-8 text-center text-muted-foreground font-serif text-xl">Module under construction</div></AdminLayout>
       </Route>
@@ -110,6 +112,15 @@ function Router() {
       </Route>
       <Route path="/contact">
         <MainLayout><Contact /></MainLayout>
+      </Route>
+      <Route path="/terms">
+        <MainLayout><Terms /></MainLayout>
+      </Route>
+      <Route path="/shipping-returns">
+        <MainLayout><ShippingReturns /></MainLayout>
+      </Route>
+      <Route path="/faq">
+        <MainLayout><FAQ /></MainLayout>
       </Route>
 
       <Route>

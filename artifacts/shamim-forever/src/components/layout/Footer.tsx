@@ -16,8 +16,8 @@ export function Footer() {
           <div>
             <h4 className="font-serif text-lg font-medium text-foreground mb-6 uppercase tracking-widest">Collections</h4>
             <ul className="space-y-4">
-              <li><Link href="/shop?category=perfumes" className="text-muted-foreground hover:text-primary transition-colors text-sm">Fine Fragrances</Link></li>
-              <li><Link href="/shop?category=jewelry" className="text-muted-foreground hover:text-primary transition-colors text-sm">High Jewelry</Link></li>
+              <li><Link href="/shop?category=fine-fragrances" className="text-muted-foreground hover:text-primary transition-colors text-sm">Fine Fragrances</Link></li>
+              <li><Link href="/shop?category=high-jewelry" className="text-muted-foreground hover:text-primary transition-colors text-sm">High Jewelry</Link></li>
               <li><Link href="/shop?category=cosmetics" className="text-muted-foreground hover:text-primary transition-colors text-sm">Cosmetics</Link></li>
               <li><Link href="/shop?sort=new" className="text-muted-foreground hover:text-primary transition-colors text-sm">New Arrivals</Link></li>
             </ul>
@@ -37,8 +37,8 @@ export function Footer() {
             <h4 className="font-serif text-lg font-medium text-foreground mb-6 uppercase tracking-widest">Client Care</h4>
             <ul className="space-y-4">
               <li><Link href="/contact" className="text-muted-foreground hover:text-primary transition-colors text-sm">Contact Us</Link></li>
-              <li><Link href="/contact#faq" className="text-muted-foreground hover:text-primary transition-colors text-sm">FAQ</Link></li>
-              <li><Link href="/shipping" className="text-muted-foreground hover:text-primary transition-colors text-sm">Shipping & Returns</Link></li>
+              <li><Link href="/faq" className="text-muted-foreground hover:text-primary transition-colors text-sm">FAQ</Link></li>
+              <li><Link href="/shipping-returns" className="text-muted-foreground hover:text-primary transition-colors text-sm">Shipping & Returns</Link></li>
               <li><Link href="/terms" className="text-muted-foreground hover:text-primary transition-colors text-sm">Terms & Conditions</Link></li>
             </ul>
           </div>
@@ -49,7 +49,7 @@ export function Footer() {
             &copy; {new Date().getFullYear()} Shamim Forever. All Rights Reserved.
           </p>
           <div className="flex items-center space-x-6 text-muted-foreground text-xs uppercase tracking-widest">
-            <Link href="/privacy" className="hover:text-primary transition-colors">Privacy Policy</Link>
+            <Link href="/faq" className="hover:text-primary transition-colors">FAQ</Link>
             <Link href="/terms" className="hover:text-primary transition-colors">Legal</Link>
           </div>
         </div>

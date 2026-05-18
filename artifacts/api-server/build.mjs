@@ -10,38 +10,10 @@ globalThis.require = createRequire(import.meta.url);
 
 const artifactDir = path.dirname(fileURLToPath(import.meta.url));
 
-const externalList = [
-  "*.node", "sharp", "better-sqlite3", "sqlite3", "canvas", "bcrypt", "argon2",
-  "fsevents", "re2", "farmhash", "xxhash-addon", "bufferutil", "utf-8-validate",
-  "ssh2", "cpu-features", "dtrace-provider", "isolated-vm", "lightningcss",
-  "pg-native", "oracledb", "mongodb-client-encryption", "nodemailer", "handlebars",
-  "knex", "typeorm", "protobufjs", "onnxruntime-node", "@tensorflow/*",
-  "@prisma/client", "@mikro-orm/*", "@grpc/*", "@swc/*", "@aws-sdk/*", "@azure/*",
-  "@opentelemetry/*", "@google-cloud/*", "@google/*", "googleapis", "firebase-admin",
-  "@parcel/watcher", "@sentry/profiling-node", "@tree-sitter/*", "aws-sdk",
-  "classic-level", "dd-trace", "ffi-napi", "grpc", "hiredis", "kerberos",
-  "leveldown", "miniflare", "mysql2", "newrelic", "odbc", "piscina", "realm",
-  "ref-napi", "rocksdb", "sass-embedded", "sequelize", "serialport", "snappy",
-  "tinypool", "usb", "workerd", "wrangler", "zeromq", "zeromq-prebuilt",
-  "playwright", "puppeteer", "puppeteer-core", "electron",
-];
-
-const banner = {
-  js: `import { createRequire as __bannerCrReq } from 'node:module';
-import __bannerPath from 'node:path';
-import __bannerUrl from 'node:url';
-
-globalThis.require = __bannerCrReq(import.meta.url);
-globalThis.__filename = __bannerUrl.fileURLToPath(import.meta.url);
-globalThis.__dirname = __bannerPath.dirname(globalThis.__filename);
-  `,
-};
-
 async function buildAll() {
   const distDir = path.resolve(artifactDir, "dist");
   await rm(distDir, { recursive: true, force: true });
 
-  // Main server bundle (ESM, starts server — used by Replit/local)
   await esbuild({
     entryPoints: [path.resolve(artifactDir, "src/index.ts")],
     platform: "node",
@@ -57,6 +29,9 @@ async function buildAll() {
     // - use path traversal to read files (e.g. @google-cloud/secret-manager loads sibling .proto files)
     external: [
       "*.node",
+      "multer",
+      "cloudinary",
+      "streamifier",
       "sharp",
       "better-sqlite3",
       "sqlite3",
@@ -130,25 +105,21 @@ async function buildAll() {
       "electron",
     ],
     sourcemap: "linked",
-    plugins: [esbuildPluginPino({ transports: ["pino-pretty"] })],
-    banner,
-  });
+    plugins: [
+      // pino relies on workers to handle logging, instead of externalizing it we use a plugin to handle it
+      esbuildPluginPino({ transports: ["pino-pretty"] })
+    ],
+    // Make sure packages that are cjs only (e.g. express) but are bundled continue to work in our esm output file
+    banner: {
+      js: `import { createRequire as __bannerCrReq } from 'node:module';
+import __bannerPath from 'node:path';
+import __bannerUrl from 'node:url';
 
-  // Vercel serverless bundle (ESM, exports Express app — placed in api/ dir)
-  // api/index.js is committed to git so Vercel can serve it without running pnpm install.
-  // Must be ESM because the package has "type":"module" — CJS .js files are rejected.
-  // The root api/index.js CJS wrapper loads this via dynamic import().
-  const apiDir = path.resolve(artifactDir, "api");
-  await esbuild({
-    entryPoints: [path.resolve(artifactDir, "src/vercel-entry.ts")],
-    platform: "node",
-    bundle: true,
-    format: "esm",
-    outfile: path.resolve(apiDir, "index.js"),
-    external: externalList,
-    logLevel: "info",
-    sourcemap: false,
-    banner,
+globalThis.require = __bannerCrReq(import.meta.url);
+globalThis.__filename = __bannerUrl.fileURLToPath(import.meta.url);
+globalThis.__dirname = __bannerPath.dirname(globalThis.__filename);
+    `,
+    },
   });
 }
 
