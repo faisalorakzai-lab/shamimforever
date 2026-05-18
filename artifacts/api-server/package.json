@@ -18,9 +18,9 @@
     "drizzle-orm": "catalog:",
     "express": "^5.2.1",
     "multer": "^2.1.1",
-    "streamifier": "^0.1.1",
     "pino": "^9.14.0",
-    "pino-http": "^10.5.0"
+    "pino-http": "^10.5.0",
+    "streamifier": "^0.1.1"
   },
   "devDependencies": {
     "@types/cookie-parser": "^1.4.10",
