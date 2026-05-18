@@ -26,8 +26,8 @@ export function Navbar() {
     { href: "/shop", label: "Collections" },
     { href: "/shop/scent-finder", label: "Scent Finder" },
     { href: "/atelier", label: "The Atelier" },
-    { href: "/about", label: "Our Story" },
-    { href: "/concierge", label: "Concierge" },
+    { href: "/inner-circle", label: "Inner Circle" },
+    { href: "/journal", label: "Journal" },
     { href: "/boutiques", label: "Boutiques" },
   ];
 

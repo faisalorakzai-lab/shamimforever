@@ -72,10 +72,8 @@
     "vaul": "^1.1.2",
     "vite": "catalog:",
     "wouter": "^3.3.5",
-    "zod": "catalog:"
-  },
-  "dependencies": {
-    "@types/mapbox-gl": "^3.5.0",
-    "mapbox-gl": "^3.23.1"
+    "zod": "catalog:",
+    "mapbox-gl": "^3.0.0",
+    "@types/mapbox-gl": "^3.4.1"
   }
 }

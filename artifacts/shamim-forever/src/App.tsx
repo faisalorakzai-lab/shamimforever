@@ -25,6 +25,9 @@ const Contact = lazy(() => import("@/pages/contact"));
 const Terms = lazy(() => import("@/pages/terms"));
 const ShippingReturns = lazy(() => import("@/pages/shipping-returns"));
 const FAQ = lazy(() => import("@/pages/faq"));
+const InnerCircle = lazy(() => import("@/pages/inner-circle"));
+const Journal = lazy(() => import("@/pages/journal"));
+const Blockchain = lazy(() => import("@/pages/blockchain"));
 
 // Lazy load Admin Pages
 const AdminDashboard = lazy(() => import("@/pages/admin/dashboard"));
@@ -121,6 +124,15 @@ function Router() {
       </Route>
       <Route path="/faq">
         <MainLayout><FAQ /></MainLayout>
+      </Route>
+      <Route path="/inner-circle">
+        <MainLayout><InnerCircle /></MainLayout>
+      </Route>
+      <Route path="/journal">
+        <MainLayout><Journal /></MainLayout>
+      </Route>
+      <Route path="/blockchain-authenticity">
+        <MainLayout><Blockchain /></MainLayout>
       </Route>
 
       <Route>
