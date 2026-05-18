@@ -199,6 +199,9 @@ importers:
       streamifier:
         specifier: ^0.1.1
         version: 0.1.1
+      zod:
+        specifier: 'catalog:'
+        version: 3.25.76
     devDependencies:
       '@types/cookie-parser':
         specifier: ^1.4.10
