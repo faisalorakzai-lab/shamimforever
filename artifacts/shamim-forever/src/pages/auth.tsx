@@ -5,7 +5,6 @@ import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import { useQueryClient } from "@tanstack/react-query";
 import { getGetProfileQueryKey } from "@workspace/api-client-react";
-import { signInWithFirebase, registerWithFirebase } from "@/lib/firebase";
 
 export default function Auth() {
   const [isLogin, setIsLogin] = useState(true);
@@ -24,45 +23,38 @@ export default function Auth() {
     setError(null);
     setLoading(true);
 
-    try {
-      if (isLogin) {
-        signInWithFirebase(formData.email, formData.password);
-        await new Promise<void>((resolve, reject) => {
-          login.mutate(
-            { data: { email: formData.email, password: formData.password } },
-            {
-              onSuccess: (data: { token: string }) => {
-                localStorage.setItem("token", data.token);
-                queryClient.invalidateQueries({ queryKey: getGetProfileQueryKey() });
-                setLocation("/account");
-                resolve();
-              },
-              onError: (err: Error) => reject(err),
-            },
-          );
-        });
-      } else {
-        registerWithFirebase(formData.email, formData.password, formData.name);
-        await new Promise<void>((resolve, reject) => {
-          register.mutate(
-            { data: formData },
-            {
-              onSuccess: (data: { token: string }) => {
-                localStorage.setItem("token", data.token);
-                queryClient.invalidateQueries({ queryKey: getGetProfileQueryKey() });
-                setLocation("/account");
-                resolve();
-              },
-              onError: (err: Error) => reject(err),
-            },
-          );
-        });
-      }
-    } catch (err: unknown) {
-      const msg = err instanceof Error ? err.message : "Authentication failed. Please try again.";
-      setError(msg.replace("HTTP 401 Unauthorized: ", "").replace("HTTP 400 Bad Request: ", ""));
-    } finally {
-      setLoading(false);
+    if (isLogin) {
+      login.mutate(
+        { data: { email: formData.email, password: formData.password } },
+        {
+          onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: getGetProfileQueryKey() });
+            setLocation("/account");
+            setLoading(false);
+          },
+          onError: (err: Error) => {
+            const msg = err instanceof Error ? err.message : "Authentication failed. Please try again.";
+            setError(msg.replace("HTTP 401 Unauthorized: ", "").replace("HTTP 400 Bad Request: ", ""));
+            setLoading(false);
+          },
+        },
+      );
+    } else {
+      register.mutate(
+        { data: formData },
+        {
+          onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: getGetProfileQueryKey() });
+            setLocation("/account");
+            setLoading(false);
+          },
+          onError: (err: Error) => {
+            const msg = err instanceof Error ? err.message : "Authentication failed. Please try again.";
+            setError(msg.replace("HTTP 401 Unauthorized: ", "").replace("HTTP 400 Bad Request: ", ""));
+            setLoading(false);
+          },
+        },
+      );
     }
   };
 

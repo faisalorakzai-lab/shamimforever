@@ -5,56 +5,7 @@ import { useListBoutiques } from "@workspace/api-client-react";
 import { motion } from "framer-motion";
 import { MapPin, Phone, Clock, Mail } from "lucide-react";
 
-const FALLBACK_BOUTIQUES = [
-  {
-    id: 1,
-    name: "Shamim Forever — Karachi",
-    address: "Dolmen Mall, Shop No. 118, Ground Floor, Tariq Rd, Delhi CHS P.E.C.H.S.",
-    city: "Karachi",
-    country: "Pakistan",
-    phone: "+92 21 3529 8686",
-    email: "Team@shamimforever.com",
-    openingHours: "Mon–Sun 11:00–22:00",
-    lat: 24.8763,
-    lng: 67.0601,
-  },
-  {
-    id: 2,
-    name: "Shamim Forever — Lahore",
-    address: "Shop no G-32, Dolmen Mall, Sector A DHA Phase 6",
-    city: "Lahore",
-    country: "Pakistan",
-    phone: "+92 42 3576 8686",
-    email: "lahore@shamimforever.com",
-    openingHours: "Mon–Sun 11:00–21:00",
-    lat: 31.4726,
-    lng: 74.3843,
-  },
-  {
-    id: 3,
-    name: "Shamim Forever — Islamabad",
-    address: "Giga Mall, Sector F DHA Phase II",
-    city: "Islamabad",
-    country: "Pakistan",
-    phone: "+92 51 2826 868",
-    email: "Islamabad@shamimforever.com",
-    openingHours: "Mon–Sun 11:00–21:00",
-    lat: 33.5434,
-    lng: 72.9836,
-  },
-  {
-    id: 4,
-    name: "Shamim Forever — Peshawar",
-    address: "HBK Hyper Market Main Ring Road Achini Road, Achini Payan",
-    city: "Peshawar",
-    country: "Pakistan",
-    phone: "+92 91 5700 868",
-    email: "peshawar@shamimforever.com",
-    openingHours: "Mon–Sun 11:00–21:00",
-    lat: 33.9884,
-    lng: 71.5386,
-  },
-];
+
 
 export default function Boutiques() {
   const mapContainer = useRef<HTMLDivElement>(null);
@@ -62,15 +13,13 @@ export default function Boutiques() {
   const { data: apiBoutiques } = useListBoutiques();
   const [activeBoutique, setActiveBoutique] = useState<number | null>(null);
 
-  const boutiques =
-    apiBoutiques && apiBoutiques.length > 0 ? apiBoutiques : FALLBACK_BOUTIQUES;
+  const boutiques = apiBoutiques || [];
 
   useEffect(() => {
-    if (!mapContainer.current || boutiques.length === 0) return;
+    if (!mapContainer.current || !boutiques || boutiques.length === 0) return;
 
     mapboxgl.accessToken =
-      import.meta.env.VITE_MAPBOX_TOKEN ||
-      "pk.eyJ1IjoiZGVtbyIsImEiOiJjbGlubzc0bzkwMW92M2pwZmVpY3V1MThkIn0.d-YQ1W6g5zZqW7xQ2oG_hQ";
+      import.meta.env.VITE_MAPBOX_TOKEN;
 
     const style =
       import.meta.env.VITE_MAPBOX_STYLE || "mapbox://styles/mapbox/dark-v11";

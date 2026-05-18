@@ -7,25 +7,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import { ArrowLeft, Upload, X, Image as ImageIcon } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
-async function uploadToCloudinary(file: File): Promise<string> {
-  const base64 = await new Promise<string>((resolve, reject) => {
-    const reader = new FileReader();
-    reader.onload = () => resolve(reader.result as string);
-    reader.onerror = reject;
-    reader.readAsDataURL(file);
-  });
 
-  const res = await fetch("/api/admin/upload", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    credentials: "include",
-    body: JSON.stringify({ file: base64 }),
-  });
-
-  if (!res.ok) throw new Error("Image upload failed");
-  const data = (await res.json()) as { url: string };
-  return data.url;
-}
 
 export default function NewProduct() {
   const [, setLocation] = useLocation();
@@ -71,7 +53,22 @@ export default function NewProduct() {
     if (!files.length) return;
     setUploading(true);
     try {
-      const urls = await Promise.all(files.map(uploadToCloudinary));
+      const uploadPromises = files.map(async (file) => {
+        const formData = new FormData();
+        formData.append("file", file);
+        // Optionally append folder if needed, e.g., formData.append("folder", "shamimforever/products");
+
+        const res = await fetch("/api/admin/upload", {
+          method: "POST",
+          credentials: "include",
+          body: formData,
+        });
+
+        if (!res.ok) throw new Error("Image upload failed");
+        const data = (await res.json()) as { url: string };
+        return data.url;
+      });
+      const urls = await Promise.all(uploadPromises);
       setImages((prev) => [...prev, ...urls]);
       toast({ title: "Images Uploaded", description: `${urls.length} image(s) added successfully.` });
     } catch {

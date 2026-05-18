@@ -8,6 +8,7 @@ import cartRouter from "./cart";
 import adminRouter from "./admin";
 import miscRouter from "./misc";
 import uploadRouter from "./upload";
+import tokenizationRouter from "./tokenization";
 
 const router: IRouter = Router();
 
@@ -19,6 +20,7 @@ router.use(ordersRouter);
 router.use(cartRouter);
 router.use(adminRouter);
 router.use(uploadRouter);
+router.use(tokenizationRouter);
 router.use(miscRouter);
 
 export default router;
