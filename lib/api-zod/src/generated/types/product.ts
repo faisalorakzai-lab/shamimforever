@@ -26,6 +26,7 @@ export interface Product {
   isBestseller?: boolean;
   isNewArrival?: boolean;
   hasEngravingOption?: boolean;
+  tags?: string[];
   /** @nullable */
   scentNotes?: string | null;
   /** @nullable */

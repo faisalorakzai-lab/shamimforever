@@ -55,22 +55,21 @@ export default function Shop() {
     setActiveSub(undefined);
   }, [activeCategory]);
 
+  const tagsToFilter = [];
+  if (activeSegment !== "All") tagsToFilter.push(activeSegment);
+  if (activeSub) tagsToFilter.push(activeSub);
+
   const { data: productsData, isLoading } = useListProducts({
     category: activeCategory,
     sort: sortBy,
     limit: 40,
+    tags: tagsToFilter.length > 0 ? tagsToFilter.join(",") : undefined,
   });
 
   const { addItem, itemCount } = useCart();
 
   const allProducts = productsData?.products || [];
-
-  const products = allProducts.filter((p) => {
-    const tags: string[] = (p as Record<string, unknown>).tags as string[] || [];
-    if (activeSegment !== "All" && !tags.includes(activeSegment)) return false;
-    if (activeSub && !tags.includes(activeSub)) return false;
-    return true;
-  });
+  const products = allProducts;
 
   const availableSubs = activeCategory && activeSegment !== "All"
     ? SUB_CATEGORIES[activeCategory]?.[activeSegment] || []

@@ -32,12 +32,17 @@ import { Router, type IRouter } from "express";
 
     const { category, search, minPrice, maxPrice, sort, page = 1, limit = 12 } = params.data;
     const offset = (Number(page) - 1) * Number(limit);
+    const tags = (req.query.tags as string) || undefined;
 
     let q = supabase.from("products").select("*", { count: "exact" });
     if (category) q = q.eq("category", category);
     if (search) q = q.ilike("name", `%${search}%`);
     if (minPrice) q = q.gte("price", String(minPrice));
     if (maxPrice) q = q.lte("price", String(maxPrice));
+    if (tags) {
+      const tagList = tags.split(",").map(t => t.trim());
+      q = q.contains("tags", tagList);
+    }
 
     switch (sort) {
       case "price_asc": q = q.order("price", { ascending: true }); break;
@@ -90,7 +95,7 @@ import { Router, type IRouter } from "express";
       category: d.category, category_id: d.categoryId, stock: d.stock ?? 0, sku: d.sku,
       images: d.images ?? [], is_featured: d.isFeatured ?? false, is_bestseller: d.isBestseller ?? false,
       is_new_arrival: d.isNewArrival ?? false, has_engraving_option: d.hasEngravingOption ?? false,
-      scent_notes: d.scentNotes, ingredients: d.ingredients, usage_instructions: d.usageInstructions,
+      scent_notes: d.scentNotes, ingredients: d.ingredients, usage_instructions: d.usageInstructions, tags: d.tags ?? [],
     }).select().single();
 
     if (error || !product) { res.status(500).json({ error: "Failed to create product" }); return; }
@@ -118,6 +123,7 @@ import { Router, type IRouter } from "express";
     if (d.isBestseller !== undefined) upd.is_bestseller = d.isBestseller;
     if (d.isNewArrival !== undefined) upd.is_new_arrival = d.isNewArrival;
     if (d.hasEngravingOption !== undefined) upd.has_engraving_option = d.hasEngravingOption;
+    if (d.tags !== undefined) upd.tags = d.tags;
     if (d.scentNotes !== undefined) upd.scent_notes = d.scentNotes;
 
     const { data: product } = await supabase.from("products").update(upd).eq("slug", params.data.slug).select().single();

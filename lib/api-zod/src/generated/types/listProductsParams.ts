@@ -14,4 +14,5 @@ maxPrice?: number;
 sort?: string;
 page?: number;
 limit?: number;
+tags?: string;
 };

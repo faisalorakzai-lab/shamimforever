@@ -28,6 +28,7 @@ const FAQ = lazy(() => import("@/pages/faq"));
 const InnerCircle = lazy(() => import("@/pages/inner-circle"));
 const Journal = lazy(() => import("@/pages/journal"));
 const Blockchain = lazy(() => import("@/pages/blockchain"));
+const OrderSuccess = lazy(() => import("@/pages/order-success"));
 
 // Lazy load Admin Pages
 const AdminDashboard = lazy(() => import("@/pages/admin/dashboard"));
@@ -94,6 +95,9 @@ function Router() {
       </Route>
       <Route path="/checkout/success">
         <MainLayout><CheckoutSuccess /></MainLayout>
+      </Route>
+      <Route path="/order-success">
+        <MainLayout><OrderSuccess /></MainLayout>
       </Route>
       <Route path="/login">
         <MainLayout><Auth /></MainLayout>

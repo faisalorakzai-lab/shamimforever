@@ -18,6 +18,7 @@ export const productsTable = pgTable("products", {
   isBestseller: boolean("is_bestseller").notNull().default(false),
   isNewArrival: boolean("is_new_arrival").notNull().default(false),
   hasEngravingOption: boolean("has_engraving_option").notNull().default(false),
+  tags: jsonb("tags").$type<string[]>().notNull().default([]),
   scentNotes: text("scent_notes"),
   ingredients: text("ingredients"),
   usageInstructions: text("usage_instructions"),

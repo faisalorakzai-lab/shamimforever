@@ -18,5 +18,6 @@ export interface ProductUpdate {
   isBestseller?: boolean;
   isNewArrival?: boolean;
   hasEngravingOption?: boolean;
+  tags?: string[];
   scentNotes?: string;
 }

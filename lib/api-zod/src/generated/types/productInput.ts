@@ -20,6 +20,7 @@ export interface ProductInput {
   isBestseller?: boolean;
   isNewArrival?: boolean;
   hasEngravingOption?: boolean;
+  tags?: string[];
   scentNotes?: string;
   ingredients?: string;
   usageInstructions?: string;
