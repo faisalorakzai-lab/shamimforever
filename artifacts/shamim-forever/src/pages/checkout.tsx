@@ -111,7 +111,7 @@ export default function Checkout() {
       }, {
         onSuccess: (order) => {
           clearCart();
-          setLocation(`/checkout/success?id=${order.id}`);
+          setLocation(`/order-success?id=${order.id}`);
         }
       });
     }
