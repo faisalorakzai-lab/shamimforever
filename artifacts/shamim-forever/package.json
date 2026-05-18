@@ -76,7 +76,6 @@
   },
   "dependencies": {
     "@types/mapbox-gl": "^3.5.0",
-    "firebase": "^11.9.0",
     "mapbox-gl": "^3.23.1"
   }
 }
