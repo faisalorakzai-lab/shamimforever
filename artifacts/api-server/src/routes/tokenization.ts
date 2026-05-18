@@ -1,1 +1,285 @@
-import { Router, type IRouter } from "express";\nimport { supabase } from "@workspace/db\";\nimport { z } from \"zod\";\n\nconst router: IRouter = Router();\n\n// Validation schemas\nconst MintTokenSchema = z.object({\n  productId: z.string().min(1),\n  serialNumber: z.string().min(1),\n  productName: z.string().min(1),\n  productImage: z.string().url().optional(),\n});\n\nconst TransferAssetSchema = z.object({\n  assetId: z.string().min(1),\n  newOwnerId: z.string().min(1),\n  proofOfOwnership: z.string().url().optional(),\n});\n\nconst VerifyAssetSchema = z.object({\n  serialNumber: z.string().min(1),\n});\n\n/**\n * POST /api/tokenization/mint\n * Initiate minting of a product asset as a digital token\n */\nrouter.post(\"/tokenization/mint\", async (req, res): Promise<void> => {\n  try {\n    const parsed = MintTokenSchema.safeParse(req.body);\n    if (!parsed.success) {\n      res.status(400).json({ error: \"Invalid request\", details: parsed.error.message });\n      return;\n    }\n\n    const { productId, serialNumber, productName, productImage } = parsed.data;\n\n    // Check if asset already exists\n    const { data: existingAsset } = await supabase\n      .from(\"product_assets\")\n      .select(\"id\")\n      .eq(\"serial_number\", serialNumber)\n      .maybeSingle();\n\n    if (existingAsset) {\n      res.status(409).json({ error: \"Asset with this serial number already exists\" });\n      return;\n    }\n\n    // Create product asset record\n    const { data: asset, error: assetError } = await supabase\n      .from(\"product_assets\")\n      .insert({\n        product_id: productId,\n        serial_number: serialNumber,\n        token_status: \"pending\",\n        token_metadata: {\n          name: `${productName} - ${serialNumber}`,\n          description: `Shamim Forever luxury product with serial number ${serialNumber}`,\n          image: productImage || \"https://shamimforever.com/default-product.png\",\n          attributes: [\n            { trait_type: \"Serial Number\", value: serialNumber },\n            { trait_type: \"Brand\", value: \"Shamim Forever\" },\n            { trait_type: \"Issued At\", value: new Date().toISOString() },\n          ],\n        },\n      })\n      .select()\n      .single();\n\n    if (assetError || !asset) {\n      res.status(500).json({ error: \"Failed to create asset\", detail: assetError?.message });\n      return;\n    }\n\n    // Add to minting queue\n    const { data: queueItem, error: queueError } = await supabase\n      .from(\"token_minting_queue\")\n      .insert({\n        asset_id: asset.id,\n        status: \"queued\",\n        priority: \"5\",\n      })\n      .select()\n      .single();\n\n    if (queueError) {\n      res.status(500).json({ error: \"Failed to queue for minting\", detail: queueError.message });\n      return;\n    }\n\n    // Log event\n    await supabase.from(\"asset_tokenization_events\").insert({\n      asset_id: asset.id,\n      event_type: \"minted\",\n      event_data: { serialNumber, productName },\n    });\n\n    res.status(201).json({\n      assetId: asset.id,\n      serialNumber: asset.serial_number,\n      status: \"queued_for_minting\",\n      message: \"Asset queued for tokenization. You will receive a notification when minting is complete.\",\n    });\n  } catch (err) {\n    const message = err instanceof Error ? err.message : \"Minting failed\";\n    res.status(500).json({ error: message });\n  }\n});\n\n/**\n * GET /api/tokenization/asset/:serialNumber\n * Retrieve asset and token information by serial number\n */\nrouter.get(\"/tokenization/asset/:serialNumber\", async (req, res): Promise<void> => {\n  try {\n    const { serialNumber } = req.params;\n\n    const { data: asset, error } = await supabase\n      .from(\"product_assets\")\n      .select(\n        `\n        id,\n        serial_number,\n        token_id,\n        token_status,\n        token_metadata,\n        certificate_url,\n        is_verified,\n        verification_date,\n        created_at\n      `\n      )\n      .eq(\"serial_number\", serialNumber)\n      .maybeSingle();\n\n    if (error || !asset) {\n      res.status(404).json({ error: \"Asset not found\" });\n      return;\n    }\n\n    res.json(asset);\n  } catch (err) {\n    const message = err instanceof Error ? err.message : \"Failed to retrieve asset\";\n    res.status(500).json({ error: message });\n  }\n});\n\n/**\n * POST /api/tokenization/verify\n * Verify the authenticity of an asset\n */\nrouter.post(\"/tokenization/verify\", async (req, res): Promise<void> => {\n  try {\n    const parsed = VerifyAssetSchema.safeParse(req.body);\n    if (!parsed.success) {\n      res.status(400).json({ error: \"Invalid request\", details: parsed.error.message });\n      return;\n    }\n\n    const { serialNumber } = parsed.data;\n\n    const { data: asset, error } = await supabase\n      .from(\"product_assets\")\n      .select(\"*\")\n      .eq(\"serial_number\", serialNumber)\n      .maybeSingle();\n\n    if (error || !asset) {\n      res.status(404).json({ error: \"Asset not found\" });\n      return;\n    }\n\n    // Mark as verified\n    const { data: updated, error: updateError } = await supabase\n      .from(\"product_assets\")\n      .update({\n        is_verified: true,\n        verification_date: new Date().toISOString(),\n      })\n      .eq(\"id\", asset.id)\n      .select()\n      .single();\n\n    if (updateError) {\n      res.status(500).json({ error: \"Failed to verify asset\", detail: updateError.message });\n      return;\n    }\n\n    // Log verification event\n    await supabase.from(\"asset_tokenization_events\").insert({\n      asset_id: asset.id,\n      event_type: \"verified\",\n      event_data: { verifiedAt: new Date().toISOString() },\n    });\n\n    res.json({\n      isVerified: true,\n      asset: updated,\n      message: \"Asset authenticity verified successfully.\",\n    });\n  } catch (err) {\n    const message = err instanceof Error ? err.message : \"Verification failed\";\n    res.status(500).json({ error: message });\n  }\n});\n\n/**\n * POST /api/tokenization/transfer\n * Transfer ownership of a tokenized asset\n */\nrouter.post(\"/tokenization/transfer\", async (req, res): Promise<void> => {\n  try {\n    const parsed = TransferAssetSchema.safeParse(req.body);\n    if (!parsed.success) {\n      res.status(400).json({ error: \"Invalid request\", details: parsed.error.message });\n      return;\n    }\n\n    const { assetId, newOwnerId, proofOfOwnership } = parsed.data;\n\n    // Record new ownership\n    const { data: ownership, error: ownershipError } = await supabase\n      .from(\"asset_ownership_records\")\n      .insert({\n        asset_id: assetId,\n        owner_id: newOwnerId,\n        acquired_at: new Date().toISOString(),\n        proof_of_ownership: proofOfOwnership,\n      })\n      .select()\n      .single();\n\n    if (ownershipError) {\n      res.status(500).json({ error: \"Failed to transfer asset\", detail: ownershipError.message });\n      return;\n    }\n\n    // Log transfer event\n    await supabase.from(\"asset_tokenization_events\").insert({\n      asset_id: assetId,\n      event_type: \"transferred\",\n      event_data: { newOwnerId, transferredAt: new Date().toISOString() },\n    });\n\n    res.json({\n      success: true,\n      ownership,\n      message: \"Asset ownership transferred successfully.\",\n    });\n  } catch (err) {\n    const message = err instanceof Error ? err.message : \"Transfer failed\";\n    res.status(500).json({ error: message });\n  }\n});\n\n/**\n * GET /api/tokenization/events/:assetId\n * Retrieve the event history for an asset\n */\nrouter.get(\"/tokenization/events/:assetId\", async (req, res): Promise<void> => {\n  try {\n    const { assetId } = req.params;\n\n    const { data: events, error } = await supabase\n      .from(\"asset_tokenization_events\")\n      .select(\"*\")\n      .eq(\"asset_id\", assetId)\n      .order(\"timestamp\", { ascending: false });\n\n    if (error) {\n      res.status(500).json({ error: \"Failed to retrieve events\", detail: error.message });\n      return;\n    }\n\n    res.json(events || []);\n  } catch (err) {\n    const message = err instanceof Error ? err.message : \"Failed to retrieve events\";\n    res.status(500).json({ error: message });\n  }\n});\n\nexport default router;\n
+import { Router, type IRouter } from "express";
+import { supabase } from "@workspace/db";
+import { z } from "zod";
+
+const router: IRouter = Router();
+
+// Validation schemas
+const MintTokenSchema = z.object({
+  productId: z.string().min(1),
+  serialNumber: z.string().min(1),
+  productName: z.string().min(1),
+  productImage: z.string().url().optional(),
+});
+
+const TransferAssetSchema = z.object({
+  assetId: z.string().min(1),
+  newOwnerId: z.string().min(1),
+  proofOfOwnership: z.string().url().optional(),
+});
+
+const VerifyAssetSchema = z.object({
+  serialNumber: z.string().min(1),
+});
+
+/**
+ * POST /api/tokenization/mint
+ * Initiate minting of a product asset as a digital token
+ */
+router.post("/tokenization/mint", async (req, res): Promise<void> => {
+  try {
+    const parsed = MintTokenSchema.safeParse(req.body);
+    if (!parsed.success) {
+      res.status(400).json({ error: "Invalid request", details: parsed.error.message });
+      return;
+    }
+
+    const { productId, serialNumber, productName, productImage } = parsed.data;
+
+    // Check if asset already exists
+    const { data: existingAsset } = await supabase
+      .from("product_assets")
+      .select("id")
+      .eq("serial_number", serialNumber)
+      .maybeSingle();
+
+    if (existingAsset) {
+      res.status(409).json({ error: "Asset with this serial number already exists" });
+      return;
+    }
+
+    // Create product asset record
+    const { data: asset, error: assetError } = await supabase
+      .from("product_assets")
+      .insert({
+        product_id: productId,
+        serial_number: serialNumber,
+        token_status: "pending",
+        token_metadata: {
+          name: `${productName} - ${serialNumber}`,
+          description: `Shamim Forever luxury product with serial number ${serialNumber}`,
+          image: productImage || "https://shamimforever.com/default-product.png",
+          attributes: [
+            { trait_type: "Serial Number", value: serialNumber },
+            { trait_type: "Brand", value: "Shamim Forever" },
+            { trait_type: "Issued At", value: new Date().toISOString() },
+          ],
+        },
+      })
+      .select()
+      .single();
+
+    if (assetError || !asset) {
+      res.status(500).json({ error: "Failed to create asset", detail: assetError?.message });
+      return;
+    }
+
+    // Add to minting queue
+    const { data: queueItem, error: queueError } = await supabase
+      .from("token_minting_queue")
+      .insert({
+        asset_id: asset.id,
+        status: "queued",
+        priority: "5",
+      })
+      .select()
+      .single();
+
+    if (queueError) {
+      res.status(500).json({ error: "Failed to queue for minting", detail: queueError.message });
+      return;
+    }
+
+    // Log event
+    await supabase.from("asset_tokenization_events").insert({
+      asset_id: asset.id,
+      event_type: "minted",
+      event_data: { serialNumber, productName },
+    });
+
+    res.status(201).json({
+      assetId: asset.id,
+      serialNumber: asset.serial_number,
+      status: "queued_for_minting",
+      message: "Asset queued for tokenization. You will receive a notification when minting is complete.",
+    });
+  } catch (err) {
+    const message = err instanceof Error ? err.message : "Minting failed";
+    res.status(500).json({ error: message });
+  }
+});
+
+/**
+ * GET /api/tokenization/asset/:serialNumber
+ * Retrieve asset and token information by serial number
+ */
+router.get("/tokenization/asset/:serialNumber", async (req, res): Promise<void> => {
+  try {
+    const { serialNumber } = req.params;
+
+    const { data: asset, error } = await supabase
+      .from("product_assets")
+      .select(
+        `
+        id,
+        serial_number,
+        token_id,
+        token_status,
+        token_metadata,
+        certificate_url,
+        is_verified,
+        verification_date,
+        created_at
+      `
+      )
+      .eq("serial_number", serialNumber)
+      .maybeSingle();
+
+    if (error || !asset) {
+      res.status(404).json({ error: "Asset not found" });
+      return;
+    }
+
+    res.json(asset);
+  } catch (err) {
+    const message = err instanceof Error ? err.message : "Failed to retrieve asset";
+    res.status(500).json({ error: message });
+  }
+});
+
+/**
+ * POST /api/tokenization/verify
+ * Verify the authenticity of an asset
+ */
+router.post("/tokenization/verify", async (req, res): Promise<void> => {
+  try {
+    const parsed = VerifyAssetSchema.safeParse(req.body);
+    if (!parsed.success) {
+      res.status(400).json({ error: "Invalid request", details: parsed.error.message });
+      return;
+    }
+
+    const { serialNumber } = parsed.data;
+
+    const { data: asset, error } = await supabase
+      .from("product_assets")
+      .select("*")
+      .eq("serial_number", serialNumber)
+      .maybeSingle();
+
+    if (error || !asset) {
+      res.status(404).json({ error: "Asset not found" });
+      return;
+    }
+
+    // Mark as verified
+    const { data: updated, error: updateError } = await supabase
+      .from("product_assets")
+      .update({
+        is_verified: true,
+        verification_date: new Date().toISOString(),
+      })
+      .eq("id", asset.id)
+      .select()
+      .single();
+
+    if (updateError) {
+      res.status(500).json({ error: "Failed to verify asset", detail: updateError.message });
+      return;
+    }
+
+    // Log verification event
+    await supabase.from("asset_tokenization_events").insert({
+      asset_id: asset.id,
+      event_type: "verified",
+      event_data: { verifiedAt: new Date().toISOString() },
+    });
+
+    res.json({
+      isVerified: true,
+      asset: updated,
+      message: "Asset authenticity verified successfully.",
+    });
+  } catch (err) {
+    const message = err instanceof Error ? err.message : "Verification failed";
+    res.status(500).json({ error: message });
+  }
+});
+
+/**
+ * POST /api/tokenization/transfer
+ * Transfer ownership of a tokenized asset
+ */
+router.post("/tokenization/transfer", async (req, res): Promise<void> => {
+  try {
+    const parsed = TransferAssetSchema.safeParse(req.body);
+    if (!parsed.success) {
+      res.status(400).json({ error: "Invalid request", details: parsed.error.message });
+      return;
+    }
+
+    const { assetId, newOwnerId, proofOfOwnership } = parsed.data;
+
+    // Record new ownership
+    const { data: ownership, error: ownershipError } = await supabase
+      .from("asset_ownership_records")
+      .insert({
+        asset_id: assetId,
+        owner_id: newOwnerId,
+        acquired_at: new Date().toISOString(),
+        proof_of_ownership: proofOfOwnership,
+      })
+      .select()
+      .single();
+
+    if (ownershipError) {
+      res.status(500).json({ error: "Failed to transfer asset", detail: ownershipError.message });
+      return;
+    }
+
+    // Log transfer event
+    await supabase.from("asset_tokenization_events").insert({
+      asset_id: assetId,
+      event_type: "transferred",
+      event_data: { newOwnerId, transferredAt: new Date().toISOString() },
+    });
+
+    res.json({
+      success: true,
+      ownership,
+      message: "Asset ownership transferred successfully.",
+    });
+  } catch (err) {
+    const message = err instanceof Error ? err.message : "Transfer failed";
+    res.status(500).json({ error: message });
+  }
+});
+
+/**
+ * GET /api/tokenization/events/:assetId
+ * Retrieve the event history for an asset
+ */
+router.get("/tokenization/events/:assetId", async (req, res): Promise<void> => {
+  try {
+    const { assetId } = req.params;
+
+    const { data: events, error } = await supabase
+      .from("asset_tokenization_events")
+      .select("*")
+      .eq("asset_id", assetId)
+      .order("timestamp", { ascending: false });
+
+    if (error) {
+      res.status(500).json({ error: "Failed to retrieve events", detail: error.message });
+      return;
+    }
+
+    res.json(events || []);
+  } catch (err) {
+    const message = err instanceof Error ? err.message : "Failed to retrieve events";
+    res.status(500).json({ error: message });
+  }
+});
+
+export default router;
+
