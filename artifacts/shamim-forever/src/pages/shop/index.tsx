@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link } from "wouter";
+import { Link, useLocation } from "wouter";
 import { useListProducts } from "@workspace/api-client-react";
 import { motion } from "framer-motion";
 import { SlidersHorizontal } from "lucide-react";
@@ -40,6 +40,7 @@ const SUB_CATEGORIES: Record<string, Record<string, string[]>> = {
 };
 
 export default function Shop() {
+  const [location, setLocation] = useLocation();
   const searchParams = new URLSearchParams(window.location.search);
   const categoryParam = searchParams.get("category") || undefined;
 
@@ -53,7 +54,12 @@ export default function Shop() {
   useEffect(() => {
     setActiveSegment("All");
     setActiveSub(undefined);
-  }, [activeCategory]);
+    if (activeCategory) {
+      setLocation(`/shop?category=${activeCategory}`);
+    } else {
+      setLocation("/shop");
+    }
+  }, [activeCategory, setLocation]);
 
   const tagsToFilter = [];
   if (activeSegment !== "All") tagsToFilter.push(activeSegment);
