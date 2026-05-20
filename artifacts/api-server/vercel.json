@@ -1,5 +1,0 @@
-{
-  "version": 2,
-  "installCommand": "echo 'pre-built bundle — no install needed'",
-  "buildCommand": "node build-vercel-output.mjs"
-}

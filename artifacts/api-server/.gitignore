@@ -1,3 +1,0 @@
-# Allow the pre-built Vercel serverless bundle to be committed
-!api/
-!api/index.js

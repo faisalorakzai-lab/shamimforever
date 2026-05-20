@@ -1,0 +1,129 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter:wght@300;400;500&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --gold: #c9a054;
+  --bg: #050505;
+  --bg-secondary: #0a0a0a;
+  --surface: #111111;
+  --border: #1a1a1a;
+  --text-primary: #e4e4e7;
+  --text-secondary: #71717a;
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #050505;
+  color: #e4e4e7;
+  font-family: 'Inter', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+::selection {
+  background: #c9a054;
+  color: #050505;
+}
+
+::-webkit-scrollbar {
+  width: 3px;
+}
+
+::-webkit-scrollbar-track {
+  background: #050505;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #c9a054;
+}
+
+.gold-border {
+  border: 1px solid #c9a054;
+}
+
+.gold-text {
+  color: #c9a054;
+}
+
+.luxury-heading {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 300;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: #e4e4e7;
+}
+
+.luxury-meta {
+  font-size: 9px;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: #c9a054;
+  font-family: 'Inter', sans-serif;
+}
+
+.luxury-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 32px;
+  border: 1px solid #c9a054;
+  background: transparent;
+  color: #c9a054;
+  font-family: 'Inter', sans-serif;
+  font-size: 9px;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  cursor: pointer;
+}
+
+.luxury-btn:hover {
+  background: #c9a054;
+  color: #050505;
+}
+
+.luxury-input {
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid #c9a054;
+  color: #e4e4e7;
+  padding: 12px 0;
+  width: 100%;
+  font-family: 'Inter', sans-serif;
+  font-weight: 300;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+.luxury-input::placeholder {
+  color: #52525b;
+  letter-spacing: 0.2em;
+  font-size: 11px;
+  text-transform: uppercase;
+}
+
+.luxury-input:focus {
+  border-bottom-color: #e4e4e7;
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+.mapboxgl-canvas {
+  outline: none;
+}
