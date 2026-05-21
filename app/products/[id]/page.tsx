@@ -96,6 +96,7 @@
     const [custPhone, setCustPhone] = useState('')
     const [custAddress, setCustAddress] = useState('')
     const [custCity, setCustCity] = useState('')
+    const [custCountry, setCustCountry] = useState('Pakistan')
 
     useEffect(() => {
       supabase
@@ -128,7 +129,7 @@
 
     async function handlePlaceOrder() {
       if (!product) return
-      if (!custName || !custPhone || !custAddress || !custCity) { setOrderError('Please fill in all delivery details.'); return }
+      if (!custName || !custPhone || !custAddress || !custCity || !custCountry) { setOrderError('Please fill in all delivery details.'); return }
       if (paymentMethod === 'crypto' && !txHash) { setOrderError('Please enter your transaction hash.'); return }
       if (paymentMethod === 'pkr_manual' && !txId && !proofFile) { setOrderError('Please provide transaction ID or upload payment screenshot.'); return }
       setSubmitting(true); setOrderError(null)
@@ -148,7 +149,7 @@
           payment_status: paymentMethod === 'cod' ? 'pending' : 'awaiting_verification',
           total_pkr: Math.round(totalPkr), total_usd: parseFloat(totalUsd.toFixed(2)),
           discount_applied: isOkbond ? OKBOND_DISCOUNT * 100 : 0,
-          shipping_address: { name: custName, phone: custPhone, line1: custAddress, city: custCity, country: 'Pakistan' },
+          shipping_address: { name: custName, phone: custPhone, line1: custAddress, city: custCity, country: custCountry },
           notes: txHash ? `Tx Hash: ${txHash}` : txId ? `Tx ID: ${txId}` : paymentMethod === 'cod' ? 'Cash on Delivery' : '',
           payment_proof_url: proofUrl,
         }]).select().single()
@@ -390,6 +391,8 @@
                   <input key={i} value={field.value} onChange={e => field.setter(e.target.value)} placeholder={field.placeholder}
                     className="w-full bg-[#0a0a0a] border border-[#1a1a1a] px-4 py-3.5 text-xs text-zinc-300 placeholder-zinc-700 focus:outline-none focus:border-[#c9a054]/50 transition-colors" />
                 ))}
+                <input value={custCountry} onChange={e => setCustCountry(e.target.value)} placeholder="Country"
+                  className="w-full bg-[#0a0a0a] border border-[#1a1a1a] px-4 py-3.5 text-xs text-zinc-300 placeholder-zinc-700 focus:outline-none focus:border-[#c9a054]/50 transition-colors" />
               </div>
 
               {/* Quantity + Order */}
