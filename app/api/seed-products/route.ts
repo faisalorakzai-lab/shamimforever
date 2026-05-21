@@ -183,6 +183,41 @@ export async function GET(req: NextRequest) {
       is_featured: true, 
       is_active: true 
     },
+    { 
+      name: 'SF SOVEREIGN VANILLA ABSOLUTE', 
+      slug: 'vanilla-absolute', 
+      description: 'True influence commands absolute attraction instinctively, crossing all boundaries. SF Sovereign Vanilla Absolute is a highly concentrated 150ML masterpiece engineered symmetrically for both men and women of uncompromising status.', 
+      story: JSON.stringify({
+        tagline: 'SF SOVEREIGN VANILLA ABSOLUTE — THE GOURMAND MASTERPIECE (150ML)',
+        olfactory: 'An intoxicating elixir of pure Madagascar vanilla steeped in aged oak barrels. A heavy, seductive trail designed to turn heads before you enter.',
+        scentPyramid: {
+          top: 'Aged Luxury Cognac Accord, Blonde Tobacco Leaf — Heavy, Seductive, Instantly Captivating.',
+          heart: 'Pure Madagascar Vanilla Orchid, Warm Oakwood Shavings — Deep, Dark, Pure Unisex Opulence.',
+          base: 'Roasted Tonka Bean, Velvet Musk, Creamy Amber Resin — Smooth, Rich, Warmly Everlasting.'
+        },
+        specs: {
+          volume: '150ML e 5.1 FL. OZ.',
+          concentration: 'Extrait de Parfum (Highest Oil Density Allocation)',
+          sillage: 'Imperial / Heavy / Deeply Seductive Gourmand Trail',
+          longevity: 'Constant Eternal (24+ Hours of Undisturbed Presence)',
+          batch: 'Strictly Limited Matured Reserve Batch',
+          price: 'Rs 78,000 PKR / $275.00 USD'
+        },
+        nft: {
+          title: 'SF SOVEREIGN VANILLA ABSOLUTE — DIGITAL TWIN',
+          description: 'Physical Master-Craft. Cryptographic Proof of Ownership. Every 150ML flacon is natively integrated into the blockchain ledger.'
+        },
+        packaging: 'Housed within our heavy, solid signature block glass featuring an obsidian-dark, deep-tinted layout. The front features deep metallic high-relief text in pure Royal Gold. The bottle is crowned with our iconic, detailed Royal Gold Crown Cap, featuring a brilliant-cut massive diamond at its peak.'
+      }),
+      price_pkr: 78000, 
+      price_usd: 275, 
+      inventory: 20, 
+      main_category_id: perfumeId, 
+      collection_id: sovereignOudId, 
+      images: ['https://uvgtgeauhjbdatrmmaob.supabase.co/storage/v1/object/public/products/perfumes/vanilla-absolute.png'],
+      is_featured: true, 
+      is_active: true 
+    },
     // Cosmetics (5) - Heritage Musk Collection
     { name: 'Sovereign Lip Elixir', slug: 'sovereign-lip-elixir', description: 'A lip treatment infused with 24-karat gold, rare rose hip oil, and diamond powder. Lips transformed, sovereignty expressed.', story: 'Formulated in our Lahore atelier, this elixir took 18 months of development to achieve the perfect balance of treatment and luxury.', price_pkr: 25000, price_usd: 89, inventory: 35, main_category_id: cosmeticsId, collection_id: heritageMuskId, is_featured: false, is_active: true },
     { name: 'Imperial Glow Serum', slug: 'imperial-glow-serum', description: 'A potent 24-karat gold and vitamin C serum that illuminates from within. The foundation of the sovereign skincare ritual.', story: "Gold has been used in skincare since Cleopatra's reign. We've refined this ancient wisdom with modern bioactive technology.", price_pkr: 42000, price_usd: 149, inventory: 22, main_category_id: cosmeticsId, collection_id: heritageMuskId, is_featured: true, is_active: true },
