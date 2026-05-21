@@ -1,3 +1,5 @@
+const path = require('path')
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
@@ -18,8 +20,10 @@ const nextConfig = {
     NEXT_PUBLIC_MAPBOX_TOKEN: process.env.NEXT_PUBLIC_MAPBOX_TOKEN,
     NEXT_PUBLIC_MAPBOX_STYLE: process.env.NEXT_PUBLIC_MAPBOX_STYLE,
   },
-  // Suppress mapbox-gl SSR warnings
   webpack: (config, { isServer }) => {
+    // Explicitly set @ alias to project root so all pages can resolve @/lib/*
+    config.resolve.alias['@'] = path.resolve(__dirname)
+    // Suppress mapbox-gl SSR warnings
     if (isServer) {
       config.externals = config.externals || []
       config.externals.push('mapbox-gl')
