@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { supabase } from '@/lib/supabase'
-import type { Product, Collection } from '@/types'
+import type { Product, MainCategory } from '@/types'
 import { Plus, Pencil, Trash2, X, Upload } from 'lucide-react'
 
 const EMPTY_PRODUCT = {
@@ -13,7 +13,7 @@ const EMPTY_PRODUCT = {
   price_pkr: '',
   price_usd: '',
   inventory: '',
-  collection_id: '',
+  main_category_id: '',
   is_featured: false,
   is_active: true,
   images: [] as string[],
@@ -21,32 +21,33 @@ const EMPTY_PRODUCT = {
 
 export default function AdminProductsPage() {
   const [products, setProducts] = useState<Product[]>([])
-  const [collections, setCollections] = useState<Collection[]>([])
+  const [categories, setCategories] = useState<MainCategory[]>([])
   const [loading, setLoading] = useState(true)
   const [modalOpen, setModalOpen] = useState(false)
   const [editingProduct, setEditingProduct] = useState<Product | null>(null)
   const [form, setForm] = useState(EMPTY_PRODUCT)
   const [saving, setSaving] = useState(false)
   const [uploading, setUploading] = useState(false)
+  const [filterCategory, setFilterCategory] = useState('all')
   const fileInputRef = useRef<HTMLInputElement>(null)
 
   useEffect(() => {
     fetchProducts()
-    fetchCollections()
+    fetchCategories()
   }, [])
 
   async function fetchProducts() {
     const { data } = await supabase
       .from('products')
-      .select('*, collection:collections(name)')
+      .select('*, main_category:main_categories(id, name, slug)')
       .order('created_at', { ascending: false })
     setProducts(data || [])
     setLoading(false)
   }
 
-  async function fetchCollections() {
-    const { data } = await supabase.from('collections').select('*')
-    setCollections(data || [])
+  async function fetchCategories() {
+    const { data } = await supabase.from('main_categories').select('*').order('name')
+    setCategories(data || [])
   }
 
   function openCreate() {
@@ -64,7 +65,7 @@ export default function AdminProductsPage() {
       price_pkr: String(product.price_pkr),
       price_usd: String(product.price_usd),
       inventory: String(product.inventory),
-      collection_id: product.collection_id || '',
+      main_category_id: (product as any).main_category_id || '',
       is_featured: product.is_featured,
       is_active: product.is_active,
       images: product.images || [],
@@ -76,7 +77,6 @@ export default function AdminProductsPage() {
     const file = e.target.files?.[0]
     if (!file) return
     setUploading(true)
-
     const reader = new FileReader()
     reader.onload = async (ev) => {
       try {
@@ -101,20 +101,21 @@ export default function AdminProductsPage() {
     setSaving(true)
     const payload = {
       name: form.name,
-      slug: form.name.toLowerCase().replace(/[^\w ]+/g, '').replace(/ +/g, '-'),
+      slug: form.name.toLowerCase().replace(/[^\w ]+/g, '').replace(/ +/g, '-') + '-' + Date.now(),
       description: form.description,
       story: form.story,
       price_pkr: Number(form.price_pkr),
       price_usd: Number(form.price_usd),
       inventory: Number(form.inventory),
-      collection_id: form.collection_id || null,
+      main_category_id: form.main_category_id || null,
       is_featured: form.is_featured,
       is_active: form.is_active,
       images: form.images,
     }
 
     if (editingProduct) {
-      await supabase.from('products').update(payload).eq('id', editingProduct.id)
+      const { slug: _s, ...updatePayload } = payload
+      await supabase.from('products').update(updatePayload).eq('id', editingProduct.id)
     } else {
       await supabase.from('products').insert([payload])
     }
@@ -130,15 +131,21 @@ export default function AdminProductsPage() {
     setProducts(p => p.filter(x => x.id !== id))
   }
 
+  const filtered = filterCategory === 'all'
+    ? products
+    : products.filter(p => (p as any).main_category?.slug === filterCategory)
+
+  const categoryLabel = (p: Product) => (p as any).main_category?.name || '—'
+
   return (
     <div className="p-10">
-      {/* Header */}
       <div className="mb-12 pb-8 border-b border-[#1a1a1a] flex items-end justify-between">
         <div>
           <p className="luxury-meta mb-3">Sovereign Catalog</p>
           <h1 className="font-serif text-4xl font-light tracking-[0.2em] uppercase text-zinc-100">
             Products
           </h1>
+          <p className="text-zinc-600 text-xs mt-2 font-light">{products.length} total creations</p>
         </div>
         <button onClick={openCreate} className="luxury-btn text-[9px] flex items-center gap-3">
           <Plus size={12} />
@@ -146,11 +153,28 @@ export default function AdminProductsPage() {
         </button>
       </div>
 
+      {/* Category Filter Tabs */}
+      <div className="flex items-center gap-6 mb-8 border-b border-[#1a1a1a] pb-6">
+        {[{ slug: 'all', name: 'All' }, ...categories].map(c => (
+          <button
+            key={(c as any).slug || 'all'}
+            onClick={() => setFilterCategory((c as any).slug || 'all')}
+            className={`text-[9px] tracking-[0.35em] uppercase transition-colors duration-300 ${
+              filterCategory === ((c as any).slug || 'all')
+                ? 'text-[#c9a054]'
+                : 'text-zinc-500 hover:text-zinc-300'
+            }`}
+          >
+            {c.name}
+          </button>
+        ))}
+      </div>
+
       {/* Products Table */}
       <div className="border border-[#1a1a1a] bg-[#050505]">
         <div className="grid grid-cols-[1fr,auto,auto,auto,auto] text-[9px] tracking-[0.3em] uppercase text-zinc-600 px-6 py-4 border-b border-[#1a1a1a] gap-4">
           <span>Creation</span>
-          <span>Collection</span>
+          <span>Category</span>
           <span>Price (PKR)</span>
           <span>Stock</span>
           <span>Actions</span>
@@ -160,14 +184,14 @@ export default function AdminProductsPage() {
           <div className="p-12 text-center">
             <p className="luxury-meta">Loading Sovereign Vault...</p>
           </div>
-        ) : products.length === 0 ? (
+        ) : filtered.length === 0 ? (
           <div className="p-12 text-center">
             <p className="font-serif text-2xl font-light text-zinc-700 mb-4">No creations yet</p>
-            <button onClick={openCreate} className="luxury-btn text-[9px]">Add First Product</button>
+            <button onClick={openCreate} className="luxury-btn text-[9px]">Add First Creation</button>
           </div>
         ) : (
           <div className="divide-y divide-[#1a1a1a]">
-            {products.map((product) => (
+            {filtered.map((product) => (
               <div
                 key={product.id}
                 className="grid grid-cols-[1fr,auto,auto,auto,auto] px-6 py-5 gap-4 items-center hover:bg-[#0a0a0a] transition-colors group"
@@ -194,28 +218,18 @@ export default function AdminProductsPage() {
                     </div>
                   </div>
                 </div>
-                <span className="luxury-meta text-zinc-600">
-                  {(product as any).collection?.name || '—'}
-                </span>
+                <span className="luxury-meta text-zinc-600">{categoryLabel(product)}</span>
                 <span className="text-zinc-300 text-xs font-light">
                   {product.price_pkr?.toLocaleString()}
                 </span>
-                <span className={`text-xs font-light ${
-                  product.inventory <= 5 ? 'text-red-500/70' : 'text-zinc-400'
-                }`}>
+                <span className={`text-xs font-light ${product.inventory <= 5 ? 'text-red-500/70' : 'text-zinc-400'}`}>
                   {product.inventory}
                 </span>
                 <div className="flex items-center gap-3 opacity-0 group-hover:opacity-100 transition-opacity">
-                  <button
-                    onClick={() => openEdit(product)}
-                    className="text-zinc-500 hover:text-[#c9a054] transition-colors"
-                  >
+                  <button onClick={() => openEdit(product)} className="text-zinc-500 hover:text-[#c9a054] transition-colors">
                     <Pencil size={12} />
                   </button>
-                  <button
-                    onClick={() => handleDelete(product.id)}
-                    className="text-zinc-500 hover:text-red-500/70 transition-colors"
-                  >
+                  <button onClick={() => handleDelete(product.id)} className="text-zinc-500 hover:text-red-500/70 transition-colors">
                     <Trash2 size={12} />
                   </button>
                 </div>
@@ -291,6 +305,20 @@ export default function AdminProductsPage() {
                   />
                 </div>
 
+                <div>
+                  <label className="luxury-meta block mb-3">Category</label>
+                  <select
+                    value={form.main_category_id}
+                    onChange={(e) => setForm({ ...form, main_category_id: e.target.value })}
+                    className="luxury-input bg-transparent cursor-pointer"
+                  >
+                    <option value="" className="bg-[#0a0a0a]">Select Category</option>
+                    {categories.map(c => (
+                      <option key={c.id} value={c.id} className="bg-[#0a0a0a]">{c.name}</option>
+                    ))}
+                  </select>
+                </div>
+
                 <div className="grid grid-cols-2 gap-6">
                   <div>
                     <label className="luxury-meta block mb-3">Price (PKR)</label>
@@ -323,20 +351,6 @@ export default function AdminProductsPage() {
                     className="luxury-input"
                     placeholder="0"
                   />
-                </div>
-
-                <div>
-                  <label className="luxury-meta block mb-3">Collection</label>
-                  <select
-                    value={form.collection_id}
-                    onChange={(e) => setForm({ ...form, collection_id: e.target.value })}
-                    className="luxury-input bg-transparent cursor-pointer"
-                  >
-                    <option value="" className="bg-[#0a0a0a]">No Collection</option>
-                    {collections.map(c => (
-                      <option key={c.id} value={c.id} className="bg-[#0a0a0a]">{c.name}</option>
-                    ))}
-                  </select>
                 </div>
 
                 <div>
@@ -378,7 +392,7 @@ export default function AdminProductsPage() {
                       onChange={(e) => setForm({ ...form, is_active: e.target.checked })}
                       className="w-4 h-4 border border-[#c9a054] bg-transparent accent-[#c9a054]"
                     />
-                    <span className="luxury-meta">Active</span>
+                    <span className="luxury-meta">Active / Visible</span>
                   </label>
                 </div>
 
