@@ -1,0 +1,1 @@
+self.__REACT_LOADABLE_MANIFEST='{"app/boutiques/page.tsx -> @/components/BoutiqueMap":{"id":9167,"files":["static/chunks/167.e6c805efbe1ac711.js"]},"components/BoutiqueMap.tsx -> mapbox-gl":{"id":5995,"files":["static/chunks/8edb8495.7b4ad67277b5b4ca.js"]}}';

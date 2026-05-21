@@ -1,0 +1,22 @@
+{
+  "/_not-found/page": "app/_not-found/page.js",
+  "/api/orders/route": "app/api/orders/route.js",
+  "/api/collections/route": "app/api/collections/route.js",
+  "/api/products/[id]/route": "app/api/products/[id]/route.js",
+  "/api/products/route": "app/api/products/route.js",
+  "/api/upload/route": "app/api/upload/route.js",
+  "/atelier/page": "app/atelier/page.js",
+  "/auth/page": "app/auth/page.js",
+  "/boutiques/page": "app/boutiques/page.js",
+  "/collections/[id]/page": "app/collections/[id]/page.js",
+  "/collections/page": "app/collections/page.js",
+  "/journal/page": "app/journal/page.js",
+  "/page": "app/page.js",
+  "/products/[id]/page": "app/products/[id]/page.js",
+  "/shop/page": "app/shop/page.js",
+  "/inner-circle/page": "app/inner-circle/page.js",
+  "/admin/orders/page": "app/admin/orders/page.js",
+  "/admin/customers/page": "app/admin/customers/page.js",
+  "/admin/products/page": "app/admin/products/page.js",
+  "/admin/page": "app/admin/page.js"
+}
