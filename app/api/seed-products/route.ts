@@ -74,7 +74,41 @@ export async function GET(req: NextRequest) {
   // Step 5: Upsert 15 luxury products
   const products = [
     // Perfume (5) - Sovereign Oud Collection
-    { name: 'Oud Sovereign', slug: 'oud-sovereign', description: 'A rare Assamese oud composition layered with saffron, ambergris, and sandalwood. The signature scent of sovereign authority.', story: 'Sourced from 40-year-old agarwood trees in the Assam forest reserve, this oud is one of the most precious materials in the world.', price_pkr: 85000, price_usd: 299, inventory: 12, main_category_id: perfumeId, collection_id: sovereignOudId, is_featured: true, is_active: true },
+    { 
+      name: 'SF OUD SOVEREIGN', 
+      slug: 'oud-sovereign', 
+      description: 'Absolute authority does not request a seat at the table; it builds the entire infrastructure. SF Oud Sovereign is a highly concentrated 150ML masterpiece engineered exclusively for the ultimate architect of power.', 
+      story: JSON.stringify({
+        tagline: 'SF OUD SOVEREIGN — THE SCENT OF SOVEREIGN AUTHORITY (150ML)',
+        olfactory: 'A rare Assamese oud composition layered with saffron, ambergris, and sandalwood. The signature scent of sovereign authority.',
+        scentPyramid: {
+          top: 'Pure Saffron Threads, Warm Royal Spice Accord — Sharp, Imperial, Instantly Captivating.',
+          heart: 'Rare Assamese Oud Oil, Earthy White Ambergris — Heavy, Dense, Absolute Power.',
+          base: 'Creamy Mysore Sandalwood, Velvet Musk, Rich Amber Resin — Smooth, Royal Wood, Everlasting Executive Presence.'
+        },
+        specs: {
+          volume: '150ML e 5.1 FL. OZ.',
+          concentration: 'Extrait de Parfum (Highest Oil Density Allocation)',
+          sillage: 'Imperial / Alpha / Commanding Dark Wood Trail',
+          longevity: 'Constant Eternal (24+ Hours of Undisturbed Presence)',
+          batch: 'Strictly Limited Rare Assamese Reserve Batch',
+          price: 'Rs 85,000 PKR / $299.00 USD'
+        },
+        nft: {
+          title: 'SF OUD SOVEREIGN — DIGITAL TWIN',
+          description: 'Physical Master-Craft. Cryptographic Proof of Ownership. Every 150ML flacon is natively integrated into the blockchain ledger.'
+        },
+        packaging: 'Housed within our heavy, rectangular signature glass block, finished in an ultra-premium obsidian-black polished coat. The Diamond Coronation Cap is encrusted with multiple rows of brilliant-cut diamonds.'
+      }),
+      price_pkr: 85000, 
+      price_usd: 299, 
+      inventory: 12, 
+      main_category_id: perfumeId, 
+      collection_id: sovereignOudId, 
+      images: ['https://uvgtgeauhjbdatrmmaob.supabase.co/storage/v1/object/public/products/perfumes/oud-sovereign-new.png'],
+      is_featured: true, 
+      is_active: true 
+    },
     { name: 'Heritage Noir', slug: 'heritage-noir', description: 'A dark, smoky composition of oud, leather, and vetiver. For those who command presence without uttering a word.', story: 'Inspired by the ancient trade routes of the Silk Road, Heritage Noir blends Eastern oud with Western leather in an unprecedented union.', price_pkr: 65000, price_usd: 229, inventory: 18, main_category_id: perfumeId, collection_id: sovereignOudId, is_featured: false, is_active: true },
     { name: 'Imperial Musk', slug: 'imperial-musk', description: 'White musk elevated to imperial luxury. Clean, luminous, and utterly timeless. A scent worn by those who need no introduction.', story: 'Drawing from the Pashtun tradition of musk wearing, Imperial Musk reimagines a centuries-old heritage for the modern sovereign.', price_pkr: 72000, price_usd: 249, inventory: 20, main_category_id: perfumeId, collection_id: heritageMuskId, is_featured: true, is_active: true },
     { name: 'Silk Road Amber', slug: 'silk-road-amber', description: 'Golden amber, warm benzoin, and vanilla absolute. A fragrance that wraps like silk and lingers like legacy.', story: 'Amber has been treasured since antiquity. Ours is sourced from Baltic deposits and harmonized with the warm spices of the ancient trade routes.', price_pkr: 55000, price_usd: 195, inventory: 25, main_category_id: perfumeId, collection_id: sovereignOudId, is_featured: false, is_active: true },
