@@ -13,23 +13,23 @@ function getSupabase() {
 export async function GET(req: NextRequest) {
   const supabase = getSupabase()
   const { searchParams } = new URL(req.url)
-  const collection = searchParams.get('collection')
+  const category = searchParams.get('category')
   const featured = searchParams.get('featured')
   const limit = parseInt(searchParams.get('limit') || '50')
 
   let query = supabase
     .from('products')
-    .select('*, collection:collections(name, slug)')
+    .select('*, main_category:main_categories(id, name, slug)')
     .eq('is_active', true)
     .limit(limit)
 
-  if (collection) query = query.eq('collection_id', collection)
+  if (category) query = query.eq('main_category_id', category)
   if (featured === 'true') query = query.eq('is_featured', true)
 
   const { data, error } = await query.order('created_at', { ascending: false })
 
   if (error) return NextResponse.json({ error: error.message }, { status: 500 })
-  return NextResponse.json({ products: data })
+  return NextResponse.json({ products: data || [] })
 }
 
 export async function POST(req: NextRequest) {
