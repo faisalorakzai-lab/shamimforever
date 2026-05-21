@@ -253,6 +253,41 @@ export async function GET(req: NextRequest) {
       is_featured: true,
       is_active: true
     },
+    {
+      name: 'SF SAPPHIRE BLUE LEVANT',
+      slug: 'sapphire-blue-levant',
+      description: 'A breathtaking breath of the Mediterranean sea fused with precious woods. Crafted for the global nomad who rules both the boardroom and the ocean.',
+      story: JSON.stringify({
+        tagline: 'SF SAPPHIRE BLUE LEVANT — THE FRESH-AQUATIC KING (150ML)',
+        olfactory: 'True sovereignty is not bound by land—it commands the oceans. SF Sapphire Blue Levant is a highly concentrated 150ML masterpiece engineered exclusively for the global nomad whose influence spans across borders.',
+        scentPyramid: {
+          top: 'Calabrian Bergamot, Sun-Ripened Citrus, Crushed Mint — Sharp, Icy, Instantly Captivating.',
+          heart: 'Deep Sea Marine Accord, Blue Sea Kelp, Saffron Thread — Crisp, Salty Mineral, Pure Royalty.',
+          base: 'Precious Amberwood, Clean Ambergris, Royal Coastal Cedar — Creamy, Smooth Wood, Everlasting.'
+        },
+        specs: {
+          volume: '150ML e 5.1 FL. OZ.',
+          concentration: 'Extrait de Parfum (Highest Oil Density Allocation)',
+          sillage: 'Imperial / Expansive / Majestic Oceanic Trail',
+          longevity: 'Constant Eternal (24+ Hours of Undisturbed Presence)',
+          batch: 'Strictly Limited Coastal Reserve Batch',
+          price: 'Rs 62,000 PKR / $219.00 USD'
+        },
+        nft: {
+          title: 'SF SAPPHIRE BLUE LEVANT — DIGITAL TWIN',
+          description: 'Physical Master-Craft. Cryptographic Proof of Ownership. Every 150ML flacon is natively integrated into the blockchain ledger.'
+        },
+        packaging: 'Housed within our heavy, solid sapphire-blue translucent glass signature block. The front features deep metallic high-relief text in pure Royal Gold, reading "SHAMIM FOREVER — SAPPHIRE BLUE LEVANT". The bottle is crowned with our iconic, detailed Royal Gold Crown Cap, featuring a brilliant-cut massive sapphire-blue diamond at its peak.'
+      }),
+      price_pkr: 62000,
+      price_usd: 219,
+      inventory: 15,
+      main_category_id: perfumeId,
+      collection_id: sovereignOudId,
+      images: ['https://files.manuscdn.com/user_upload_by_module/session_file/310519663683576925/oblFuJebpXRjxvTt.png'],
+      is_featured: true,
+      is_active: true
+    },
     // Cosmetics (5) - Heritage Musk Collection
     { name: 'Sovereign Lip Elixir', slug: 'sovereign-lip-elixir', description: 'A lip treatment infused with 24-karat gold, rare rose hip oil, and diamond powder. Lips transformed, sovereignty expressed.', story: 'Formulated in our Lahore atelier, this elixir took 18 months of development to achieve the perfect balance of treatment and luxury.', price_pkr: 25000, price_usd: 89, inventory: 35, main_category_id: cosmeticsId, collection_id: heritageMuskId, is_featured: false, is_active: true },
     { name: 'Imperial Glow Serum', slug: 'imperial-glow-serum', description: 'A potent 24-karat gold and vitamin C serum that illuminates from within. The foundation of the sovereign skincare ritual.', story: "Gold has been used in skincare since Cleopatra's reign. We've refined this ancient wisdom with modern bioactive technology.", price_pkr: 42000, price_usd: 149, inventory: 22, main_category_id: cosmeticsId, collection_id: heritageMuskId, is_featured: true, is_active: true },
@@ -282,6 +317,6 @@ export async function GET(req: NextRequest) {
     collections: 3,
     categories: 3,
     products: upserted?.length ?? products.length,
-    breakdown: { perfume: 6, cosmetics: 5, jewelry: 5 },
+    breakdown: { perfume: 7, cosmetics: 5, jewelry: 5 },
   })
 }
