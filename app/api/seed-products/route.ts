@@ -113,6 +113,41 @@ export async function GET(req: NextRequest) {
     { name: 'Imperial Musk', slug: 'imperial-musk', description: 'White musk elevated to imperial luxury. Clean, luminous, and utterly timeless. A scent worn by those who need no introduction.', story: 'Drawing from the Pashtun tradition of musk wearing, Imperial Musk reimagines a centuries-old heritage for the modern sovereign.', price_pkr: 72000, price_usd: 249, inventory: 20, main_category_id: perfumeId, collection_id: heritageMuskId, is_featured: true, is_active: true },
     { name: 'Silk Road Amber', slug: 'silk-road-amber', description: 'Golden amber, warm benzoin, and vanilla absolute. A fragrance that wraps like silk and lingers like legacy.', story: 'Amber has been treasured since antiquity. Ours is sourced from Baltic deposits and harmonized with the warm spices of the ancient trade routes.', price_pkr: 55000, price_usd: 195, inventory: 25, main_category_id: perfumeId, collection_id: sovereignOudId, is_featured: false, is_active: true },
     { name: 'Eternal Rose de Taif', slug: 'eternal-rose-de-taif', description: "The world's most prized rose — the Taif — captured in its purest, most concentrated form. Royalty in a bottle.", story: 'Taif roses bloom for only three weeks each year in the mountains of Saudi Arabia. Each 50ml bottle contains the essence of over 400 roses.', price_pkr: 95000, price_usd: 339, inventory: 8, main_category_id: perfumeId, collection_id: imperialRoseId, is_featured: true, is_active: true },
+    { 
+      name: 'SF HIMALAYAN SNOW MUSK', 
+      slug: 'himalayan-snow-musk', 
+      description: 'While standard musk fragrances lean heavy and warm, SF Himalayan Snow Musk redefines the vector with a freezing, blindingly crisp aura of pure authority.', 
+      story: JSON.stringify({
+        tagline: 'SF HIMALAYAN SNOW MUSK — THE CRISP-COLD SCENT (150ML)',
+        olfactory: 'A crisp, blindingly pure breath of Himalayan heights. Clean, icy, and sharp—engineered for the visionaries who view the world from the summit.',
+        scentPyramid: {
+          top: 'Frozen Mint Leaves, Crisp Alpine Air Accord — Glacial, Sharp, Instantly Refreshing.',
+          heart: 'Silver Birch Bark, Ozone Accord — Clean, Bright, Architectural Wood Matrix.',
+          base: 'Pure Himalayan Musk Crystal, Executive White Patchouli — Sub-Zero, Smooth, Everlasting Executive Presence.'
+        },
+        specs: {
+          volume: '150ML e 5.1 FL. OZ.',
+          concentration: 'Extrait de Parfum (Highest Oil Density Allocation)',
+          sillage: 'Imperial / Crisp / Blindingly Pure Alpine Musk Trail',
+          longevity: 'Constant Eternal (18+ Hours of Absolute Frost-Fresh Sillage)',
+          batch: 'Strictly Limited High-Altitude Reserve Batch',
+          price: 'Rs. 58,000 PKR / $205.00 USD'
+        },
+        nft: {
+          title: 'SF HIMALAYAN SNOW MUSK — DIGITAL TWIN',
+          description: 'Physical Master-Craft. Cryptographic Proof of Ownership. Every 150ML flacon is natively integrated into the blockchain ledger.'
+        },
+        packaging: 'Housed within our premium signature glass, heavily tinted in a sleek, deep obsidian layout. The front features clean, high-relief text in pure polished Platinum-Silver. The bottle is crowned with an elite Silver Crown Cap, topped with a jagged, majestic raw quartz crystal cluster structure.'
+      }),
+      price_pkr: 58000, 
+      price_usd: 205, 
+      inventory: 15, 
+      main_category_id: perfumeId, 
+      collection_id: heritageMuskId, 
+      images: ['https://uvgtgeauhjbdatrmmaob.supabase.co/storage/v1/object/public/products/perfumes/himalayan-snow-musk.png'],
+      is_featured: true, 
+      is_active: true 
+    },
     // Cosmetics (5) - Heritage Musk Collection
     { name: 'Sovereign Lip Elixir', slug: 'sovereign-lip-elixir', description: 'A lip treatment infused with 24-karat gold, rare rose hip oil, and diamond powder. Lips transformed, sovereignty expressed.', story: 'Formulated in our Lahore atelier, this elixir took 18 months of development to achieve the perfect balance of treatment and luxury.', price_pkr: 25000, price_usd: 89, inventory: 35, main_category_id: cosmeticsId, collection_id: heritageMuskId, is_featured: false, is_active: true },
     { name: 'Imperial Glow Serum', slug: 'imperial-glow-serum', description: 'A potent 24-karat gold and vitamin C serum that illuminates from within. The foundation of the sovereign skincare ritual.', story: "Gold has been used in skincare since Cleopatra's reign. We've refined this ancient wisdom with modern bioactive technology.", price_pkr: 42000, price_usd: 149, inventory: 22, main_category_id: cosmeticsId, collection_id: heritageMuskId, is_featured: true, is_active: true },
