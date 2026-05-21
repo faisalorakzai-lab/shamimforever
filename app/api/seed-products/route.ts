@@ -148,6 +148,41 @@ export async function GET(req: NextRequest) {
       is_featured: true, 
       is_active: true 
     },
+    { 
+      name: 'SF MIDNIGHT IRIS ROYALE', 
+      slug: 'midnight-iris-royale', 
+      description: "True luxury doesn't follow trends; it dictates them. SF Midnight Iris Royale is a highly concentrated 150ML masterwork crafted for those who command the peak of high-fashion authority.", 
+      story: JSON.stringify({
+        tagline: 'SF MIDNIGHT IRIS ROYALE — THE HIGH-FASHION POWDERY SCENT (150ML)',
+        olfactory: 'The ultimate expression of high-fashion royalty. Built around the world’s most expensive floral extract, wrapped in buttery soft suede.',
+        scentPyramid: {
+          top: 'Sharp Violet Leaves, Fresh Ozone Accord — Crisp, Elite, Instantly Captivating.',
+          heart: 'Pure Tuscan Iris Root (Orris Butter), Soft Powdery Accord — Creamy, Rich, Supreme Sophistication.',
+          base: 'Premium Suede Leather, Structural Cedarwood, Velvet Musk — Heavy, Masculine-Edge, Everlasting.'
+        },
+        specs: {
+          volume: '150ML e 5.1 FL. OZ.',
+          concentration: 'Extrait de Parfum (Highest Oil Density Allocation)',
+          sillage: 'Imperial / Intensely Rich / Powdery Leather Trail',
+          longevity: 'Constant Eternal (24+ Hours of Undisturbed Presence)',
+          batch: 'Strictly Limited Tuscan Orris Matured Reserve Batch',
+          price: 'Rs. 98,000 PKR / $349.00 USD'
+        },
+        nft: {
+          title: 'SF MIDNIGHT IRIS ROYALE — DIGITAL TWIN',
+          description: 'Physical Master-Craft. Cryptographic Proof of Ownership. Every 150ML flacon is natively integrated into the blockchain ledger.'
+        },
+        packaging: 'Housed within our ultra-premium signature glass, heavily tinted in a mysterious, deep midnight obsidian layout. The front displays Royal Gold text. The bottle is crowned with our signature detailed Royal Gold Crown Cap, featuring a massive brilliant-cut diamond at its peak.'
+      }),
+      price_pkr: 98000, 
+      price_usd: 349, 
+      inventory: 10, 
+      main_category_id: perfumeId, 
+      collection_id: imperialRoseId, 
+      images: ['https://uvgtgeauhjbdatrmmaob.supabase.co/storage/v1/object/public/products/perfumes/midnight-iris-royale.png'],
+      is_featured: true, 
+      is_active: true 
+    },
     // Cosmetics (5) - Heritage Musk Collection
     { name: 'Sovereign Lip Elixir', slug: 'sovereign-lip-elixir', description: 'A lip treatment infused with 24-karat gold, rare rose hip oil, and diamond powder. Lips transformed, sovereignty expressed.', story: 'Formulated in our Lahore atelier, this elixir took 18 months of development to achieve the perfect balance of treatment and luxury.', price_pkr: 25000, price_usd: 89, inventory: 35, main_category_id: cosmeticsId, collection_id: heritageMuskId, is_featured: false, is_active: true },
     { name: 'Imperial Glow Serum', slug: 'imperial-glow-serum', description: 'A potent 24-karat gold and vitamin C serum that illuminates from within. The foundation of the sovereign skincare ritual.', story: "Gold has been used in skincare since Cleopatra's reign. We've refined this ancient wisdom with modern bioactive technology.", price_pkr: 42000, price_usd: 149, inventory: 22, main_category_id: cosmeticsId, collection_id: heritageMuskId, is_featured: true, is_active: true },
