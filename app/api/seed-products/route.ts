@@ -218,6 +218,41 @@ export async function GET(req: NextRequest) {
       is_featured: true, 
       is_active: true 
     },
+    {
+      name: 'SF SACRED INCENSE OF KYOTO',
+      slug: 'sacred-incense-of-kyoto',
+      description: 'A meditative sanctuary of rare resins and sacred Japanese woods. A fragrance for the quiet minds that command absolute empires.',
+      story: JSON.stringify({
+        tagline: 'SF SACRED INCENSE OF KYOTO — THE SPICY-MYSTICAL SCENT (150ML)',
+        olfactory: 'True sovereignty does not shout; it rules from a place of absolute, unshakeable silence. SF Sacred Incense of Kyoto is a highly concentrated 150ML masterpiece engineered exclusively for visionaries who command vast empires with absolute inner stillness.',
+        scentPyramid: {
+          top: 'Pink Pepper, Fresh Spicy Accord, Cold Morning Air — Sharp, Spicy, Instantly Captivating.',
+          heart: 'Pure Kyara Incense Oil, Sacred Ritual Smoke — Deep, Opulent, Pure Spiritual Royalty.',
+          base: 'Rare Japanese Hinoki Wood, Dark Myrrh Resin, Velvet Musk — Creamy, Smooth Wood, Everlasting.'
+        },
+        specs: {
+          volume: '150ML e 5.1 FL. OZ.',
+          concentration: 'Extrait de Parfum (Highest Oil Density Allocation)',
+          sillage: 'Imperial / Expansive / Meditative Smoky Trail',
+          longevity: 'Constant Eternal (24+ Hours of Undisturbed Presence)',
+          batch: 'Strictly Limited Temple Reserve Batch',
+          price: 'Rs 89,000 PKR / $315.00 USD'
+        },
+        nft: {
+          title: 'SF SACRED INCENSE OF KYOTO — DIGITAL TWIN',
+          description: 'Physical Master-Craft. Cryptographic Proof of Ownership. Every 150ML flacon is natively integrated into the blockchain ledger.'
+        },
+        packaging: 'Housed within our heavy, solid dark-grained wooden signature block. The front features deep metallic high-relief text in pure Royal Gold, reading "SHAMIM FOREVER — SACRED INCENSE OF KYOTO". The bottle is crowned with an organic, deeply grained dark ebony-wood crown cap.'
+      }),
+      price_pkr: 89000,
+      price_usd: 315,
+      inventory: 10,
+      main_category_id: perfumeId,
+      collection_id: sovereignOudId,
+      images: ['https://files.manuscdn.com/user_upload_by_module/session_file/310519663683576925/gdbOasTainWzRcBc.png'],
+      is_featured: true,
+      is_active: true
+    },
     // Cosmetics (5) - Heritage Musk Collection
     { name: 'Sovereign Lip Elixir', slug: 'sovereign-lip-elixir', description: 'A lip treatment infused with 24-karat gold, rare rose hip oil, and diamond powder. Lips transformed, sovereignty expressed.', story: 'Formulated in our Lahore atelier, this elixir took 18 months of development to achieve the perfect balance of treatment and luxury.', price_pkr: 25000, price_usd: 89, inventory: 35, main_category_id: cosmeticsId, collection_id: heritageMuskId, is_featured: false, is_active: true },
     { name: 'Imperial Glow Serum', slug: 'imperial-glow-serum', description: 'A potent 24-karat gold and vitamin C serum that illuminates from within. The foundation of the sovereign skincare ritual.', story: "Gold has been used in skincare since Cleopatra's reign. We've refined this ancient wisdom with modern bioactive technology.", price_pkr: 42000, price_usd: 149, inventory: 22, main_category_id: cosmeticsId, collection_id: heritageMuskId, is_featured: true, is_active: true },
@@ -247,6 +282,6 @@ export async function GET(req: NextRequest) {
     collections: 3,
     categories: 3,
     products: upserted?.length ?? products.length,
-    breakdown: { perfume: 5, cosmetics: 5, jewelry: 5 },
+    breakdown: { perfume: 6, cosmetics: 5, jewelry: 5 },
   })
 }
