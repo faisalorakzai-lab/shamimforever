@@ -288,6 +288,41 @@ export async function GET(req: NextRequest) {
       is_featured: true,
       is_active: true
     },
+    {
+      name: 'AFNAN 9PM',
+      slug: 'afnan-9pm',
+      description: 'A captivating and bold fragrance, Afnan 9PM is the definitive scent for the modern man who commands the evening. It balances vibrant freshness with a warm, seductive, and long-lasting foundation.',
+      story: JSON.stringify({
+        tagline: 'AFNAN 9PM — THE ESSENCE OF AFTER-DARK CONFIDENCE',
+        olfactory: '9PM is not just a fragrance; it is a statement of intent. Inspired by the dynamic energy of an urban night out, it projects a magnetic, sweet, and spicy sillage that ensures you stand out in any crowd.',
+        scentPyramid: {
+          top: 'Crisp Apple, Bergamot, Wild Lavender, Cinnamon — Vibrant, Mouth-Watering, Addictive.',
+          heart: 'Orange Blossom, Lily-of-the-Valley (Muguet) — Refined, Complex, Sophisticated Floral.',
+          base: 'Vanilla, Tonka Bean, Patchouli, Amber — Warm, Creamy, Masculine Trail.'
+        },
+        specs: {
+          volume: '100ML (3.4 FL. OZ.)',
+          concentration: 'Eau de Parfum (EDP)',
+          sillage: 'Powerful, Bold, and Attention-Grabbing',
+          longevity: 'High Endurance (6–10+ Hours)',
+          batch: 'Standard Institutional Standard',
+          price: 'Rs 15,000 PKR / $55.00 USD'
+        },
+        nft: {
+          title: 'AFNAN 9PM — DIGITAL TWIN',
+          description: 'Physical Master-Craft. Cryptographic Proof of Ownership. Every 100ML flacon is natively integrated into the blockchain ledger.'
+        },
+        packaging: 'Housed in a sleek, iconic heavy glass flacon, the design reflects the simplicity and importance of the scent it protects. The bottle features a minimalist, high-contrast black-and-white aesthetic with bold "9pm" typography.'
+      }),
+      price_pkr: 15000,
+      price_usd: 55,
+      inventory: 50,
+      main_category_id: perfumeId,
+      collection_id: heritageMuskId,
+      images: ['https://files.manuscdn.com/user_upload_by_module/session_file/310519663685075873/VPnGCjDXAzytHGSo.jpg'],
+      is_featured: false,
+      is_active: true
+    },
     // Cosmetics (5) - Heritage Musk Collection
     { name: 'Sovereign Lip Elixir', slug: 'sovereign-lip-elixir', description: 'A lip treatment infused with 24-karat gold, rare rose hip oil, and diamond powder. Lips transformed, sovereignty expressed.', story: 'Formulated in our Lahore atelier, this elixir took 18 months of development to achieve the perfect balance of treatment and luxury.', price_pkr: 25000, price_usd: 89, inventory: 35, main_category_id: cosmeticsId, collection_id: heritageMuskId, is_featured: false, is_active: true },
     { name: 'Imperial Glow Serum', slug: 'imperial-glow-serum', description: 'A potent 24-karat gold and vitamin C serum that illuminates from within. The foundation of the sovereign skincare ritual.', story: "Gold has been used in skincare since Cleopatra's reign. We've refined this ancient wisdom with modern bioactive technology.", price_pkr: 42000, price_usd: 149, inventory: 22, main_category_id: cosmeticsId, collection_id: heritageMuskId, is_featured: true, is_active: true },
@@ -317,6 +352,6 @@ export async function GET(req: NextRequest) {
     collections: 3,
     categories: 3,
     products: upserted?.length ?? products.length,
-    breakdown: { perfume: 7, cosmetics: 5, jewelry: 5 },
+    breakdown: { perfume: 8, cosmetics: 5, jewelry: 5 },
   })
 }
