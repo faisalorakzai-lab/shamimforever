@@ -370,6 +370,41 @@ export async function GET(req: NextRequest) {
       is_featured: true,
       is_active: true
     },
+    {
+      name: 'LATTAFA ASAD',
+      slug: 'lattafa-asad',
+      description: 'Lattafa Asad is a powerhouse of a fragrance, crafted for the man who exudes natural authority and strength. As a bold, spicy, and sophisticated amber-spicy creation, it is designed to leave a lasting, commanding impression.',
+      story: JSON.stringify({
+        tagline: 'LATTAFA ASAD — THE EMBODIMENT OF DOMINANCE',
+        olfactory: 'Asad is an exercise in bold masculinity. It commands attention without needing to shout, relying on a complex, dense structure that moves from a sharp, peppery opening to a deep, warm, and woody dry-down.',
+        scentPyramid: {
+          top: 'Black Pepper, Pineapple, and Tobacco — Bold, Sharp, Invigorating.',
+          heart: 'Coffee, Patchouli, and Iris — Dark, Roasted, Refined.',
+          base: 'Vanilla, Amber, Dry Woods, and Benzoin — Creamy, Warm, Deeply Masculine.'
+        },
+        specs: {
+          volume: '100ML (3.4 FL. OZ.)',
+          concentration: 'Eau de Parfum (EDP)',
+          sillage: 'Heavy, Projective, and Commanding',
+          longevity: 'Exceptional (8–12+ Hours)',
+          batch: 'Institutional Standard',
+          price: 'Rs. 8,950 PKR'
+        },
+        nft: {
+          title: 'LATTAFA ASAD — DIGITAL TWIN',
+          description: 'Physical Master-Craft. Cryptographic Proof of Ownership. Every 100ML flacon is natively integrated into the blockchain ledger.'
+        },
+        packaging: 'Housed in a matte black cylindrical bottle, the design is defined by its bold gold accents, featuring a stylized lion emblem that denotes bravery and regality. The gold cross-body band adds a structural, architectural element.'
+      }),
+      price_pkr: 8950,
+      price_usd: 32,
+      inventory: 100,
+      main_category_id: perfumeId,
+      collection_id: heritageMuskId,
+      images: ['https://files.manuscdn.com/user_upload_by_module/session_file/310519663518074252/uDSGiceinCljfxCF.jpg'],
+      is_featured: true,
+      is_active: true
+    },
   ]
 
   const { data: upserted, error: prodError } = await supabase
