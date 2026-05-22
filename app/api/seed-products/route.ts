@@ -405,6 +405,41 @@ export async function GET(req: NextRequest) {
       is_featured: true,
       is_active: true
     },
+    {
+      name: 'RASASI HAWAS FOR HIM',
+      slug: 'rasasi-hawas-for-him',
+      description: 'Rasasi Hawas for Him is widely recognized as a "beast-mode" fragrance, celebrated globally for its incredible performance and mass-appealing scent profile. It is the perfect choice for the modern man who wants a versatile, signature scent.',
+      story: JSON.stringify({
+        tagline: 'RASASI HAWAS FOR HIM — THE ULTIMATE AQUATIC BEAST',
+        olfactory: 'Hawas is designed to be vibrant, energetic, and magnetic. It captures the essence of a modern oceanic journey, starting with a bright, fruity introduction and evolving into a warm, sensual dry-down.',
+        scentPyramid: {
+          top: 'Crisp Apple, Juicy Plum, and Citrusy Bergamot — Explosive, Vibrant, Refreshing.',
+          heart: 'Cinnamon and Cardamom — Masculine, Spicy, Deep.',
+          base: 'Warm Ambergris, Driftwood, and Musk — Magnetic, Long-lasting, Beast-mode.'
+        },
+        specs: {
+          volume: '100ML (3.4 FL. OZ.)',
+          concentration: 'Eau de Parfum (EDP)',
+          sillage: 'Exceptional, Wide, and Persistent',
+          longevity: 'Elite (10–12+ Hours)',
+          batch: 'Institutional Standard',
+          price: 'Rs. 11,900 PKR'
+        },
+        nft: {
+          title: 'RASASI HAWAS FOR HIM — DIGITAL TWIN',
+          description: 'Physical Master-Craft. Cryptographic Proof of Ownership. Every 100ML flacon is natively integrated into the blockchain ledger.'
+        },
+        packaging: 'Housed in a heavy, premium glass bottle, it features a unique python-inspired cap and emblem, reflecting the adventurous and bold nature of the scent. The light purple juice inside mirrors the aquatic and fruity elements.'
+      }),
+      price_pkr: 11900,
+      price_usd: 42,
+      inventory: 100,
+      main_category_id: perfumeId,
+      collection_id: heritageMuskId,
+      images: ['https://files.manuscdn.com/user_upload_by_module/session_file/310519663518074252/eVfdbHyIlrbhZSAp.jpg'],
+      is_featured: true,
+      is_active: true
+    },
   ]
 
   const { data: upserted, error: prodError } = await supabase
