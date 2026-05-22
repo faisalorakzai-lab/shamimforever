@@ -306,7 +306,7 @@ export async function GET(req: NextRequest) {
           sillage: 'Powerful, Bold, and Attention-Grabbing',
           longevity: 'High Endurance (6–10+ Hours)',
           batch: 'Standard Institutional Standard',
-          price: 'Rs 15,000 PKR / $55.00 USD'
+          price: 'Rs 10,500 PKR / $39.00 USD'
         },
         nft: {
           title: 'AFNAN 9PM — DIGITAL TWIN',
@@ -314,7 +314,7 @@ export async function GET(req: NextRequest) {
         },
         packaging: 'Housed in a sleek, iconic heavy glass flacon, the design reflects the simplicity and importance of the scent it protects. The bottle features a minimalist, high-contrast black-and-white aesthetic with bold "9pm" typography.'
       }),
-      price_pkr: 15000,
+      price_pkr: 10500,
       price_usd: 55,
       inventory: 50,
       main_category_id: perfumeId,
@@ -335,6 +335,41 @@ export async function GET(req: NextRequest) {
     { name: 'Heritage Pearl Drop Earrings', slug: 'heritage-pearl-drop-earrings', description: 'South Sea pearl drops suspended from 22-karat gold. The timeless language of luxury, spoken fluently.', story: 'Our pearls are cultured over 5 years in the pristine waters of the Broome coast. Each pair is matched for luster, shape, and size.', price_pkr: 225000, price_usd: 795, inventory: 6, main_category_id: jewelryId, collection_id: imperialRoseId, is_featured: false, is_active: true },
     { name: 'Silk Road Emerald Ring', slug: 'silk-road-emerald-ring', description: 'A 3.2-carat Colombian emerald set in 18-karat yellow gold with diamond pavé. Green as sovereignty, enduring as legacy.', story: "Emeralds were the preferred gemstone of Mughal emperors. Ours is sourced from the Muzo mines of Colombia — the world's finest.", price_pkr: 380000, price_usd: 1349, inventory: 4, main_category_id: jewelryId, collection_id: imperialRoseId, is_featured: false, is_active: true },
     { name: 'Eternal Rose Gold Bracelet', slug: 'eternal-rose-gold-bracelet', description: 'An 18-karat rose gold bracelet with alternating rubies and diamonds. Love, power, and eternity bound in gold.', story: 'Rose gold first rose to prominence during the Romantic era. Our bracelet honors this history while declaring a new chapter of sovereign luxury.', price_pkr: 195000, price_usd: 695, inventory: 5, main_category_id: jewelryId, collection_id: imperialRoseId, is_featured: false, is_active: true },
+    {
+      name: 'J. FRAGRANCES SHER DIL',
+      slug: 'sher-dil',
+      description: 'Sher Dil by J. Fragrances is a scent crafted for the brave, serving as a profound tribute to the heroes of Pakistan. Designed to mirror the spirit of resilience, sacrifice, and patriotism, this fragrance is more than just an accessory; it is a symbol of national pride.',
+      story: JSON.stringify({
+        tagline: 'J. FRAGRANCES SHER DIL — THE EMBLEM OF VALOR',
+        olfactory: 'Sher Dil is a sophisticated, masculine fragrance that balances invigorating energy with a deep, grounded foundation. It represents the duality of the modern hero: the sharp focus required for duty and the warm, enduring spirit of love for one\'s nation.',
+        scentPyramid: {
+          top: 'Fresh Citrus and Green Apple — Energetic, Alert, Precise.',
+          heart: 'Floral-Fruity heart spiced with Pepper — Complex, Elegant, Sophisticated.',
+          base: 'Rich Leather, Patchouli, Amber, and Deep Cedarwood — Powerful, Commanding, Steadfast.'
+        },
+        specs: {
+          volume: '100ML',
+          concentration: 'Eau de Parfum (EDP)',
+          sillage: 'Dynamic, Resilient, and Commanding',
+          longevity: 'Excellent (Designed for extended endurance)',
+          batch: 'Institutional Standard',
+          price: 'Rs. 12,200'
+        },
+        nft: {
+          title: 'SHER DIL — DIGITAL TWIN',
+          description: 'Physical Master-Craft. Cryptographic Proof of Ownership. Every 100ML flacon is natively integrated into the blockchain ledger.'
+        },
+        packaging: 'Sher Dil is presented in a premium, high-end luxury leather collector\'s gift box. The bottle features a striking, iconic golden eagle cap—an emblem of flight and freedom. The deep navy blue color of the flacon evokes the expansive sky and the professional attire of national heroes.'
+      }),
+      price_pkr: 12200,
+      price_usd: 45,
+      inventory: 100,
+      main_category_id: perfumeId,
+      collection_id: heritageMuskId,
+      images: ['https://files.manuscdn.com/user_upload_by_module/session_file/310519663518074252/jRuwBQFAyiZGbmPR.jpg'],
+      is_featured: true,
+      is_active: true
+    },
   ]
 
   const { data: upserted, error: prodError } = await supabase
