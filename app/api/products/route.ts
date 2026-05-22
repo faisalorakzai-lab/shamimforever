@@ -26,7 +26,7 @@ export async function GET(req: NextRequest) {
   if (category) query = query.eq('main_category_id', category)
   if (featured === 'true') query = query.eq('is_featured', true)
 
-  const { data, error } = await query.order('created_at', { ascending: false })
+  const { data, error } = await query.order('created_at', { ascending: true })
 
   if (error) return NextResponse.json({ error: error.message }, { status: 500 })
   return NextResponse.json({ products: data || [] })
