@@ -173,7 +173,7 @@ export default function ArticlePage({ params }: { params: { slug: string } }) {
         if (data) setPost({ ...data, body: [data.content ?? data.excerpt ?? ''], pullQuote: '', secondImage: '', nextSlug: '', nextTitle: '', nextImage: '', nextCategory: '' })
         setLoading(false)
       })
-      .catch(() => setLoading(false))
+      
   }, [params.slug])
 
   if (loading) return (
