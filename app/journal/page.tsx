@@ -100,7 +100,7 @@ export default function JournalPage() {
       .then(({ data }) => {
         if (data && data.length > 0) setPosts(data)
       })
-      .catch(() => {})
+      
   }, [])
 
   const [featured, ...rest] = posts.length > 0 ? posts : ARTICLES
