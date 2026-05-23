@@ -480,6 +480,41 @@ export async function GET(req: NextRequest) {
       is_featured: true,
       is_active: true
     },
+    {
+      name: 'ARMAF CLUB DE NUIT INTENSE MAN',
+      slug: 'armaf-club-de-nuit-intense-man',
+      description: 'Armaf Club de Nuit Intense Man (CDNIM) is widely regarded as one of the most iconic fragrances in the modern era of perfumery. Celebrated globally as the definitive alternative to Creed Aventus, it is an essential scent for the man who values professional success.',
+      story: JSON.stringify({
+        tagline: 'ARMAF CLUB DE NUIT INTENSE MAN — THE LEGENDARY TRAILBLAZER',
+        olfactory: 'CDNIM is a scent that effortlessly bridges the gap between casual and formal. It opens with an explosive, attention-grabbing citrus blast that quickly transitions into a complex, smoky heart.',
+        scentPyramid: {
+          top: 'Lemon, Bergamot, Black Currant, Apple, and Pineapple — Explosive, Zesty, Refreshing.',
+          heart: 'Birch, Jasmine, and Rose — Sophisticated, Floral-Spicy, Smoky.',
+          base: 'Musk, Ambergris, Patchouli, and Vanilla — Creamy, Earthy, Seductive.'
+        },
+        specs: {
+          volume: '200ML',
+          concentration: 'Eau de Parfum (EDP)',
+          sillage: 'Exceptional, Wide, and Persistent',
+          longevity: 'Elite (10–12+ Hours)',
+          batch: 'Institutional Standard',
+          price: 'Rs. 13,500'
+        },
+        nft: {
+          title: 'CLUB DE NUIT INTENSE MAN — DIGITAL TWIN',
+          description: 'Physical Master-Craft. Cryptographic Proof of Ownership. Every 200ML flacon is natively integrated into the blockchain ledger.'
+        },
+        packaging: 'Housed in a heavy, signature black cuboid bottle, it is accented with understated, luxurious touches. The inclusion of the iconic hanging chain tag and the crystal-encrusted cap elevates the presentation.'
+      }),
+      price_pkr: 13500,
+      price_usd: 49,
+      inventory: 100,
+      main_category_id: perfumeId,
+      collection_id: heritageMuskId,
+      images: ['https://files.manuscdn.com/user_upload_by_module/session_file/310519663518074252/fCfeSnNahPWzYyBJ.jpg'],
+      is_featured: true,
+      is_active: true
+    },
     // Cosmetics (5) - Heritage Musk Collection
     { name: 'Sovereign Lip Elixir', slug: 'sovereign-lip-elixir', description: 'A lip treatment infused with 24-karat gold, rare rose hip oil, and diamond powder. Lips transformed, sovereignty expressed.', story: 'Formulated in our Lahore atelier, this elixir took 18 months of development to achieve the perfect balance of treatment and luxury.', price_pkr: 25000, price_usd: 89, inventory: 35, main_category_id: cosmeticsId, collection_id: heritageMuskId, is_featured: false, is_active: true },
     { name: 'Imperial Glow Serum', slug: 'imperial-glow-serum', description: 'A potent 24-karat gold and vitamin C serum that illuminates from within. The foundation of the sovereign skincare ritual.', story: "Gold has been used in skincare since Cleopatra's reign. We've refined this ancient wisdom with modern bioactive technology.", price_pkr: 42000, price_usd: 149, inventory: 22, main_category_id: cosmeticsId, collection_id: heritageMuskId, is_featured: true, is_active: true },
