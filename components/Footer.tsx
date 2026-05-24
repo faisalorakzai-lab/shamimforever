@@ -78,9 +78,9 @@ export default function Footer() {
                 className="text-[8px] tracking-[0.4em] uppercase text-zinc-700 hover:text-[#c9a054] transition-colors duration-500">
                 WhatsApp →
               </a>
-              <a href="mailto:concierge@shamimforever.com"
+              <a href="mailto:concierge@shamimf.com"
                 className="text-[8px] tracking-[0.35em] uppercase text-zinc-800 hover:text-[#c9a054] transition-colors duration-500">
-                concierge@shamimforever.com
+                concierge@shamimf.com
               </a>
             </div>
           </motion.div>
@@ -116,11 +116,11 @@ export default function Footer() {
             <p className="text-[8px] tracking-[0.5em] uppercase text-[#c9a054] mb-6">Contact</p>
             <div className="flex flex-col gap-3 mb-6">
               {[
-                { label: 'Concierge', addr: 'concierge@shamimforever.com' },
-                { label: 'Bespoke', addr: 'bespoke@shamimforever.com' },
-                { label: 'Boutiques', addr: 'maisons@shamimforever.com' },
-                { label: 'Relations', addr: 'relations@shamimforever.com' },
-                { label: 'Media', addr: 'media@shamimforever.com' },
+                { label: 'Concierge', addr: 'concierge@shamimf.com' },
+                { label: 'Bespoke', addr: 'bespoke@shamimf.com' },
+                { label: 'Boutiques', addr: 'maisons@shamimf.com' },
+                { label: 'Relations', addr: 'relations@shamimf.com' },
+                { label: 'Media', addr: 'media@shamimf.com' },
               ].map(e => (
                 <div key={e.addr}>
                   <p className="text-[7px] tracking-[0.4em] uppercase text-zinc-800">{e.label}</p>
