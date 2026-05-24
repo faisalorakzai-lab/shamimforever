@@ -60,23 +60,25 @@ const PROTOCOL_STEPS: ProtocolStep[] = [
   {
     n: '01',
     title: 'Vault Preparation',
-    img: '/chauffeur-2.png',
+    img: '/delivery-vault.png',
     desc: 'Each creation is inspected by white-gloved hands, wax-sealed, and prepared in our sovereign vault before departure. No exceptions.',
   },
   {
     n: '02',
     title: 'Chauffeur Assignment',
-    img: '/chauffeur-1.png',
+    img: '/delivery-chauffeur.png',
     desc: 'A dedicated delivery operative is personally assigned before departure. Identity confirmed. Route briefed. Creation transferred under direct custody.',
   },
   {
     n: '03',
     title: 'Climate Transit',
+    img: '/delivery-transit.png',
     desc: 'Temperature maintained at 18–22°C throughout the journey. Fragrances sealed in climate-controlled aluminium cases — never exposed to heat, light, or shock.',
   },
   {
     n: '04',
     title: 'Arrival Ceremony',
+    img: '/delivery-arrival.png',
     desc: 'Luxury presentation at your door. Identity confirmation. Hand-signed receipt. NFC activation. The delivery is not complete until the sovereign seal is transferred.',
   },
 ]
@@ -178,7 +180,7 @@ export default function DeliveryPage() {
       <section className="relative min-h-screen flex flex-col justify-end pb-16 md:pb-24 overflow-hidden border-b border-[#0a0a0a]">
         <div className="absolute inset-0">
           <img
-            src="/chauffeur-1.png" alt="Private Delivery"
+            src="/delivery-chauffeur.png" alt="Private Delivery"
             className="w-full h-full object-cover object-center"
             style={{ filter: 'brightness(0.22) contrast(1.15) saturate(0.6)' }}
           />
@@ -523,7 +525,7 @@ export default function DeliveryPage() {
       <section className="relative px-5 md:px-12 lg:px-20 py-24 md:py-36 text-center overflow-hidden">
         <div className="absolute inset-0">
           <img
-            src="/chauffeur-2.png" alt="Delivery"
+            src="/delivery-vault.png" alt="Delivery"
             className="w-full h-full object-cover object-top"
             style={{ filter: 'brightness(0.1) contrast(1.2) saturate(0.4)' }}
           />
