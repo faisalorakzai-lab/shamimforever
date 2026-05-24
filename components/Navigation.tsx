@@ -52,7 +52,7 @@ export default function Navigation() {
               ))}
             </nav>
 
-            <div className="flex items-center gap-4 md:gap-5">
+            <div className="flex items-center gap-3 md:gap-4">
               <Link href="/inner-circle"
                 className="hidden lg:block text-[9px] tracking-[0.4em] uppercase text-[#c9a054] hover:text-zinc-100 transition-colors duration-500">
                 Inner Circle
@@ -61,15 +61,24 @@ export default function Navigation() {
                 className="hidden lg:block text-[8px] tracking-[0.35em] uppercase text-zinc-600 hover:text-[#c9a054] transition-colors duration-500 border border-[#111] px-3 py-1.5 hover:border-[#c9a054]/30">
                 AI Scanner
               </Link>
+
+              {/* ── ACCESS BUTTON ── visible on mobile + desktop */}
+              <Link href="/auth"
+                className="group relative inline-flex items-center justify-center px-3 md:px-4 py-1.5 md:py-2 border border-[#c9a054]/50 text-[7px] md:text-[8px] tracking-[0.35em] md:tracking-[0.4em] uppercase text-[#c9a054] overflow-hidden hover:border-[#c9a054] transition-colors duration-300">
+                <span className="absolute inset-0 bg-[#c9a054] translate-y-full group-hover:translate-y-0 transition-transform duration-500" />
+                <span className="relative z-10 group-hover:text-[#050505] transition-colors duration-300">Access</span>
+              </Link>
+
               <button onClick={() => setDrawerOpen(true)}
-                className="lg:hidden flex flex-col gap-1.5 group p-2" aria-label="Open menu">
-                <span className="w-6 h-px bg-zinc-400 group-hover:bg-[#c9a054] transition-colors duration-300" />
-                <span className="w-4 h-px bg-zinc-400 group-hover:bg-[#c9a054] transition-colors duration-300" />
+                className="lg:hidden flex flex-col gap-1.5 group p-1 ml-1">
+                <span className="w-5 h-px bg-zinc-400 group-hover:bg-[#c9a054] transition-colors duration-500" />
+                <span className="w-3.5 h-px bg-zinc-400 group-hover:bg-[#c9a054] transition-colors duration-500 ml-auto" />
               </button>
             </div>
           </div>
         </div>
       </motion.header>
+
       <MobileDrawer open={drawerOpen} onClose={() => setDrawerOpen(false)} />
     </>
   )
