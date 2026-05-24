@@ -4,6 +4,7 @@ import 'mapbox-gl/dist/mapbox-gl.css'
 import Navigation from '@/components/Navigation'
 import Footer from '@/components/Footer'
 import LuxuryCursor from '@/components/LuxuryCursor'
+import { Web3Provider } from '@/components/Web3Provider'
 
 export const metadata: Metadata = {
   title: 'Shamim Forever — Sovereign Luxury',
@@ -24,12 +25,14 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="bg-[#050505] text-zinc-200 antialiased cursor-none lg:cursor-none">
-        <LuxuryCursor />
-        <Navigation />
-        <main className="min-h-screen">
-          {children}
-        </main>
-        <Footer />
+        <Web3Provider>
+          <LuxuryCursor />
+          <Navigation />
+          <main className="min-h-screen">
+            {children}
+          </main>
+          <Footer />
+        </Web3Provider>
       </body>
     </html>
   )
