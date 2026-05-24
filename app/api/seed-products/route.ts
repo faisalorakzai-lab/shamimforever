@@ -73,7 +73,7 @@ export async function GET(req: NextRequest) {
 
   // Step 5: Upsert products
   const products = [
-    // Perfume (5) - Sovereign Oud Collection
+    // Perfumes
     { 
       name: 'SF OUD SOVEREIGN', 
       slug: 'oud-sovereign', 
@@ -119,7 +119,7 @@ export async function GET(req: NextRequest) {
       inventory: 18, 
       main_category_id: perfumeId, 
       collection_id: sovereignOudId, 
-      images: ['https://uvgtgeauhjbdatrmmaob.supabase.co/storage/v1/object/public/products/perfumes/oud-sovereign-new.png'], // Placeholder as original was missing
+      images: ['https://uvgtgeauhjbdatrmmaob.supabase.co/storage/v1/object/public/products/perfumes/oud-sovereign-new.png'],
       is_featured: false, 
       is_active: true 
     },
@@ -133,7 +133,7 @@ export async function GET(req: NextRequest) {
       inventory: 20, 
       main_category_id: perfumeId, 
       collection_id: heritageMuskId, 
-      images: ['https://uvgtgeauhjbdatrmmaob.supabase.co/storage/v1/object/public/products/perfumes/himalayan-snow-musk.png'], // Placeholder
+      images: ['https://uvgtgeauhjbdatrmmaob.supabase.co/storage/v1/object/public/products/perfumes/himalayan-snow-musk.png'],
       is_featured: true, 
       is_active: true 
     },
@@ -147,7 +147,7 @@ export async function GET(req: NextRequest) {
       inventory: 25, 
       main_category_id: perfumeId, 
       collection_id: sovereignOudId, 
-      images: ['https://uvgtgeauhjbdatrmmaob.supabase.co/storage/v1/object/public/products/perfumes/vanilla-absolute.png'], // Placeholder
+      images: ['https://uvgtgeauhjbdatrmmaob.supabase.co/storage/v1/object/public/products/perfumes/vanilla-absolute.png'],
       is_featured: false, 
       is_active: true 
     },
@@ -161,7 +161,7 @@ export async function GET(req: NextRequest) {
       inventory: 8, 
       main_category_id: perfumeId, 
       collection_id: imperialRoseId, 
-      images: ['https://uvgtgeauhjbdatrmmaob.supabase.co/storage/v1/object/public/products/perfumes/midnight-iris-royale.png'], // Placeholder
+      images: ['https://uvgtgeauhjbdatrmmaob.supabase.co/storage/v1/object/public/products/perfumes/midnight-iris-royale.png'],
       is_featured: true, 
       is_active: true 
     },
@@ -515,13 +515,13 @@ export async function GET(req: NextRequest) {
       is_featured: true,
       is_active: true
     },
-    // Cosmetics (5) - Heritage Musk Collection
+    // Cosmetics
     { name: 'Sovereign Lip Elixir', slug: 'sovereign-lip-elixir', description: 'A lip treatment infused with 24-karat gold, rare rose hip oil, and diamond powder. Lips transformed, sovereignty expressed.', story: 'Formulated in our Lahore atelier, this elixir took 18 months of development to achieve the perfect balance of treatment and luxury.', price_pkr: 25000, price_usd: 89, inventory: 35, main_category_id: cosmeticsId, collection_id: heritageMuskId, is_featured: false, is_active: true },
     { name: 'Imperial Glow Serum', slug: 'imperial-glow-serum', description: 'A potent 24-karat gold and vitamin C serum that illuminates from within. The foundation of the sovereign skincare ritual.', story: "Gold has been used in skincare since Cleopatra's reign. We've refined this ancient wisdom with modern bioactive technology.", price_pkr: 42000, price_usd: 149, inventory: 22, main_category_id: cosmeticsId, collection_id: heritageMuskId, is_featured: true, is_active: true },
     { name: 'Heritage Rose Face Cream', slug: 'heritage-rose-face-cream', description: 'Our richest moisturizer, built on Taif rose water and Persian saffron extract. Skin sovereignty, achieved.', story: 'Inspired by the skincare rituals of Mughal empresses, this cream uses rose water distilled in our own atelier from Taif petals.', price_pkr: 38000, price_usd: 135, inventory: 28, main_category_id: cosmeticsId, collection_id: imperialRoseId, is_featured: false, is_active: true },
     { name: 'Silk Velvet Foundation', slug: 'silk-velvet-foundation', description: 'A lightweight, long-wear foundation with silk proteins and SPF 30. 18 sovereignly curated shades for every complexion.', story: 'Three years in development. Tested across 500 skin types in Pakistan, UAE, and the UK. The result is flawless, sovereign skin.', price_pkr: 32000, price_usd: 115, inventory: 40, main_category_id: cosmeticsId, collection_id: heritageMuskId, is_featured: false, is_active: true },
     { name: 'Midnight Kohl Noir', slug: 'midnight-kohl-noir', description: 'Artisanal kohl crafted from pure antimony stone, as it has been for 5,000 years. The original eye sovereign.', story: "Our kohl is sourced from the same antimony mines that supplied the royal courts of the Mughal Empire. Ground by hand. Charged with history.", price_pkr: 18000, price_usd: 65, inventory: 50, main_category_id: cosmeticsId, collection_id: heritageMuskId, is_featured: true, is_active: true },
-    // Jewelry (5) - Imperial Rose Collection
+    // Jewelry
     { name: 'Sovereign Gold Collar', slug: 'sovereign-gold-collar', description: '22-karat gold collar necklace hand-crafted by our master goldsmiths. A statement of absolute sovereignty.', story: 'Inspired by the jewelry worn by the queens of the Indus Valley Civilization, this collar reimagines 5,000 years of jewelry-making tradition.', price_pkr: 485000, price_usd: 1699, inventory: 3, main_category_id: jewelryId, collection_id: imperialRoseId, is_featured: true, is_active: true },
     { name: 'Imperial Diamond Cuff', slug: 'imperial-diamond-cuff', description: 'An 18-karat white gold cuff set with 2.8 carats of VS1 diamonds. Worn by those who make history.', story: 'Each diamond is individually selected from Botswana mines for color, clarity, and cut. The result is a piece that transcends generations.', price_pkr: 750000, price_usd: 2649, inventory: 2, main_category_id: jewelryId, collection_id: imperialRoseId, is_featured: true, is_active: true },
     { name: 'Heritage Pearl Drop Earrings', slug: 'heritage-pearl-drop-earrings', description: 'South Sea pearl drops suspended from 22-karat gold. The timeless language of luxury, spoken fluently.', story: 'Our pearls are cultured over 5 years in the pristine waters of the Broome coast. Each pair is matched for luster, shape, and size.', price_pkr: 225000, price_usd: 795, inventory: 6, main_category_id: jewelryId, collection_id: imperialRoseId, is_featured: false, is_active: true },
@@ -544,6 +544,6 @@ export async function GET(req: NextRequest) {
     collections: 3,
     categories: 3,
     products: upserted?.length ?? products.length,
-    breakdown: { perfume: 11, cosmetics: 5, jewelry: 5 },
+    breakdown: { perfume: 15, cosmetics: 5, jewelry: 5 },
   })
 }
