@@ -13,8 +13,9 @@ function AuraOrb() {
   const ref = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    const el = ref.current; if(!el) return
     function onMove(e: MouseEvent) {
+      const el = ref.current
+      if (!el) return
       const r = el.getBoundingClientRect()
       const cx = r.left + r.width/2, cy = r.top + r.height/2
       mx.set((e.clientX - cx) * 0.12)
@@ -22,7 +23,7 @@ function AuraOrb() {
     }
     window.addEventListener('mousemove', onMove)
     return () => window.removeEventListener('mousemove', onMove)
-  }, [])
+  }, [mx, my])
 
   return (
     <div ref={ref} className="relative w-64 h-64 md:w-80 md:h-80 mx-auto">
