@@ -1,5 +1,5 @@
 'use client'
-import { motion, useAnimationFrame } from 'framer-motion'
+import { motion } from 'framer-motion'
 import { useRef, useState } from 'react'
 import Link from 'next/link'
 
@@ -8,14 +8,22 @@ const fv = (d=0) => ({ initial:{opacity:0,y:30}, whileInView:{opacity:1,y:0}, vi
 
 function DnaStrand() {
   const t = useRef(0)
-  const [dots, setDots] = useState(() => Array.from({length:16}, (_,i) => ({ x:0, y:0, o:1 })))
-  useAnimationFrame((_, delta) => {
-    t.current += delta * 0.001
-    setDots(Array.from({length:16}, (_,i) => {
-      const phase = (i / 16) * Math.PI * 2 + t.current * 2
-      return { x: Math.sin(phase) * 40, y: (i / 15) * 200 - 100, o: 0.3 + Math.abs(Math.sin(phase)) * 0.7 }
-    }))
-  })
+  const rafRef = useRef<number>(0)
+  const [dots, setDots] = useState(() => Array.from({length:16}, () => ({ x:0, y:0, o:1 })))
+  useEffect(() => {
+    let last = 0
+    function tick(now: number) {
+      const delta = now - last; last = now
+      t.current += delta * 0.001
+      setDots(Array.from({length:16}, (_,i) => {
+        const phase = (i / 16) * Math.PI * 2 + t.current * 2
+        return { x: Math.sin(phase) * 40, y: (i / 15) * 200 - 100, o: 0.3 + Math.abs(Math.sin(phase)) * 0.7 }
+      }))
+      rafRef.current = requestAnimationFrame(tick)
+    }
+    rafRef.current = requestAnimationFrame(tick)
+    return () => cancelAnimationFrame(rafRef.current)
+  }, [])
   return (
     <div className="relative h-64 w-full flex items-center justify-center overflow-hidden">
       <svg width="160" height="220" viewBox="-80 -110 160 220" className="overflow-visible">
