@@ -73,13 +73,6 @@ export default function AuthenticatePage() {
   const [activationWallet, setActivationWallet] = useState('')
   const inputRef = useRef<HTMLInputElement>(null)
 
-  // Check URL param for NFC/QR tap
-  useEffect(() => {
-    const params = new URLSearchParams(window.location.search)
-    const s = params.get('serial') || params.get('s')
-    if (s) { setSerial(s); handleVerify(s) }
-  }, [])
-
   function handleVerify(overrideSerial?: string) {
     const s = (overrideSerial || serial).trim().toUpperCase()
     if (!s) return
@@ -89,18 +82,25 @@ export default function AuthenticatePage() {
         if (error || !data) {
           setTimeout(() => setUiState('counterfeit'), 2000)
         } else {
-          setRecord(data as AuthRecord)
+          setRecord(data as unknown as AuthRecord)
           setTimeout(() => setUiState('verified'), 2000)
         }
       })
   }
+
+  // Check URL param for NFC/QR tap
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search)
+    const s = params.get('serial') || params.get('s')
+    if (s) { setSerial(s); handleVerify(s) }
+  }, [])
 
   function handleActivation(e: React.FormEvent) {
     e.preventDefault()
     if (!record) return
     setUiState('activating')
     supabase.from('product_authentication').update({
-      verification_status: true,
+      verification_status: true as boolean,
       activation_date: new Date().toISOString(),
       owner_wallet: activationWallet || record.owner_wallet,
       owner_name: activationEmail
