@@ -1,10 +1,14 @@
 'use client'
 
 import { ReactNode } from 'react'
-import { WagmiProvider, createConfig, http } from 'wagmi'
+import { WagmiProvider } from 'wagmi'
 import { polygon } from 'wagmi/chains'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import { RainbowKitProvider, darkTheme, getDefaultConfig } from '@rainbow-me/rainbowkit'
+import {
+  RainbowKitProvider, darkTheme, getDefaultConfig,
+  trustWallet, metaMaskWallet, walletConnectWallet,
+  coinbaseWallet, rainbowWallet, ledgerWallet,
+} from '@rainbow-me/rainbowkit'
 import '@rainbow-me/rainbowkit/styles.css'
 
 const config = getDefaultConfig({
@@ -12,6 +16,16 @@ const config = getDefaultConfig({
   projectId: process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID ?? 'f8a6b7d9e3c14a2b8f5d1e7c9a4b3d2e',
   chains: [polygon],
   ssr: true,
+  wallets: [
+    {
+      groupName: 'Recommended',
+      wallets: [metaMaskWallet, trustWallet, walletConnectWallet],
+    },
+    {
+      groupName: 'More',
+      wallets: [coinbaseWallet, rainbowWallet, ledgerWallet],
+    },
+  ],
 })
 
 const queryClient = new QueryClient()
