@@ -16,7 +16,8 @@ const fv = (d = 0) => ({ initial: { opacity: 0, y: 30 }, whileInView: { opacity:
 
 const TRACK_STEPS = ['Vault Prepared','Identity Verified','Route Secured','Chauffeur Assigned','Transit Active','Arrival Confirmed']
 
-const PROTOCOL_STEPS = [
+type ProtocolStep = { n: string; title: string; img?: string; desc: string }
+const PROTOCOL_STEPS: ProtocolStep[] = [
   { n: '01', title: 'Vault Preparation', img: '/chauffeur-2.png', desc: 'Each creation is inspected by white-gloved hands, wax-sealed, and prepared in our sovereign vault before departure. No exceptions.' },
   { n: '02', title: 'Chauffeur Assignment', img: '/chauffeur-1.png', desc: 'A dedicated delivery operative is personally assigned before departure. Identity confirmed. Route briefed. Creation transferred under direct custody.' },
   { n: '03', title: 'Climate Transit', desc: 'Temperature maintained at 18–22°C throughout the journey. Fragrances are sealed in climate-controlled aluminium cases — never exposed to heat, light, or shock.' },
@@ -58,7 +59,7 @@ export default function DeliveryPage() {
         } else {
           const steps = TRACK_STEPS
           const idx = steps.indexOf(data.delivery_status)
-          setTrackResult({ step: idx >= 0 ? idx : 3, city: data.current_city || 'Karachi', status: data.delivery_status })
+          setTrackResult({ step: idx >= 0 ? idx : 3, city: (data as any).current_city || 'Karachi', status: (data as any).delivery_status })
         }
       })
   }
@@ -288,7 +289,7 @@ export default function DeliveryPage() {
             ].map(f => (
               <div key={f.n} className="group border-b border-[#0d0d0d] focus-within:border-[#c9a054]/30 transition-colors duration-500">
                 <label className="block pt-5 pb-1 text-[7px] tracking-[0.45em] uppercase text-zinc-700 group-focus-within:text-[#c9a054] transition-colors duration-400">{f.l}</label>
-                <input type={f.t} required value={(form as any)[f.n]} onChange={e => setForm(p => ({ ...p, [f.n]: e.target.value }))}
+                <input type={f.t} required value={form[f.n as keyof typeof form]} onChange={e => setForm(p => ({ ...p, [f.n]: e.target.value }))}
                   className="w-full pb-4 bg-transparent text-zinc-300 text-sm font-light outline-none" />
               </div>
             ))}
