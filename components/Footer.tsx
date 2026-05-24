@@ -3,108 +3,158 @@
 import Link from 'next/link'
 import { motion } from 'framer-motion'
 
+const NAV_LINKS = [
+  { label: 'Shop', href: '/shop' },
+  { label: 'Collections', href: '/collections' },
+  { label: 'Atelier', href: '/atelier' },
+  { label: 'Journal', href: '/journal' },
+  { label: 'Boutiques', href: '/boutiques' },
+  { label: 'Our Story', href: '/our-story' },
+]
+
+const ACCESS_LINKS = [
+  { label: 'Inner Circle', href: '/inner-circle' },
+  { label: 'Concierge', href: '/concierge' },
+  { label: 'Virtual Atelier', href: '/virtual-atelier' },
+  { label: 'Whitelist Access', href: '/whitelist' },
+  { label: 'Sovereign Panel', href: '/admin' },
+]
+
+const INFRA_LINKS = [
+  { label: 'Authenticate', href: '/authenticate' },
+  { label: 'Concierge & Care', href: '/care' },
+  { label: 'Private Delivery', href: '/delivery' },
+  { label: 'Bespoke Atelier', href: '/bespoke' },
+  { label: 'Heritage Gallery', href: '/gallery' },
+  { label: 'Whitelist Access', href: '/whitelist' },
+  { label: 'DNA Identity', href: '/dna-identity' },
+  { label: 'Time Archive', href: '/time-archive' },
+  { label: 'Heirloom Vault', href: '/heirloom-vault' },
+  { label: 'Sovereign Aura', href: '/sovereign-aura' },
+]
+
+const fadeUp = {
+  initial: { opacity: 0, y: 20 },
+  whileInView: { opacity: 1, y: 0 },
+  viewport: { once: true },
+  transition: { duration: 1, ease: [0.16, 1, 0.3, 1] as const },
+}
+
 export default function Footer() {
   return (
-    <footer className="border-t border-[#1a1a1a] bg-[#0a0a0a] mt-32">
-      <div className="max-w-[1600px] mx-auto px-6 md:px-12 lg:px-20 py-20">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-16">
-          {/* Brand */}
-          <div className="md:col-span-1">
-            <Link href="/">
-              <div className="flex flex-col leading-none mb-6">
-                <span className="font-serif text-2xl font-light tracking-[0.3em] uppercase text-zinc-100">
-                  Shamim
-                </span>
-                <span className="font-serif text-[9px] tracking-[0.5em] uppercase text-[#c9a054]">
-                  Forever
-                </span>
-              </div>
-            </Link>
-            <p className="text-zinc-500 text-xs font-light leading-relaxed tracking-wide max-w-[200px]">
-              A sovereign luxury digital house. Crafted for the discerning few.
+    <footer className="border-t border-[#0d0d0d] bg-[#030303]">
+      {/* Top manifesto strip */}
+      <div className="border-b border-[#0d0d0d] px-5 md:px-12 lg:px-20 py-10 md:py-14">
+        <motion.div {...fadeUp} className="flex flex-col md:flex-row items-start md:items-end justify-between gap-6">
+          <div>
+            <p className="text-[8px] tracking-[0.55em] uppercase text-zinc-800 mb-3">House of Shamim Forever</p>
+            <p className="font-serif font-light italic text-2xl md:text-3xl text-zinc-600 max-w-xl leading-snug">
+              "Built From Love. Forged Into Legacy."
             </p>
           </div>
-
-          {/* Navigation */}
-          <div>
-            <p className="luxury-meta mb-6">Navigate</p>
-            <div className="flex flex-col gap-4">
-              {[
-                { label: 'Shop', href: '/shop' },
-                { label: 'Collections', href: '/collections' },
-                { label: 'Atelier', href: '/atelier' },
-                { label: 'Journal', href: '/journal' },
-                { label: 'Boutiques', href: '/boutiques' },
-              ].map((link) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  className="text-xs tracking-[0.2em] uppercase text-zinc-500 hover:text-[#c9a054] transition-colors duration-500"
-                >
-                  {link.label}
-                </Link>
-              ))}
-            </div>
+          <div className="flex flex-wrap gap-2">
+            {['PKR', 'USD', 'USDT', 'USDC', 'OKBOND'].map(p => (
+              <span key={p} className="text-[7px] tracking-[0.35em] uppercase text-zinc-700 border border-[#111] px-2.5 py-1.5">{p}</span>
+            ))}
           </div>
+        </motion.div>
+      </div>
 
-          {/* Access */}
-          <div>
-            <p className="luxury-meta mb-6">Access</p>
-            <div className="flex flex-col gap-4">
-              {[
-                { label: 'Inner Circle', href: '/inner-circle' },
-                { label: 'Authenticate', href: '/auth' },
-                { label: 'Sovereign Panel', href: '/admin' },
-              ].map((link) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  className="text-xs tracking-[0.2em] uppercase text-zinc-500 hover:text-[#c9a054] transition-colors duration-500"
-                >
-                  {link.label}
-                </Link>
-              ))}
-            </div>
-          </div>
+      {/* Main grid */}
+      <div className="px-5 md:px-12 lg:px-20 py-14 md:py-20">
+        <div className="grid grid-cols-2 md:grid-cols-[1fr_1fr_1fr_1fr_1.4fr] gap-10 md:gap-8">
 
-          {/* Contact */}
-          <div>
-            <p className="luxury-meta mb-6">Concierge</p>
-            <div className="flex flex-col gap-4">
-              <p className="text-xs text-zinc-500 font-light leading-relaxed">
-                Private viewings available by appointment.
-              </p>
-              <a
-                href="mailto:faisalorakzaiofficial@gmail.com"
-                className="text-xs tracking-[0.2em] uppercase text-zinc-500 hover:text-[#c9a054] transition-colors duration-500"
-              >
-                Request Consultation
+          {/* Brand */}
+          <motion.div {...fadeUp} className="col-span-2 md:col-span-1">
+            <Link href="/">
+              <img src="/logo.png" alt="Shamim Forever" className="h-10 w-auto object-contain mb-6 opacity-80 hover:opacity-100 transition-opacity duration-500"
+                style={{ filter: 'drop-shadow(0 0 6px rgba(201,160,84,0.15))' }} />
+            </Link>
+            <p className="text-zinc-600 text-xs font-light leading-relaxed max-w-[180px] mb-6">
+              A sovereign luxury house. Crafted for the discerning few.
+            </p>
+            <div className="flex flex-col gap-2">
+              <a href="https://wa.me/923119447572" target="_blank" rel="noopener noreferrer"
+                className="text-[8px] tracking-[0.4em] uppercase text-zinc-700 hover:text-[#c9a054] transition-colors duration-500">
+                WhatsApp →
+              </a>
+              <a href="mailto:concierge@shamimforever.com"
+                className="text-[8px] tracking-[0.35em] uppercase text-zinc-800 hover:text-[#c9a054] transition-colors duration-500">
+                concierge@shamimforever.com
               </a>
             </div>
+          </motion.div>
 
-            <div className="mt-10">
-              <p className="luxury-meta mb-4">Payments</p>
-              <div className="flex flex-wrap gap-2">
-                {['PKR', 'USD', 'USDT', 'USDC', 'OKBOND'].map((p) => (
-                  <span
-                    key={p}
-                    className="text-[8px] tracking-[0.3em] uppercase text-zinc-600 border border-[#1a1a1a] px-2 py-1"
-                  >
-                    {p}
-                  </span>
-                ))}
-              </div>
+          {/* Navigate */}
+          <motion.div {...fadeUp} transition={{ duration: 1, delay: 0.08, ease: [0.16, 1, 0.3, 1] as const }}>
+            <p className="text-[8px] tracking-[0.5em] uppercase text-[#c9a054] mb-6">Navigate</p>
+            <div className="flex flex-col gap-3.5">
+              {NAV_LINKS.map(l => (
+                <Link key={l.href} href={l.href}
+                  className="text-[10px] tracking-[0.25em] uppercase text-zinc-600 hover:text-zinc-200 transition-colors duration-500">
+                  {l.label}
+                </Link>
+              ))}
             </div>
-          </div>
-        </div>
+          </motion.div>
 
-        <div className="mt-20 pt-8 border-t border-[#1a1a1a] flex flex-col md:flex-row items-center justify-between gap-4">
-          <p className="text-[9px] tracking-[0.3em] uppercase text-zinc-700">
-            © 2025 Shamim Forever. All Rights Reserved.
-          </p>
-          <p className="text-[9px] tracking-[0.3em] uppercase text-zinc-700">
-            Sovereign Luxury — Est. 2025
-          </p>
+          {/* Access */}
+          <motion.div {...fadeUp} transition={{ duration: 1, delay: 0.14, ease: [0.16, 1, 0.3, 1] as const }}>
+            <p className="text-[8px] tracking-[0.5em] uppercase text-[#c9a054] mb-6">Access</p>
+            <div className="flex flex-col gap-3.5">
+              {ACCESS_LINKS.map(l => (
+                <Link key={l.href} href={l.href}
+                  className="text-[10px] tracking-[0.25em] uppercase text-zinc-600 hover:text-zinc-200 transition-colors duration-500">
+                  {l.label}
+                </Link>
+              ))}
+            </div>
+          </motion.div>
+
+          {/* Contact */}
+          <motion.div {...fadeUp} transition={{ duration: 1, delay: 0.20, ease: [0.16, 1, 0.3, 1] as const }}>
+            <p className="text-[8px] tracking-[0.5em] uppercase text-[#c9a054] mb-6">Contact</p>
+            <div className="flex flex-col gap-3 mb-6">
+              {[
+                { label: 'Concierge', addr: 'concierge@shamimforever.com' },
+                { label: 'Bespoke', addr: 'bespoke@shamimforever.com' },
+                { label: 'Boutiques', addr: 'maisons@shamimforever.com' },
+                { label: 'Relations', addr: 'relations@shamimforever.com' },
+                { label: 'Media', addr: 'media@shamimforever.com' },
+              ].map(e => (
+                <div key={e.addr}>
+                  <p className="text-[7px] tracking-[0.4em] uppercase text-zinc-800">{e.label}</p>
+                  <a href={`mailto:${e.addr}`} className="text-[9px] text-zinc-600 hover:text-[#c9a054] transition-colors duration-500 font-light">
+                    {e.addr}
+                  </a>
+                </div>
+              ))}
+            </div>
+          </motion.div>
+
+          {/* Sovereign Infrastructure */}
+          <motion.div {...fadeUp} transition={{ duration: 1, delay: 0.26, ease: [0.16, 1, 0.3, 1] as const }} className="col-span-2 md:col-span-1">
+            <p className="text-[8px] tracking-[0.5em] uppercase text-[#c9a054] mb-1">Sovereign</p>
+            <p className="text-[8px] tracking-[0.5em] uppercase text-[#c9a054] mb-6">Infrastructure</p>
+            <div className="grid grid-cols-2 gap-x-6 gap-y-3">
+              {INFRA_LINKS.map(l => (
+                <Link key={l.href} href={l.href}
+                  className="text-[9px] tracking-[0.22em] uppercase text-zinc-700 hover:text-[#c9a054] transition-colors duration-500 whitespace-nowrap">
+                  {l.label}
+                </Link>
+              ))}
+            </div>
+          </motion.div>
+        </div>
+      </div>
+
+      {/* Bottom bar */}
+      <div className="border-t border-[#0d0d0d] px-5 md:px-12 lg:px-20 py-6 flex flex-col md:flex-row items-center justify-between gap-3">
+        <p className="text-[8px] tracking-[0.35em] uppercase text-zinc-800">© 2025 Shamim Forever. All Rights Reserved.</p>
+        <div className="flex items-center gap-6">
+          <p className="text-[8px] tracking-[0.35em] uppercase text-zinc-800">Est. 2023 · Pakistan</p>
+          <div className="w-px h-3 bg-[#111]" />
+          <p className="text-[8px] tracking-[0.35em] uppercase text-zinc-800">Sovereign Luxury</p>
         </div>
       </div>
     </footer>
