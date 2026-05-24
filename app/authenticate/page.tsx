@@ -3,6 +3,9 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
 import { supabase } from '@/lib/supabase'
+import { useAccount, useWriteContract, useSendTransaction, useConnect, useDisconnect } from 'wagmi'
+import { ConnectButton } from '@rainbow-me/rainbowkit'
+import { parseEther, parseUnits } from 'viem'
 
 const ease = [0.16, 1, 0.3, 1] as const
 const fv = (d = 0) => ({
@@ -21,12 +24,15 @@ interface AuthRecord {
   owner_name: string
   created_at: string
   verification_status: boolean
+  is_claimed: boolean
   nft_metadata: { product_name?: string; atelier?: string } | null
   authenticity_score: number
   activation_date: string | null
+  provenance: string
+  manufacture_date: string
 }
 
-type UIState = 'idle' | 'scanning' | 'verified' | 'counterfeit' | 'activating' | 'activated'
+type UIState = 'idle' | 'scanning' | 'verified' | 'counterfeit' | 'claiming' | 'claimed'
 
 interface ParticleData {
   x: number
@@ -35,6 +41,22 @@ interface ParticleData {
   dur: number
   delay: number
 }
+
+const ERC20_ABI = [
+  {
+    name: 'transfer',
+    type: 'function',
+    inputs: [
+      { name: 'to', type: 'address' },
+      { name: 'amount', type: 'uint256' },
+    ],
+    outputs: [{ name: '', type: 'bool' }],
+    stateMutability: 'nonpayable',
+  },
+] as const
+
+const VAULT_ADDRESS = '0x3Cb45d2022e2E15AFa8C4822647B89935a2ceD08' as const
+const OKBOND_ADDRESS = '0x7BB2458740c4F491277973212309d831385Ab9D7' as const
 
 function GoldParticles() {
   const [pts] = useState<ParticleData[]>(() =>
@@ -71,13 +93,7 @@ function ScanLine() {
   )
 }
 
-interface TimelineStep {
-  icon: string
-  label: string
-  desc: string
-}
-
-const TIMELINE: TimelineStep[] = [
+const TIMELINE = [
   { icon: '◈', label: 'Crafted', desc: 'Created by sovereign artisans in the Karachi Atelier.' },
   { icon: '◆', label: 'Authenticated', desc: 'NFC chip embedded. Blockchain hash anchored.' },
   { icon: '◇', label: 'Vault Sealed', desc: 'Stored in climate-controlled sovereign vault.' },
@@ -85,29 +101,21 @@ const TIMELINE: TimelineStep[] = [
   { icon: '◉', label: 'Activated', desc: 'Ownership registered. Sovereign passport active.' },
 ]
 
-interface FormField {
-  n: string
-  l: string
-  t: string
-}
-
-const ACTIVATION_FIELDS: FormField[] = [
-  { n: 'email', l: 'Email Address', t: 'email' },
-  { n: 'wallet', l: 'Wallet Address (optional)', t: 'text' },
-]
-
 export default function AuthenticatePage() {
   const [serial, setSerial] = useState('')
   const [uiState, setUiState] = useState<UIState>('idle')
   const [record, setRecord] = useState<AuthRecord | null>(null)
-  const [activationEmail, setActivationEmail] = useState('')
-  const [activationWallet, setActivationWallet] = useState('')
-  const [isActivating, setIsActivating] = useState(false)
+  const [claimStatus, setClaimStatus] = useState('')
   const inputRef = useRef<HTMLInputElement>(null)
+
+  const { address, isConnected } = useAccount()
+  const { writeContractAsync } = useWriteContract()
+  const { sendTransactionAsync } = useSendTransaction()
 
   function handleVerify(overrideSerial?: string) {
     const s = (overrideSerial ?? serial).trim().toUpperCase()
     if (!s) return
+    setSerial(s)
     setUiState('scanning')
     supabase
       .from('product_authentication')
@@ -124,42 +132,50 @@ export default function AuthenticatePage() {
       })
   }
 
-  function handleActivation(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault()
-    if (!record) return
-    setIsActivating(true)
-    supabase
+  async function handleClaimOwnership() {
+    if (!record || !isConnected || !address) return
+    setUiState('claiming')
+    setClaimStatus('Saving wallet address to Sovereign Ledger…')
+
+    const { error } = await supabase
       .from('product_authentication')
       .update({
+        owner_wallet: address,
+        is_claimed: true,
         verification_status: true,
         activation_date: new Date().toISOString(),
-        owner_wallet: activationWallet || record.owner_wallet,
-        owner_name: activationEmail,
       })
       .eq('id', record.id)
-      .then(({ error }) => {
-        setIsActivating(false)
-        if (!error) setUiState('activated')
-      })
+
+    if (error) {
+      setClaimStatus('Error: ' + error.message)
+      setUiState('verified')
+      return
+    }
+
+    setRecord(prev => prev ? { ...prev, owner_wallet: address, is_claimed: true, verification_status: true } : null)
+    setClaimStatus('Ownership claimed. Sovereign passport activated.')
+    setUiState('claimed')
   }
 
   function resetAll() {
     setUiState('idle')
     setSerial('')
     setRecord(null)
+    setClaimStatus('')
   }
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search)
     const s = params.get('serial') ?? params.get('s')
     if (s) {
-      setSerial(s)
-      handleVerify(s)
+      setSerial(s.toUpperCase())
+      handleVerify(s.toUpperCase())
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  const isResultState = uiState === 'verified' || uiState === 'activating' || uiState === 'activated'
+  const isResultState = uiState === 'verified' || uiState === 'claiming' || uiState === 'claimed'
 
   return (
     <div className="min-h-screen bg-[#050505] overflow-x-hidden">
@@ -183,7 +199,6 @@ export default function AuthenticatePage() {
             Sovereign Verification Protocol
           </motion.p>
 
-          {/* Emblem */}
           <motion.div
             className="relative w-24 h-24 md:w-32 md:h-32 mx-auto mb-10"
             animate={{ y: [0, -10, 0] }}
@@ -216,7 +231,7 @@ export default function AuthenticatePage() {
             transition={{ duration: 1, delay: 0.9, ease }}
             className="text-zinc-600 font-light text-sm leading-relaxed max-w-sm mx-auto mb-10"
           >
-            Every Shamim Forever creation carries a sovereign digital identity. Enter the serial number to verify provenance.
+            Every Shamim Forever creation carries a sovereign digital identity. Enter the serial number or scan the NFC/QR to verify provenance.
           </motion.p>
 
           <motion.div
@@ -231,7 +246,7 @@ export default function AuthenticatePage() {
                 value={serial}
                 onChange={(e) => setSerial(e.target.value.toUpperCase())}
                 onKeyDown={(e) => e.key === 'Enter' && handleVerify()}
-                placeholder="SF-RO-2025-00000"
+                placeholder="SF-RO-2025-00001"
                 className="w-full py-5 bg-transparent text-zinc-200 text-center text-sm font-light tracking-[0.2em] uppercase placeholder:text-zinc-800 outline-none"
               />
             </div>
@@ -243,13 +258,6 @@ export default function AuthenticatePage() {
                 <span className="absolute inset-0 bg-[#c9a054] translate-y-full group-hover:translate-y-0 transition-transform duration-700" />
                 <span className="relative z-10 group-hover:text-[#050505] transition-colors duration-300">Verify Sovereignty</span>
               </button>
-              <a
-                href="https://wa.me/923119447572?text=Authenticate%20my%20Shamim%20Forever%20creation"
-                target="_blank" rel="noopener noreferrer"
-                className="inline-flex items-center justify-center px-6 py-3.5 border border-[#111] text-[9px] tracking-[0.4em] uppercase text-zinc-600 hover:text-[#c9a054] hover:border-[#c9a054]/30 transition-all duration-500"
-              >
-                NFC / QR Tap
-              </a>
             </div>
           </motion.div>
         </motion.div>
@@ -320,18 +328,8 @@ export default function AuthenticatePage() {
                     <span className="text-3xl text-[#c9a054]">✦</span>
                   </div>
                 </div>
-                <motion.p
-                  initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.8, delay: 0.4 }}
-                  className="text-[9px] tracking-[0.7em] uppercase text-[#c9a054] mt-6 mb-2"
-                >
-                  Sovereignty Confirmed
-                </motion.p>
-                <motion.h2
-                  initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.8, delay: 0.6 }}
-                  className="font-serif font-light text-3xl md:text-5xl tracking-[0.2em] uppercase text-zinc-100"
-                >
+                <motion.p className="text-[9px] tracking-[0.7em] uppercase text-[#c9a054] mt-6 mb-2">Sovereignty Confirmed</motion.p>
+                <motion.h2 className="font-serif font-light text-3xl md:text-5xl tracking-[0.2em] uppercase text-zinc-100">
                   Sovereignly Verified
                 </motion.h2>
               </motion.div>
@@ -339,12 +337,14 @@ export default function AuthenticatePage() {
               {/* Data grid */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-[#0a0a0a] mb-px">
                 {[
-                  { label: 'Creation', value: record.nft_metadata?.product_name ?? 'Royal Oud No. 11' },
+                  { label: 'Creation', value: record.nft_metadata?.product_name ?? 'Sovereign Creation' },
                   { label: 'Serial Number', value: record.serial_number },
-                  { label: 'Sovereign Vault', value: record.nft_metadata?.atelier ?? 'Karachi Sovereign Atelier' },
+                  { label: 'Atelier', value: record.nft_metadata?.atelier ?? record.provenance ?? 'Karachi Sovereign Atelier' },
                   { label: 'NFT Token', value: record.nft_token_id ? `#${record.nft_token_id}` : '#—' },
                   { label: 'Authenticity Score', value: `${record.authenticity_score ?? 100}/100` },
+                  { label: 'Manufacture Date', value: record.manufacture_date ? new Date(record.manufacture_date).toLocaleDateString('en-GB', { day: '2-digit', month: 'long', year: 'numeric' }) : new Date(record.created_at).toLocaleDateString('en-GB', { day: '2-digit', month: 'long', year: 'numeric' }) },
                   { label: 'Activated', value: record.activation_date ? new Date(record.activation_date).toLocaleDateString('en-GB', { day: '2-digit', month: 'long', year: 'numeric' }) : 'Pending activation' },
+                  { label: 'Status', value: record.is_claimed ? 'Ownership Claimed' : 'Unclaimed — Available for ownership' },
                 ].map((item, i) => (
                   <motion.div
                     key={item.label}
@@ -362,12 +362,12 @@ export default function AuthenticatePage() {
               <motion.div
                 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 1, delay: 0.8, ease }}
-                className="border border-[#c9a054]/15 p-6 md:p-10"
+                className="border border-[#c9a054]/15 p-6 md:p-10 mt-px"
               >
                 <div className="flex items-center justify-between mb-6 flex-wrap gap-4">
                   <div>
                     <p className="text-[8px] tracking-[0.55em] uppercase text-[#c9a054] mb-1">Blockchain Registry</p>
-                    <p className="font-serif font-light text-xl text-zinc-200">Sovereign NFT Ledger</p>
+                    <p className="font-serif font-light text-xl text-zinc-200">Sovereign NFT Ledger · Polygon</p>
                   </div>
                   <div className="flex items-center gap-2">
                     <motion.div
@@ -375,15 +375,15 @@ export default function AuthenticatePage() {
                       animate={{ opacity: [1, 0.3, 1] }}
                       transition={{ duration: 1.5, repeat: Infinity }}
                     />
-                    <span className="text-[8px] tracking-[0.4em] uppercase text-[#c9a054]">Connected to Sovereign Ledger</span>
+                    <span className="text-[8px] tracking-[0.4em] uppercase text-[#c9a054]">Live On-Chain</span>
                   </div>
                 </div>
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-5">
                   {[
-                    { label: 'Hash', value: record.blockchain_hash ? `${record.blockchain_hash.slice(0, 16)}…` : '0x4a7f…9b2e' },
-                    { label: 'Network', value: 'Polygon' },
+                    { label: 'Blockchain Hash', value: record.blockchain_hash ? `${record.blockchain_hash.slice(0, 18)}…` : '0x—' },
+                    { label: 'Network', value: 'Polygon Mainnet' },
                     { label: 'Minted', value: new Date(record.created_at).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }) },
-                    { label: 'Owner', value: record.owner_wallet ? `${record.owner_wallet.slice(0, 10)}…` : record.owner_name ?? 'Unactivated' },
+                    { label: 'Owner Wallet', value: record.owner_wallet ? `${record.owner_wallet.slice(0, 12)}…` : 'Unregistered' },
                   ].map((item) => (
                     <div key={item.label}>
                       <p className="text-[7px] tracking-[0.45em] uppercase text-zinc-800 mb-1">{item.label}</p>
@@ -392,6 +392,69 @@ export default function AuthenticatePage() {
                   ))}
                 </div>
               </motion.div>
+
+              {/* Ownership Claim */}
+              {!record.is_claimed && uiState === 'verified' && (
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 1, delay: 1, ease }}
+                  className="border border-[#c9a054]/20 p-6 md:p-10 mt-6"
+                >
+                  <p className="text-[8px] tracking-[0.55em] uppercase text-[#c9a054] mb-3">Unclaimed Creation</p>
+                  <h3 className="font-serif font-light text-2xl text-zinc-200 mb-4">Claim Digital Ownership</h3>
+                  <p className="text-zinc-600 text-sm font-light leading-relaxed mb-6 max-w-md">
+                    Connect your Polygon wallet to register as the sovereign owner of this creation. Your wallet address will be saved to the ledger permanently.
+                  </p>
+
+                  {!isConnected ? (
+                    <div className="flex items-center gap-4 flex-wrap">
+                      <ConnectButton
+                        label="Connect Wallet to Claim"
+                        chainStatus="none"
+                        showBalance={false}
+                        accountStatus="address"
+                      />
+                    </div>
+                  ) : (
+                    <div className="space-y-4">
+                      <div className="flex items-center gap-3 border border-[#c9a054]/20 px-4 py-3 w-fit">
+                        <motion.div className="w-1.5 h-1.5 rounded-full bg-[#c9a054]" animate={{ opacity: [1, 0.3, 1] }} transition={{ duration: 1.5, repeat: Infinity }} />
+                        <span className="font-mono text-xs text-zinc-400">{address}</span>
+                      </div>
+                      <button
+                        onClick={handleClaimOwnership}
+                        className="group relative inline-flex items-center justify-center px-10 py-4 border border-[#c9a054]/60 text-[9px] tracking-[0.5em] uppercase text-[#c9a054] overflow-hidden"
+                      >
+                        <span className="absolute inset-0 bg-[#c9a054] translate-y-full group-hover:translate-y-0 transition-transform duration-700" />
+                        <span className="relative z-10 group-hover:text-[#050505] transition-colors duration-300">Claim Digital Ownership</span>
+                      </button>
+                    </div>
+                  )}
+                  {claimStatus && <p className="mt-4 text-[8px] tracking-[0.4em] uppercase text-[#c9a054]">{claimStatus}</p>}
+                </motion.div>
+              )}
+
+              {/* Already claimed */}
+              {record.is_claimed && (
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
+                  className="border border-emerald-900/30 p-6 mt-6 flex items-center gap-4"
+                >
+                  <motion.div className="w-2 h-2 rounded-full bg-emerald-500 flex-shrink-0" animate={{ opacity: [1, 0.3, 1] }} transition={{ duration: 1.5, repeat: Infinity }} />
+                  <div>
+                    <p className="text-[8px] tracking-[0.5em] uppercase text-emerald-500 mb-1">Ownership Registered</p>
+                    <p className="font-mono text-xs text-zinc-500">{record.owner_wallet}</p>
+                  </div>
+                </motion.div>
+              )}
+
+              {uiState === 'claimed' && (
+                <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="border border-[#c9a054]/20 p-8 mt-6 text-center">
+                  <div className="w-px h-10 bg-gradient-to-b from-[#c9a054] to-transparent mx-auto mb-4" />
+                  <p className="text-[9px] tracking-[0.5em] uppercase text-[#c9a054] mb-3">Sovereignty Activated</p>
+                  <p className="font-serif font-light text-2xl text-zinc-300">You are now the sovereign owner.</p>
+                </motion.div>
+              )}
 
               <div className="flex gap-4 mt-8 flex-wrap">
                 <button onClick={resetAll} className="text-[8px] tracking-[0.4em] uppercase text-zinc-700 hover:text-zinc-400 transition-colors duration-400 border border-[#111] px-6 py-3">
@@ -423,9 +486,9 @@ export default function AuthenticatePage() {
               >
                 <span className="text-2xl text-red-800">✕</span>
               </motion.div>
-              <p className="text-[8px] tracking-[0.6em] uppercase text-red-800 mb-4">Authorization Failed</p>
+              <p className="text-[8px] tracking-[0.6em] uppercase text-red-800 mb-4">Sovereign Record Not Found</p>
               <h2 className="font-serif font-light text-3xl md:text-5xl tracking-[0.15em] text-zinc-500 mb-6">
-                Unauthorized Object Detected
+                Unauthorized Object
               </h2>
               <p className="text-zinc-700 text-sm font-light leading-relaxed max-w-md mx-auto mb-8">
                 The serial <span className="font-mono text-zinc-500">{serial}</span> does not match any record in the Sovereign Ledger.
@@ -459,8 +522,8 @@ export default function AuthenticatePage() {
                 {...fv(i * 0.1)}
                 className="relative flex gap-8 md:gap-12 items-start pl-12 md:pl-16 py-8 group hover:bg-[#080808] transition-colors duration-500"
               >
-                <div className={`absolute left-0 w-8 h-8 md:w-12 md:h-12 rounded-full border flex items-center justify-center flex-shrink-0 transition-all duration-700 ${uiState === 'verified' && i <= 3 ? 'border-[#c9a054]/60 bg-[#c9a054]/5' : 'border-[#111] bg-[#050505]'}`}>
-                  <span className={`text-sm transition-colors duration-500 ${uiState === 'verified' && i <= 3 ? 'text-[#c9a054]' : 'text-zinc-700'}`}>{step.icon}</span>
+                <div className={`absolute left-0 w-8 h-8 md:w-12 md:h-12 rounded-full border flex items-center justify-center flex-shrink-0 transition-all duration-700 ${isResultState && i <= 3 ? 'border-[#c9a054]/60 bg-[#c9a054]/5' : 'border-[#111] bg-[#050505]'}`}>
+                  <span className={`text-sm transition-colors duration-500 ${isResultState && i <= 3 ? 'text-[#c9a054]' : 'text-zinc-700'}`}>{step.icon}</span>
                 </div>
                 <div className="flex-1 min-w-0">
                   <p className="text-[9px] tracking-[0.4em] uppercase text-zinc-600 mb-1">Act {String(i + 1).padStart(2, '0')}</p>
@@ -470,101 +533,6 @@ export default function AuthenticatePage() {
               </motion.div>
             ))}
           </div>
-        </div>
-      </section>
-
-      {/* ── OWNER ACTIVATION ── */}
-      {uiState === 'verified' && record && (
-        <motion.section
-          initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, ease }}
-          className="border-b border-[#0a0a0a] px-5 md:px-12 lg:px-20 py-14 md:py-20 max-w-[700px]"
-        >
-          <div className="mb-8">
-            <p className="text-[9px] tracking-[0.55em] uppercase text-zinc-700 mb-3">Activate Ownership</p>
-            <h2 className="font-serif font-light text-2xl md:text-3xl tracking-[0.08em] text-zinc-200">Register as Sovereign Owner</h2>
-          </div>
-          <form onSubmit={handleActivation} className="space-y-0">
-            {ACTIVATION_FIELDS.map((f) => (
-              <div key={f.n} className="group border-b border-[#0d0d0d] focus-within:border-[#c9a054]/30 transition-colors duration-500">
-                <label className="block pt-5 pb-1 text-[7px] tracking-[0.45em] uppercase text-zinc-700 group-focus-within:text-[#c9a054] transition-colors duration-400">
-                  {f.l}
-                </label>
-                <input
-                  type={f.t}
-                  required={f.n === 'email'}
-                  value={f.n === 'email' ? activationEmail : activationWallet}
-                  onChange={(e) => f.n === 'email' ? setActivationEmail(e.target.value) : setActivationWallet(e.target.value)}
-                  className="w-full pb-4 bg-transparent text-zinc-300 text-sm font-light outline-none"
-                />
-              </div>
-            ))}
-            <div className="pt-8">
-              <button
-                type="submit"
-                disabled={isActivating}
-                className="group relative inline-flex items-center justify-center px-10 py-4 border border-[#c9a054]/60 text-[9px] tracking-[0.5em] uppercase text-[#c9a054] overflow-hidden disabled:opacity-50"
-              >
-                <span className="absolute inset-0 bg-[#c9a054] translate-y-full group-hover:translate-y-0 transition-transform duration-700" />
-                <span className="relative z-10 group-hover:text-[#050505] transition-colors duration-300">
-                  Activate Sovereignty
-                </span>
-              </button>
-            </div>
-          </form>
-        </motion.section>
-      )}
-
-      {/* ── DIGITAL CERTIFICATE ── */}
-      <section className="border-b border-[#0a0a0a] px-5 md:px-12 lg:px-20 py-14 md:py-20 max-w-[1400px] mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-20 items-start">
-          <motion.div {...fv()}>
-            <p className="text-[9px] tracking-[0.55em] uppercase text-zinc-700 mb-5">Ownership Certificate</p>
-            <h2 className="font-serif font-light text-3xl md:text-4xl tracking-[0.08em] text-zinc-200 mb-6">
-              Digital Sovereignty<br /><span className="italic text-zinc-500">Certificate</span>
-            </h2>
-            <p className="text-zinc-600 text-sm font-light leading-relaxed mb-8">
-              Each verified creation generates a permanent digital certificate — anchored to the blockchain, yours to inherit.
-            </p>
-            <div className="flex gap-4 flex-wrap">
-              <button className="text-[8px] tracking-[0.4em] uppercase text-[#c9a054] border border-[#c9a054]/30 px-6 py-3 hover:bg-[#c9a054]/5 transition-colors duration-400">
-                Download Certificate
-              </button>
-              <button className="text-[8px] tracking-[0.4em] uppercase text-zinc-700 border border-[#111] px-6 py-3 hover:text-zinc-400 transition-colors duration-400">
-                Save as NFT
-              </button>
-            </div>
-          </motion.div>
-          <motion.div {...fv(0.15)} className="border border-[#c9a054]/15 p-8 relative overflow-hidden">
-            <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#c9a054]/30 to-transparent" />
-            <div className="text-center mb-6">
-              <p className="text-[7px] tracking-[0.6em] uppercase text-[#c9a054] mb-1">Certificate of Sovereign Ownership</p>
-              <div className="w-12 h-px bg-[#c9a054]/30 mx-auto mt-3" />
-            </div>
-            <div className="space-y-3">
-              {[
-                { l: 'Creation', v: record?.nft_metadata?.product_name ?? 'Royal Oud No. 11' },
-                { l: 'Serial', v: record?.serial_number ?? 'SF-RO-2025-00112' },
-                { l: 'NFT', v: record?.nft_token_id ? `#${record.nft_token_id}` : '#8841' },
-                { l: 'Issued', v: record ? new Date(record.created_at).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }) : '01 Jan 2025' },
-              ].map((item) => (
-                <div key={item.l} className="flex items-center justify-between py-2 border-b border-[#0a0a0a] last:border-0">
-                  <p className="text-[7px] tracking-[0.4em] uppercase text-zinc-700">{item.l}</p>
-                  <p className="text-xs font-light text-zinc-400">{item.v}</p>
-                </div>
-              ))}
-            </div>
-            <div className="mt-6 text-center">
-              <div className="inline-flex items-center gap-2 border border-[#c9a054]/20 px-4 py-2">
-                <motion.div
-                  className="w-1 h-1 rounded-full bg-[#c9a054]"
-                  animate={{ opacity: [1, 0.3, 1] }}
-                  transition={{ duration: 1.5, repeat: Infinity }}
-                />
-                <span className="text-[7px] tracking-[0.45em] uppercase text-[#c9a054]">Sovereignty Seal Active</span>
-              </div>
-            </div>
-          </motion.div>
         </div>
       </section>
 
@@ -579,11 +547,21 @@ export default function AuthenticatePage() {
             <p className="text-zinc-600 text-sm font-light leading-relaxed max-w-md">
               OKBOND holders unlock a permanent 10% discount across all Shamim Forever acquisitions — applied automatically at checkout.
             </p>
+            {isConnected && (
+              <div className="flex items-center gap-2 mt-4">
+                <motion.div className="w-1.5 h-1.5 rounded-full bg-[#c9a054]" animate={{ opacity: [1, 0.3, 1] }} transition={{ duration: 1.5, repeat: Infinity }} />
+                <span className="font-mono text-xs text-zinc-500">{address?.slice(0, 16)}… connected</span>
+              </div>
+            )}
           </div>
-          <button className="group relative inline-flex items-center justify-center px-8 py-4 border border-[#c9a054]/60 text-[9px] tracking-[0.5em] uppercase text-[#c9a054] overflow-hidden flex-shrink-0">
-            <span className="absolute inset-0 bg-[#c9a054] translate-y-full group-hover:translate-y-0 transition-transform duration-700" />
-            <span className="relative z-10 group-hover:text-[#050505] transition-colors duration-300">Connect Wallet</span>
-          </button>
+          <div className="flex-shrink-0">
+            <ConnectButton
+              label="Connect Wallet"
+              chainStatus="none"
+              showBalance={false}
+              accountStatus="address"
+            />
+          </div>
         </motion.div>
       </section>
 
