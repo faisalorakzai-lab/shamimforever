@@ -108,7 +108,7 @@ export default function BespokePage() {
                 ].map(step => (
                   <div key={step.n} className="flex gap-5 pb-6 mb-6 border-b border-[#0a0a0a] last:border-0 last:mb-0 last:pb-0">
                     <span className="font-serif font-light text-2xl text-[#c9a054]/20 flex-shrink-0">{step.n}</span>
-                    <div><p className="text-[9px] tracking-[0.3em] uppercase text-zinc-400 mb-1">{step.t}</p><p className="text-zinc-700 text-xs font-light leading-relaxed">{step.desc || step.d}</p></div>
+                    <div><p className="text-[9px] tracking-[0.3em] uppercase text-zinc-400 mb-1">{step.t}</p><p className="text-zinc-700 text-xs font-light leading-relaxed">{step.d}</p></div>
                   </div>
                 ))}
               </div>
