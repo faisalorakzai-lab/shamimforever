@@ -7,7 +7,7 @@ import { motion } from 'framer-motion'
 import { supabase } from '@/lib/supabase'
 import {
   LayoutDashboard, Package, ShoppingBag, Users,
-  BarChart3, LogOut, ChevronRight, Truck, Hash
+  BarChart3, LogOut, ChevronRight, Truck, Hash, Star
 } from 'lucide-react'
 
 const navItems = [
@@ -17,6 +17,7 @@ const navItems = [
   { label: 'Customers', href: '/admin/customers', icon: Users },
   { label: 'Shipments', href: '/admin/shipments', icon: Truck },
   { label: 'Serials / NFC', href: '/admin/generate-serials', icon: Hash },
+  { label: 'Inner Circle', href: '/admin/inner-circle', icon: Star },
   { label: 'Analytics', href: '/admin/analytics', icon: BarChart3 },
 ]
 
