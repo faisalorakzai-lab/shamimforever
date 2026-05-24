@@ -2,7 +2,6 @@
 
 import { useState, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { supabase } from '@/lib/supabase'
 
 const ease = [0.16, 1, 0.3, 1] as const
 
@@ -52,26 +51,33 @@ export default function InnerCirclePage() {
   const [form, setForm] = useState({ name: '', email: '', city: '', message: '' })
   const [errorMsg, setErrorMsg] = useState('')
 
-  function handleChange(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) {
+  function handleChange(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
     setForm(prev => ({ ...prev, [e.target.name]: e.target.value }))
   }
 
-  function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
     if (!form.name.trim() || !form.email.trim()) return
     setFormState('submitting')
+    setErrorMsg('')
 
-    supabase
-      .from('inner_circle_applications')
-      .insert([{ name: form.name, email: form.email, city: form.city, message: form.message, tier: selectedTier }])
-      .then(({ error }) => {
-        if (error) {
-          setErrorMsg('Something went wrong. Please try again.')
-          setFormState('error')
-        } else {
-          setFormState('success')
-        }
+    try {
+      const res = await fetch('/api/inner-circle', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ...form, tier: selectedTier }),
       })
+      const data = await res.json()
+      if (!res.ok || data.error) {
+        setErrorMsg(data.error || 'Something went wrong. Please try again.')
+        setFormState('error')
+      } else {
+        setFormState('success')
+      }
+    } catch {
+      setErrorMsg('Network error. Please try again.')
+      setFormState('error')
+    }
   }
 
   return (
@@ -82,29 +88,21 @@ export default function InnerCirclePage() {
         <div className="relative min-h-[50vw] md:min-h-[50vh] max-h-[560px] overflow-hidden">
           <img src="/founder-5.png" alt="Inner Circle"
             className="absolute inset-0 w-full h-full object-cover object-top"
-            style={{ filter: 'brightness(0.25) contrast(1.15) saturate(0.7)' }}
-          />
+            style={{ filter: 'brightness(0.25) contrast(1.15) saturate(0.7)' }} />
           <div className="absolute inset-0 bg-gradient-to-r from-[#050505]/95 via-[#050505]/70 to-[#050505]/30" />
           <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-transparent to-[#050505]/40" />
-
-          {/* Decorative gold lines */}
           <div className="absolute inset-0 pointer-events-none">
             <div className="absolute top-1/2 left-0 w-1/3 h-px bg-gradient-to-r from-transparent to-[#c9a054]/10" />
             <div className="absolute bottom-16 right-0 w-1/4 h-px bg-gradient-to-l from-transparent to-[#c9a054]/8" />
           </div>
-
           <div className="relative z-10 flex flex-col justify-end h-full px-5 md:px-12 lg:px-20 py-12 md:py-20">
             <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1.2, ease }}>
-              <p className="text-[9px] tracking-[0.6em] uppercase text-[#c9a054] mb-5 md:mb-7">
-                Membership · By Application
-              </p>
+              <p className="text-[9px] tracking-[0.6em] uppercase text-[#c9a054] mb-5 md:mb-7">Membership · By Application</p>
               <h1 className="font-serif font-light text-5xl md:text-7xl lg:text-8xl tracking-[0.05em] text-zinc-100 leading-[0.92] mb-5 md:mb-7">
-                The Inner<br />
-                <span className="italic text-zinc-400">Circle</span>
+                The Inner<br /><span className="italic text-zinc-400">Circle</span>
               </h1>
               <p className="text-zinc-500 font-light text-sm leading-relaxed max-w-sm">
-                A closed tier of those who understand permanence. Not everyone qualifies — 
-                but everyone may apply.
+                A closed tier of those who understand permanence. Not everyone qualifies — but everyone may apply.
               </p>
             </motion.div>
           </div>
@@ -114,15 +112,12 @@ export default function InnerCirclePage() {
       {/* ─── BENEFITS ─── */}
       <section className="border-b border-[#0d0d0d]">
         <div className="px-5 md:px-12 lg:px-20 py-14 md:py-20">
-          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.9, ease }}
-            className="mb-10 md:mb-14">
+          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.9, ease }} className="mb-10 md:mb-14">
             <p className="text-[9px] tracking-[0.55em] uppercase text-zinc-700 mb-4">What You Receive</p>
             <h2 className="font-serif font-light text-3xl md:text-5xl tracking-[0.05em] text-zinc-100">
-              Six Sovereign<br />
-              <span className="italic text-zinc-500">Privileges</span>
+              Six Sovereign<br /><span className="italic text-zinc-500">Privileges</span>
             </h2>
           </motion.div>
-
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-[#0d0d0d]">
             {BENEFITS.map((b, i) => (
               <motion.div key={b.title} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.8, ease, delay: i * 0.08 }}
@@ -137,36 +132,25 @@ export default function InnerCirclePage() {
       </section>
 
       {/* ─── TIERS ─── */}
-      <section className="border-b border-[#0d0d0d] px-5 md:px-12 lg:px-20 py-14 md:py-20">
-        <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.9, ease }}
-          className="mb-10 md:mb-14">
+      <section id="tiers-section" className="border-b border-[#0d0d0d] px-5 md:px-12 lg:px-20 py-14 md:py-20">
+        <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.9, ease }} className="mb-10 md:mb-14">
           <p className="text-[9px] tracking-[0.55em] uppercase text-zinc-700 mb-4">Membership Tiers</p>
           <h2 className="font-serif font-light text-3xl md:text-4xl tracking-[0.05em] text-zinc-100">
-            Choose Your<br />
-            <span className="italic text-zinc-500">Standing</span>
+            Choose Your<br /><span className="italic text-zinc-500">Standing</span>
           </h2>
         </motion.div>
-
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
           {TIERS.map((tier, i) => (
             <motion.button key={tier.id} onClick={() => setSelectedTier(tier.id)}
               initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.8, ease, delay: i * 0.1 }}
-              className={`text-left border p-6 md:p-8 transition-all duration-500 relative ${
-                selectedTier === tier.id ? tier.color + ' bg-[#080808]' : 'border-[#111] hover:border-[#1a1a1a]'
-              }`}>
+              className={`text-left border p-6 md:p-8 transition-all duration-500 relative ${selectedTier === tier.id ? tier.color + ' bg-[#080808]' : 'border-[#111] hover:border-[#1a1a1a]'}`}>
               {tier.featured && (
                 <div className="absolute top-4 right-4">
-                  <span className="text-[6px] tracking-[0.4em] uppercase text-[#c9a054] border border-[#c9a054]/30 px-2 py-1">
-                    Recommended
-                  </span>
+                  <span className="text-[6px] tracking-[0.4em] uppercase text-[#c9a054] border border-[#c9a054]/30 px-2 py-1">Recommended</span>
                 </div>
               )}
-              <p className={`text-[8px] tracking-[0.45em] uppercase mb-3 ${selectedTier === tier.id ? tier.accent : 'text-zinc-700'}`}>
-                {tier.sub}
-              </p>
-              <h3 className={`font-serif font-light text-2xl md:text-3xl tracking-[0.08em] mb-5 md:mb-6 ${selectedTier === tier.id ? 'text-zinc-100' : 'text-zinc-500'}`}>
-                {tier.label}
-              </h3>
+              <p className={`text-[8px] tracking-[0.45em] uppercase mb-3 ${selectedTier === tier.id ? tier.accent : 'text-zinc-700'}`}>{tier.sub}</p>
+              <h3 className={`font-serif font-light text-2xl md:text-3xl tracking-[0.08em] mb-5 md:mb-6 ${selectedTier === tier.id ? 'text-zinc-100' : 'text-zinc-500'}`}>{tier.label}</h3>
               <ul className="space-y-2.5">
                 {tier.perks.map(perk => (
                   <li key={perk} className="flex items-start gap-3">
@@ -188,32 +172,23 @@ export default function InnerCirclePage() {
       {/* ─── APPLICATION FORM ─── */}
       <section className="px-5 md:px-12 lg:px-20 py-14 md:py-24">
         <div className="max-w-xl mx-auto md:mx-0">
-          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.9, ease }}
-            className="mb-10 md:mb-12">
+          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.9, ease }} className="mb-10 md:mb-12">
             <p className="text-[9px] tracking-[0.55em] uppercase text-zinc-700 mb-4">The Application</p>
-            <h2 className="font-serif font-light text-3xl md:text-4xl tracking-[0.05em] text-zinc-100">
-              Request Access
-            </h2>
+            <h2 className="font-serif font-light text-3xl md:text-4xl tracking-[0.05em] text-zinc-100">Request Access</h2>
             <p className="text-zinc-600 text-sm font-light mt-4 leading-relaxed">
-              Applications are reviewed within 48 hours. Approved members receive a 
-              sovereign welcome dispatch with access credentials.
+              Applications are reviewed within 48 hours. Approved members receive a sovereign welcome dispatch with access credentials.
             </p>
           </motion.div>
 
           <AnimatePresence mode="wait">
             {formState === 'success' ? (
-              <motion.div key="success"
-                initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}
-                transition={{ duration: 0.8, ease }}
+              <motion.div key="success" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} transition={{ duration: 0.8, ease }}
                 className="border border-[#c9a054]/20 px-8 py-12 text-center">
                 <div className="w-px h-12 bg-gradient-to-b from-[#c9a054] to-transparent mx-auto mb-8" />
                 <p className="text-[9px] tracking-[0.55em] uppercase text-[#c9a054] mb-5">Application Received</p>
-                <h3 className="font-serif font-light text-3xl tracking-[0.08em] text-zinc-200 mb-5">
-                  Welcome, {form.name.split(' ')[0]}.
-                </h3>
+                <h3 className="font-serif font-light text-3xl tracking-[0.08em] text-zinc-200 mb-5">Welcome, {form.name.split(' ')[0]}.</h3>
                 <p className="text-zinc-600 text-sm font-light leading-relaxed mb-8 max-w-xs mx-auto">
-                  Your application for <span className="text-[#c9a054]">{TIERS.find(t => t.id === selectedTier)?.label}</span> membership 
-                  has been received. We will respond within 48 hours.
+                  Your application for <span className="text-[#c9a054]">{TIERS.find(t => t.id === selectedTier)?.label}</span> membership has been received. We will respond within 48 hours.
                 </p>
                 <div className="flex items-center justify-center gap-4">
                   <div className="w-8 h-px bg-[#c9a054]/30" />
@@ -222,11 +197,7 @@ export default function InnerCirclePage() {
                 </div>
               </motion.div>
             ) : (
-              <motion.form key="form" onSubmit={handleSubmit}
-                initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-                className="space-y-0">
-
-                {/* Selected tier display */}
+              <motion.form key="form" onSubmit={handleSubmit} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="space-y-0">
                 <div className="border border-[#c9a054]/20 px-5 py-4 mb-6 flex items-center justify-between">
                   <div>
                     <p className="text-[7px] tracking-[0.45em] uppercase text-zinc-700 mb-1">Applying For</p>
@@ -235,9 +206,7 @@ export default function InnerCirclePage() {
                     </p>
                   </div>
                   <button type="button" onClick={() => document.getElementById('tiers-section')?.scrollIntoView({ behavior: 'smooth' })}
-                    className="text-[7px] tracking-[0.4em] uppercase text-zinc-700 hover:text-[#c9a054] transition-colors duration-400">
-                    Change
-                  </button>
+                    className="text-[7px] tracking-[0.4em] uppercase text-zinc-700 hover:text-[#c9a054] transition-colors duration-400">Change</button>
                 </div>
 
                 {[
@@ -249,35 +218,20 @@ export default function InnerCirclePage() {
                     <label className="block pt-5 pb-1 text-[7px] tracking-[0.45em] uppercase text-zinc-700 group-focus-within:text-[#c9a054] transition-colors duration-400">
                       {field.label} {field.required && <span className="text-[#c9a054]">*</span>}
                     </label>
-                    <input
-                      type={field.type}
-                      name={field.name}
-                      required={field.required}
-                      value={(form as any)[field.name]}
-                      onChange={handleChange}
-                      placeholder={field.placeholder}
-                      className="w-full pb-4 bg-transparent text-zinc-300 text-sm font-light placeholder:text-zinc-800 outline-none"
-                    />
+                    <input type={field.type} name={field.name} required={field.required}
+                      value={(form as any)[field.name]} onChange={handleChange} placeholder={field.placeholder}
+                      className="w-full pb-4 bg-transparent text-zinc-300 text-sm font-light placeholder:text-zinc-800 outline-none" />
                   </div>
                 ))}
 
                 <div className="group border-b border-[#0d0d0d] focus-within:border-[#c9a054]/40 transition-colors duration-500">
-                  <label className="block pt-5 pb-1 text-[7px] tracking-[0.45em] uppercase text-zinc-700 group-focus-within:text-[#c9a054] transition-colors duration-400">
-                    Why do you seek access?
-                  </label>
-                  <textarea
-                    name="message"
-                    rows={4}
-                    value={form.message}
-                    onChange={handleChange}
+                  <label className="block pt-5 pb-1 text-[7px] tracking-[0.45em] uppercase text-zinc-700 group-focus-within:text-[#c9a054] transition-colors duration-400">Why do you seek access?</label>
+                  <textarea name="message" rows={4} value={form.message} onChange={handleChange}
                     placeholder="Tell us about yourself and your connection to the House..."
-                    className="w-full pb-4 bg-transparent text-zinc-300 text-sm font-light placeholder:text-zinc-800 outline-none resize-none"
-                  />
+                    className="w-full pb-4 bg-transparent text-zinc-300 text-sm font-light placeholder:text-zinc-800 outline-none resize-none" />
                 </div>
 
-                {formState === 'error' && (
-                  <p className="text-red-500/70 text-xs font-light pt-2">{errorMsg}</p>
-                )}
+                {formState === 'error' && <p className="text-red-500/70 text-xs font-light pt-2">{errorMsg}</p>}
 
                 <div className="pt-8">
                   <button type="submit" disabled={formState === 'submitting'}
@@ -287,9 +241,7 @@ export default function InnerCirclePage() {
                       {formState === 'submitting' ? 'Submitting Application...' : 'Submit Application'}
                     </span>
                   </button>
-                  <p className="text-[7px] tracking-[0.35em] uppercase text-zinc-800 mt-5">
-                    Applications reviewed within 48 hours · No spam, ever
-                  </p>
+                  <p className="text-[7px] tracking-[0.35em] uppercase text-zinc-800 mt-5">Applications reviewed within 48 hours · No spam, ever</p>
                 </div>
               </motion.form>
             )}
@@ -303,8 +255,7 @@ export default function InnerCirclePage() {
           className="flex flex-col md:flex-row items-start md:items-end justify-between gap-8">
           <div>
             <p className="font-serif font-light italic text-2xl md:text-4xl text-zinc-600 mb-4 max-w-lg leading-[1.2]">
-              "The Inner Circle is not a loyalty programme.<br />
-              It is a recognition."
+              &ldquo;The Inner Circle is not a loyalty programme.<br />It is a recognition.&rdquo;
             </p>
             <p className="text-[8px] tracking-[0.45em] uppercase text-zinc-800">— The House, 2023</p>
           </div>
@@ -314,7 +265,6 @@ export default function InnerCirclePage() {
           </div>
         </motion.div>
       </section>
-
     </div>
   )
 }
