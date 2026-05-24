@@ -24,7 +24,8 @@ const PROTOCOL_STEPS: ProtocolStep[] = [
   { n: '04', title: 'Arrival Ceremony', desc: 'Luxury presentation at your door. Identity confirmation. Hand-signed receipt. NFC activation. The delivery is not complete until the sovereign seal is transferred.' },
 ]
 
-const TIERS = [
+type DeliveryTier = { code: string; name: string; sub: string; price: string; features: string[]; featured?: boolean }
+const TIERS: DeliveryTier[] = [
   { code: 'ST', name: 'Standard', sub: 'Secure Global Luxury Shipping', price: 'Complimentary above PKR 50,000', features: ['Insured global courier','Tracking dashboard','Black archival packaging','Sovereign receipt'] },
   { code: 'WG', name: 'White Glove', sub: 'Private Courier · Scheduled Handoff', price: 'PKR 5,000', features: ['Dedicated white-glove courier','Pre-scheduled delivery window','Caller ID verification','Identity-confirmed handoff','Unboxing ceremony kit'], featured: true },
   { code: 'SA', name: 'Sovereign Arrival', sub: 'Ultra-Exclusive Personal Protocol', price: 'By arrangement', features: ['Armoured chauffeur vehicle','Real-time GPS escort','Climate-controlled vault case','Two-operative delivery team','Same-day available in Karachi'] },
