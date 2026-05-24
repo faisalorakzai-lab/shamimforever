@@ -102,6 +102,7 @@ export default function AuthenticatePage() {
   const [record, setRecord] = useState<AuthRecord | null>(null)
   const [activationEmail, setActivationEmail] = useState('')
   const [activationWallet, setActivationWallet] = useState('')
+  const [isActivating, setIsActivating] = useState(false)
   const inputRef = useRef<HTMLInputElement>(null)
 
   function handleVerify(overrideSerial?: string) {
@@ -126,7 +127,7 @@ export default function AuthenticatePage() {
   function handleActivation(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
     if (!record) return
-    setUiState('activating')
+    setIsActivating(true)
     supabase
       .from('product_authentication')
       .update({
@@ -137,6 +138,7 @@ export default function AuthenticatePage() {
       })
       .eq('id', record.id)
       .then(({ error }) => {
+        setIsActivating(false)
         if (!error) setUiState('activated')
       })
   }
@@ -500,7 +502,7 @@ export default function AuthenticatePage() {
             <div className="pt-8">
               <button
                 type="submit"
-                disabled={uiState === 'activating'}
+                disabled={isActivating}
                 className="group relative inline-flex items-center justify-center px-10 py-4 border border-[#c9a054]/60 text-[9px] tracking-[0.5em] uppercase text-[#c9a054] overflow-hidden disabled:opacity-50"
               >
                 <span className="absolute inset-0 bg-[#c9a054] translate-y-full group-hover:translate-y-0 transition-transform duration-700" />
