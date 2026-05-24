@@ -4,11 +4,8 @@ import { ReactNode } from 'react'
 import { WagmiProvider } from 'wagmi'
 import { polygon } from 'wagmi/chains'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import {
-  RainbowKitProvider, darkTheme, getDefaultConfig,
-  trustWallet, metaMaskWallet, walletConnectWallet,
-  coinbaseWallet, rainbowWallet, ledgerWallet,
-} from '@rainbow-me/rainbowkit'
+import { RainbowKitProvider, darkTheme, getDefaultConfig } from '@rainbow-me/rainbowkit'
+import { trustWallet, metaMaskWallet, walletConnectWallet, coinbaseWallet, rainbowWallet } from '@rainbow-me/rainbowkit/wallets'
 import '@rainbow-me/rainbowkit/styles.css'
 
 const config = getDefaultConfig({
@@ -23,7 +20,7 @@ const config = getDefaultConfig({
     },
     {
       groupName: 'More',
-      wallets: [coinbaseWallet, rainbowWallet, ledgerWallet],
+      wallets: [coinbaseWallet, rainbowWallet],
     },
   ],
 })
