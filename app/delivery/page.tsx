@@ -181,7 +181,7 @@ export default function DeliveryPage() {
         hash = tx
       } else {
         const contractAddress = payMethod === 'USDT' ? USDT_POLYGON : payMethod === 'USDC' ? USDC_POLYGON : OKBOND_ADDRESS
-        const decimals = payMethod === 'MATIC' ? 18 : 6
+        const decimals = 6
         hash = await writeContractAsync({
           address: contractAddress,
           abi: ERC20_ABI,
