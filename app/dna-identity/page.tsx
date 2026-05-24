@@ -1,6 +1,6 @@
 'use client'
 import { motion } from 'framer-motion'
-import { useRef, useState } from 'react'
+import { useRef, useState, useEffect } from 'react'
 import Link from 'next/link'
 
 const ease = [0.16, 1, 0.3, 1] as const
