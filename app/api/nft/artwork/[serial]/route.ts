@@ -5,46 +5,50 @@ import { createClient } from '@supabase/supabase-js'
 export const dynamic = 'force-dynamic'
 
 export async function GET(
-  req: NextRequest,
+  _req: NextRequest,
   { params }: { params: { serial: string } }
 ) {
-  const serial = params.serial.toUpperCase().replace('.svg', '')
+  const serial = params.serial.toUpperCase().replace(/\.svg$/i, '')
 
-  // Look up asset details for richer artwork
   let rarityTier = 'ELITE'
   let productName = 'Sovereign Asset'
   let ownershipCycle = 1
+  let origin = 'Karachi Sovereign Atelier'
+  let price = '$50,000+'
 
   try {
     const supabase = createClient(
       process.env.NEXT_PUBLIC_SUPABASE_URL!,
       process.env.SUPABASE_SERVICE_ROLE_KEY!
     )
-    const { data } = await supabase
+    const { data: asset } = await supabase
       .from('sovereign_assets')
-      .select('rarity_tier, ownership_cycle, product_id')
+      .select('rarity_tier, ownership_cycle')
       .eq('serial_number', serial)
       .single()
-    if (data) {
-      rarityTier = data.rarity_tier || 'ELITE'
-      ownershipCycle = data.ownership_cycle || 1
+    if (asset) {
+      rarityTier = asset.rarity_tier || 'ELITE'
+      ownershipCycle = asset.ownership_cycle || 1
     }
-
     const { data: catalog } = await supabase
       .from('products_catalog')
-      .select('product_name')
+      .select('product_name, craftsmanship_origin')
       .eq('product_id', serial)
       .single()
-    if (catalog) productName = catalog.product_name || productName
+    if (catalog) {
+      productName = catalog.product_name || productName
+      origin = catalog.craftsmanship_origin || origin
+    }
   } catch { /* use defaults */ }
 
-  const svg = generateSovereignSVG({ serial, rarityTier, productName, ownershipCycle })
+  const svg = generateSovereignSVG({ serial, rarityTier, productName, ownershipCycle, origin, price })
 
   return new NextResponse(svg, {
     headers: {
       'Content-Type': 'image/svg+xml',
-      'Cache-Control': 'public, max-age=86400',
+      'Cache-Control': 'public, max-age=3600, stale-while-revalidate=86400',
       'Access-Control-Allow-Origin': '*',
+      'X-Content-Type-Options': 'nosniff',
     },
   })
 }
