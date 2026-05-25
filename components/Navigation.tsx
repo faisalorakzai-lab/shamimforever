@@ -11,6 +11,8 @@ const navLinks = [
   { label: 'Atelier', href: '/atelier' },
   { label: 'Journal', href: '/journal' },
   { label: 'Boutiques', href: '/boutiques' },
+  { label: 'Vault', href: '/vault' },
+  { label: 'Authenticate', href: '/authenticate' },
   { label: 'Concierge', href: '/concierge' },
 ]
 
