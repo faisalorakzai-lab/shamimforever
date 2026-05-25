@@ -3,19 +3,16 @@ import { createPublicClient, createWalletClient, http, parseAbi } from 'viem'
 import { polygon } from 'viem/chains'
 import { privateKeyToAccount } from 'viem/accounts'
 
-// ── Chain + signer setup ──────────────────────────────────────────────────────
 function getClients() {
   const pk = process.env.MINTER_PRIVATE_KEY
   if (!pk) throw new Error('MINTER_PRIVATE_KEY env var not set')
   const account = privateKeyToAccount(pk as `0x${string}`)
   const transport = http(process.env.ALCHEMY_RPC_URL!)
-
   const publicClient = createPublicClient({ chain: polygon, transport })
   const walletClient = createWalletClient({ account, chain: polygon, transport })
   return { publicClient, walletClient, account }
 }
 
-// ── Contract ABI ──────────────────────────────────────────────────────────────
 const NFT_ABI = parseAbi([
   'function mintSovereignAsset(address to, string uri, string serialNumber, string rarityTier) returns (uint256)',
   'function ownerOf(uint256 tokenId) view returns (address)',
@@ -29,50 +26,19 @@ const NFT_ABI = parseAbi([
 
 function getContractAddress() {
   const addr = process.env.NFT_CONTRACT_ADDRESS
-  if (!addr || addr === 'PENDING_DEPLOYMENT') throw new Error('NFT_CONTRACT_ADDRESS not set — deploy contract first')
+  if (!addr || addr === 'PENDING_DEPLOYMENT') throw new Error('NFT_CONTRACT_ADDRESS not configured')
   return addr as `0x${string}`
 }
 
-// ── Rarity Tiers ─────────────────────────────────────────────────────────────
 export const RARITY_TIERS = {
-  COMMON:    { label: 'COMMON',     royalty: 500,  color: 'silver'    },
-  ELITE:     { label: 'ELITE',      royalty: 700,  color: 'gold'      },
-  ROYAL:     { label: 'ROYAL',      royalty: 800,  color: 'gold_aura' },
-  IMPERIAL:  { label: 'IMPERIAL',   royalty: 900,  color: 'platinum'  },
-  FOUNDERS:  { label: 'FOUNDERS',   royalty: 1000, color: 'obsidian'  },
-  ONE_OF_ONE:{ label: 'ONE-OF-ONE', royalty: 1000, color: 'bespoke'   },
+  COMMON:     { label: 'COMMON',     royalty: 500,  score: 10  },
+  ELITE:      { label: 'ELITE',      royalty: 700,  score: 25  },
+  ROYAL:      { label: 'ROYAL',      royalty: 800,  score: 50  },
+  IMPERIAL:   { label: 'IMPERIAL',   royalty: 900,  score: 80  },
+  FOUNDERS:   { label: 'FOUNDERS',   royalty: 1000, score: 150 },
+  ONE_OF_ONE: { label: 'ONE-OF-ONE', royalty: 1000, score: 300 },
 }
 
-// ── NFT Artwork Generation (Cloudinary) ───────────────────────────────────────
-export function generateArtworkURL(params: {
-  productName: string
-  serial: string
-  rarityTier: string
-  productImage?: string
-  category?: string
-}): string {
-  const cloud = process.env.CLOUDINARY_CLOUD_NAME || 'dvsjiufdv'
-  const { productName, serial, rarityTier } = params
-  const encodedName = encodeURIComponent(productName.slice(0, 40))
-  const encodedSerial = encodeURIComponent(serial)
-  const encodedRarity = encodeURIComponent(rarityTier)
-  const encodedCategory = encodeURIComponent('SHAMIM FOREVER')
-
-  // Cloudinary URL with luxury dark aesthetic
-  // Matte black bg, gold text, serial overlay, sovereign branding
-  return [
-    `https://res.cloudinary.com/${cloud}/image/upload`,
-    `b_rgb:050505,c_pad,h_1000,w_1000,ar_1:1`,
-    `l_text:Arial_Bold_48:${encodedRarity},co_rgb:c9a054,g_north,y_80,x_0`,
-    `l_text:Arial_Bold_36:${encodedName},co_rgb:e8e0d0,g_center,y_-60`,
-    `l_text:Arial_28:${encodedSerial},co_rgb:c9a054,g_center,y_0`,
-    `l_text:Arial_Bold_20:${encodedCategory},co_rgb:888880,g_south,y_80`,
-    `l_text:Arial_18:SOVEREIGN%20LUXURY%20ASSET,co_rgb:666660,g_south,y_50`,
-    `fl_attachment/v1/sovereign_seal_placeholder`,
-  ].join('/')
-}
-
-// Simpler fallback artwork URL (guaranteed to work without a base image)
 export function generateSimpleArtworkURL(serial: string, rarity: string): string {
   const cloud = process.env.CLOUDINARY_CLOUD_NAME || 'dvsjiufdv'
   const r = encodeURIComponent(rarity)
@@ -80,7 +46,6 @@ export function generateSimpleArtworkURL(serial: string, rarity: string): string
   return `https://res.cloudinary.com/${cloud}/image/upload/b_rgb:050505,h_1000,w_1000,c_fill/l_text:Arial_Bold_48:${r},co_rgb:c9a054,g_north,y_80/l_text:Arial_28:${s},co_rgb:c9a054,g_center/l_text:Arial_Bold_20:SHAMIM%20FOREVER,co_rgb:888880,g_south,y_80/v1/sovereign-base`
 }
 
-// ── Metadata Generator ────────────────────────────────────────────────────────
 export function buildMetadata(params: {
   productName: string
   serial: string
@@ -115,7 +80,6 @@ export function buildMetadata(params: {
   }
 }
 
-// ── Main Mint Function ────────────────────────────────────────────────────────
 export async function mintSovereignNFT(params: {
   toAddress: string
   productName: string
@@ -124,27 +88,29 @@ export async function mintSovereignNFT(params: {
   category: string
   craftOrigin?: string
   manufactureDate?: string
-  productImageUrl?: string
 }): Promise<{ txHash: string; tokenId: string; metadataUrl: string; artworkIpfs: string }> {
-  const { toAddress, productName, serial, rarityTier, category, craftOrigin = 'Karachi Sovereign Atelier', manufactureDate = new Date().toLocaleDateString('en-GB', { month: 'long', year: 'numeric' }), productImageUrl } = params
+  const {
+    toAddress, productName, serial, rarityTier, category,
+    craftOrigin = 'Karachi Sovereign Atelier',
+    manufactureDate = new Date().toLocaleDateString('en-GB', { month: 'long', year: 'numeric' }),
+  } = params
 
-  // 1. Generate artwork URL
+  // 1. Generate artwork URL via Cloudinary
   const artworkCloudinaryUrl = generateSimpleArtworkURL(serial, rarityTier)
 
-  // 2. Upload artwork to IPFS
-  let artworkIpfs = artworkCloudinaryUrl // fallback
+  // 2. Upload artwork to IPFS (fallback to Cloudinary URL if fails)
+  let artworkIpfs = artworkCloudinaryUrl
   try {
     artworkIpfs = await uploadImageURLToIPFS(artworkCloudinaryUrl, `${serial}-artwork`)
-  } catch (e) {
-    console.warn('IPFS artwork upload failed, using Cloudinary URL:', e)
-    artworkIpfs = artworkCloudinaryUrl
+  } catch {
+    console.warn('IPFS artwork upload failed, using Cloudinary URL')
   }
 
-  // 3. Build + upload metadata to IPFS
+  // 3. Build + upload metadata JSON to IPFS
   const metadata = buildMetadata({ productName, serial, rarityTier, category, imageIpfsUrl: artworkIpfs, craftOrigin, manufactureDate })
   const metadataUrl = await uploadMetadataToIPFS(metadata)
 
-  // 4. Mint on-chain
+  // 4. Mint on Polygon Mainnet
   const { walletClient, publicClient, account } = getClients()
   const contractAddress = getContractAddress()
 
@@ -156,20 +122,21 @@ export async function mintSovereignNFT(params: {
     account,
   })
 
-  // 5. Wait for receipt and extract tokenId from event
+  // 5. Wait for receipt
   const receipt = await publicClient.waitForTransactionReceipt({ hash, confirmations: 2 })
-  
-  // Parse AssetMinted event to get tokenId
+
+  // 6. Extract tokenId from logs
   let tokenId = '0'
-  const mintedLog = receipt.logs[receipt.logs.length - 1]
-  if (mintedLog?.topics[1]) {
-    tokenId = BigInt(mintedLog.topics[1]).toString()
+  if (receipt.logs && receipt.logs.length > 0) {
+    const lastLog = receipt.logs[receipt.logs.length - 1]
+    if (lastLog?.topics[1]) {
+      tokenId = BigInt(lastLog.topics[1]).toString()
+    }
   }
 
   return { txHash: hash, tokenId, metadataUrl, artworkIpfs }
 }
 
-// ── Read wallet NFTs from contract ────────────────────────────────────────────
 export async function getWalletNFTs(walletAddress: string): Promise<{ tokenId: string; tokenURI: string }[]> {
   try {
     const { publicClient } = getClients()
@@ -178,19 +145,20 @@ export async function getWalletNFTs(walletAddress: string): Promise<{ tokenId: s
     const balance = await publicClient.readContract({
       address: contractAddress, abi: NFT_ABI, functionName: 'balanceOf',
       args: [walletAddress as `0x${string}`],
-    })
+    }) as bigint
 
-    const nfts = []
-    for (let i = 0n; i < (balance as bigint); i++) {
+    const nfts: { tokenId: string; tokenURI: string }[] = []
+    const count = Number(balance)
+    for (let i = 0; i < count; i++) {
       const tokenId = await publicClient.readContract({
         address: contractAddress, abi: NFT_ABI, functionName: 'tokenOfOwnerByIndex',
-        args: [walletAddress as `0x${string}`, i],
-      })
+        args: [walletAddress as `0x${string}`, BigInt(i)],
+      }) as bigint
       const uri = await publicClient.readContract({
         address: contractAddress, abi: NFT_ABI, functionName: 'tokenURI',
-        args: [tokenId as bigint],
-      })
-      nfts.push({ tokenId: (tokenId as bigint).toString(), tokenURI: uri as string })
+        args: [tokenId],
+      }) as string
+      nfts.push({ tokenId: tokenId.toString(), tokenURI: uri })
     }
     return nfts
   } catch {
@@ -198,10 +166,9 @@ export async function getWalletNFTs(walletAddress: string): Promise<{ tokenId: s
   }
 }
 
-// ── Sovereign Rank Calculator ─────────────────────────────────────────────────
-export function calculateSovereignRank(nftCount: number, rarities: string[]): { rank: string; score: number } {
-  const rarityScores: Record<string, number> = { COMMON: 10, ELITE: 25, ROYAL: 50, IMPERIAL: 80, FOUNDERS: 150, 'ONE-OF-ONE': 300 }
-  const score = rarities.reduce((sum, r) => sum + (rarityScores[r] || 10), 0)
+export function calculateSovereignRank(rarities: string[]): { rank: string; score: number } {
+  const SCORES: Record<string, number> = { COMMON: 10, ELITE: 25, ROYAL: 50, IMPERIAL: 80, FOUNDERS: 150, 'ONE-OF-ONE': 300 }
+  const score = rarities.reduce((sum, r) => sum + (SCORES[r] || 10), 0)
   let rank = 'Associate'
   if (score >= 500) rank = 'Founder'
   else if (score >= 250) rank = 'Imperial'
