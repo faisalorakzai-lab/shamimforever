@@ -129,7 +129,6 @@ function buildSVG(serial: string): string {
     s.push('<line x1="' + x1 + '" y1="' + y1 + '" x2="' + x2 + '" y2="' + y2 + '" stroke="' + G2 + '" stroke-width="0.7" stroke-opacity="0.42"/>')
   }
   if (tier === 'FOUNDERS' || tier === 'ONE-OF-ONE') {
-  s.push("  <polygon fill="' + G2 + '" stroke="' + G2 + '" points=\"0,-52 37,0 0,52 -37,0\" fill-opacity=\"0.1\" stroke-width=\"1.3\" stroke-opacity=\"0.8\"/>")
     s.push('<polygon points="0,-52 37,0 0,52 -37,0" fill="' + G2 + '" fill-opacity="0.1" stroke="' + G2 + '" stroke-width="1.3" stroke-opacity="0.8"/>')
     s.push('<polygon points="0,-30 21,0 0,30 -21,0" fill="url(#gG)" fill-opacity="0.75"/>')
     s.push('<circle cx="0" cy="0" r="9" fill="' + G1 + '" fill-opacity="0.95"/>')
