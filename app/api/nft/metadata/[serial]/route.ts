@@ -132,6 +132,17 @@ const GENESIS: Record<string, AssetEntry> = {
     volume: '10ml Hand-Blown Venetian Glass', edition: 'Absolute Unique — 1 of 1', year: 2026,
     serial: 'SF-IO-2026-00010',
   },
+  'SF-RO-2026-01': {
+    name: "SHAMIM'S GHOST — FOUNDERS SOVEREIGN EDITION",
+    description: "Ultra-luxury sovereign fragrance NFT artwork for a $50,000+ founder collectible, cinematic matte black environment, obsidian crystal perfume bottle with engraved gold SF insignia, massive royal diamond crown cap, floating sovereign gold key charm, museum-grade reflections, black velvet shadows, soft luxury smoke atmosphere, royal gold silk fabric flowing around the bottle, subtle rose elements, hyper-detailed cinematic lighting, elite billionaire aesthetic, institutional luxury branding, deep black and gold palette, prestige fragrance campaign quality, Sotheby's x Rolls Royce x Tom Ford aesthetic, ultra realistic, 8k, masterpiece composition, premium luxury photography, sovereign seal emblem, dark reflective marble surface, dramatic spotlight from above, ultra-clean typography area for SHAMIM'S GHOST title, no cartoon, no cheap crypto style, no cyberpunk, no neon, no clutter, hyper realistic luxury collectible visual.",
+    rarity: 'Founders Sovereign Edition', tier: 'FOUNDERS',
+    price: '$50,000 USD', usd: 50000, tokenId: 10,
+    txHash: '0x0000000000000000000000000000000000000000000000000000000000000000',
+    origin: 'Karachi Sovereign Atelier', material: 'Obsidian Crystal & Gold',
+    concentration: 'Ultra-Premium (100%)', notes: 'Sovereign Luxury Fragrance NFT Artwork',
+    volume: '50ml Obsidian Crystal Flacon', edition: 'Founders Sovereign Edition — 1 of 1', year: 2026,
+    serial: 'SF-RO-2026-01',
+  },
 }
 
 export async function GET(
