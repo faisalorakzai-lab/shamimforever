@@ -4631,6 +4631,6 @@ contract SovereignAssetProtocol is ERC721, ERC721URIStorage, ERC721Enumerable, E
         public view override(ERC721, ERC721URIStorage) returns (string memory) { return super.tokenURI(tokenId); }
 
     function supportsInterface(bytes4 interfaceId) 
-        public view override(ERC721, ERC721Enumerable, ERC2981) returns (bool) { return super.supportsInterface(interfaceId); }
+        public view override(ERC721, ERC721URIStorage, ERC721Enumerable, ERC2981) returns (bool) { return super.supportsInterface(interfaceId); }
 }
 
