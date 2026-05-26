@@ -5,16 +5,14 @@ import { NextRequest, NextResponse } from 'next/server'
   const BASE = 'https://shamimforever-api-server.vercel.app'
   const CONTRACT = '0xCCFc11b22990a39cB5a58A1d1778A1d80FDC7640'
 
-  // Founder NFT — real artwork on Pinata IPFS
-  // CID: QmPiwPF6R4QUgWQMAji8kiwj1TQLJfEHdmbkd9DYLfsZ4f
-  // Gateway: https://gateway.pinata.cloud/ipfs/QmPiwPF6R4QUgWQMAji8kiwj1TQLJfEHdmbkd9DYLfsZ4f
-  // This URL is served by our tokenURI — wallets like MetaMask, Trust Wallet, OpenSea
-  // resolve the IPFS gateway automatically from ipfs:// prefix
-
+  // SHAMIM'S GHOST — FOUNDERS SOVEREIGN EDITION
+  // Token ID: 10 | Polygon Mainnet
+  // Real PNG artwork served at: BASE/nft/SF-RO-2026-01-main.png (2MB, image/png)
+  // MetaMask / Trust Wallet / OpenSea / Polygonscan all support HTTPS PNG images
   const FOUNDERS_METADATA = {
     name: "SHAMIM'S GHOST — FOUNDERS SOVEREIGN EDITION",
     description: "Ultra-luxury sovereign fragrance NFT — \$150,000 Founder collectible. Cinematic matte black environment, obsidian crystal perfume bottle with engraved gold SF insignia, massive royal diamond crown cap, floating sovereign gold key charm, museum-grade reflections, black velvet shadows, soft luxury smoke atmosphere, royal gold silk fabric, subtle rose elements, hyper-detailed cinematic lighting, elite billionaire aesthetic, institutional luxury branding. Sotheby's × Rolls Royce × Tom Ford. Permanent on-chain provenance and VVIP institutional access to the House of Shamim Forever.",
-    image: 'ipfs://QmPiwPF6R4QUgWQMAji8kiwj1TQLJfEHdmbkd9DYLfsZ4f',
+    image: `${BASE}/nft/SF-RO-2026-01-main.png`,
     external_url: `${BASE}/authenticate?serial=SF-RO-2026-01`,
     background_color: '050505',
     contract_address: CONTRACT,
@@ -39,6 +37,7 @@ import { NextRequest, NextResponse } from 'next/server'
       { trait_type: 'Quality', value: "Sotheby's x Rolls Royce x Tom Ford, Ultra Realistic, 8K, Masterpiece Composition" },
       { trait_type: 'Seal', value: 'Sovereign Seal Emblem' },
       { trait_type: 'Surface', value: 'Dark Reflective Marble' },
+      { trait_type: 'Spotlight', value: 'Dramatic from Above' },
       { trait_type: 'Mood', value: 'Timeless, Powerful, Legendary, Sovereign' },
       { trait_type: 'Hidden Elements', value: 'Microscopic Serial Engraving, Floating Dust Particles, Arabic/Persian Texture Patterns, Gold Embossing, Black Lacquer Reflections, Cinematic Lens Bloom, Luxury Fog' },
       { trait_type: 'Craftsmanship Origin', value: 'Karachi Sovereign Atelier' },
@@ -68,11 +67,15 @@ import { NextRequest, NextResponse } from 'next/server'
       })
     }
 
-    // Dynamic fallback for product-minted NFTs (uses their own artwork API)
+    // Dynamic fallback for product-minted NFTs
+    const image = serial.startsWith('SF-')
+      ? `${BASE}/nft/${serial}-main.png`
+      : `${BASE}/api/nft/artwork/${encodeURIComponent(serial)}`
+
     return NextResponse.json({
       name: `Shamim Forever Sovereign Asset — ${serial}`,
       description: 'A sovereign luxury NFT from the House of Shamim Forever. Tied to a physical ultra-luxury fragrance collectible with on-chain provenance and VVIP House access.',
-      image: `${BASE}/api/nft/artwork/${encodeURIComponent(serial)}`,
+      image,
       external_url: `${BASE}/authenticate?serial=${serial}`,
       background_color: '050505',
       contract_address: CONTRACT,
