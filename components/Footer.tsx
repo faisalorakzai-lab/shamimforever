@@ -30,6 +30,7 @@ const INFRA_LINKS = [
   { label: 'DNA Identity', href: '/dna-identity' },
   { label: 'Time Archive', href: '/time-archive' },
   { label: 'Heirloom Vault', href: '/heirloom-vault' },
+  { label: 'Sovereign Vault', href: '/vault' },
   { label: 'Sovereign Aura', href: '/sovereign-aura' },
 ]
 
