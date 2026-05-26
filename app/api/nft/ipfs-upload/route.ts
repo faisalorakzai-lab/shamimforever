@@ -13,8 +13,8 @@ import { NextRequest, NextResponse } from 'next/server'
     'function setTokenURI(uint256 tokenId, string memory uri)',
   ])
 
-  async function uploadImageToPinata(imgBuffer: Buffer, filename: string): Promise<string> {
-    const blob = new Blob([imgBuffer], { type: 'image/png' })
+  async function uploadImageToPinata(arrayBuffer: ArrayBuffer, filename: string): Promise<string> {
+    const blob = new Blob([new Uint8Array(arrayBuffer)], { type: 'image/png' })
     const form = new FormData()
     form.append('file', blob, filename)
     form.append('pinataMetadata', JSON.stringify({ name: filename }))
@@ -23,7 +23,7 @@ import { NextRequest, NextResponse } from 'next/server'
       headers: { Authorization: `Bearer ${process.env.PINATA_JWT}` },
       body: form,
     })
-    if (!res.ok) throw new Error('Pinata image upload: ' + await res.text())
+    if (!res.ok) throw new Error('Pinata image: ' + await res.text())
     const d = await res.json()
     return `ipfs://${d.IpfsHash}`
   }
@@ -42,25 +42,27 @@ import { NextRequest, NextResponse } from 'next/server'
   export async function POST(req: NextRequest) {
     try {
       const adminKey = req.headers.get('x-admin-key') || ''
-      if (adminKey !== (process.env.ADMIN_SECRET_KEY || process.env.SUPABASE_SERVICE_ROLE_KEY)) {
+      if (adminKey !== process.env.ADMIN_SECRET_KEY) {
         return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
       }
       const { serial, tokenId, imagePublicPath } = await req.json()
-      if (!serial || tokenId === undefined) return NextResponse.json({ error: 'serial + tokenId required' }, { status: 400 })
+      if (!serial || tokenId === undefined) {
+        return NextResponse.json({ error: 'serial + tokenId required' }, { status: 400 })
+      }
 
-      // Fetch PNG from our public CDN
+      // Fetch PNG from our public CDN (ArrayBuffer for Blob compatibility)
       const imgUrl = imagePublicPath || `${BASE}/nft/${serial}-main.png`
       const imgRes = await fetch(imgUrl)
       if (!imgRes.ok) throw new Error('Image fetch failed: ' + imgUrl)
-      const imgBuffer = Buffer.from(await imgRes.arrayBuffer())
+      const imgArrayBuffer = await imgRes.arrayBuffer()
 
-      // Upload image to IPFS
-      const imageIpfs = await uploadImageToPinata(imgBuffer, `${serial}-founders.png`)
+      // 1. Upload image to IPFS
+      const imageIpfs = await uploadImageToPinata(imgArrayBuffer, `${serial}-founders.png`)
 
-      // Build metadata
+      // 2. Build metadata with IPFS image
       const meta = {
         name: "SHAMIM'S GHOST — FOUNDERS SOVEREIGN EDITION",
-        description: "Ultra-luxury sovereign fragrance NFT — \$150,000 Founder collectible. Cinematic matte black environment, obsidian crystal perfume bottle with engraved gold SF insignia, massive royal diamond crown cap, floating sovereign gold key charm. Sotheby's × Rolls Royce × Tom Ford. Permanent provenance with VVIP access to the House of Shamim Forever.",
+        description: "Ultra-luxury sovereign fragrance NFT — \$150,000 Founder collectible. Cinematic matte black, obsidian crystal bottle with gold SF insignia, royal diamond crown cap, floating sovereign gold key charm. Sotheby's × Rolls Royce × Tom Ford. Permanent provenance, VVIP access to the House of Shamim Forever.",
         image: imageIpfs,
         external_url: `${BASE}/authenticate?serial=${serial}`,
         background_color: '050505',
@@ -84,7 +86,7 @@ import { NextRequest, NextResponse } from 'next/server'
       }
       const metaIpfs = await uploadMetaToPinata(meta, `${serial}-metadata`)
 
-      // Update on-chain tokenURI via setTokenURI
+      // 3. Update on-chain tokenURI via setTokenURI
       const pk = process.env.MINTER_PRIVATE_KEY as `0x${string}`
       const account = privateKeyToAccount(pk)
       const transport = http(process.env.ALCHEMY_RPC_URL!)
@@ -110,3 +112,4 @@ import { NextRequest, NextResponse } from 'next/server'
       return NextResponse.json({ error: e?.message }, { status: 500 })
     }
   }
+  
