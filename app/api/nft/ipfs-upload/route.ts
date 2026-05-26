@@ -13,6 +13,10 @@ import { NextRequest, NextResponse } from 'next/server'
     'function setTokenURI(uint256 tokenId, string memory uri)',
   ])
 
+  function normalizeKey(k: string): `0x${string}` {
+    return (k.startsWith('0x') ? k : `0x${k}`) as `0x${string}`
+  }
+
   async function uploadImageToPinata(arrayBuffer: ArrayBuffer, filename: string): Promise<string> {
     const blob = new Blob([new Uint8Array(arrayBuffer)], { type: 'image/png' })
     const form = new FormData()
@@ -50,7 +54,7 @@ import { NextRequest, NextResponse } from 'next/server'
         return NextResponse.json({ error: 'serial + tokenId required' }, { status: 400 })
       }
 
-      // Fetch PNG from our public CDN (ArrayBuffer for Blob compatibility)
+      // Fetch PNG from our public CDN
       const imgUrl = imagePublicPath || `${BASE}/nft/${serial}-main.png`
       const imgRes = await fetch(imgUrl)
       if (!imgRes.ok) throw new Error('Image fetch failed: ' + imgUrl)
@@ -86,9 +90,9 @@ import { NextRequest, NextResponse } from 'next/server'
       }
       const metaIpfs = await uploadMetaToPinata(meta, `${serial}-metadata`)
 
-      // 3. Update on-chain tokenURI via setTokenURI
-      const pk = process.env.MINTER_PRIVATE_KEY as `0x${string}`
-      const account = privateKeyToAccount(pk)
+      // 3. Update on-chain tokenURI — normalize private key to 0x prefix
+      const rawPk = process.env.MINTER_PRIVATE_KEY!
+      const account = privateKeyToAccount(normalizeKey(rawPk))
       const transport = http(process.env.ALCHEMY_RPC_URL!)
       const walletClient = createWalletClient({ account, chain: polygon, transport })
       const publicClient = createPublicClient({ chain: polygon, transport })
