@@ -6,15 +6,14 @@ import Link from 'next/link'
 import { supabase } from '@/lib/supabase'
 import type { Product } from '@/types'
 import { formatPKR, formatUSD } from '@/lib/utils'
-import { ChevronLeft, ChevronRight, Copy, Check, Upload, X, Gem, Leaf, Package } from 'lucide-react'
+import { ChevronLeft, ChevronRight, Copy, Check, Upload, X } from 'lucide-react'
 import ShamimsBloomPage from '@/components/ShamimsBloomPage'
+import ShamimBloomSovereignPage from '@/components/ShamimBloomSovereignPage'
 
 const WALLET_ADDRESS = '0x9b02e2Edd6F58D626aAa91889708dbF39dfa8Cd7'
-const OKBOND_CONTRACT = '0xc89729DA02a8c2E282EC3070A9a680E01bE2E22F'
 const EASYPAISA_NUMBER = '03367970004'
 const EASYPAISA_NAME = 'M Faisal'
 const UBL_IBAN = 'PK13UNIL0109000318870498'
-const UBL_ACCOUNT = '0909318870498'
 const OKBOND_DISCOUNT = 0.1
 
 type PaymentMethod = 'crypto' | 'pkr_manual' | 'cod'
@@ -23,7 +22,6 @@ type CryptoCoin = 'USDT' | 'USDC' | 'OKBOND'
 interface ProductDetails {
   tagline?: string
   olfactory?: string
-  ingredients?: Array<{ name: string; role: string; detail: string }>
   scentPyramid?: { top: string; heart: string; base: string }
   specs?: { volume: string; concentration: string; sillage: string; longevity: string; batch: string; price: string }
   nft?: { title: string; description: string }
@@ -101,7 +99,6 @@ export default function ProductDetailPage({ params }: { params: { id: string } }
 
   useEffect(() => {
     const slug = params.id
-    // Try by slug first, then fallback to ID
     supabase
       .from('products')
       .select('*, collection:collections(*), main_category:main_categories(*)')
@@ -113,7 +110,6 @@ export default function ProductDetailPage({ params }: { params: { id: string } }
           if (data?.story) { try { setDetails(JSON.parse(data.story)) } catch {} }
           setLoading(false)
         } else {
-          // Fallback to ID lookup
           return supabase
             .from('products')
             .select('*, collection:collections(*), main_category:main_categories(*)')
@@ -144,7 +140,7 @@ export default function ProductDetailPage({ params }: { params: { id: string } }
 
   async function handlePlaceOrder() {
     if (!product) return
-    if (!custName || !custPhone || !custAddress || !custCity || !custCountry) { setOrderError('Please fill in all delivery details.'); return }
+    if (!custName || !custPhone || !custAddress || !custCity) { setOrderError('Please fill in all delivery details.'); return }
     if (paymentMethod === 'crypto' && !txHash) { setOrderError('Please enter your transaction hash.'); return }
     if (paymentMethod === 'pkr_manual' && !txId && !proofFile) { setOrderError('Please provide transaction ID or upload payment screenshot.'); return }
     setSubmitting(true); setOrderError(null)
@@ -165,7 +161,7 @@ export default function ProductDetailPage({ params }: { params: { id: string } }
         total_pkr: Math.round(totalPkr), total_usd: parseFloat(totalUsd.toFixed(2)),
         discount_applied: isOkbond ? OKBOND_DISCOUNT * 100 : 0,
         shipping_address: { name: custName, phone: custPhone, line1: custAddress, city: custCity, country: custCountry },
-        notes: txHash ? ('Tx Hash: ' + txHash) : txId ? ('Tx ID: ' + txId) : paymentMethod === 'cod' ? 'Cash on Delivery' : '',
+        notes: txHash ? ('Tx Hash: ' + txHash) : txId ? ('Tx ID: ' + txId) : 'Cash on Delivery',
         payment_proof_url: proofUrl,
       }]).select().single()
       if (error) throw error
@@ -195,9 +191,12 @@ export default function ProductDetailPage({ params }: { params: { id: string } }
     </div>
   )
 
-  // ── SHAMIM'S BLOOM special cinematic page ──
+  // ── Route to special pages ──
   if (product.slug === 'shamims-bloom') {
     return <ShamimsBloomPage product={product} onBack={() => window.history.back()} />
+  }
+  if (product.slug === 'shamim-bloom-sovereign-grace') {
+    return <ShamimBloomSovereignPage product={product} />
   }
 
   const images = product.images || []
@@ -214,7 +213,7 @@ export default function ProductDetailPage({ params }: { params: { id: string } }
         {paymentMethod === 'cod' ? (
           <p className="text-zinc-400 font-light leading-relaxed mb-10">Your order has been confirmed for <strong className="text-zinc-200">Cash on Delivery</strong>. Our team will contact you shortly.</p>
         ) : (
-          <p className="text-zinc-400 font-light leading-relaxed mb-10">Your order is <strong className="text-zinc-200">pending verification</strong>. Once our team verifies your payment, your order will be confirmed and dispatched.</p>
+          <p className="text-zinc-400 font-light leading-relaxed mb-10">Your order is <strong className="text-zinc-200">pending verification</strong>. Once our team verifies your payment, your order will be confirmed.</p>
         )}
         <Link href="/shop" className="text-[9px] tracking-[0.4em] uppercase text-zinc-400 border border-zinc-800 px-8 py-3 hover:text-[#c9a054] hover:border-[#c9a054]/40 transition-all">Continue Shopping</Link>
       </motion.div>
@@ -292,7 +291,6 @@ export default function ProductDetailPage({ params }: { params: { id: string } }
               {isOkbond && <span className="text-[8px] tracking-[0.3em] uppercase text-[#c9a054]">−10% OKBOND</span>}
             </div>
 
-            {/* Tabs */}
             <div className="flex border-b border-[#111] mb-10">
               {(['story', 'specs', 'nft'] as const).map(tab => (
                 <button key={tab} onClick={() => setActiveTab(tab)} className={'flex-1 py-4 text-[8px] tracking-[0.35em] uppercase transition-all duration-300 border-b-2 ' + (activeTab === tab ? 'text-[#c9a054] border-[#c9a054]' : 'text-zinc-600 border-transparent hover:text-zinc-400')}>
@@ -321,7 +319,7 @@ export default function ProductDetailPage({ params }: { params: { id: string } }
               )}
               {activeTab === 'nft' && (
                 <motion.div key="nft" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.4 }} className="mb-10 space-y-6">
-                  <p className="text-zinc-500 font-light leading-[2] text-sm">{details?.nft?.description || 'Every creation from the House of Shamim Forever comes with a Digital Twin — an NFT minted on Polygon that permanently records your ownership and provides VVIP access to the House.'}</p>
+                  <p className="text-zinc-500 font-light leading-[2] text-sm">{details?.nft?.description || 'Every creation from the House of Shamim Forever comes with a Digital Twin — an NFT minted on Polygon that permanently records ownership.'}</p>
                   <div className="p-5 border border-[#c9a054]/15 bg-[#c9a054]/5 space-y-3">
                     <div className="flex items-center justify-between">
                       <p className="text-[8px] tracking-[0.35em] uppercase text-zinc-600">Network</p>
@@ -331,16 +329,11 @@ export default function ProductDetailPage({ params }: { params: { id: string } }
                       <p className="text-[8px] tracking-[0.35em] uppercase text-zinc-600">Auto-Mint</p>
                       <p className="text-zinc-300 text-xs">On Purchase Confirmation</p>
                     </div>
-                    <div className="flex items-center justify-between gap-3">
-                      <p className="text-[8px] tracking-[0.35em] uppercase text-zinc-600">Verify</p>
-                      <Link href={'/authenticate?serial=' + (product.slug || product.id)} className="text-[8px] tracking-[0.25em] uppercase text-[#c9a054] hover:text-zinc-100 transition-colors">Authenticate →</Link>
-                    </div>
                   </div>
                 </motion.div>
               )}
             </AnimatePresence>
 
-            {/* Payment */}
             <div className="mb-6">
               <p className="text-[8px] tracking-[0.4em] uppercase text-zinc-600 mb-4">Payment Method</p>
               <div className="flex gap-0 border border-[#1a1a1a] mb-6">
@@ -404,7 +397,6 @@ export default function ProductDetailPage({ params }: { params: { id: string } }
               )}
             </div>
 
-            {/* Quantity + delivery */}
             <div className="flex items-center gap-4 mb-6">
               <div className="flex items-center gap-3 border border-[#1a1a1a]">
                 <button onClick={() => setQuantity(q => Math.max(1, q - 1))} className="w-10 h-10 flex items-center justify-center text-zinc-400 hover:text-zinc-100 transition-colors">−</button>
