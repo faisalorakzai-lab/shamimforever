@@ -19,12 +19,12 @@ const STATIC_CATS = [
 const SUB_CATS: Record<string, { label: string; value: string }[]> = {
   perfume: [
     { label: 'All Fragrances', value: 'all' },
-    { label: 'For Him', value: 'him' },
-    { label: 'Oud & Leather', value: 'oud' },
-    { label: 'Woody & Spicy', value: 'woody' },
     { label: 'For Her', value: 'her' },
     { label: 'Floral & Sweet', value: 'floral' },
     { label: 'Fruity & Fresh', value: 'fruity' },
+    { label: 'For Him', value: 'him' },
+    { label: 'Oud & Leather', value: 'oud' },
+    { label: 'Woody & Spicy', value: 'woody' },
     { label: 'Unisex', value: 'unisex' },
   ],
   cosmetics: [
@@ -56,11 +56,12 @@ const SORT_OPTIONS = [
   { value: 'price_desc', label: 'Price ↓' },
 ]
 
+// Updated with real collection banners
 const HERO_IMAGES: Record<string, string> = {
-  all: 'https://images.unsplash.com/photo-1541643600914-78b084683702?w=1200&q=85&fit=crop',
-  perfume: 'https://images.unsplash.com/photo-1541643600914-78b084683702?w=1200&q=85&fit=crop',
-  cosmetics: 'https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=1200&q=85&fit=crop',
-  jewelry: 'https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=1200&q=85&fit=crop',
+  all: '/collections/banner-her.png',
+  perfume: '/collections/banner-her.png',
+  cosmetics: '/collections/banner-unisex.png',
+  jewelry: '/collections/banner-him.png',
 }
 
 export default function ShopPage() {
@@ -115,7 +116,7 @@ export default function ShopPage() {
   return (
     <div className="min-h-screen bg-[#050505] overflow-x-hidden">
 
-      {/* ─── HERO STRIP (compact, mobile-first) ─── */}
+      {/* ─── HERO STRIP ─── */}
       <section className="pt-20 relative overflow-hidden border-b border-[#111]">
         <div className="relative h-[40vw] md:h-[35vh] max-h-[320px]">
           <AnimatePresence mode="wait">
@@ -180,7 +181,7 @@ export default function ShopPage() {
           ))}
         </div>
 
-        {/* ─── SUB-CATEGORY + SORT STRIP ─── */}
+        {/* ─── SUB-CATEGORY + SORT ─── */}
         {activeCategory !== 'all' && SUB_CATS[activeCategory] && (
           <div className="border-t border-[#0a0a0a] bg-[#030303]">
             <div className="flex items-center">
@@ -199,7 +200,6 @@ export default function ShopPage() {
                   </button>
                 ))}
               </div>
-              {/* Sort button */}
               <div className="relative flex-shrink-0 border-l border-[#111]">
                 <button
                   onClick={() => setShowSort(!showSort)}
@@ -245,9 +245,7 @@ export default function ShopPage() {
             </p>
             <div className="mt-8 flex items-center justify-center gap-4">
               <div className="w-8 h-px bg-[#c9a054]/30" />
-              <span className="text-[9px] tracking-[0.45em] uppercase text-[#c9a054]">
-                House of Shamim Forever
-              </span>
+              <span className="text-[9px] tracking-[0.45em] uppercase text-[#c9a054]">House of Shamim Forever</span>
               <div className="w-8 h-px bg-[#c9a054]/30" />
             </div>
           </div>
@@ -260,7 +258,6 @@ export default function ShopPage() {
               exit={{ opacity: 0 }}
               transition={{ duration: 0.4 }}
             >
-              {/* Result count */}
               <div className="flex items-center justify-between mb-6 md:mb-10 pb-4 md:pb-6 border-b border-[#0d0d0d]">
                 <p className="text-[8px] tracking-[0.35em] uppercase text-zinc-700">
                   {products.length} Creations
@@ -292,7 +289,6 @@ export default function ShopPage() {
                 )}
               </div>
 
-              {/* 2-col mobile, 3-col desktop */}
               <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-8 lg:gap-10">
                 {products.map((product, i) => (
                   <motion.div
@@ -301,12 +297,18 @@ export default function ShopPage() {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: Math.min(i * 0.05, 0.4), duration: 0.8, ease }}
                   >
-                    <Link href={`/products/${product.id}`} className="block group">
-                      {/* Image */}
+                    <Link href={'/products/' + (product.slug || product.id)} className="block group">
                       <div className="relative aspect-[3/4] overflow-hidden bg-[#0a0a0a] mb-3 md:mb-5">
                         {product.images?.[0] ? (
                           <img
                             src={product.images[0]}
+                            alt={product.name}
+                            className="w-full h-full object-cover group-hover:scale-[1.05] transition-transform duration-[1500ms]"
+                            style={{ transitionTimingFunction: 'cubic-bezier(0.16,1,0.3,1)' }}
+                          />
+                        ) : product.slug === 'shamims-bloom' ? (
+                          <img
+                            src="/products/shamims-bloom/bloom-1.png"
                             alt={product.name}
                             className="w-full h-full object-cover group-hover:scale-[1.05] transition-transform duration-[1500ms]"
                             style={{ transitionTimingFunction: 'cubic-bezier(0.16,1,0.3,1)' }}
@@ -320,17 +322,14 @@ export default function ShopPage() {
                           </div>
                         )}
 
-                        {/* Overlay on hover */}
                         <div className="absolute inset-0 bg-gradient-to-t from-[#050505]/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
 
-                        {/* View CTA - visible on hover (desktop) or always on mobile */}
                         <div className="absolute bottom-0 left-0 right-0 p-3 md:p-4 translate-y-0 md:translate-y-4 md:opacity-0 md:group-hover:translate-y-0 md:group-hover:opacity-100 transition-all duration-700" style={{ transitionTimingFunction: 'cubic-bezier(0.16,1,0.3,1)' }}>
                           <span className="block w-full text-center text-[7px] md:text-[8px] tracking-[0.35em] uppercase text-[#c9a054] border border-[#c9a054]/40 py-2 md:py-2.5 bg-[#050505]/80 backdrop-blur-sm">
                             View Creation
                           </span>
                         </div>
 
-                        {/* Category badge */}
                         {(product as any).main_category?.name && (
                           <div className="absolute top-2 md:top-3 left-2 md:left-3">
                             <span className="text-[6px] md:text-[7px] tracking-[0.3em] uppercase text-[#c9a054] bg-[#050505]/85 px-2 py-1">
@@ -339,7 +338,6 @@ export default function ShopPage() {
                           </div>
                         )}
 
-                        {/* Low stock */}
                         {product.inventory <= 5 && product.inventory > 0 && (
                           <div className="absolute top-2 md:top-3 right-2 md:right-3">
                             <span className="text-[6px] md:text-[7px] tracking-[0.3em] uppercase text-red-400/80 bg-[#050505]/85 px-2 py-1">
@@ -347,9 +345,14 @@ export default function ShopPage() {
                             </span>
                           </div>
                         )}
+
+                        {product.slug === 'shamims-bloom' && (
+                          <div className="absolute bottom-12 md:bottom-14 right-2 md:right-3">
+                            <span className="text-[6px] tracking-[0.3em] uppercase text-[#c9a054]/80 bg-[#050505]/85 px-2 py-1">◆ NFT</span>
+                          </div>
+                        )}
                       </div>
 
-                      {/* Info */}
                       <div className="px-0.5">
                         <h3 className="font-serif font-light text-sm md:text-lg tracking-[0.12em] text-zinc-200 group-hover:text-[#c9a054] transition-colors duration-500 leading-tight mb-1.5 md:mb-2 line-clamp-2">
                           {product.name}
@@ -372,33 +375,6 @@ export default function ShopPage() {
           </AnimatePresence>
         )}
       </section>
-
-      {/* ─── BOTTOM: EXPLORE COLLECTIONS ─── */}
-      <section className="border-t border-[#111] px-5 md:px-12 lg:px-20 py-14 md:py-20">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, ease }}
-          className="flex flex-col md:flex-row items-start md:items-center justify-between gap-8"
-        >
-          <div>
-            <p className="text-[9px] tracking-[0.45em] uppercase text-zinc-700 mb-3">Explore</p>
-            <h2 className="font-serif font-light text-3xl md:text-4xl tracking-[0.08em] text-zinc-300">
-              Browse by Collection
-            </h2>
-          </div>
-          <div className="flex flex-wrap gap-3">
-            <Link href="/collections" className="luxury-btn text-[8px] py-3 px-6">
-              View Collections
-            </Link>
-            <Link href="/inner-circle" className="text-[9px] tracking-[0.45em] uppercase text-zinc-700 hover:text-[#c9a054] transition-colors duration-500 self-center">
-              Inner Circle Access →
-            </Link>
-          </div>
-        </motion.div>
-      </section>
-
     </div>
   )
 }
