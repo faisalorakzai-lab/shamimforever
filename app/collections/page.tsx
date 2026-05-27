@@ -211,46 +211,6 @@ export default function CollectionsPage() {
                   </motion.div>
                 ))}
               </div>
-
-              {/* Featured: Shamim's Bloom */}
-              <motion.div
-                initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.4, duration: 1, ease }}
-                className="mt-20 md:mt-28"
-              >
-                <div className="relative overflow-hidden">
-                  <div className="grid md:grid-cols-2">
-                    <div className="relative aspect-[4/3] md:aspect-auto overflow-hidden">
-                      <img
-                        src="/products/shamims-bloom/bloom-hero.png"
-                        alt="Shamim's Bloom"
-                        className="w-full h-full object-cover"
-                        style={{ filter: 'brightness(0.65)', minHeight: '400px' }}
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-r from-transparent to-[#050505]" />
-                    </div>
-                    <div className="bg-[#050505] flex flex-col justify-center px-8 md:px-16 py-12 md:py-20 border border-[#111] border-l-0">
-                      <p className="text-[7px] tracking-[0.6em] uppercase text-[#c9a054] mb-6">Featured · Sovereign Feminine</p>
-                      <h2 className="font-serif font-light text-3xl md:text-4xl tracking-[0.2em] text-zinc-100 mb-2">
-                        SHAMIM&apos;S BLOOM
-                      </h2>
-                      <p className="font-serif italic text-zinc-500 text-base mb-8">The Sovereign Grace</p>
-                      <p className="text-zinc-600 font-light leading-[2] text-sm mb-10">
-                        100ML Extrait de Parfum. Taif Rose, White Ambergris, Royal Sandalwood. Backed by a Polygon NFT — your Digital Twin Sovereign Passport.
-                      </p>
-                      <div className="flex items-center gap-6">
-                        <Link
-                          href="/products/shamims-bloom"
-                          className="text-[9px] tracking-[0.45em] uppercase text-[#c9a054] border border-[#c9a054]/40 px-8 py-3 hover:bg-[#c9a054]/10 transition-all duration-500"
-                        >
-                          View Creation
-                        </Link>
-                        <span className="text-[8px] tracking-[0.3em] uppercase text-zinc-700">◆ NFT-Backed</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </motion.div>
             </motion.div>
           ) : (
             <motion.div
