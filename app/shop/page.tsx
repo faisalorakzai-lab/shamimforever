@@ -10,6 +10,20 @@ import { formatPKR } from '@/lib/utils'
 
 const ease = [0.16, 1, 0.3, 1] as const
 
+// Sub-category UUIDs — For Him / For Her / Unisex (Perfume)
+const GENDER_TO_SUB_ID: Record<string, string> = {
+  her:    'ab8df629-e022-41d9-a6de-fac63d5680e8',
+  him:    'ce7a59e1-d0c4-49c8-9c70-3b487f3ab56b',
+  unisex: '63e2c67c-fdba-40f7-9cd1-2cbe7fd6d852',
+}
+
+// Main-category slugs → stable UUIDs
+const CAT_SLUG_TO_ID: Record<string, string> = {
+  perfume:   'c513e298-7cb4-4c94-8288-19c6a12eed9b',
+  cosmetics: '22226324-4789-419d-a9e2-f763df2d24f1',
+  jewelry:   'e291b9af-a637-45da-a2df-d39f2e72e53c',
+}
+
 const STATIC_CATS = [
   { slug: 'all', label: 'All' },
   { slug: 'perfume', label: 'Perfumes' },
@@ -21,31 +35,18 @@ const SUB_CATS: Record<string, { label: string; value: string }[]> = {
   perfume: [
     { label: 'All Fragrances', value: 'all' },
     { label: 'For Her', value: 'her' },
-    { label: 'Floral & Sweet', value: 'floral' },
-    { label: 'Fruity & Fresh', value: 'fruity' },
     { label: 'For Him', value: 'him' },
-    { label: 'Oud & Leather', value: 'oud' },
-    { label: 'Woody & Spicy', value: 'woody' },
     { label: 'Unisex', value: 'unisex' },
   ],
   cosmetics: [
     { label: 'All Cosmetics', value: 'all' },
     { label: 'For Her', value: 'her' },
-    { label: 'Lip Luxury', value: 'lips' },
-    { label: 'Face & Glow', value: 'face' },
-    { label: 'Eye Collection', value: 'eyes' },
     { label: 'For Him', value: 'him' },
-    { label: 'Beard Care', value: 'beard' },
-    { label: 'Skincare', value: 'skincare' },
   ],
   jewelry: [
     { label: 'All Jewelry', value: 'all' },
     { label: 'For Her', value: 'her' },
-    { label: 'Bridal & Statement', value: 'bridal' },
-    { label: 'Minimalist & Daily', value: 'minimal' },
     { label: 'For Him', value: 'him' },
-    { label: 'Rings & Bands', value: 'rings-him' },
-    { label: 'Cufflinks', value: 'cufflinks' },
   ],
 }
 
@@ -62,29 +63,31 @@ const HERO_IMAGES: Record<string, string> = {
   jewelry: '/collections/banner-him.png',
 }
 
+const CAT_LABEL_MAP: Record<string, string> = {
+  all: 'All',
+  perfume: 'Perfumes',
+  cosmetics: 'Cosmetics',
+  jewelry: 'Jewelry',
+  her: 'For Her',
+  him: 'For Him',
+  unisex: 'Unisex',
+}
+
 function Card3D({ children }: { children: React.ReactNode }) {
   const ref = useRef<HTMLDivElement>(null)
-
   const onMove = useCallback((e: React.MouseEvent) => {
-    const el = ref.current
-    if (!el) return
+    const el = ref.current; if (!el) return
     const r = el.getBoundingClientRect()
     const x = ((e.clientX - r.left) / r.width - 0.5) * 16
     const y = ((e.clientY - r.top) / r.height - 0.5) * -12
     el.style.transform = `perspective(900px) rotateY(${x}deg) rotateX(${y}deg) scale3d(1.03,1.03,1.03)`
   }, [])
-
   const onLeave = useCallback(() => {
     if (ref.current) ref.current.style.transform = 'perspective(900px) rotateY(0deg) rotateX(0deg) scale3d(1,1,1)'
   }, [])
-
   return (
-    <div
-      ref={ref}
-      onMouseMove={onMove}
-      onMouseLeave={onLeave}
-      style={{ transition: 'transform 0.15s cubic-bezier(0.16,1,0.3,1)', transformStyle: 'preserve-3d', willChange: 'transform' }}
-    >
+    <div ref={ref} onMouseMove={onMove} onMouseLeave={onLeave}
+      style={{ transition: 'transform 0.15s cubic-bezier(0.16,1,0.3,1)', transformStyle: 'preserve-3d', willChange: 'transform' }}>
       {children}
     </div>
   )
@@ -114,14 +117,14 @@ function ShopPageInner() {
       .select('*, main_category:main_categories(id, name, slug)')
       .eq('is_active', true)
 
-    if (category !== 'all') {
-      const { data: cat } = await supabase.from('main_categories').select('id').eq('slug', category).single()
-      if (cat) query = query.eq('main_category_id', cat.id)
+    // Filter by main category using hardcoded IDs (avoids slug lookup latency)
+    if (category !== 'all' && CAT_SLUG_TO_ID[category]) {
+      query = query.eq('main_category_id', CAT_SLUG_TO_ID[category])
     }
 
-    if (sub !== 'all') {
-      const { data: subCat } = await supabase.from('sub_categories').select('id').eq('slug', sub).single()
-      if (subCat) query = query.eq('sub_category_id', subCat.id)
+    // Filter by sub-category (gender) using hardcoded sub_category UUIDs
+    if (sub !== 'all' && GENDER_TO_SUB_ID[sub]) {
+      query = query.eq('sub_category_id', GENDER_TO_SUB_ID[sub])
     }
 
     if (sort === 'price_asc') query = query.order('price_pkr', { ascending: true })
@@ -133,36 +136,21 @@ function ShopPageInner() {
     setLoading(false)
   }
 
-  function handleCategory(slug: string) {
-    setActiveCategory(slug)
-    setActiveSub('all')
-    fetchProducts(slug, 'all', sortBy)
-  }
+  function handleCategory(slug: string) { setActiveCategory(slug); setActiveSub('all'); fetchProducts(slug, 'all', sortBy) }
+  function handleSub(sub: string) { setActiveSub(sub); fetchProducts(activeCategory, sub, sortBy) }
+  function handleSort(sort: string) { setSortBy(sort); setShowSort(false); fetchProducts(activeCategory, activeSub, sort) }
 
-  function handleSub(sub: string) {
-    setActiveSub(sub)
-    fetchProducts(activeCategory, sub, sortBy)
-  }
-
-  function handleSort(sort: string) {
-    setSortBy(sort)
-    setShowSort(false)
-    fetchProducts(activeCategory, activeSub, sort)
-  }
-
-  const currentLabel = STATIC_CATS.find(c => c.slug === activeCategory)?.label ?? 'All'
-  const subLabel = activeSub !== 'all' && SUB_CATS[activeCategory]
-    ? (SUB_CATS[activeCategory].find(s => s.value === activeSub)?.label ?? currentLabel)
-    : currentLabel
+  const subLabel = activeSub !== 'all' ? CAT_LABEL_MAP[activeSub] : CAT_LABEL_MAP[activeCategory] ?? 'All'
   const heroImage = HERO_IMAGES[activeCategory] ?? HERO_IMAGES.all
 
   return (
     <div className="min-h-screen bg-[#050505] overflow-x-hidden">
+      {/* Hero */}
       <section className="pt-20 relative overflow-hidden border-b border-[#111]">
         <div className="relative h-[40vw] md:h-[35vh] max-h-[320px]">
           <AnimatePresence mode="wait">
             <motion.div key={activeCategory + 'hero'} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.6, ease }} className="absolute inset-0">
-              <img src={heroImage} alt={currentLabel} className="w-full h-full object-cover" style={{ filter: 'brightness(0.25) contrast(1.1)' }} />
+              <img src={heroImage} alt={subLabel} className="w-full h-full object-cover" style={{ filter: 'brightness(0.25) contrast(1.1)' }} />
               <div className="absolute inset-0 bg-gradient-to-r from-[#050505]/90 via-[#050505]/60 to-transparent" />
               <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-transparent to-transparent" />
             </motion.div>
@@ -180,6 +168,7 @@ function ShopPageInner() {
           </div>
         </div>
 
+        {/* Main category tabs */}
         <div className="flex overflow-x-auto scrollbar-none bg-[#050505]/95 backdrop-blur-md border-t border-[#111]">
           {STATIC_CATS.map((cat, i) => (
             <button key={cat.slug} onClick={() => handleCategory(cat.slug)}
@@ -189,11 +178,12 @@ function ShopPageInner() {
           ))}
         </div>
 
+        {/* Sub-category tabs */}
         {activeCategory !== 'all' && SUB_CATS[activeCategory] && (
           <div className="border-t border-[#0a0a0a] bg-[#030303]">
             <div className="flex items-center">
               <div className="flex overflow-x-auto scrollbar-none flex-1">
-                {SUB_CATS[activeCategory].map((sub) => (
+                {SUB_CATS[activeCategory].map(sub => (
                   <button key={sub.value} onClick={() => handleSub(sub.value)}
                     className={`flex-shrink-0 px-4 md:px-6 py-3 text-[8px] tracking-[0.35em] uppercase whitespace-nowrap transition-all ${activeSub === sub.value ? 'text-[#c9a054]' : 'text-zinc-700 hover:text-zinc-400'}`}>
                     {sub.label}
@@ -220,6 +210,7 @@ function ShopPageInner() {
         )}
       </section>
 
+      {/* Products grid */}
       <section className="px-4 md:px-10 lg:px-20 py-8 md:py-14">
         {loading ? (
           <div className="text-center py-28 md:py-40">
@@ -239,10 +230,9 @@ function ShopPageInner() {
         ) : (
           <AnimatePresence mode="wait">
             <motion.div key={activeCategory + activeSub + sortBy} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.4 }}>
-              <div className="flex items-center justify-between mb-6 md:mb-10 pb-4 md:pb-6 border-b border-[#0d0d0d]">
+              <div className="flex items-center justify-between mb-6 md:mb-10 pb-4 border-b border-[#0d0d0d]">
                 <p className="text-[8px] tracking-[0.35em] uppercase text-zinc-700">{products.length} Creations</p>
               </div>
-
               <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-8 lg:gap-10">
                 {products.map((product, i) => {
                   const img = product.images?.[0] || null
@@ -253,10 +243,10 @@ function ShopPageInner() {
                           <div className="relative aspect-[3/4] overflow-hidden bg-[#0a0a0a] mb-3 md:mb-5" style={{ transformStyle: 'preserve-3d' }}>
                             {img ? (
                               <>
-                                <img src={img} alt={product.name} className="w-full h-full object-cover transition-all duration-700 hover:brightness-110"
+                                <img src={img} alt={product.name} className="w-full h-full object-cover"
                                   style={{ filter: 'brightness(0.9) contrast(1.05)' }} />
-                                <div className="absolute inset-0 pointer-events-none" style={{ background: 'linear-gradient(135deg, rgba(255,255,255,0.07) 0%, transparent 45%, rgba(0,0,0,0.18) 100%)', transform: 'translateZ(2px)' }} />
-                                <div className="absolute inset-0 pointer-events-none" style={{ boxShadow: 'inset 0 0 40px rgba(201,160,84,0.05)', border: '1px solid rgba(201,160,84,0.07)', transform: 'translateZ(4px)' }} />
+                                <div className="absolute inset-0 pointer-events-none" style={{ background: 'linear-gradient(135deg,rgba(255,255,255,0.07) 0%,transparent 45%,rgba(0,0,0,0.18) 100%)', transform: 'translateZ(2px)' }} />
+                                <div className="absolute inset-0 pointer-events-none" style={{ boxShadow: 'inset 0 0 40px rgba(201,160,84,0.05),inset 0 0 0 1px rgba(201,160,84,0.07)', transform: 'translateZ(4px)' }} />
                                 <div className="absolute bottom-0 left-0 right-0 p-3 md:p-4 opacity-0 hover:opacity-100 transition-opacity duration-500" style={{ transform: 'translateZ(20px)' }}>
                                   <span className="block w-full text-center text-[7px] md:text-[8px] tracking-[0.35em] uppercase text-[#c9a054] border border-[#c9a054]/40 py-2 md:py-2.5 bg-[#050505]/85 backdrop-blur-sm">
                                     View Creation
@@ -266,10 +256,8 @@ function ShopPageInner() {
                             ) : (
                               <div className="w-full h-full flex flex-col items-center justify-center gap-3">
                                 <p className="font-serif text-5xl md:text-7xl font-light text-[#c9a054]/8">SF</p>
-                                <p className="text-[7px] tracking-[0.3em] uppercase text-zinc-800">{(product as any).main_category?.name ?? 'Shamim Forever'}</p>
                               </div>
                             )}
-
                             {(product as any).main_category?.name && (
                               <div className="absolute top-2 md:top-3 left-2 md:left-3" style={{ transform: 'translateZ(8px)' }}>
                                 <span className="text-[6px] md:text-[7px] tracking-[0.3em] uppercase text-[#c9a054] bg-[#050505]/85 px-2 py-1">
@@ -277,14 +265,12 @@ function ShopPageInner() {
                                 </span>
                               </div>
                             )}
-
                             {product.inventory <= 5 && product.inventory > 0 && (
                               <div className="absolute top-2 md:top-3 right-2 md:right-3" style={{ transform: 'translateZ(8px)' }}>
                                 <span className="text-[6px] md:text-[7px] tracking-[0.3em] uppercase text-red-400/80 bg-[#050505]/85 px-2 py-1">{product.inventory} Left</span>
                               </div>
                             )}
                           </div>
-
                           <div className="px-0.5" style={{ transform: 'translateZ(6px)' }}>
                             <h3 className="font-serif font-light text-sm md:text-lg tracking-[0.12em] text-zinc-200 hover:text-[#c9a054] transition-colors duration-500 leading-tight mb-1.5 md:mb-2 line-clamp-2">
                               {product.name}
