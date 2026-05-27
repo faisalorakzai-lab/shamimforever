@@ -1,6 +1,7 @@
 'use client'
 
-import { useState, useEffect, useRef, useCallback } from 'react'
+import { useState, useEffect, useRef, useCallback, Suspense } from 'react'
+import { useSearchParams } from 'next/navigation'
 import { motion, AnimatePresence } from 'framer-motion'
 import Link from 'next/link'
 import { supabase } from '@/lib/supabase'
@@ -61,7 +62,6 @@ const HERO_IMAGES: Record<string, string> = {
   jewelry: '/collections/banner-him.png',
 }
 
-// 3D tilt card — CSS perspective mouse-tracking
 function Card3D({ children }: { children: React.ReactNode }) {
   const ref = useRef<HTMLDivElement>(null)
 
@@ -90,7 +90,8 @@ function Card3D({ children }: { children: React.ReactNode }) {
   )
 }
 
-export default function ShopPage() {
+function ShopPageInner() {
+  const searchParams = useSearchParams()
   const [products, setProducts] = useState<Product[]>([])
   const [loading, setLoading] = useState(true)
   const [activeCategory, setActiveCategory] = useState('all')
@@ -98,7 +99,13 @@ export default function ShopPage() {
   const [sortBy, setSortBy] = useState('newest')
   const [showSort, setShowSort] = useState(false)
 
-  useEffect(() => { fetchProducts('all', 'all', 'newest') }, [])
+  useEffect(() => {
+    const cat = searchParams.get('category') || 'all'
+    const gender = searchParams.get('gender') || 'all'
+    setActiveCategory(cat)
+    setActiveSub(gender)
+    fetchProducts(cat, gender, 'newest')
+  }, [searchParams])
 
   async function fetchProducts(category: string, sub: string, sort: string) {
     setLoading(true)
@@ -112,7 +119,6 @@ export default function ShopPage() {
       if (cat) query = query.eq('main_category_id', cat.id)
     }
 
-    // Sub-category filter (For Her / For Him / oud / floral / etc.)
     if (sub !== 'all') {
       const { data: subCat } = await supabase.from('sub_categories').select('id').eq('slug', sub).single()
       if (subCat) query = query.eq('sub_category_id', subCat.id)
@@ -152,8 +158,6 @@ export default function ShopPage() {
 
   return (
     <div className="min-h-screen bg-[#050505] overflow-x-hidden">
-
-      {/* HERO */}
       <section className="pt-20 relative overflow-hidden border-b border-[#111]">
         <div className="relative h-[40vw] md:h-[35vh] max-h-[320px]">
           <AnimatePresence mode="wait">
@@ -176,7 +180,6 @@ export default function ShopPage() {
           </div>
         </div>
 
-        {/* Main category tabs */}
         <div className="flex overflow-x-auto scrollbar-none bg-[#050505]/95 backdrop-blur-md border-t border-[#111]">
           {STATIC_CATS.map((cat, i) => (
             <button key={cat.slug} onClick={() => handleCategory(cat.slug)}
@@ -186,7 +189,6 @@ export default function ShopPage() {
           ))}
         </div>
 
-        {/* Sub-category + sort */}
         {activeCategory !== 'all' && SUB_CATS[activeCategory] && (
           <div className="border-t border-[#0a0a0a] bg-[#030303]">
             <div className="flex items-center">
@@ -218,7 +220,6 @@ export default function ShopPage() {
         )}
       </section>
 
-      {/* PRODUCT GRID */}
       <section className="px-4 md:px-10 lg:px-20 py-8 md:py-14">
         {loading ? (
           <div className="text-center py-28 md:py-40">
@@ -242,25 +243,20 @@ export default function ShopPage() {
                 <p className="text-[8px] tracking-[0.35em] uppercase text-zinc-700">{products.length} Creations</p>
               </div>
 
-              {/* 3D Card Grid */}
               <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-8 lg:gap-10">
                 {products.map((product, i) => {
-                  const img = product.images?.[0] || (product.slug === 'shamims-bloom' ? '/products/shamims-bloom/bloom-1.png' : null)
+                  const img = product.images?.[0] || null
                   return (
                     <motion.div key={product.id} initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: Math.min(i * 0.05, 0.4), duration: 0.8, ease }}>
                       <Link href={'/products/' + (product.slug || product.id)} className="block">
                         <Card3D>
-                          {/* 3D image container */}
                           <div className="relative aspect-[3/4] overflow-hidden bg-[#0a0a0a] mb-3 md:mb-5" style={{ transformStyle: 'preserve-3d' }}>
                             {img ? (
                               <>
                                 <img src={img} alt={product.name} className="w-full h-full object-cover transition-all duration-700 hover:brightness-110"
                                   style={{ filter: 'brightness(0.9) contrast(1.05)' }} />
-                                {/* 3D light sheen */}
                                 <div className="absolute inset-0 pointer-events-none" style={{ background: 'linear-gradient(135deg, rgba(255,255,255,0.07) 0%, transparent 45%, rgba(0,0,0,0.18) 100%)', transform: 'translateZ(2px)' }} />
-                                {/* Gold rim */}
                                 <div className="absolute inset-0 pointer-events-none" style={{ boxShadow: 'inset 0 0 40px rgba(201,160,84,0.05)', border: '1px solid rgba(201,160,84,0.07)', transform: 'translateZ(4px)' }} />
-                                {/* Hover CTA */}
                                 <div className="absolute bottom-0 left-0 right-0 p-3 md:p-4 opacity-0 hover:opacity-100 transition-opacity duration-500" style={{ transform: 'translateZ(20px)' }}>
                                   <span className="block w-full text-center text-[7px] md:text-[8px] tracking-[0.35em] uppercase text-[#c9a054] border border-[#c9a054]/40 py-2 md:py-2.5 bg-[#050505]/85 backdrop-blur-sm">
                                     View Creation
@@ -274,7 +270,6 @@ export default function ShopPage() {
                               </div>
                             )}
 
-                            {/* Category badge */}
                             {(product as any).main_category?.name && (
                               <div className="absolute top-2 md:top-3 left-2 md:left-3" style={{ transform: 'translateZ(8px)' }}>
                                 <span className="text-[6px] md:text-[7px] tracking-[0.3em] uppercase text-[#c9a054] bg-[#050505]/85 px-2 py-1">
@@ -283,14 +278,6 @@ export default function ShopPage() {
                               </div>
                             )}
 
-                            {/* NFT badge */}
-                            {product.slug === 'shamims-bloom' && (
-                              <div className="absolute top-2 right-2" style={{ transform: 'translateZ(8px)' }}>
-                                <span className="text-[6px] tracking-[0.3em] uppercase text-[#c9a054]/90 bg-[#050505]/85 px-2 py-1">◆ NFT</span>
-                              </div>
-                            )}
-
-                            {/* Low stock */}
                             {product.inventory <= 5 && product.inventory > 0 && (
                               <div className="absolute top-2 md:top-3 right-2 md:right-3" style={{ transform: 'translateZ(8px)' }}>
                                 <span className="text-[6px] md:text-[7px] tracking-[0.3em] uppercase text-red-400/80 bg-[#050505]/85 px-2 py-1">{product.inventory} Left</span>
@@ -298,7 +285,6 @@ export default function ShopPage() {
                             )}
                           </div>
 
-                          {/* Info */}
                           <div className="px-0.5" style={{ transform: 'translateZ(6px)' }}>
                             <h3 className="font-serif font-light text-sm md:text-lg tracking-[0.12em] text-zinc-200 hover:text-[#c9a054] transition-colors duration-500 leading-tight mb-1.5 md:mb-2 line-clamp-2">
                               {product.name}
@@ -320,5 +306,17 @@ export default function ShopPage() {
         )}
       </section>
     </div>
+  )
+}
+
+export default function ShopPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-[#050505] flex items-center justify-center">
+        <div className="w-px h-12 bg-gradient-to-b from-[#c9a054] to-transparent" />
+      </div>
+    }>
+      <ShopPageInner />
+    </Suspense>
   )
 }
