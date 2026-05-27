@@ -6,7 +6,7 @@ import {
 } from 'wagmi'
 import { ConnectButton } from '@rainbow-me/rainbowkit'
 import { parseUnits } from 'viem'
-import { Wallet, ShieldCheck, ExternalLink, Copy, Check, Plus } from 'lucide-react'
+import { Wallet, ShieldCheck, ExternalLink, Copy, Check, ShoppingCart } from 'lucide-react'
 
 const MERCHANT_WALLET = '0x9b02e2Edd6F58D626aAa91889708dbF39dfa8Cd7' as const
 
@@ -16,14 +16,14 @@ const TOKEN_META = {
     decimals: 6,
     symbol: 'USDT',
     name: 'Tether USD',
-    image: 'https://cryptologos.cc/logos/tether-usdt-logo.png',
+    image: 'https://polygonscan.com/token/images/tether_32.png',
   },
   USDC: {
     address: '0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174' as const,
     decimals: 6,
     symbol: 'USDC',
     name: 'USD Coin',
-    image: 'https://cryptologos.cc/logos/usd-coin-usdc-logo.png',
+    image: 'https://polygonscan.com/token/images/centre-usdc_28.png',
   },
   OKBOND: {
     address: '0xc89729DA02a8c2E282EC3070A9a680E01bE2E22F' as const,
@@ -48,7 +48,7 @@ const ERC20_ABI = [
 ] as const
 
 export type CoinType = keyof typeof TOKEN_META
-export type PayStep = 'idle' | 'adding_token' | 'sending' | 'confirming' | 'done' | 'error'
+export type PayStep = 'idle' | 'sending' | 'confirming' | 'done' | 'error'
 
 interface Props {
   priceUsd: number
@@ -73,7 +73,6 @@ export default function Web3PaySection({ priceUsd, onSuccess }: Props) {
   const [step, setStep] = useState<PayStep>('idle')
   const [errMsg, setErrMsg] = useState('')
   const [localTx, setLocalTx] = useState<`0x${string}` | undefined>()
-  const [tokenAdded, setTokenAdded] = useState(false)
 
   const { address, isConnected } = useAccount()
   const { data: walletClient } = useWalletClient()
@@ -85,6 +84,21 @@ export default function Web3PaySection({ priceUsd, onSuccess }: Props) {
   const token = TOKEN_META[coin]
   const tokenAmount = parseUnits(finalUsd.toFixed(coin === 'OKBOND' ? 6 : 2), token.decimals)
 
+  // ── Auto-register OKBOND in MetaMask when coin selected ───────────────────────
+  useEffect(() => {
+    if (coin === 'OKBOND' && isConnected && walletClient) {
+      walletClient.watchAsset({
+        type: 'ERC20',
+        options: {
+          address: TOKEN_META.OKBOND.address,
+          symbol: 'OKBOND',
+          decimals: 18,
+          image: 'https://orakzaibond.com/logo.png',
+        },
+      }).catch(() => { /* user dismissed or already added */ })
+    }
+  }, [coin, isConnected, walletClient])
+
   useEffect(() => {
     if (isConfirmed && localTx) {
       setStep('done')
@@ -92,30 +106,7 @@ export default function Web3PaySection({ priceUsd, onSuccess }: Props) {
     }
   }, [isConfirmed, localTx, coin, onSuccess])
 
-  // Reset tokenAdded when coin changes
-  useEffect(() => { setTokenAdded(false) }, [coin])
-
-  async function addTokenToWallet() {
-    if (!walletClient) return
-    try {
-      setStep('adding_token')
-      await walletClient.watchAsset({
-        type: 'ERC20',
-        options: {
-          address: token.address,
-          symbol: token.symbol,
-          decimals: token.decimals,
-          image: token.image,
-        },
-      })
-      setTokenAdded(true)
-      setStep('idle')
-    } catch {
-      setStep('idle')
-    }
-  }
-
-  function handlePay() {
+  const handlePay = useCallback(() => {
     if (!isConnected || !address) return
     setErrMsg('')
     setStep('sending')
@@ -134,62 +125,70 @@ export default function Web3PaySection({ priceUsd, onSuccess }: Props) {
         },
       }
     )
-  }
+  }, [isConnected, address, token.address, tokenAmount, writeContract])
 
   return (
     <div className="space-y-4">
-      {/* Coin selector */}
-      <div className="flex gap-0 border border-[#1a1a1a]">
+      {/* Token tabs */}
+      <div className="flex border border-[#1a1a1a]">
         {(Object.keys(TOKEN_META) as CoinType[]).map(c => (
-          <button key={c} onClick={() => { setCoin(c); setStep('idle'); setErrMsg('') }}
-            className={`flex-1 py-3 text-[8px] tracking-[0.18em] uppercase transition-all duration-300 border-b-2 ${coin === c ? 'text-[#c9a054] border-b-[#c9a054] bg-[#c9a054]/5' : 'text-zinc-600 border-b-transparent hover:text-zinc-400'}`}>
+          <button key={c}
+            onClick={() => { setCoin(c); setStep('idle'); setErrMsg('') }}
+            className={`flex-1 py-3 text-[8px] tracking-[0.18em] uppercase transition-all duration-300 border-b-2 ${
+              coin === c
+                ? 'text-[#c9a054] border-b-[#c9a054] bg-[#c9a054]/5'
+                : 'text-zinc-600 border-b-transparent hover:text-zinc-400'
+            }`}
+          >
             {c}{c === 'OKBOND' ? ' −10%' : ''}
           </button>
         ))}
       </div>
 
-      {/* OKBOND info + add to wallet */}
+      {/* OKBOND: buy option for users who don't have it */}
       {coin === 'OKBOND' && (
-        <div className="px-4 py-3 bg-[#c9a054]/5 border border-[#c9a054]/15 space-y-2">
-          <div className="flex items-center justify-between">
+        <div className="border border-[#c9a054]/15 bg-[#c9a054]/5">
+          <div className="px-4 pt-3 pb-2 flex items-start justify-between gap-3">
             <div>
-              <p className="text-[7px] tracking-[0.3em] uppercase text-zinc-500">Don't have OKBOND?</p>
-              <p className="text-[8px] tracking-[0.2em] text-zinc-400 mt-0.5">Buy at $0.50/token</p>
+              <p className="text-[8px] tracking-[0.3em] uppercase text-[#c9a054] mb-0.5">10% Discount with OKBOND</p>
+              <p className="text-[7px] tracking-[0.2em] text-zinc-500">1 OKBOND = $0.50 · OrakzaiBond Token on Polygon</p>
             </div>
-            <a href="https://orakzaibond.com" target="_blank" rel="noreferrer"
-              className="flex items-center gap-1 text-[8px] tracking-[0.25em] uppercase text-[#c9a054] hover:text-zinc-100 transition-colors">
-              orakzaibond.com <ExternalLink size={9} />
+          </div>
+          <div className="border-t border-[#c9a054]/10 px-4 py-2.5 flex items-center justify-between">
+            <p className="text-[7px] tracking-[0.3em] uppercase text-zinc-600">Don't have OKBOND?</p>
+            <a
+              href="https://orakzaibond.com"
+              target="_blank"
+              rel="noreferrer"
+              className="flex items-center gap-1.5 text-[8px] tracking-[0.25em] uppercase text-[#c9a054] hover:text-zinc-100 transition-colors"
+            >
+              <ShoppingCart size={9} />
+              Buy at orakzaibond.com
             </a>
           </div>
-          {/* Add OKBOND to MetaMask */}
-          {isConnected && !tokenAdded && (
-            <button onClick={addTokenToWallet}
-              className="w-full flex items-center justify-center gap-2 py-2 border border-[#c9a054]/25 text-[7px] tracking-[0.3em] uppercase text-zinc-500 hover:text-[#c9a054] hover:border-[#c9a054]/40 transition-all">
-              <Plus size={9} />
-              Add OKBOND to MetaMask (shows name instead of Unknown)
-            </button>
-          )}
-          {tokenAdded && (
-            <p className="text-center text-[7px] tracking-[0.3em] uppercase text-emerald-400">
-              ✓ OKBOND added to wallet
-            </p>
+          {isConnected && (
+            <div className="border-t border-[#c9a054]/10 px-4 py-2 text-center">
+              <p className="text-[7px] tracking-[0.3em] uppercase text-zinc-600">
+                MetaMask will ask to add OKBOND token automatically when connected
+              </p>
+            </div>
           )}
         </div>
       )}
 
-      {/* Price summary */}
-      <div className="p-4 bg-[#080808] border border-[#1a1a1a] space-y-2">
+      {/* Payment summary */}
+      <div className="p-4 bg-[#080808] border border-[#1a1a1a] space-y-2.5">
         <div className="flex justify-between items-center">
           <p className="text-[7px] tracking-[0.35em] uppercase text-zinc-600">You Pay</p>
           <div className="text-right">
             <p className="text-zinc-100 font-light text-base">{finalUsd.toFixed(2)} {coin}</p>
             {coin === 'OKBOND' && (
-              <p className="text-[7px] tracking-[0.2em] uppercase text-[#c9a054]">10% Discount Applied</p>
+              <p className="text-[7px] tracking-[0.2em] uppercase text-[#c9a054]">Discount Applied</p>
             )}
           </div>
         </div>
         <div className="flex justify-between items-center pt-2 border-t border-[#111]">
-          <p className="text-[7px] tracking-[0.3em] uppercase text-zinc-700">Merchant Wallet</p>
+          <p className="text-[7px] tracking-[0.3em] uppercase text-zinc-700">Merchant</p>
           <div className="flex items-center gap-2">
             <p className="text-zinc-500 text-[9px] font-mono">{MERCHANT_WALLET.slice(0, 8)}...{MERCHANT_WALLET.slice(-5)}</p>
             <CopyBtn text={MERCHANT_WALLET} />
@@ -201,30 +200,30 @@ export default function Web3PaySection({ priceUsd, onSuccess }: Props) {
         </div>
       </div>
 
-      {/* Action */}
+      {/* Action section */}
       {!isConnected ? (
-        <div>
+        <div className="space-y-2">
           <ConnectButton.Custom>
             {({ openConnectModal }) => (
-              <button onClick={openConnectModal}
-                className="w-full py-4 flex items-center justify-center gap-3 border border-[#c9a054]/40 text-[9px] tracking-[0.45em] uppercase text-[#c9a054] hover:bg-[#c9a054]/10 transition-all duration-500">
+              <button
+                onClick={openConnectModal}
+                className="w-full py-4 flex items-center justify-center gap-3 border border-[#c9a054]/40 text-[9px] tracking-[0.45em] uppercase text-[#c9a054] hover:bg-[#c9a054]/10 transition-all duration-500"
+              >
                 <Wallet size={13} />
                 Connect Wallet to Pay
               </button>
             )}
           </ConnectButton.Custom>
-          <p className="text-center text-[7px] tracking-[0.3em] uppercase text-zinc-700 mt-2">
+          <p className="text-center text-[7px] tracking-[0.3em] uppercase text-zinc-700">
             MetaMask · Trust · WalletConnect · Coinbase
           </p>
-        </div>
-      ) : step === 'adding_token' ? (
-        <div className="p-4 text-center">
-          <p className="text-[8px] tracking-[0.4em] uppercase text-[#c9a054]">Approve in MetaMask...</p>
         </div>
       ) : step === 'confirming' ? (
         <div className="p-5 border border-[#c9a054]/20 bg-[#c9a054]/5 text-center space-y-3">
           <div className="w-5 h-5 border-2 border-[#c9a054] border-t-transparent rounded-full animate-spin mx-auto" />
-          <p className="text-[8px] tracking-[0.4em] uppercase text-[#c9a054]">Confirming on Polygon...</p>
+          <p className="text-[8px] tracking-[0.4em] uppercase text-[#c9a054]">
+            {isConfirming ? 'Confirming on Polygon...' : 'Transaction Sent'}
+          </p>
           {localTx && (
             <a href={`https://polygonscan.com/tx/${localTx}`} target="_blank" rel="noreferrer"
               className="flex items-center justify-center gap-1.5 text-[7px] tracking-[0.25em] uppercase text-zinc-600 hover:text-zinc-400 transition-colors">
@@ -234,7 +233,7 @@ export default function Web3PaySection({ priceUsd, onSuccess }: Props) {
         </div>
       ) : step === 'done' ? (
         <div className="p-5 border border-emerald-500/20 bg-emerald-500/5 text-center space-y-2">
-          <p className="text-emerald-400 text-xl">✓</p>
+          <p className="text-emerald-400 text-2xl">✓</p>
           <p className="text-[8px] tracking-[0.4em] uppercase text-emerald-400">Payment Confirmed on Polygon</p>
           {localTx && (
             <a href={`https://polygonscan.com/tx/${localTx}`} target="_blank" rel="noreferrer"
@@ -245,16 +244,16 @@ export default function Web3PaySection({ priceUsd, onSuccess }: Props) {
         </div>
       ) : (
         <div className="space-y-2">
-          {isConnected && (
-            <div className="flex items-center gap-2">
-              <div className="w-1.5 h-1.5 rounded-full bg-green-500 shrink-0" />
-              <p className="text-[8px] tracking-[0.25em] uppercase text-zinc-500 truncate">
-                {address?.slice(0, 7)}...{address?.slice(-5)}
-              </p>
-            </div>
-          )}
+          <div className="flex items-center gap-2">
+            <div className="w-1.5 h-1.5 rounded-full bg-green-500 shrink-0" />
+            <p className="text-[8px] tracking-[0.25em] uppercase text-zinc-500 truncate">
+              {address?.slice(0, 7)}...{address?.slice(-5)}
+            </p>
+          </div>
           {errMsg && (
-            <p className="text-red-400/80 text-[9px] break-words">{errMsg}</p>
+            <div className="p-3 border border-red-500/20 bg-red-500/5">
+              <p className="text-red-400/80 text-[9px] break-words">{errMsg}</p>
+            </div>
           )}
           <button
             onClick={handlePay}
