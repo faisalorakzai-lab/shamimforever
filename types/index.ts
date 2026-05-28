@@ -41,6 +41,8 @@ export interface Product {
   images: string[]
   is_featured: boolean
   is_active: boolean
+  is_pinned?: boolean
+  sort_order?: number
   created_at: string
   collection?: Collection
   main_category?: MainCategory
@@ -110,4 +112,6 @@ export interface Boutique {
   coordinates: { lat: number; lng: number }
   image: string | null
   is_active: boolean
+  is_pinned?: boolean
+  sort_order?: number
 }
