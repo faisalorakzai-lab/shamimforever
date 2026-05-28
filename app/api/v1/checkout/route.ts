@@ -37,7 +37,7 @@ async function notifyWhatsApp(msg: string): Promise<void> {
   if (!phone || !apikey) return
   await fetch(
     `https://api.callmebot.com/whatsapp.php?phone=${phone}&text=${encodeURIComponent(msg)}&apikey=${apikey}`
-  ).catch(() => {})
+  )
 }
 
 // ── Inner Circle Auto-Enrollment (OKBOND buyers) ──────────────────────────────
@@ -159,7 +159,7 @@ export async function POST(req: NextRequest) {
       order_id: order.id, product_id, quantity,
       price_pkr: Math.round(price_pkr ?? total_pkr / quantity),
       price_usd: parseFloat(((price_usd ?? (total_usd || 0) / quantity) || 0).toFixed(2)),
-    }]).catch(() => {})
+    }])
   }
 
   // Initial tracking event
@@ -168,14 +168,14 @@ export async function POST(req: NextRequest) {
     title: 'Order Received',
     description: `Your sovereign order ${order_ref} has been received and is being processed.`,
     location: 'Shamim Forever HQ, Pakistan',
-  }]).catch(() => {})
+  }])
 
   // WhatsApp notification (non-blocking)
   const custName = shipping_address?.name || 'Customer'
   const city = shipping_address?.city || ''
   notifyWhatsApp(
     `🛍️ NEW ORDER — ${order_ref}\n👤 ${custName}${city ? ' · ' + city : ''}\n📦 ${product_name || 'Product'} ×${quantity}\n💰 PKR ${Math.round(total_pkr).toLocaleString()}\n💳 ${payment_method?.toUpperCase()}${isOKBOND ? ' ⭐ INNER CIRCLE' : ''}\n📍 ${tracking_ref}`
-  ).catch(() => {})
+  )
 
   // Inner Circle auto-enrollment for OKBOND buyers (non-blocking)
   if (isOKBOND) {
@@ -186,7 +186,7 @@ export async function POST(req: NextRequest) {
       wallet_address: wallet_address || undefined,
       order_ref,
       total_usd: total_usd || 0,
-    }).catch(() => {})
+    })
   }
 
   // NFT minting — async, non-blocking
@@ -206,9 +206,7 @@ export async function POST(req: NextRequest) {
         title: 'Digital Twin NFT Minted',
         description: `Your NFT Digital Twin (Token #${result.tokenId}) has been minted on Polygon Mainnet.`,
         location: 'Polygon Mainnet · Shamim Forever Collection',
-      }]).catch(() => {})
-    }).catch((err: Error) => {
-      console.warn('[NFT-MINT] Non-critical:', err?.message?.slice(0, 80))
+      }])
     })
   }
 
