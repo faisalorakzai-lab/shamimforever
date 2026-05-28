@@ -180,7 +180,7 @@ export default function AdminOrdersPage() {
               const txHash = extractTxHash(order.notes)
               const isPkrPending = order.status === 'pending_verification'
               const pm = PAYMENT_METHODS[order.payment_method?.toLowerCase()] ?? { label: order.payment_method ?? 'N/A', color: '#888' }
-              const confirmMsg = actionMsg?.id === order.id ? actionMsg.msg : null
+              const confirmMsg = actionMsg && actionMsg.id === order.id ? actionMsg.msg : null
               const updates = trackUpdates[order.id] ?? []
 
               return (
