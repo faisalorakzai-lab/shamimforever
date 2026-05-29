@@ -14,7 +14,6 @@ import { useAccount } from 'wagmi'
 type PayMethod = 'crypto' | 'pkr_manual' | 'cod'
 interface OrderResult { order_id: string; order_ref: string; tracking_ref: string; status: string; track_url: string }
 
-const NFT_CONTRACT = '0xCCFc11b22990a39cB5a58A1d1778A1d80FDC7640'
 const EASYPAISA_NUMBER = '03367970004'
 const EASYPAISA_NAME = 'M Faisal'
 const UBL_IBAN = 'PK13UNIL0109000318870498'
@@ -24,9 +23,9 @@ function CopyBtn({ text }: { text: string }) {
   const [c, setC] = useState(false)
   return (
     <button onClick={() => { navigator.clipboard.writeText(text); setC(true); setTimeout(() => setC(false), 2000) }}
-      style={{ display: 'flex', alignItems: 'center', gap: 6, color: '#c9a054', background: 'none', border: 'none', cursor: 'pointer', transition: 'color 0.3s' }}>
+      style={{ display: 'flex', alignItems: 'center', gap: 6, color: '#c9a054', background: 'none', border: 'none', cursor: 'pointer' }}>
       {c ? <Check size={10} /> : <Copy size={10} />}
-      <span style={{ fontSize: 7, letterSpacing: '0.3em', textTransform: 'uppercase' }}>{c ? 'Copied' : 'Copy'}</span>
+      <span style={{ fontSize: 7, letterSpacing: '0.3em', textTransform: 'uppercase' as const }}>{c ? 'Copied' : 'Copy'}</span>
     </button>
   )
 }
@@ -89,7 +88,6 @@ export default function LuxuryGenericProductPage({ product }: { product: Product
   const [custAddress, setCustAddress] = useState('')
   const [custCity, setCustCity] = useState('')
   const { address: walletAddress } = useAccount()
-
   const [story, setStory] = useState<ParsedStory | null>(null)
 
   useEffect(() => {
@@ -157,51 +155,59 @@ export default function LuxuryGenericProductPage({ product }: { product: Product
   const heroImage = images[0] || null
   const categoryName = (product as any).main_category?.name
 
-  if (orderResult) return (
-    <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '80px 24px', background: '#030303' }}>
-      <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} className="text-center" style={{ maxWidth: 500, width: '100%' }}>
-        <p style={{ fontFamily: SERIF, fontSize: 72, color: '#c9a054', lineHeight: 1, marginBottom: 16 }}>◆</p>
-        <h2 style={{ fontFamily: SERIF, fontSize: 44, fontWeight: 300, letterSpacing: '0.15em', color: '#f0ece4', textTransform: 'uppercase', marginBottom: 8 }}>Order Placed</h2>
-        <p style={{ fontSize: 7, letterSpacing: '0.5em', textTransform: 'uppercase', color: '#c9a054', marginBottom: 32 }}>House of Shamim Forever</p>
-        <div style={{ border: '1px solid rgba(201,160,84,0.12)', background: 'linear-gradient(135deg, #0c0906 0%, #080604 100%)', marginBottom: 24 }}>
-          {[['Order Reference', orderResult.order_ref], ['Tracking ID', orderResult.tracking_ref], ['Status', orderResult.status?.replace(/_/g, ' ')]].map(([lbl, val]) => (
-            <div key={lbl} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '16px 20px', borderBottom: '1px solid rgba(255,255,255,0.03)' }}>
-              <p style={{ fontSize: 7, letterSpacing: '0.4em', textTransform: 'uppercase', color: '#3f3830' }}>{lbl}</p>
-              <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                <p style={{ fontFamily: 'monospace', fontSize: 11, color: '#c9b894' }}>{val}</p>
-                {lbl !== 'Status' && <CopyBtn text={val ?? ''} />}
+  if (orderResult) {
+    return (
+      <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '80px 24px', background: '#030303' }}>
+        <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} style={{ textAlign: 'center', maxWidth: 500, width: '100%' }}>
+          <p style={{ fontFamily: SERIF, fontSize: 72, color: '#c9a054', lineHeight: 1, marginBottom: 16 }}>◆</p>
+          <h2 style={{ fontFamily: SERIF, fontSize: 44, fontWeight: 300, letterSpacing: '0.15em', color: '#f0ece4', textTransform: 'uppercase', marginBottom: 8 }}>Order Placed</h2>
+          <p style={{ fontSize: 7, letterSpacing: '0.5em', textTransform: 'uppercase', color: '#c9a054', marginBottom: 32 }}>House of Shamim Forever</p>
+          <div style={{ border: '1px solid rgba(201,160,84,0.12)', background: 'linear-gradient(135deg, #0c0906 0%, #080604 100%)', marginBottom: 24 }}>
+            {[['Order Reference', orderResult.order_ref], ['Tracking ID', orderResult.tracking_ref], ['Status', orderResult.status?.replace(/_/g, ' ')]].map(([lbl, val]) => (
+              <div key={lbl} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '16px 20px', borderBottom: '1px solid rgba(255,255,255,0.03)' }}>
+                <p style={{ fontSize: 7, letterSpacing: '0.4em', textTransform: 'uppercase', color: '#3f3830' }}>{lbl}</p>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                  <p style={{ fontFamily: 'monospace', fontSize: 11, color: '#c9b894' }}>{val}</p>
+                  {lbl !== 'Status' && <CopyBtn text={val ?? ''} />}
+                </div>
               </div>
-            </div>
-          ))}
-        </div>
-        <div style={{ display: 'flex', gap: 8, justifyContent: 'center' }}>
-          <Link href={orderResult.track_url} style={{ display: 'flex', alignItems: 'center', gap: 6, padding: '12px 24px', border: '1px solid rgba(201,160,84,0.4)', fontSize: 8, letterSpacing: '0.4em', textTransform: 'uppercase', color: '#c9a054', textDecoration: 'none' }}>
-            <ExternalLink size={10} /> Track
-          </Link>
-          <Link href="/shop" style={{ padding: '12px 24px', border: '1px solid rgba(255,255,255,0.08)', fontSize: 8, letterSpacing: '0.4em', textTransform: 'uppercase', color: '#3f3830', textDecoration: 'none' }}>Continue</Link>
-        </div>
-      </motion.div>
-    </div>
-  )
+            ))}
+          </div>
+          <div style={{ display: 'flex', gap: 8, justifyContent: 'center' }}>
+            <Link href={orderResult.track_url} style={{ display: 'flex', alignItems: 'center', gap: 6, padding: '12px 24px', border: '1px solid rgba(201,160,84,0.4)', fontSize: 8, letterSpacing: '0.4em', textTransform: 'uppercase', color: '#c9a054', textDecoration: 'none' }}>
+              <ExternalLink size={10} /> Track
+            </Link>
+            <Link href="/shop" style={{ padding: '12px 24px', border: '1px solid rgba(255,255,255,0.08)', fontSize: 8, letterSpacing: '0.4em', textTransform: 'uppercase', color: '#3f3830', textDecoration: 'none' }}>Continue</Link>
+          </div>
+        </motion.div>
+      </div>
+    )
+  }
 
   return (
     <div style={{ background: '#030303', minHeight: '100vh' }}>
 
-      {/* ═══ HERO ═════════════════════════════════════════════════════════ */}
+      {/* HERO */}
       <section ref={heroRef} style={{ position: 'relative', height: '100svh', minHeight: 650, overflow: 'hidden', background: '#030303' }}>
         {heroImage ? (
-          <motion.div initial={{ scale: 1.1, opacity: 0 }} animate={{ scale: 1, opacity: 1 }}
+          <motion.div
+            initial={{ scale: 1.1, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
             transition={{ duration: 3, ease: [0.25, 0.1, 0.1, 1] }}
-            style={{ position: 'absolute', inset: 0 }}>
+            style={{ position: 'absolute', inset: 0 }}
+          >
             <img src={heroImage} alt={product.name}
               style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center 20%' }}
               onError={e => { (e.target as HTMLImageElement).style.opacity = '0' }} />
           </motion.div>
         ) : (
-          /* No image — pure cinematic dark with central glow */
           <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse 70% 60% at 50% 40%, rgba(30,22,8,0.9) 0%, #030303 65%)' }}>
-            <motion.p initial={{ opacity: 0 }} animate={{ opacity: 0.06 }} transition={{ duration: 3 }}
-              style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%,-50%)', fontFamily: SERIF, fontSize: 'clamp(8rem, 30vw, 22rem)', color: '#c9a054', fontWeight: 300, whiteSpace: 'nowrap', lineHeight: 1 }}>
+            <motion.p
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 0.06 }}
+              transition={{ duration: 3 }}
+              style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%,-50%)', fontFamily: SERIF, fontSize: 'clamp(8rem, 30vw, 22rem)', color: '#c9a054', fontWeight: 300, whiteSpace: 'nowrap', lineHeight: 1 }}
+            >
               SF
             </motion.p>
           </div>
@@ -209,43 +215,43 @@ export default function LuxuryGenericProductPage({ product }: { product: Product
 
         <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to bottom, rgba(3,3,3,0.2) 0%, rgba(3,3,3,0.05) 25%, rgba(3,3,3,0.35) 55%, rgba(3,3,3,0.92) 83%, #030303 100%)' }} />
         <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse 120% 100% at 50% 30%, transparent 40%, rgba(3,3,3,0.55) 100%)' }} />
-
         <GoldParticles />
 
-        <motion.div style={{ opacity: textOpacity, y: textY }}
-        
-          className="absolute bottom-0 left-0 right-0 z-20"
-          <div style={{ padding: '0 clamp(20px, 5vw, 80px)', paddingBottom: 'clamp(48px, 6vw, 80px)' }}>
-            {categoryName && (
-              <motion.p initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 1.2, duration: 1 }}
-                style={{ fontSize: 7, letterSpacing: '0.9em', textTransform: 'uppercase', color: '#c9a054', marginBottom: 14 }}>
-                {categoryName} · House of Shamim
-              </motion.p>
-            )}
-            <motion.h1 initial={{ opacity: 0, y: 36 }} animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 1.6, duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
-              style={{ fontFamily: SERIF, fontWeight: 300, color: '#f8f4ee', lineHeight: 0.9, marginBottom: 12, letterSpacing: '-0.01em', fontSize: 'clamp(3rem, 9vw, 7.5rem)' }}>
-              {product.name}
-            </motion.h1>
-            {story?.tagline && (
-              <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 2.1, duration: 1 }}
-                style={{ fontFamily: SERIF, fontStyle: 'italic', fontSize: 'clamp(1.1rem, 2.5vw, 1.8rem)', color: 'rgba(240,236,228,0.5)', fontWeight: 300, marginBottom: 16 }}>
-                {story.tagline}
-              </motion.p>
-            )}
-            <motion.div initial={{ scaleX: 0 }} animate={{ scaleX: 1 }} transition={{ delay: 2.3, duration: 1 }}
-              style={{ height: 1, width: 140, background: 'linear-gradient(to right, #c9a054, transparent)', marginBottom: 16, transformOrigin: 'left' }} />
-            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 2.4, duration: 0.8 }}
-              style={{ display: 'flex', alignItems: 'baseline', gap: 14, marginBottom: 22 }}>
-              <span style={{ fontFamily: SERIF, fontSize: 'clamp(1.8rem, 4.5vw, 3rem)', fontWeight: 300, color: '#f8f4ee' }}>{formatPKR(product.price_pkr)}</span>
-              <span style={{ fontSize: 11, letterSpacing: '0.2em', color: 'rgba(201,160,84,0.45)' }}>${product.price_usd} USD</span>
-            </motion.div>
-            <motion.a href="#acquire" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 2.7, duration: 0.8 }}
-              className="group" style={{ position: 'relative', overflow: 'hidden', padding: '13px 28px', border: '1px solid rgba(201,160,84,0.5)', fontSize: 8, letterSpacing: '0.65em', textTransform: 'uppercase', color: '#c9a054', display: 'inline-block', textDecoration: 'none' }}>
-              <span className="group-hover:translate-x-0 -translate-x-full absolute inset-0 bg-[#c9a054] transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]" />
-              <span className="relative group-hover:text-black transition-colors duration-150">Acquire Now</span>
-            </motion.a>
-          </div>
+        <motion.div
+          style={{ opacity: textOpacity, y: textY, position: 'absolute', bottom: 0, left: 0, right: 0, zIndex: 20, padding: '0 clamp(20px, 5vw, 80px)', paddingBottom: 'clamp(48px, 6vw, 80px)' }}
+        >
+          {categoryName && (
+            <motion.p initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 1.2, duration: 1 }}
+              style={{ fontSize: 7, letterSpacing: '0.9em', textTransform: 'uppercase', color: '#c9a054', marginBottom: 14 }}>
+              {categoryName} · House of Shamim
+            </motion.p>
+          )}
+          <motion.h1
+            initial={{ opacity: 0, y: 36 }} animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 1.6, duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
+            style={{ fontFamily: SERIF, fontWeight: 300, color: '#f8f4ee', lineHeight: 0.9, marginBottom: 12, letterSpacing: '-0.01em', fontSize: 'clamp(3rem, 9vw, 7.5rem)' }}
+          >
+            {product.name}
+          </motion.h1>
+          {story?.tagline && (
+            <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 2.1, duration: 1 }}
+              style={{ fontFamily: SERIF, fontStyle: 'italic', fontSize: 'clamp(1.1rem, 2.5vw, 1.8rem)', color: 'rgba(240,236,228,0.5)', fontWeight: 300, marginBottom: 16 }}>
+              {story.tagline}
+            </motion.p>
+          )}
+          <motion.div initial={{ scaleX: 0 }} animate={{ scaleX: 1 }} transition={{ delay: 2.3, duration: 1 }}
+            style={{ height: 1, width: 140, background: 'linear-gradient(to right, #c9a054, transparent)', marginBottom: 16, transformOrigin: 'left' }} />
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 2.4, duration: 0.8 }}
+            style={{ display: 'flex', alignItems: 'baseline', gap: 14, marginBottom: 22 }}>
+            <span style={{ fontFamily: SERIF, fontSize: 'clamp(1.8rem, 4.5vw, 3rem)', fontWeight: 300, color: '#f8f4ee' }}>{formatPKR(product.price_pkr)}</span>
+            <span style={{ fontSize: 11, letterSpacing: '0.2em', color: 'rgba(201,160,84,0.45)' }}>${product.price_usd} USD</span>
+          </motion.div>
+          <motion.a href="#acquire" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 2.7, duration: 0.8 }}
+            className="group"
+            style={{ position: 'relative', overflow: 'hidden', padding: '13px 28px', border: '1px solid rgba(201,160,84,0.5)', fontSize: 8, letterSpacing: '0.65em', textTransform: 'uppercase', color: '#c9a054', display: 'inline-block', textDecoration: 'none' }}>
+            <span className="group-hover:translate-x-0 -translate-x-full absolute inset-0 bg-[#c9a054] transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]" />
+            <span className="relative group-hover:text-black transition-colors duration-150">Acquire Now</span>
+          </motion.a>
         </motion.div>
 
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 3.2 }}
@@ -257,7 +263,7 @@ export default function LuxuryGenericProductPage({ product }: { product: Product
         </motion.div>
       </section>
 
-      {/* ═══ GALLERY ══════════════════════════════════════════════════════ */}
+      {/* GALLERY */}
       {images.length > 1 && (
         <section style={{ padding: '80px 0', background: 'radial-gradient(ellipse 70% 50% at 50% 50%, #0e0903 0%, #030303 65%)' }}>
           <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 24px' }}>
@@ -276,8 +282,14 @@ export default function LuxuryGenericProductPage({ product }: { product: Product
                 </AnimatePresence>
                 {images.length > 1 && (
                   <>
-                    <button onClick={() => setActiveImage(i => Math.max(0, i - 1))} style={{ position: 'absolute', left: 12, top: '50%', transform: 'translateY(-50%)', background: 'rgba(3,3,3,0.7)', border: '1px solid rgba(201,160,84,0.2)', width: 36, height: 36, display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', color: '#c9a054' }}><ChevronLeft size={14} /></button>
-                    <button onClick={() => setActiveImage(i => Math.min(images.length - 1, i + 1))} style={{ position: 'absolute', right: 12, top: '50%', transform: 'translateY(-50%)', background: 'rgba(3,3,3,0.7)', border: '1px solid rgba(201,160,84,0.2)', width: 36, height: 36, display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', color: '#c9a054' }}><ChevronRight size={14} /></button>
+                    <button onClick={() => setActiveImage(i => Math.max(0, i - 1))}
+                      style={{ position: 'absolute', left: 12, top: '50%', transform: 'translateY(-50%)', background: 'rgba(3,3,3,0.7)', border: '1px solid rgba(201,160,84,0.2)', width: 36, height: 36, display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', color: '#c9a054' }}>
+                      <ChevronLeft size={14} />
+                    </button>
+                    <button onClick={() => setActiveImage(i => Math.min(images.length - 1, i + 1))}
+                      style={{ position: 'absolute', right: 12, top: '50%', transform: 'translateY(-50%)', background: 'rgba(3,3,3,0.7)', border: '1px solid rgba(201,160,84,0.2)', width: 36, height: 36, display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', color: '#c9a054' }}>
+                      <ChevronRight size={14} />
+                    </button>
                   </>
                 )}
               </div>
@@ -295,8 +307,8 @@ export default function LuxuryGenericProductPage({ product }: { product: Product
         </section>
       )}
 
-      {/* ═══ DESCRIPTION ══════════════════════════════════════════════════ */}
-      {(product.description || story?.olfactory) && (
+      {/* DESCRIPTION */}
+      {(product.description || (story?.olfactory && typeof story.olfactory === 'string')) && (
         <section style={{ padding: '90px 0', background: 'linear-gradient(180deg, #030303 0%, #080602 50%, #030303 100%)' }}>
           <div style={{ maxWidth: 820, margin: '0 auto', padding: '0 24px', textAlign: 'center' }}>
             <div className="g-reveal">
@@ -320,7 +332,7 @@ export default function LuxuryGenericProductPage({ product }: { product: Product
         </section>
       )}
 
-      {/* ═══ SPECS ════════════════════════════════════════════════════════ */}
+      {/* SPECS */}
       {story?.specs && Object.values(story.specs).some(Boolean) && (
         <section style={{ padding: '80px 0', background: 'radial-gradient(ellipse 60% 50% at 50% 50%, #0e0903 0%, #030303 60%)' }}>
           <div style={{ maxWidth: 700, margin: '0 auto', padding: '0 24px' }}>
@@ -346,7 +358,7 @@ export default function LuxuryGenericProductPage({ product }: { product: Product
         </section>
       )}
 
-      {/* ═══ ACQUIRE ══════════════════════════════════════════════════════ */}
+      {/* ACQUIRE */}
       <section id="acquire" style={{ padding: '90px 0 100px', background: 'radial-gradient(ellipse 70% 50% at 50% 0%, rgba(25,18,6,0.95) 0%, #030303 55%)' }}>
         <div style={{ maxWidth: 620, margin: '0 auto', padding: '0 24px' }}>
           <div className="g-reveal" style={{ textAlign: 'center', marginBottom: 40 }}>
@@ -355,14 +367,12 @@ export default function LuxuryGenericProductPage({ product }: { product: Product
           </div>
 
           <div className="g-reveal">
-            {/* Price */}
             <div style={{ textAlign: 'center', padding: '28px', border: '1px solid rgba(201,160,84,0.12)', background: '#0c0906', marginBottom: 2 }}>
               <p style={{ fontSize: 7, letterSpacing: '0.5em', textTransform: 'uppercase', color: '#3f3830', marginBottom: 10 }}>Allocation Price</p>
               <p style={{ fontFamily: SERIF, fontSize: 'clamp(2.2rem, 6vw, 3.8rem)', fontWeight: 300, color: '#f8f4ee', lineHeight: 1 }}>{formatPKR(product.price_pkr * quantity)}</p>
               <p style={{ fontSize: 11, letterSpacing: '0.2em', color: 'rgba(201,160,84,0.4)', marginTop: 6 }}>${(product.price_usd * quantity).toFixed(2)} USD</p>
             </div>
 
-            {/* Qty */}
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '14px 18px', border: '1px solid rgba(201,160,84,0.06)', background: '#0a0703', marginBottom: 2 }}>
               <p style={{ fontSize: 7, letterSpacing: '0.5em', textTransform: 'uppercase', color: '#3f3830' }}>Quantity</p>
               <div style={{ display: 'flex', border: '1px solid rgba(201,160,84,0.15)' }}>
@@ -372,23 +382,21 @@ export default function LuxuryGenericProductPage({ product }: { product: Product
               </div>
             </div>
 
-            {/* Delivery */}
             <div style={{ marginBottom: 2 }}>
               <p style={{ fontSize: 7, letterSpacing: '0.5em', textTransform: 'uppercase', color: '#3f3830', padding: '12px 18px', background: '#0a0703', border: '1px solid rgba(201,160,84,0.06)' }}>Delivery Information</p>
-              {[
+              {([
                 { v: custName, s: setCustName, ph: 'Full Name *' },
                 { v: custPhone, s: setCustPhone, ph: 'Phone Number *' },
                 { v: custAddress, s: setCustAddress, ph: 'Delivery Address *' },
                 { v: custCity, s: setCustCity, ph: 'City *' },
-              ].map(({ v, s, ph }) => (
+              ] as { v: string; s: (val: string) => void; ph: string }[]).map(({ v, s, ph }) => (
                 <input key={ph} value={v} onChange={e => s(e.target.value)} placeholder={ph}
-                  style={{ width: '100%', background: '#080602', border: 'none', borderBottom: '1px solid rgba(201,160,84,0.05)', padding: '15px 18px', fontSize: 11, color: '#c9b894', outline: 'none', boxSizing: 'border-box', fontFamily: 'inherit' }}
+                  style={{ width: '100%', background: '#080602', border: 'none', borderBottom: '1px solid rgba(201,160,84,0.05)', padding: '15px 18px', fontSize: 11, color: '#c9b894', outline: 'none', boxSizing: 'border-box' }}
                   onFocus={e => { e.currentTarget.style.borderBottomColor = 'rgba(201,160,84,0.28)' }}
                   onBlur={e => { e.currentTarget.style.borderBottomColor = 'rgba(201,160,84,0.05)' }} />
               ))}
             </div>
 
-            {/* Payment */}
             <div>
               <p style={{ fontSize: 7, letterSpacing: '0.5em', textTransform: 'uppercase', color: '#3f3830', padding: '12px 18px', background: '#0a0703', border: '1px solid rgba(201,160,84,0.06)', marginBottom: 2 }}>Payment Method</p>
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: 2, marginBottom: 12 }}>
@@ -409,7 +417,7 @@ export default function LuxuryGenericProductPage({ product }: { product: Product
                 {payMethod === 'pkr_manual' && (
                   <motion.div key="pkr" initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} style={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
                     <div style={{ border: '1px solid rgba(201,160,84,0.1)', background: '#080602' }}>
-                      {[['EasyPaisa', `${EASYPAISA_NUMBER} · ${EASYPAISA_NAME}`, EASYPAISA_NUMBER], ['UBL IBAN', UBL_IBAN, UBL_IBAN]].map(([lbl, val, copyVal], i, arr) => (
+                      {[['EasyPaisa', `${EASYPAISA_NUMBER} · ${EASYPAISA_NAME}`, EASYPAISA_NUMBER] as const, ['UBL IBAN', UBL_IBAN, UBL_IBAN] as const].map(([lbl, val, copyVal], i, arr) => (
                         <div key={lbl} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '14px 18px', borderBottom: i < arr.length - 1 ? '1px solid rgba(255,255,255,0.03)' : 'none' }}>
                           <p style={{ fontSize: 7, letterSpacing: '0.4em', textTransform: 'uppercase', color: '#3f3830' }}>{lbl}</p>
                           <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
@@ -424,7 +432,10 @@ export default function LuxuryGenericProductPage({ product }: { product: Product
                     <label style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '13px 18px', border: '1px dashed rgba(201,160,84,0.1)', cursor: 'pointer', background: '#080602' }}>
                       <Upload size={11} color="rgba(201,160,84,0.35)" />
                       <span style={{ fontSize: 7, letterSpacing: '0.3em', textTransform: 'uppercase', color: '#3f3830' }}>Upload Payment Screenshot</span>
-                      <input type="file" accept="image/*" onChange={e => { const f = e.target.files?.[0]; if (!f) return; setProofFile(f); const r = new FileReader(); r.onload = ev => setProofPreview(ev.target?.result as string); r.readAsDataURL(f) }} className="hidden" />
+                      <input type="file" accept="image/*" onChange={e => {
+                        const f = e.target.files?.[0]; if (!f) return; setProofFile(f)
+                        const r = new FileReader(); r.onload = ev => setProofPreview(ev.target?.result as string); r.readAsDataURL(f)
+                      }} className="hidden" />
                     </label>
                     {proofPreview && (
                       <div style={{ position: 'relative', display: 'inline-block' }}>
