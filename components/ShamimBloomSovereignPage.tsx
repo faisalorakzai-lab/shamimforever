@@ -322,7 +322,7 @@ export default function ShamimBloomSovereignPage({ product }: { product: Product
           <span>/</span>
           <Link href="/shop?category=perfume&gender=her" className="hover:text-[#c9a054] transition-colors">For Her</Link>
           <span>/</span>
-          <span className="text-zinc-400">Shamim Bloom</span>
+          <span className="text-zinc-400">Shamim Bloom — Velvet Taif & Peony</span>
         </div>
       </div>
 
@@ -468,7 +468,7 @@ export default function ShamimBloomSovereignPage({ product }: { product: Product
                 {activeTab === 'nft' && (
                   <motion.div key="nft" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="space-y-6">
                     <p className="text-zinc-500 text-xs font-light leading-[2]">
-                      {story.nft?.description ?? 'Every Shamim Bloom flacon is permanently mirrored on Polygon Mainnet through a secure Digital Twin NFT — transforming the fragrance from a physical luxury asset into an authenticated heirloom.'}
+                      {story.nft?.description ?? 'Every Shamim Bloom flacon is permanently paired with a sovereign blockchain identity recorded on Polygon Mainnet. The NFT passport certifies: authenticity, ownership, provenance, rarity allocation, archival status, and sovereign privileges. The physical object may travel through generations. The sovereign registry remains eternal.'}
                     </p>
 
                     {/* Blockchain provenance card */}
@@ -518,7 +518,7 @@ export default function ShamimBloomSovereignPage({ product }: { product: Product
                     <div>
                       <p className="text-[8px] tracking-[0.4em] uppercase text-[#c9a054] mb-4">Sovereign Holder Privileges</p>
                       <div className="grid grid-cols-2 gap-2">
-                        {['House Vault Access', 'Founder Reserve Allocations', 'Private Drops', 'Elite Concierge', 'Collector Rank', 'Legacy Allocation'].map(p => (
+                        {['Founder Archive Access', 'Sovereign Vault Privileges', 'Future Reserve Allocations', 'Private Jewelry Releases', 'Invitation-Only House Ceremonies', 'Restoration & Refill Privileges', 'Blockchain Provenance Protection', 'Early Access to Sovereign NFT Drops', 'Priority on Future Ultra-Limited Releases'].map(p => (
                           <div key={p} className="flex items-center gap-2 p-2.5 border border-[#111]">
                             <span className="text-[#c9a054] text-[8px]">◆</span>
                             <span className="text-[7px] tracking-[0.25em] uppercase text-zinc-500">{p}</span>
