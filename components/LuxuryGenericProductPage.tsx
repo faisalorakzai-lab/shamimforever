@@ -67,6 +67,17 @@ interface ParsedStory {
   specs?: { volume?: string; concentration?: string; sillage?: string; longevity?: string; batch?: string; price?: string }
 }
 
+
+const LUX_MOBILE_CSS = [
+  '@media(max-width:768px){',
+  '.lux-gallery{flex-direction:column!important}',
+  '.lux-thumbs{flex-direction:row!important;flex-wrap:wrap!important;max-height:none!important;overflow:visible!important}',
+  '.lux-thumb{flex:1 1 calc(50% - 4px)!important;aspect-ratio:1!important}',
+  '.lux-pay-grid{grid-template-columns:1fr 1fr!important}',
+  '.lux-spec-row{flex-wrap:wrap!important;gap:6px!important;align-items:flex-start!important}',
+  '}',
+].join('')
+
 export default function LuxuryGenericProductPage({ product }: { product: Product }) {
   const heroRef = useRef<HTMLDivElement>(null)
   const { scrollYProgress } = useScroll({ target: heroRef, offset: ['start start', 'end start'] })
@@ -186,15 +197,7 @@ export default function LuxuryGenericProductPage({ product }: { product: Product
 
   return (
     <div style={{ background: '#030303', minHeight: '100vh' }}>
-      <style dangerouslySetInnerHTML={{ __html: `
-        @media (max-width: 768px) {
-          .lux-gallery    { flex-direction: column !important; }
-          .lux-thumbs     { flex-direction: row !important; flex-wrap: wrap !important; }
-          .lux-thumb      { flex: 1 1 calc(50% - 4px) !important; aspect-ratio: 1 !important; }
-          .lux-pay-grid   { grid-template-columns: 1fr 1fr !important; }
-          .lux-spec-row   { flex-wrap: wrap !important; gap: 6px !important; align-items: flex-start !important; }
-        }
-      ` }} />
+      <style dangerouslySetInnerHTML={{ __html: LUX_MOBILE_CSS }} />
 
       {/* HERO */}
       <section ref={heroRef} style={{ position: 'relative', height: '100svh', minHeight: 650, overflow: 'hidden', background: '#030303' }}>
