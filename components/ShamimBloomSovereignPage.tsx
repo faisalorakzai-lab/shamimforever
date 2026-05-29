@@ -252,7 +252,38 @@ export default function ShamimBloomSovereignPage({ product }: { product: Product
   const [custCity, setCustCity] = useState('')
   const [custCountry, setCustCountry] = useState('Pakistan')
 
-  const story: StoryData = (() => { try { return JSON.parse(product.story ?? '{}') } catch { return {} } })()
+  const story: StoryData = (() => {
+    try {
+      // Supabase JSONB returns an object directly; string fallback for legacy
+      const raw: any = typeof product.story === 'string'
+        ? JSON.parse(product.story)
+        : (product.story ?? {})
+
+      // Normalize olfactory: might be object {top:[],heart:[],base:[],top_description,…}
+      if (raw.olfactory && typeof raw.olfactory === 'object') {
+        const olf = raw.olfactory
+        // Build scentPyramid from arrays if not already present
+        if (!raw.scentPyramid && (olf.top || olf.heart || olf.base)) {
+          raw.scentPyramid = {
+            top:   Array.isArray(olf.top)   ? olf.top.join(' · ')   : String(olf.top ?? ''),
+            heart: Array.isArray(olf.heart) ? olf.heart.join(' · ') : String(olf.heart ?? ''),
+            base:  Array.isArray(olf.base)  ? olf.base.join(' · ')  : String(olf.base ?? ''),
+          }
+        }
+        // Flatten olfactory to a single string
+        const parts = [olf.top_description, olf.heart_description, olf.base_description].filter(Boolean)
+        raw.olfactory = parts.length ? parts.join(' ') : undefined
+      }
+
+      // Normalize packaging: might be object {description, vault}
+      if (raw.packaging && typeof raw.packaging === 'object') {
+        const pkg = raw.packaging
+        raw.packaging = [pkg.description, pkg.vault].filter(Boolean).join(' ')
+      }
+
+      return raw as StoryData
+    } catch { return {} }
+  })()
   const images = product.images ?? []
 
   const handleWeb3Success = useCallback(async (txHash: string, coin: CoinType) => {
