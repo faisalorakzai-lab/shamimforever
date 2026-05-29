@@ -20,21 +20,28 @@ const BLOOM_IMAGES = [
   '/products/shamims-bloom/bloom-crown.png',
   '/products/shamims-bloom/bloom-clean.png',
   '/products/shamims-bloom/bloom-3.png',
+  '/products/shamims-bloom/bloom-4.png',
 ]
 
-const TOP_NOTES = ['Taif Rose Petals', 'Pink Saffron', 'Italian Bergamot']
-const HEART_NOTES = ['White Ambergris', 'Turkish Rose Milk', 'Jasmine Veil']
-const BASE_NOTES = ['Royal Sandalwood', 'Madagascar Vanilla', 'Soft White Musk']
+const TOP_NOTES = ['Velvet Peony', 'White Rose Silk', 'Soft Blush Accord']
+const HEART_NOTES = ['Taif Rose Absolute', 'Turkish Rose Resin', 'Imperial Floral Nectar']
+const BASE_NOTES = ['White Ambergris', 'Cashmere Skin Musk', 'Warm Cream Woods']
 
 const SPECS = [
-  { label: 'Volume Density', value: '100ML Extrait de Parfum' },
-  { label: 'Concentration', value: 'Highest Oil Concentration' },
-  { label: 'Projection', value: 'Elegant Royal Feminine Aura' },
-  { label: 'Longevity', value: '18 – 24 Hours' },
-  { label: 'Production', value: 'Strictly Limited Sovereign Reserve' },
-  { label: 'Bottle Craft', value: 'Hand-Assembled Crown Edition' },
-  { label: 'Valuation', value: 'Rs 72,000 PKR  ·  $255 USD' },
-  { label: 'Blockchain', value: 'Polygon Mainnet — NFT Verified' },
+  { label: 'Sovereign Title', value: 'The Sovereign Grace' },
+  { label: 'Classification', value: 'Sovereign Feminine Extrait' },
+  { label: 'Concentration', value: 'Extrait de Parfum' },
+  { label: 'Volume Allocation', value: '100ML' },
+  { label: 'Longevity', value: '12–18+ Hours' },
+  { label: 'Projection', value: 'Elegant Sovereign Aura' },
+  { label: 'Sillage', value: 'Soft Yet Commanding' },
+  { label: 'Production', value: 'Limited Atelier Production' },
+  { label: 'Gender Profile', value: 'Feminine Luxury' },
+  { label: 'Wearing Environment', value: 'Royal Events · Black Tie · Signature Identity' },
+  { label: 'Allocation Type', value: 'Founder Reserve Allocation — Archive I' },
+  { label: 'Valuation', value: 'Rs 85,000 PKR  ·  $306 USD' },
+  { label: 'Blockchain Authentication', value: 'Polygon Mainnet — NFT Verified' },
+  { label: 'Production Method', value: 'Small-Batch Sovereign Craftsmanship' },
 ]
 
 function CopyBtn({ text }: { text: string }) {
@@ -117,8 +124,8 @@ export default function ShamimsBloomPage({ product, onBack }: Props) {
   const [mintedTx, setMintedTx] = useState('')
 
   const isOK = payMethod === 'crypto' && coin === 'OKBOND'
-  const basePkr = product.price_pkr || 72000
-  const baseUsd = product.price_usd || 255
+  const basePkr = product.price_pkr || 85000
+  const baseUsd = product.price_usd || 306
   const finalPkr = (isOK ? basePkr * (1 - OKBOND_DISCOUNT) : basePkr) * qty
   const finalUsd = (isOK ? baseUsd * (1 - OKBOND_DISCOUNT) : baseUsd) * qty
 
@@ -272,7 +279,7 @@ export default function ShamimsBloomPage({ product, onBack }: Props) {
             initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.5, duration: 1 }}
             className="text-[9px] tracking-[0.3em] uppercase text-[#c9a054]/60 mt-2"
           >
-            Velvet Taif &amp; Peony  ·  100ML Extrait de Parfum  ·  Rs 72,000
+            Velvet Taif &amp; Peony  ·  100ML Extrait de Parfum  ·  Rs 85,000
           </motion.p>
         </motion.div>
         <motion.div
@@ -296,7 +303,7 @@ export default function ShamimsBloomPage({ product, onBack }: Props) {
             </h2>
             <div className="w-12 h-px bg-[#c9a054]/40 mb-10" />
             <p className="text-zinc-500 font-light leading-[2] text-sm mb-8">
-              In Chapter I of the House, we spoke of an emotion so deep it demanded to exist. Shamim&apos;s Bloom is the liquid manifestation of that very love.
+              Shamim Bloom was conceived as an eternal feminine archive — a liquid monument dedicated to grace powerful enough to outlive memory itself. Inside the House of Shamim Forever, fragrance is treated not as cosmetic luxury, but as emotional architecture. Every molecule exists to preserve permanence: of presence, of identity, of love.
             </p>
             <p className="font-serif italic text-zinc-600 text-base leading-[2] border-l-2 border-[#c9a054]/20 pl-6">
               Dunya mein har cheez fani hai, siwaye us sachi mohabbat ke jo apne peechay aik legacy chhor jati hai.
@@ -316,7 +323,7 @@ export default function ShamimsBloomPage({ product, onBack }: Props) {
             <img src={BLOOM_IMAGES[1]} alt="Shamim's Bloom" className="w-full h-full object-cover" style={{ filter: 'brightness(0.85)' }} />
             <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a]/40 to-transparent" />
             <div className="absolute bottom-8 left-8 right-8">
-              <p className="text-[7px] tracking-[0.4em] uppercase text-[#c9a054]/70">Rare Taif Rose · Harvested Before Sunrise</p>
+              <p className="text-[7px] tracking-[0.4em] uppercase text-[#c9a054]/70">Taif Rose Absolute · Harvested Before Sunrise · Crown-Forged Flacon</p>
             </div>
           </motion.div>
         </div>
@@ -335,9 +342,9 @@ export default function ShamimsBloomPage({ product, onBack }: Props) {
           </motion.div>
           <div className="grid md:grid-cols-3 gap-0">
             {[
-              { tier: 'Top Notes', subtitle: 'Opening · 0–2 Hours', notes: TOP_NOTES, delay: 0 },
-              { tier: 'Heart Notes', subtitle: 'Soul · 2–8 Hours', notes: HEART_NOTES, delay: 0.15 },
-              { tier: 'Base Notes', subtitle: 'Anchor · 8–24 Hours', notes: BASE_NOTES, delay: 0.3 },
+              { tier: 'The First Veil', subtitle: 'Opening Layer', notes: TOP_NOTES, delay: 0 },
+              { tier: 'The Sovereign Heart', subtitle: 'Core Layer', notes: HEART_NOTES, delay: 0.15 },
+              { tier: 'The Eternal Foundation', subtitle: 'Base Layer', notes: BASE_NOTES, delay: 0.3 },
             ].map(({ tier, subtitle, notes, delay }) => (
               <motion.div
                 key={tier}
