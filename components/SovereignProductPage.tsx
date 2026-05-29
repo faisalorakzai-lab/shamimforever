@@ -120,9 +120,9 @@ function CopyBtn({ text }: { text: string }) {
   const [c, setC] = useState(false)
   return (
     <button onClick={() => { navigator.clipboard.writeText(text); setC(true); setTimeout(() => setC(false), 2000) }}
-      className="flex items-center gap-1.5 text-[#c9a054] hover:text-zinc-100 transition-colors">
+      style={{ display: 'flex', alignItems: 'center', gap: 6, color: '#c9a054', background: 'none', border: 'none', cursor: 'pointer' }}>
       {c ? <Check size={10} /> : <Copy size={10} />}
-      <span className="text-[7px] tracking-[0.3em] uppercase">{c ? 'Copied' : 'Copy'}</span>
+      <span style={{ fontSize: 7, letterSpacing: '0.3em', textTransform: 'uppercase' as const }}>{c ? 'Copied' : 'Copy'}</span>
     </button>
   )
 }
@@ -155,7 +155,7 @@ function GoldParticles() {
     tick()
     return () => { cancelAnimationFrame(id); window.removeEventListener('resize', resize) }
   }, [])
-  return <canvas ref={ref} className="absolute inset-0 w-full h-full pointer-events-none z-10" />
+  return <canvas ref={ref} style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', pointerEvents: 'none', zIndex: 10 }} />
 }
 
 function NftCard({ config }: { config: SovereignConfig }) {
@@ -168,11 +168,18 @@ function NftCard({ config }: { config: SovereignConfig }) {
   const front = deg % 360 < 180
   return (
     <div style={{ perspective: '1200px' }} className="w-full max-w-[280px] mx-auto select-none">
-      <div style={{ transform: `rotateY(${deg}deg)`, transformStyle: 'preserve-3d', transition: 'none' }} className="relative w-full aspect-[3/4]">
+      <div style={{ transform: `rotateY(${deg}deg)`, transformStyle: 'preserve-3d', transition: 'none', position: 'relative', width: '100%', aspectRatio: '3/4' }}>
         {[false, true].map(isBack => (
-          <div key={String(isBack)} style={{ backfaceVisibility: 'hidden', transform: isBack ? 'rotateY(180deg)' : 'none' }}
+          <div
+            key={String(isBack)}
             className={`absolute inset-0 border rounded-sm flex flex-col p-5 ${front && !isBack || !front && isBack ? '' : 'pointer-events-none'}`}
-            style={{ background: 'linear-gradient(145deg, #0c0906 0%, #0f0c07 50%, #080604 100%)', borderColor: 'rgba(201,160,84,0.35)' }}>
+            style={{
+              backfaceVisibility: 'hidden',
+              transform: isBack ? 'rotateY(180deg)' : 'none',
+              background: 'linear-gradient(145deg, #0c0906 0%, #0f0c07 50%, #080604 100%)',
+              borderColor: 'rgba(201,160,84,0.35)',
+            }}
+          >
             {!isBack ? (
               <>
                 <div className="flex justify-between items-start mb-4">
@@ -252,10 +259,6 @@ export default function SovereignProductPage({ product }: { product: Product }) 
           scrollTrigger: { trigger: el, start: 'top 88%', once: true } }
       )
     })
-    gsap.utils.toArray<Element>('.s-line').forEach((el) => {
-      gsap.fromTo(el, { scaleX: 0, transformOrigin: 'left' },
-        { scaleX: 1, duration: 1.8, ease: 'power2.out', scrollTrigger: { trigger: el, start: 'top 92%', once: true } })
-    })
     return () => { ScrollTrigger.getAll().forEach(t => t.kill()) }
   }, [])
 
@@ -304,29 +307,29 @@ export default function SovereignProductPage({ product }: { product: Product }) 
   }
 
   if (orderResult) return (
-    <div className="min-h-screen flex items-center justify-center px-6 pt-20" style={{ background: '#030303' }}>
-      <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1 }} className="text-center max-w-lg w-full">
+    <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '80px 24px', background: '#030303' }}>
+      <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1 }} style={{ textAlign: 'center', maxWidth: 500, width: '100%' }}>
         <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ delay: 0.3, type: 'spring', stiffness: 120 }}>
           <p style={{ fontFamily: SERIF, fontSize: 80, color: '#c9a054', lineHeight: 1 }}>◆</p>
         </motion.div>
-        <h2 style={{ fontFamily: SERIF, fontSize: 48, fontWeight: 300, letterSpacing: '0.2em', color: '#f0ece4' }} className="uppercase mt-4 mb-2">Order Placed</h2>
-        <p style={{ fontSize: 8, letterSpacing: '0.5em', textTransform: 'uppercase', color: '#c9a054' }} className="mb-10">House of Shamim Forever</p>
-        <div className="border divide-y text-left mb-8" style={{ borderColor: 'rgba(201,160,84,0.12)', divideColor: 'rgba(255,255,255,0.03)', background: 'linear-gradient(135deg, #0c0906 0%, #080604 100%)' }}>
+        <h2 style={{ fontFamily: SERIF, fontSize: 48, fontWeight: 300, letterSpacing: '0.2em', color: '#f0ece4', textTransform: 'uppercase', marginTop: 16, marginBottom: 8 }}>Order Placed</h2>
+        <p style={{ fontSize: 8, letterSpacing: '0.5em', textTransform: 'uppercase', color: '#c9a054', marginBottom: 40 }}>House of Shamim Forever</p>
+        <div style={{ border: '1px solid rgba(201,160,84,0.12)', background: 'linear-gradient(135deg, #0c0906 0%, #080604 100%)', marginBottom: 32, textAlign: 'left' }}>
           {[['Order Reference', orderResult.order_ref], ['Tracking ID', orderResult.tracking_ref], ['Status', orderResult.status?.replace(/_/g, ' ')]].map(([lbl, val]) => (
-            <div key={lbl} className="flex justify-between items-center px-6 py-5" style={{ borderBottom: '1px solid rgba(255,255,255,0.03)' }}>
+            <div key={lbl} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '20px 24px', borderBottom: '1px solid rgba(255,255,255,0.03)' }}>
               <p style={{ fontSize: 7, letterSpacing: '0.4em', textTransform: 'uppercase', color: '#3f3830' }}>{lbl}</p>
-              <div className="flex items-center gap-2">
-                <p style={{ fontFamily: 'monospace', fontSize: 11, color: '#c9a094' }}>{val}</p>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                <p style={{ fontFamily: 'monospace', fontSize: 11, color: '#c9b894' }}>{val}</p>
                 {lbl !== 'Status' && <CopyBtn text={val ?? ''} />}
               </div>
             </div>
           ))}
         </div>
-        <div className="flex gap-3 justify-center">
-          <Link href={orderResult.track_url} className="flex items-center gap-2 px-8 py-3.5 text-[8px] tracking-[0.4em] uppercase" style={{ border: '1px solid rgba(201,160,84,0.4)', color: '#c9a054' }}>
+        <div style={{ display: 'flex', gap: 12, justifyContent: 'center' }}>
+          <Link href={orderResult.track_url} style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '12px 24px', border: '1px solid rgba(201,160,84,0.4)', fontSize: 8, letterSpacing: '0.4em', textTransform: 'uppercase', color: '#c9a054', textDecoration: 'none' }}>
             <ExternalLink size={10} /> Track Order
           </Link>
-          <Link href="/shop" className="px-8 py-3.5 text-[8px] tracking-[0.4em] uppercase" style={{ border: '1px solid rgba(255,255,255,0.08)', color: '#3f3830' }}>Continue</Link>
+          <Link href="/shop" style={{ padding: '12px 24px', border: '1px solid rgba(255,255,255,0.08)', fontSize: 8, letterSpacing: '0.4em', textTransform: 'uppercase', color: '#3f3830', textDecoration: 'none' }}>Continue</Link>
         </div>
       </motion.div>
     </div>
@@ -338,10 +341,8 @@ export default function SovereignProductPage({ product }: { product: Product }) 
   return (
     <div style={{ background: '#030303', minHeight: '100vh' }}>
 
-      {/* ═══ HERO — FULLSCREEN CINEMATIC ════════════════════════════════════ */}
+      {/* HERO — FULLSCREEN CINEMATIC */}
       <section ref={heroRef} style={{ position: 'relative', height: '100svh', minHeight: 700, overflow: 'hidden', background: '#030303' }}>
-
-        {/* Fullscreen product image — Ken Burns entrance */}
         <motion.div
           initial={{ scale: 1.12, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
@@ -356,29 +357,18 @@ export default function SovereignProductPage({ product }: { product: Product }) 
           />
         </motion.div>
 
-        {/* Cinematic gradient overlay — bottom heavy, preserves bottle clarity */}
-        <div style={{
-          position: 'absolute', inset: 0,
-          background: 'linear-gradient(to bottom, rgba(3,3,3,0.25) 0%, rgba(3,3,3,0.05) 20%, rgba(3,3,3,0.3) 55%, rgba(3,3,3,0.9) 82%, #030303 100%)',
-        }} />
+        {/* Cinematic gradient — bottom heavy */}
+        <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to bottom, rgba(3,3,3,0.25) 0%, rgba(3,3,3,0.05) 20%, rgba(3,3,3,0.3) 55%, rgba(3,3,3,0.9) 82%, #030303 100%)' }} />
         {/* Side vignette */}
-        <div style={{
-          position: 'absolute', inset: 0,
-          background: 'radial-gradient(ellipse 110% 110% at 50% 30%, transparent 45%, rgba(3,3,3,0.55) 100%)',
-        }} />
-        {/* Gold ambient glow */}
-        <div style={{
-          position: 'absolute', inset: 0,
-          background: 'radial-gradient(ellipse 60% 40% at 50% 80%, rgba(201,160,84,0.06) 0%, transparent 60%)',
-          pointerEvents: 'none',
-        }} />
+        <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse 110% 110% at 50% 30%, transparent 45%, rgba(3,3,3,0.55) 100%)' }} />
+        {/* Gold ambient */}
+        <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse 60% 40% at 50% 80%, rgba(201,160,84,0.06) 0%, transparent 60%)', pointerEvents: 'none' }} />
 
         <GoldParticles />
 
-        {/* Text — bottom overlay, parallax out on scroll */}
-        <motion.div style={{ opacity: textOpacity, y: textY }}
-          className="absolute bottom-0 left-0 right-0 z-20 px-6 md:px-16 lg:px-20 pb-12 md:pb-20">
-
+        <motion.div
+          style={{ opacity: textOpacity, y: textY, position: 'absolute', bottom: 0, left: 0, right: 0, zIndex: 20, padding: '0 clamp(24px, 5vw, 80px)', paddingBottom: 'clamp(48px, 6vw, 80px)' }}
+        >
           <motion.p
             initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 1.4, duration: 1 }}
             style={{ fontSize: 7, letterSpacing: '0.9em', textTransform: 'uppercase', color: '#c9a054', marginBottom: 16 }}>
@@ -388,8 +378,7 @@ export default function SovereignProductPage({ product }: { product: Product }) 
           <motion.h1
             initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 1.8, duration: 1.6, ease: [0.16, 1, 0.3, 1] }}
-            style={{ fontFamily: SERIF, fontWeight: 300, letterSpacing: '-0.01em', lineHeight: 0.88, color: '#f8f4ee', marginBottom: 14,
-              fontSize: 'clamp(3.8rem, 11vw, 9.5rem)' }}>
+            style={{ fontFamily: SERIF, fontWeight: 300, letterSpacing: '-0.01em', lineHeight: 0.88, color: '#f8f4ee', marginBottom: 14, fontSize: 'clamp(3.8rem, 11vw, 9.5rem)' }}>
             {config.heroTitle}
           </motion.h1>
 
@@ -413,11 +402,11 @@ export default function SovereignProductPage({ product }: { product: Product }) 
           <motion.div
             initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 2.9, duration: 0.8 }}
             style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
-            <a href="#acquire" className="group" style={{ position: 'relative', overflow: 'hidden', padding: '14px 32px', border: '1px solid rgba(201,160,84,0.55)', fontSize: 8, letterSpacing: '0.7em', textTransform: 'uppercase', color: '#c9a054', display: 'inline-block' }}>
-              <span className="group-hover:translate-x-0 -translate-x-full absolute inset-0 bg-[#c9a054] transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]" />
+            <a href="#acquire" className="group" style={{ position: 'relative', overflow: 'hidden', padding: '14px 32px', border: '1px solid rgba(201,160,84,0.55)', fontSize: 8, letterSpacing: '0.7em', textTransform: 'uppercase', color: '#c9a054', display: 'inline-block', textDecoration: 'none' }}>
+              <span className="absolute inset-0 bg-[#c9a054] -translate-x-full group-hover:translate-x-0 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]" />
               <span className="relative group-hover:text-black transition-colors duration-150">Acquire Now</span>
             </a>
-            <a href="#legacy" style={{ padding: '14px 32px', border: '1px solid rgba(255,255,255,0.1)', fontSize: 8, letterSpacing: '0.7em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.35)', display: 'inline-block', transition: 'all 0.4s' }}
+            <a href="#legacy" style={{ padding: '14px 32px', border: '1px solid rgba(255,255,255,0.1)', fontSize: 8, letterSpacing: '0.7em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.35)', display: 'inline-block', textDecoration: 'none', transition: 'all 0.4s' }}
               onMouseEnter={e => { (e.target as HTMLElement).style.borderColor = 'rgba(255,255,255,0.25)'; (e.target as HTMLElement).style.color = 'rgba(255,255,255,0.7)' }}
               onMouseLeave={e => { (e.target as HTMLElement).style.borderColor = 'rgba(255,255,255,0.1)'; (e.target as HTMLElement).style.color = 'rgba(255,255,255,0.35)' }}>
               Explore Archive
@@ -425,7 +414,6 @@ export default function SovereignProductPage({ product }: { product: Product }) 
           </motion.div>
         </motion.div>
 
-        {/* Scroll cue */}
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 3.8 }}
           style={{ position: 'absolute', bottom: 24, right: 24, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 6 }}>
           <span style={{ fontSize: 6, letterSpacing: '0.5em', textTransform: 'uppercase', color: 'rgba(201,160,84,0.35)', writingMode: 'vertical-lr' }}>Scroll</span>
@@ -435,7 +423,7 @@ export default function SovereignProductPage({ product }: { product: Product }) 
         </motion.div>
       </section>
 
-      {/* ═══ LEGACY STATEMENT ════════════════════════════════════════════════ */}
+      {/* LEGACY STATEMENT */}
       <section id="legacy" style={{ padding: '100px 0', position: 'relative', background: 'linear-gradient(180deg, #030303 0%, #080602 50%, #030303 100%)' }}>
         <div style={{ maxWidth: 860, margin: '0 auto', padding: '0 24px', textAlign: 'center' }}>
           <div className="s-reveal">
@@ -454,7 +442,7 @@ export default function SovereignProductPage({ product }: { product: Product }) 
         </div>
       </section>
 
-      {/* ═══ GALLERY ═════════════════════════════════════════════════════════ */}
+      {/* GALLERY */}
       {images.length > 0 && (
         <section style={{ padding: '80px 0', background: 'radial-gradient(ellipse 80% 60% at 50% 50%, #0e0903 0%, #030303 65%)' }}>
           <div style={{ maxWidth: 1300, margin: '0 auto', padding: '0 24px' }}>
@@ -477,7 +465,7 @@ export default function SovereignProductPage({ product }: { product: Product }) 
         </section>
       )}
 
-      {/* ═══ SCENT ARCHITECTURE ══════════════════════════════════════════════ */}
+      {/* SCENT ARCHITECTURE */}
       <section style={{ padding: '100px 0', background: 'linear-gradient(180deg, #030303 0%, #090703 40%, #030303 100%)' }}>
         <div style={{ maxWidth: 1100, margin: '0 auto', padding: '0 24px' }}>
           <div className="s-reveal" style={{ textAlign: 'center', marginBottom: 60 }}>
@@ -489,7 +477,7 @@ export default function SovereignProductPage({ product }: { product: Product }) 
               { tier: 'TOP', label: 'Opening Veil', notes: config.topNotes, glow: 'rgba(201,160,84,0.05)' },
               { tier: 'HEART', label: 'Sovereign Core', notes: config.heartNotes, glow: 'rgba(201,160,84,0.07)' },
               { tier: 'BASE', label: 'Eternal Foundation', notes: config.baseNotes, glow: 'rgba(201,160,84,0.04)' },
-            ].map((layer, idx) => (
+            ].map((layer) => (
               <div key={layer.tier} className="s-reveal"
                 style={{ padding: '40px 32px', background: `radial-gradient(ellipse at top, ${layer.glow} 0%, transparent 70%), linear-gradient(180deg, #0c0906 0%, #080603 100%)`, border: '1px solid rgba(201,160,84,0.06)' }}>
                 <p style={{ fontSize: 7, letterSpacing: '0.7em', textTransform: 'uppercase', color: 'rgba(201,160,84,0.6)', marginBottom: 6 }}>{layer.tier}</p>
@@ -508,7 +496,7 @@ export default function SovereignProductPage({ product }: { product: Product }) 
         </div>
       </section>
 
-      {/* ═══ PERFORMANCE MATRIX ══════════════════════════════════════════════ */}
+      {/* PERFORMANCE MATRIX */}
       <section style={{ padding: '100px 0', background: 'radial-gradient(ellipse 70% 50% at 50% 50%, #0e0903 0%, #030303 60%)' }}>
         <div style={{ maxWidth: 780, margin: '0 auto', padding: '0 24px' }}>
           <div className="s-reveal" style={{ textAlign: 'center', marginBottom: 48 }}>
@@ -526,9 +514,8 @@ export default function SovereignProductPage({ product }: { product: Product }) 
         </div>
       </section>
 
-      {/* ═══ DIGITAL SOVEREIGN PASSPORT ══════════════════════════════════════ */}
-      <section style={{ padding: '100px 0', background: 'linear-gradient(180deg, #030303 0%, #060510 50%, #030303 100%)' }}>
-        <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse 50% 40% at 50% 50%, rgba(130,71,229,0.04) 0%, transparent 70%)', pointerEvents: 'none' }} />
+      {/* DIGITAL SOVEREIGN PASSPORT */}
+      <section style={{ padding: '100px 0', position: 'relative', background: 'linear-gradient(180deg, #030303 0%, #060510 50%, #030303 100%)' }}>
         <div style={{ maxWidth: 1100, margin: '0 auto', padding: '0 24px' }}>
           <div className="s-reveal" style={{ textAlign: 'center', marginBottom: 60 }}>
             <p style={{ fontSize: 7, letterSpacing: '0.9em', textTransform: 'uppercase', color: 'rgba(130,71,229,0.6)', marginBottom: 12 }}>Polygon · Blockchain Identity</p>
@@ -559,7 +546,7 @@ export default function SovereignProductPage({ product }: { product: Product }) 
                 ))}
               </div>
               <a href={`https://polygonscan.com/address/${NFT_CONTRACT}`} target="_blank" rel="noopener noreferrer"
-                style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '12px 20px', border: '1px solid rgba(130,71,229,0.25)', fontSize: 8, letterSpacing: '0.3em', textTransform: 'uppercase', color: 'rgba(130,71,229,0.7)', width: 'fit-content' }}>
+                style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '12px 20px', border: '1px solid rgba(130,71,229,0.25)', fontSize: 8, letterSpacing: '0.3em', textTransform: 'uppercase', color: 'rgba(130,71,229,0.7)', width: 'fit-content', textDecoration: 'none' }}>
                 <ExternalLink size={10} /> View on Polygonscan
               </a>
             </div>
@@ -567,7 +554,7 @@ export default function SovereignProductPage({ product }: { product: Product }) 
         </div>
       </section>
 
-      {/* ═══ ACQUIRE ══════════════════════════════════════════════════════════ */}
+      {/* ACQUIRE */}
       <section id="acquire" style={{ padding: '100px 0', background: 'radial-gradient(ellipse 80% 50% at 50% 0%, rgba(30,22,8,0.9) 0%, #030303 55%)' }}>
         <div style={{ maxWidth: 680, margin: '0 auto', padding: '0 24px' }}>
           <div className="s-reveal" style={{ textAlign: 'center', marginBottom: 48 }}>
@@ -576,14 +563,12 @@ export default function SovereignProductPage({ product }: { product: Product }) 
           </div>
 
           <div className="s-reveal">
-            {/* Price */}
             <div style={{ textAlign: 'center', padding: '32px 24px', border: '1px solid rgba(201,160,84,0.12)', background: 'linear-gradient(135deg, #0e0a04 0%, #0a0703 100%)', marginBottom: 2 }}>
               <p style={{ fontSize: 7, letterSpacing: '0.5em', textTransform: 'uppercase', color: '#3f3830', marginBottom: 12 }}>Sovereign Allocation Price</p>
               <p style={{ fontFamily: SERIF, fontSize: 'clamp(2.5rem, 7vw, 4.5rem)', fontWeight: 300, color: '#f8f4ee', lineHeight: 1 }}>{formatPKR(finalPkr)}</p>
               <p style={{ fontSize: 12, letterSpacing: '0.2em', color: 'rgba(201,160,84,0.45)', marginTop: 8 }}>${(product.price_usd * quantity).toFixed(2)} USD</p>
             </div>
 
-            {/* Qty */}
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '16px 20px', border: '1px solid rgba(201,160,84,0.08)', background: '#0a0703', marginBottom: 2 }}>
               <p style={{ fontSize: 7, letterSpacing: '0.5em', textTransform: 'uppercase', color: '#3f3830' }}>Quantity</p>
               <div style={{ display: 'flex', alignItems: 'center', border: '1px solid rgba(201,160,84,0.15)' }}>
@@ -593,15 +578,14 @@ export default function SovereignProductPage({ product }: { product: Product }) 
               </div>
             </div>
 
-            {/* Delivery */}
             <div style={{ marginBottom: 2 }}>
               <p style={{ fontSize: 7, letterSpacing: '0.5em', textTransform: 'uppercase', color: '#3f3830', padding: '12px 20px', background: '#0a0703', border: '1px solid rgba(201,160,84,0.08)' }}>Delivery Information</p>
-              {[
+              {([
                 { v: custName, s: setCustName, ph: 'Full Name *' },
                 { v: custPhone, s: setCustPhone, ph: 'Phone Number *' },
                 { v: custAddress, s: setCustAddress, ph: 'Delivery Address *' },
                 { v: custCity, s: setCustCity, ph: 'City *' },
-              ].map(({ v, s, ph }) => (
+              ] as { v: string; s: (val: string) => void; ph: string }[]).map(({ v, s, ph }) => (
                 <input key={ph} value={v} onChange={e => s(e.target.value)} placeholder={ph}
                   style={{ width: '100%', background: '#080602', border: 'none', borderBottom: '1px solid rgba(201,160,84,0.06)', padding: '16px 20px', fontSize: 11, color: '#c9b894', outline: 'none', boxSizing: 'border-box' }}
                   onFocus={e => { e.currentTarget.style.borderBottomColor = 'rgba(201,160,84,0.3)' }}
@@ -609,7 +593,6 @@ export default function SovereignProductPage({ product }: { product: Product }) 
               ))}
             </div>
 
-            {/* Payment */}
             <div style={{ marginBottom: 2 }}>
               <p style={{ fontSize: 7, letterSpacing: '0.5em', textTransform: 'uppercase', color: '#3f3830', padding: '12px 20px', background: '#0a0703', border: '1px solid rgba(201,160,84,0.08)', marginBottom: 2 }}>Payment Method</p>
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: 1, marginBottom: 16 }}>
@@ -630,15 +613,12 @@ export default function SovereignProductPage({ product }: { product: Product }) 
                 {payMethod === 'pkr_manual' && (
                   <motion.div key="pkr" initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} style={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
                     <div style={{ border: '1px solid rgba(201,160,84,0.1)', background: '#080602' }}>
-                      {[
-                        { label: 'EasyPaisa', value: `${EASYPAISA_NUMBER} · ${EASYPAISA_NAME}`, copy: EASYPAISA_NUMBER },
-                        { label: 'UBL IBAN', value: UBL_IBAN, copy: UBL_IBAN },
-                      ].map((row, i, arr) => (
-                        <div key={row.label} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '16px 20px', borderBottom: i < arr.length - 1 ? '1px solid rgba(255,255,255,0.04)' : 'none' }}>
-                          <p style={{ fontSize: 7, letterSpacing: '0.4em', textTransform: 'uppercase', color: '#3f3830' }}>{row.label}</p>
+                      {[['EasyPaisa', `${EASYPAISA_NUMBER} · ${EASYPAISA_NAME}`, EASYPAISA_NUMBER] as const, ['UBL IBAN', UBL_IBAN, UBL_IBAN] as const].map(([lbl, val, copyVal], i, arr) => (
+                        <div key={lbl} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '16px 20px', borderBottom: i < arr.length - 1 ? '1px solid rgba(255,255,255,0.04)' : 'none' }}>
+                          <p style={{ fontSize: 7, letterSpacing: '0.4em', textTransform: 'uppercase', color: '#3f3830' }}>{lbl}</p>
                           <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                            <p style={{ fontFamily: 'monospace', fontSize: 10, color: '#c9b894' }}>{row.value}</p>
-                            <CopyBtn text={row.copy} />
+                            <p style={{ fontFamily: 'monospace', fontSize: 10, color: '#c9b894' }}>{val}</p>
+                            <CopyBtn text={copyVal} />
                           </div>
                         </div>
                       ))}
@@ -648,7 +628,10 @@ export default function SovereignProductPage({ product }: { product: Product }) 
                     <label style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '14px 20px', border: '1px dashed rgba(201,160,84,0.12)', cursor: 'pointer', background: '#080602' }}>
                       <Upload size={12} color="rgba(201,160,84,0.4)" />
                       <span style={{ fontSize: 8, letterSpacing: '0.3em', textTransform: 'uppercase', color: '#3f3830' }}>Upload Payment Screenshot</span>
-                      <input type="file" accept="image/*" onChange={e => { const f = e.target.files?.[0]; if (!f) return; setProofFile(f); const r = new FileReader(); r.onload = ev => setProofPreview(ev.target?.result as string); r.readAsDataURL(f) }} className="hidden" />
+                      <input type="file" accept="image/*" onChange={e => {
+                        const f = e.target.files?.[0]; if (!f) return; setProofFile(f)
+                        const r = new FileReader(); r.onload = ev => setProofPreview(ev.target?.result as string); r.readAsDataURL(f)
+                      }} className="hidden" />
                     </label>
                     {proofPreview && (
                       <div style={{ position: 'relative', display: 'inline-block' }}>
@@ -658,7 +641,7 @@ export default function SovereignProductPage({ product }: { product: Product }) 
                     )}
                     {orderError && <p style={{ fontSize: 9, color: 'rgba(248,113,113,0.7)', letterSpacing: '0.1em' }}>{orderError}</p>}
                     <button onClick={handlePlaceOrder} disabled={submitting} className="group" style={{ position: 'relative', overflow: 'hidden', padding: '18px', border: '1px solid rgba(201,160,84,0.45)', fontSize: 8, letterSpacing: '0.7em', textTransform: 'uppercase', color: '#c9a054', cursor: submitting ? 'not-allowed' : 'pointer', opacity: submitting ? 0.5 : 1, background: 'none', width: '100%' }}>
-                      <span className="group-hover:translate-x-0 -translate-x-full absolute inset-0 bg-[#c9a054] transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]" />
+                      <span className="absolute inset-0 bg-[#c9a054] -translate-x-full group-hover:translate-x-0 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]" />
                       <span className="relative group-hover:text-black transition-colors duration-150">{submitting ? 'Processing...' : 'Submit Sovereign Order'}</span>
                     </button>
                   </motion.div>
@@ -671,7 +654,7 @@ export default function SovereignProductPage({ product }: { product: Product }) 
                     </div>
                     {orderError && <p style={{ fontSize: 9, color: 'rgba(248,113,113,0.7)' }}>{orderError}</p>}
                     <button onClick={handlePlaceOrder} disabled={submitting} className="group" style={{ position: 'relative', overflow: 'hidden', padding: '18px', border: '1px solid rgba(201,160,84,0.45)', fontSize: 8, letterSpacing: '0.7em', textTransform: 'uppercase', color: '#c9a054', cursor: submitting ? 'not-allowed' : 'pointer', opacity: submitting ? 0.5 : 1, background: 'none', width: '100%' }}>
-                      <span className="group-hover:translate-x-0 -translate-x-full absolute inset-0 bg-[#c9a054] transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]" />
+                      <span className="absolute inset-0 bg-[#c9a054] -translate-x-full group-hover:translate-x-0 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]" />
                       <span className="relative group-hover:text-black transition-colors duration-150">{submitting ? 'Placing Order...' : 'Confirm COD Order'}</span>
                     </button>
                   </motion.div>
@@ -682,7 +665,7 @@ export default function SovereignProductPage({ product }: { product: Product }) 
         </div>
       </section>
 
-      {/* ═══ RELATED COLLECTION ══════════════════════════════════════════════ */}
+      {/* RELATED COLLECTION */}
       <section style={{ padding: '80px 0 100px', background: '#030303', borderTop: '1px solid rgba(201,160,84,0.06)' }}>
         <div style={{ maxWidth: 860, margin: '0 auto', padding: '0 24px', textAlign: 'center' }}>
           <div className="s-reveal" style={{ marginBottom: 40 }}>
@@ -696,7 +679,7 @@ export default function SovereignProductPage({ product }: { product: Product }) 
               { slug: 'her-legacy-vault', name: 'Her Legacy Vault', sub: 'Grand Sovereign' },
             ].filter(p => p.slug !== product.slug).map(p => (
               <Link key={p.slug} href={`/products/${p.slug}`}
-                style={{ padding: '20px 28px', border: '1px solid rgba(201,160,84,0.08)', background: '#080602', transition: 'all 0.5s', display: 'block', textDecoration: 'none', minWidth: 180 }}
+                style={{ padding: '20px 28px', border: '1px solid rgba(201,160,84,0.08)', background: '#080602', display: 'block', textDecoration: 'none', minWidth: 180, transition: 'border-color 0.5s' }}
                 onMouseEnter={e => { (e.currentTarget as HTMLElement).style.borderColor = 'rgba(201,160,84,0.3)' }}
                 onMouseLeave={e => { (e.currentTarget as HTMLElement).style.borderColor = 'rgba(201,160,84,0.08)' }}>
                 <p style={{ fontFamily: SERIF, fontSize: 18, fontWeight: 300, color: '#c9b894', marginBottom: 4 }}>{p.name}</p>
