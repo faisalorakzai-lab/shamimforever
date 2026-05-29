@@ -20,40 +20,40 @@ export async function GET(req: NextRequest) {
   const supabase = db()
   const results: any[] = []
 
-  // Fix the pendant — revert to jewelry data
+  // Fix pendant — correct name, description, story, price
   const { data: d1, error: e1 } = await supabase
     .from('products')
     .update({
       name: 'Shamim Bloom Sovereign Pendant',
-      description: 'An exquisite sovereign pendant from the House of Shamim Forever. A wearable piece of emotional architecture — crafted for the woman who carries grace as her signature.',
-      story: JSON.stringify({
-        tagline: 'Shamim Bloom Sovereign Pendant — Wearable Heritage',
-        olfactory: null,
-        specs: { material: '18K Gold Plated', dimensions: 'Pendant: 25mm × 18mm', chain: '18-inch fine chain included' },
-        nft: { title: 'Shamim Bloom Pendant — Digital Passport', description: 'Authenticated sovereign jewelry from the House of Shamim Forever.', blockchain: 'Polygon Mainnet', rarity: 'Sovereign Collection' }
-      }),
+      description: 'An exquisite sovereign pendant from the House of Shamim Forever.',
+      price_pkr: 22000,
+      price_usd: 79,
+      story: {
+        tagline: 'Wearable sovereign heritage from the House of Shamim Forever.',
+        specs: { material: '18K Gold Plated', dimensions: 'Pendant: 25mm × 18mm', chain: '18-inch fine chain included' }
+      },
       images: ['/products/shamims-bloom/bloom-hero.png'],
     })
     .eq('id', '5ba5c73d-e647-4ccd-ab70-db2f07be20ae')
-    .select('id, name, slug')
+    .select('id, name, slug, price_pkr')
   results.push({ product: 'pendant', data: d1, error: e1?.message })
 
-  // Fix the lip elixir — revert to cosmetics data
+  // Fix lip elixir — correct name, description, story, price
   const { data: d2, error: e2 } = await supabase
     .from('products')
     .update({
       name: 'Shamim Bloom Lip Elixir',
-      description: 'A lip treatment from the House of Shamim Forever. Rose-infused, velvet-soft, and sovereignly feminine. Formulated with Taif rose extract and golden shimmer.',
-      story: JSON.stringify({
+      description: 'A rose-infused lip elixir from the House of Shamim Forever. Taif rose extract, golden shimmer, velvet-soft finish.',
+      price_pkr: 4500,
+      price_usd: 16,
+      story: {
         tagline: 'Shamim Bloom Lip Elixir — Sovereign Beauty',
-        benefits: ['Taif Rose Extract — Deep nourishment', 'Golden shimmer — luminous finish', 'Long-lasting — 8-hour hydration', 'SPF 15 protection'],
-        howTo: 'Apply to clean, dry lips. Can be worn alone or layered. Reapply as needed.',
-        nft: { title: 'Shamim Bloom Lip Elixir — Digital Passport', description: 'Authenticated sovereign cosmetics from the House of Shamim Forever.', blockchain: 'Polygon Mainnet' }
-      }),
+        benefits: ['Taif Rose Extract — Deep nourishment', 'Golden shimmer — luminous finish', 'Long-lasting — 8-hour hydration'],
+      },
       images: ['/products/shamims-bloom/bloom-hero.png'],
     })
     .eq('id', '44e00019-09a7-4e54-b546-dc95758e3705')
-    .select('id, name, slug')
+    .select('id, name, slug, price_pkr')
   results.push({ product: 'lip_elixir', data: d2, error: e2?.message })
 
   return NextResponse.json({ success: true, results })
