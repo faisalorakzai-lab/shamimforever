@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import Link from 'next/link'
 import { supabase } from '@/lib/supabase'
 import type { Product } from '@/types'
+import { NftCardBadge } from '@/components/NftBadge'
 import { formatPKR } from '@/lib/utils'
 
 const ease = [0.16, 1, 0.3, 1] as const
@@ -280,6 +281,7 @@ function ShopPageInner() {
                               <span className="hidden md:block text-zinc-700 text-xs">·</span>
                               <p className="text-zinc-600 text-[10px] md:text-xs font-light">${product.price_usd}</p>
                             </div>
+                            <div className="mt-2"><NftCardBadge price_pkr={product.price_pkr} /></div>
                           </div>
                         </Card3D>
                       </Link>
