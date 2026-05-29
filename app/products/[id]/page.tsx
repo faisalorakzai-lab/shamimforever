@@ -10,6 +10,7 @@ import { ChevronLeft, ChevronRight, Copy, Check, Upload, X, ExternalLink } from 
 import NftBadge from '@/components/NftBadge'
 import ShamimsBloomPage from '@/components/ShamimsBloomPage'
 import ShamimBloomSovereignPage from '@/components/ShamimBloomSovereignPage'
+import QueenOfTaifPage from '@/components/QueenOfTaifPage'
 import Web3PaySection, { type CoinType } from '@/components/Web3PaySection'
 import { useAccount } from 'wagmi'
 
@@ -106,7 +107,6 @@ export default function ProductDetailPage({ params }: { params: { id: string } }
     if (p?.story) {
       try {
         const s = typeof p.story === 'string' ? JSON.parse(p.story) : p.story
-        // Normalize olfactory to string for the generic page
         if (s && typeof s.olfactory === 'object') {
           s.olfactory = [s.olfactory.top_description, s.olfactory.heart_description, s.olfactory.base_description].filter(Boolean).join(' ')
         }
@@ -224,12 +224,12 @@ export default function ProductDetailPage({ params }: { params: { id: string } }
 
   if (product.slug === 'shamims-bloom') return <ShamimsBloomPage product={product} onBack={() => window.history.back()} />
   if (product.slug === 'shamim-bloom-the-sovereign-grace' || product.slug === 'shamim-bloom-sovereign-grace') return <ShamimBloomSovereignPage product={product} />
+  if (product.slug === 'queen-of-taif') return <QueenOfTaifPage product={product} />
 
   const images = product.images || []
   const ease = [0.16, 1, 0.3, 1] as const
   const finalPkr = product.price_pkr * quantity
 
-  // ─── Order Success Screen ─────────────────────────────────────────────────────
   if (orderResult) return (
     <div className="min-h-screen bg-[#050505] pt-20 flex items-center justify-center px-6">
       <motion.div initial={{ opacity: 0, scale: 0.92 }} animate={{ opacity: 1, scale: 1 }}
@@ -242,7 +242,6 @@ export default function ProductDetailPage({ params }: { params: { id: string } }
           House of Shamim Forever
         </p>
 
-        {/* Order details */}
         <div className="border border-[#1a1a1a] divide-y divide-[#111] mb-8 text-left">
           <div className="flex justify-between items-center px-6 py-4">
             <p className="text-[7px] tracking-[0.4em] uppercase text-zinc-600">Order Reference</p>
@@ -304,7 +303,6 @@ export default function ProductDetailPage({ params }: { params: { id: string } }
 
   return (
     <div className="min-h-screen bg-[#050505] pt-20">
-      {/* Breadcrumb */}
       <div className="max-w-[1600px] mx-auto px-6 md:px-12 lg:px-20 py-8 border-b border-[#1a1a1a]">
         <div className="flex items-center gap-3 text-[9px] tracking-[0.3em] uppercase text-zinc-600">
           <Link href="/" className="hover:text-[#c9a054] transition-colors">House</Link>
@@ -318,7 +316,6 @@ export default function ProductDetailPage({ params }: { params: { id: string } }
       <div className="max-w-[1600px] mx-auto px-6 md:px-12 lg:px-20 py-20">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-20">
 
-          {/* Images */}
           <div>
             <div className="relative aspect-square bg-[#0a0a0a] overflow-hidden mb-4">
               <AnimatePresence mode="wait">
@@ -349,7 +346,7 @@ export default function ProductDetailPage({ params }: { params: { id: string } }
               <div className="flex gap-2 overflow-x-auto scrollbar-none">
                 {images.map((img, i) => (
                   <button key={i} onClick={() => setActiveImage(i)}
-                    className={'flex-shrink-0 overflow-hidden border transition-colors ' + (activeImage === i ? 'border-[#c9a054]/60' : 'border-transparent')}
+                    className={`flex-shrink-0 overflow-hidden border transition-colors ${activeImage === i ? 'border-[#c9a054]/60' : 'border-transparent'}`}
                     style={{ width: 60, aspectRatio: '1' }}>
                     <img src={img} alt="" className="w-full h-full object-cover opacity-60 hover:opacity-100 transition-opacity" />
                   </button>
@@ -358,7 +355,6 @@ export default function ProductDetailPage({ params }: { params: { id: string } }
             )}
           </div>
 
-          {/* Info + checkout */}
           <div>
             {(product as any).main_category?.name && (
               <p className="text-[8px] tracking-[0.5em] uppercase text-[#c9a054] mb-4">{(product as any).main_category.name}</p>
@@ -371,12 +367,11 @@ export default function ProductDetailPage({ params }: { params: { id: string } }
               <p className="text-zinc-500 text-sm">${product.price_usd} USD</p>
             </div>
 
-            {/* Tabs */}
             <div className="flex border-b border-[#111] mb-10">
               {(['story', 'specs', 'nft'] as const).map(tab => (
                 <button key={tab} onClick={() => setActiveTab(tab)}
-                  className={'flex-1 py-4 text-[8px] tracking-[0.35em] uppercase transition-all duration-300 border-b-2 ' +
-                    (activeTab === tab ? 'text-[#c9a054] border-[#c9a054]' : 'text-zinc-600 border-transparent hover:text-zinc-400')}>
+                  className={`flex-1 py-4 text-[8px] tracking-[0.35em] uppercase transition-all duration-300 border-b-2 ${
+                    activeTab === tab ? 'text-[#c9a054] border-[#c9a054]' : 'text-zinc-600 border-transparent hover:text-zinc-400'}`}>
                   {tab === 'story' ? 'Story' : tab === 'specs' ? 'Specs' : 'Digital Twin'}
                 </button>
               ))}
@@ -401,13 +396,12 @@ export default function ProductDetailPage({ params }: { params: { id: string } }
                 </motion.div>
               )}
               {activeTab === 'nft' && (
-                  <motion.div key="nft" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="mb-10">
-                    <NftBadge product={product} />
-                  </motion.div>
-                )}
+                <motion.div key="nft" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="mb-10">
+                  <NftBadge product={product} />
+                </motion.div>
+              )}
             </AnimatePresence>
 
-            {/* Quantity */}
             <div className="flex items-center gap-4 mb-8">
               <div className="flex items-center gap-0 border border-[#1a1a1a]">
                 <button onClick={() => setQuantity(q => Math.max(1, q - 1))} className="w-10 h-10 flex items-center justify-center text-zinc-400 hover:text-zinc-100 transition-colors border-r border-[#1a1a1a]">−</button>
@@ -420,7 +414,6 @@ export default function ProductDetailPage({ params }: { params: { id: string } }
               </div>
             </div>
 
-            {/* Delivery details */}
             <div className="grid grid-cols-1 gap-2 mb-6">
               {[
                 { v: custName, s: setCustName, ph: 'Full Name *' },
@@ -433,14 +426,13 @@ export default function ProductDetailPage({ params }: { params: { id: string } }
               ))}
             </div>
 
-            {/* Payment method tabs */}
             <div className="mb-5">
               <p className="text-[8px] tracking-[0.4em] uppercase text-zinc-600 mb-3">Payment Method</p>
               <div className="flex border border-[#1a1a1a] mb-5">
                 {(['crypto', 'pkr_manual', 'cod'] as PayMethod[]).map(m => (
                   <button key={m} onClick={() => setPayMethod(m)}
-                    className={'flex-1 py-3 text-[8px] tracking-[0.22em] uppercase transition-all duration-300 border-b-2 ' +
-                      (payMethod === m ? 'bg-[#c9a054]/8 text-[#c9a054] border-b-[#c9a054]' : 'text-zinc-600 border-b-transparent hover:text-zinc-400')}>
+                    className={`flex-1 py-3 text-[8px] tracking-[0.22em] uppercase transition-all duration-300 border-b-2 ${
+                      payMethod === m ? 'bg-[#c9a054]/8 text-[#c9a054] border-b-[#c9a054]' : 'text-zinc-600 border-b-transparent hover:text-zinc-400'}`}>
                     {m === 'crypto' ? '◆ Crypto' : m === 'pkr_manual' ? 'PKR Bank' : 'COD'}
                   </button>
                 ))}
