@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useCallback } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import Link from 'next/link'
 import { ChevronLeft, ChevronRight, Copy, Check, Wallet, ShieldCheck, ExternalLink } from 'lucide-react'
@@ -19,9 +19,9 @@ const DEPLOY_TX      = '0x00d4c75acdc3e3bed45731e120d2ffceffe450e7585c5cd7e9f7ed
 const OKBOND_DISCOUNT = 0.10
 
 const TOKEN_META = {
-  USDT:   { address: '0xc2132D05D31c914a87C6611C10748AEb04B58e8F' as const, decimals: 6,  symbol: 'USDT' },
-  USDC:   { address: '0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174' as const, decimals: 6,  symbol: 'USDC' },
-  OKBOND: { address: '0xc89729DA02a8c2E282EC3070A9a680E01bE2E22F' as const, decimals: 18, symbol: 'OKBOND' },
+  USDT:   { address: '0xc2132D05D31c914a87C6611C10748AEb04B58e8F' as const, decimals: 6 },
+  USDC:   { address: '0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174' as const, decimals: 6 },
+  OKBOND: { address: '0xc89729DA02a8c2E282EC3070A9a680E01bE2E22F' as const, decimals: 18 },
 } as const
 
 const ERC20_ABI = [{
@@ -39,8 +39,6 @@ interface ScentPyramidData {
 
 interface StoryData {
   tagline?: string
-  sovereign_title?: string
-  allocation?: string
   legacy_statement?: string
   positioning?: string
   atmospheric_presence?: string
@@ -52,8 +50,7 @@ interface StoryData {
     wearing_environment?: string; allocation?: string; projection?: string
   }
   nft?: {
-    title?: string; description?: string; blockchain?: string
-    rarity?: string; edition?: string; holder_privileges?: string[]
+    description?: string; rarity?: string; holder_privileges?: string[]
   }
   packaging?: string
   cta?: { primary?: string; secondary?: string; tertiary?: string }
@@ -92,18 +89,21 @@ function PyramidLayer({ label, sub, value, mood, width, delay }: {
 }
 
 function Web3PaySection({
-  priceUsd, productId, productName,
-  custName, custPhone, custAddress, custCity, custCountry,
+  priceUsd,
+  custName, custPhone, custAddress, custCity,
   onSuccess,
 }: {
-  priceUsd: number; productId: string; productName: string
-  custName: string; custPhone: string; custAddress: string; custCity: string; custCountry: string
+  priceUsd: number
+  custName: string; custPhone: string; custAddress: string; custCity: string
   onSuccess: (txHash: string, coin: CoinType) => void
 }) {
   const [coin, setCoin] = useState<CoinType>('USDT')
   const [step, setStep] = useState<'idle' | 'sending' | 'confirming' | 'done' | 'error'>('idle')
   const [errMsg, setErrMsg] = useState('')
   const [localTx, setLocalTx] = useState<`0x${string}` | undefined>()
+
+  // suppress unused-var warnings
+  void custName; void custPhone; void custAddress; void custCity
 
   const { address, isConnected } = useAccount()
   const { writeContract, isPending: isSending } = useWriteContract()
@@ -114,9 +114,14 @@ function Web3PaySection({
   const token = TOKEN_META[coin]
   const tokenAmount = parseUnits(finalUsd.toFixed(2), token.decimals)
 
-  if (isConfirmed && localTx && step !== 'done') { setStep('done'); onSuccess(localTx, coin) }
+  useEffect(() => {
+    if (isConfirmed && localTx && step !== 'done') {
+      setStep('done')
+      onSuccess(localTx, coin)
+    }
+  }, [isConfirmed, localTx, step, coin, onSuccess])
 
-  async function handlePay() {
+  function handlePay() {
     if (!isConnected || !address) return
     setErrMsg(''); setStep('sending')
     writeContract({
@@ -216,7 +221,6 @@ function Web3PaySection({
 export default function QueenOfTaifPage({ product }: { product: Product }) {
   const [activeImage, setActiveImage] = useState(0)
   const [activeTab, setActiveTab] = useState<'story' | 'specs' | 'nft' | 'buy'>('story')
-  const [quantity] = useState(1)
   const [orderPlaced, setOrderPlaced] = useState(false)
   const [txHashFinal, setTxHashFinal] = useState('')
 
@@ -224,7 +228,6 @@ export default function QueenOfTaifPage({ product }: { product: Product }) {
   const [custPhone, setCustPhone] = useState('')
   const [custAddress, setCustAddress] = useState('')
   const [custCity, setCustCity] = useState('')
-  const [custCountry] = useState('Pakistan')
 
   const story: StoryData = (() => {
     try {
@@ -268,21 +271,21 @@ export default function QueenOfTaifPage({ product }: { product: Product }) {
         status: 'confirmed',
         payment_method: coin.toLowerCase(),
         payment_status: 'paid',
-        total_pkr: product.price_pkr * quantity,
-        total_usd: parseFloat((product.price_usd * quantity * (coin === 'OKBOND' ? 0.9 : 1)).toFixed(2)),
+        total_pkr: product.price_pkr,
+        total_usd: parseFloat((product.price_usd * (coin === 'OKBOND' ? 0.9 : 1)).toFixed(2)),
         discount_applied: coin === 'OKBOND' ? 10 : 0,
-        shipping_address: { name: custName, phone: custPhone, line1: custAddress, city: custCity, country: custCountry },
+        shipping_address: { name: custName, phone: custPhone, line1: custAddress, city: custCity, country: 'Pakistan' },
         notes: `Crypto TX: ${txHash} | Coin: ${coin} | Queen of Taif — Sovereign Rose Edition`,
       }]).select().single()
       if (order) {
         await supabase.from('order_items').insert([{
           order_id: order.id, product_id: product.id,
-          quantity, price_pkr: product.price_pkr, price_usd: product.price_usd,
+          quantity: 1, price_pkr: product.price_pkr, price_usd: product.price_usd,
         }])
       }
     } catch { /* best effort */ }
     setOrderPlaced(true)
-  }, [custName, custPhone, custAddress, custCity, custCountry, product, quantity])
+  }, [custName, custPhone, custAddress, custCity, product])
 
   const nftTraits = [
     { label: 'NFT Name',         value: 'Queen of Taif — Sovereign Rose Edition' },
@@ -338,7 +341,6 @@ export default function QueenOfTaifPage({ product }: { product: Product }) {
 
   return (
     <div className="min-h-screen bg-[#050505] pt-20">
-      {/* Breadcrumb */}
       <div className="max-w-[1600px] mx-auto px-6 md:px-12 lg:px-20 py-8 border-b border-[#111]">
         <div className="flex items-center gap-3 text-[9px] tracking-[0.3em] uppercase text-zinc-600">
           <Link href="/" className="hover:text-[#c9a054] transition-colors">House</Link>
@@ -352,7 +354,7 @@ export default function QueenOfTaifPage({ product }: { product: Product }) {
       <div className="max-w-[1600px] mx-auto px-6 md:px-12 lg:px-20 py-16 md:py-24">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-28">
 
-          {/* ── LEFT: Images ─────────────────────────────────── */}
+          {/* Images */}
           <div>
             <div className="relative aspect-square bg-[#0a0a0a] overflow-hidden mb-4"
               style={{ boxShadow: 'inset 0 0 80px rgba(201,160,84,0.06), 0 0 60px rgba(0,0,0,0.8)' }}>
@@ -393,23 +395,18 @@ export default function QueenOfTaifPage({ product }: { product: Product }) {
                 ))}
               </div>
             )}
-
-            {/* Allocation badge */}
             <div className="mt-6 p-4 border border-[#c9a054]/15 bg-gradient-to-r from-[#c9a054]/5 to-transparent flex items-center gap-4">
               <span className="text-[#c9a054] text-lg">◆</span>
               <div>
                 <p className="text-[7px] tracking-[0.45em] uppercase text-[#c9a054]">Sovereign Reserve Allocation</p>
-                <p className="text-[7px] tracking-[0.3em] uppercase text-zinc-600">
-                  Archive II · Limited Royal Batch · Polygon Verified
-                </p>
+                <p className="text-[7px] tracking-[0.3em] uppercase text-zinc-600">Archive II · Limited Royal Batch · Polygon Verified</p>
               </div>
             </div>
           </div>
 
-          {/* ── RIGHT: Info + Purchase ─────────────────────── */}
+          {/* Product Info */}
           <div>
-            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, ease }}>
+            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, ease }}>
               <p className="text-[8px] tracking-[0.55em] uppercase text-[#c9a054] mb-4">
                 Perfume · For Her · ROYAL FOUNDERS
               </p>
@@ -422,14 +419,11 @@ export default function QueenOfTaifPage({ product }: { product: Product }) {
               </p>
 
               <div className="flex items-baseline gap-4 mb-10 pb-10 border-b border-[#111]">
-                <p className="text-3xl font-light text-zinc-100">{formatPKR(product.price_pkr * quantity)}</p>
+                <p className="text-3xl font-light text-zinc-100">{formatPKR(product.price_pkr)}</p>
                 <p className="text-zinc-500">${product.price_usd} USD</p>
-                <span className="text-[7px] tracking-[0.3em] uppercase text-[#c9a054] border border-[#c9a054]/20 px-2 py-1">
-                  ◆ NFT-Backed
-                </span>
+                <span className="text-[7px] tracking-[0.3em] uppercase text-[#c9a054] border border-[#c9a054]/20 px-2 py-1">◆ NFT-Backed</span>
               </div>
 
-              {/* Tabs */}
               <div className="flex border-b border-[#111] mb-8">
                 {(['story', 'specs', 'nft', 'buy'] as const).map(tab => (
                   <button key={tab} onClick={() => setActiveTab(tab)}
@@ -441,10 +435,8 @@ export default function QueenOfTaifPage({ product }: { product: Product }) {
 
               <AnimatePresence mode="wait">
 
-                {/* ─ Story Tab ─ */}
                 {activeTab === 'story' && (
-                  <motion.div key="story" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-                    className="space-y-8">
+                  <motion.div key="story" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="space-y-8">
                     {story.legacy_statement && (
                       <div>
                         <p className="text-[8px] tracking-[0.4em] uppercase text-[#c9a054] mb-3">The Legacy Statement</p>
@@ -487,11 +479,9 @@ export default function QueenOfTaifPage({ product }: { product: Product }) {
                   </motion.div>
                 )}
 
-                {/* ─ Specs Tab ─ */}
                 {activeTab === 'specs' && (
-                  <motion.div key="specs" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-                    className="space-y-0">
-                    {story.specs && Object.entries({
+                  <motion.div key="specs" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="space-y-0">
+                    {story.specs && (Object.entries({
                       'Concentration Class':  story.specs.concentration,
                       'Volume Allocation':    story.specs.volume,
                       'Longevity Vector':     story.specs.longevity,
@@ -503,10 +493,10 @@ export default function QueenOfTaifPage({ product }: { product: Product }) {
                       'Allocation Type':      story.specs.allocation,
                       'Valuation PKR':        story.specs.price_pkr,
                       'Valuation USD':        story.specs.price_usd,
-                    }).filter(([, v]) => v).map(([label, value]) => (
+                    }) as [string, string | undefined][]).filter(([, v]) => v).map(([label, value]) => (
                       <div key={label} className="flex justify-between items-center py-4 border-b border-[#0d0d0d]">
                         <p className="text-[7px] tracking-[0.35em] uppercase text-zinc-600">{label}</p>
-                        <p className="text-zinc-300 text-xs font-light text-right max-w-[55%]">{value as string}</p>
+                        <p className="text-zinc-300 text-xs font-light text-right max-w-[55%]">{value}</p>
                       </div>
                     ))}
                     <div className="flex justify-between items-center py-4 border-b border-[#0d0d0d]">
@@ -520,14 +510,11 @@ export default function QueenOfTaifPage({ product }: { product: Product }) {
                   </motion.div>
                 )}
 
-                {/* ─ NFT Tab ─ */}
                 {activeTab === 'nft' && (
-                  <motion.div key="nft" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-                    className="space-y-6">
+                  <motion.div key="nft" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="space-y-6">
                     <p className="text-zinc-500 text-xs font-light leading-[2]">
                       {story.nft?.description ?? 'A sovereign fragrance asset authenticated by The House of Shamim Forever. Crafted around legendary Taif Rose, saffron silk, and royal oud accords, this digital passport certifies ownership, provenance, rarity allocation, and elite House privileges. The physical object may age. The sovereign registry remains eternal.'}
                     </p>
-
                     <div className="border border-[#c9a054]/15 bg-[#080808]">
                       <div className="px-5 py-4 border-b border-[#111]">
                         <p className="text-[7px] tracking-[0.45em] uppercase text-[#c9a054]">Sovereign Blockchain Certificate</p>
@@ -541,7 +528,6 @@ export default function QueenOfTaifPage({ product }: { product: Product }) {
                         ))}
                       </div>
                     </div>
-
                     <div className="space-y-2">
                       <div className="flex items-center justify-between p-3 border border-[#111] bg-[#050505]">
                         <div>
@@ -551,9 +537,7 @@ export default function QueenOfTaifPage({ product }: { product: Product }) {
                         <div className="flex items-center gap-3">
                           <CopyBtn text={NFT_CONTRACT} />
                           <a href={`https://polygonscan.com/address/${NFT_CONTRACT}`} target="_blank" rel="noreferrer"
-                            className="text-zinc-600 hover:text-[#c9a054] transition-colors">
-                            <ExternalLink size={11} />
-                          </a>
+                            className="text-zinc-600 hover:text-[#c9a054] transition-colors"><ExternalLink size={11} /></a>
                         </div>
                       </div>
                       <div className="flex items-center justify-between p-3 border border-[#111] bg-[#050505]">
@@ -564,13 +548,10 @@ export default function QueenOfTaifPage({ product }: { product: Product }) {
                         <div className="flex items-center gap-3">
                           <CopyBtn text={DEPLOY_TX} />
                           <a href={`https://polygonscan.com/tx/${DEPLOY_TX}`} target="_blank" rel="noreferrer"
-                            className="text-zinc-600 hover:text-[#c9a054] transition-colors">
-                            <ExternalLink size={11} />
-                          </a>
+                            className="text-zinc-600 hover:text-[#c9a054] transition-colors"><ExternalLink size={11} /></a>
                         </div>
                       </div>
                     </div>
-
                     <div>
                       <p className="text-[8px] tracking-[0.4em] uppercase text-[#c9a054] mb-4">Sovereign Holder Privileges</p>
                       <div className="grid grid-cols-2 gap-2">
@@ -585,10 +566,8 @@ export default function QueenOfTaifPage({ product }: { product: Product }) {
                   </motion.div>
                 )}
 
-                {/* ─ Buy Tab ─ */}
                 {activeTab === 'buy' && (
-                  <motion.div key="buy" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-                    className="space-y-6">
+                  <motion.div key="buy" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="space-y-6">
                     <div>
                       <p className="text-[8px] tracking-[0.4em] uppercase text-zinc-600 mb-3">Delivery Details</p>
                       <div className="space-y-2">
@@ -603,22 +582,17 @@ export default function QueenOfTaifPage({ product }: { product: Product }) {
                         ))}
                       </div>
                     </div>
-
                     <div>
                       <p className="text-[8px] tracking-[0.4em] uppercase text-zinc-600 mb-3">Pay with Crypto · Polygon Network</p>
                       <Web3PaySection
                         priceUsd={product.price_usd}
-                        productId={product.id}
-                        productName={product.name}
                         custName={custName}
                         custPhone={custPhone}
                         custAddress={custAddress}
                         custCity={custCity}
-                        custCountry={custCountry}
                         onSuccess={handleWeb3Success}
                       />
                     </div>
-
                     <div className="pt-4 border-t border-[#0d0d0d]">
                       <p className="text-[8px] tracking-[0.4em] uppercase text-[#c9a054] mb-2">Sovereign Acquisition</p>
                       <p className="text-[7px] tracking-[0.25em] uppercase text-zinc-700 leading-[2]">
@@ -627,7 +601,6 @@ export default function QueenOfTaifPage({ product }: { product: Product }) {
                         {story.cta?.tertiary ?? 'Enter The Royal Vault'}
                       </p>
                     </div>
-
                     <p className="text-[7px] tracking-[0.25em] uppercase text-zinc-700 text-center">
                       Secure · Blockchain Verified · Polygon Mainnet · Royal Dispatch
                     </p>
