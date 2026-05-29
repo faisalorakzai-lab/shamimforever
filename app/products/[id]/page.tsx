@@ -103,7 +103,16 @@ export default function ProductDetailPage({ params }: { params: { id: string } }
   }, [params.id])
 
   function tryParseDetails(p: any) {
-    if (p?.story) { try { setDetails(JSON.parse(p.story)) } catch {} }
+    if (p?.story) {
+      try {
+        const s = typeof p.story === 'string' ? JSON.parse(p.story) : p.story
+        // Normalize olfactory to string for the generic page
+        if (s && typeof s.olfactory === 'object') {
+          s.olfactory = [s.olfactory.top_description, s.olfactory.heart_description, s.olfactory.base_description].filter(Boolean).join(' ')
+        }
+        setDetails(s)
+      } catch {}
+    }
   }
 
   const callCheckout = useCallback(async (opts: {
@@ -214,7 +223,7 @@ export default function ProductDetailPage({ params }: { params: { id: string } }
   )
 
   if (product.slug === 'shamims-bloom') return <ShamimsBloomPage product={product} onBack={() => window.history.back()} />
-  if (product.slug === 'shamim-bloom-sovereign-grace') return <ShamimBloomSovereignPage product={product} />
+  if (product.slug === 'shamim-bloom-the-sovereign-grace' || product.slug === 'shamim-bloom-sovereign-grace') return <ShamimBloomSovereignPage product={product} />
 
   const images = product.images || []
   const ease = [0.16, 1, 0.3, 1] as const
