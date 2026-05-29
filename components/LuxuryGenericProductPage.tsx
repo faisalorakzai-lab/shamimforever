@@ -186,6 +186,15 @@ export default function LuxuryGenericProductPage({ product }: { product: Product
 
   return (
     <div style={{ background: '#030303', minHeight: '100vh' }}>
+      <style dangerouslySetInnerHTML={{ __html: `
+        @media (max-width: 768px) {
+          .lux-gallery    { flex-direction: column !important; }
+          .lux-thumbs     { flex-direction: row !important; flex-wrap: wrap !important; }
+          .lux-thumb      { flex: 1 1 calc(50% - 4px) !important; aspect-ratio: 1 !important; }
+          .lux-pay-grid   { grid-template-columns: 1fr 1fr !important; }
+          .lux-spec-row   { flex-wrap: wrap !important; gap: 6px !important; align-items: flex-start !important; }
+        }
+      ` }} />
 
       {/* HERO */}
       <section ref={heroRef} style={{ position: 'relative', height: '100svh', minHeight: 650, overflow: 'hidden', background: '#030303' }}>
@@ -265,13 +274,13 @@ export default function LuxuryGenericProductPage({ product }: { product: Product
 
       {/* GALLERY */}
       {images.length > 1 && (
-        <section style={{ padding: '80px 0', background: 'radial-gradient(ellipse 70% 50% at 50% 50%, #0e0903 0%, #030303 65%)' }}>
+        <section style={{ padding: 'clamp(44px,7vw,80px) 0', background: 'radial-gradient(ellipse 70% 50% at 50% 50%, #0e0903 0%, #030303 65%)' }}>
           <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 24px' }}>
             <div className="g-reveal" style={{ textAlign: 'center', marginBottom: 40 }}>
               <p style={{ fontSize: 7, letterSpacing: '0.9em', textTransform: 'uppercase', color: '#c9a054', marginBottom: 10 }}>Object Gallery</p>
               <h2 style={{ fontFamily: SERIF, fontSize: 'clamp(2rem, 4vw, 3.5rem)', fontWeight: 300, color: '#f0ece4' }}>The Sovereign Object</h2>
             </div>
-            <div style={{ display: 'flex', gap: 16, alignItems: 'flex-start', flexWrap: 'wrap' }}>
+            <div className="lux-gallery" style={{ display: 'flex', gap: 16, alignItems: 'flex-start', flexWrap: 'wrap' }}>
               <div className="g-reveal" style={{ flex: '1 1 400px', position: 'relative', aspectRatio: '4/5', background: '#080604', border: '1px solid rgba(201,160,84,0.08)', overflow: 'hidden' }}>
                 <AnimatePresence mode="wait">
                   <motion.img key={activeImage} src={images[activeImage]} alt={product.name}
@@ -293,7 +302,7 @@ export default function LuxuryGenericProductPage({ product }: { product: Product
                   </>
                 )}
               </div>
-              <div className="g-reveal" style={{ flex: '1 1 240px', display: 'flex', flexDirection: 'column', gap: 3 }}>
+              <div className="g-reveal" className="lux-thumbs" style={{ flex: '1 1 240px', display: 'flex', flexDirection: 'column', gap: 3, maxHeight: '80vh', overflowY: 'auto' }}>
                 {images.map((img, i) => (
                   <button key={i} onClick={() => setActiveImage(i)}
                     style={{ aspectRatio: '4/3', background: '#080604', border: activeImage === i ? '1px solid rgba(201,160,84,0.5)' : '1px solid rgba(255,255,255,0.04)', overflow: 'hidden', cursor: 'pointer', padding: 0, transition: 'border-color 0.3s' }}>
@@ -309,7 +318,7 @@ export default function LuxuryGenericProductPage({ product }: { product: Product
 
       {/* DESCRIPTION */}
       {(product.description || (story?.olfactory && typeof story.olfactory === 'string')) && (
-        <section style={{ padding: '90px 0', background: 'linear-gradient(180deg, #030303 0%, #080602 50%, #030303 100%)' }}>
+        <section style={{ padding: 'clamp(52px,8vw,90px) 0', background: 'linear-gradient(180deg, #030303 0%, #080602 50%, #030303 100%)' }}>
           <div style={{ maxWidth: 820, margin: '0 auto', padding: '0 24px', textAlign: 'center' }}>
             <div className="g-reveal">
               <p style={{ fontSize: 7, letterSpacing: '0.9em', textTransform: 'uppercase', color: '#c9a054', marginBottom: 28 }}>The Archive Object</p>
@@ -334,7 +343,7 @@ export default function LuxuryGenericProductPage({ product }: { product: Product
 
       {/* SPECS */}
       {story?.specs && Object.values(story.specs).some(Boolean) && (
-        <section style={{ padding: '80px 0', background: 'radial-gradient(ellipse 60% 50% at 50% 50%, #0e0903 0%, #030303 60%)' }}>
+        <section style={{ padding: 'clamp(44px,7vw,80px) 0', background: 'radial-gradient(ellipse 60% 50% at 50% 50%, #0e0903 0%, #030303 60%)' }}>
           <div style={{ maxWidth: 700, margin: '0 auto', padding: '0 24px' }}>
             <div className="g-reveal" style={{ textAlign: 'center', marginBottom: 40 }}>
               <p style={{ fontSize: 7, letterSpacing: '0.9em', textTransform: 'uppercase', color: '#c9a054', marginBottom: 10 }}>Specifications</p>
@@ -348,7 +357,7 @@ export default function LuxuryGenericProductPage({ product }: { product: Product
                 ['Sillage', story.specs.sillage],
                 ['Batch', story.specs.batch],
               ] as [string, string | undefined][]).filter(([, v]) => v).map(([lbl, val], i, arr) => (
-                <div key={lbl} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '18px 24px', borderBottom: i < arr.length - 1 ? '1px solid rgba(255,255,255,0.03)' : 'none' }}>
+                <div key={lbl} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: 6, padding: '16px 20px', borderBottom: i < arr.length - 1 ? '1px solid rgba(255,255,255,0.03)' : 'none'}>
                   <p style={{ fontSize: 7, letterSpacing: '0.5em', textTransform: 'uppercase', color: '#3f3830' }}>{lbl}</p>
                   <p style={{ fontFamily: SERIF, fontSize: 14, color: '#c9b894', fontWeight: 300 }}>{val}</p>
                 </div>
@@ -399,7 +408,7 @@ export default function LuxuryGenericProductPage({ product }: { product: Product
 
             <div>
               <p style={{ fontSize: 7, letterSpacing: '0.5em', textTransform: 'uppercase', color: '#3f3830', padding: '12px 18px', background: '#0a0703', border: '1px solid rgba(201,160,84,0.06)', marginBottom: 2 }}>Payment Method</p>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: 2, marginBottom: 12 }}>
+              <div className="lux-pay-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: 2, marginBottom: 12 }}>
                 {(['crypto', 'pkr_manual', 'cod'] as PayMethod[]).map(m => (
                   <button key={m} onClick={() => setPayMethod(m)}
                     style={{ padding: '13px 4px', fontSize: 7, letterSpacing: '0.25em', textTransform: 'uppercase', cursor: 'pointer', background: payMethod === m ? 'rgba(201,160,84,0.07)' : '#080602', color: payMethod === m ? '#c9a054' : '#3f3830', border: payMethod === m ? '1px solid rgba(201,160,84,0.28)' : '1px solid rgba(255,255,255,0.03)', transition: 'all 0.3s' }}>
