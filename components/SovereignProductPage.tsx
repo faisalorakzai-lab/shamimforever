@@ -228,6 +228,16 @@ function NftCard({ config }: { config: SovereignConfig }) {
   )
 }
 
+
+const SOVEREIGN_MOBILE_CSS = [
+  '@media(max-width:768px){',
+  '.scent-grid{grid-template-columns:1fr!important}',
+  '.nft-grid{grid-template-columns:1fr!important;gap:32px!important}',
+  '.pay-grid{grid-template-columns:1fr 1fr!important}',
+  '.mob-full{width:100%!important;box-sizing:border-box!important;display:flex!important;justify-content:center!important}',
+  '}',
+].join('')
+
 export default function SovereignProductPage({ product }: { product: Product }) {
   const config = CONFIGS[product.slug] ?? CONFIGS['her-legacy-vault']
   const heroRef = useRef<HTMLDivElement>(null)
@@ -340,15 +350,7 @@ export default function SovereignProductPage({ product }: { product: Product }) 
 
   return (
     <div style={{ background: '#030303', minHeight: '100vh' }}>
-      <style dangerouslySetInnerHTML={{ __html: `
-        @media (max-width: 768px) {
-          .scent-grid { grid-template-columns: 1fr !important; }
-          .nft-grid   { grid-template-columns: 1fr !important; gap: 32px !important; }
-          .pay-grid   { grid-template-columns: 1fr 1fr !important; }
-          .mob-full   { width: 100% !important; box-sizing: border-box !important; display: flex !important; justify-content: center !important; }
-          .mob-wrap   { flex-wrap: wrap !important; gap: 8px !important; }
-        }
-      ` }} />
+      <style dangerouslySetInnerHTML={{ __html: SOVEREIGN_MOBILE_CSS }} />
 
       {/* HERO — FULLSCREEN CINEMATIC */}
       <section ref={heroRef} style={{ position: 'relative', height: '100svh', minHeight: 700, overflow: 'hidden', background: '#030303' }}>
