@@ -88,22 +88,14 @@ function PyramidLayer({ label, sub, value, mood, width, delay }: {
   )
 }
 
-function Web3PaySection({
-  priceUsd,
-  custName, custPhone, custAddress, custCity,
-  onSuccess,
-}: {
+function Web3PaySection({ priceUsd, onSuccess }: {
   priceUsd: number
-  custName: string; custPhone: string; custAddress: string; custCity: string
   onSuccess: (txHash: string, coin: CoinType) => void
 }) {
   const [coin, setCoin] = useState<CoinType>('USDT')
   const [step, setStep] = useState<'idle' | 'sending' | 'confirming' | 'done' | 'error'>('idle')
   const [errMsg, setErrMsg] = useState('')
   const [localTx, setLocalTx] = useState<`0x${string}` | undefined>()
-
-  // suppress unused-var warnings
-  void custName; void custPhone; void custAddress; void custCity
 
   const { address, isConnected } = useAccount()
   const { writeContract, isPending: isSending } = useWriteContract()
@@ -149,7 +141,9 @@ function Web3PaySection({
           <p className="text-[8px] tracking-[0.35em] uppercase text-zinc-600">You Pay</p>
           <div className="text-right">
             <p className="text-zinc-100 font-light text-lg">{finalUsd.toFixed(2)} {coin}</p>
-            {coin === 'OKBOND' && <p className="text-[8px] tracking-[0.25em] uppercase text-[#c9a054]">10% Sovereign Discount Applied</p>}
+            {coin === 'OKBOND' && (
+              <p className="text-[8px] tracking-[0.25em] uppercase text-[#c9a054]">10% Sovereign Discount Applied</p>
+            )}
           </div>
         </div>
         <div className="mt-3 pt-3 border-t border-[#111] space-y-2">
@@ -233,16 +227,16 @@ export default function QueenOfTaifPage({ product }: { product: Product }) {
     try {
       const raw: Record<string, unknown> = typeof product.story === 'string'
         ? JSON.parse(product.story as string)
-        : ((product.story as Record<string, unknown>) ?? {})
+        : ((product.story ?? {}) as Record<string, unknown>)
 
       const olf = raw.olfactory
       if (olf && typeof olf === 'object' && !Array.isArray(olf)) {
         const o = olf as Record<string, unknown>
         if (!raw.scentPyramid && (o.top || o.heart || o.base)) {
           raw.scentPyramid = {
-            top:        Array.isArray(o.top)   ? (o.top as string[]).join(' · ')   : String(o.top ?? ''),
-            heart:      Array.isArray(o.heart) ? (o.heart as string[]).join(' · ') : String(o.heart ?? ''),
-            base:       Array.isArray(o.base)  ? (o.base as string[]).join(' · ')  : String(o.base ?? ''),
+            top:       Array.isArray(o.top)   ? (o.top as string[]).join(' · ')   : String(o.top ?? ''),
+            heart:     Array.isArray(o.heart) ? (o.heart as string[]).join(' · ') : String(o.heart ?? ''),
+            base:      Array.isArray(o.base)  ? (o.base as string[]).join(' · ')  : String(o.base ?? ''),
             top_mood:   o.top_description   ?? '',
             heart_mood: o.heart_description ?? '',
             base_mood:  o.base_description  ?? '',
@@ -258,7 +252,9 @@ export default function QueenOfTaifPage({ product }: { product: Product }) {
       }
 
       return raw as unknown as StoryData
-    } catch { return {} }
+    } catch {
+      return {}
+    }
   })()
 
   const images = product.images ?? []
@@ -283,7 +279,9 @@ export default function QueenOfTaifPage({ product }: { product: Product }) {
           quantity: 1, price_pkr: product.price_pkr, price_usd: product.price_usd,
         }])
       }
-    } catch { /* best effort */ }
+    } catch {
+      // best effort
+    }
     setOrderPlaced(true)
   }, [custName, custPhone, custAddress, custCity, product])
 
@@ -321,7 +319,9 @@ export default function QueenOfTaifPage({ product }: { product: Product }) {
         <h2 className="font-serif text-3xl font-light tracking-[0.2em] uppercase text-zinc-100 mb-3">
           Sovereign Order Confirmed
         </h2>
-        <p className="font-serif italic text-zinc-500 mb-8">Your Queen of Taif is sealed and awaiting royal dispatch</p>
+        <p className="font-serif italic text-zinc-500 mb-8">
+          Your Queen of Taif is sealed and awaiting royal dispatch
+        </p>
         {txHashFinal && (
           <div className="mb-8 p-4 border border-[#c9a054]/20 bg-[#c9a054]/5">
             <p className="text-[7px] tracking-[0.35em] uppercase text-zinc-600 mb-2">Blockchain Proof</p>
@@ -341,6 +341,7 @@ export default function QueenOfTaifPage({ product }: { product: Product }) {
 
   return (
     <div className="min-h-screen bg-[#050505] pt-20">
+      {/* Breadcrumb */}
       <div className="max-w-[1600px] mx-auto px-6 md:px-12 lg:px-20 py-8 border-b border-[#111]">
         <div className="flex items-center gap-3 text-[9px] tracking-[0.3em] uppercase text-zinc-600">
           <Link href="/" className="hover:text-[#c9a054] transition-colors">House</Link>
@@ -399,14 +400,17 @@ export default function QueenOfTaifPage({ product }: { product: Product }) {
               <span className="text-[#c9a054] text-lg">◆</span>
               <div>
                 <p className="text-[7px] tracking-[0.45em] uppercase text-[#c9a054]">Sovereign Reserve Allocation</p>
-                <p className="text-[7px] tracking-[0.3em] uppercase text-zinc-600">Archive II · Limited Royal Batch · Polygon Verified</p>
+                <p className="text-[7px] tracking-[0.3em] uppercase text-zinc-600">
+                  Archive II · Limited Royal Batch · Polygon Verified
+                </p>
               </div>
             </div>
           </div>
 
-          {/* Product Info */}
+          {/* Info */}
           <div>
-            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, ease }}>
+            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, ease }}>
               <p className="text-[8px] tracking-[0.55em] uppercase text-[#c9a054] mb-4">
                 Perfume · For Her · ROYAL FOUNDERS
               </p>
@@ -421,9 +425,12 @@ export default function QueenOfTaifPage({ product }: { product: Product }) {
               <div className="flex items-baseline gap-4 mb-10 pb-10 border-b border-[#111]">
                 <p className="text-3xl font-light text-zinc-100">{formatPKR(product.price_pkr)}</p>
                 <p className="text-zinc-500">${product.price_usd} USD</p>
-                <span className="text-[7px] tracking-[0.3em] uppercase text-[#c9a054] border border-[#c9a054]/20 px-2 py-1">◆ NFT-Backed</span>
+                <span className="text-[7px] tracking-[0.3em] uppercase text-[#c9a054] border border-[#c9a054]/20 px-2 py-1">
+                  ◆ NFT-Backed
+                </span>
               </div>
 
+              {/* Tabs */}
               <div className="flex border-b border-[#111] mb-8">
                 {(['story', 'specs', 'nft', 'buy'] as const).map(tab => (
                   <button key={tab} onClick={() => setActiveTab(tab)}
@@ -436,7 +443,8 @@ export default function QueenOfTaifPage({ product }: { product: Product }) {
               <AnimatePresence mode="wait">
 
                 {activeTab === 'story' && (
-                  <motion.div key="story" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="space-y-8">
+                  <motion.div key="story" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+                    className="space-y-8">
                     {story.legacy_statement && (
                       <div>
                         <p className="text-[8px] tracking-[0.4em] uppercase text-[#c9a054] mb-3">The Legacy Statement</p>
@@ -447,19 +455,25 @@ export default function QueenOfTaifPage({ product }: { product: Product }) {
                     )}
                     {story.positioning && (
                       <div>
-                        <p className="text-[8px] tracking-[0.4em] uppercase text-[#c9a054] mb-3">Chapter II — The Throne of Roses</p>
+                        <p className="text-[8px] tracking-[0.4em] uppercase text-[#c9a054] mb-3">
+                          Chapter II — The Throne of Roses
+                        </p>
                         <p className="text-zinc-500 text-xs font-light leading-[2]">{story.positioning}</p>
                       </div>
                     )}
                     {story.atmospheric_presence && (
                       <div>
-                        <p className="text-[8px] tracking-[0.4em] uppercase text-[#c9a054] mb-3">The Atmospheric Presence</p>
+                        <p className="text-[8px] tracking-[0.4em] uppercase text-[#c9a054] mb-3">
+                          The Atmospheric Presence
+                        </p>
                         <p className="text-zinc-500 text-xs font-light leading-[2]">{story.atmospheric_presence}</p>
                       </div>
                     )}
                     {scentPyramid && (
                       <div>
-                        <p className="text-[8px] tracking-[0.4em] uppercase text-[#c9a054] mb-4">The Scent Architecture</p>
+                        <p className="text-[8px] tracking-[0.4em] uppercase text-[#c9a054] mb-4">
+                          The Scent Architecture
+                        </p>
                         <div className="space-y-2">
                           <PyramidLayer label="ROYAL OPENING" sub="Top Layer" value={scentPyramid.top}
                             mood={scentPyramid.top_mood} width="w-2/3" delay={0} />
@@ -472,7 +486,9 @@ export default function QueenOfTaifPage({ product }: { product: Product }) {
                     )}
                     {story.packaging && (
                       <div>
-                        <p className="text-[8px] tracking-[0.4em] uppercase text-[#c9a054] mb-3">The Flacon & Sovereign Vault</p>
+                        <p className="text-[8px] tracking-[0.4em] uppercase text-[#c9a054] mb-3">
+                          The Flacon & Sovereign Vault
+                        </p>
                         <p className="text-zinc-500 text-xs font-light leading-[2]">{story.packaging}</p>
                       </div>
                     )}
@@ -480,25 +496,30 @@ export default function QueenOfTaifPage({ product }: { product: Product }) {
                 )}
 
                 {activeTab === 'specs' && (
-                  <motion.div key="specs" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="space-y-0">
-                    {story.specs && (Object.entries({
-                      'Concentration Class':  story.specs.concentration,
-                      'Volume Allocation':    story.specs.volume,
-                      'Longevity Vector':     story.specs.longevity,
-                      'Projection Signature': story.specs.projection ?? 'Regal Feminine Aura',
-                      'Sillage':              story.specs.sillage,
-                      'Gender Profile':       story.specs.gender,
-                      'Production Batch':     story.specs.production,
-                      'Wearing Environment':  story.specs.wearing_environment,
-                      'Allocation Type':      story.specs.allocation,
-                      'Valuation PKR':        story.specs.price_pkr,
-                      'Valuation USD':        story.specs.price_usd,
-                    }) as [string, string | undefined][]).filter(([, v]) => v).map(([label, value]) => (
-                      <div key={label} className="flex justify-between items-center py-4 border-b border-[#0d0d0d]">
-                        <p className="text-[7px] tracking-[0.35em] uppercase text-zinc-600">{label}</p>
-                        <p className="text-zinc-300 text-xs font-light text-right max-w-[55%]">{value}</p>
-                      </div>
-                    ))}
+                  <motion.div key="specs" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+                    className="space-y-0">
+                    {story.specs && (
+                      <>
+                        {([
+                          ['Concentration Class',  story.specs.concentration],
+                          ['Volume Allocation',    story.specs.volume],
+                          ['Longevity Vector',     story.specs.longevity],
+                          ['Projection Signature', story.specs.projection ?? 'Regal Feminine Aura'],
+                          ['Sillage',              story.specs.sillage],
+                          ['Gender Profile',       story.specs.gender],
+                          ['Production Batch',     story.specs.production],
+                          ['Wearing Environment',  story.specs.wearing_environment],
+                          ['Allocation Type',      story.specs.allocation],
+                          ['Valuation PKR',        story.specs.price_pkr],
+                          ['Valuation USD',        story.specs.price_usd],
+                        ] as [string, string | undefined][]).filter(([, v]) => v).map(([label, value]) => (
+                          <div key={label} className="flex justify-between items-center py-4 border-b border-[#0d0d0d]">
+                            <p className="text-[7px] tracking-[0.35em] uppercase text-zinc-600">{label}</p>
+                            <p className="text-zinc-300 text-xs font-light text-right max-w-[55%]">{value}</p>
+                          </div>
+                        ))}
+                      </>
+                    )}
                     <div className="flex justify-between items-center py-4 border-b border-[#0d0d0d]">
                       <p className="text-[7px] tracking-[0.35em] uppercase text-zinc-600">Blockchain</p>
                       <p className="text-zinc-300 text-xs">Polygon Mainnet — NFT Verified</p>
@@ -511,13 +532,16 @@ export default function QueenOfTaifPage({ product }: { product: Product }) {
                 )}
 
                 {activeTab === 'nft' && (
-                  <motion.div key="nft" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="space-y-6">
+                  <motion.div key="nft" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+                    className="space-y-6">
                     <p className="text-zinc-500 text-xs font-light leading-[2]">
                       {story.nft?.description ?? 'A sovereign fragrance asset authenticated by The House of Shamim Forever. Crafted around legendary Taif Rose, saffron silk, and royal oud accords, this digital passport certifies ownership, provenance, rarity allocation, and elite House privileges. The physical object may age. The sovereign registry remains eternal.'}
                     </p>
                     <div className="border border-[#c9a054]/15 bg-[#080808]">
                       <div className="px-5 py-4 border-b border-[#111]">
-                        <p className="text-[7px] tracking-[0.45em] uppercase text-[#c9a054]">Sovereign Blockchain Certificate</p>
+                        <p className="text-[7px] tracking-[0.45em] uppercase text-[#c9a054]">
+                          Sovereign Blockchain Certificate
+                        </p>
                       </div>
                       <div className="px-5 py-2">
                         {nftTraits.map(({ label, value }) => (
@@ -532,33 +556,45 @@ export default function QueenOfTaifPage({ product }: { product: Product }) {
                       <div className="flex items-center justify-between p-3 border border-[#111] bg-[#050505]">
                         <div>
                           <p className="text-[7px] tracking-[0.3em] uppercase text-zinc-600 mb-0.5">NFT Contract</p>
-                          <p className="text-zinc-400 text-[9px] font-mono">{NFT_CONTRACT.slice(0,12)}...{NFT_CONTRACT.slice(-6)}</p>
+                          <p className="text-zinc-400 text-[9px] font-mono">
+                            {NFT_CONTRACT.slice(0,12)}...{NFT_CONTRACT.slice(-6)}
+                          </p>
                         </div>
                         <div className="flex items-center gap-3">
                           <CopyBtn text={NFT_CONTRACT} />
                           <a href={`https://polygonscan.com/address/${NFT_CONTRACT}`} target="_blank" rel="noreferrer"
-                            className="text-zinc-600 hover:text-[#c9a054] transition-colors"><ExternalLink size={11} /></a>
+                            className="text-zinc-600 hover:text-[#c9a054] transition-colors">
+                            <ExternalLink size={11} />
+                          </a>
                         </div>
                       </div>
                       <div className="flex items-center justify-between p-3 border border-[#111] bg-[#050505]">
                         <div>
-                          <p className="text-[7px] tracking-[0.3em] uppercase text-zinc-600 mb-0.5">Deploy Transaction</p>
-                          <p className="text-zinc-400 text-[9px] font-mono">{DEPLOY_TX.slice(0,12)}...{DEPLOY_TX.slice(-6)}</p>
+                          <p className="text-[7px] tracking-[0.3em] uppercase text-zinc-600 mb-0.5">
+                            Deploy Transaction
+                          </p>
+                          <p className="text-zinc-400 text-[9px] font-mono">
+                            {DEPLOY_TX.slice(0,12)}...{DEPLOY_TX.slice(-6)}
+                          </p>
                         </div>
                         <div className="flex items-center gap-3">
                           <CopyBtn text={DEPLOY_TX} />
                           <a href={`https://polygonscan.com/tx/${DEPLOY_TX}`} target="_blank" rel="noreferrer"
-                            className="text-zinc-600 hover:text-[#c9a054] transition-colors"><ExternalLink size={11} /></a>
+                            className="text-zinc-600 hover:text-[#c9a054] transition-colors">
+                            <ExternalLink size={11} />
+                          </a>
                         </div>
                       </div>
                     </div>
                     <div>
-                      <p className="text-[8px] tracking-[0.4em] uppercase text-[#c9a054] mb-4">Sovereign Holder Privileges</p>
+                      <p className="text-[8px] tracking-[0.4em] uppercase text-[#c9a054] mb-4">
+                        Sovereign Holder Privileges
+                      </p>
                       <div className="grid grid-cols-2 gap-2">
-                        {holderPrivileges.map((p) => (
-                          <div key={p} className="flex items-center gap-2 p-2.5 border border-[#111]">
+                        {holderPrivileges.map((priv) => (
+                          <div key={priv} className="flex items-center gap-2 p-2.5 border border-[#111]">
                             <span className="text-[#c9a054] text-[8px] shrink-0">◆</span>
-                            <span className="text-[7px] tracking-[0.2em] uppercase text-zinc-500">{p}</span>
+                            <span className="text-[7px] tracking-[0.2em] uppercase text-zinc-500">{priv}</span>
                           </div>
                         ))}
                       </div>
@@ -567,34 +603,35 @@ export default function QueenOfTaifPage({ product }: { product: Product }) {
                 )}
 
                 {activeTab === 'buy' && (
-                  <motion.div key="buy" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="space-y-6">
+                  <motion.div key="buy" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+                    className="space-y-6">
                     <div>
                       <p className="text-[8px] tracking-[0.4em] uppercase text-zinc-600 mb-3">Delivery Details</p>
                       <div className="space-y-2">
-                        {[
+                        {([
                           { v: custName,    s: setCustName,    ph: 'Full Name *' },
                           { v: custPhone,   s: setCustPhone,   ph: 'Phone Number *' },
                           { v: custAddress, s: setCustAddress, ph: 'Delivery Address *' },
                           { v: custCity,    s: setCustCity,    ph: 'City *' },
-                        ].map(({ v, s, ph }) => (
+                        ] as { v: string; s: (x: string) => void; ph: string }[]).map(({ v, s, ph }) => (
                           <input key={ph} value={v} onChange={e => s(e.target.value)} placeholder={ph}
                             className="w-full bg-transparent border border-[#1a1a1a] px-4 py-3 text-[10px] text-zinc-300 placeholder:text-zinc-700 focus:border-[#c9a054]/30 focus:outline-none transition-colors" />
                         ))}
                       </div>
                     </div>
                     <div>
-                      <p className="text-[8px] tracking-[0.4em] uppercase text-zinc-600 mb-3">Pay with Crypto · Polygon Network</p>
+                      <p className="text-[8px] tracking-[0.4em] uppercase text-zinc-600 mb-3">
+                        Pay with Crypto · Polygon Network
+                      </p>
                       <Web3PaySection
                         priceUsd={product.price_usd}
-                        custName={custName}
-                        custPhone={custPhone}
-                        custAddress={custAddress}
-                        custCity={custCity}
                         onSuccess={handleWeb3Success}
                       />
                     </div>
                     <div className="pt-4 border-t border-[#0d0d0d]">
-                      <p className="text-[8px] tracking-[0.4em] uppercase text-[#c9a054] mb-2">Sovereign Acquisition</p>
+                      <p className="text-[8px] tracking-[0.4em] uppercase text-[#c9a054] mb-2">
+                        Sovereign Acquisition
+                      </p>
                       <p className="text-[7px] tracking-[0.25em] uppercase text-zinc-700 leading-[2]">
                         {story.cta?.primary ?? 'Acquire Sovereign Ownership'} ·{' '}
                         {story.cta?.secondary ?? 'Authenticate Digital Passport'} ·{' '}
