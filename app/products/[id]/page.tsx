@@ -7,6 +7,7 @@ import { supabase } from '@/lib/supabase'
 import type { Product } from '@/types'
 import { formatPKR } from '@/lib/utils'
 import { ChevronLeft, ChevronRight, Copy, Check, Upload, X, ExternalLink } from 'lucide-react'
+import NftBadge from '@/components/NftBadge'
 import ShamimsBloomPage from '@/components/ShamimsBloomPage'
 import ShamimBloomSovereignPage from '@/components/ShamimBloomSovereignPage'
 import Web3PaySection, { type CoinType } from '@/components/Web3PaySection'
@@ -391,17 +392,10 @@ export default function ProductDetailPage({ params }: { params: { id: string } }
                 </motion.div>
               )}
               {activeTab === 'nft' && (
-                <motion.div key="nft" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="mb-10 space-y-6">
-                  <p className="text-zinc-500 font-light leading-[2] text-sm">
-                    Every creation from the House of Shamim Forever includes a Digital Twin NFT minted on Polygon — a permanent on-chain record of your sovereign ownership.
-                  </p>
-                  <div className="p-5 border border-[#c9a054]/15 bg-[#c9a054]/5 space-y-3">
-                    <div className="flex justify-between"><p className="text-[8px] tracking-[0.35em] uppercase text-zinc-600">Network</p><p className="text-zinc-300 text-xs">Polygon Mainnet</p></div>
-                    <div className="flex justify-between"><p className="text-[8px] tracking-[0.35em] uppercase text-zinc-600">Auto-Mint</p><p className="text-zinc-300 text-xs">On Crypto Purchase</p></div>
-                    <div className="flex justify-between"><p className="text-[8px] tracking-[0.35em] uppercase text-zinc-600">Royalty</p><p className="text-zinc-300 text-xs">7.5%</p></div>
-                  </div>
-                </motion.div>
-              )}
+                  <motion.div key="nft" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="mb-10">
+                    <NftBadge product={product} />
+                  </motion.div>
+                )}
             </AnimatePresence>
 
             {/* Quantity */}
