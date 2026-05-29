@@ -11,6 +11,7 @@ import NftBadge from '@/components/NftBadge'
 import ShamimsBloomPage from '@/components/ShamimsBloomPage'
 import ShamimBloomSovereignPage from '@/components/ShamimBloomSovereignPage'
 import QueenOfTaifPage from '@/components/QueenOfTaifPage'
+import HerLegacyVaultPage from '@/components/HerLegacyVaultPage'
 import Web3PaySection, { type CoinType } from '@/components/Web3PaySection'
 import { useAccount } from 'wagmi'
 
@@ -225,6 +226,7 @@ export default function ProductDetailPage({ params }: { params: { id: string } }
   if (product.slug === 'shamims-bloom') return <ShamimsBloomPage product={product} onBack={() => window.history.back()} />
   if (product.slug === 'shamim-bloom-the-sovereign-grace' || product.slug === 'shamim-bloom-sovereign-grace') return <ShamimBloomSovereignPage product={product} />
   if (product.slug === 'queen-of-taif') return <QueenOfTaifPage product={product} />
+  if (product.slug === 'her-legacy-vault') return <HerLegacyVaultPage product={product} />
 
   const images = product.images || []
   const ease = [0.16, 1, 0.3, 1] as const
