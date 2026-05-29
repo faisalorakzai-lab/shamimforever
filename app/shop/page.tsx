@@ -11,14 +11,12 @@ import { formatPKR } from '@/lib/utils'
 
 const ease = [0.16, 1, 0.3, 1] as const
 
-// Sub-category UUIDs — For Him / For Her / Unisex (Perfume)
 const GENDER_TO_SUB_ID: Record<string, string> = {
   her:    'ab8df629-e022-41d9-a6de-fac63d5680e8',
   him:    'ce7a59e1-d0c4-49c8-9c70-3b487f3ab56b',
   unisex: '63e2c67c-fdba-40f7-9cd1-2cbe7fd6d852',
 }
 
-// Main-category slugs → stable UUIDs
 const CAT_SLUG_TO_ID: Record<string, string> = {
   perfume:   'c513e298-7cb4-4c94-8288-19c6a12eed9b',
   cosmetics: '22226324-4789-419d-a9e2-f763df2d24f1',
@@ -74,6 +72,8 @@ const CAT_LABEL_MAP: Record<string, string> = {
   unisex: 'Unisex',
 }
 
+const SOVEREIGN_THRESHOLD = 45000
+
 function Card3D({ children }: { children: React.ReactNode }) {
   const ref = useRef<HTMLDivElement>(null)
   const onMove = useCallback((e: React.MouseEvent) => {
@@ -102,30 +102,33 @@ function ShopPageInner() {
   const [activeSub, setActiveSub] = useState('all')
   const [sortBy, setSortBy] = useState('newest')
   const [showSort, setShowSort] = useState(false)
+  const [sovereignOnly, setSovereignOnly] = useState(false)
 
   useEffect(() => {
     const cat = searchParams.get('category') || 'all'
     const gender = searchParams.get('gender') || 'all'
     setActiveCategory(cat)
     setActiveSub(gender)
-    fetchProducts(cat, gender, 'newest')
+    fetchProducts(cat, gender, 'newest', false)
   }, [searchParams])
 
-  async function fetchProducts(category: string, sub: string, sort: string) {
+  async function fetchProducts(category: string, sub: string, sort: string, sovereign: boolean) {
     setLoading(true)
     let query = supabase
       .from('products')
       .select('*, main_category:main_categories(id, name, slug)')
       .eq('is_active', true)
 
-    // Filter by main category using hardcoded IDs (avoids slug lookup latency)
     if (category !== 'all' && CAT_SLUG_TO_ID[category]) {
       query = query.eq('main_category_id', CAT_SLUG_TO_ID[category])
     }
 
-    // Filter by sub-category (gender) using hardcoded sub_category UUIDs
     if (sub !== 'all' && GENDER_TO_SUB_ID[sub]) {
       query = query.eq('sub_category_id', GENDER_TO_SUB_ID[sub])
+    }
+
+    if (sovereign) {
+      query = query.gte('price_pkr', SOVEREIGN_THRESHOLD)
     }
 
     if (sort === 'price_asc') query = query.order('price_pkr', { ascending: true })
@@ -137,11 +140,36 @@ function ShopPageInner() {
     setLoading(false)
   }
 
-  function handleCategory(slug: string) { setActiveCategory(slug); setActiveSub('all'); fetchProducts(slug, 'all', sortBy) }
-  function handleSub(sub: string) { setActiveSub(sub); fetchProducts(activeCategory, sub, sortBy) }
-  function handleSort(sort: string) { setSortBy(sort); setShowSort(false); fetchProducts(activeCategory, activeSub, sort) }
+  function handleCategory(slug: string) {
+    setActiveCategory(slug)
+    setActiveSub('all')
+    setSovereignOnly(false)
+    fetchProducts(slug, 'all', sortBy, false)
+  }
 
-  const subLabel = activeSub !== 'all' ? CAT_LABEL_MAP[activeSub] : CAT_LABEL_MAP[activeCategory] ?? 'All'
+  function handleSub(sub: string) {
+    setActiveSub(sub)
+    fetchProducts(activeCategory, sub, sortBy, sovereignOnly)
+  }
+
+  function handleSort(sort: string) {
+    setSortBy(sort)
+    setShowSort(false)
+    fetchProducts(activeCategory, activeSub, sort, sovereignOnly)
+  }
+
+  function handleSovereignToggle() {
+    const next = !sovereignOnly
+    setSovereignOnly(next)
+    fetchProducts(activeCategory, activeSub, sortBy, next)
+  }
+
+  const subLabel = sovereignOnly
+    ? 'Sovereign Vault'
+    : activeSub !== 'all'
+      ? CAT_LABEL_MAP[activeSub]
+      : CAT_LABEL_MAP[activeCategory] ?? 'All'
+
   const heroImage = HERO_IMAGES[activeCategory] ?? HERO_IMAGES.all
 
   return (
@@ -151,15 +179,23 @@ function ShopPageInner() {
         <div className="relative h-[40vw] md:h-[35vh] max-h-[320px]">
           <AnimatePresence mode="wait">
             <motion.div key={activeCategory + 'hero'} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.6, ease }} className="absolute inset-0">
-              <img src={heroImage} alt={subLabel} className="w-full h-full object-cover" style={{ filter: 'brightness(0.25) contrast(1.1)' }} />
+              <img src={heroImage} alt={subLabel} className="w-full h-full object-cover" style={{ filter: sovereignOnly ? 'brightness(0.18) contrast(1.15) sepia(0.3)' : 'brightness(0.25) contrast(1.1)' }} />
               <div className="absolute inset-0 bg-gradient-to-r from-[#050505]/90 via-[#050505]/60 to-transparent" />
               <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-transparent to-transparent" />
+              {sovereignOnly && (
+                <div className="absolute inset-0" style={{ background: 'linear-gradient(135deg, rgba(201,160,84,0.06) 0%, transparent 60%)' }} />
+              )}
             </motion.div>
           </AnimatePresence>
           <div className="relative z-10 h-full flex flex-col justify-end pb-6 md:pb-10 px-5 md:px-12 lg:px-20">
             <AnimatePresence mode="wait">
               <motion.div key={subLabel} initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} transition={{ duration: 0.5, ease }}>
-                <p className="text-[8px] tracking-[0.5em] uppercase text-[#c9a054] mb-2 md:mb-3">House of Shamim Forever</p>
+                {sovereignOnly && (
+                  <p className="text-[8px] tracking-[0.5em] uppercase text-[#c9a054] mb-1">◆ Signature & Sovereign Tier · Rs 45,000+</p>
+                )}
+                {!sovereignOnly && (
+                  <p className="text-[8px] tracking-[0.5em] uppercase text-[#c9a054] mb-2 md:mb-3">House of Shamim Forever</p>
+                )}
                 <h1 className="font-serif font-light text-4xl md:text-6xl lg:text-7xl tracking-[0.1em] text-zinc-100 leading-none">{subLabel}</h1>
                 {products.length > 0 && !loading && (
                   <p className="text-[8px] tracking-[0.35em] uppercase text-zinc-700 mt-2">{products.length} Creations</p>
@@ -169,15 +205,44 @@ function ShopPageInner() {
           </div>
         </div>
 
-        {/* Main category tabs */}
+        {/* Main category tabs + Sovereign button */}
         <div className="flex overflow-x-auto scrollbar-none bg-[#050505]/95 backdrop-blur-md border-t border-[#111]">
           {STATIC_CATS.map((cat, i) => (
             <button key={cat.slug} onClick={() => handleCategory(cat.slug)}
-              className={`flex-shrink-0 px-5 md:px-8 py-4 md:py-5 text-[9px] md:text-[10px] tracking-[0.4em] uppercase transition-all duration-500 border-b-2 whitespace-nowrap ${activeCategory === cat.slug ? 'text-[#c9a054] border-[#c9a054]' : 'text-zinc-600 border-transparent hover:text-zinc-300'} ${i < STATIC_CATS.length - 1 ? 'border-r border-r-[#111]' : ''}`}>
+              className={`flex-shrink-0 px-5 md:px-8 py-4 md:py-5 text-[9px] md:text-[10px] tracking-[0.4em] uppercase transition-all duration-500 border-b-2 whitespace-nowrap ${!sovereignOnly && activeCategory === cat.slug ? 'text-[#c9a054] border-[#c9a054]' : 'text-zinc-600 border-transparent hover:text-zinc-300'} ${i < STATIC_CATS.length - 1 ? 'border-r border-r-[#111]' : ''}`}>
               {cat.label}
             </button>
           ))}
+
+          {/* Sovereign Vault filter button */}
+          <button
+            onClick={handleSovereignToggle}
+            className={`flex-shrink-0 px-5 md:px-7 py-4 md:py-5 text-[9px] md:text-[10px] tracking-[0.4em] uppercase transition-all duration-500 border-b-2 whitespace-nowrap border-l border-l-[#1a1a1a] flex items-center gap-2 ${sovereignOnly ? 'text-[#c9a054] border-[#c9a054] bg-[#c9a054]/5' : 'text-zinc-600 border-transparent hover:text-[#c9a054] hover:border-[#c9a054]/40'}`}>
+            <span className={`text-[10px] transition-all duration-300 ${sovereignOnly ? 'text-[#c9a054]' : 'text-zinc-700'}`}>◆</span>
+            Sovereign Vault
+          </button>
         </div>
+
+        {/* Sovereign active banner */}
+        <AnimatePresence>
+          {sovereignOnly && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: 'auto' }}
+              exit={{ opacity: 0, height: 0 }}
+              className="border-t border-[#c9a054]/15 bg-gradient-to-r from-[#c9a054]/8 via-[#c9a054]/4 to-transparent overflow-hidden">
+              <div className="px-5 md:px-12 lg:px-20 py-3 flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <div className="w-1 h-4 bg-[#c9a054]" />
+                  <p className="text-[8px] tracking-[0.45em] uppercase text-[#c9a054]">Sovereign Vault Active — Showing Rs 45,000+ Signature & Luxury Tier</p>
+                </div>
+                <button onClick={handleSovereignToggle} className="text-[7px] tracking-[0.35em] uppercase text-zinc-600 hover:text-zinc-300 transition-colors">
+                  Clear ×
+                </button>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
 
         {/* Sub-category tabs */}
         {activeCategory !== 'all' && SUB_CATS[activeCategory] && (
@@ -216,12 +281,14 @@ function ShopPageInner() {
         {loading ? (
           <div className="text-center py-28 md:py-40">
             <div className="w-px h-12 bg-gradient-to-b from-[#c9a054] to-transparent mx-auto mb-6" />
-            <p className="text-[9px] tracking-[0.45em] uppercase text-zinc-700">Establishing Sovereign Connection...</p>
+            <p className="text-[9px] tracking-[0.45em] uppercase text-zinc-700">{sovereignOnly ? 'Opening Sovereign Vault...' : 'Establishing Sovereign Connection...'}</p>
           </div>
         ) : products.length === 0 ? (
           <div className="text-center py-28 md:py-40">
-            <p className="font-serif text-4xl font-light text-zinc-700 tracking-[0.1em] mb-4">Coming Soon</p>
-            <p className="text-[9px] tracking-[0.45em] uppercase text-zinc-700">The vault is being curated. Return shortly.</p>
+            <p className="font-serif text-4xl font-light text-zinc-700 tracking-[0.1em] mb-4">{sovereignOnly ? 'Vault Reserved' : 'Coming Soon'}</p>
+            <p className="text-[9px] tracking-[0.45em] uppercase text-zinc-700">
+              {sovereignOnly ? 'No sovereign-tier creations in this category.' : 'The vault is being curated. Return shortly.'}
+            </p>
             <div className="mt-8 flex items-center justify-center gap-4">
               <div className="w-8 h-px bg-[#c9a054]/30" />
               <span className="text-[9px] tracking-[0.45em] uppercase text-[#c9a054]">House of Shamim Forever</span>
@@ -230,13 +297,19 @@ function ShopPageInner() {
           </div>
         ) : (
           <AnimatePresence mode="wait">
-            <motion.div key={activeCategory + activeSub + sortBy} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.4 }}>
+            <motion.div key={activeCategory + activeSub + sortBy + String(sovereignOnly)} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.4 }}>
               <div className="flex items-center justify-between mb-6 md:mb-10 pb-4 border-b border-[#0d0d0d]">
-                <p className="text-[8px] tracking-[0.35em] uppercase text-zinc-700">{products.length} Creations</p>
+                <div className="flex items-center gap-4">
+                  <p className="text-[8px] tracking-[0.35em] uppercase text-zinc-700">{products.length} Creations</p>
+                  {sovereignOnly && (
+                    <span className="text-[7px] tracking-[0.3em] uppercase text-[#c9a054] border border-[#c9a054]/30 px-2 py-0.5">◆ Rs 45,000+</span>
+                  )}
+                </div>
               </div>
               <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-8 lg:gap-10">
                 {products.map((product, i) => {
                   const img = product.images?.[0] || null
+                  const isSovereign = product.price_pkr >= SOVEREIGN_THRESHOLD
                   return (
                     <motion.div key={product.id} initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: Math.min(i * 0.05, 0.4), duration: 0.8, ease }}>
                       <Link href={'/products/' + (product.slug || product.id)} className="block">
@@ -247,7 +320,7 @@ function ShopPageInner() {
                                 <img src={img} alt={product.name} className="w-full h-full object-cover"
                                   style={{ filter: 'brightness(0.9) contrast(1.05)' }} />
                                 <div className="absolute inset-0 pointer-events-none" style={{ background: 'linear-gradient(135deg,rgba(255,255,255,0.07) 0%,transparent 45%,rgba(0,0,0,0.18) 100%)', transform: 'translateZ(2px)' }} />
-                                <div className="absolute inset-0 pointer-events-none" style={{ boxShadow: 'inset 0 0 40px rgba(201,160,84,0.05),inset 0 0 0 1px rgba(201,160,84,0.07)', transform: 'translateZ(4px)' }} />
+                                <div className="absolute inset-0 pointer-events-none" style={{ boxShadow: isSovereign ? 'inset 0 0 40px rgba(201,160,84,0.08),inset 0 0 0 1px rgba(201,160,84,0.12)' : 'inset 0 0 40px rgba(201,160,84,0.05),inset 0 0 0 1px rgba(201,160,84,0.07)', transform: 'translateZ(4px)' }} />
                                 <div className="absolute bottom-0 left-0 right-0 p-3 md:p-4 opacity-0 hover:opacity-100 transition-opacity duration-500" style={{ transform: 'translateZ(20px)' }}>
                                   <span className="block w-full text-center text-[7px] md:text-[8px] tracking-[0.35em] uppercase text-[#c9a054] border border-[#c9a054]/40 py-2 md:py-2.5 bg-[#050505]/85 backdrop-blur-sm">
                                     View Creation
@@ -266,7 +339,12 @@ function ShopPageInner() {
                                 </span>
                               </div>
                             )}
-                            {product.inventory <= 5 && product.inventory > 0 && (
+                            {isSovereign && !sovereignOnly && (
+                              <div className="absolute top-2 md:top-3 right-2 md:right-3" style={{ transform: 'translateZ(8px)' }}>
+                                <span className="text-[6px] tracking-[0.25em] uppercase text-[#c9a054] bg-[#050505]/90 border border-[#c9a054]/25 px-1.5 py-0.5">◆</span>
+                              </div>
+                            )}
+                            {!isSovereign && product.inventory <= 5 && product.inventory > 0 && (
                               <div className="absolute top-2 md:top-3 right-2 md:right-3" style={{ transform: 'translateZ(8px)' }}>
                                 <span className="text-[6px] md:text-[7px] tracking-[0.3em] uppercase text-red-400/80 bg-[#050505]/85 px-2 py-1">{product.inventory} Left</span>
                               </div>
