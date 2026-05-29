@@ -340,6 +340,15 @@ export default function SovereignProductPage({ product }: { product: Product }) 
 
   return (
     <div style={{ background: '#030303', minHeight: '100vh' }}>
+      <style dangerouslySetInnerHTML={{ __html: `
+        @media (max-width: 768px) {
+          .scent-grid { grid-template-columns: 1fr !important; }
+          .nft-grid   { grid-template-columns: 1fr !important; gap: 32px !important; }
+          .pay-grid   { grid-template-columns: 1fr 1fr !important; }
+          .mob-full   { width: 100% !important; box-sizing: border-box !important; display: flex !important; justify-content: center !important; }
+          .mob-wrap   { flex-wrap: wrap !important; gap: 8px !important; }
+        }
+      ` }} />
 
       {/* HERO — FULLSCREEN CINEMATIC */}
       <section ref={heroRef} style={{ position: 'relative', height: '100svh', minHeight: 700, overflow: 'hidden', background: '#030303' }}>
@@ -424,7 +433,7 @@ export default function SovereignProductPage({ product }: { product: Product }) 
       </section>
 
       {/* LEGACY STATEMENT */}
-      <section id="legacy" style={{ padding: '100px 0', position: 'relative', background: 'linear-gradient(180deg, #030303 0%, #080602 50%, #030303 100%)' }}>
+      <section id="legacy" style={{ padding: 'clamp(56px,8vw,100px) 0', position: 'relative', background: 'linear-gradient(180deg, #030303 0%, #080602 50%, #030303 100%)' }}>
         <div style={{ maxWidth: 860, margin: '0 auto', padding: '0 24px', textAlign: 'center' }}>
           <div className="s-reveal">
             <p style={{ fontSize: 7, letterSpacing: '0.9em', textTransform: 'uppercase', color: '#c9a054', marginBottom: 32 }}>Legacy Statement</p>
@@ -444,7 +453,7 @@ export default function SovereignProductPage({ product }: { product: Product }) 
 
       {/* GALLERY */}
       {images.length > 0 && (
-        <section style={{ padding: '80px 0', background: 'radial-gradient(ellipse 80% 60% at 50% 50%, #0e0903 0%, #030303 65%)' }}>
+        <section style={{ padding: 'clamp(44px,7vw,80px) 0', background: 'radial-gradient(ellipse 80% 60% at 50% 50%, #0e0903 0%, #030303 65%)' }}>
           <div style={{ maxWidth: 1300, margin: '0 auto', padding: '0 24px' }}>
             <div className="s-reveal" style={{ textAlign: 'center', marginBottom: 48 }}>
               <p style={{ fontSize: 7, letterSpacing: '0.9em', textTransform: 'uppercase', color: '#c9a054', marginBottom: 12 }}>Sovereign Flacon</p>
@@ -466,13 +475,13 @@ export default function SovereignProductPage({ product }: { product: Product }) 
       )}
 
       {/* SCENT ARCHITECTURE */}
-      <section style={{ padding: '100px 0', background: 'linear-gradient(180deg, #030303 0%, #090703 40%, #030303 100%)' }}>
+      <section style={{ padding: 'clamp(56px,8vw,100px) 0', background: 'linear-gradient(180deg, #030303 0%, #090703 40%, #030303 100%)' }}>
         <div style={{ maxWidth: 1100, margin: '0 auto', padding: '0 24px' }}>
           <div className="s-reveal" style={{ textAlign: 'center', marginBottom: 60 }}>
             <p style={{ fontSize: 7, letterSpacing: '0.9em', textTransform: 'uppercase', color: '#c9a054', marginBottom: 12 }}>Olfactory Architecture</p>
             <h2 style={{ fontFamily: SERIF, fontSize: 'clamp(2.4rem, 5vw, 4rem)', fontWeight: 300, color: '#f0ece4', letterSpacing: '0.08em' }}>Scent Pyramid</h2>
           </div>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 1 }}>
+          <div className="scent-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: 1 }} className="scent-grid">
             {[
               { tier: 'TOP', label: 'Opening Veil', notes: config.topNotes, glow: 'rgba(201,160,84,0.05)' },
               { tier: 'HEART', label: 'Sovereign Core', notes: config.heartNotes, glow: 'rgba(201,160,84,0.07)' },
@@ -497,7 +506,7 @@ export default function SovereignProductPage({ product }: { product: Product }) 
       </section>
 
       {/* PERFORMANCE MATRIX */}
-      <section style={{ padding: '100px 0', background: 'radial-gradient(ellipse 70% 50% at 50% 50%, #0e0903 0%, #030303 60%)' }}>
+      <section style={{ padding: 'clamp(56px,8vw,100px) 0', background: 'radial-gradient(ellipse 70% 50% at 50% 50%, #0e0903 0%, #030303 60%)' }}>
         <div style={{ maxWidth: 780, margin: '0 auto', padding: '0 24px' }}>
           <div className="s-reveal" style={{ textAlign: 'center', marginBottom: 48 }}>
             <p style={{ fontSize: 7, letterSpacing: '0.9em', textTransform: 'uppercase', color: '#c9a054', marginBottom: 12 }}>Technical Specifications</p>
@@ -505,9 +514,9 @@ export default function SovereignProductPage({ product }: { product: Product }) 
           </div>
           <div className="s-reveal" style={{ border: '1px solid rgba(201,160,84,0.1)', background: 'linear-gradient(180deg, #0c0906 0%, #080603 100%)' }}>
             {config.specs.map((spec, i) => (
-              <div key={spec.label} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '20px 28px', borderBottom: i < config.specs.length - 1 ? '1px solid rgba(255,255,255,0.04)' : 'none' }}>
+              <div key={spec.label} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: 6, padding: '16px 22px', borderBottom: i < config.specs.length - 1 ? '1px solid rgba(255,255,255,0.04)' : 'none' }}>
                 <p style={{ fontSize: 7, letterSpacing: '0.5em', textTransform: 'uppercase', color: '#3f3830' }}>{spec.label}</p>
-                <p style={{ fontFamily: SERIF, fontSize: 15, color: '#c9b894', textAlign: 'right', maxWidth: '55%', fontWeight: 300 }}>{spec.value}</p>
+                <p style={{ fontFamily: SERIF, fontSize: 15, color: '#c9b894', textAlign: 'right', maxWidth: '55%', fontWeight: 300, wordBreak: 'break-word' }}>{spec.value}</p>
               </div>
             ))}
           </div>
@@ -515,13 +524,13 @@ export default function SovereignProductPage({ product }: { product: Product }) 
       </section>
 
       {/* DIGITAL SOVEREIGN PASSPORT */}
-      <section style={{ padding: '100px 0', position: 'relative', background: 'linear-gradient(180deg, #030303 0%, #060510 50%, #030303 100%)' }}>
+      <section style={{ padding: 'clamp(56px,8vw,100px) 0', position: 'relative', background: 'linear-gradient(180deg, #030303 0%, #060510 50%, #030303 100%)' }}>
         <div style={{ maxWidth: 1100, margin: '0 auto', padding: '0 24px' }}>
           <div className="s-reveal" style={{ textAlign: 'center', marginBottom: 60 }}>
             <p style={{ fontSize: 7, letterSpacing: '0.9em', textTransform: 'uppercase', color: 'rgba(130,71,229,0.6)', marginBottom: 12 }}>Polygon · Blockchain Identity</p>
             <h2 style={{ fontFamily: SERIF, fontSize: 'clamp(2.4rem, 5vw, 4rem)', fontWeight: 300, color: '#f0ece4' }}>Digital Sovereign Passport</h2>
           </div>
-          <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0,1fr) minmax(0,1.4fr)', gap: 64, alignItems: 'center' }}>
+          <div className="nft-grid" style={{ display: 'grid', gridTemplateColumns: 'minmax(0,1fr) minmax(0,1.4fr)', gap: 64, alignItems: 'start' }}>
             <div className="s-reveal"><NftCard config={config} /></div>
             <div className="s-reveal" style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
               <div>
@@ -536,17 +545,17 @@ export default function SovereignProductPage({ product }: { product: Product }) 
                   { label: 'Rarity', value: config.nftRarity, copy: null },
                   { label: 'Merchant', value: `${MERCHANT_WALLET.slice(0,8)}...${MERCHANT_WALLET.slice(-6)}`, copy: MERCHANT_WALLET },
                 ].map((row, i, arr) => (
-                  <div key={row.label} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '14px 20px', borderBottom: i < arr.length - 1 ? '1px solid rgba(255,255,255,0.04)' : 'none' }}>
+                  <div key={row.label} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: 6, padding: '12px 16px', borderBottom: i < arr.length - 1 ? '1px solid rgba(255,255,255,0.04)' : 'none' }}>
                     <p style={{ fontSize: 7, letterSpacing: '0.4em', textTransform: 'uppercase', color: '#3f3830' }}>{row.label}</p>
                     <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                      <p style={{ fontFamily: 'monospace', fontSize: 10, color: '#c9b894' }}>{row.value}</p>
+                      <p style={{ fontFamily: 'monospace', fontSize: 10, color: '#c9b894', wordBreak: 'break-all' }}>{row.value}</p>
                       {row.copy && <CopyBtn text={row.copy} />}
                     </div>
                   </div>
                 ))}
               </div>
               <a href={`https://polygonscan.com/address/${NFT_CONTRACT}`} target="_blank" rel="noopener noreferrer"
-                style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '12px 20px', border: '1px solid rgba(130,71,229,0.25)', fontSize: 8, letterSpacing: '0.3em', textTransform: 'uppercase', color: 'rgba(130,71,229,0.7)', width: 'fit-content', textDecoration: 'none' }}>
+                className="mob-full" style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '14px 20px', border: '1px solid rgba(130,71,229,0.25)', fontSize: 8, letterSpacing: '0.3em', textTransform: 'uppercase', color: 'rgba(130,71,229,0.7)', textDecoration: 'none' }}>
                 <ExternalLink size={10} /> View on Polygonscan
               </a>
             </div>
@@ -555,7 +564,7 @@ export default function SovereignProductPage({ product }: { product: Product }) 
       </section>
 
       {/* ACQUIRE */}
-      <section id="acquire" style={{ padding: '100px 0', background: 'radial-gradient(ellipse 80% 50% at 50% 0%, rgba(30,22,8,0.9) 0%, #030303 55%)' }}>
+      <section id="acquire" style={{ padding: 'clamp(56px,8vw,100px) 0', background: 'radial-gradient(ellipse 80% 50% at 50% 0%, rgba(30,22,8,0.9) 0%, #030303 55%)' }}>
         <div style={{ maxWidth: 680, margin: '0 auto', padding: '0 24px' }}>
           <div className="s-reveal" style={{ textAlign: 'center', marginBottom: 48 }}>
             <p style={{ fontSize: 7, letterSpacing: '0.9em', textTransform: 'uppercase', color: '#c9a054', marginBottom: 12 }}>Acquisition</p>
@@ -595,7 +604,7 @@ export default function SovereignProductPage({ product }: { product: Product }) 
 
             <div style={{ marginBottom: 2 }}>
               <p style={{ fontSize: 7, letterSpacing: '0.5em', textTransform: 'uppercase', color: '#3f3830', padding: '12px 20px', background: '#0a0703', border: '1px solid rgba(201,160,84,0.08)', marginBottom: 2 }}>Payment Method</p>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: 1, marginBottom: 16 }}>
+              <div className="pay-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: 1, marginBottom: 16 }}>
                 {(['crypto', 'pkr_manual', 'cod'] as PayMethod[]).map(m => (
                   <button key={m} onClick={() => setPayMethod(m)}
                     style={{ padding: '14px 8px', fontSize: 7, letterSpacing: '0.3em', textTransform: 'uppercase', cursor: 'pointer', transition: 'all 0.3s', background: payMethod === m ? 'rgba(201,160,84,0.08)' : '#080602', color: payMethod === m ? '#c9a054' : '#3f3830', border: payMethod === m ? '1px solid rgba(201,160,84,0.3)' : '1px solid rgba(255,255,255,0.04)' }}>
