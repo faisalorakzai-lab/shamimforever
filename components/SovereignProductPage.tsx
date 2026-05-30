@@ -690,11 +690,18 @@ export default function SovereignProductPage({ product }: { product: Product }) 
             <h2 style={{ fontFamily: SERIF, fontSize: 28, fontWeight: 300, color: 'rgba(240,236,228,0.4)' }}>Explore the Archive</h2>
           </div>
           <div className="s-reveal" style={{ display: 'flex', justifyContent: 'center', gap: 4, flexWrap: 'wrap' }}>
-            {[
-              { slug: 'shamims-bloom', name: "Shamim's Bloom", sub: 'Archive I' },
-              { slug: 'queen-of-taif', name: 'Queen of Taif', sub: 'Archive II' },
-              { slug: 'her-legacy-vault', name: 'Her Legacy Vault', sub: 'Grand Sovereign' },
-            ].filter(p => p.slug !== product.slug).map(p => (
+            {(
+              ['shamim-s-ghost-the-eternal-legacy','founder-s-eternal-archive'].includes(product.slug)
+                ? [
+                    { slug: 'shamim-s-ghost-the-eternal-legacy', name: "Shamim's Ghost", sub: 'The Eternal Legacy' },
+                    { slug: 'founder-s-eternal-archive', name: "Founder's Eternal Archive", sub: 'The Sovereign Vault' },
+                  ]
+                : [
+                    { slug: 'shamims-bloom', name: "Shamim's Bloom", sub: 'Archive I' },
+                    { slug: 'queen-of-taif', name: 'Queen of Taif', sub: 'Archive II' },
+                    { slug: 'her-legacy-vault', name: 'Her Legacy Vault', sub: 'Grand Sovereign' },
+                  ]
+            ).filter(p => p.slug !== product.slug).map(p => (
               <Link
                 key={p.slug}
                 href={`/products/${p.slug}`}
