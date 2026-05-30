@@ -239,12 +239,75 @@
     ],
   }
 
-  export const SOVEREIGN_CONFIGS: Record<string, SovereignConfig> = {
+  
+  // ── ARCHIVE I — SOVEREIGN AMETHYST ────────────────────────────────────────
+  const SOVEREIGN_AMETHYST_CONFIG: SovereignConfig = {
+    heroTitle: 'SOVEREIGN AMETHYST',
+    heroSubtitle: 'The Crown Jewel of Silence',
+    heroTagline: 'Imperial Reserve Allocation — Archive I',
+    legacyStatement: 'Elegance does not seek attention. It commands reverence.',
+    legacyVoice:
+      "Sovereign Amethyst is not created to be noticed. It is created to be felt — silently, permanently, and irreversibly. Inside the House of Shamim Forever, certain creations are designed not for presence that speaks, but for presence that redefines silence itself. This is not a fragrance for the visible world. It is a fragrance for the invisible hierarchy of influence. Some people announce their arrival through noise. Others redefine the room without ever speaking. Sovereign Amethyst is crafted for women who understand a deeper truth: Real status is never loud. It is quiet, controlled, and absolute. This fragrance belongs to those whose influence is not dependent on reaction, validation, or attention. It is for women who exist like a hidden axis of gravity — everything aligns around them, without them moving. A violet shadow of authority. A calm storm of refinement. A presence that does not enter space — it restructures it.",
+    topNotes: ['Rare Purple Iris Absolute', 'Crystal Dew Accord', 'Soft Mineral Air Accord'],
+    heartNotes: ['Midnight Orchid Bloom', 'Amethyst Floral Shadow Accord', 'Powdered Silk Petals'],
+    baseNotes: ['Rich Amethyst Amber', 'Liquid Honey Resin Accord', 'Soft Cashmere Woods', 'White Skin Musk'],
+    specs: [
+      { label: 'Concentration Class', value: 'Extrait de Parfum' },
+      { label: 'Volume Allocation', value: '100ML' },
+      { label: 'Longevity', value: '14–20+ Hours' },
+      { label: 'Projection', value: 'Controlled Aura Diffusion' },
+      { label: 'Sillage', value: 'Velvet Violet Trail' },
+      { label: 'Batch Philosophy', value: 'Imperial Reserve Allocation' },
+      { label: 'Gender Profile', value: 'Imperial Feminine Extrait' },
+      { label: 'Craft Origin', value: 'Karachi Sovereign Atelier' },
+      { label: 'Wearing Environment', value: 'Intimate Gatherings · High-Status Environments · Silent Authority Events' },
+      { label: 'Authentication', value: 'Polygon Verified' },
+      { label: 'NFT Pairing', value: 'Enabled' },
+      { label: 'Production Status', value: 'Ultra-Limited Reserve Allocation' },
+    ],
+    nftTitle: 'Sovereign Amethyst — Crowned Silence Edition',
+    nftEdition: 'Imperial Reserve Allocation — Archive I',
+    nftRarity: 'CROWNED SILENCE',
+    nftTraits: [
+      { trait: 'Category', value: 'Sovereign Fragrance Asset' },
+      { trait: 'Collection', value: 'Sovereign Amethyst' },
+      { trait: 'Rarity Tier', value: 'CROWNED SILENCE' },
+      { trait: 'Authentication', value: 'Polygon Verified' },
+      { trait: 'Ownership Status', value: 'Active Sovereign Passport' },
+      { trait: 'Physical Asset Pairing', value: 'Yes' },
+      { trait: 'Production Allocation', value: 'Ultra Limited' },
+      { trait: 'Craftsmanship Origin', value: 'Karachi Sovereign Atelier' },
+      { trait: 'Collector Status', value: 'Imperial Reserve' },
+      { trait: 'Concierge Access', value: 'Enabled' },
+      { trait: 'Archive Status', value: 'Active' },
+    ],
+    heroImage: '/products/sovereign-amethyst/amethyst-hero.png',
+    galleryImages: [
+      '/products/sovereign-amethyst/amethyst-hero.png',
+      '/products/sovereign-amethyst/amethyst-1.png',
+    ],
+    holderPrivileges: [
+      'Sovereign Access Tier — Elevated membership status within the House of Shamim Forever archive',
+      'Private Vault Eligibility — Exclusive access to the House private sovereign vault and collection',
+      'Future Archive Priority Allocation — First rights on all upcoming imperial sovereign releases',
+      'House Invitation Rights — Private invitations to House ceremonies, launches, and elite gatherings',
+      'Authentication Concierge Service — Dedicated blockchain verification and provenance documentation',
+      'Collector Registry Recognition — Official listing within the House of Shamim Forever collector registry',
+      'Legacy Protection Protocol — Permanent provenance security and ownership lineage preservation',
+      'Early Sovereign Drop Access — First notification and allocation on every new Archive drop',
+      'White-Glove Packaging Service — Hand-wrapped with violet silk tissue on all future orders',
+      'Direct WhatsApp Sovereign Concierge — Priority contact with the House of Shamim Forever team',
+    ],
+  }
+  
+export const SOVEREIGN_CONFIGS: Record<string, SovereignConfig> = {
 
     // ── ARCHIVE I ──────────────────────────────────────────────────────────────
     'shamims-bloom': SHAMIM_BLOOM_CONFIG,
     'shamim-bloom': SHAMIM_BLOOM_CONFIG,
     'shamim-bloom-the-sovereign-grace': SHAMIM_BLOOM_CONFIG,
+
+    'sovereign-amethyst': SOVEREIGN_AMETHYST_CONFIG,
 
     // ── ARCHIVE II ─────────────────────────────────────────────────────────────
     'queen-of-taif': QUEEN_OF_TAIF_CONFIG,
