@@ -133,7 +133,7 @@ function ShopPageInner() {
 
     if (sort === 'price_asc') query = query.order('price_pkr', { ascending: true })
     else if (sort === 'price_desc') query = query.order('price_pkr', { ascending: false })
-    else query = query.order('created_at', { ascending: false })
+    else query = query.order('is_featured', { ascending: false }).order('created_at', { ascending: false })
 
     const { data } = await query
     setProducts(data || [])
