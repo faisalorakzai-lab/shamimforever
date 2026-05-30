@@ -300,10 +300,80 @@
     ],
   }
   
+
+    // ── ARCHIVE I — SHAMIM'S GHOST ────────────────────────────────────────────
+    const SHAMIMS_GHOST_CONFIG: SovereignConfig = {
+      heroTitle: "SHAMIM'S GHOST",
+      heroSubtitle: 'The Eternal Legacy',
+      heroTagline: 'Imperial Reserve Allocation — Archive I',
+      legacyStatement: "Kings do not fight for territory. They build empires that outlive time.",
+      legacyVoice:
+        "Shamim's Ghost is not a fragrance. It is a masculine sovereign imprint — a presence that does not follow history, but quietly becomes part of it. Inside the House of Shamim Forever, this creation represents the origin of legacy itself: not loud dominance, but silent permanence. It is not designed for attention. It is designed for memory that refuses to fade. True power is never expressive. It is structural. Shamim's Ghost is crafted for men who do not compete for space in the world — they redefine the boundaries of it. This is the fragrance of a modern monarch. A man whose authority does not rise in voice. It settles in silence. A man whose presence does not enter a room. It occupies it before arrival is even registered. Kuch mard apni taqat alfaaz aur shor se sabit karte hain. Magar asli mardana shahi rutba khamoshi se pehchana jata hai. Shamim's Ghost un elite aur high-profile leaders ke liye banaya gaya hai jo sirf success nahi chahte — balkay permanent legacy chahte hain. This is not fragrance. This is psychological architecture.",
+      topNotes: ['Smoked Black Resin Air', 'Dark Bergamot Extraction', 'Burned Wood Accord'],
+      heartNotes: ['Smoked Royal Ambergris', 'Vintage Cambodian Oud', 'Pure Iranian Saffron Threads'],
+      baseNotes: ['Crisp Leather Accord', 'Deep Oud Smoke Base', 'Dark Amber Woods', 'Black Musk Residue'],
+      specs: [
+        { label: 'Masculine Identity', value: 'Masculine Sovereign Extrait' },
+        { label: 'Concentration', value: 'Extrait de Parfum' },
+        { label: 'Volume Allocation', value: '100ML' },
+        { label: 'Longevity', value: '18–30+ Hours' },
+        { label: 'Projection', value: 'Controlled Sovereign Pressure Field' },
+        { label: 'Sillage', value: 'Smoky Royal Trail' },
+        { label: 'Batch Philosophy', value: 'Imperial Reserve Allocation' },
+        { label: 'Gender Profile', value: 'Ultra-Masculine Luxury' },
+        { label: 'Production Method', value: 'Small-Batch Sovereign Craftsmanship' },
+        { label: 'Wearing Environment', value: 'Boardrooms · Private Deals · High-Level Negotiations · Elite Masculine Gatherings' },
+        { label: 'Authentication', value: 'Polygon Verified' },
+        { label: 'NFT Pairing', value: 'Enabled' },
+        { label: 'Production Status', value: 'Ultra-Limited Imperial Allocation' },
+        { label: 'Craft Origin', value: 'Karachi Sovereign Atelier' },
+      ],
+      nftTitle: "Shamim's Ghost — Eternal Legacy Edition",
+      nftEdition: 'Imperial Reserve Allocation — Archive I',
+      nftRarity: 'IMPERIAL RESERVE',
+      nftTraits: [
+        { trait: 'Category', value: 'Sovereign Fragrance Asset' },
+        { trait: 'Collection', value: "Shamim's Ghost" },
+        { trait: 'Rarity Tier', value: 'IMPERIAL RESERVE' },
+        { trait: 'Authentication', value: 'Polygon Verified' },
+        { trait: 'Ownership Status', value: 'Active Sovereign Passport' },
+        { trait: 'Physical Asset Pairing', value: 'Yes' },
+        { trait: 'Production Allocation', value: 'Ultra Limited' },
+        { trait: 'Craftsmanship Origin', value: 'Karachi Sovereign Atelier' },
+        { trait: 'Collector Status', value: 'Imperial Founder' },
+        { trait: 'Concierge Access', value: 'Enabled' },
+        { trait: 'Archive Status', value: 'Active' },
+        { trait: 'Blockchain', value: 'Polygon Mainnet' },
+      ],
+      heroImage: '/products/shamims-ghost/ghost-hero.png',
+      galleryImages: [
+        '/products/shamims-ghost/ghost-hero.png',
+        '/products/shamims-ghost/ghost-box.png',
+      ],
+      holderPrivileges: [
+        'Founder Legacy Status — Permanently recognised as a founding patron of the Imperial Archive',
+        'Sovereign Vault Privileges — Lifetime access to the House of Shamim Forever private vault',
+        'Future Archive Allocation Rights — Priority rights on all upcoming sovereign imperial releases',
+        'Private House Access — Exclusive invitations to private House ceremonies and elite gatherings',
+        'Authentication Concierge Support — Dedicated blockchain verification and provenance documentation',
+        'Collector Registry Recognition — Official listing within the House of Shamim Forever collector registry',
+        'Legacy Continuation Protocol — Permanent provenance security and ownership lineage preservation',
+        'Early Sovereign Release Access — First notification and allocation on every new Archive drop',
+        'White-Glove Packaging Service — Hand-wrapped in sovereign black tissue with seal on all future orders',
+        'Direct WhatsApp Sovereign Concierge — Priority contact with the House of Shamim Forever team',
+      ],
+    }
+  
 export const SOVEREIGN_CONFIGS: Record<string, SovereignConfig> = {
 
     // ── ARCHIVE I ──────────────────────────────────────────────────────────────
-    'shamims-bloom': SHAMIM_BLOOM_CONFIG,
+
+      // ── ARCHIVE I — FOR HIM ────────────────────────────────────────────────────
+      'shamims-ghost': SHAMIMS_GHOST_CONFIG,
+      "shamim's-ghost": SHAMIMS_GHOST_CONFIG,
+      'shamims-ghost-the-eternal-legacy': SHAMIMS_GHOST_CONFIG,
+
+      'shamims-bloom': SHAMIM_BLOOM_CONFIG,
     'shamim-bloom': SHAMIM_BLOOM_CONFIG,
     'shamim-bloom-the-sovereign-grace': SHAMIM_BLOOM_CONFIG,
 
