@@ -116,11 +116,22 @@ const EASYPAISA_NAME = 'M Faisal'
 const UBL_IBAN = 'PK13UNIL0109000318870498'
 const SERIF = "'Cormorant Garamond', Georgia, serif"
 
+const SOVEREIGN_CSS = [
+  '@media(max-width:768px){',
+  '.scent-grid{grid-template-columns:1fr!important}',
+  '.nft-grid{grid-template-columns:1fr!important;gap:32px!important}',
+  '.pay-grid{grid-template-columns:1fr 1fr!important}',
+  '.mob-full{width:100%!important;box-sizing:border-box!important;display:flex!important;justify-content:center!important}',
+  '}',
+].join('')
+
 function CopyBtn({ text }: { text: string }) {
   const [c, setC] = useState(false)
   return (
-    <button onClick={() => { navigator.clipboard.writeText(text); setC(true); setTimeout(() => setC(false), 2000) }}
-      style={{ display: 'flex', alignItems: 'center', gap: 6, color: '#c9a054', background: 'none', border: 'none', cursor: 'pointer' }}>
+    <button
+      onClick={() => { navigator.clipboard.writeText(text); setC(true); setTimeout(() => setC(false), 2000) }}
+      style={{ display: 'flex', alignItems: 'center', gap: 6, color: '#c9a054', background: 'none', border: 'none', cursor: 'pointer' }}
+    >
       {c ? <Check size={10} /> : <Copy size={10} />}
       <span style={{ fontSize: 7, letterSpacing: '0.3em', textTransform: 'uppercase' as const }}>{c ? 'Copied' : 'Copy'}</span>
     </button>
@@ -136,8 +147,7 @@ function GoldParticles() {
     resize(); window.addEventListener('resize', resize)
     const pts = Array.from({ length: 70 }, () => ({
       x: Math.random() * canvas.width, y: Math.random() * canvas.height,
-      r: Math.random() * 1.6 + 0.2,
-      vx: (Math.random() - 0.5) * 0.12, vy: -(Math.random() * 0.2 + 0.04),
+      r: Math.random() * 1.6 + 0.2, vx: (Math.random() - 0.5) * 0.12, vy: -(Math.random() * 0.2 + 0.04),
       a: Math.random(), va: (Math.random() - 0.5) * 0.005,
     }))
     let id: number
@@ -172,7 +182,7 @@ function NftCard({ config }: { config: SovereignConfig }) {
         {[false, true].map(isBack => (
           <div
             key={String(isBack)}
-            className={`absolute inset-0 border rounded-sm flex flex-col p-5 ${front && !isBack || !front && isBack ? '' : 'pointer-events-none'}`}
+            className={`absolute inset-0 border rounded-sm flex flex-col p-5 ${(front && !isBack) || (!front && isBack) ? '' : 'pointer-events-none'}`}
             style={{
               backfaceVisibility: 'hidden',
               transform: isBack ? 'rotateY(180deg)' : 'none',
@@ -188,7 +198,9 @@ function NftCard({ config }: { config: SovereignConfig }) {
                     <p style={{ fontSize: 6, letterSpacing: '0.3em', textTransform: 'uppercase', color: '#3f3830', marginTop: 2 }}>Sovereign Passport</p>
                   </div>
                   <div style={{ width: 28, height: 28, borderRadius: '50%', background: 'rgba(130,71,229,0.15)', border: '1px solid rgba(130,71,229,0.25)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                    <svg width="12" height="12" viewBox="0 0 38.4 33.5" fill="#8247e5"><path d="M29 10.2a.7.7 0 0 0-.7 0l-4.4 2.6-3 1.7-4.4 2.6a.7.7 0 0 1-.7 0l-3.5-2a.7.7 0 0 1-.4-.6v-4a.7.7 0 0 1 .4-.6l3.5-2a.7.7 0 0 1 .7 0l3.5 2a.7.7 0 0 1 .4.6v2.6l3-1.8v-2.6a.7.7 0 0 0-.4-.6l-6.4-3.7a.7.7 0 0 0-.7 0l-6.5 3.8a.7.7 0 0 0-.4.6v7.4a.7.7 0 0 0 .4.6l6.5 3.7a.7.7 0 0 0 .7 0l4.4-2.5 3-1.8 4.4-2.5a.7.7 0 0 1 .7 0l3.5 2a.7.7 0 0 1 .4.6v4a.7.7 0 0 1-.4.6l-3.5 2a.7.7 0 0 1-.7 0l-3.5-2a.7.7 0 0 1-.4-.6V18l-3 1.7v2.6a.7.7 0 0 0 .4.6l6.5 3.7a.7.7 0 0 0 .7 0l6.5-3.7a.7.7 0 0 0 .3-.6v-7.4a.7.7 0 0 0-.3-.6z"/></svg>
+                    <svg width="12" height="12" viewBox="0 0 38.4 33.5" fill="#8247e5">
+                      <path d="M29 10.2a.7.7 0 0 0-.7 0l-4.4 2.6-3 1.7-4.4 2.6a.7.7 0 0 1-.7 0l-3.5-2a.7.7 0 0 1-.4-.6v-4a.7.7 0 0 1 .4-.6l3.5-2a.7.7 0 0 1 .7 0l3.5 2a.7.7 0 0 1 .4.6v2.6l3-1.8v-2.6a.7.7 0 0 0-.4-.6l-6.4-3.7a.7.7 0 0 0-.7 0l-6.5 3.8a.7.7 0 0 0-.4.6v7.4a.7.7 0 0 0 .4.6l6.5 3.7a.7.7 0 0 0 .7 0l4.4-2.5 3-1.8 4.4-2.5a.7.7 0 0 1 .7 0l3.5 2a.7.7 0 0 1 .4.6v4a.7.7 0 0 1-.4.6l-3.5 2a.7.7 0 0 1-.7 0l-3.5-2a.7.7 0 0 1-.4-.6V18l-3 1.7v2.6a.7.7 0 0 0 .4.6l6.5 3.7a.7.7 0 0 0 .7 0l6.5-3.7a.7.7 0 0 0 .3-.6v-7.4a.7.7 0 0 0-.3-.6z" />
+                    </svg>
                   </div>
                 </div>
                 <div className="flex-1 flex items-center justify-center flex-col text-center">
@@ -208,7 +220,7 @@ function NftCard({ config }: { config: SovereignConfig }) {
               <>
                 <p style={{ fontSize: 7, letterSpacing: '0.55em', textTransform: 'uppercase', color: '#c9a054', marginBottom: 14 }}>Sovereign Traits</p>
                 {config.nftTraits.map(t => (
-                  <div key={t.trait} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '8px 0', borderBottom: '1px solid rgba(255,255,255,0.04)' }}>
+                  <div key={t.trait} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: 4, padding: '8px 0', borderBottom: '1px solid rgba(255,255,255,0.04)' }}>
                     <span style={{ fontSize: 6, letterSpacing: '0.3em', textTransform: 'uppercase', color: '#3f3830' }}>{t.trait}</span>
                     <span style={{ fontSize: 8, color: '#b0a898', fontWeight: 300, maxWidth: '55%', textAlign: 'right' }}>{t.value}</span>
                   </div>
@@ -227,16 +239,6 @@ function NftCard({ config }: { config: SovereignConfig }) {
     </div>
   )
 }
-
-
-const SOVEREIGN_MOBILE_CSS = [
-  '@media(max-width:768px){',
-  '.scent-grid{grid-template-columns:1fr!important}',
-  '.nft-grid{grid-template-columns:1fr!important;gap:32px!important}',
-  '.pay-grid{grid-template-columns:1fr 1fr!important}',
-  '.mob-full{width:100%!important;box-sizing:border-box!important;display:flex!important;justify-content:center!important}',
-  '}',
-].join('')
 
 export default function SovereignProductPage({ product }: { product: Product }) {
   const config = CONFIGS[product.slug] ?? CONFIGS['her-legacy-vault']
@@ -262,11 +264,10 @@ export default function SovereignProductPage({ product }: { product: Product }) 
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger)
-    gsap.utils.toArray<Element>('.s-reveal').forEach((el) => {
+    gsap.utils.toArray<Element>('.s-reveal').forEach(el => {
       gsap.fromTo(el,
         { opacity: 0, y: 50, filter: 'blur(10px)' },
-        { opacity: 1, y: 0, filter: 'blur(0px)', duration: 1.3, ease: 'power3.out',
-          scrollTrigger: { trigger: el, start: 'top 88%', once: true } }
+        { opacity: 1, y: 0, filter: 'blur(0px)', duration: 1.3, ease: 'power3.out', scrollTrigger: { trigger: el, start: 'top 88%', once: true } }
       )
     })
     return () => { ScrollTrigger.getAll().forEach(t => t.kill()) }
@@ -296,9 +297,10 @@ export default function SovereignProductPage({ product }: { product: Product }) 
 
   const handleWeb3Success = useCallback(async (txHash: string, coin: CoinType) => {
     try {
-      const result = await callCheckout({ paymentMethod: coin.toLowerCase(), paymentStatus: 'paid', txHash, walletAddress: walletAddress || undefined })
-      setOrderResult(result)
-    } catch (err: any) { setOrderError(err?.message || 'Payment received. Contact us with your TX hash.') }
+      setOrderResult(await callCheckout({ paymentMethod: coin.toLowerCase(), paymentStatus: 'paid', txHash, walletAddress: walletAddress || undefined }))
+    } catch (err: any) {
+      setOrderError(err?.message || 'Payment received. Contact us with your TX hash.')
+    }
   }, [callCheckout, walletAddress])
 
   async function handlePlaceOrder() {
@@ -312,7 +314,9 @@ export default function SovereignProductPage({ product }: { product: Product }) 
         const ud = await up.json(); if (ud.url) proofUrl = ud.url
       }
       setOrderResult(await callCheckout({ paymentMethod: payMethod, paymentStatus: payMethod === 'cod' ? 'pending' : 'awaiting_verification', proofUrl: proofUrl || undefined, txHash: txId || undefined }))
-    } catch (err: any) { setOrderError(err?.message || 'Failed to place order.') }
+    } catch (err: any) {
+      setOrderError(err?.message || 'Failed to place order.')
+    }
     setSubmitting(false)
   }
 
@@ -326,16 +330,16 @@ export default function SovereignProductPage({ product }: { product: Product }) 
         <p style={{ fontSize: 8, letterSpacing: '0.5em', textTransform: 'uppercase', color: '#c9a054', marginBottom: 40 }}>House of Shamim Forever</p>
         <div style={{ border: '1px solid rgba(201,160,84,0.12)', background: 'linear-gradient(135deg, #0c0906 0%, #080604 100%)', marginBottom: 32, textAlign: 'left' }}>
           {[['Order Reference', orderResult.order_ref], ['Tracking ID', orderResult.tracking_ref], ['Status', orderResult.status?.replace(/_/g, ' ')]].map(([lbl, val]) => (
-            <div key={lbl} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '20px 24px', borderBottom: '1px solid rgba(255,255,255,0.03)' }}>
+            <div key={lbl} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: 8, padding: '20px 24px', borderBottom: '1px solid rgba(255,255,255,0.03)' }}>
               <p style={{ fontSize: 7, letterSpacing: '0.4em', textTransform: 'uppercase', color: '#3f3830' }}>{lbl}</p>
               <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                <p style={{ fontFamily: 'monospace', fontSize: 11, color: '#c9b894' }}>{val}</p>
+                <p style={{ fontFamily: 'monospace', fontSize: 11, color: '#c9b894', wordBreak: 'break-all' }}>{val}</p>
                 {lbl !== 'Status' && <CopyBtn text={val ?? ''} />}
               </div>
             </div>
           ))}
         </div>
-        <div style={{ display: 'flex', gap: 12, justifyContent: 'center' }}>
+        <div style={{ display: 'flex', gap: 12, justifyContent: 'center', flexWrap: 'wrap' }}>
           <Link href={orderResult.track_url} style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '12px 24px', border: '1px solid rgba(201,160,84,0.4)', fontSize: 8, letterSpacing: '0.4em', textTransform: 'uppercase', color: '#c9a054', textDecoration: 'none' }}>
             <ExternalLink size={10} /> Track Order
           </Link>
@@ -350,9 +354,9 @@ export default function SovereignProductPage({ product }: { product: Product }) 
 
   return (
     <div style={{ background: '#030303', minHeight: '100vh' }}>
-      <style dangerouslySetInnerHTML={{ __html: SOVEREIGN_MOBILE_CSS }} />
+      <style dangerouslySetInnerHTML={{ __html: SOVEREIGN_CSS }} />
 
-      {/* HERO — FULLSCREEN CINEMATIC */}
+      {/* HERO */}
       <section ref={heroRef} style={{ position: 'relative', height: '100svh', minHeight: 700, overflow: 'hidden', background: '#030303' }}>
         <motion.div
           initial={{ scale: 1.12, opacity: 0 }}
@@ -364,69 +368,75 @@ export default function SovereignProductPage({ product }: { product: Product }) 
             src={config.heroImage}
             alt={config.heroTitle}
             style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center 15%' }}
-            onError={(e) => { (e.target as HTMLImageElement).style.opacity = '0' }}
+            onError={e => { (e.target as HTMLImageElement).style.opacity = '0' }}
           />
         </motion.div>
-
-        {/* Cinematic gradient — bottom heavy */}
         <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to bottom, rgba(3,3,3,0.25) 0%, rgba(3,3,3,0.05) 20%, rgba(3,3,3,0.3) 55%, rgba(3,3,3,0.9) 82%, #030303 100%)' }} />
-        {/* Side vignette */}
         <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse 110% 110% at 50% 30%, transparent 45%, rgba(3,3,3,0.55) 100%)' }} />
-        {/* Gold ambient */}
         <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse 60% 40% at 50% 80%, rgba(201,160,84,0.06) 0%, transparent 60%)', pointerEvents: 'none' }} />
-
         <GoldParticles />
 
         <motion.div
-          style={{ opacity: textOpacity, y: textY, position: 'absolute', bottom: 0, left: 0, right: 0, zIndex: 20, padding: '0 clamp(24px, 5vw, 80px)', paddingBottom: 'clamp(48px, 6vw, 80px)' }}
+          style={{
+            opacity: textOpacity,
+            y: textY,
+            position: 'absolute',
+            bottom: 0, left: 0, right: 0,
+            zIndex: 20,
+            padding: '0 clamp(20px,5vw,80px)',
+            paddingBottom: 'clamp(48px,6vw,80px)',
+          }}
         >
           <motion.p
             initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 1.4, duration: 1 }}
-            style={{ fontSize: 7, letterSpacing: '0.9em', textTransform: 'uppercase', color: '#c9a054', marginBottom: 16 }}>
+            style={{ fontSize: 7, letterSpacing: '0.9em', textTransform: 'uppercase', color: '#c9a054', marginBottom: 16 }}
+          >
             {config.heroTagline}
           </motion.p>
-
           <motion.h1
             initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 1.8, duration: 1.6, ease: [0.16, 1, 0.3, 1] }}
-            style={{ fontFamily: SERIF, fontWeight: 300, letterSpacing: '-0.01em', lineHeight: 0.88, color: '#f8f4ee', marginBottom: 14, fontSize: 'clamp(3.8rem, 11vw, 9.5rem)' }}>
+            style={{ fontFamily: SERIF, fontWeight: 300, letterSpacing: '-0.01em', lineHeight: 0.88, color: '#f8f4ee', marginBottom: 14, fontSize: 'clamp(3rem,10vw,9.5rem)' }}
+          >
             {config.heroTitle}
           </motion.h1>
-
           <motion.div
-            initial={{ scaleX: 0 }} animate={{ scaleX: 1 }} transition={{ delay: 2.5, duration: 1.2, ease: 'power2.out' }}
-            style={{ height: 1, width: 180, background: 'linear-gradient(to right, #c9a054 0%, rgba(201,160,84,0.3) 60%, transparent 100%)', marginBottom: 12, transformOrigin: 'left' }} />
-
+            initial={{ scaleX: 0 }} animate={{ scaleX: 1 }} transition={{ delay: 2.5, duration: 1.2 }}
+            style={{ height: 1, width: 180, background: 'linear-gradient(to right, #c9a054 0%, rgba(201,160,84,0.3) 60%, transparent 100%)', marginBottom: 12, transformOrigin: 'left' }}
+          />
           <motion.p
             initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 2.3, duration: 1 }}
-            style={{ fontFamily: SERIF, fontStyle: 'italic', fontSize: 'clamp(1.2rem, 3vw, 2rem)', color: 'rgba(240,236,228,0.65)', fontWeight: 300, marginBottom: 20 }}>
+            style={{ fontFamily: SERIF, fontStyle: 'italic', fontSize: 'clamp(1rem,3vw,2rem)', color: 'rgba(240,236,228,0.65)', fontWeight: 300, marginBottom: 20 }}
+          >
             {config.heroSubtitle}
           </motion.p>
-
           <motion.div
             initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 2.6, duration: 0.8 }}
-            style={{ display: 'flex', alignItems: 'baseline', gap: 16, marginBottom: 24 }}>
-            <span style={{ fontFamily: SERIF, fontSize: 'clamp(2rem, 5vw, 3.2rem)', fontWeight: 300, color: '#f8f4ee' }}>{formatPKR(finalPkr)}</span>
+            style={{ display: 'flex', alignItems: 'baseline', gap: 16, marginBottom: 24, flexWrap: 'wrap' }}
+          >
+            <span style={{ fontFamily: SERIF, fontSize: 'clamp(1.8rem,5vw,3.2rem)', fontWeight: 300, color: '#f8f4ee' }}>{formatPKR(finalPkr)}</span>
             <span style={{ fontSize: 12, letterSpacing: '0.2em', color: 'rgba(201,160,84,0.5)' }}>${product.price_usd} USD</span>
           </motion.div>
-
           <motion.div
             initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 2.9, duration: 0.8 }}
-            style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
+            style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}
+          >
             <a href="#acquire" className="group" style={{ position: 'relative', overflow: 'hidden', padding: '14px 32px', border: '1px solid rgba(201,160,84,0.55)', fontSize: 8, letterSpacing: '0.7em', textTransform: 'uppercase', color: '#c9a054', display: 'inline-block', textDecoration: 'none' }}>
               <span className="absolute inset-0 bg-[#c9a054] -translate-x-full group-hover:translate-x-0 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]" />
               <span className="relative group-hover:text-black transition-colors duration-150">Acquire Now</span>
             </a>
-            <a href="#legacy" style={{ padding: '14px 32px', border: '1px solid rgba(255,255,255,0.1)', fontSize: 8, letterSpacing: '0.7em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.35)', display: 'inline-block', textDecoration: 'none', transition: 'all 0.4s' }}
+            <a href="#legacy" style={{ padding: '14px 32px', border: '1px solid rgba(255,255,255,0.1)', fontSize: 8, letterSpacing: '0.7em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.35)', display: 'inline-block', textDecoration: 'none' }}
               onMouseEnter={e => { (e.target as HTMLElement).style.borderColor = 'rgba(255,255,255,0.25)'; (e.target as HTMLElement).style.color = 'rgba(255,255,255,0.7)' }}
-              onMouseLeave={e => { (e.target as HTMLElement).style.borderColor = 'rgba(255,255,255,0.1)'; (e.target as HTMLElement).style.color = 'rgba(255,255,255,0.35)' }}>
+              onMouseLeave={e => { (e.target as HTMLElement).style.borderColor = 'rgba(255,255,255,0.1)'; (e.target as HTMLElement).style.color = 'rgba(255,255,255,0.35)' }}
+            >
               Explore Archive
             </a>
           </motion.div>
         </motion.div>
 
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 3.8 }}
-          style={{ position: 'absolute', bottom: 24, right: 24, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 6 }}>
+          style={{ position: 'absolute', bottom: 24, right: 24, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 6 }}
+        >
           <span style={{ fontSize: 6, letterSpacing: '0.5em', textTransform: 'uppercase', color: 'rgba(201,160,84,0.35)', writingMode: 'vertical-lr' }}>Scroll</span>
           <motion.div animate={{ y: [0, 6, 0] }} transition={{ duration: 1.6, repeat: Infinity }}>
             <ArrowDown size={10} color="rgba(201,160,84,0.35)" />
@@ -434,19 +444,19 @@ export default function SovereignProductPage({ product }: { product: Product }) 
         </motion.div>
       </section>
 
-      {/* LEGACY STATEMENT */}
+      {/* LEGACY */}
       <section id="legacy" style={{ padding: 'clamp(56px,8vw,100px) 0', position: 'relative', background: 'linear-gradient(180deg, #030303 0%, #080602 50%, #030303 100%)' }}>
-        <div style={{ maxWidth: 860, margin: '0 auto', padding: '0 24px', textAlign: 'center' }}>
+        <div style={{ maxWidth: 860, margin: '0 auto', padding: '0 clamp(20px,4vw,24px)', textAlign: 'center' }}>
           <div className="s-reveal">
             <p style={{ fontSize: 7, letterSpacing: '0.9em', textTransform: 'uppercase', color: '#c9a054', marginBottom: 32 }}>Legacy Statement</p>
           </div>
           <div className="s-reveal">
-            <blockquote style={{ fontFamily: SERIF, fontSize: 'clamp(1.8rem, 4.5vw, 3.6rem)', fontWeight: 300, color: '#f0ece4', lineHeight: 1.25, marginBottom: 32 }}>
+            <blockquote style={{ fontFamily: SERIF, fontSize: 'clamp(1.5rem,4.5vw,3.6rem)', fontWeight: 300, color: '#f0ece4', lineHeight: 1.25, marginBottom: 32 }}>
               "{config.legacyStatement}"
             </blockquote>
           </div>
           <div className="s-reveal">
-            <p style={{ fontFamily: SERIF, fontStyle: 'italic', fontSize: 'clamp(1rem, 2.2vw, 1.5rem)', color: 'rgba(240,236,228,0.4)', fontWeight: 300, lineHeight: 1.9, maxWidth: 660, margin: '0 auto' }}>
+            <p style={{ fontFamily: SERIF, fontStyle: 'italic', fontSize: 'clamp(0.95rem,2.2vw,1.5rem)', color: 'rgba(240,236,228,0.4)', fontWeight: 300, lineHeight: 1.9, maxWidth: 660, margin: '0 auto' }}>
               {config.legacyVoice}
             </p>
           </div>
@@ -456,18 +466,27 @@ export default function SovereignProductPage({ product }: { product: Product }) 
       {/* GALLERY */}
       {images.length > 0 && (
         <section style={{ padding: 'clamp(44px,7vw,80px) 0', background: 'radial-gradient(ellipse 80% 60% at 50% 50%, #0e0903 0%, #030303 65%)' }}>
-          <div style={{ maxWidth: 1300, margin: '0 auto', padding: '0 24px' }}>
+          <div style={{ maxWidth: 1300, margin: '0 auto', padding: '0 clamp(20px,4vw,24px)' }}>
             <div className="s-reveal" style={{ textAlign: 'center', marginBottom: 48 }}>
               <p style={{ fontSize: 7, letterSpacing: '0.9em', textTransform: 'uppercase', color: '#c9a054', marginBottom: 12 }}>Sovereign Flacon</p>
-              <h2 style={{ fontFamily: SERIF, fontSize: 'clamp(2.4rem, 5vw, 4rem)', fontWeight: 300, color: '#f0ece4', letterSpacing: '0.08em' }}>The Archive Object</h2>
+              <h2 style={{ fontFamily: SERIF, fontSize: 'clamp(2rem,5vw,4rem)', fontWeight: 300, color: '#f0ece4', letterSpacing: '0.08em' }}>The Archive Object</h2>
             </div>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 4 }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(260px,1fr))', gap: 4 }}>
               {images.map((img, i) => (
-                <div key={i} className="s-reveal" onClick={() => setActiveGallery(i)}
-                  style={{ position: 'relative', aspectRatio: '3/4', overflow: 'hidden', cursor: 'pointer', border: activeGallery === i ? '1px solid rgba(201,160,84,0.5)' : '1px solid rgba(255,255,255,0.04)', background: '#080604', transition: 'border-color 0.4s' }}>
-                  <motion.img src={img} alt="" animate={{ scale: activeGallery === i ? 1.04 : 1 }} transition={{ duration: 0.8 }}
+                <div
+                  key={i}
+                  className="s-reveal"
+                  onClick={() => setActiveGallery(i)}
+                  style={{ position: 'relative', aspectRatio: '3/4', overflow: 'hidden', cursor: 'pointer', border: activeGallery === i ? '1px solid rgba(201,160,84,0.5)' : '1px solid rgba(255,255,255,0.04)', background: '#080604', transition: 'border-color 0.4s' }}
+                >
+                  <motion.img
+                    src={img}
+                    alt=""
+                    animate={{ scale: activeGallery === i ? 1.04 : 1 }}
+                    transition={{ duration: 0.8 }}
                     style={{ width: '100%', height: '100%', objectFit: 'contain', padding: 24 }}
-                    onError={(e) => { (e.target as HTMLImageElement).style.opacity = '0.2' }} />
+                    onError={e => { (e.target as HTMLImageElement).style.opacity = '0.2' }}
+                  />
                   <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse at bottom, rgba(201,160,84,0.06) 0%, transparent 65%)', pointerEvents: 'none' }} />
                 </div>
               ))}
@@ -478,25 +497,28 @@ export default function SovereignProductPage({ product }: { product: Product }) 
 
       {/* SCENT ARCHITECTURE */}
       <section style={{ padding: 'clamp(56px,8vw,100px) 0', background: 'linear-gradient(180deg, #030303 0%, #090703 40%, #030303 100%)' }}>
-        <div style={{ maxWidth: 1100, margin: '0 auto', padding: '0 24px' }}>
+        <div style={{ maxWidth: 1100, margin: '0 auto', padding: '0 clamp(20px,4vw,24px)' }}>
           <div className="s-reveal" style={{ textAlign: 'center', marginBottom: 60 }}>
             <p style={{ fontSize: 7, letterSpacing: '0.9em', textTransform: 'uppercase', color: '#c9a054', marginBottom: 12 }}>Olfactory Architecture</p>
-            <h2 style={{ fontFamily: SERIF, fontSize: 'clamp(2.4rem, 5vw, 4rem)', fontWeight: 300, color: '#f0ece4', letterSpacing: '0.08em' }}>Scent Pyramid</h2>
+            <h2 style={{ fontFamily: SERIF, fontSize: 'clamp(2rem,5vw,4rem)', fontWeight: 300, color: '#f0ece4', letterSpacing: '0.08em' }}>Scent Pyramid</h2>
           </div>
-          <div className="scent-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: 1 }} className="scent-grid">
+          <div className="scent-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: 1 }}>
             {[
               { tier: 'TOP', label: 'Opening Veil', notes: config.topNotes, glow: 'rgba(201,160,84,0.05)' },
               { tier: 'HEART', label: 'Sovereign Core', notes: config.heartNotes, glow: 'rgba(201,160,84,0.07)' },
               { tier: 'BASE', label: 'Eternal Foundation', notes: config.baseNotes, glow: 'rgba(201,160,84,0.04)' },
-            ].map((layer) => (
-              <div key={layer.tier} className="s-reveal"
-                style={{ padding: '40px 32px', background: `radial-gradient(ellipse at top, ${layer.glow} 0%, transparent 70%), linear-gradient(180deg, #0c0906 0%, #080603 100%)`, border: '1px solid rgba(201,160,84,0.06)' }}>
+            ].map(layer => (
+              <div
+                key={layer.tier}
+                className="s-reveal"
+                style={{ padding: 'clamp(24px,4vw,40px) clamp(18px,3vw,32px)', background: `radial-gradient(ellipse at top, ${layer.glow} 0%, transparent 70%), linear-gradient(180deg, #0c0906 0%, #080603 100%)`, border: '1px solid rgba(201,160,84,0.06)' }}
+              >
                 <p style={{ fontSize: 7, letterSpacing: '0.7em', textTransform: 'uppercase', color: 'rgba(201,160,84,0.6)', marginBottom: 6 }}>{layer.tier}</p>
                 <p style={{ fontFamily: SERIF, fontSize: 18, fontWeight: 300, color: '#c9b894', marginBottom: 24 }}>{layer.label}</p>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
                   {layer.notes.map((note, ni) => (
-                    <div key={ni} style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-                      <div style={{ width: 4, height: 4, background: 'rgba(201,160,84,0.4)', borderRadius: '50%', flexShrink: 0 }} />
+                    <div key={ni} style={{ display: 'flex', alignItems: 'flex-start', gap: 10 }}>
+                      <div style={{ width: 4, height: 4, background: 'rgba(201,160,84,0.4)', borderRadius: '50%', flexShrink: 0, marginTop: 6 }} />
                       <p style={{ color: 'rgba(240,236,228,0.55)', fontSize: 13, fontWeight: 300, lineHeight: 1.5 }}>{note}</p>
                     </div>
                   ))}
@@ -509,16 +531,19 @@ export default function SovereignProductPage({ product }: { product: Product }) 
 
       {/* PERFORMANCE MATRIX */}
       <section style={{ padding: 'clamp(56px,8vw,100px) 0', background: 'radial-gradient(ellipse 70% 50% at 50% 50%, #0e0903 0%, #030303 60%)' }}>
-        <div style={{ maxWidth: 780, margin: '0 auto', padding: '0 24px' }}>
+        <div style={{ maxWidth: 780, margin: '0 auto', padding: '0 clamp(20px,4vw,24px)' }}>
           <div className="s-reveal" style={{ textAlign: 'center', marginBottom: 48 }}>
             <p style={{ fontSize: 7, letterSpacing: '0.9em', textTransform: 'uppercase', color: '#c9a054', marginBottom: 12 }}>Technical Specifications</p>
-            <h2 style={{ fontFamily: SERIF, fontSize: 'clamp(2.4rem, 5vw, 4rem)', fontWeight: 300, color: '#f0ece4' }}>Performance Matrix</h2>
+            <h2 style={{ fontFamily: SERIF, fontSize: 'clamp(2rem,5vw,4rem)', fontWeight: 300, color: '#f0ece4' }}>Performance Matrix</h2>
           </div>
           <div className="s-reveal" style={{ border: '1px solid rgba(201,160,84,0.1)', background: 'linear-gradient(180deg, #0c0906 0%, #080603 100%)' }}>
             {config.specs.map((spec, i) => (
-              <div key={spec.label} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: 6, padding: '16px 22px', borderBottom: i < config.specs.length - 1 ? '1px solid rgba(255,255,255,0.04)' : 'none' }}>
-                <p style={{ fontSize: 7, letterSpacing: '0.5em', textTransform: 'uppercase', color: '#3f3830' }}>{spec.label}</p>
-                <p style={{ fontFamily: SERIF, fontSize: 15, color: '#c9b894', textAlign: 'right', maxWidth: '55%', fontWeight: 300, wordBreak: 'break-word' }}>{spec.value}</p>
+              <div
+                key={spec.label}
+                style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: 8, padding: '18px clamp(16px,3vw,28px)', borderBottom: i < config.specs.length - 1 ? '1px solid rgba(255,255,255,0.04)' : 'none' }}
+              >
+                <p style={{ fontSize: 7, letterSpacing: '0.5em', textTransform: 'uppercase', color: '#3f3830', flexShrink: 0 }}>{spec.label}</p>
+                <p style={{ fontFamily: SERIF, fontSize: 15, color: '#c9b894', fontWeight: 300, wordBreak: 'break-word', textAlign: 'right' }}>{spec.value}</p>
               </div>
             ))}
           </div>
@@ -527,28 +552,33 @@ export default function SovereignProductPage({ product }: { product: Product }) 
 
       {/* DIGITAL SOVEREIGN PASSPORT */}
       <section style={{ padding: 'clamp(56px,8vw,100px) 0', position: 'relative', background: 'linear-gradient(180deg, #030303 0%, #060510 50%, #030303 100%)' }}>
-        <div style={{ maxWidth: 1100, margin: '0 auto', padding: '0 24px' }}>
+        <div style={{ maxWidth: 1100, margin: '0 auto', padding: '0 clamp(20px,4vw,24px)' }}>
           <div className="s-reveal" style={{ textAlign: 'center', marginBottom: 60 }}>
             <p style={{ fontSize: 7, letterSpacing: '0.9em', textTransform: 'uppercase', color: 'rgba(130,71,229,0.6)', marginBottom: 12 }}>Polygon · Blockchain Identity</p>
-            <h2 style={{ fontFamily: SERIF, fontSize: 'clamp(2.4rem, 5vw, 4rem)', fontWeight: 300, color: '#f0ece4' }}>Digital Sovereign Passport</h2>
+            <h2 style={{ fontFamily: SERIF, fontSize: 'clamp(2rem,5vw,4rem)', fontWeight: 300, color: '#f0ece4' }}>Digital Sovereign Passport</h2>
           </div>
           <div className="nft-grid" style={{ display: 'grid', gridTemplateColumns: 'minmax(0,1fr) minmax(0,1.4fr)', gap: 64, alignItems: 'start' }}>
-            <div className="s-reveal"><NftCard config={config} /></div>
+            <div className="s-reveal">
+              <NftCard config={config} />
+            </div>
             <div className="s-reveal" style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
               <div>
-                <p style={{ fontFamily: SERIF, fontSize: 28, fontWeight: 300, color: '#f0ece4', marginBottom: 12 }}>Blockchain Authentication</p>
+                <p style={{ fontFamily: SERIF, fontSize: 'clamp(20px,3vw,28px)', fontWeight: 300, color: '#f0ece4', marginBottom: 12 }}>Blockchain Authentication</p>
                 <p style={{ fontSize: 13, color: 'rgba(255,255,255,0.3)', fontWeight: 300, lineHeight: 1.9 }}>Every sovereign creation carries a permanent, irrevocable proof of authenticity on the Polygon blockchain — the NFT is your identity, inseparable from the physical artifact.</p>
               </div>
               <div style={{ border: '1px solid rgba(201,160,84,0.1)', background: 'linear-gradient(135deg, #0c0906 0%, #080603 100%)' }}>
                 {[
-                  { label: 'Contract', value: `${NFT_CONTRACT.slice(0,10)}...${NFT_CONTRACT.slice(-6)}`, copy: NFT_CONTRACT },
+                  { label: 'Contract', value: `${NFT_CONTRACT.slice(0, 10)}...${NFT_CONTRACT.slice(-6)}`, copy: NFT_CONTRACT },
                   { label: 'Network', value: 'Polygon Mainnet', copy: null },
                   { label: 'Standard', value: 'ERC-721 Non-Fungible', copy: null },
                   { label: 'Rarity', value: config.nftRarity, copy: null },
-                  { label: 'Merchant', value: `${MERCHANT_WALLET.slice(0,8)}...${MERCHANT_WALLET.slice(-6)}`, copy: MERCHANT_WALLET },
+                  { label: 'Merchant', value: `${MERCHANT_WALLET.slice(0, 8)}...${MERCHANT_WALLET.slice(-6)}`, copy: MERCHANT_WALLET },
                 ].map((row, i, arr) => (
-                  <div key={row.label} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: 6, padding: '12px 16px', borderBottom: i < arr.length - 1 ? '1px solid rgba(255,255,255,0.04)' : 'none' }}>
-                    <p style={{ fontSize: 7, letterSpacing: '0.4em', textTransform: 'uppercase', color: '#3f3830' }}>{row.label}</p>
+                  <div
+                    key={row.label}
+                    style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: 8, padding: '14px clamp(12px,2vw,20px)', borderBottom: i < arr.length - 1 ? '1px solid rgba(255,255,255,0.04)' : 'none' }}
+                  >
+                    <p style={{ fontSize: 7, letterSpacing: '0.4em', textTransform: 'uppercase', color: '#3f3830', flexShrink: 0 }}>{row.label}</p>
                     <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
                       <p style={{ fontFamily: 'monospace', fontSize: 10, color: '#c9b894', wordBreak: 'break-all' }}>{row.value}</p>
                       {row.copy && <CopyBtn text={row.copy} />}
@@ -556,8 +586,13 @@ export default function SovereignProductPage({ product }: { product: Product }) 
                   </div>
                 ))}
               </div>
-              <a href={`https://polygonscan.com/address/${NFT_CONTRACT}`} target="_blank" rel="noopener noreferrer"
-                className="mob-full" style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '14px 20px', border: '1px solid rgba(130,71,229,0.25)', fontSize: 8, letterSpacing: '0.3em', textTransform: 'uppercase', color: 'rgba(130,71,229,0.7)', textDecoration: 'none' }}>
+              <a
+                href={`https://polygonscan.com/address/${NFT_CONTRACT}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mob-full"
+                style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '14px 20px', border: '1px solid rgba(130,71,229,0.25)', fontSize: 8, letterSpacing: '0.3em', textTransform: 'uppercase', color: 'rgba(130,71,229,0.7)', textDecoration: 'none' }}
+              >
                 <ExternalLink size={10} /> View on Polygonscan
               </a>
             </div>
@@ -567,16 +602,16 @@ export default function SovereignProductPage({ product }: { product: Product }) 
 
       {/* ACQUIRE */}
       <section id="acquire" style={{ padding: 'clamp(56px,8vw,100px) 0', background: 'radial-gradient(ellipse 80% 50% at 50% 0%, rgba(30,22,8,0.9) 0%, #030303 55%)' }}>
-        <div style={{ maxWidth: 680, margin: '0 auto', padding: '0 24px' }}>
+        <div style={{ maxWidth: 680, margin: '0 auto', padding: '0 clamp(16px,4vw,24px)' }}>
           <div className="s-reveal" style={{ textAlign: 'center', marginBottom: 48 }}>
             <p style={{ fontSize: 7, letterSpacing: '0.9em', textTransform: 'uppercase', color: '#c9a054', marginBottom: 12 }}>Acquisition</p>
-            <h2 style={{ fontFamily: SERIF, fontSize: 'clamp(2.8rem, 6vw, 5rem)', fontWeight: 300, color: '#f0ece4', letterSpacing: '0.05em' }}>Claim Your Sovereign</h2>
+            <h2 style={{ fontFamily: SERIF, fontSize: 'clamp(2.4rem,6vw,5rem)', fontWeight: 300, color: '#f0ece4', letterSpacing: '0.05em' }}>Claim Your Sovereign</h2>
           </div>
 
           <div className="s-reveal">
-            <div style={{ textAlign: 'center', padding: '32px 24px', border: '1px solid rgba(201,160,84,0.12)', background: 'linear-gradient(135deg, #0e0a04 0%, #0a0703 100%)', marginBottom: 2 }}>
+            <div style={{ textAlign: 'center', padding: 'clamp(20px,4vw,32px) 24px', border: '1px solid rgba(201,160,84,0.12)', background: 'linear-gradient(135deg, #0e0a04 0%, #0a0703 100%)', marginBottom: 2 }}>
               <p style={{ fontSize: 7, letterSpacing: '0.5em', textTransform: 'uppercase', color: '#3f3830', marginBottom: 12 }}>Sovereign Allocation Price</p>
-              <p style={{ fontFamily: SERIF, fontSize: 'clamp(2.5rem, 7vw, 4.5rem)', fontWeight: 300, color: '#f8f4ee', lineHeight: 1 }}>{formatPKR(finalPkr)}</p>
+              <p style={{ fontFamily: SERIF, fontSize: 'clamp(2rem,7vw,4.5rem)', fontWeight: 300, color: '#f8f4ee', lineHeight: 1 }}>{formatPKR(finalPkr)}</p>
               <p style={{ fontSize: 12, letterSpacing: '0.2em', color: 'rgba(201,160,84,0.45)', marginTop: 8 }}>${(product.price_usd * quantity).toFixed(2)} USD</p>
             </div>
 
@@ -597,10 +632,15 @@ export default function SovereignProductPage({ product }: { product: Product }) 
                 { v: custAddress, s: setCustAddress, ph: 'Delivery Address *' },
                 { v: custCity, s: setCustCity, ph: 'City *' },
               ] as { v: string; s: (val: string) => void; ph: string }[]).map(({ v, s, ph }) => (
-                <input key={ph} value={v} onChange={e => s(e.target.value)} placeholder={ph}
+                <input
+                  key={ph}
+                  value={v}
+                  onChange={e => s(e.target.value)}
+                  placeholder={ph}
                   style={{ width: '100%', background: '#080602', border: 'none', borderBottom: '1px solid rgba(201,160,84,0.06)', padding: '16px 20px', fontSize: 11, color: '#c9b894', outline: 'none', boxSizing: 'border-box' }}
                   onFocus={e => { e.currentTarget.style.borderBottomColor = 'rgba(201,160,84,0.3)' }}
-                  onBlur={e => { e.currentTarget.style.borderBottomColor = 'rgba(201,160,84,0.06)' }} />
+                  onBlur={e => { e.currentTarget.style.borderBottomColor = 'rgba(201,160,84,0.06)' }}
+                />
               ))}
             </div>
 
@@ -608,9 +648,12 @@ export default function SovereignProductPage({ product }: { product: Product }) 
               <p style={{ fontSize: 7, letterSpacing: '0.5em', textTransform: 'uppercase', color: '#3f3830', padding: '12px 20px', background: '#0a0703', border: '1px solid rgba(201,160,84,0.08)', marginBottom: 2 }}>Payment Method</p>
               <div className="pay-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: 1, marginBottom: 16 }}>
                 {(['crypto', 'pkr_manual', 'cod'] as PayMethod[]).map(m => (
-                  <button key={m} onClick={() => setPayMethod(m)}
-                    style={{ padding: '14px 8px', fontSize: 7, letterSpacing: '0.3em', textTransform: 'uppercase', cursor: 'pointer', transition: 'all 0.3s', background: payMethod === m ? 'rgba(201,160,84,0.08)' : '#080602', color: payMethod === m ? '#c9a054' : '#3f3830', border: payMethod === m ? '1px solid rgba(201,160,84,0.3)' : '1px solid rgba(255,255,255,0.04)' }}>
-                    {m === 'crypto' ? '◆ Crypto' : m === 'pkr_manual' ? 'PKR Transfer' : 'Cash on Delivery'}
+                  <button
+                    key={m}
+                    onClick={() => setPayMethod(m)}
+                    style={{ padding: '14px 4px', fontSize: 7, letterSpacing: '0.25em', textTransform: 'uppercase', cursor: 'pointer', transition: 'all 0.3s', background: payMethod === m ? 'rgba(201,160,84,0.08)' : '#080602', color: payMethod === m ? '#c9a054' : '#3f3830', border: payMethod === m ? '1px solid rgba(201,160,84,0.3)' : '1px solid rgba(255,255,255,0.04)' }}
+                  >
+                    {m === 'crypto' ? '◆ Crypto' : m === 'pkr_manual' ? 'PKR Transfer' : 'COD'}
                   </button>
                 ))}
               </div>
@@ -624,25 +667,37 @@ export default function SovereignProductPage({ product }: { product: Product }) 
                 {payMethod === 'pkr_manual' && (
                   <motion.div key="pkr" initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} style={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
                     <div style={{ border: '1px solid rgba(201,160,84,0.1)', background: '#080602' }}>
-                      {[['EasyPaisa', `${EASYPAISA_NUMBER} · ${EASYPAISA_NAME}`, EASYPAISA_NUMBER] as const, ['UBL IBAN', UBL_IBAN, UBL_IBAN] as const].map(([lbl, val, copyVal], i, arr) => (
-                        <div key={lbl} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '16px 20px', borderBottom: i < arr.length - 1 ? '1px solid rgba(255,255,255,0.04)' : 'none' }}>
+                      {([
+                        ['EasyPaisa', `${EASYPAISA_NUMBER} · ${EASYPAISA_NAME}`, EASYPAISA_NUMBER],
+                        ['UBL IBAN', UBL_IBAN, UBL_IBAN],
+                      ] as [string, string, string][]).map(([lbl, val, copyVal], i, arr) => (
+                        <div key={lbl} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: 8, padding: '16px 20px', borderBottom: i < arr.length - 1 ? '1px solid rgba(255,255,255,0.04)' : 'none' }}>
                           <p style={{ fontSize: 7, letterSpacing: '0.4em', textTransform: 'uppercase', color: '#3f3830' }}>{lbl}</p>
                           <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                            <p style={{ fontFamily: 'monospace', fontSize: 10, color: '#c9b894' }}>{val}</p>
+                            <p style={{ fontFamily: 'monospace', fontSize: 10, color: '#c9b894', wordBreak: 'break-all' }}>{val}</p>
                             <CopyBtn text={copyVal} />
                           </div>
                         </div>
                       ))}
                     </div>
-                    <input value={txId} onChange={e => setTxId(e.target.value)} placeholder="Transaction ID / Reference Number"
-                      style={{ background: '#080602', border: '1px solid rgba(201,160,84,0.08)', padding: '14px 20px', fontSize: 11, color: '#c9b894', outline: 'none', width: '100%', boxSizing: 'border-box' }} />
+                    <input
+                      value={txId}
+                      onChange={e => setTxId(e.target.value)}
+                      placeholder="Transaction ID / Reference Number"
+                      style={{ background: '#080602', border: '1px solid rgba(201,160,84,0.08)', padding: '14px 20px', fontSize: 11, color: '#c9b894', outline: 'none', width: '100%', boxSizing: 'border-box' }}
+                    />
                     <label style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '14px 20px', border: '1px dashed rgba(201,160,84,0.12)', cursor: 'pointer', background: '#080602' }}>
                       <Upload size={12} color="rgba(201,160,84,0.4)" />
                       <span style={{ fontSize: 8, letterSpacing: '0.3em', textTransform: 'uppercase', color: '#3f3830' }}>Upload Payment Screenshot</span>
-                      <input type="file" accept="image/*" onChange={e => {
-                        const f = e.target.files?.[0]; if (!f) return; setProofFile(f)
-                        const r = new FileReader(); r.onload = ev => setProofPreview(ev.target?.result as string); r.readAsDataURL(f)
-                      }} className="hidden" />
+                      <input
+                        type="file"
+                        accept="image/*"
+                        onChange={e => {
+                          const f = e.target.files?.[0]; if (!f) return; setProofFile(f)
+                          const r = new FileReader(); r.onload = ev => setProofPreview(ev.target?.result as string); r.readAsDataURL(f)
+                        }}
+                        className="hidden"
+                      />
                     </label>
                     {proofPreview && (
                       <div style={{ position: 'relative', display: 'inline-block' }}>
@@ -676,9 +731,9 @@ export default function SovereignProductPage({ product }: { product: Product }) 
         </div>
       </section>
 
-      {/* RELATED COLLECTION */}
-      <section style={{ padding: '80px 0 100px', background: '#030303', borderTop: '1px solid rgba(201,160,84,0.06)' }}>
-        <div style={{ maxWidth: 860, margin: '0 auto', padding: '0 24px', textAlign: 'center' }}>
+      {/* RELATED */}
+      <section style={{ padding: 'clamp(44px,7vw,80px) 0 clamp(56px,8vw,100px)', background: '#030303', borderTop: '1px solid rgba(201,160,84,0.06)' }}>
+        <div style={{ maxWidth: 860, margin: '0 auto', padding: '0 clamp(20px,4vw,24px)', textAlign: 'center' }}>
           <div className="s-reveal" style={{ marginBottom: 40 }}>
             <p style={{ fontSize: 7, letterSpacing: '0.9em', textTransform: 'uppercase', color: '#c9a054', marginBottom: 10 }}>The Sovereign House</p>
             <h2 style={{ fontFamily: SERIF, fontSize: 28, fontWeight: 300, color: 'rgba(240,236,228,0.4)' }}>Explore the Archive</h2>
@@ -689,10 +744,13 @@ export default function SovereignProductPage({ product }: { product: Product }) 
               { slug: 'queen-of-taif', name: 'Queen of Taif', sub: 'Archive II' },
               { slug: 'her-legacy-vault', name: 'Her Legacy Vault', sub: 'Grand Sovereign' },
             ].filter(p => p.slug !== product.slug).map(p => (
-              <Link key={p.slug} href={`/products/${p.slug}`}
-                style={{ padding: '20px 28px', border: '1px solid rgba(201,160,84,0.08)', background: '#080602', display: 'block', textDecoration: 'none', minWidth: 180, transition: 'border-color 0.5s' }}
+              <Link
+                key={p.slug}
+                href={`/products/${p.slug}`}
+                style={{ padding: '20px 28px', border: '1px solid rgba(201,160,84,0.08)', background: '#080602', display: 'block', textDecoration: 'none', minWidth: 160, transition: 'border-color 0.5s' }}
                 onMouseEnter={e => { (e.currentTarget as HTMLElement).style.borderColor = 'rgba(201,160,84,0.3)' }}
-                onMouseLeave={e => { (e.currentTarget as HTMLElement).style.borderColor = 'rgba(201,160,84,0.08)' }}>
+                onMouseLeave={e => { (e.currentTarget as HTMLElement).style.borderColor = 'rgba(201,160,84,0.08)' }}
+              >
                 <p style={{ fontFamily: SERIF, fontSize: 18, fontWeight: 300, color: '#c9b894', marginBottom: 4 }}>{p.name}</p>
                 <p style={{ fontSize: 7, letterSpacing: '0.4em', textTransform: 'uppercase', color: '#3f3830' }}>{p.sub}</p>
               </Link>
@@ -700,7 +758,6 @@ export default function SovereignProductPage({ product }: { product: Product }) 
           </div>
         </div>
       </section>
-
     </div>
   )
 }
