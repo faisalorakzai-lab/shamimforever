@@ -21,7 +21,7 @@ import { NextRequest, NextResponse } from 'next/server'
 
     const updates = {
       name: 'ETERNAL EMPRESS',
-      description: 'An imperial feminine masterpiece crafted around Red Rose Absolute, French Royal Violet, Golden Ambergris, and Royal Oud — engineered for authority, elegance, and timeless feminine power.',
+      description: 'An imperial feminine masterpiece crafted around Red Rose Absolute, French Royal Violet, Golden Ambergris, and Royal Oud. Engineered for authority, elegance, and timeless feminine power.',
       images: [
         '/products/eternal-empress/empress-hero.png',
         '/products/eternal-empress/empress-1.png',
