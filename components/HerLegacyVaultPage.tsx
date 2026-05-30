@@ -206,43 +206,45 @@ const ARCHIVE_COMPOSITIONS = [
 ]
 
 const PERFORMANCE_MATRIX = [
-  { label: 'Collection Type',       value: 'Ultra-Luxury Feminine Archive' },
-  { label: 'Total Pieces',          value: '4 Sovereign Fragrance Artifacts' },
-  { label: 'Concentration',         value: 'Extrait de Parfum' },
-  { label: 'Longevity',             value: '18–36+ Hours Layered Presence' },
-  { label: 'Projection',            value: 'Cinematic Feminine Aura' },
-  { label: 'Allocation Structure',  value: 'Hand-Numbered Collector Release' },
-  { label: 'Ownership Tier',        value: 'Founder Sovereign' },
-  { label: 'Production Philosophy', value: 'Museum-Grade Small-Batch Craftsmanship' },
-  { label: 'Authentication',        value: 'Polygon Sovereign Verified' },
-]
+    { label: 'Concentration Class',   value: 'Extrait de Parfum' },
+    { label: 'Volume Allocation',     value: '100ML — 3.4 FL. OZ.' },
+    { label: 'Longevity',             value: '18–36+ Hours' },
+    { label: 'Projection',            value: 'Elegant Sovereign Aura' },
+    { label: 'Sillage',               value: 'Refined Legacy Trail' },
+    { label: 'Batch Philosophy',      value: 'Grand Archive Allocation' },
+    { label: 'Gender Profile',        value: 'Feminine Sovereign Luxury' },
+    { label: 'Production Method',     value: 'Ultra-Limited Atelier Craftsmanship' },
+    { label: 'Authentication',        value: 'Polygon Verified' },
+    { label: 'Wearing Environment',   value: 'Ceremonial Events · Private Gatherings · Heirloom Moments' },
+  ]
 
 const HOLDER_PRIVILEGES = [
-  'Founder Sovereign Access',
-  'Priority Reserve Allocations',
-  'Invitation-Only House Ceremonies',
-  'Private Jewelry Archive Previews',
-  'Sovereign Refill Privileges',
-  'Concierge Restoration Services',
-  'Early NFT Archive Access',
-  'Blockchain Provenance Protection',
-  'Lifetime Authentication Registry',
-  'Collector-Tier House Recognition',
-]
+    'Grand Archive Access',
+    'Founder-Level Vault Status',
+    'Private Jewelry Releases',
+    'Future Sovereign Allocations',
+    'Priority Authentication Services',
+    'Concierge Restoration Program',
+    'Invitation-Only House Events',
+    'Collector Registry Recognition',
+    'Lifetime Provenance Protection',
+    'Early Access To Future Archive Releases',
+  ]
 
 const NFT_TRAITS = [
-  { label: 'NFT Name',            value: 'House of Shamim — Her Legacy Vault' },
-  { label: 'Category',            value: 'Sovereign Luxury Archive' },
-  { label: 'Collection',          value: 'Her Legacy Vault' },
-  { label: 'Rarity Tier',         value: 'GRAND FOUNDERS' },
-  { label: 'Authentication',      value: 'Polygon Verified' },
-  { label: 'Ownership Status',    value: 'Active Sovereign Passport' },
-  { label: 'Physical Pairing',    value: 'Yes' },
-  { label: 'Concierge Access',    value: 'Enabled' },
-  { label: 'Production',          value: 'Ultra Limited' },
-  { label: 'Craftsmanship Origin', value: 'Karachi Sovereign Atelier' },
-  { label: 'Archive Status',      value: 'Grand Sovereign Reserve' },
-  { label: 'Contract',            value: `${NFT_CONTRACT.slice(0,10)}...${NFT_CONTRACT.slice(-6)}` },
+    { label: 'NFT Name',            value: 'Her Legacy Vault — Grand Archive Edition' },
+    { label: 'Category',            value: 'Sovereign Fragrance Asset' },
+    { label: 'Collection',          value: 'Her Legacy Vault' },
+    { label: 'Rarity Tier',         value: 'GRAND ARCHIVE' },
+    { label: 'Authentication',      value: 'Polygon Verified' },
+    { label: 'Ownership Status',    value: 'Active Sovereign Passport' },
+    { label: 'Physical Pairing',    value: 'Yes' },
+    { label: 'Concierge Access',    value: 'Enabled' },
+    { label: 'Production',          value: 'Extremely Limited' },
+    { label: 'Craftsmanship Origin', value: 'Karachi Sovereign Atelier' },
+    { label: 'Collector Status',    value: 'Founder Archive' },
+    { label: 'Archive Status',      value: 'Eternal' },
+      { label: 'Contract',            value: `${NFT_CONTRACT.slice(0,10)}...${NFT_CONTRACT.slice(-6)}` },
 ]
 
 export default function HerLegacyVaultPage({ product }: { product: Product }) {
@@ -425,65 +427,65 @@ export default function HerLegacyVaultPage({ product }: { product: Product }) {
                   <motion.div key="story" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
                     className="space-y-8">
                     <div>
-                      <p className="text-[8px] tracking-[0.4em] uppercase text-[#c9a054] mb-3">
-                        Chapter I — The Legacy Statement
-                      </p>
-                      <p className="text-zinc-500 text-xs font-light leading-[2]">
-                        Some luxuries are purchased. Some luxuries are inherited. But certain creations transcend
-                        ownership itself and become emotional bloodlines passed through generations.
-                      </p>
-                    </div>
-                    <div>
-                      <p className="text-[8px] tracking-[0.4em] uppercase text-[#c9a054] mb-3">
-                        Chapter II — The Philosophy
-                      </p>
-                      <p className="text-zinc-500 text-xs font-light leading-[2]">
-                        Her Legacy Vault was conceived as the highest ceremonial feminine archive within the House
-                        of Shamim Forever — a sovereign collection engineered not as a single fragrance, but as an
-                        eternal preservation of feminine identity. Inside the House, beauty is not treated as
-                        cosmetic enhancement. It is treated as legacy architecture.
-                      </p>
-                    </div>
-                    <div>
-                      <p className="text-[8px] tracking-[0.4em] uppercase text-[#c9a054] mb-3">
-                        Chapter III — The Scent Architecture
-                      </p>
-                      <div className="space-y-2">
-                        <PyramidLayer label="SOVEREIGN FLORALS" sub="Heritage Layer"
-                          value="Taif Rose Absolute · Imperial White Rose · Velvet Peony Silk"
-                          width="w-2/3" delay={0} />
-                        <PyramidLayer label="IMPERIAL HEART" sub="Core Layer"
-                          value="White Ambergris · Royal Saffron Nectar · Warm Skin Musk"
-                          width="w-4/5" delay={0.1} />
-                        <PyramidLayer label="ETERNAL FOUNDATION" sub="Legacy Base"
-                          value="Cashmere Woods · Golden Amber Resin"
-                          width="w-full" delay={0.2} />
+                        <p className="text-[8px] tracking-[0.4em] uppercase text-[#c9a054] mb-3">
+                          The Legacy Statement
+                        </p>
+                        <div className="space-y-3 text-zinc-500 text-xs font-light leading-[2]">
+                          <p>Most luxury products are created to be owned. Some are created to be admired. But only a rare few are created to become family history.</p>
+                          <p>Her Legacy Vault is not merely a fragrance. It is the final archive of feminine sovereignty preserved in physical form.</p>
+                          <p className="font-serif italic text-zinc-600">Inside the House of Shamim Forever, certain creations are considered too important to belong to a single moment in time. They are designed for generations.</p>
+                          <p>Her Legacy Vault represents the culmination of beauty, wisdom, resilience, and permanence gathered into a single sovereign object. This is not a perfume bottle. This is a legacy vessel — a tribute to the woman whose influence continues long after her voice has fallen silent.</p>
+                        </div>
                       </div>
-                    </div>
-                    <div>
-                      <p className="text-[8px] tracking-[0.4em] uppercase text-[#c9a054] mb-3">
-                        The Vault Experience
-                      </p>
-                      <p className="text-zinc-500 text-xs font-light leading-[2]">
-                        Opening the Her Legacy Vault feels less like unboxing luxury and more like entering a
-                        private sovereign archive. The experience unfolds in ceremonial layers — first comes silence,
-                        then velvet, then gold, then fragrance. The exterior is sculpted from matte obsidian-black
-                        architectural lacquer finished with engraved royal gold insignia. The interior reveals layered
-                        blush velvet chambers illuminated by integrated warm ambient lighting.
-                      </p>
-                    </div>
-                  </motion.div>
-                )}
+                      <div>
+                        <p className="text-[8px] tracking-[0.4em] uppercase text-[#c9a054] mb-3">
+                          Chapter IV — The Archive of Immortality
+                        </p>
+                        <div className="space-y-3 text-zinc-500 text-xs font-light leading-[2]">
+                          <p className="font-serif italic text-zinc-400">&ldquo;Some women leave memories. Some women leave stories. But a rare few leave dynasties.&rdquo;</p>
+                          <p>Her Legacy Vault was inspired by those extraordinary women whose presence becomes part of a family&apos;s identity — women whose elegance survives decades, whose strength becomes tradition, whose love becomes inheritance.</p>
+                          <p>At the center of this composition lies one of perfumery&apos;s most treasured materials: <span className="text-zinc-300">Florentine Iris (Orris Butter)</span> — a raw material so precious that years of patience are required before its soul fully emerges.</p>
+                          <p>The Orris is fused with <span className="text-zinc-300">Pure White Ambergris Tincture</span> sourced from the ocean&apos;s deepest mysteries. Together they create a texture unlike ordinary fragrance — creamy, powdered, velvety. The scent behaves like a memory preserved inside silk. Quiet. Refined. Timeless.</p>
+                        </div>
+                      </div>
+                      <div>
+                        <p className="text-[8px] tracking-[0.4em] uppercase text-[#c9a054] mb-3">
+                          The Olfactory Architecture
+                        </p>
+                        <div className="space-y-2">
+                          <PyramidLayer label="THE FIRST CHAPTER" sub="Opening Layer"
+                            value="Champagne Pear Accord · White Velvet Iris Petals · Soft Crystal Bergamot"
+                            width="w-2/3" delay={0} />
+                          <PyramidLayer label="THE ARCHIVE HEART" sub="Core Layer"
+                            value="Florentine Orris Butter · Imperial White Rose · Golden Mimosa Nectar"
+                            width="w-4/5" delay={0.1} />
+                          <PyramidLayer label="THE IMMORTAL FOUNDATION" sub="Legacy Base"
+                            value="Pure White Ambergris Tincture · Cashmere Woods · Royal Skin Musk · Aged Sandalwood Cream"
+                            width="w-full" delay={0.2} />
+                        </div>
+                      </div>
+                      <div>
+                        <p className="text-[8px] tracking-[0.4em] uppercase text-[#c9a054] mb-3">
+                          The Atmospheric Presence
+                        </p>
+                        <div className="space-y-3 text-zinc-500 text-xs font-light leading-[2]">
+                          <p>Her Legacy Vault unfolds differently from traditional perfumes. It does not seek attention. It creates emotional gravity.</p>
+                          <p>The first moments feel luminous and elegant. The heart becomes rich and aristocratic. Hours later the fragrance settles into an unforgettable powder-soft aura that remains attached to fabric, skin, and memory.</p>
+                          <p className="font-serif italic text-zinc-600">Days may pass. The impression remains. This is fragrance engineered to become part of someone&apos;s personal history.</p>
+                        </div>
+                      </div>
+                    </motion.div>
+                  )}
 
-                {activeTab === 'archive' && (
+                  {activeTab === 'archive' && (
                   <motion.div key="archive" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
                     className="space-y-6">
                     <div>
                       <p className="text-[8px] tracking-[0.4em] uppercase text-[#c9a054] mb-1">
-                        Chapter IV — The Archive of Her Presence
+                        The Archive Compositions
                       </p>
                       <p className="text-zinc-600 text-[9px] font-light leading-[2] italic mb-5">
-                        &ldquo;True femininity does not disappear. It echoes through generations.&rdquo;
+                        &ldquo;Some women leave memories. Legends leave dynasties.&rdquo;
                       </p>
                     </div>
                     <div className="space-y-3">
