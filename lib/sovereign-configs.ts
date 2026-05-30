@@ -431,7 +431,7 @@
     }
   
 
-export const SAPPHIRE_BLUE_LEVANT_CONFIG: SovereignProductConfig = {
+export const SAPPHIRE_BLUE_LEVANT_CONFIG: SovereignConfig = {
   slug: 'sapphire-blue-levant',
   heroTagline: 'Calm waters run deep. True power requires no storm.',
   sovereignTitle: 'THE SOVEREIGN MEDITERRANEAN',
