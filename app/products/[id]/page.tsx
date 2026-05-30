@@ -6,12 +6,7 @@
   import type { Product } from '@/types'
   import SovereignProductPage from '@/components/SovereignProductPage'
   import LuxuryGenericProductPage from '@/components/LuxuryGenericProductPage'
-  import HerLegacyVaultPage from '@/components/HerLegacyVaultPage'
   import EternalEmpressPage from '@/components/EternalEmpressPage'
-
-  const HER_LEGACY_SLUGS = [
-    'her-legacy-vault',
-  ]
 
   const ETERNAL_EMPRESS_SLUGS = [
     'eternal-empress',
@@ -21,6 +16,7 @@
   const SOVEREIGN_SLUGS = [
     'shamims-bloom',
     'queen-of-taif',
+    'her-legacy-vault',
     'shamim-bloom-the-sovereign-grace',
     'shamim-bloom-sovereign-grace',
   ]
@@ -80,10 +76,6 @@
           </Link>
         </div>
       )
-    }
-
-    if (HER_LEGACY_SLUGS.includes(product.slug)) {
-      return <HerLegacyVaultPage product={product} />
     }
 
     if (ETERNAL_EMPRESS_SLUGS.includes(product.slug)) {
