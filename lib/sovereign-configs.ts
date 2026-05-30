@@ -78,7 +78,7 @@
       'Concierge Refill Program — Priority restocking with white-glove packaging at founder pricing',
       'Early Access to Future Releases — First allocation rights on all new Chapter launches',
       'Exclusive Atelier Events Invitation — Private fragrance ceremonies, launches, and Sovereign gatherings',
-      'One-Time Complimentary Engraving — Personalised flaçon engraving on your first refill order',
+      'One-Time Complimentary Engraving — Personalised flacon engraving on your first refill order',
       'Lifetime Authentication Certificate — Blockchain-verified provenance record on Polygon Mainnet',
       'Quarterly Sovereign Newsletter — Behind-the-scenes creation stories and archive updates',
       'White-Glove Packaging on All Future Orders — Hand-wrapped in sovereign black tissue and wax seal',
@@ -92,7 +92,7 @@
     heroTitle: 'QUEEN OF TAIF',
     heroSubtitle: 'The Rose Sovereign',
     heroTagline: 'Archive II · Royal Reserve Allocation',
-    legacyStatement: 'From ancient Taif valleys, where roses carry the weight of empires — the most powerful olfactory statement of our generation.',
+    legacyStatement: 'From ancient Taif valleys, where roses carry the weight of empires.',
     legacyVoice:
       'The Queen of Taif is an act of devotion. Sourced from the legendary Taif rose harvest — the rarest in the Arab world — this fragrance channels centuries of royal tradition into one breathtaking declaration. For those who command rooms without speaking.',
     topNotes: ['Damascene Rose Dew', 'Taif Blossom Elixir', 'Golden Saffron Silk'],
@@ -123,12 +123,12 @@
       'Taif Rose Concierge Refill Program — Priority restocking at founder pricing with royal packaging',
       'Early Access to Future Chapter Releases — First allocation rights on all new sovereign launches',
       'Royal House Events Invitation — Private fragrance ceremonies and exclusive Taif Rose gatherings',
-      'One-Time Complimentary Engraving — Personalised flaçon engraving on your first refill order',
+      'One-Time Complimentary Engraving — Personalised flacon engraving on your first refill order',
       'Lifetime Blockchain Authentication — Polygon-verified provenance record permanently linked',
       'Quarterly Royal Newsletter — Behind-the-scenes craftsmanship stories and archive updates',
       'White-Glove Royal Packaging — Hand-wrapped in sovereign tissue on all future orders',
       'Direct WhatsApp Royal Concierge — Priority contact with the House of Shamim Forever team',
-      'Royal Founders Badge — Digital and physical recognition as a founding royal patron of the archive',
+      'Royal Founders Badge — Digital and physical recognition as a founding royal patron',
     ],
   }
 
@@ -139,7 +139,7 @@
     heroTagline: 'Imperial Reserve Allocation — Archive II',
     legacyStatement: 'Queens inherit kingdoms. Empresses create them.',
     legacyVoice:
-      'Eternal Empress was never designed to be worn. It was designed to be remembered. Inside the House of Shamim Forever, certain creations are born not from trends, but from philosophy. A philosophy built upon silence, structure, emotional depth, and absolute authority. At the center of this composition stand two of perfumery's most aristocratic floral treasures: Imperial Red Rose Absolute and French Royal Violet. The rose embodies passion disciplined by wisdom. The violet embodies elegance refined by time. Together they create a floral architecture that feels regal, commanding, and profoundly expensive. Beneath this royal heart lies a foundation built upon Golden Ambergris and an aged Royal Oud Accord — one born from the mysteries of the ocean, one born from the heritage of kings. Together they create an aura that feels less like perfume and more like inherited authority. This is not beauty. This is power wearing beauty as its crown.',
+      "Eternal Empress was never designed to be worn. It was designed to be remembered. Inside the House of Shamim Forever, certain creations are born not from trends, but from philosophy. A philosophy built upon silence, structure, emotional depth, and absolute authority. At the center of this composition stand two of perfumery's most aristocratic floral treasures: Imperial Red Rose Absolute and French Royal Violet. The rose embodies passion disciplined by wisdom. The violet embodies elegance refined by time. Together they create a floral architecture that feels regal, commanding, and profoundly expensive. Beneath this royal heart lies a foundation built upon Golden Ambergris and an aged Royal Oud Accord — one born from the mysteries of the ocean, one born from the heritage of kings. Together they create an aura that feels less like perfume and more like inherited authority. This is not beauty. This is power wearing beauty as its crown.",
     topNotes: ['Crystal Pear Nectar', 'White Champagne Accord', 'Royal Bergamot Silk'],
     heartNotes: ['Imperial Red Rose Absolute', 'French Royal Violet', 'Golden Floral Resin'],
     baseNotes: ['Golden Ambergris', 'Royal Oud Accord', 'Cashmere Woods', 'White Velvet Musk'],
