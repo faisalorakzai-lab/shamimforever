@@ -364,6 +364,72 @@
       ],
     }
   
+
+    // ── ARCHIVE 00 — FOUNDER'S ETERNAL ARCHIVE ────────────────────────────────
+    const FOUNDERS_ETERNAL_ARCHIVE_CONFIG: SovereignConfig = {
+      heroTitle: "FOUNDER'S ETERNAL ARCHIVE",
+      heroSubtitle: 'The Sovereign Vault',
+      heroTagline: "Founder Reserve Allocation — Archive 00",
+      legacyStatement: "Time does not dissolve power. It archives it into an empire.",
+      legacyVoice:
+        "Founder's Eternal Archive was never created as a fragrance. It was created as a permanent monument to legacy. Inside the House of Shamim Forever, every creation carries a story. This creation carries the origin of all stories. The founder. The architect. The visionary. The man whose principles become institutions and whose decisions continue shaping reality long after his voice falls silent. Most men build wealth. A rare few build history. The rarest build civilizations. Founder's Eternal Archive is dedicated to the men who create structures larger than themselves — men whose names become foundations, men whose vision survives generations, men who answer to no throne because they built the throne itself. Kuch log duniya mein aate hain aur waqt ke saath unka naam dhundla jata hai. Lekin asal founders kabhi khatam nahi hote. Unke usool, unki soch aur unka nizaam unke baad bhi zinda rehta hai. This is not a fragrance. This is preserved authority.",
+      topNotes: ['Silver Incense Accord', 'Cold Mineral Smoke', 'Black Cedar Essence'],
+      heartNotes: ['Aged Black Oud Resins', 'Wild Tobacco Absolute', 'Rare Dark Ambergris'],
+      baseNotes: ['Natural Siberian Musk', 'Obsidian Woods', 'Dark Resin Accord', 'Aged Leather Archive'],
+      specs: [
+        { label: 'Masculine Identity', value: 'Founder Reserve Masculine Extrait' },
+        { label: 'Concentration', value: 'Extrait de Parfum Extreme' },
+        { label: 'Volume Allocation', value: '100ML' },
+        { label: 'Longevity', value: '24–48+ Hours' },
+        { label: 'Projection', value: 'Sovereign Authority Radius' },
+        { label: 'Sillage', value: 'Archive Smoke Trail' },
+        { label: 'Batch Philosophy', value: 'Founder Reserve Allocation' },
+        { label: 'Gender Profile', value: 'Ultra-Luxury Masculine' },
+        { label: 'Production Method', value: 'Museum-Grade Craftsmanship' },
+        { label: 'Wearing Environment', value: 'Private Boardrooms · Founder Gatherings · Legacy Events · Institutional Ceremonies' },
+        { label: 'Authentication', value: 'Polygon Verified' },
+        { label: 'NFT Pairing', value: 'Enabled' },
+        { label: 'Production Status', value: 'Ultra-Limited Founder Batch' },
+        { label: 'Craft Origin', value: 'Karachi Sovereign Atelier' },
+        { label: 'Valuation', value: 'Rs 150,000 PKR' },
+      ],
+      nftTitle: "Founder's Eternal Archive — Sovereign Vault Edition",
+      nftEdition: 'Founder Reserve Allocation — Archive 00',
+      nftRarity: 'FOUNDER SOVEREIGN',
+      nftTraits: [
+        { trait: 'Category', value: 'Sovereign Fragrance Asset' },
+        { trait: 'Collection', value: "Founder's Eternal Archive" },
+        { trait: 'Rarity Tier', value: 'FOUNDER SOVEREIGN' },
+        { trait: 'Authentication', value: 'Polygon Verified' },
+        { trait: 'Ownership Status', value: 'Active Sovereign Passport' },
+        { trait: 'Physical Asset Pairing', value: 'Yes' },
+        { trait: 'Production Allocation', value: 'Ultra Limited' },
+        { trait: 'Craftsmanship Origin', value: 'Karachi Sovereign Atelier' },
+        { trait: 'Collector Status', value: 'Founder Sovereign' },
+        { trait: 'Concierge Access', value: 'Enabled' },
+        { trait: 'Archive Status', value: 'Active' },
+        { trait: 'Blockchain', value: 'Polygon Mainnet' },
+        { trait: 'Archive Tier', value: 'Archive 00 — Origin' },
+      ],
+      heroImage: '/products/founders-eternal-archive/founder-hero.png',
+      galleryImages: [
+        '/products/founders-eternal-archive/founder-hero.png',
+        '/products/founders-eternal-archive/founder-box.png',
+      ],
+      holderPrivileges: [
+        'Founder Sovereign Status — Highest tier recognition within the House of Shamim Forever archive',
+        'Archive Vault Access — Permanent lifetime entry to the founder-exclusive sovereign vault',
+        'Future Founder Allocations — First priority rights on all upcoming House creations',
+        'Private House Ceremonies — Exclusive invitations to private founder-only ceremonies and events',
+        'Collector Registry Recognition — Official listing within the House of Shamim Forever founder registry',
+        'Priority Authentication Services — Dedicated blockchain verification and provenance documentation',
+        'Concierge Preservation Program — White-glove restoration and refill at founder pricing',
+        'Lifetime Provenance Protection — Permanent blockchain record securing ownership and lineage',
+        'Legacy Registry Membership — Permanent entry in the House of Shamim Forever legacy archive',
+        'Early Access To Future Founder Releases — First notification and allocation on every Archive drop',
+      ],
+    }
+  
 export const SOVEREIGN_CONFIGS: Record<string, SovereignConfig> = {
 
     // ── ARCHIVE I ──────────────────────────────────────────────────────────────
@@ -388,6 +454,10 @@ export const SOVEREIGN_CONFIGS: Record<string, SovereignConfig> = {
 
     // ── ARCHIVE IV ─────────────────────────────────────────────────────────────
     'her-legacy-vault': HER_LEGACY_VAULT_CONFIG,
+
+    // ── ARCHIVE 00 — FOR HIM (FOUNDER) ──────────────────────────────────────────
+    'founder-s-eternal-archive': FOUNDERS_ETERNAL_ARCHIVE_CONFIG,
+    'founders-eternal-archive': FOUNDERS_ETERNAL_ARCHIVE_CONFIG,
 
   }
   
