@@ -5,6 +5,7 @@
   import { supabase } from '@/lib/supabase'
   import type { Product } from '@/types'
   import SovereignProductPage from '@/components/SovereignProductPage'
+  import { SOVEREIGN_CONFIGS } from '@/lib/sovereign-configs'
   import LuxuryGenericProductPage from '@/components/LuxuryGenericProductPage'
   import EternalEmpressPage from '@/components/EternalEmpressPage'
 
@@ -13,13 +14,8 @@
     'sf-eternal-empress',
   ]
 
-  const SOVEREIGN_SLUGS = [
-    'shamims-bloom',
-    'queen-of-taif',
-    'her-legacy-vault',
-    'shamim-bloom-the-sovereign-grace',
-    'shamim-bloom-sovereign-grace',
-  ]
+  // Automatically includes all slugs defined in lib/sovereign-configs.ts
+  const SOVEREIGN_SLUGS = Object.keys(SOVEREIGN_CONFIGS)
 
   const SERIF = "'Cormorant Garamond', Georgia, serif"
 
