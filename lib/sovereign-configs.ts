@@ -225,6 +225,18 @@
     ],
     heroImage: '/products/her-legacy-vault/vault-hero.png',
     galleryImages: ['/products/her-legacy-vault/vault-hero.png', '/products/her-legacy-vault/vault-box.png'],
+    holderPrivileges: [
+      'Grand Archive Membership — Lifetime access to the House of Shamim Forever eternal legacy archive',
+      'Legacy Refill Program — Priority restocking with grand archive packaging at founder pricing',
+      'First Allocation on Future Sovereign Releases — Priority rights on all upcoming House creations',
+      'Grand Archive Events Invitation — Exclusive access to legacy ceremonies and private archive gatherings',
+      'One-Time Complimentary Engraving — Personalised flacon engraving on your first refill order',
+      'Lifetime Blockchain Authentication — Polygon-verified provenance record permanently secured',
+      'Quarterly Legacy Newsletter — Exclusive creation stories and dispatches from the Grand Archive',
+      'White-Glove Legacy Packaging — Hand-wrapped in grand archive tissue with wax seal on all future orders',
+      'Direct WhatsApp Legacy Concierge — Priority contact with the House of Shamim Forever team',
+      'Grand Archive Founders Badge — Permanent recognition as a founding patron of the eternal archive',
+    ],
   }
 
   export const SOVEREIGN_CONFIGS: Record<string, SovereignConfig> = {
