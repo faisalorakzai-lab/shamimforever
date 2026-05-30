@@ -24,6 +24,7 @@
     nftTraits: Array<{ trait: string; value: string }>
     heroImage: string
     galleryImages: string[]
+    holderPrivileges?: string[]
   }
 
   const SHAMIM_BLOOM_CONFIG: SovereignConfig = {
@@ -70,6 +71,18 @@
     galleryImages: [
       '/products/shamims-bloom/bloom-hero.png',
       '/products/shamims-bloom/bloom-1.png',
+    ],
+    holderPrivileges: [
+      'Sovereign Vault Membership — Lifetime access to the House of Shamim Forever private archive',
+      'Concierge Refill Program — Priority restocking with white-glove packaging at founder pricing',
+      'Early Access to Future Releases — First allocation rights on all new Chapter launches',
+      'Exclusive Atelier Events Invitation — Private fragrance ceremonies, launches, and Sovereign gatherings',
+      'One-Time Complimentary Engraving — Personalised flaçon engraving on your first refill order',
+      'Lifetime Authentication Certificate — Blockchain-verified provenance record on Polygon Mainnet',
+      'Quarterly Sovereign Newsletter — Behind-the-scenes creation stories and archive updates',
+      'White-Glove Packaging on All Future Orders — Hand-wrapped in sovereign black tissue and wax seal',
+      'Direct WhatsApp Concierge Line — Priority contact with the House of Shamim Forever team',
+      'Founder Reserve Badge — Digital and physical recognition as a founding patron of the archive',
     ],
   }
 
