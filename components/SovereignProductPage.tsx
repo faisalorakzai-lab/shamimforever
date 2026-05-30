@@ -508,7 +508,50 @@ export default function SovereignProductPage({ product }: { product: Product }) 
         </div>
       </section>
 
-      {/* ACQUIRE */}
+
+        {/* HOLDER PRIVILEGES */}
+        {config.holderPrivileges && config.holderPrivileges.length > 0 && (
+          <section style={{ padding: 'clamp(56px,8vw,100px) 0', background: 'linear-gradient(180deg, #030303 0%, #060401 50%, #030303 100%)' }}>
+            <div style={{ maxWidth: 860, margin: '0 auto', padding: '0 clamp(20px,4vw,24px)' }}>
+              <div className="s-reveal" style={{ textAlign: 'center', marginBottom: 48 }}>
+                <p style={{ fontSize: 7, letterSpacing: '0.9em', textTransform: 'uppercase', color: '#c9a054', marginBottom: 12 }}>Ownership Benefits</p>
+                <h2 style={{ fontFamily: SERIF, fontSize: 'clamp(28px,4vw,40px)', fontWeight: 300, color: '#f0ece4', marginBottom: 20, letterSpacing: '0.05em' }}>Holder Privileges</h2>
+                <div style={{ width: 60, height: 1, background: 'linear-gradient(90deg, transparent, #c9a054, transparent)', margin: '0 auto' }} />
+              </div>
+              <div className="s-reveal" style={{ border: '1px solid rgba(201,160,84,0.22)', background: 'rgba(8,6,2,0.7)' }}>
+                {config.holderPrivileges.map((privilege, i) => {
+                  const [title, ...rest] = privilege.split(' — ')
+                  const description = rest.join(' — ')
+                  return (
+                    <div
+                      key={i}
+                      style={{
+                        display: 'flex', alignItems: 'flex-start', gap: 20, padding: '20px 28px',
+                        borderBottom: i < config.holderPrivileges!.length - 1 ? '1px solid rgba(201,160,84,0.06)' : 'none',
+                      }}
+                    >
+                      <div style={{ paddingTop: 6, flexShrink: 0 }}>
+                        <div style={{ width: 6, height: 6, background: '#c9a054', transform: 'rotate(45deg)' }} />
+                      </div>
+                      <div>
+                        {description ? (
+                          <>
+                            <p style={{ fontSize: 11, color: '#c9b894', fontWeight: 400, letterSpacing: '0.04em', marginBottom: 3 }}>{title}</p>
+                            <p style={{ fontSize: 11, color: 'rgba(240,236,228,0.45)', fontWeight: 300, lineHeight: 1.6 }}>{description}</p>
+                          </>
+                        ) : (
+                          <p style={{ fontSize: 12, color: 'rgba(240,236,228,0.75)', fontWeight: 300, letterSpacing: '0.02em', lineHeight: 1.6 }}>{privilege}</p>
+                        )}
+                      </div>
+                    </div>
+                  )
+                })}
+              </div>
+            </div>
+          </section>
+        )}
+
+              {/* ACQUIRE */}
       <section id="acquire" style={{ padding: 'clamp(56px,8vw,100px) 0', background: 'radial-gradient(ellipse 80% 50% at 50% 0%, rgba(30,22,8,0.9) 0%, #030303 55%)' }}>
         <div style={{ maxWidth: 680, margin: '0 auto', padding: '0 clamp(16px,4vw,24px)' }}>
           <div className="s-reveal" style={{ textAlign: 'center', marginBottom: 48 }}>
