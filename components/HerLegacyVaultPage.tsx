@@ -391,7 +391,8 @@ export default function HerLegacyVaultPage({ product }: { product: Product }) {
                 House of Shamim<br />
                 <span className="text-[#c9a054]">Her Legacy Vault</span>
               </h1>
-              <p className="text-[8px] tracking-[0.5em] uppercase text-zinc-600">The Eternal Feminine Archive</p>
+              <p className="text-[8px] tracking-[0.5em] uppercase text-zinc-600">The Eternal Archive</p>
+                <p className="text-[7px] tracking-[0.4em] uppercase text-zinc-700 mt-1">Grand Sovereign Allocation — Archive IV</p>
               <div className="flex items-baseline gap-4 pt-2">
                 <p className="font-serif text-3xl font-light text-zinc-100">Rs 150,000</p>
                 <p className="text-zinc-500 text-sm font-light">$540 USD</p>
@@ -518,7 +519,7 @@ export default function HerLegacyVaultPage({ product }: { product: Product }) {
                   <motion.div key="nft" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
                     className="space-y-6">
                     <div>
-                      <p className="text-[8px] tracking-[0.4em] uppercase text-[#c9a054] mb-3">Digital Sovereign Passport</p>
+                      <p className="text-[8px] tracking-[0.4em] uppercase text-[#c9a054] mb-3">The Sovereign Digital Passport</p>
                       <p className="text-zinc-500 text-xs font-light leading-[2]">
                         Every Her Legacy Vault allocation is permanently paired with a sovereign blockchain identity
                         recorded on Polygon Mainnet. The NFT passport certifies authenticity, ownership, provenance,
@@ -614,7 +615,7 @@ export default function HerLegacyVaultPage({ product }: { product: Product }) {
                     <div className="pt-4 border-t border-[#0d0d0d]">
                       <p className="text-[8px] tracking-[0.4em] uppercase text-[#c9a054] mb-2">Sovereign Acquisition</p>
                       <p className="text-[7px] tracking-[0.25em] uppercase text-zinc-700 leading-[2]">
-                        Acquire The Legacy Vault · Authenticate Sovereign Archive · Enter The Founder Chamber
+                        Acquire The Archive · Authenticate Sovereign Passport · Enter The House Vault
                       </p>
                     </div>
                     <p className="text-[7px] tracking-[0.25em] uppercase text-zinc-700 text-center">
