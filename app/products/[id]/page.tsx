@@ -7,12 +7,6 @@
   import SovereignProductPage from '@/components/SovereignProductPage'
   import { SOVEREIGN_CONFIGS } from '@/lib/sovereign-configs'
   import LuxuryGenericProductPage from '@/components/LuxuryGenericProductPage'
-  import EternalEmpressPage from '@/components/EternalEmpressPage'
-
-  const ETERNAL_EMPRESS_SLUGS = [
-    'eternal-empress',
-    'sf-eternal-empress',
-  ]
 
   // Automatically includes all slugs defined in lib/sovereign-configs.ts
   const SOVEREIGN_SLUGS = Object.keys(SOVEREIGN_CONFIGS)
@@ -72,10 +66,6 @@
           </Link>
         </div>
       )
-    }
-
-    if (ETERNAL_EMPRESS_SLUGS.includes(product.slug)) {
-      return <EternalEmpressPage product={product} />
     }
 
     if (SOVEREIGN_SLUGS.includes(product.slug)) {
