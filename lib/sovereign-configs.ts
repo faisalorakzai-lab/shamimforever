@@ -369,6 +369,7 @@ export const SOVEREIGN_CONFIGS: Record<string, SovereignConfig> = {
     // ── ARCHIVE I ──────────────────────────────────────────────────────────────
 
       // ── ARCHIVE I — FOR HIM ────────────────────────────────────────────────────
+      'shamim-s-ghost-the-eternal-legacy': SHAMIMS_GHOST_CONFIG,
       'shamims-ghost': SHAMIMS_GHOST_CONFIG,
       "shamim's-ghost": SHAMIMS_GHOST_CONFIG,
       'shamims-ghost-the-eternal-legacy': SHAMIMS_GHOST_CONFIG,
