@@ -691,10 +691,11 @@ export default function SovereignProductPage({ product }: { product: Product }) 
           </div>
           <div className="s-reveal" style={{ display: 'flex', justifyContent: 'center', gap: 4, flexWrap: 'wrap' }}>
             {(
-              ['shamim-s-ghost-the-eternal-legacy','founder-s-eternal-archive'].includes(product.slug)
+              ['shamim-s-ghost-the-eternal-legacy','founder-s-eternal-archive','sapphire-blue-levant'].includes(product.slug)
                 ? [
                     { slug: 'shamim-s-ghost-the-eternal-legacy', name: "Shamim's Ghost", sub: 'The Eternal Legacy' },
                     { slug: 'founder-s-eternal-archive', name: "Founder's Eternal Archive", sub: 'The Sovereign Vault' },
+                    { slug: 'sapphire-blue-levant', name: 'Sapphire Blue Levant', sub: 'The Sovereign Mediterranean' },
                   ]
                 : [
                     { slug: 'shamims-bloom', name: "Shamim's Bloom", sub: 'Archive I' },
