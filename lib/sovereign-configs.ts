@@ -430,6 +430,63 @@
       ],
     }
   
+
+export const SAPPHIRE_BLUE_LEVANT_CONFIG: SovereignProductConfig = {
+  slug: 'sapphire-blue-levant',
+  heroTagline: 'Calm waters run deep. True power requires no storm.',
+  sovereignTitle: 'THE SOVEREIGN MEDITERRANEAN',
+  collectionLabel: 'Imperial Reserve Allocation — Archive III',
+  price: 'Rs. 75,000',
+  volume: '100ML',
+  concentration: 'Extrait de Parfum',
+  longevity: '14–20+ Hours',
+  projection: 'Mediterranean Aura Expansion',
+  heroDescription: 'An oceanic masculine extrait crafted around French Blue Lotus, Blue Cypress Wood, White Ambergris, and Indonesian Patchouli — engineered for men whose calm becomes their greatest authority.',
+  philosophy: 'Sapphire Blue Levant is dedicated to men who possess composed authority. The kind that never panics. Never rushes. Never loses structure. This fragrance embodies the mentality of a sovereign navigator crossing endless oceans with complete certainty of direction.',
+  kahani: 'Aam fresh perfumes chand lamhon ke liye taazgi dete hain aur phir hawa mein kho jate hain. Lekin asli luxury permanence ke saath aati hai. Sapphire Blue Levant un elite mardon ke liye tarasha gaya hai jo freshness ko bhi billionaire standard par experience karna chahte hain.',
+  kahaniFormal: 'Rs. 75,000 ka ye allocation sirf price nahi. Ye refinement ka filter hai — un logon ke liye jo pressure ke darmiyan bhi samandar ki gehrayi ki tarah pur-sukoon rehte hain.',
+  scentPyramid: {
+    top: {
+      title: 'THE CRYSTAL HORIZON',
+      subtitle: 'Opening Layer',
+      notes: ['Crisp Sea Salt Accord', 'Italian Sea Bergamot', 'Mediterranean Mineral Air'],
+      mood: 'Pure clarity. Oceanic freedom. Cold precision.',
+    },
+    heart: {
+      title: 'THE BLUE LEVANT HEART',
+      subtitle: 'Identity Layer',
+      notes: ['French Blue Lotus', 'Premium Blue Cypress Wood', 'Marine Floral Accord'],
+      mood: 'Refined masculinity. Calm confidence. Controlled sophistication.',
+    },
+    base: {
+      title: 'THE SOVEREIGN FOUNDATION',
+      subtitle: 'Base Layer',
+      notes: ['Royal White Ambergris Tincture', 'Aged Indonesian Patchouli', 'Silver Driftwood Accord', 'White Mineral Musk'],
+      mood: 'Enduring stability. Quiet luxury. Permanent depth.',
+    },
+  },
+  atmosphericPresence: 'Sapphire Blue Levant does not dominate a room. It stabilizes it. Its opening feels like the first breath of cold Mediterranean air at sunrise. Its heart unfolds with disciplined elegance. Its foundation settles into a calm maritime aura that remains attached to memory long after departure.',
+  flaconDesign: 'Sculpted from deep sapphire crystal infused with shifting ocean-blue reflections. Its cap is forged from brushed silver alloy inspired by maritime navigation instruments, with a sapphire emblem symbolizing stability, direction, and mastery over uncertainty.',
+  presentationVault: 'Museum-grade maritime chest crafted from matte obsidian architecture lined with deep sapphire velvet interiors.',
+  vaultIncludes: ['Authenticated Serial Identity', 'Imperial Allocation Certificate', 'NFC Verification Seal', 'Blockchain Ownership Registration', 'Digital Twin NFT Passport', 'Collector Documentation', 'Archive Signature Card'],
+  holderPrivileges: ['Imperial Collector Status', 'Sovereign Vault Access', 'Future Maritime Allocations', 'Private House Invitations', 'Collector Registry Recognition', 'Priority Authentication Services', 'Concierge Preservation Program', 'Lifetime Provenance Protection', 'Early Access To Future Releases'],
+  nftName: 'Sapphire Blue Levant — Sovereign Mediterranean Edition',
+  nftDescription: 'A blockchain-authenticated maritime fragrance asset crafted around Mediterranean freshness and sovereign stability. This digital passport certifies ownership, provenance, rarity allocation, collector privileges, and House recognition.',
+  performanceMatrix: {
+    concentration: 'Extrait de Parfum',
+    volume: '100ML',
+    longevity: '14–20+ Hours',
+    projection: 'Mediterranean Aura Expansion',
+    sillage: 'Oceanic Sovereign Trail',
+    batch: 'Imperial Reserve Allocation',
+    gender: 'Fresh Luxury Masculine',
+    production: 'Ultra-Limited Maritime Craftsmanship',
+  },
+  wearingEnvironments: ['Executive Meetings', 'Luxury Resorts', 'Private Yachts', 'Summer Evenings', 'Coastal Gatherings', 'Daily Signature Wear'],
+  accentColor: '#1a3a6b',
+  accentGold: '#c9a84c',
+}
+
 export const SOVEREIGN_CONFIGS: Record<string, SovereignConfig> = {
 
     // ── ARCHIVE I ──────────────────────────────────────────────────────────────
@@ -462,59 +519,3 @@ export const SOVEREIGN_CONFIGS: Record<string, SovereignConfig> = {
 
   }
  
-  export const SAPPHIRE_BLUE_LEVANT_CONFIG: SovereignProductConfig = {
-    slug: 'sapphire-blue-levant',
-    heroTagline: 'Calm waters run deep. True power requires no storm.',
-    sovereignTitle: 'THE SOVEREIGN MEDITERRANEAN',
-    collectionLabel: 'Imperial Reserve Allocation — Archive III',
-    price: 'Rs. 75,000',
-    volume: '100ML',
-    concentration: 'Extrait de Parfum',
-    longevity: '14–20+ Hours',
-    projection: 'Mediterranean Aura Expansion',
-    heroDescription: 'An oceanic masculine extrait crafted around French Blue Lotus, Blue Cypress Wood, White Ambergris, and Indonesian Patchouli — engineered for men whose calm becomes their greatest authority.',
-    philosophy: 'Sapphire Blue Levant is dedicated to men who possess composed authority. The kind that never panics. Never rushes. Never loses structure. This fragrance embodies the mentality of a sovereign navigator crossing endless oceans with complete certainty of direction.',
-    kahani: 'Aam fresh perfumes chand lamhon ke liye taazgi dete hain aur phir hawa mein kho jate hain. Lekin asli luxury permanence ke saath aati hai. Sapphire Blue Levant un elite mardon ke liye tarasha gaya hai jo freshness ko bhi billionaire standard par experience karna chahte hain.',
-    kahaniFormal: 'Rs. 75,000 ka ye allocation sirf price nahi. Ye refinement ka filter hai — un logon ke liye jo pressure ke darmiyan bhi samandar ki gehrayi ki tarah pur-sukoon rehte hain.',
-    scentPyramid: {
-      top: {
-        title: 'THE CRYSTAL HORIZON',
-        subtitle: 'Opening Layer',
-        notes: ['Crisp Sea Salt Accord', 'Italian Sea Bergamot', 'Mediterranean Mineral Air'],
-        mood: 'Pure clarity. Oceanic freedom. Cold precision.',
-      },
-      heart: {
-        title: 'THE BLUE LEVANT HEART',
-        subtitle: 'Identity Layer',
-        notes: ['French Blue Lotus', 'Premium Blue Cypress Wood', 'Marine Floral Accord'],
-        mood: 'Refined masculinity. Calm confidence. Controlled sophistication.',
-      },
-      base: {
-        title: 'THE SOVEREIGN FOUNDATION',
-        subtitle: 'Base Layer',
-        notes: ['Royal White Ambergris Tincture', 'Aged Indonesian Patchouli', 'Silver Driftwood Accord', 'White Mineral Musk'],
-        mood: 'Enduring stability. Quiet luxury. Permanent depth.',
-      },
-    },
-    atmosphericPresence: 'Sapphire Blue Levant does not dominate a room. It stabilizes it. Its opening feels like the first breath of cold Mediterranean air at sunrise. Its heart unfolds with disciplined elegance. Its foundation settles into a calm maritime aura that remains attached to memory long after departure.',
-    flaconDesign: 'Sculpted from deep sapphire crystal infused with shifting ocean-blue reflections. Its cap is forged from brushed silver alloy inspired by maritime navigation instruments, with a sapphire emblem symbolizing stability, direction, and mastery over uncertainty.',
-    presentationVault: 'Museum-grade maritime chest crafted from matte obsidian architecture lined with deep sapphire velvet interiors.',
-    vaultIncludes: ['Authenticated Serial Identity', 'Imperial Allocation Certificate', 'NFC Verification Seal', 'Blockchain Ownership Registration', 'Digital Twin NFT Passport', 'Collector Documentation', 'Archive Signature Card'],
-    holderPrivileges: ['Imperial Collector Status', 'Sovereign Vault Access', 'Future Maritime Allocations', 'Private House Invitations', 'Collector Registry Recognition', 'Priority Authentication Services', 'Concierge Preservation Program', 'Lifetime Provenance Protection', 'Early Access To Future Releases'],
-    nftName: 'Sapphire Blue Levant — Sovereign Mediterranean Edition',
-    nftDescription: 'A blockchain-authenticated maritime fragrance asset crafted around Mediterranean freshness and sovereign stability. This digital passport certifies ownership, provenance, rarity allocation, collector privileges, and House recognition.',
-    performanceMatrix: {
-      concentration: 'Extrait de Parfum',
-      volume: '100ML',
-      longevity: '14–20+ Hours',
-      projection: 'Mediterranean Aura Expansion',
-      sillage: 'Oceanic Sovereign Trail',
-      batch: 'Imperial Reserve Allocation',
-      gender: 'Fresh Luxury Masculine',
-      production: 'Ultra-Limited Maritime Craftsmanship',
-    },
-    wearingEnvironments: ['Executive Meetings', 'Luxury Resorts', 'Private Yachts', 'Summer Evenings', 'Coastal Gatherings', 'Daily Signature Wear'],
-    accentColor: '#1a3a6b',
-    accentGold: '#c9a84c',
-  }
-   
