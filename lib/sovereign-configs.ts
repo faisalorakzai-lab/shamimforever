@@ -588,5 +588,6 @@ export const SOVEREIGN_CONFIGS: Record<string, SovereignConfig> = {
     'founders-eternal-archive': FOUNDERS_ETERNAL_ARCHIVE_CONFIG,
     'sapphire-blue-levant': SAPPHIRE_BLUE_LEVANT_CONFIG,
 
+    'sovereign-oud-absolute': SOVEREIGN_OUD_ABSOLUTE_CONFIG,
   }
  
