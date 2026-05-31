@@ -713,7 +713,7 @@
                   ['Price', '$2,500 USD / Rs. 700,000+'],
                 ].map(([k, v], i) => (
                   <tr key={i}>
-                    <td style={{ fontSize:6, letterSpacing:'0.4em', textTransform:'uppercase', color:'rgba(255,255,255,0.2)', paddingRight:32, width:'35%', fontSize:10, color:'rgba(255,255,255,0.2)', letterSpacing:'0.3em', textTransform:'uppercase' }}>{k}</td>
+                    <td style={{ fontSize:10, letterSpacing:'0.3em', textTransform:'uppercase', color:'rgba(255,255,255,0.2)', paddingRight:32, width:'35%' }}>{k}</td>
                     <td style={{ fontFamily:SERIF, fontSize:'clamp(13px,1.8vw,18px)', fontWeight:300, color:'rgba(255,255,255,0.65)' }}>{v}</td>
                   </tr>
                 ))}
