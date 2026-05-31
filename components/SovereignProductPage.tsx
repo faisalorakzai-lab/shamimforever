@@ -458,6 +458,30 @@ export default function SovereignProductPage({ product }: { product: Product }) 
         </div>
       </section>
 
+      {/* AMBASSADOR — The Sovereign Statement */}
+      {config.ambassadorImage && (
+        <section style={{ position: 'relative', height: 'clamp(380px,70vh,680px)', overflow: 'hidden' }}>
+          <img
+            src={config.ambassadorImage}
+            alt="The Sovereign Statement"
+            style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center 15%', display: 'block' }}
+          />
+          {/* Dark luxury overlay */}
+          <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(135deg, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.52) 45%, rgba(0,0,0,0.80) 100%)' }} />
+          {/* Gold accent lines */}
+          <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 1, background: 'linear-gradient(90deg, transparent, #c9a054 35%, #c9a054 65%, transparent)' }} />
+          <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: 1, background: 'linear-gradient(90deg, transparent, #c9a054 35%, #c9a054 65%, transparent)' }} />
+          {/* Text content — bottom-left aligned, luxury editorial style */}
+          <div style={{ position: 'absolute', inset: 0, display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', padding: 'clamp(28px,5vw,64px) clamp(24px,6vw,80px)' }}>
+            <div style={{ width: 36, height: 1, background: '#c9a054', marginBottom: 18 }} />
+            <p style={{ fontSize: 7, letterSpacing: '0.9em', textTransform: 'uppercase', color: '#c9a054', marginBottom: 16, fontWeight: 400 }}>The Sovereign Statement</p>
+            <blockquote style={{ fontFamily: SERIF, fontSize: 'clamp(1.3rem,3.2vw,2.5rem)', fontWeight: 300, color: '#f0ece4', lineHeight: 1.35, maxWidth: 560, margin: 0, fontStyle: 'italic' }}>
+              &ldquo;{config.ambassadorQuote ?? 'Power is not worn. It is distilled.'}&rdquo;
+            </blockquote>
+          </div>
+        </section>
+      )}
+
       {/* DIGITAL SOVEREIGN PASSPORT */}
       <section style={{ padding: 'clamp(56px,8vw,100px) 0', position: 'relative', background: 'linear-gradient(180deg, #030303 0%, #060510 50%, #030303 100%)' }}>
         <div style={{ maxWidth: 1100, margin: '0 auto', padding: '0 clamp(20px,4vw,24px)' }}>
