@@ -882,40 +882,75 @@
   }
 
   
-// ── ARCHIVE U-V — SOVEREIGN GENESIS ──────────────────────────────────────
-const SOVEREIGN_GENESIS_CONFIG: SovereignConfig = {
-  heroTitle: 'SOVEREIGN GENESIS',
-  heroSubtitle: 'The Beginning of Everything',
-  heroTagline: 'Genesis Archive Allocation — Archive U-V',
-  legacyStatement: 'Every dynasty begins with a single act of creation.',
-  legacyVoice: 'Sovereign Genesis is the philosophical foundation upon which the entire House of Shamim Forever is built. A fragrance that carries the weight of intention — the moment before a legacy begins. Its architecture is deliberately pure: only the finest raw materials, without compromise, without decoration. The opening breath of Genesis feels like clarity itself. Its foundation is permanent — a fragrance that does not evolve with trends. It establishes them.',
-  topNotes: ['Pure White Neroli', 'Clear Crystal Bergamot', 'Morning Dew Accord'],
-  heartNotes: ['White Floral Absolute', 'Pure Cashmere Iris', 'Clean Ambergris Heart'],
-  baseNotes: ['Genesis White Musk', 'Pure Sandalwood', 'White Amber Foundation', 'Silk Wood Accord'],
-  specs: [
-    { label: 'Concentration Class', value: 'Extrait de Parfum' },
-    { label: 'Volume Allocation', value: '100ML' },
-    { label: 'Longevity', value: '18–30+ Hours' },
-    { label: 'Projection', value: 'Genesis Sovereign Aura' },
-    { label: 'Sillage', value: 'Pure Legacy Trail' },
-    { label: 'Batch Philosophy', value: 'Genesis Archive Allocation' },
-    { label: 'Gender Profile', value: 'Ultra-Luxury Unisex' },
-    { label: 'Production Method', value: 'Genesis Artisan Craftsmanship' },
-    { label: 'Authentication', value: 'Polygon Verified' },
-  ],
-  nftTitle: 'Sovereign Genesis — Genesis Archive Edition',
-  nftEdition: 'Genesis Archive Edition',
-  nftRarity: 'GENESIS ARCHIVE',
-  nftTraits: [
-    { trait: 'Category', value: 'Genesis Archive Fragrance Asset' },
-    { trait: 'Archive Status', value: 'Archive U-V — Genesis' },
-    { trait: 'Collector Status', value: 'Genesis Collector' },
-    { trait: 'Holder Privileges', value: 'Genesis Vault Access + Legacy Concierge' },
-  ],
-  heroImage: '/products/sovereign-genesis/hero.png',
-  galleryImages: ['/products/sovereign-genesis/hero.png'],
-}
+// ── ARCHIVE U-V — SOVEREIGN GENESIS ────────────────────────────────────
+  const SOVEREIGN_GENESIS_CONFIG: SovereignConfig = {
+    heroTitle: 'SOVEREIGN GENESIS',
+    heroSubtitle: 'The Beginning of Everything',
+    heroTagline: 'Founder Reserve Allocation — Archive α',
+    legacyStatement: 'Before the market, there was the spirit. The genesis of an empire.',
+    legacyVoice:
+      "Sovereign Genesis was never created to compete. It was created to begin.\n\nInside the House of Shamim Forever, Chapter I introduced the first law of existence:\n\nEvery legacy begins with something felt so deeply it demands to exist.\n\nSovereign Genesis is the highest expression of that truth — the first breath of eternity captured in liquid form. A museum-grade olfactory monument forged for those who understand that ownership of the beginning is ownership of the story itself.\n\nIt does not represent success. It represents origin.\n\nEvery civilization has an origin. Every dynasty has a founder. Every empire has a first decree. Sovereign Genesis represents the moment before history begins — the sacred point where emotion becomes vision. Vision becomes structure. Structure becomes legacy.\n\nCrafted for collectors, founders, visionaries, and custodians of permanence — individuals who understand that the rarest asset in existence is not wealth. It is origin.\n\nThis fragrance is not designed to be worn. It is designed to be preserved.\n\nSovereign Genesis does not enter a room. It establishes history. Its opening feels like the first sunrise over a newly founded empire. Its heart unfolds into a sacred architecture of iris, frankincense, and ceremonial elegance. Its foundation settles into a monumental aura of ambergris, kyara oud, and eternal prestige.\n\nPowerful. Yet disciplined. Rich. Yet spiritual. Like the first chapter of a dynasty written in gold and preserved forever.",
+    topNotes: ['Pure Saffron Threads Extract', 'Golden Citrus Illumination', 'Imperial White Spice Accord'],
+    heartNotes: ['Florentine Iris Orris Butter', 'Rare Omani Royal Frankincense', 'White Floral Resin Accord'],
+    baseNotes: ['Pure White Ambergris Absolute', 'Centuries-Aged Wild Kyara Oud', 'Imperial Cashmere Woods', 'Founder Musk Accord'],
+    specs: [
+      { label: 'Concentration Class', value: 'Extrait de Parfum Supreme' },
+      { label: 'Volume Allocation', value: '100ML' },
+      { label: 'Longevity', value: '36–72+ Hours' },
+      { label: 'Projection', value: 'Genesis Authority Field' },
+      { label: 'Sillage', value: "Founder's Legacy Trail" },
+      { label: 'Batch Philosophy', value: 'Founder Reserve Allocation' },
+      { label: 'Gender Profile', value: 'Ultra-Luxury Unisex' },
+      { label: 'Production Method', value: 'Master Atelier Sovereign Craftsmanship' },
+      { label: 'Wearing Environment', value: 'Founder Ceremonies · Private Collections · Institutional Events · Global Luxury Gatherings · Legacy Celebrations · Archive Preservation' },
+      { label: 'Authentication', value: 'Polygon Verified' },
+      { label: 'NFT Pairing', value: 'Enabled' },
+      { label: 'Serial Registry', value: 'Dynamic' },
+      { label: 'Production Status', value: 'Ultra-Limited Genesis Batch' },
+    ],
+    nftTitle: 'Sovereign Genesis — Founder Reserve Edition',
+    nftEdition: 'Founder Reserve Edition — Genesis Passport',
+    nftRarity: 'GENESIS FOUNDER RESERVE',
+    nftTraits: [
+      { trait: 'Category', value: 'Supreme Sovereign Fragrance Asset' },
+      { trait: 'Collection', value: 'House of Shamim Forever — Chapter I' },
+      { trait: 'Archive Status', value: 'Archive α — Genesis Founder Reserve' },
+      { trait: 'Classification', value: 'Supreme Unisex Extrait' },
+      { trait: 'Authentication', value: 'Polygon Verified' },
+      { trait: 'Ownership Status', value: 'Active Genesis Passport' },
+      { trait: 'Physical Asset Pairing', value: 'Yes' },
+      { trait: 'Production Allocation', value: 'Ultra-Limited Genesis Batch' },
+      { trait: 'Craftsmanship Origin', value: 'Karachi Master Atelier' },
+      { trait: 'Collector Status', value: 'Genesis Founder' },
+      { trait: 'Concierge Access', value: 'Enabled' },
+      { trait: 'NFT Pairing', value: 'Enabled' },
+      { trait: 'Blockchain Network', value: 'Polygon Mainnet' },
+      { trait: 'Archive Council', value: 'Recognized' },
+      { trait: 'Genesis Registry', value: 'Active' },
+      { trait: 'Institutional Standing', value: 'Founder' },
+    ],
+    heroImage: '/products/sovereign-genesis/hero.png',
+    galleryImages: [
+      '/products/sovereign-genesis/hero.png',
+      '/products/sovereign-genesis/vault.png',
+    ],
+    holderPrivileges: [
+      'Genesis Founder Status — Recognized as a founding genesis member of the House of Shamim Forever',
+      'Supreme Sovereign Vault Access — Lifetime access to the Genesis Vault supreme archive',
+      'Future Founder Allocations — Priority access to all upcoming sovereign and institutional releases',
+      'Private House Ceremonies — Invitation to all exclusive atelier events and founder ceremonies',
+      'Collector Registry Recognition — Permanently listed in the Genesis House Registry',
+      'Priority Authentication Services — Supreme white-glove authentication and verification',
+      'Concierge Preservation Program — Master atelier fragrance preservation and care service',
+      'Lifetime Provenance Protection — Blockchain-secured genesis ownership documentation',
+      'Founder Legacy Membership — Eternal entry in the House genesis legacy records',
+      'Early Access To All Future Releases — First allocation rights on every new House chapter',
+      'Archive Council Recognition — Named recognition in the House Genesis Archive Council',
+      'Institutional Founder Standing — Permanent institutional founder status across all House chapters',
+    ],
+  }
 
+  
 export const SOVEREIGN_CONFIGS: Record<string, SovereignConfig> = {
 
     // ── ARCHIVE I ──────────────────────────────────────────────────────────────
