@@ -57,6 +57,8 @@ import { NextRequest, NextResponse } from 'next/server'
     await updateBySlug(['house-vault-no-001', 'house-vault-no.001'], ['/products/house-vault-no-001/hero.png', '/products/house-vault-no-001/vault.png'], 'House Vault No.001')
     await updateBySlug(['sovereign-genesis'], ['/products/sovereign-genesis/hero.png', '/products/sovereign-genesis/vault.png'], 'Sovereign Genesis')
 
+    await updateBySlug(['queen-of-taif-crown-ring', 'queen-of-taif-ring', 'queen of taif crown ring'], ['/products/queen-of-taif-crown-ring/hero.png', '/products/queen-of-taif-crown-ring/box.png'], 'Queen of Taif Crown Ring')
+
     return NextResponse.json({ results, updated_at: new Date().toISOString() })
   }
   
