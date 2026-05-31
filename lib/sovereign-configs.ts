@@ -692,40 +692,65 @@
     ],
   }
   
-// ── ARCHIVE U-II — MIDNIGHT IRIS ROYALE ──────────────────────────────────
-const MIDNIGHT_IRIS_ROYALE_CONFIG: SovereignConfig = {
-  heroTitle: 'MIDNIGHT IRIS ROYALE',
-  heroSubtitle: 'The Obsidian Crown',
-  heroTagline: 'Imperial Reserve Allocation — Archive U-II',
-  legacyStatement: 'In the deepest hour of night, true royalty reveals itself.',
-  legacyVoice: 'Midnight Iris Royale was born from the conviction that the most powerful luxury happens in silence. At the heart of this creation lies the rarest Florentine Iris Root — orris butter of extraordinary depth — united with the sacred darkness of aged oud and royal violet absolute. This is not a fragrance for those who seek approval. It is a fragrance for those who have already arrived.',
-  topNotes: ['Black Violet Absolute', 'Midnight Blue Iris', 'Dark Bergamot Crystal'],
-  heartNotes: ['Florentine Orris Royale', 'Velvet Oud Accord', 'Black Rose Resin'],
-  baseNotes: ['Aged Kodo Oud', 'Dark Ambergris', 'Obsidian Musk', 'Cedarwood Noir'],
-  specs: [
-    { label: 'Concentration Class', value: 'Extrait de Parfum' },
-    { label: 'Volume Allocation', value: '100ML' },
-    { label: 'Longevity', value: '20–36+ Hours' },
-    { label: 'Projection', value: 'Obsidian Royal Aura' },
-    { label: 'Sillage', value: 'Dark Sovereign Trail' },
-    { label: 'Batch Philosophy', value: 'Imperial Reserve Allocation' },
-    { label: 'Gender Profile', value: 'Ultra-Luxury Unisex' },
-    { label: 'Production Method', value: 'Ultra-Limited Artisan Craftsmanship' },
-    { label: 'Authentication', value: 'Polygon Verified' },
-  ],
-  nftTitle: 'Midnight Iris Royale — Obsidian Crown Edition',
-  nftEdition: 'Obsidian Crown Edition',
-  nftRarity: 'IMPERIAL RESERVE',
-  nftTraits: [
-    { trait: 'Category', value: 'Sovereign Unisex Fragrance Asset' },
-    { trait: 'Archive Status', value: 'Archive U-II — Obsidian' },
-    { trait: 'Collector Status', value: 'Imperial Collector' },
-    { trait: 'Holder Privileges', value: 'Obsidian Vault Access + Concierge' },
-  ],
-  heroImage: '/products/midnight-iris-royale/hero.png',
-  galleryImages: ['/products/midnight-iris-royale/hero.png'],
-}
-
+// ── ARCHIVE U-II — MIDNIGHT IRIS ROYALE ─────────────────────────────────
+  const MIDNIGHT_IRIS_ROYALE_CONFIG: SovereignConfig = {
+    heroTitle: 'MIDNIGHT IRIS ROYALE',
+    heroSubtitle: 'The Obsidian Crown',
+    heroTagline: 'Imperial Reserve Allocation — Archive U-II',
+    legacyStatement: 'The stars do not compete with the sun. They rule when the world is quiet.',
+    legacyVoice:
+      'Midnight Iris Royale was never created to follow definitions. It was created to transcend them. Inside the House of Shamim Forever, Chapter II introduced a philosophy built upon Silence, Structure, and Emotional Depth. Midnight Iris Royale is the hypnotic culmination of that vow — a dark velvet empire crafted from rare iris, mysterious florals, and sacred woods. Its opening feels like twilight descending over an ancient royal city. Its heart unfolds into a rich violet veil woven from iris and midnight florals. Its foundation settles into a dark, luxurious aura that remains attached to memory long after departure. Like an obsidian crown resting upon an unseen throne.',
+    topNotes: ['Dark Plum Liqueur', 'Midnight Berry Accord', 'Velvet Citrus Mist'],
+    heartNotes: ['Rare Florentine Blue Iris', 'Midnight Violet Flower', 'Black Floral Essence'],
+    baseNotes: ['Scorched Ambergris Resins', 'Aged Mysore Sandalwood', 'Dark Cashmere Woods', 'Obsidian Musk Accord'],
+    specs: [
+      { label: 'Concentration Class', value: 'Extrait de Parfum' },
+      { label: 'Volume Allocation', value: '100ML' },
+      { label: 'Longevity', value: '16–28+ Hours' },
+      { label: 'Projection', value: 'Obsidian Aura Expansion' },
+      { label: 'Sillage', value: 'Velvet Royal Trail' },
+      { label: 'Batch Philosophy', value: 'Imperial Reserve Allocation' },
+      { label: 'Gender Profile', value: 'Ultra-Luxury Unisex' },
+      { label: 'Production Method', value: 'Ultra-Limited Sovereign Craftsmanship' },
+      { label: 'Wearing Environment', value: 'Luxury Evenings · Private Galas · Art Exhibitions · High Society Gatherings · Exclusive Dinners' },
+      { label: 'Authentication', value: 'Polygon Verified' },
+      { label: 'NFT Pairing', value: 'Enabled' },
+      { label: 'Production Status', value: 'Ultra-Limited Sovereign Batch' },
+    ],
+    nftTitle: 'Midnight Iris Royale — Obsidian Crown Edition',
+    nftEdition: 'Obsidian Crown Edition',
+    nftRarity: 'IMPERIAL RESERVE',
+    nftTraits: [
+      { trait: 'Category', value: 'Sovereign Unisex Fragrance Asset' },
+      { trait: 'Collection', value: 'House of Shamim Forever — Chapter II' },
+      { trait: 'Archive Status', value: 'Archive U-II — Imperial' },
+      { trait: 'Collector Status', value: 'Imperial Collector' },
+      { trait: 'Classification', value: 'Ultra-Luxury Unisex Extrait' },
+      { trait: 'Authentication', value: 'Polygon Verified' },
+      { trait: 'Physical Asset Pairing', value: 'Yes' },
+      { trait: 'Production Allocation', value: 'Ultra-Limited Sovereign Batch' },
+      { trait: 'Concierge Access', value: 'Enabled' },
+      { trait: 'Archive Status', value: 'Active Sovereign Passport' },
+    ],
+    heroImage: '/products/midnight-iris-royale/mir-hero.png',
+    galleryImages: [
+      '/products/midnight-iris-royale/mir-hero.png',
+      '/products/midnight-iris-royale/mir-box.png',
+    ],
+    holderPrivileges: [
+      'Imperial Collector Status — Official recognition within the House of Shamim Forever collector registry',
+      'Sovereign Vault Access — Lifetime access to the House of Shamim Forever private vault',
+      'Future Unisex Allocations — Priority rights on all upcoming unisex Archive drops',
+      'Private House Ceremonies — Exclusive invitations to private House ceremonies and founder gatherings',
+      'Collector Registry Recognition — Official listing within the House of Shamim Forever collector registry',
+      'Priority Authentication Services — Dedicated blockchain verification and provenance documentation',
+      'Concierge Preservation Program — White-glove restoration and refill at collector pricing',
+      'Lifetime Provenance Protection — Permanent blockchain record securing ownership and lineage',
+      'Legacy Registry Membership — Permanent entry in the House of Shamim Forever legacy archive',
+      'Early Access To Future Releases — First notification and allocation on every Archive drop',
+    ],
+  }
+  
 // ── ARCHIVE U-III — ETERNAL SOVEREIGN ────────────────────────────────────
 const ETERNAL_SOVEREIGN_CONFIG: SovereignConfig = {
   heroTitle: 'ETERNAL SOVEREIGN',
