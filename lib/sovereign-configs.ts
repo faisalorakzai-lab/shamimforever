@@ -634,39 +634,64 @@
   
 
 // ── ARCHIVE U-I — KYOTO SACRED INCENSE ──────────────────────────────────
-const KYOTO_SACRED_INCENSE_CONFIG: SovereignConfig = {
-  heroTitle: 'KYOTO SACRED INCENSE',
-  heroSubtitle: 'The Sovereign Sanctuary',
-  heroTagline: 'Imperial Reserve Allocation — Archive U-I',
-  legacyStatement: 'The world runs on speed. The sovereign runs on stillness.',
-  legacyVoice: 'Kyoto Sacred Incense was never created to impress. It was created to center. Inside the House of Shamim Forever, Chapter II introduced a philosophy built upon Silence, Structure, and Emotional Depth. A sanctuary of sacred woods, meditative resins, and disciplined calm crafted for individuals whose greatest strength comes from inner balance. It does not compete with noise. It transcends it.',
-  topNotes: ['Japanese Morning Air Accord', 'Green Matcha Tea Absolute', 'White Citrus Mist'],
-  heartNotes: ['White Lotus Petals', 'Sacred Kyoto Hinoki Wood', 'Warm Cedarwood Essence'],
-  baseNotes: ['Rare Kodo Incense Resins', 'White Sandalwood', 'Temple Musk Accord', 'Soft Amber Woods'],
-  specs: [
-    { label: 'Concentration Class', value: 'Extrait de Parfum' },
-    { label: 'Volume Allocation', value: '100ML' },
-    { label: 'Longevity', value: '16–24+ Hours' },
-    { label: 'Projection', value: 'Sanctuary Aura Expansion' },
-    { label: 'Sillage', value: 'Sacred Incense Trail' },
-    { label: 'Batch Philosophy', value: 'Imperial Reserve Allocation' },
-    { label: 'Gender Profile', value: 'Ultra-Luxury Unisex' },
-    { label: 'Production Method', value: 'Ultra-Limited Artisan Craftsmanship' },
-    { label: 'Authentication', value: 'Polygon Verified' },
-  ],
-  nftTitle: 'Kyoto Sacred Incense — Sovereign Sanctuary Edition',
-  nftEdition: 'Sovereign Sanctuary Edition',
-  nftRarity: 'IMPERIAL RESERVE',
-  nftTraits: [
-    { trait: 'Category', value: 'Sovereign Unisex Fragrance Asset' },
-    { trait: 'Archive Status', value: 'Archive U-I — Imperial' },
-    { trait: 'Collector Status', value: 'Imperial Collector' },
-    { trait: 'Holder Privileges', value: 'Imperial Vault Access + Concierge' },
-  ],
-  heroImage: '/products/sf-kyoto-sacred-incense/kyoto-hero.png',
-  galleryImages: ['/products/sf-kyoto-sacred-incense/kyoto-hero.png', '/products/sf-kyoto-sacred-incense/kyoto-box.png'],
-}
-
+  const KYOTO_SACRED_INCENSE_CONFIG: SovereignConfig = {
+    heroTitle: 'KYOTO SACRED INCENSE',
+    heroSubtitle: 'The Sovereign Sanctuary',
+    heroTagline: 'Imperial Reserve Allocation — Archive U-I',
+    legacyStatement: 'The world runs on speed. The sovereign runs on stillness.',
+    legacyVoice:
+      'Kyoto Sacred Incense was never created to impress. It was created to center. Inside the House of Shamim Forever, Chapter II introduced a philosophy built upon Silence, Structure, and Emotional Depth. Kyoto Sacred Incense represents the purest unisex expression of that doctrine. A sanctuary of sacred woods, meditative resins, and disciplined calm crafted for individuals whose greatest strength comes from inner balance. It does not compete with noise. It transcends it. Its opening feels like the first breath inside an ancient Kyoto temple at sunrise. Its heart unfolds into a serene architecture of lotus petals and sacred woods. Its foundation settles into a meditative aura that remains attached to memory long after departure. Like still water reflecting an endless sky.',
+    topNotes: ['Japanese Morning Air Accord', 'Green Matcha Tea Absolute', 'White Citrus Mist'],
+    heartNotes: ['White Lotus Petals', 'Sacred Kyoto Hinoki Wood', 'Warm Cedarwood Essence'],
+    baseNotes: ['Rare Kodo Incense Resins', 'White Sandalwood', 'Temple Musk Accord', 'Soft Amber Woods'],
+    specs: [
+      { label: 'Concentration Class', value: 'Extrait de Parfum' },
+      { label: 'Volume Allocation', value: '100ML' },
+      { label: 'Longevity', value: '16–24+ Hours' },
+      { label: 'Projection', value: 'Sanctuary Aura Expansion' },
+      { label: 'Sillage', value: 'Sacred Incense Trail' },
+      { label: 'Batch Philosophy', value: 'Imperial Reserve Allocation' },
+      { label: 'Gender Profile', value: 'Ultra-Luxury Unisex' },
+      { label: 'Production Method', value: 'Ultra-Limited Artisan Craftsmanship' },
+      { label: 'Wearing Environment', value: 'Luxury Retreats · Art Galleries · Meditation Spaces · Executive Meetings' },
+      { label: 'Authentication', value: 'Polygon Verified' },
+      { label: 'NFT Pairing', value: 'Enabled' },
+      { label: 'Production Status', value: 'Ultra-Limited Sanctuary Batch' },
+    ],
+    nftTitle: 'Kyoto Sacred Incense — Sovereign Sanctuary Edition',
+    nftEdition: 'Sovereign Sanctuary Edition',
+    nftRarity: 'IMPERIAL RESERVE',
+    nftTraits: [
+      { trait: 'Category', value: 'Sovereign Unisex Fragrance Asset' },
+      { trait: 'Collection', value: 'House of Shamim Forever — Chapter II' },
+      { trait: 'Archive Status', value: 'Archive U-I — Imperial' },
+      { trait: 'Collector Status', value: 'Imperial Collector' },
+      { trait: 'Classification', value: 'Ultra-Luxury Unisex Extrait' },
+      { trait: 'Authentication', value: 'Polygon Verified' },
+      { trait: 'Physical Asset Pairing', value: 'Yes' },
+      { trait: 'Production Allocation', value: 'Ultra-Limited Sanctuary Batch' },
+      { trait: 'Concierge Access', value: 'Enabled' },
+      { trait: 'Archive Status', value: 'Active Sovereign Passport' },
+    ],
+    heroImage: '/products/sf-kyoto-sacred-incense/kyoto-hero.png',
+    galleryImages: [
+      '/products/sf-kyoto-sacred-incense/kyoto-hero.png',
+      '/products/sf-kyoto-sacred-incense/kyoto-box.png',
+    ],
+    holderPrivileges: [
+      'Imperial Collector Status — Official recognition within the House of Shamim Forever collector registry',
+      'Sovereign Vault Access — Lifetime access to the House of Shamim Forever private vault',
+      'Future Unisex Allocations — Priority rights on all upcoming unisex Archive drops',
+      'Private House Ceremonies — Exclusive invitations to private House ceremonies and founder gatherings',
+      'Collector Registry Recognition — Official listing within the House of Shamim Forever collector registry',
+      'Priority Authentication Services — Dedicated blockchain verification and provenance documentation',
+      'Concierge Preservation Program — White-glove restoration and refill at collector pricing',
+      'Lifetime Provenance Protection — Permanent blockchain record securing ownership and lineage',
+      'Legacy Registry Membership — Permanent entry in the House of Shamim Forever legacy archive',
+      'Early Access To Future Releases — First notification and allocation on every Archive drop',
+    ],
+  }
+  
 // ── ARCHIVE U-II — MIDNIGHT IRIS ROYALE ──────────────────────────────────
 const MIDNIGHT_IRIS_ROYALE_CONFIG: SovereignConfig = {
   heroTitle: 'MIDNIGHT IRIS ROYALE',
