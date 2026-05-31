@@ -586,7 +586,7 @@
 
         {/* ══ PRESENTATION VAULT ════════════════════════════════════════════ */}
         <section style={{ background:'#080604', padding:'clamp(80px,10vw,140px) clamp(24px,8vw,120px)' }}>
-          <div className="r-reveal" style={{ maxWidth:1000, margin:'0 auto', display:'grid', gridTemplateColumns:'1fr 1fr', gap:'clamp(40px,6vw,80px)', alignItems:'center' }} className="invest-grid">
+          <div className="r-reveal invest-grid" style={{ maxWidth:1000, margin:'0 auto', display:'grid', gridTemplateColumns:'1fr 1fr', gap:'clamp(40px,6vw,80px)', alignItems:'center' }}>
             <div>
               <p style={{ fontSize:7, letterSpacing:'0.8em', textTransform:'uppercase', color:'rgba(201,160,84,0.4)', marginBottom:16 }}>The Presentation Vault</p>
               <p style={{ fontFamily:SERIF, fontSize:'clamp(20px,3vw,36px)', fontWeight:300, color:'#f0ece4', marginBottom:24, lineHeight:1.2 }}>
