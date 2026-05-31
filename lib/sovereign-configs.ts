@@ -632,6 +632,179 @@
       ambassadorQuote: "The throne is not seized. It is earned — in silence, in shadow, in legacy.",
     }
   
+
+// ── ARCHIVE U-I — KYOTO SACRED INCENSE ──────────────────────────────────
+const KYOTO_SACRED_INCENSE_CONFIG: SovereignConfig = {
+  heroTitle: 'KYOTO SACRED INCENSE',
+  heroSubtitle: 'The Sovereign Sanctuary',
+  heroTagline: 'Imperial Reserve Allocation — Archive U-I',
+  legacyStatement: 'The world runs on speed. The sovereign runs on stillness.',
+  legacyVoice: 'Kyoto Sacred Incense was never created to impress. It was created to center. Inside the House of Shamim Forever, Chapter II introduced a philosophy built upon Silence, Structure, and Emotional Depth. A sanctuary of sacred woods, meditative resins, and disciplined calm crafted for individuals whose greatest strength comes from inner balance. It does not compete with noise. It transcends it.',
+  topNotes: ['Japanese Morning Air Accord', 'Green Matcha Tea Absolute', 'White Citrus Mist'],
+  heartNotes: ['White Lotus Petals', 'Sacred Kyoto Hinoki Wood', 'Warm Cedarwood Essence'],
+  baseNotes: ['Rare Kodo Incense Resins', 'White Sandalwood', 'Temple Musk Accord', 'Soft Amber Woods'],
+  specs: [
+    { label: 'Concentration Class', value: 'Extrait de Parfum' },
+    { label: 'Volume Allocation', value: '100ML' },
+    { label: 'Longevity', value: '16–24+ Hours' },
+    { label: 'Projection', value: 'Sanctuary Aura Expansion' },
+    { label: 'Sillage', value: 'Sacred Incense Trail' },
+    { label: 'Batch Philosophy', value: 'Imperial Reserve Allocation' },
+    { label: 'Gender Profile', value: 'Ultra-Luxury Unisex' },
+    { label: 'Production Method', value: 'Ultra-Limited Artisan Craftsmanship' },
+    { label: 'Authentication', value: 'Polygon Verified' },
+  ],
+  nftTitle: 'Kyoto Sacred Incense — Sovereign Sanctuary Edition',
+  nftEdition: 'Sovereign Sanctuary Edition',
+  nftRarity: 'IMPERIAL RESERVE',
+  nftTraits: [
+    { trait: 'Category', value: 'Sovereign Unisex Fragrance Asset' },
+    { trait: 'Archive Status', value: 'Archive U-I — Imperial' },
+    { trait: 'Collector Status', value: 'Imperial Collector' },
+    { trait: 'Holder Privileges', value: 'Imperial Vault Access + Concierge' },
+  ],
+  heroImage: '/products/sf-kyoto-sacred-incense/kyoto-hero.png',
+  galleryImages: ['/products/sf-kyoto-sacred-incense/kyoto-hero.png', '/products/sf-kyoto-sacred-incense/kyoto-box.png'],
+}
+
+// ── ARCHIVE U-II — MIDNIGHT IRIS ROYALE ──────────────────────────────────
+const MIDNIGHT_IRIS_ROYALE_CONFIG: SovereignConfig = {
+  heroTitle: 'MIDNIGHT IRIS ROYALE',
+  heroSubtitle: 'The Obsidian Crown',
+  heroTagline: 'Imperial Reserve Allocation — Archive U-II',
+  legacyStatement: 'In the deepest hour of night, true royalty reveals itself.',
+  legacyVoice: 'Midnight Iris Royale was born from the conviction that the most powerful luxury happens in silence. At the heart of this creation lies the rarest Florentine Iris Root — orris butter of extraordinary depth — united with the sacred darkness of aged oud and royal violet absolute. This is not a fragrance for those who seek approval. It is a fragrance for those who have already arrived.',
+  topNotes: ['Black Violet Absolute', 'Midnight Blue Iris', 'Dark Bergamot Crystal'],
+  heartNotes: ['Florentine Orris Royale', 'Velvet Oud Accord', 'Black Rose Resin'],
+  baseNotes: ['Aged Kodo Oud', 'Dark Ambergris', 'Obsidian Musk', 'Cedarwood Noir'],
+  specs: [
+    { label: 'Concentration Class', value: 'Extrait de Parfum' },
+    { label: 'Volume Allocation', value: '100ML' },
+    { label: 'Longevity', value: '20–36+ Hours' },
+    { label: 'Projection', value: 'Obsidian Royal Aura' },
+    { label: 'Sillage', value: 'Dark Sovereign Trail' },
+    { label: 'Batch Philosophy', value: 'Imperial Reserve Allocation' },
+    { label: 'Gender Profile', value: 'Ultra-Luxury Unisex' },
+    { label: 'Production Method', value: 'Ultra-Limited Artisan Craftsmanship' },
+    { label: 'Authentication', value: 'Polygon Verified' },
+  ],
+  nftTitle: 'Midnight Iris Royale — Obsidian Crown Edition',
+  nftEdition: 'Obsidian Crown Edition',
+  nftRarity: 'IMPERIAL RESERVE',
+  nftTraits: [
+    { trait: 'Category', value: 'Sovereign Unisex Fragrance Asset' },
+    { trait: 'Archive Status', value: 'Archive U-II — Obsidian' },
+    { trait: 'Collector Status', value: 'Imperial Collector' },
+    { trait: 'Holder Privileges', value: 'Obsidian Vault Access + Concierge' },
+  ],
+  heroImage: '/products/midnight-iris-royale/hero.png',
+  galleryImages: ['/products/midnight-iris-royale/hero.png'],
+}
+
+// ── ARCHIVE U-III — ETERNAL SOVEREIGN ────────────────────────────────────
+const ETERNAL_SOVEREIGN_CONFIG: SovereignConfig = {
+  heroTitle: 'ETERNAL SOVEREIGN',
+  heroSubtitle: 'The Timeless Authority',
+  heroTagline: 'Grand Archive Allocation — Archive U-III',
+  legacyStatement: 'Power fades. Sovereignty is eternal.',
+  legacyVoice: 'Eternal Sovereign is the definitive statement of the House of Shamim Forever unisex philosophy. Created for individuals who do not chase trends — they define them. An architecture built from the rarest raw materials: Taif Rose resin, wild Oud, and ancient White Ambergris. Eternal Sovereign is not a fragrance. It is a throne.',
+  topNotes: ['Saffron Gold Accord', 'White Rose Dew', 'Cardamom Silk'],
+  heartNotes: ['Taif Rose Absolute', 'Wild Cambodian Oud', 'Imperial Leather Accord'],
+  baseNotes: ['White Ambergris', 'Sandalwood Eternal', 'Sacred Resin Musk', 'Warm Amber Sovereign'],
+  specs: [
+    { label: 'Concentration Class', value: 'Extrait de Parfum' },
+    { label: 'Volume Allocation', value: '100ML' },
+    { label: 'Longevity', value: '24–48+ Hours' },
+    { label: 'Projection', value: 'Grand Sovereign Aura' },
+    { label: 'Sillage', value: 'Eternal Legacy Trail' },
+    { label: 'Batch Philosophy', value: 'Grand Archive Allocation' },
+    { label: 'Gender Profile', value: 'Ultra-Luxury Unisex' },
+    { label: 'Production Method', value: 'Masterclass Artisan Craftsmanship' },
+    { label: 'Authentication', value: 'Polygon Verified' },
+  ],
+  nftTitle: 'Eternal Sovereign — Timeless Authority Edition',
+  nftEdition: 'Timeless Authority Edition',
+  nftRarity: 'GRAND ARCHIVE',
+  nftTraits: [
+    { trait: 'Category', value: 'Grand Archive Fragrance Asset' },
+    { trait: 'Archive Status', value: 'Archive U-III — Grand' },
+    { trait: 'Collector Status', value: 'Grand Archive Collector' },
+    { trait: 'Holder Privileges', value: 'Grand Vault Access + Lifetime Concierge' },
+  ],
+  heroImage: '/products/eternal-sovereign/hero.png',
+  galleryImages: ['/products/eternal-sovereign/hero.png'],
+}
+
+// ── ARCHIVE U-IV — HOUSE VAULT NO.001 ────────────────────────────────────
+const HOUSE_VAULT_001_CONFIG: SovereignConfig = {
+  heroTitle: 'HOUSE VAULT NO.001',
+  heroSubtitle: 'The First Sovereign Allocation',
+  heroTagline: 'House Archive Allocation — Archive U-IV',
+  legacyStatement: 'The first vault. The original legacy. The beginning of the dynasty.',
+  legacyVoice: 'House Vault No.001 is the most significant release in the history of the House of Shamim Forever. The first authenticated sovereign fragrance vault ever sealed by the House, reserved for collectors who understood the vision before the world did. Constructed around three royal oud resins — Persian, Cambodian, and Indian — layered upon the rarest white ambergris and sealed with sacred frankincense. This is where the House begins. And where its legacy becomes immortal.',
+  topNotes: ['Sacred Frankincense Resin', 'Persian Oud Opening', 'Royal Saffron Elixir'],
+  heartNotes: ['Triple Oud Accord', 'Rose of Taif Absolute', 'Imperial Incense Heart'],
+  baseNotes: ['Grand White Ambergris', 'Sandalwood Dynasty', 'Sacred Musk Eternal', 'Bakhoor Foundation'],
+  specs: [
+    { label: 'Concentration Class', value: 'Extrait de Parfum' },
+    { label: 'Volume Allocation', value: '100ML' },
+    { label: 'Longevity', value: '24–72+ Hours' },
+    { label: 'Projection', value: 'House Archive Aura' },
+    { label: 'Sillage', value: 'Dynasty Legacy Trail' },
+    { label: 'Batch Philosophy', value: 'House Archive — First Vault' },
+    { label: 'Gender Profile', value: 'Ultra-Luxury Unisex' },
+    { label: 'Production Method', value: 'Supreme House Craftsmanship' },
+    { label: 'Authentication', value: 'Polygon Verified' },
+    { label: 'Vault Number', value: 'No.001 — Origin Edition' },
+  ],
+  nftTitle: 'House Vault No.001 — Origin Edition',
+  nftEdition: 'Origin Edition',
+  nftRarity: 'HOUSE ARCHIVE FOUNDER',
+  nftTraits: [
+    { trait: 'Category', value: 'House Archive Fragrance Asset' },
+    { trait: 'Archive Status', value: 'Archive U-IV — Origin Vault' },
+    { trait: 'Collector Status', value: 'House Founder' },
+    { trait: 'Vault Number', value: 'No.001 — First Allocation' },
+    { trait: 'Holder Privileges', value: 'Supreme House Access + Dynasty Concierge' },
+  ],
+  heroImage: '/products/house-vault-no-001/hero.png',
+  galleryImages: ['/products/house-vault-no-001/hero.png'],
+}
+
+// ── ARCHIVE U-V — SOVEREIGN GENESIS ──────────────────────────────────────
+const SOVEREIGN_GENESIS_CONFIG: SovereignConfig = {
+  heroTitle: 'SOVEREIGN GENESIS',
+  heroSubtitle: 'The Beginning of Everything',
+  heroTagline: 'Genesis Archive Allocation — Archive U-V',
+  legacyStatement: 'Every dynasty begins with a single act of creation.',
+  legacyVoice: 'Sovereign Genesis is the philosophical foundation upon which the entire House of Shamim Forever is built. A fragrance that carries the weight of intention — the moment before a legacy begins. Its architecture is deliberately pure: only the finest raw materials, without compromise, without decoration. The opening breath of Genesis feels like clarity itself. Its foundation is permanent — a fragrance that does not evolve with trends. It establishes them.',
+  topNotes: ['Pure White Neroli', 'Clear Crystal Bergamot', 'Morning Dew Accord'],
+  heartNotes: ['White Floral Absolute', 'Pure Cashmere Iris', 'Clean Ambergris Heart'],
+  baseNotes: ['Genesis White Musk', 'Pure Sandalwood', 'White Amber Foundation', 'Silk Wood Accord'],
+  specs: [
+    { label: 'Concentration Class', value: 'Extrait de Parfum' },
+    { label: 'Volume Allocation', value: '100ML' },
+    { label: 'Longevity', value: '18–30+ Hours' },
+    { label: 'Projection', value: 'Genesis Sovereign Aura' },
+    { label: 'Sillage', value: 'Pure Legacy Trail' },
+    { label: 'Batch Philosophy', value: 'Genesis Archive Allocation' },
+    { label: 'Gender Profile', value: 'Ultra-Luxury Unisex' },
+    { label: 'Production Method', value: 'Genesis Artisan Craftsmanship' },
+    { label: 'Authentication', value: 'Polygon Verified' },
+  ],
+  nftTitle: 'Sovereign Genesis — Genesis Archive Edition',
+  nftEdition: 'Genesis Archive Edition',
+  nftRarity: 'GENESIS ARCHIVE',
+  nftTraits: [
+    { trait: 'Category', value: 'Genesis Archive Fragrance Asset' },
+    { trait: 'Archive Status', value: 'Archive U-V — Genesis' },
+    { trait: 'Collector Status', value: 'Genesis Collector' },
+    { trait: 'Holder Privileges', value: 'Genesis Vault Access + Legacy Concierge' },
+  ],
+  heroImage: '/products/sovereign-genesis/hero.png',
+  galleryImages: ['/products/sovereign-genesis/hero.png'],
+}
+
 export const SOVEREIGN_CONFIGS: Record<string, SovereignConfig> = {
 
     // ── ARCHIVE I ──────────────────────────────────────────────────────────────
@@ -664,37 +837,11 @@ export const SOVEREIGN_CONFIGS: Record<string, SovereignConfig> = {
 
     'sovereign-oud-absolute': SOVEREIGN_OUD_ABSOLUTE_CONFIG,
     'imperial-black-throne': IMPERIAL_BLACK_THRONE_CONFIG,
-  }
 
-    // ── ARCHIVE U-I (UNISEX) ───────────────────────────────────────────────────
-    'sf-kyoto-sacred-incense': {
-      heroTitle: "KYOTO SACRED INCENSE", heroSubtitle: "The Sovereign Sanctuary",
-      heroTagline: "Imperial Reserve Allocation — Archive U-I",
-      legacyStatement: "The world runs on speed. The sovereign runs on stillness.",
-      legacyVoice: "Kyoto Sacred Incense was never created to impress. It was created to center. Inside the House of Shamim Forever, Chapter II introduced a philosophy built upon Silence, Structure, and Emotional Depth. A sanctuary of sacred woods, meditative resins, and disciplined calm crafted for individuals whose greatest strength comes from inner balance. It does not compete with noise. It transcends it.",
-      topNotes: ['Japanese Morning Air Accord', 'Green Matcha Tea Absolute', 'White Citrus Mist'],
-      heartNotes: ['White Lotus Petals', 'Sacred Kyoto Hinoki Wood', 'Warm Cedarwood Essence'],
-      baseNotes: ['Rare Kodo Incense Resins', 'White Sandalwood', 'Temple Musk Accord', 'Soft Amber Woods'],
-      specs: [
-        { label: 'Concentration Class', value: 'Extrait de Parfum' },
-        { label: 'Volume Allocation', value: '100ML' },
-        { label: 'Longevity', value: '16–24+ Hours' },
-        { label: 'Projection', value: 'Sanctuary Aura Expansion' },
-        { label: 'Sillage', value: 'Sacred Incense Trail' },
-        { label: 'Batch Philosophy', value: 'Imperial Reserve Allocation' },
-        { label: 'Gender Profile', value: 'Ultra-Luxury Unisex' },
-        { label: 'Production Method', value: 'Ultra-Limited Artisan Craftsmanship' },
-        { label: 'Authentication', value: 'Polygon Verified' },
-      ],
-      nftTitle: "Kyoto Sacred Incense", nftEdition: "Sovereign Sanctuary Edition", nftRarity: "IMPERIAL RESERVE",
-      nftTraits: [
-        { trait: 'Category', value: 'Sovereign Unisex Fragrance Asset' },
-        { trait: 'Archive Status', value: 'Archive U-I — Imperial' },
-        { trait: 'Collector Status', value: 'Imperial Collector' },
-        { trait: 'Holder Privileges', value: 'Imperial Vault Access + Concierge' },
-        { trait: 'Gender Profile', value: 'Ultra-Luxury Unisex' },
-      ],
-      heroImage: '/products/sf-kyoto-sacred-incense/kyoto-hero.png',
-      galleryImages: ['/products/sf-kyoto-sacred-incense/kyoto-hero.png', '/products/sf-kyoto-sacred-incense/kyoto-box.png'],
-    },
-   
+    // ── ARCHIVE U — UNISEX ───────────────────────────────────────────────────
+    'sf-kyoto-sacred-incense': KYOTO_SACRED_INCENSE_CONFIG,
+    'midnight-iris-royale': MIDNIGHT_IRIS_ROYALE_CONFIG,
+    'eternal-sovereign': ETERNAL_SOVEREIGN_CONFIG,
+    'house-vault-no-001': HOUSE_VAULT_001_CONFIG,
+    'sovereign-genesis': SOVEREIGN_GENESIS_CONFIG,
+  }
