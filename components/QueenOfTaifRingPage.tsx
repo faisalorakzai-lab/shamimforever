@@ -755,8 +755,7 @@
                 style={{ background:'rgba(8,6,4,0.8)', border:'1px solid rgba(201,160,84,0.08)', padding:'clamp(28px,4vw,48px)' }}>
                 {payMethod === 'crypto' && (
                   <Web3PaySection
-                    amountUsd={priceUsd * quantity}
-                    merchantWallet={MERCHANT_WALLET}
+                    priceUsd={priceUsd * quantity}
                     onSuccess={handleWeb3Success}
                   />
                 )}
