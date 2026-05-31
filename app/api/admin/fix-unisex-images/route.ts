@@ -54,6 +54,7 @@ import { NextRequest, NextResponse } from 'next/server'
     await updateBySlug(['midnight-iris-royale'], ['/products/midnight-iris-royale/mir-hero.png', '/products/midnight-iris-royale/mir-box.png'], 'Midnight Iris Royale')
     await updateBySlug(['kyoto-sacred-incense', 'sf-kyoto-sacred-incense'], ['/products/sf-kyoto-sacred-incense/kyoto-hero.png', '/products/sf-kyoto-sacred-incense/kyoto-box.png'], 'Kyoto Sacred Incense')
     await updateBySlug(['eternal-sovereign'], ['/products/eternal-sovereign/hero.png', '/products/eternal-sovereign/vault.png'], 'Eternal Sovereign')
+    await updateBySlug(['house-vault-no-001', 'house-vault-no.001'], ['/products/house-vault-no-001/hero.png', '/products/house-vault-no-001/vault.png'], 'House Vault No.001')
 
     return NextResponse.json({ results, updated_at: new Date().toISOString() })
   }
