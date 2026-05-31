@@ -25,6 +25,8 @@
     heroImage: string
     galleryImages: string[]
     holderPrivileges?: string[]
+    ambassadorImage?: string
+    ambassadorQuote?: string
   }
 
   // ── ARCHIVE I — SHAMIM BLOOM ────────────────────────────────────────────────
@@ -362,6 +364,8 @@
         'White-Glove Packaging Service — Hand-wrapped in sovereign black tissue with seal on all future orders',
         'Direct WhatsApp Sovereign Concierge — Priority contact with the House of Shamim Forever team',
       ],
+      ambassadorImage: '/ambassadors/srk-for-him-collection.png',
+      ambassadorQuote: "A ghost does not seek recognition. The world simply cannot forget him.",
     }
   
 
@@ -428,6 +432,8 @@
         'Legacy Registry Membership — Permanent entry in the House of Shamim Forever legacy archive',
         'Early Access To Future Founder Releases — First notification and allocation on every Archive drop',
       ],
+      ambassadorImage: '/ambassadors/salman-founders-archive.png',
+      ambassadorQuote: "Some men wear a fragrance. Others wear a legacy.",
     }
   
 
