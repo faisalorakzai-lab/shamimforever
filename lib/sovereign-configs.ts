@@ -665,4 +665,36 @@ export const SOVEREIGN_CONFIGS: Record<string, SovereignConfig> = {
     'sovereign-oud-absolute': SOVEREIGN_OUD_ABSOLUTE_CONFIG,
     'imperial-black-throne': IMPERIAL_BLACK_THRONE_CONFIG,
   }
- 
+
+    // ── ARCHIVE U-I (UNISEX) ───────────────────────────────────────────────────
+    'sf-kyoto-sacred-incense': {
+      heroTitle: "KYOTO SACRED INCENSE", heroSubtitle: "The Sovereign Sanctuary",
+      heroTagline: "Imperial Reserve Allocation — Archive U-I",
+      legacyStatement: "The world runs on speed. The sovereign runs on stillness.",
+      legacyVoice: "Kyoto Sacred Incense was never created to impress. It was created to center. Inside the House of Shamim Forever, Chapter II introduced a philosophy built upon Silence, Structure, and Emotional Depth. A sanctuary of sacred woods, meditative resins, and disciplined calm crafted for individuals whose greatest strength comes from inner balance. It does not compete with noise. It transcends it.",
+      topNotes: ['Japanese Morning Air Accord', 'Green Matcha Tea Absolute', 'White Citrus Mist'],
+      heartNotes: ['White Lotus Petals', 'Sacred Kyoto Hinoki Wood', 'Warm Cedarwood Essence'],
+      baseNotes: ['Rare Kodo Incense Resins', 'White Sandalwood', 'Temple Musk Accord', 'Soft Amber Woods'],
+      specs: [
+        { label: 'Concentration Class', value: 'Extrait de Parfum' },
+        { label: 'Volume Allocation', value: '100ML' },
+        { label: 'Longevity', value: '16–24+ Hours' },
+        { label: 'Projection', value: 'Sanctuary Aura Expansion' },
+        { label: 'Sillage', value: 'Sacred Incense Trail' },
+        { label: 'Batch Philosophy', value: 'Imperial Reserve Allocation' },
+        { label: 'Gender Profile', value: 'Ultra-Luxury Unisex' },
+        { label: 'Production Method', value: 'Ultra-Limited Artisan Craftsmanship' },
+        { label: 'Authentication', value: 'Polygon Verified' },
+      ],
+      nftTitle: "Kyoto Sacred Incense", nftEdition: "Sovereign Sanctuary Edition", nftRarity: "IMPERIAL RESERVE",
+      nftTraits: [
+        { trait: 'Category', value: 'Sovereign Unisex Fragrance Asset' },
+        { trait: 'Archive Status', value: 'Archive U-I — Imperial' },
+        { trait: 'Collector Status', value: 'Imperial Collector' },
+        { trait: 'Holder Privileges', value: 'Imperial Vault Access + Concierge' },
+        { trait: 'Gender Profile', value: 'Ultra-Luxury Unisex' },
+      ],
+      heroImage: '/products/sf-kyoto-sacred-incense/kyoto-hero.png',
+      galleryImages: ['/products/sf-kyoto-sacred-incense/kyoto-hero.png', '/products/sf-kyoto-sacred-incense/kyoto-box.png'],
+    },
+   
