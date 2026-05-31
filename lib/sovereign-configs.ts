@@ -951,6 +951,74 @@
   }
 
   
+
+  // ── JEWELRY — QUEEN OF TAIF CROWN RING ───────────────────────────────────────
+  const QUEEN_OF_TAIF_CROWN_RING_CONFIG: SovereignConfig = {
+    heroTitle: 'QUEEN OF TAIF CROWN RING',
+    heroSubtitle: 'The Royal Tiara Masterpiece',
+    heroTagline: 'Imperial Investment Jewelry Asset — Archive III | The Sovereign Hand',
+    legacyStatement: 'A crown is not worn. A crown is recognized.',
+    legacyVoice:
+      "Queen of Taif Crown Ring was never designed for fashion cycles.\n\nIt was designed for legacy. Capital preservation. Generational transfer.\n\nInside the House of Shamim Forever, this ring introduces a new asset class — a physical wealth object layered across five sovereign dimensions:\n\nPhysical Gold (Intrinsic Value Layer)\nNatural Diamonds (Scarcity Layer)\nCraftsmanship Heritage (Cultural Value Layer)\nBlockchain NFT Identity (Digital Ownership Layer)\nLimited Sovereign Allocation (Market Scarcity Layer)\n\nThis is not feminine ornamentation. It is personal monarchy in physical form. Identity sealed in gold. A legacy transfer artifact engineered to outlive its wearer.\n\nYeh ring sirf zevar nahi — yeh ek haath mein pehna hua takht hai.\n\nEvery element communicates a different layer of authority: The vertical crown pillars represent authority structure. The elevated center diamond is the sovereign identity point. The pavé diamond field is a distributed brilliance economy. The gold body is a permanent value substrate.\n\nThis ring does not compete with jewelry brands. It competes with heritage asset vaults and investment collectibles — growing through gold price appreciation, diamond scarcity premium, brand mythos expansion, and secondary market rarity inflation.\n\nYeh ring kisi function ke liye nahi bani. Pehchan banne ke liye bani hai.",
+    topNotes: ['Solid 18K Yellow Gold (Au750 Hallmarked)', 'Institutional-Grade Purity Standard', 'Long-Term Asset Retention Metal'],
+    heartNotes: ['0.50 Carat Natural Diamond Center Stone', 'Round Brilliant Cut | VVS Clarity | F–G Color', 'Optical Authority Focus Point'],
+    baseNotes: ['0.80 Carat Natural Micro Pavé Diamonds', 'Hand-Set Crown Pillar Architecture', 'Micro Tiara Precision Engineering'],
+    specs: [
+      { label: 'Product Classification', value: 'Imperial Investment Jewelry Asset' },
+      { label: 'Foundation Metal', value: '18K Yellow Gold (Au750 Hallmarked)' },
+      { label: 'Center Stone', value: '0.50ct Natural Diamond — Round Brilliant VVS | F–G Color' },
+      { label: 'Accent Stones', value: '0.80ct Natural Micro Pavé Diamonds — Hand-Set' },
+      { label: 'Design Architecture', value: 'Micro-Tiara Crown — Vertical Pillars + Pavé Field' },
+      { label: 'Blockchain Identity', value: 'Polygon NFT Linked — Sovereign Ownership Passport' },
+      { label: 'Serial Registry', value: 'Dynamic — Non-Replicable Asset Identity' },
+      { label: 'Production Status', value: 'Ultra-Limited Sovereign Allocation' },
+      { label: 'Market Position', value: 'High-Net Worth Collector Tier' },
+      { label: 'Origin', value: 'Sovereign Atelier — Karachi' },
+      { label: 'Authentication', value: 'Polygon Verified + NFC Seal' },
+      { label: 'Investment Layers', value: 'Gold + Diamond + Heritage + Blockchain + Scarcity' },
+      { label: 'Gender Profile', value: 'Sovereign Feminine Collection' },
+      { label: 'Value Growth Logic', value: 'Gold Appreciation · Diamond Scarcity · Brand Equity · Collector Demand' },
+    ],
+    nftTitle: 'Queen of Taif Crown Ring — Royal Tiara Masterpiece Edition',
+    nftEdition: 'Royal Tiara Masterpiece Edition — Sovereign Hand Passport',
+    nftRarity: 'IMPERIAL INVESTMENT ARCHIVE',
+    nftTraits: [
+      { trait: 'Category', value: 'Imperial Investment Jewelry Asset' },
+      { trait: 'Collection', value: 'The Archive Objects — For Her' },
+      { trait: 'Archive Status', value: 'Archive III — The Sovereign Hand' },
+      { trait: 'Metal', value: '18K Gold Au750 Hallmarked' },
+      { trait: 'Center Stone', value: '0.50ct Natural Diamond VVS F–G' },
+      { trait: 'Accent Stones', value: '0.80ct Natural Pavé Diamonds — Hand-Set' },
+      { trait: 'Authentication', value: 'Polygon Verified + NFC' },
+      { trait: 'Ownership Status', value: 'Active Sovereign Jewelry Passport' },
+      { trait: 'Physical Asset Pairing', value: 'Yes — Ring + Certificate + Digital Twin' },
+      { trait: 'Production Allocation', value: 'Ultra-Limited Sovereign Batch' },
+      { trait: 'Craftsmanship Origin', value: 'Karachi Sovereign Atelier' },
+      { trait: 'Collector Status', value: 'Founder Collector Tier' },
+      { trait: 'Blockchain Network', value: 'Polygon Mainnet' },
+      { trait: 'Investment Layers', value: '5 — Gold + Diamond + Heritage + NFT + Scarcity' },
+      { trait: 'Secondary Market', value: 'Private Collector Ecosystem Only' },
+    ],
+    heroImage: '/products/queen-of-taif-crown-ring/hero.png',
+    galleryImages: [
+      '/products/queen-of-taif-crown-ring/hero.png',
+      '/products/queen-of-taif-crown-ring/box.png',
+    ],
+    holderPrivileges: [
+      'Private Vault Registry Access — Named entry in the House sovereign jewelry archive',
+      'Future Archive Object Priority Allocation — First access to all upcoming jewelry and collector objects',
+      'Lifetime Authenticity Verification — Permanent NFC + blockchain verification service',
+      'Founder Collector Tier Status — Recognized as a founding jewelry collector of the House',
+      'Private Ceremonial Invitations — Exclusive access to House jewelry unveiling events',
+      'Asset Inheritance Certification — Legal and blockchain documentation for generational transfer',
+      'Concierge Preservation Program — Expert jewelry care, cleaning, and preservation service',
+      'Digital Twin Ownership — Polygon-linked NFT passport transferable with the physical ring',
+      'Priority Resale Recognition — First right of refusal in the private collector secondary market',
+      'Collector Registry Recognition — Permanently listed in the Imperial Archive Jewelry Registry',
+    ],
+  }
+
+  
 export const SOVEREIGN_CONFIGS: Record<string, SovereignConfig> = {
 
     // ── ARCHIVE I ──────────────────────────────────────────────────────────────
@@ -993,4 +1061,6 @@ export const SOVEREIGN_CONFIGS: Record<string, SovereignConfig> = {
     'eternal-sovereign': ETERNAL_SOVEREIGN_CONFIG,
     'house-vault-no-001': HOUSE_VAULT_001_CONFIG,
     'sovereign-genesis': SOVEREIGN_GENESIS_CONFIG,
+    'queen-of-taif-crown-ring': QUEEN_OF_TAIF_CROWN_RING_CONFIG,
+    'queen-of-taif-ring': QUEEN_OF_TAIF_CROWN_RING_CONFIG,
   }
