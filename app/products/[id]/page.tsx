@@ -7,6 +7,7 @@
   import SovereignProductPage from '@/components/SovereignProductPage'
   import { SOVEREIGN_CONFIGS } from '@/lib/sovereign-configs'
   import LuxuryGenericProductPage from '@/components/LuxuryGenericProductPage'
+  import QueenOfTaifRingPage from '@/components/QueenOfTaifRingPage'
 
   // Automatically includes all slugs defined in lib/sovereign-configs.ts
   const SOVEREIGN_SLUGS = Object.keys(SOVEREIGN_CONFIGS)
@@ -66,6 +67,11 @@
           </Link>
         </div>
       )
+    }
+
+    const RING_SLUGS = ['queen-of-taif-crown-ring', 'queen-of-taif-ring']
+    if (RING_SLUGS.includes(product.slug)) {
+      return <QueenOfTaifRingPage product={product} />
     }
 
     if (SOVEREIGN_SLUGS.includes(product.slug)) {
