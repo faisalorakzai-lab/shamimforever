@@ -715,7 +715,15 @@ export default function SovereignProductPage({ product }: { product: Product }) 
           </div>
           <div className="s-reveal" style={{ display: 'flex', justifyContent: 'center', gap: 4, flexWrap: 'wrap' }}>
             {(
-              ['shamim-s-ghost-the-eternal-legacy','founder-s-eternal-archive','sapphire-blue-levant','sovereign-oud-absolute','imperial-black-throne'].includes(product.slug)
+              ['kyoto-sacred-incense','sf-kyoto-sacred-incense','kyoto-incense','sf-kyoto-incense','midnight-iris-royale','eternal-sovereign','house-vault-no-001','sovereign-genesis'].includes(product.slug)
+                  ? [
+                      { slug: 'kyoto-sacred-incense', name: 'Kyoto Sacred Incense', sub: 'The Sovereign Sanctuary' },
+                      { slug: 'midnight-iris-royale', name: 'Midnight Iris Royale', sub: 'The Obsidian Crown' },
+                      { slug: 'eternal-sovereign', name: 'Eternal Sovereign', sub: 'The Sovereign Throne' },
+                      { slug: 'house-vault-no-001', name: 'House Vault No.001', sub: "The Collector's Archive" },
+                      { slug: 'sovereign-genesis', name: 'Sovereign Genesis', sub: 'The Origin' },
+                    ]
+                  : ['shamim-s-ghost-the-eternal-legacy','founder-s-eternal-archive','sapphire-blue-levant','sovereign-oud-absolute','imperial-black-throne'].includes(product.slug)
                 ? [
                     { slug: 'shamim-s-ghost-the-eternal-legacy', name: "Shamim's Ghost", sub: 'The Eternal Legacy' },
                     { slug: 'founder-s-eternal-archive', name: "Founder's Eternal Archive", sub: 'The Sovereign Vault' },
