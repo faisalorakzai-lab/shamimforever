@@ -498,6 +498,8 @@
         'Lifetime Provenance Protection — Permanent blockchain record securing ownership and lineage',
         'Early Access To Future Releases — First notification and allocation on every Archive drop',
       ],
+      ambassadorImage: '/ambassadors/srk-for-him-collection.png',
+      ambassadorQuote: "A king is not born. He is crafted — note by note, by legacy, by silence.",
     }
   
     // ── ARCHIVE IV — SOVEREIGN OUD ABSOLUTE ──────────────────────────────────
@@ -626,6 +628,8 @@
         'Legacy Registry Membership — Permanent entry in the House of Shamim Forever legacy archive',
         'Early Access To Future Releases — First notification and allocation on every Archive drop',
       ],
+      ambassadorImage: '/ambassadors/srk-for-him-collection.png',
+      ambassadorQuote: "The throne is not seized. It is earned — in silence, in shadow, in legacy.",
     }
   
 export const SOVEREIGN_CONFIGS: Record<string, SovereignConfig> = {
