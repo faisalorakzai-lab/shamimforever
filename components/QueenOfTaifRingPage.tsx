@@ -170,7 +170,7 @@
       <div ref={ref} style={{ display:'flex', flexDirection:'column', alignItems:'center', gap:8 }}>
         <svg width={100} height={100} style={{ transform:'rotate(-90deg)' }}>
           <circle cx={50} cy={50} r={R} fill="none" stroke="rgba(201,160,84,0.1)" strokeWidth={2.5}/>
-          <circle cx={50} cy={50} r={R} fill="none" stroke=`url(#gg-${label})` strokeWidth={2.5}
+          <circle cx={50} cy={50} r={R} fill="none" stroke={`url(#gg-${label})`} strokeWidth={2.5}
             strokeDasharray={circ} strokeDashoffset={go ? circ * (1 - pct) : circ} strokeLinecap="round"
             style={{ transition: go ? '1.8s cubic-bezier(.22,1,.36,1)' : 'none' }}/>
           <defs>
