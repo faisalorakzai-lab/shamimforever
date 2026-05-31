@@ -494,6 +494,70 @@
       ],
     }
   
+    // ── ARCHIVE IV — SOVEREIGN OUD ABSOLUTE ──────────────────────────────────
+    const SOVEREIGN_OUD_ABSOLUTE_CONFIG: SovereignConfig = {
+      heroTitle: 'SOVEREIGN OUD ABSOLUTE',
+      heroSubtitle: 'The Imperial Resins',
+      heroTagline: 'Imperial Reserve Allocation — Archive IV',
+      legacyStatement: 'Kings rule over empires. An Absolute rules the legacy itself.',
+      legacyVoice:
+        "Sovereign Oud Absolute was never created for modern trends. It was created for permanence. Inside the House of Shamim Forever, Chapter III introduced a defining principle: Discipline Before Detail. Because true mastery is never rushed. It is earned through patience. Refined through time. And preserved through generations. Most men seek recognition. A select few seek mastery. The rarest seek permanence. Duniya mein asal authority woh hoti hai jo kisi se tasdeeq talab nahi karti. Uska wajood khud saboot hota hai. Sovereign Oud Absolute House of Shamim Forever ka ek aisa masterpiece hai jo un elite mardon ke liye tarasha gaya hai jo heavy, royal aur deeply masculine character ko apni pehchan samajhte hain. Rs. 120,000 ka ye allocation sirf luxury pricing nahi — ye exclusivity ka darja hai. Ye un logon ke liye hai jo waqt ke saath badalte nahi. Balki waqt unke gird apni soorat badalta hai.",
+      topNotes: ['Crimson Saffron Threads', 'Dark Spice Accord', 'Ancient Cedar Smoke'],
+      heartNotes: ['Pure Wild Assam Oud', 'Aged Indian Agarwood Resins', 'Smoked Omani Frankincense'],
+      baseNotes: ['Rare Myrrh Resin', 'Black Amber Woods', 'Dark Incense Residue', 'Imperial Leather Accord'],
+      specs: [
+        { label: 'Masculine Identity', value: 'Regal Masculine Extrait' },
+        { label: 'Concentration', value: 'Extrait de Parfum Extreme' },
+        { label: 'Volume Allocation', value: '100ML' },
+        { label: 'Longevity', value: '24–48+ Hours' },
+        { label: 'Projection', value: 'Imperial Authority Field' },
+        { label: 'Sillage', value: 'Royal Resin Trail' },
+        { label: 'Batch Philosophy', value: 'Imperial Reserve Allocation' },
+        { label: 'Gender Profile', value: 'Regal Masculine Luxury' },
+        { label: 'Production Method', value: 'Ultra-Limited Heritage Craftsmanship' },
+        { label: 'Wearing Environment', value: 'Private Boardrooms · State Dinners · Founder Gatherings · Legacy Ceremonies' },
+        { label: 'Authentication', value: 'Polygon Verified' },
+        { label: 'NFT Pairing', value: 'Enabled' },
+        { label: 'Production Status', value: 'Ultra-Limited Heritage Batch' },
+        { label: 'Valuation', value: 'Rs 120,000 PKR' },
+      ],
+      nftTitle: 'Sovereign Oud Absolute — Imperial Resins Edition',
+      nftEdition: 'Imperial Reserve Allocation — Archive IV',
+      nftRarity: 'IMPERIAL RESERVE',
+      nftTraits: [
+        { trait: 'Category', value: 'Sovereign Fragrance Asset' },
+        { trait: 'Collection', value: 'Sovereign Oud Absolute' },
+        { trait: 'Rarity Tier', value: 'IMPERIAL RESERVE' },
+        { trait: 'Authentication', value: 'Polygon Verified' },
+        { trait: 'Ownership Status', value: 'Active Sovereign Passport' },
+        { trait: 'Physical Asset Pairing', value: 'Yes' },
+        { trait: 'Production Allocation', value: 'Ultra Limited' },
+        { trait: 'Craftsmanship Origin', value: 'Karachi Sovereign Atelier' },
+        { trait: 'Collector Status', value: 'Imperial Collector' },
+        { trait: 'Concierge Access', value: 'Enabled' },
+        { trait: 'Archive Status', value: 'Active' },
+        { trait: 'Blockchain', value: 'Polygon Mainnet' },
+        { trait: 'Archive Tier', value: 'Archive IV — Imperial Heritage' },
+      ],
+      heroImage: '/products/sovereign-oud-absolute/oud-bottle.png',
+      galleryImages: [
+        '/products/sovereign-oud-absolute/oud-bottle.png',
+        '/products/sovereign-oud-absolute/oud-box.png',
+      ],
+      holderPrivileges: [
+        'Imperial Collector Status — Highest recognised tier within the House of Shamim Forever archive',
+        'Sovereign Vault Access — Lifetime access to the House of Shamim Forever private collector vault',
+        'Future Heritage Allocations — Priority rights on all upcoming imperial heritage releases',
+        'Private House Ceremonies — Exclusive invitations to private House ceremonies and founder gatherings',
+        'Collector Registry Recognition — Official listing within the House of Shamim Forever collector registry',
+        'Priority Authentication Services — Dedicated blockchain verification and provenance documentation',
+        'Concierge Preservation Program — White-glove restoration and refill at collector pricing',
+        'Lifetime Provenance Protection — Permanent blockchain record securing ownership and lineage',
+        'Legacy Registry Membership — Permanent entry in the House of Shamim Forever legacy archive',
+        'Early Access To Future Imperial Releases — First notification and allocation on every Archive drop',
+      ],
+    }
+  
 export const SOVEREIGN_CONFIGS: Record<string, SovereignConfig> = {
 
     // ── ARCHIVE I ──────────────────────────────────────────────────────────────
