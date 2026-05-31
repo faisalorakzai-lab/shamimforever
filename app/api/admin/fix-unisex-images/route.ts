@@ -19,30 +19,8 @@ import { NextRequest, NextResponse } from 'next/server'
 
     const supabase = db()
 
-    // Find and update Midnight Iris Royale by slug
-    const mirSlugs = ['midnight-iris-royale', 'midnight iris royale']
-    const mirImages = [
-      '/products/midnight-iris-royale/mir-hero.png',
-      '/products/midnight-iris-royale/mir-box.png',
-    ]
-
-    // Find and update Kyoto Sacred Incense by slug
-    const kyotoSlugs = ['sf-kyoto-sacred-incense', 'kyoto-sacred-incense', 'kyoto sacred incense']
-    const kyotoImages = [
-      '/products/sf-kyoto-sacred-incense/kyoto-hero.png',
-      '/products/sf-kyoto-sacred-incense/kyoto-box.png',
-    ]
-
-    // Find and update Eternal Sovereign by slug
-    const eternalSlugs = ['eternal-sovereign', 'eternal sovereign']
-    const eternalImages = [
-      '/products/eternal-sovereign/hero.png',
-      '/products/eternal-sovereign/vault.png',
-    ]
-
     const results: { name: string; slug: string; status: string; error?: string }[] = []
 
-    // Helper: update product images by matching any of the slugs
     async function updateBySlug(slugs: string[], images: string[], name: string) {
       const { data: found, error: findErr } = await supabase
         .from('products')
@@ -53,7 +31,6 @@ import { NextRequest, NextResponse } from 'next/server'
         results.push({ name, slug: slugs[0], status: 'find_error', error: findErr.message })
         return
       }
-
       if (!found || found.length === 0) {
         results.push({ name, slug: slugs[0], status: 'not_found' })
         return
@@ -62,10 +39,7 @@ import { NextRequest, NextResponse } from 'next/server'
       for (const product of found) {
         const { error: updateErr } = await supabase
           .from('products')
-          .update({
-            images,
-            image_url: images[0],
-          })
+          .update({ images })
           .eq('id', product.id)
 
         results.push({
@@ -77,9 +51,9 @@ import { NextRequest, NextResponse } from 'next/server'
       }
     }
 
-    await updateBySlug(mirSlugs, mirImages, 'Midnight Iris Royale')
-    await updateBySlug(kyotoSlugs, kyotoImages, 'Kyoto Sacred Incense')
-    await updateBySlug(eternalSlugs, eternalImages, 'Eternal Sovereign')
+    await updateBySlug(['midnight-iris-royale'], ['/products/midnight-iris-royale/mir-hero.png', '/products/midnight-iris-royale/mir-box.png'], 'Midnight Iris Royale')
+    await updateBySlug(['kyoto-sacred-incense', 'sf-kyoto-sacred-incense'], ['/products/sf-kyoto-sacred-incense/kyoto-hero.png', '/products/sf-kyoto-sacred-incense/kyoto-box.png'], 'Kyoto Sacred Incense')
+    await updateBySlug(['eternal-sovereign'], ['/products/eternal-sovereign/hero.png', '/products/eternal-sovereign/vault.png'], 'Eternal Sovereign')
 
     return NextResponse.json({ results, updated_at: new Date().toISOString() })
   }
