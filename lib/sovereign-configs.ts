@@ -864,7 +864,10 @@ export const SOVEREIGN_CONFIGS: Record<string, SovereignConfig> = {
     'imperial-black-throne': IMPERIAL_BLACK_THRONE_CONFIG,
 
     // ── ARCHIVE U — UNISEX ───────────────────────────────────────────────────
-    'sf-kyoto-sacred-incense': KYOTO_SACRED_INCENSE_CONFIG,
+    'kyoto-sacred-incense': KYOTO_SACRED_INCENSE_CONFIG,
+      'sf-kyoto-sacred-incense': KYOTO_SACRED_INCENSE_CONFIG,
+      'kyoto-incense': KYOTO_SACRED_INCENSE_CONFIG,
+      'sf-kyoto-incense': KYOTO_SACRED_INCENSE_CONFIG,
     'midnight-iris-royale': MIDNIGHT_IRIS_ROYALE_CONFIG,
     'eternal-sovereign': ETERNAL_SOVEREIGN_CONFIG,
     'house-vault-no-001': HOUSE_VAULT_001_CONFIG,
