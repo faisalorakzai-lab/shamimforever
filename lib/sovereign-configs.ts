@@ -558,6 +558,70 @@
       ],
     }
   
+    // ── ARCHIVE V — IMPERIAL BLACK THRONE ────────────────────────────────────
+    const IMPERIAL_BLACK_THRONE_CONFIG: SovereignConfig = {
+      heroTitle: 'IMPERIAL BLACK THRONE',
+      heroSubtitle: 'The Sovereign Seclusion',
+      heroTagline: 'Imperial Reserve Allocation — Archive V',
+      legacyStatement: 'Monarchs sit on thrones. An Emperor builds his own temple.',
+      legacyVoice:
+        "Imperial Black Throne was never created to attract attention. It was created to establish boundaries. Inside the House of Shamim Forever, Chapter II introduced a philosophy built upon Silence, Structure, and Emotional Depth. Imperial Black Throne is the darkest expression of that doctrine — a fortress of leather, smoke, and discipline forged for men whose authority requires neither approval nor announcement. The strongest walls are the ones that never need defending. The greatest leaders are the ones who never need to prove they are leaders. Duniya mein asal authority woh hoti hai jo kisi ke samne jhukti nahi. Aur jiski boundaries ko koi bheed paar nahi kar sakti. Rs. 85,000 ka ye allocation sirf luxury pricing nahi — ye exclusivity ki deewar hai. Ye un logon ke liye hai jo apni qeemat duniya se tasdeeq nahi karwate. Balki apne usoolon se karwate hain. Unki khamoshi hi unki taqat hoti hai.",
+      topNotes: ['Black Pepper Oil', 'Dark Spice Accord', 'Scorched Smoke Air'],
+      heartNotes: ['Scorched Birch Tar', 'Heavy Tuscan Leather', 'Burnt Frankincense'],
+      baseNotes: ['Smoked Vetiver Roots', 'Black Amber Woods', 'Charred Oak Accord', 'Dark Musk Residue'],
+      specs: [
+        { label: 'Masculine Identity', value: 'Dark Luxury Masculine Extrait' },
+        { label: 'Concentration', value: 'Extrait de Parfum' },
+        { label: 'Volume Allocation', value: '100ML' },
+        { label: 'Longevity', value: '18–30+ Hours' },
+        { label: 'Projection', value: 'Imperial Boundary Field' },
+        { label: 'Sillage', value: 'Black Citadel Trail' },
+        { label: 'Batch Philosophy', value: 'Imperial Reserve Allocation' },
+        { label: 'Gender Profile', value: 'Dark Luxury Masculine' },
+        { label: 'Production Method', value: 'Ultra-Limited Imperial Craftsmanship' },
+        { label: 'Wearing Environment', value: 'Executive Boardrooms · Private Gatherings · Luxury Evenings · Founder Events' },
+        { label: 'Authentication', value: 'Polygon Verified' },
+        { label: 'NFT Pairing', value: 'Enabled' },
+        { label: 'Production Status', value: 'Ultra-Limited Imperial Batch' },
+        { label: 'Valuation', value: 'Rs 85,000 PKR' },
+      ],
+      nftTitle: 'Imperial Black Throne — Sovereign Seclusion Edition',
+      nftEdition: 'Imperial Reserve Allocation — Archive V',
+      nftRarity: 'IMPERIAL RESERVE',
+      nftTraits: [
+        { trait: 'Category', value: 'Sovereign Fragrance Asset' },
+        { trait: 'Collection', value: 'Imperial Black Throne' },
+        { trait: 'Rarity Tier', value: 'IMPERIAL RESERVE' },
+        { trait: 'Authentication', value: 'Polygon Verified' },
+        { trait: 'Ownership Status', value: 'Active Sovereign Passport' },
+        { trait: 'Physical Asset Pairing', value: 'Yes' },
+        { trait: 'Production Allocation', value: 'Ultra Limited' },
+        { trait: 'Craftsmanship Origin', value: 'Karachi Sovereign Atelier' },
+        { trait: 'Collector Status', value: 'Imperial Collector' },
+        { trait: 'Concierge Access', value: 'Enabled' },
+        { trait: 'Archive Status', value: 'Active' },
+        { trait: 'Blockchain', value: 'Polygon Mainnet' },
+        { trait: 'Archive Tier', value: 'Archive V — Imperial Seclusion' },
+      ],
+      heroImage: '/products/imperial-black-throne/throne-bottle.png',
+      galleryImages: [
+        '/products/imperial-black-throne/throne-bottle.png',
+        '/products/imperial-black-throne/throne-box.png',
+      ],
+      holderPrivileges: [
+        'Imperial Collector Status — Recognised as an elite imperial collector within the House registry',
+        'Sovereign Vault Access — Lifetime access to the House of Shamim Forever private collector vault',
+        'Future Imperial Allocations — Priority rights on all upcoming imperial sovereign releases',
+        'Private House Ceremonies — Exclusive invitations to private House ceremonies and founder gatherings',
+        'Collector Registry Recognition — Official listing within the House of Shamim Forever collector registry',
+        'Priority Authentication Services — Dedicated blockchain verification and provenance documentation',
+        'Concierge Preservation Program — White-glove restoration and refill at collector pricing',
+        'Lifetime Provenance Protection — Permanent blockchain record securing ownership and lineage',
+        'Legacy Registry Membership — Permanent entry in the House of Shamim Forever legacy archive',
+        'Early Access To Future Releases — First notification and allocation on every Archive drop',
+      ],
+    }
+  
 export const SOVEREIGN_CONFIGS: Record<string, SovereignConfig> = {
 
     // ── ARCHIVE I ──────────────────────────────────────────────────────────────
@@ -589,5 +653,6 @@ export const SOVEREIGN_CONFIGS: Record<string, SovereignConfig> = {
     'sapphire-blue-levant': SAPPHIRE_BLUE_LEVANT_CONFIG,
 
     'sovereign-oud-absolute': SOVEREIGN_OUD_ABSOLUTE_CONFIG,
+    'imperial-black-throne': IMPERIAL_BLACK_THRONE_CONFIG,
   }
  
