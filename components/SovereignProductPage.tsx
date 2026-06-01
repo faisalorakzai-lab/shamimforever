@@ -31,6 +31,9 @@ import { useAccount } from 'wagmi'
           'camera-target'?: string
           'min-camera-orbit'?: string
           'max-camera-orbit'?: string
+          'field-of-view'?: string
+          'min-field-of-view'?: string
+          'max-field-of-view'?: string
           style?: React.CSSProperties
         }, HTMLElement>
       }
@@ -291,40 +294,62 @@ export default function SovereignProductPage({ product }: { product: Product }) 
       <style dangerouslySetInnerHTML={{ __html: SOVEREIGN_CSS }} />
 
       {/* HERO */}
-        <section ref={heroRef} style={{ position: 'relative', height: '100svh', minHeight: 700, overflow: 'hidden', background: '#030303' }}>
+        <section ref={heroRef} style={{ position: 'relative', minHeight: 'clamp(520px, 85vh, 900px)', overflow: 'hidden', background: '#030303' }}>
 
-          {/* Background: velvet drapes + roses — stage masked by bottom gradient */}
+          {/* Background: velvet drapes + roses + marble — full bleed */}
           <img
-            src="/products/shamims-bloom/bloom-stage-bg.png"
+            src="/products/shamims-bloom/bloom-velvet-rose-bg.png"
             alt=""
-            style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center 18%', filter: 'brightness(0.50) saturate(0.75)', pointerEvents: 'none', zIndex: 0 }}
+            style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center 65%', filter: 'brightness(0.60) saturate(0.85)', pointerEvents: 'none', zIndex: 0 }}
           />
 
-          {/* Atmospheric gradient overlays */}
-          <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to bottom, rgba(3,3,3,0.65) 0%, rgba(3,3,3,0.08) 22%, transparent 38%)', zIndex: 1, pointerEvents: 'none' }} />
-          <div style={{ position: 'absolute', left: 0, right: 0, bottom: 0, height: '58%', background: 'linear-gradient(to bottom, transparent 0%, rgba(3,3,3,0.62) 32%, rgba(3,3,3,0.93) 62%, #030303 100%)', zIndex: 1, pointerEvents: 'none' }} />
-          <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse 110% 100% at 50% 42%, transparent 28%, rgba(3,3,3,0.4) 100%)', zIndex: 1, pointerEvents: 'none' }} />
-          <div style={{ position: 'absolute', left: 0, right: 0, bottom: 0, height: '28%', background: 'radial-gradient(ellipse 55% 60% at 50% 100%, rgba(201,160,84,0.07) 0%, transparent 70%)', zIndex: 2, pointerEvents: 'none' }} />
+          {/* Atmospheric gradient overlays — top fade */}
+          <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to bottom, rgba(3,3,3,0.75) 0%, rgba(3,3,3,0.10) 18%, transparent 35%)', zIndex: 1, pointerEvents: 'none' }} />
+          {/* Bottom fade to page */}
+          <div style={{ position: 'absolute', left: 0, right: 0, bottom: 0, height: '42%', background: 'linear-gradient(to bottom, transparent 0%, rgba(3,3,3,0.70) 40%, rgba(3,3,3,0.96) 72%, #030303 100%)', zIndex: 1, pointerEvents: 'none' }} />
+          {/* Side vignette */}
+          <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse 90% 80% at 50% 50%, transparent 40%, rgba(3,3,3,0.55) 100%)', zIndex: 1, pointerEvents: 'none' }} />
+          {/* Gold glow at base */}
+          <div style={{ position: 'absolute', left: 0, right: 0, bottom: 0, height: '22%', background: 'radial-gradient(ellipse 50% 55% at 50% 100%, rgba(201,160,84,0.09) 0%, transparent 70%)', zIndex: 2, pointerEvents: 'none' }} />
 
-          {/* model-viewer — cinematic auto-loop, no touch, spatial-correct scale */}
+          {/* model-viewer — centred, height-bounded, full bottle visible */}
           {config.modelPath ? (
-            <div style={{ position: 'absolute', top: 0, left: '50%', transform: 'translateX(-50%)', width: 'min(85%, 100%)', height: '100%', zIndex: 10 }}>
-              <model-viewer
-                src={config.modelPath}
-                alt={config.heroTitle}
-                auto-rotate=""
-                auto-rotate-delay="0"
-                camera-orbit="0deg 75deg 4.5m"
-                camera-target="0m 0.08m 0m"
-                min-camera-orbit="auto auto auto"
-                max-camera-orbit="auto auto 5m"
-                interaction-prompt="none"
-                exposure="1.2"
-                shadow-intensity="0.8"
-                shadow-softness="1"
-                rotation-per-second="12deg"
-                style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', background: 'transparent' }}
-              />
+            <div style={{
+              position: 'absolute',
+              inset: 0,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              zIndex: 10,
+              paddingTop: '48px',
+              paddingBottom: '40px',
+            }}>
+              <div style={{
+                width: 'min(68vw, 420px)',
+                height: 'min(62vh, 520px)',
+                flexShrink: 0,
+                position: 'relative',
+              }}>
+                <model-viewer
+                  src={config.modelPath}
+                  alt={config.heroTitle}
+                  auto-rotate=""
+                  auto-rotate-delay="0"
+                  camera-orbit="0deg 78deg 6.5m"
+                  camera-target="0m 0.45m 0m"
+                  field-of-view="36deg"
+                  min-field-of-view="28deg"
+                  max-field-of-view="55deg"
+                  min-camera-orbit="auto auto auto"
+                  max-camera-orbit="auto auto 8m"
+                  interaction-prompt="none"
+                  exposure="1.2"
+                  shadow-intensity="1"
+                  shadow-softness="0.9"
+                  rotation-per-second="10deg"
+                  style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', background: 'transparent' }}
+                />
+              </div>
             </div>
           ) : (
             <motion.div initial={{ scale: 1.12, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ duration: 3.2, ease: [0.25, 0.1, 0.1, 1] }} style={{ position: 'absolute', inset: 0, zIndex: 2 }}>
