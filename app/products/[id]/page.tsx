@@ -9,10 +9,9 @@
     import LuxuryGenericProductPage from '@/components/LuxuryGenericProductPage'
     import QueenOfTaifRingPage from '@/components/QueenOfTaifRingPage'
     import EmpressSovereignVaultPage from '@/components/EmpressSovereignVaultPage'
+    import EternalGraceSapphirePage from '@/components/EternalGraceSapphirePage'
 
-    // Automatically includes all slugs defined in lib/sovereign-configs.ts
     const SOVEREIGN_SLUGS = Object.keys(SOVEREIGN_CONFIGS)
-
     const SERIF = "'Cormorant Garamond', Georgia, serif"
 
     export default function ProductDetailPage({ params }: { params: { id: string } }) {
@@ -78,6 +77,11 @@
       const EMPRESS_SLUGS = ['empress-sovereign-vault']
       if (EMPRESS_SLUGS.includes(product.slug)) {
         return <EmpressSovereignVaultPage product={product} />
+      }
+
+      const SAPPHIRE_SLUGS = ['eternal-grace-sapphire-set']
+      if (SAPPHIRE_SLUGS.includes(product.slug)) {
+        return <EternalGraceSapphirePage product={product} />
       }
 
       if (SOVEREIGN_SLUGS.includes(product.slug)) {
