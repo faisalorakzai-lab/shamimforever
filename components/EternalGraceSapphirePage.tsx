@@ -169,7 +169,7 @@ export default function EternalGraceSapphirePage({ product }: { product: Product
     const v=videoRef.current; if(!v) return
     v.muted=true; v.loop=true; v.playsInline=true
     v.play().catch(()=>{})
-  },[])
+  },[]);
 
   const handleCryptoSuccess = useCallback(async(txHash:string,coin:CoinType)=>{
     setSubmitting(true); setError('')
@@ -181,7 +181,7 @@ export default function EternalGraceSapphirePage({ product }: { product: Product
       const d=await r.json(); if(!r.ok) throw new Error(d.error||'Order failed')
       setOrderResult(d)
     }catch(e:any){setError(e.message)}finally{setSubmitting(false)}
-  },[shipping,product.id])
+  },[shipping,product.id]);
 
   const handleManual = useCallback(async()=>{
     if(!receipt){setError('Please upload payment receipt');return}
@@ -194,7 +194,7 @@ export default function EternalGraceSapphirePage({ product }: { product: Product
       const d=await r.json(); if(!r.ok) throw new Error(d.error||'Order failed')
       setOrderResult(d)
     }catch(e:any){setError(e.message)}finally{setSubmitting(false)}
-  },[receipt,shipping,product.id])
+  },[receipt,shipping,product.id]);
 
   const handleCOD = useCallback(async()=>{
     setSubmitting(true); setError('')
@@ -205,7 +205,7 @@ export default function EternalGraceSapphirePage({ product }: { product: Product
       const d=await r.json(); if(!r.ok) throw new Error(d.error||'Order failed')
       setOrderResult(d)
     }catch(e:any){setError(e.message)}finally{setSubmitting(false)}
-  },[shipping,product.id])
+  },[shipping,product.id]);
 
 
   return (
