@@ -5,12 +5,34 @@ import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import Link from 'next/link'
+import Script from 'next/script'
 import { Copy, Check, Upload, X, ExternalLink, ArrowDown } from 'lucide-react'
 import { formatPKR } from '@/lib/utils'
 import type { Product } from '@/types'
 import Web3PaySection, { type CoinType } from '@/components/Web3PaySection'
 import { useAccount } from 'wagmi'
-import { SOVEREIGN_CONFIGS, type SovereignConfig } from '@/lib/sovereign-configs'
+
+  declare global {
+    namespace JSX {
+      interface IntrinsicElements {
+        'model-viewer': React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement> & {
+          src?: string
+          alt?: string
+          poster?: string
+          'camera-controls'?: boolean | string
+          'auto-rotate'?: boolean | string
+          'interaction-prompt'?: string
+          exposure?: string
+          'shadow-intensity'?: string
+          'shadow-softness'?: string
+          'environment-image'?: string
+          'rotation-per-second'?: string
+          style?: React.CSSProperties
+        }, HTMLElement>
+      }
+    }
+  }
+  import { SOVEREIGN_CONFIGS, type SovereignConfig } from '@/lib/sovereign-configs'
 
 type PayMethod = 'crypto' | 'pkr_manual' | 'cod'
 interface OrderResult { order_id: string; order_ref: string; tracking_ref: string; status: string; track_url: string }
@@ -266,19 +288,43 @@ export default function SovereignProductPage({ product }: { product: Product }) 
 
       {/* HERO */}
       <section ref={heroRef} style={{ position: 'relative', height: '100svh', minHeight: 700, overflow: 'hidden', background: '#030303' }}>
-        <motion.div
-          initial={{ scale: 1.12, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-          transition={{ duration: 3.2, ease: [0.25, 0.1, 0.1, 1] }}
-          style={{ position: 'absolute', inset: 0 }}
-        >
-          <img
-            src={config.heroImage}
-            alt={config.heroTitle}
-            style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center 15%' }}
-            onError={e => { (e.target as HTMLImageElement).style.opacity = '0' }}
-          />
-        </motion.div>
+        {config.modelPath ? (
+            <>
+              <img
+                src={config.heroImage}
+                alt={config.heroTitle}
+                style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center 15%', filter: 'brightness(0.45) saturate(0.7)' }}
+                onError={e => { (e.target as HTMLImageElement).style.opacity = '0' }}
+              />
+              <model-viewer
+                src={config.modelPath}
+                alt={config.heroTitle}
+                camera-controls=""
+                auto-rotate=""
+                interaction-prompt="none"
+                exposure="1.1"
+                shadow-intensity="0"
+                shadow-softness="0"
+                rotation-per-second="8deg"
+                style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', zIndex: 5, background: 'transparent' }}
+              />
+              <Script src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.5.0/model-viewer.min.js" strategy="afterInteractive" />
+            </>
+          ) : (
+            <motion.div
+              initial={{ scale: 1.12, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{ duration: 3.2, ease: [0.25, 0.1, 0.1, 1] }}
+              style={{ position: 'absolute', inset: 0 }}
+            >
+              <img
+                src={config.heroImage}
+                alt={config.heroTitle}
+                style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center 15%' }}
+                onError={e => { (e.target as HTMLImageElement).style.opacity = '0' }}
+              />
+            </motion.div>
+          )}
         <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to bottom, rgba(3,3,3,0.25) 0%, rgba(3,3,3,0.05) 20%, rgba(3,3,3,0.3) 55%, rgba(3,3,3,0.9) 82%, #030303 100%)' }} />
         <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse 110% 110% at 50% 30%, transparent 45%, rgba(3,3,3,0.55) 100%)' }} />
         <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse 60% 40% at 50% 80%, rgba(201,160,84,0.06) 0%, transparent 60%)', pointerEvents: 'none' }} />
