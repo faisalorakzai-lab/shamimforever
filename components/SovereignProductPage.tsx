@@ -288,16 +288,18 @@ export default function SovereignProductPage({ product }: { product: Product }) 
       {/* HERO */}
         <section ref={heroRef} style={{ position: 'relative', height: '100svh', minHeight: 700, overflow: 'hidden', background: '#030303' }}>
 
-          {/* Background luxury image — darkened atmosphere */}
+          {/* Background: velvet drapes + roses — stage masked by bottom gradient */}
           <img
             src="/products/shamims-bloom/bloom-stage-bg.png"
             alt=""
-            style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center top', filter: 'brightness(0.55) saturate(0.85)', pointerEvents: 'none', zIndex: 0 }}
+            style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center 18%', filter: 'brightness(0.50) saturate(0.75)', pointerEvents: 'none', zIndex: 0 }}
           />
 
           {/* Atmospheric gradient overlays */}
-          <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to bottom, rgba(3,3,3,0.55) 0%, rgba(3,3,3,0.0) 30%, rgba(3,3,3,0.0) 60%, rgba(3,3,3,0.7) 88%, #030303 100%)', zIndex: 1, pointerEvents: 'none' }} />
-          <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse 70% 50% at 50% 90%, rgba(201,160,84,0.07) 0%, transparent 65%)', zIndex: 1, pointerEvents: 'none' }} />
+          <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to bottom, rgba(3,3,3,0.65) 0%, rgba(3,3,3,0.08) 22%, transparent 38%)', zIndex: 1, pointerEvents: 'none' }} />
+          <div style={{ position: 'absolute', left: 0, right: 0, bottom: 0, height: '58%', background: 'linear-gradient(to bottom, transparent 0%, rgba(3,3,3,0.62) 32%, rgba(3,3,3,0.93) 62%, #030303 100%)', zIndex: 1, pointerEvents: 'none' }} />
+          <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse 110% 100% at 50% 42%, transparent 28%, rgba(3,3,3,0.4) 100%)', zIndex: 1, pointerEvents: 'none' }} />
+          <div style={{ position: 'absolute', left: 0, right: 0, bottom: 0, height: '28%', background: 'radial-gradient(ellipse 55% 60% at 50% 100%, rgba(201,160,84,0.07) 0%, transparent 70%)', zIndex: 2, pointerEvents: 'none' }} />
 
           {/* model-viewer — full viewport, transparent bg, shows complete bottle+base */}
           {config.modelPath ? (
@@ -308,10 +310,10 @@ export default function SovereignProductPage({ product }: { product: Product }) 
               auto-rotate=""
               auto-rotate-delay="2000"
               interaction-prompt="none"
-              exposure="1.4"
-              shadow-intensity="0"
-              shadow-softness="0"
-              rotation-per-second="10deg"
+              exposure="1.35"
+              shadow-intensity="0.8"
+              shadow-softness="1"
+              rotation-per-second="7deg"
               style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', background: 'transparent', zIndex: 10 }}
             />
           ) : (
