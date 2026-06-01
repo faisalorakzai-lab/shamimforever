@@ -27,6 +27,24 @@
 
   const FADE_UP = { initial:{ opacity:0, y:28 }, whileInView:{ opacity:1, y:0 }, viewport:{ once:true, margin:'-60px' }, transition:{ duration:1, ease:[0.22,1,0.36,1] as any } }
   const FADE_IN = { initial:{ opacity:0 }, whileInView:{ opacity:1 }, viewport:{ once:true, margin:'-60px' }, transition:{ duration:0.9 } }
+  const EG_PAGE_CSS = `@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap');
+html{scroll-behavior:smooth}
+.sg-piece{border:1px solid rgba(26,86,219,0.16);padding:32px 28px;background:rgba(26,86,219,0.025);transition:border-color .4s,background .4s,transform .3s}
+.sg-piece:hover{border-color:rgba(59,130,246,0.4);background:rgba(26,86,219,0.06);transform:translateY(-4px)}
+.sg-trow td{padding:11px 0;border-bottom:1px solid rgba(255,255,255,0.05);vertical-align:top}
+.sg-trow:last-child td{border-bottom:none}
+.sg-priv{display:flex;align-items:center;gap:14px;padding:12px 0;border-bottom:1px solid rgba(255,255,255,0.04)}
+.sg-priv:last-child{border-bottom:none}
+@media(max-width:768px){
+  .hero-cols{grid-template-columns:1fr!important}
+  .three-cols{grid-template-columns:1fr!important}
+  .gem-cols{grid-template-columns:1fr!important}
+  .nft-cols{grid-template-columns:1fr!important}
+  .pay-cols{grid-template-columns:repeat(3,1fr)!important}
+  .info-cols{grid-template-columns:1fr 1fr!important}
+  .vault-inc{grid-template-columns:1fr!important}
+}`
+
 
   /* ── Ocean particles ─────────────────────────────────────────────────── */
   function OceanMist({ n=50 }: { n?:number }) {
@@ -189,25 +207,7 @@
 
     return (
       <div style={{background:BG,minHeight:'100vh',fontFamily:SERIF}}>
-        <style>{
-          `@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap');
-          html{scroll-behavior:smooth}
-          .sg-piece{border:1px solid rgba(26,86,219,0.16);padding:32px 28px;background:rgba(26,86,219,0.025);transition:border-color .4s,background .4s,transform .3s}
-          .sg-piece:hover{border-color:rgba(59,130,246,0.4);background:rgba(26,86,219,0.06);transform:translateY(-4px)}
-          .sg-trow td{padding:11px 0;border-bottom:1px solid rgba(255,255,255,0.05);vertical-align:top}
-          .sg-trow:last-child td{border-bottom:none}
-          .sg-priv{display:flex;align-items:center;gap:14px;padding:12px 0;border-bottom:1px solid rgba(255,255,255,0.04)}
-          .sg-priv:last-child{border-bottom:none}
-          @media(max-width:768px){
-            .hero-cols{grid-template-columns:1fr!important}
-            .three-cols{grid-template-columns:1fr!important}
-            .gem-cols{grid-template-columns:1fr!important}
-            .nft-cols{grid-template-columns:1fr!important}
-            .pay-cols{grid-template-columns:repeat(3,1fr)!important}
-            .info-cols{grid-template-columns:1fr 1fr!important}
-            .vault-inc{grid-template-columns:1fr!important}
-          }`
-        }</style>
+        <style dangerouslySetInnerHTML={{ __html: EG_PAGE_CSS }} />
 
         {/* ═══════ 1. HERO — AUTOPLAY VIDEO ═══════ */}
         <div style={{position:'relative',minHeight:'100vh',overflow:'hidden',display:'flex',alignItems:'center'}}>
