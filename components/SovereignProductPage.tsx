@@ -5,7 +5,6 @@ import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import Link from 'next/link'
-import Script from 'next/script'
 import { Copy, Check, Upload, X, ExternalLink, ArrowDown } from 'lucide-react'
 import { formatPKR } from '@/lib/utils'
 import type { Product } from '@/types'
@@ -308,7 +307,6 @@ export default function SovereignProductPage({ product }: { product: Product }) 
                 rotation-per-second="8deg"
                 style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', zIndex: 5, background: 'transparent' }}
               />
-              <Script src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.5.0/model-viewer.min.js" strategy="afterInteractive" />
             </>
           ) : (
             <motion.div
