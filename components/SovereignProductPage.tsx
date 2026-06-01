@@ -290,27 +290,14 @@ export default function SovereignProductPage({ product }: { product: Product }) 
   const finalPkr = product.price_pkr * quantity
 
   return (
-    <div style={{ background: '#030303', minHeight: '100vh' }}>
+    <div style={{ background: '#0B0B0B', minHeight: '100vh' }}>
       <style dangerouslySetInnerHTML={{ __html: SOVEREIGN_CSS }} />
 
       {/* HERO */}
-        <section ref={heroRef} style={{ position: 'relative', minHeight: 'clamp(520px, 85vh, 900px)', overflow: 'hidden', background: '#030303' }}>
+        <section ref={heroRef} style={{ position: 'relative', minHeight: 'clamp(520px, 85vh, 900px)', overflow: 'hidden', background: '#0B0B0B' }}>
 
-          {/* Background: velvet drapes + roses + marble — full bleed */}
-          <img
-            src="/products/shamims-bloom/bloom-velvet-rose-bg.png"
-            alt=""
-            style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center 65%', filter: 'brightness(0.60) saturate(0.85)', pointerEvents: 'none', zIndex: 0 }}
-          />
-
-          {/* Atmospheric gradient overlays — top fade */}
-          <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to bottom, rgba(3,3,3,0.75) 0%, rgba(3,3,3,0.10) 18%, transparent 35%)', zIndex: 1, pointerEvents: 'none' }} />
-          {/* Bottom fade to page */}
-          <div style={{ position: 'absolute', left: 0, right: 0, bottom: 0, height: '42%', background: 'linear-gradient(to bottom, transparent 0%, rgba(3,3,3,0.70) 40%, rgba(3,3,3,0.96) 72%, #030303 100%)', zIndex: 1, pointerEvents: 'none' }} />
-          {/* Side vignette */}
-          <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse 90% 80% at 50% 50%, transparent 40%, rgba(3,3,3,0.55) 100%)', zIndex: 1, pointerEvents: 'none' }} />
-          {/* Gold glow at base */}
-          <div style={{ position: 'absolute', left: 0, right: 0, bottom: 0, height: '22%', background: 'radial-gradient(ellipse 50% 55% at 50% 100%, rgba(201,160,84,0.09) 0%, transparent 70%)', zIndex: 2, pointerEvents: 'none' }} />
+          {/* Subtle gold radial glow under the bottle stage — only depth accent */}
+          <div style={{ position: 'absolute', left: 0, right: 0, bottom: 0, height: '35%', background: 'radial-gradient(ellipse 55% 60% at 50% 100%, rgba(201,160,84,0.06) 0%, transparent 70%)', pointerEvents: 'none', zIndex: 2 }} />
 
           {/* model-viewer — centred, height-bounded, full bottle visible */}
           {config.modelPath ? (
