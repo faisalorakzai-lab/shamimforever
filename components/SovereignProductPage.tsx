@@ -294,22 +294,32 @@ export default function SovereignProductPage({ product }: { product: Product }) 
       <style dangerouslySetInnerHTML={{ __html: SOVEREIGN_CSS }} />
 
       {/* HERO — Black & Gold brand, edge-to-edge 3D */}
-        <section ref={heroRef} style={{ position: 'relative', height: 'clamp(400px, 64vh, 620px)', overflow: 'hidden', background: '#080808' }}>
+        <section ref={heroRef} style={{ position: 'relative', height: 'clamp(320px, 50vh, 480px)', overflow: 'hidden', background: '#000000' }}>
 
-          {/* Gold crown spotlight — behind diamond cap */}
-          <div style={{ position: 'absolute', left: 0, right: 0, top: '5%', height: '55%', background: 'radial-gradient(ellipse 52% 60% at 50% 26%, rgba(212,175,55,0.18) 0%, rgba(201,160,84,0.06) 40%, transparent 68%)', pointerEvents: 'none', zIndex: 2 }} />
+          {/* Gold crown spotlight */}
+          <div style={{ position: 'absolute', left: 0, right: 0, top: '5%', height: '55%', background: 'radial-gradient(ellipse 52% 60% at 50% 26%, rgba(212,175,55,0.16) 0%, rgba(201,160,84,0.05) 40%, transparent 68%)', pointerEvents: 'none', zIndex: 2 }} />
 
           {/* Gold stage ambient glow */}
-          <div style={{ position: 'absolute', left: 0, right: 0, bottom: 0, height: '40%', background: 'radial-gradient(ellipse 62% 80% at 50% 100%, rgba(201,160,84,0.13) 0%, rgba(140,100,20,0.05) 55%, transparent 78%)', pointerEvents: 'none', zIndex: 2 }} />
+          <div style={{ position: 'absolute', left: 0, right: 0, bottom: 0, height: '40%', background: 'radial-gradient(ellipse 62% 80% at 50% 100%, rgba(201,160,84,0.11) 0%, transparent 75%)', pointerEvents: 'none', zIndex: 2 }} />
 
-          {/* Black vignette edges — keeps bottle as focal point */}
-          <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse 95% 95% at 50% 50%, transparent 45%, rgba(8,8,8,0.65) 100%)', pointerEvents: 'none', zIndex: 3 }} />
+          {/* Black vignette edges */}
+          <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse 90% 90% at 50% 50%, transparent 42%, rgba(0,0,0,0.70) 100%)', pointerEvents: 'none', zIndex: 3 }} />
+
+          {/* ── Animated gold border — jewellery box opening, clockwise ── */}
+          {/* Top: left → right */}
+          <motion.div initial={{ scaleX: 0 }} animate={{ scaleX: 1 }} transition={{ delay: 0.3, duration: 0.9, ease: [0.4, 0, 0.2, 1] }} style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 1, background: 'linear-gradient(to right, transparent 0%, rgba(212,175,55,0.75) 20%, rgba(212,175,55,0.95) 50%, rgba(212,175,55,0.75) 80%, transparent 100%)', transformOrigin: 'left', pointerEvents: 'none', zIndex: 8 }} />
+          {/* Right: top → bottom */}
+          <motion.div initial={{ scaleY: 0 }} animate={{ scaleY: 1 }} transition={{ delay: 1.2, duration: 0.6, ease: [0.4, 0, 0.2, 1] }} style={{ position: 'absolute', top: 0, right: 0, bottom: 0, width: 1, background: 'linear-gradient(to bottom, transparent 0%, rgba(212,175,55,0.65) 20%, rgba(212,175,55,0.65) 80%, transparent 100%)', transformOrigin: 'top', pointerEvents: 'none', zIndex: 8 }} />
+          {/* Bottom: right → left */}
+          <motion.div initial={{ scaleX: 0 }} animate={{ scaleX: 1 }} transition={{ delay: 1.8, duration: 0.9, ease: [0.4, 0, 0.2, 1] }} style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: 1, background: 'linear-gradient(to left, transparent 0%, rgba(212,175,55,0.75) 20%, rgba(212,175,55,0.95) 50%, rgba(212,175,55,0.75) 80%, transparent 100%)', transformOrigin: 'right', pointerEvents: 'none', zIndex: 8 }} />
+          {/* Left: bottom → top */}
+          <motion.div initial={{ scaleY: 0 }} animate={{ scaleY: 1 }} transition={{ delay: 2.7, duration: 0.6, ease: [0.4, 0, 0.2, 1] }} style={{ position: 'absolute', top: 0, left: 0, bottom: 0, width: 1, background: 'linear-gradient(to top, transparent 0%, rgba(212,175,55,0.65) 20%, rgba(212,175,55,0.65) 80%, transparent 100%)', transformOrigin: 'bottom', pointerEvents: 'none', zIndex: 8 }} />
 
           {/* Gold corner brackets */}
-          <div style={{ position: 'absolute', top: 54, left: 14, width: 18, height: 18, borderTop: '1px solid rgba(212,175,55,0.38)', borderLeft: '1px solid rgba(212,175,55,0.38)', pointerEvents: 'none', zIndex: 6 }} />
-          <div style={{ position: 'absolute', top: 54, right: 14, width: 18, height: 18, borderTop: '1px solid rgba(212,175,55,0.38)', borderRight: '1px solid rgba(212,175,55,0.38)', pointerEvents: 'none', zIndex: 6 }} />
-          <div style={{ position: 'absolute', bottom: 14, left: 14, width: 18, height: 18, borderBottom: '1px solid rgba(212,175,55,0.22)', borderLeft: '1px solid rgba(212,175,55,0.22)', pointerEvents: 'none', zIndex: 6 }} />
-          <div style={{ position: 'absolute', bottom: 14, right: 14, width: 18, height: 18, borderBottom: '1px solid rgba(212,175,55,0.22)', borderRight: '1px solid rgba(212,175,55,0.22)', pointerEvents: 'none', zIndex: 6 }} />
+          <div style={{ position: 'absolute', top: 54, left: 14, width: 18, height: 18, borderTop: '1px solid rgba(212,175,55,0.40)', borderLeft: '1px solid rgba(212,175,55,0.40)', pointerEvents: 'none', zIndex: 9 }} />
+          <div style={{ position: 'absolute', top: 54, right: 14, width: 18, height: 18, borderTop: '1px solid rgba(212,175,55,0.40)', borderRight: '1px solid rgba(212,175,55,0.40)', pointerEvents: 'none', zIndex: 9 }} />
+          <div style={{ position: 'absolute', bottom: 14, left: 14, width: 18, height: 18, borderBottom: '1px solid rgba(212,175,55,0.28)', borderLeft: '1px solid rgba(212,175,55,0.28)', pointerEvents: 'none', zIndex: 9 }} />
+          <div style={{ position: 'absolute', bottom: 14, right: 14, width: 18, height: 18, borderBottom: '1px solid rgba(212,175,55,0.28)', borderRight: '1px solid rgba(212,175,55,0.28)', pointerEvents: 'none', zIndex: 9 }} />
 
           {/* model-viewer — full width, camera zoomed to fill frame */}
           {config.modelPath ? (
