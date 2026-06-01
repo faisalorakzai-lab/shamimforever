@@ -290,76 +290,45 @@ export default function SovereignProductPage({ product }: { product: Product }) 
   const finalPkr = product.price_pkr * quantity
 
   return (
-    <div style={{ background: '#060210', minHeight: '100vh' }}>
+    <div style={{ background: '#080808', minHeight: '100vh' }}>
       <style dangerouslySetInnerHTML={{ __html: SOVEREIGN_CSS }} />
 
-      {/* HERO — edge-to-edge, ultra-luxury Web3 presentation */}
-        <section ref={heroRef} style={{ position: 'relative', height: 'clamp(400px, 64vh, 620px)', overflow: 'hidden', background: 'linear-gradient(158deg, #090314 0%, #07021a 28%, #040110 55%, #030107 80%, #020106 100%)' }}>
+      {/* HERO — Black & Gold brand, edge-to-edge 3D */}
+        <section ref={heroRef} style={{ position: 'relative', height: 'clamp(400px, 64vh, 620px)', overflow: 'hidden', background: '#080808' }}>
 
-          {/* ── Blockchain node mesh — cryptographic ambient geometry ── */}
-          <svg viewBox="0 0 420 520" preserveAspectRatio="xMidYMid slice" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', pointerEvents: 'none', zIndex: 1 }} aria-hidden="true">
-            <g stroke="rgba(212,175,55,0.10)" strokeWidth="0.6" fill="none">
-              <line x1="0" y1="80" x2="420" y2="320" />
-              <line x1="0" y1="200" x2="420" y2="440" />
-              <line x1="0" y1="360" x2="420" y2="120" />
-              <line x1="60" y1="0" x2="360" y2="520" />
-              <line x1="180" y1="0" x2="420" y2="340" />
-              <line x1="280" y1="0" x2="0" y2="420" />
-              <line x1="0" y1="0" x2="420" y2="520" />
-              <line x1="140" y1="0" x2="0" y2="280" />
-              <line x1="420" y1="0" x2="0" y2="520" />
-            </g>
-            <g fill="rgba(212,175,55,0.18)" stroke="none">
-              <circle cx="126" cy="188" r="2.2" />
-              <circle cx="294" cy="132" r="1.6" />
-              <circle cx="210" cy="302" r="2.8" />
-              <circle cx="336" cy="390" r="1.8" />
-              <circle cx="84"  cy="338" r="1.4" />
-              <circle cx="378" cy="228" r="2.0" />
-              <circle cx="168" cy="420" r="1.6" />
-              <circle cx="56"  cy="104" r="1.8" />
-              <circle cx="362" cy="58"  r="1.4" />
-            </g>
-            <g fill="rgba(212,175,55,0.07)" stroke="none">
-              <circle cx="126" cy="188" r="7" />
-              <circle cx="210" cy="302" r="9" />
-              <circle cx="378" cy="228" r="6" />
-            </g>
-          </svg>
+          {/* Gold crown spotlight — behind diamond cap */}
+          <div style={{ position: 'absolute', left: 0, right: 0, top: '5%', height: '55%', background: 'radial-gradient(ellipse 52% 60% at 50% 26%, rgba(212,175,55,0.18) 0%, rgba(201,160,84,0.06) 40%, transparent 68%)', pointerEvents: 'none', zIndex: 2 }} />
 
-          {/* ── Crown volumetric flare — warm gold behind diamond cap ── */}
-          <div style={{ position: 'absolute', left: 0, right: 0, top: '6%', height: '52%', background: 'radial-gradient(ellipse 55% 65% at 50% 28%, rgba(212,175,55,0.22) 0%, rgba(180,130,40,0.09) 35%, transparent 65%)', pointerEvents: 'none', zIndex: 2 }} />
+          {/* Gold stage ambient glow */}
+          <div style={{ position: 'absolute', left: 0, right: 0, bottom: 0, height: '40%', background: 'radial-gradient(ellipse 62% 80% at 50% 100%, rgba(201,160,84,0.13) 0%, rgba(140,100,20,0.05) 55%, transparent 78%)', pointerEvents: 'none', zIndex: 2 }} />
 
-          {/* ── Stage base ambient glow ── */}
-          <div style={{ position: 'absolute', left: 0, right: 0, bottom: 0, height: '38%', background: 'radial-gradient(ellipse 60% 75% at 50% 100%, rgba(201,160,84,0.14) 0%, rgba(100,60,10,0.06) 50%, transparent 75%)', pointerEvents: 'none', zIndex: 2 }} />
+          {/* Black vignette edges — keeps bottle as focal point */}
+          <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse 95% 95% at 50% 50%, transparent 45%, rgba(8,8,8,0.65) 100%)', pointerEvents: 'none', zIndex: 3 }} />
 
-          {/* ── Purple depth vignette edges ── */}
-          <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse 100% 100% at 50% 50%, transparent 40%, rgba(6,2,16,0.7) 100%)', pointerEvents: 'none', zIndex: 3 }} />
+          {/* Gold corner brackets */}
+          <div style={{ position: 'absolute', top: 54, left: 14, width: 18, height: 18, borderTop: '1px solid rgba(212,175,55,0.38)', borderLeft: '1px solid rgba(212,175,55,0.38)', pointerEvents: 'none', zIndex: 6 }} />
+          <div style={{ position: 'absolute', top: 54, right: 14, width: 18, height: 18, borderTop: '1px solid rgba(212,175,55,0.38)', borderRight: '1px solid rgba(212,175,55,0.38)', pointerEvents: 'none', zIndex: 6 }} />
+          <div style={{ position: 'absolute', bottom: 14, left: 14, width: 18, height: 18, borderBottom: '1px solid rgba(212,175,55,0.22)', borderLeft: '1px solid rgba(212,175,55,0.22)', pointerEvents: 'none', zIndex: 6 }} />
+          <div style={{ position: 'absolute', bottom: 14, right: 14, width: 18, height: 18, borderBottom: '1px solid rgba(212,175,55,0.22)', borderRight: '1px solid rgba(212,175,55,0.22)', pointerEvents: 'none', zIndex: 6 }} />
 
-          {/* ── Corner bracket accents ── */}
-          <div style={{ position: 'absolute', top: 54, left: 14, width: 18, height: 18, borderTop: '1px solid rgba(212,175,55,0.40)', borderLeft: '1px solid rgba(212,175,55,0.40)', pointerEvents: 'none', zIndex: 6 }} />
-          <div style={{ position: 'absolute', top: 54, right: 14, width: 18, height: 18, borderTop: '1px solid rgba(212,175,55,0.40)', borderRight: '1px solid rgba(212,175,55,0.40)', pointerEvents: 'none', zIndex: 6 }} />
-          <div style={{ position: 'absolute', bottom: 14, left: 14, width: 18, height: 18, borderBottom: '1px solid rgba(212,175,55,0.25)', borderLeft: '1px solid rgba(212,175,55,0.25)', pointerEvents: 'none', zIndex: 6 }} />
-          <div style={{ position: 'absolute', bottom: 14, right: 14, width: 18, height: 18, borderBottom: '1px solid rgba(212,175,55,0.25)', borderRight: '1px solid rgba(212,175,55,0.25)', pointerEvents: 'none', zIndex: 6 }} />
-
-          {/* ── model-viewer — FULL WIDTH edge-to-edge, no constraints ── */}
+          {/* model-viewer — full width, camera zoomed to fill frame */}
           {config.modelPath ? (
-            <div style={{ position: 'absolute', inset: 0, zIndex: 10, paddingTop: '48px', paddingBottom: '4px' }}>
+            <div style={{ position: 'absolute', inset: 0, zIndex: 10, paddingTop: '46px', paddingBottom: '2px' }}>
               <model-viewer
                 src={config.modelPath}
                 alt={config.heroTitle}
                 auto-rotate=""
                 auto-rotate-delay="0"
-                camera-orbit="0deg 70deg 6.5m"
+                camera-orbit="0deg 70deg 5.2m"
                 camera-target="0m 0.52m 0m"
-                field-of-view="33deg"
-                min-field-of-view="26deg"
-                max-field-of-view="50deg"
+                field-of-view="38deg"
+                min-field-of-view="30deg"
+                max-field-of-view="52deg"
                 min-camera-orbit="auto auto auto"
-                max-camera-orbit="auto auto 8m"
+                max-camera-orbit="auto auto 7m"
                 interaction-prompt="none"
                 exposure="1.3"
-                shadow-intensity="0.8"
+                shadow-intensity="0.9"
                 shadow-softness="1"
                 rotation-per-second="10deg"
                 style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', background: 'transparent' }}
