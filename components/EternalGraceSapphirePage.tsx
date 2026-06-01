@@ -209,6 +209,7 @@ export default function EternalGraceSapphirePage({ product }: { product: Product
 
 
   return (
+    <>
     <div style={{background:BG,minHeight:'100vh',fontFamily:SERIF}}>
       <style>{EG_PAGE_CSS}</style>
 
@@ -790,5 +791,6 @@ export default function EternalGraceSapphirePage({ product }: { product: Product
         </div>
       </div>
     </div>
+    </>
   )
 }
