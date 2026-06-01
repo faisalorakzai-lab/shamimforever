@@ -293,44 +293,30 @@ export default function SovereignProductPage({ product }: { product: Product }) 
     <div style={{ background: '#0B0B0B', minHeight: '100vh' }}>
       <style dangerouslySetInnerHTML={{ __html: SOVEREIGN_CSS }} />
 
-      {/* HERO */}
-        <section ref={heroRef} style={{ position: 'relative', display: 'flex', flexDirection: 'column', minHeight: 'clamp(560px, 92vh, 860px)', overflow: 'hidden', background: '#0B0B0B' }}>
+      {/* HERO — compact bottle stage, no duplicate text */}
+        <section ref={heroRef} style={{ position: 'relative', height: 'clamp(360px, 58vh, 560px)', overflow: 'hidden', background: '#0B0B0B' }}>
 
-          {/* Film-grain luxury texture overlay */}
-          <div style={{ position: 'absolute', inset: 0, backgroundImage: 'url("data:image/svg+xml,%3Csvg viewBox=\'0 0 256 256\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'n\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.9\' numOctaves=\'4\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23n)\' opacity=\'0.035\'/%3E%3C/svg%3E")', backgroundRepeat: 'repeat', backgroundSize: '256px', pointerEvents: 'none', zIndex: 1, mixBlendMode: 'overlay', opacity: 0.4 }} />
+          {/* Corner accent marks */}
+          <div style={{ position: 'absolute', top: 56, left: 16, width: 16, height: 16, borderTop: '1px solid rgba(201,160,84,0.30)', borderLeft: '1px solid rgba(201,160,84,0.30)', pointerEvents: 'none', zIndex: 5 }} />
+          <div style={{ position: 'absolute', top: 56, right: 16, width: 16, height: 16, borderTop: '1px solid rgba(201,160,84,0.30)', borderRight: '1px solid rgba(201,160,84,0.30)', pointerEvents: 'none', zIndex: 5 }} />
 
-          {/* Corner accent marks — top left & top right */}
-          <div style={{ position: 'absolute', top: 64, left: 20, width: 18, height: 18, borderTop: '1px solid rgba(201,160,84,0.35)', borderLeft: '1px solid rgba(201,160,84,0.35)', pointerEvents: 'none', zIndex: 5 }} />
-          <div style={{ position: 'absolute', top: 64, right: 20, width: 18, height: 18, borderTop: '1px solid rgba(201,160,84,0.35)', borderRight: '1px solid rgba(201,160,84,0.35)', pointerEvents: 'none', zIndex: 5 }} />
+          {/* Gold glow under stage */}
+          <div style={{ position: 'absolute', left: 0, right: 0, bottom: 0, height: '30%', background: 'radial-gradient(ellipse 52% 65% at 50% 100%, rgba(201,160,84,0.07) 0%, transparent 70%)', pointerEvents: 'none', zIndex: 2 }} />
 
-          {/* Subtle gold radial glow at base of bottle */}
-          <div style={{ position: 'absolute', left: 0, right: 0, bottom: '26%', height: '28%', background: 'radial-gradient(ellipse 50% 70% at 50% 100%, rgba(201,160,84,0.08) 0%, transparent 70%)', pointerEvents: 'none', zIndex: 2 }} />
-
-          {/* model-viewer — upper 58% of hero, horizontally centred */}
+          {/* model-viewer — portrait container, bottle looks tall */}
           {config.modelPath ? (
-            <div style={{
-              flex: '0 0 auto',
-              display: 'flex',
-              justifyContent: 'center',
-              paddingTop: '68px',
-              zIndex: 10,
-            }}>
-              <div style={{
-                width: 'min(72vw, 400px)',
-                height: 'min(52vh, 430px)',
-                flexShrink: 0,
-                position: 'relative',
-              }}>
+            <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 10, paddingTop: '52px', paddingBottom: '8px' }}>
+              <div style={{ width: 'min(58vw, 300px)', height: '100%', position: 'relative' }}>
                 <model-viewer
                   src={config.modelPath}
                   alt={config.heroTitle}
                   auto-rotate=""
                   auto-rotate-delay="0"
-                  camera-orbit="0deg 78deg 6.5m"
-                  camera-target="0m 0.45m 0m"
-                  field-of-view="36deg"
-                  min-field-of-view="28deg"
-                  max-field-of-view="55deg"
+                  camera-orbit="0deg 70deg 6.5m"
+                  camera-target="0m 0.52m 0m"
+                  field-of-view="33deg"
+                  min-field-of-view="26deg"
+                  max-field-of-view="50deg"
                   min-camera-orbit="auto auto auto"
                   max-camera-orbit="auto auto 8m"
                   interaction-prompt="none"
@@ -347,44 +333,6 @@ export default function SovereignProductPage({ product }: { product: Product }) 
               <img src={config.heroImage} alt={config.heroTitle} style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center 15%' }} onError={e => { (e.target as HTMLImageElement).style.opacity = '0' }} />
             </motion.div>
           )}
-
-          {/* Luxury text block — sits below bottle, fills bottom void */}
-          {config.modelPath ? (
-            <motion.div
-              initial={{ opacity: 0, y: 18 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 1.0, duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-              style={{ flex: '1 0 auto', display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', padding: '0 clamp(20px,6vw,64px)', paddingBottom: 'clamp(28px,4vh,52px)', zIndex: 20 }}
-            >
-              <motion.p
-                initial={{ opacity: 0, letterSpacing: '0.5em' }}
-                animate={{ opacity: 1, letterSpacing: '0.75em' }}
-                transition={{ delay: 1.2, duration: 1.4 }}
-                style={{ fontSize: 7, letterSpacing: '0.75em', textTransform: 'uppercase', color: '#c9a054', marginBottom: 10, fontFamily: 'inherit' }}
-              >{config.heroTagline}</motion.p>
-
-              <motion.h1
-                initial={{ opacity: 0, y: 28 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 1.4, duration: 1.4, ease: [0.16, 1, 0.3, 1] }}
-                style={{ fontFamily: SERIF, fontWeight: 300, letterSpacing: '-0.01em', lineHeight: 0.9, color: '#f8f4ee', margin: '0 0 12px', fontSize: 'clamp(2.6rem,9vw,6rem)' }}
-              >{config.heroTitle}</motion.h1>
-
-              <motion.div
-                initial={{ scaleX: 0 }}
-                animate={{ scaleX: 1 }}
-                transition={{ delay: 2.0, duration: 1.2 }}
-                style={{ height: 1, width: 'clamp(100px,32vw,200px)', background: 'linear-gradient(to right, #c9a054, rgba(201,160,84,0.25) 65%, transparent)', marginBottom: 10, transformOrigin: 'left' }}
-              />
-
-              <motion.p
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 1.8, duration: 1.0 }}
-                style={{ fontFamily: SERIF, fontStyle: 'italic', fontSize: 'clamp(0.85rem,2.4vw,1.2rem)', color: 'rgba(240,236,228,0.52)', fontWeight: 300, margin: 0 }}
-              >{config.heroSubtitle}</motion.p>
-            </motion.div>
-          ) : null}
 
           {/* Text overlaid at bottom — only when NO model (existing products) */}
           {!config.modelPath && (
