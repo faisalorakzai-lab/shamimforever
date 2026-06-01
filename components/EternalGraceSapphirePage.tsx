@@ -205,7 +205,7 @@
       }catch(e:any){setError(e.message)}finally{setSubmitting(false)}
     },[shipping,product.id])
 
-    const inputSt:React.CSSProperties={width:'100%',background:'rgba(255,255,255,0.025)',border:'1px solid rgba(26,86,219,0.12)',color:'#fff',padding:'14px 18px',fontSize:12,letterSpacing:'0.07em',fontFamily:SERIF,outline:'none',boxSizing:'border-box'}
+    const inputSt:{[key:string]:string|number}={width:'100%',background:'rgba(255,255,255,0.025)',border:'1px solid rgba(26,86,219,0.12)',color:'#fff',padding:'14px 18px',fontSize:12,letterSpacing:'0.07em',fontFamily:SERIF,outline:'none',boxSizing:'border-box'}
 
     return (
       <div style={{background:BG,minHeight:'100vh',fontFamily:SERIF}}>
