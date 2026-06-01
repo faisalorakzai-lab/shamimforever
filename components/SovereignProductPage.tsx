@@ -20,12 +20,17 @@ import { useAccount } from 'wagmi'
           poster?: string
           'camera-controls'?: boolean | string
           'auto-rotate'?: boolean | string
+          'auto-rotate-delay'?: string
           'interaction-prompt'?: string
           exposure?: string
           'shadow-intensity'?: string
           'shadow-softness'?: string
           'environment-image'?: string
           'rotation-per-second'?: string
+          'camera-orbit'?: string
+          'camera-target'?: string
+          'min-camera-orbit'?: string
+          'max-camera-orbit'?: string
           style?: React.CSSProperties
         }, HTMLElement>
       }
@@ -301,21 +306,26 @@ export default function SovereignProductPage({ product }: { product: Product }) 
           <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse 110% 100% at 50% 42%, transparent 28%, rgba(3,3,3,0.4) 100%)', zIndex: 1, pointerEvents: 'none' }} />
           <div style={{ position: 'absolute', left: 0, right: 0, bottom: 0, height: '28%', background: 'radial-gradient(ellipse 55% 60% at 50% 100%, rgba(201,160,84,0.07) 0%, transparent 70%)', zIndex: 2, pointerEvents: 'none' }} />
 
-          {/* model-viewer — full viewport, transparent bg, shows complete bottle+base */}
+          {/* model-viewer — cinematic auto-loop, no touch, spatial-correct scale */}
           {config.modelPath ? (
-            <model-viewer
-              src={config.modelPath}
-              alt={config.heroTitle}
-              camera-controls=""
-              auto-rotate=""
-              auto-rotate-delay="2000"
-              interaction-prompt="none"
-              exposure="1.35"
-              shadow-intensity="0.8"
-              shadow-softness="1"
-              rotation-per-second="7deg"
-              style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', background: 'transparent', zIndex: 10 }}
-            />
+            <div style={{ position: 'absolute', top: 0, left: '50%', transform: 'translateX(-50%)', width: 'min(85%, 100%)', height: '100%', zIndex: 10 }}>
+              <model-viewer
+                src={config.modelPath}
+                alt={config.heroTitle}
+                auto-rotate=""
+                auto-rotate-delay="0"
+                camera-orbit="0deg 75deg 4.5m"
+                camera-target="0m 0.08m 0m"
+                min-camera-orbit="auto auto auto"
+                max-camera-orbit="auto auto 5m"
+                interaction-prompt="none"
+                exposure="1.2"
+                shadow-intensity="0.8"
+                shadow-softness="1"
+                rotation-per-second="12deg"
+                style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', background: 'transparent' }}
+              />
+            </div>
           ) : (
             <motion.div initial={{ scale: 1.12, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ duration: 3.2, ease: [0.25, 0.1, 0.1, 1] }} style={{ position: 'absolute', inset: 0, zIndex: 2 }}>
               <img src={config.heroImage} alt={config.heroTitle} style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center 15%' }} onError={e => { (e.target as HTMLImageElement).style.opacity = '0' }} />
