@@ -302,7 +302,7 @@ export default function SovereignProductPage({ product }: { product: Product }) 
                 camera-controls=""
                 auto-rotate=""
                 interaction-prompt="none"
-                exposure="1.1"
+                exposure="1.2"
                 shadow-intensity="0"
                 shadow-softness="0"
                 rotation-per-second="8deg"
