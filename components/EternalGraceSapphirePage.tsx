@@ -209,7 +209,6 @@ export default function EternalGraceSapphirePage({ product }: { product: Product
 
 
   return (
-    <>
     <div style={{background:BG,minHeight:'100vh',fontFamily:SERIF}}>
       <style>{EG_PAGE_CSS}</style>
 
@@ -396,7 +395,7 @@ export default function EternalGraceSapphirePage({ product }: { product: Product
           <div style={{columns:'2 400px',columnGap:44}}>
             {[
               'The ocean never competes with the sky.',
-              'Yet together they create the world's most beautiful horizon.',
+              "Yet together they create the world's most beautiful horizon.",
               'The Eternal Grace Sapphire Set draws inspiration from that eternal relationship.',
               'Its deep blue sapphires mirror the stillness of ancient oceans.',
               'Its brilliant diamonds reflect sunlight dancing upon water.',
@@ -791,6 +790,5 @@ export default function EternalGraceSapphirePage({ product }: { product: Product
         </div>
       </div>
     </div>
-    </>
   )
 }
