@@ -46,7 +46,7 @@ const EG_PAGE_CSS = `
       .vault-inc{grid-template-columns:1fr!important}
     }
   `
-const INPUT_STYLE={width:'100%',background:'rgba(255,255,255,0.025)',border:'1px solid rgba(26,86,219,0.12)',color:'#fff',padding:'14px 18px',fontSize:12,letterSpacing:'0.07em',fontFamily:"'Cormorant Garamond', Georgia, serif",outline:'none',boxSizing:'border-box'}
+const INPUT_STYLE={width:'100%',background:'rgba(255,255,255,0.025)',border:'1px solid rgba(26,86,219,0.12)',color:'#fff',padding:'14px 18px',fontSize:12,letterSpacing:'0.07em',fontFamily:"'Cormorant Garamond', Georgia, serif",outline:'none',boxSizing:'border-box' as const}
 
 
 
