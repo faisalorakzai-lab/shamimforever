@@ -95,6 +95,56 @@ function GoldParticles() {
   return <canvas ref={canvasRef} className="absolute inset-0 w-full h-full pointer-events-none" style={{ zIndex: 2 }} />
 }
 
+  function CrystalSparkles() {
+    const canvasRef = useRef<HTMLCanvasElement>(null)
+    useEffect(() => {
+      const canvas = canvasRef.current
+      if (!canvas) return
+      const ctx = canvas.getContext('2d')!
+      const resize = () => { canvas.width = canvas.offsetWidth; canvas.height = canvas.offsetHeight }
+      resize()
+      window.addEventListener('resize', resize)
+      const sparks = Array.from({ length: 38 }, () => ({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        r: Math.random() * 2.5 + 0.5,
+        a: Math.random(),
+        va: (Math.random() * 0.025 + 0.008) * (Math.random() > 0.5 ? 1 : -1),
+        color: Math.random() > 0.5 ? [255, 220, 180] : [255, 180, 210],
+      }))
+      let id: number
+      const tick = () => {
+        ctx.clearRect(0, 0, canvas.width, canvas.height)
+        sparks.forEach(p => {
+          p.a += p.va
+          if (p.a <= 0 || p.a >= 1) p.va *= -1
+          const [r, g, b] = p.color
+          const grd = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.r * 3)
+          grd.addColorStop(0, `rgba(${r},${g},${b},${p.a * 0.9})`)
+          grd.addColorStop(0.4, `rgba(${r},${g},${b},${p.a * 0.4})`)
+          grd.addColorStop(1, `rgba(${r},${g},${b},0)`)
+          ctx.beginPath()
+          ctx.arc(p.x, p.y, p.r * 3, 0, Math.PI * 2)
+          ctx.fillStyle = grd
+          ctx.fill()
+          // Star cross-hair
+          ctx.save()
+          ctx.globalAlpha = p.a * 0.6
+          ctx.strokeStyle = `rgba(${r},${g},${b},0.8)`
+          ctx.lineWidth = 0.5
+          ctx.beginPath(); ctx.moveTo(p.x - p.r * 4, p.y); ctx.lineTo(p.x + p.r * 4, p.y); ctx.stroke()
+          ctx.beginPath(); ctx.moveTo(p.x, p.y - p.r * 4); ctx.lineTo(p.x, p.y + p.r * 4); ctx.stroke()
+          ctx.restore()
+        })
+        id = requestAnimationFrame(tick)
+      }
+      tick()
+      return () => { cancelAnimationFrame(id); window.removeEventListener('resize', resize) }
+    }, [])
+    return <canvas ref={canvasRef} className="absolute inset-0 w-full h-full pointer-events-none" style={{ zIndex: 3 }} />
+  }
+  
+
 type PayMethod = 'crypto' | 'pkr_manual' | 'cod'
 type Coin = 'USDT' | 'USDC' | 'OKBOND'
 
@@ -105,6 +155,8 @@ export default function ShamimsBloomPage({ product, onBack }: Props) {
   const { scrollYProgress } = useScroll({ target: heroRef, offset: ['start start', 'end start'] })
   const heroY = useTransform(scrollYProgress, [0, 1], ['0%', '25%'])
   const heroOpacity = useTransform(scrollYProgress, [0, 0.7], [1, 0])
+  const bgParallaxY = useTransform(scrollYProgress, [0, 1], ['0%', '22%'])
+    const bottleParallaxY = useTransform(scrollYProgress, [0, 1], ['0%', '-6%'])
 
   const [activeImg, setActiveImg] = useState(0)
   const [qty, setQty] = useState(1)
@@ -230,66 +282,304 @@ export default function ShamimsBloomPage({ product, onBack }: Props) {
   )
 
   return (
-    <div className="min-h-screen bg-[#0a0a0a] overflow-x-hidden">
+      <div className="min-h-screen bg-[#050202] overflow-x-hidden">
+  
+        {/* ── CINEMATIC HERO — Bottle on Pedestal, Zero Text Over Image ── */}
+        <section ref={heroRef} className="relative overflow-hidden bg-[#050202]" style={{ minHeight: '100svh' }}>
 
-      {/* ── CINEMATIC HERO ── */}
-      <section ref={heroRef} className="relative h-[100svh] min-h-[600px] overflow-hidden flex items-center justify-center">
-        <motion.div className="absolute inset-0" style={{ y: heroY }}>
-          <img
-            src={BLOOM_IMAGES[0]}
-            alt="Shamim's Bloom"
-            className="w-full h-full object-cover"
-            style={{ filter: 'brightness(0.32)' }}
-          />
-          <div className="absolute inset-0 bg-gradient-to-b from-[#0a0a0a]/60 via-transparent to-[#0a0a0a]" />
-          <div className="absolute inset-0 bg-gradient-to-r from-[#0a0a0a]/50 via-transparent to-[#0a0a0a]/50" />
-        </motion.div>
-        <div className="absolute inset-0 pointer-events-none" style={{ background: 'radial-gradient(ellipse 60% 50% at 50% 60%, rgba(120,40,60,0.18) 0%, transparent 70%)' }} />
-        <GoldParticles />
-        <motion.div style={{ opacity: heroOpacity }} className="relative z-10 text-center px-6 max-w-3xl">
-          <motion.p
-            initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.3, duration: 1.2 }}
-            className="text-[8px] tracking-[0.7em] uppercase text-[#c9a054] mb-8"
-          >
-            House of Shamim Forever  ◈  Sovereign Feminine Collection
-          </motion.p>
-          <motion.h1
-            initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5, duration: 1.4, ease }}
-            className="font-serif font-light text-5xl md:text-7xl lg:text-8xl tracking-[0.25em] text-zinc-100 leading-none mb-4"
-          >
-            SHAMIM&apos;S<br />BLOOM
-          </motion.h1>
+          {/* PARALLAX BACKGROUND */}
+          <motion.div style={{ y: bgParallaxY }} className="absolute inset-0 z-0">
+            <div className="absolute inset-0" style={{
+              background: 'radial-gradient(ellipse 160% 110% at 50% 110%, #1f0c08 0%, #0c0404 40%, #030101 100%)'
+            }} />
+            <div className="absolute inset-0 opacity-40" style={{
+              backgroundImage: `
+                repeating-linear-gradient(125deg, transparent 0px, transparent 80px, rgba(255,255,255,0.014) 80px, rgba(255,255,255,0.014) 82px),
+                repeating-linear-gradient(55deg, transparent 0px, transparent 120px, rgba(255,255,255,0.009) 120px, rgba(255,255,255,0.009) 122px)
+              `
+            }} />
+            <div className="absolute inset-0" style={{
+              background: 'radial-gradient(ellipse 130% 70% at 50% 0%, rgba(30,8,14,0.95) 0%, transparent 65%)'
+            }} />
+            <div className="absolute inset-x-0 bottom-0 h-[30%]" style={{
+              background: 'linear-gradient(to top, rgba(5,2,2,1) 0%, transparent 100%)'
+            }} />
+            <div className="absolute inset-0" style={{
+              background: 'radial-gradient(ellipse 60% 45% at 50% 15%, rgba(170,110,25,0.14) 0%, transparent 60%)'
+            }} />
+            <div className="absolute inset-0" style={{
+              background: 'radial-gradient(ellipse 45% 55% at 0% 55%, rgba(170,55,90,0.10) 0%, transparent 55%)'
+            }} />
+            <div className="absolute inset-0" style={{
+              background: 'radial-gradient(ellipse 35% 50% at 100% 40%, rgba(201,160,84,0.06) 0%, transparent 55%)'
+            }} />
+          </motion.div>
+
+          {/* FLOATING ROSE PETALS */}
+          <div className="absolute inset-0 z-10 pointer-events-none overflow-hidden">
+            {[
+              { left: '7%',  delay: 0,    dur: 10, size: 18, dx: 25 },
+              { left: '18%', delay: 2.2,  dur: 12, size: 13, dx: -20 },
+              { left: '33%', delay: 4.5,  dur: 9,  size: 22, dx: 30 },
+              { left: '50%', delay: 1.2,  dur: 13, size: 15, dx: -28 },
+              { left: '64%', delay: 3.1,  dur: 10, size: 19, dx: 22 },
+              { left: '79%', delay: 0.8,  dur: 11, size: 12, dx: -18 },
+              { left: '88%', delay: 5.5,  dur: 9,  size: 24, dx: 20 },
+              { left: '12%', delay: 7,    dur: 14, size: 10, dx: -25 },
+              { left: '44%', delay: 6.2,  dur: 10, size: 16, dx: 18 },
+              { left: '72%', delay: 3.8,  dur: 12, size: 14, dx: -22 },
+              { left: '25%', delay: 8.5,  dur: 9,  size: 11, dx: 28 },
+              { left: '57%', delay: 9.1,  dur: 11, size: 20, dx: -15 },
+            ].map((p, i) => (
+              <motion.div
+                key={'petal-' + i}
+                style={{ left: p.left, position: 'absolute', top: '-8%' }}
+                animate={{
+                  y: ['0vh', '115vh'],
+                  x: [0, p.dx, p.dx * 0.5, p.dx * 1.2, 0],
+                  rotate: [0, 180 + i * 15],
+                  opacity: [0, 0.75, 0.6, 0.4, 0],
+                }}
+                transition={{
+                  duration: p.dur,
+                  delay: p.delay,
+                  repeat: Infinity,
+                  ease: 'linear',
+                  repeatDelay: 1.5 + Math.random() * 3,
+                }}
+              >
+                <svg width={p.size} height={Math.round(p.size * 1.35)} viewBox="0 0 20 27" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <ellipse cx="10" cy="14" rx="9" ry="12" fill="rgba(195,80,120,0.65)" />
+                  <ellipse cx="10" cy="14" rx="5" ry="7" fill="rgba(220,110,150,0.3)" />
+                  <line x1="10" y1="2" x2="10" y2="26" stroke="rgba(180,60,100,0.2)" strokeWidth="0.5" />
+                </svg>
+              </motion.div>
+            ))}
+          </div>
+
+          {/* GOLD PARTICLES */}
+          <GoldParticles />
+
+          {/* CRYSTAL SPARKLES */}
+          <CrystalSparkles />
+
+          {/* BOTTLE + PEDESTAL — centre stage, NO text */}
+          <div className="relative z-20 flex flex-col items-center" style={{ minHeight: '100svh', justifyContent: 'flex-end', paddingBottom: 0 }}>
+
+            {/* Warm halo lighting behind bottle */}
+            <div aria-hidden className="absolute pointer-events-none" style={{
+              top: '2%', left: '50%', transform: 'translateX(-50%)',
+              width: 'min(700px, 95vw)', height: 'min(700px, 95vw)',
+              background: 'radial-gradient(ellipse at 50% 45%, rgba(201,160,84,0.22) 0%, rgba(170,55,90,0.10) 38%, transparent 65%)',
+              filter: 'blur(40px)',
+              zIndex: 1,
+            }} />
+
+            {/* Bottle with cinematic lighting overlays */}
+            <motion.div
+              style={{ y: bottleParallaxY, position: 'relative', zIndex: 5 }}
+              initial={{ opacity: 0, scale: 0.9, y: 30 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              transition={{ duration: 1.8, ease: [0.16, 1, 0.3, 1] }}
+            >
+              {/* Gold rim light — right */}
+              <div aria-hidden style={{
+                position: 'absolute', inset: 0, zIndex: 10, pointerEvents: 'none',
+                background: 'radial-gradient(ellipse 55% 90% at 88% 25%, rgba(201,160,84,0.28) 0%, transparent 55%)',
+                borderRadius: '50%',
+              }} />
+              {/* Pink fill light — left */}
+              <div aria-hidden style={{
+                position: 'absolute', inset: 0, zIndex: 10, pointerEvents: 'none',
+                background: 'radial-gradient(ellipse 45% 70% at 12% 50%, rgba(200,75,115,0.18) 0%, transparent 55%)',
+              }} />
+              {/* Crystal crown highlight */}
+              <div aria-hidden style={{
+                position: 'absolute', top: '6%', left: '28%', width: '44%', height: '1px', zIndex: 10,
+                background: 'linear-gradient(90deg, transparent, rgba(255,240,200,0.65), transparent)',
+              }} />
+              <div aria-hidden style={{
+                position: 'absolute', top: '12%', left: '38%', width: '24%', height: '1px', zIndex: 10,
+                background: 'linear-gradient(90deg, transparent, rgba(255,200,230,0.5), transparent)',
+              }} />
+
+              {/* THE BOTTLE — fully unobstructed */}
+              <img
+                src="/products/shamims-bloom/bloom-hero.png"
+                alt="Shamim's Bloom — The Sovereign Grace"
+                draggable={false}
+                style={{
+                  width: 'min(72vw, 400px)',
+                  height: 'auto',
+                  display: 'block',
+                  position: 'relative',
+                  zIndex: 5,
+                  filter: [
+                    'drop-shadow(0 50px 70px rgba(0,0,0,0.9))',
+                    'drop-shadow(0 8px 20px rgba(0,0,0,0.7))',
+                    'drop-shadow(0 0 50px rgba(170,55,90,0.28))',
+                    'drop-shadow(0 0 90px rgba(201,160,84,0.18))',
+                  ].join(' '),
+                  marginBottom: '-2px',
+                }}
+              />
+            </motion.div>
+
+            {/* MUSEUM PEDESTAL */}
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1.4, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
+              aria-hidden
+              style={{ width: 'min(72vw, 400px)', position: 'relative', zIndex: 4, flexShrink: 0 }}
+            >
+              {/* Top gold filigree band */}
+              <div style={{
+                height: '13px',
+                background: 'linear-gradient(180deg, #f0d070 0%, #c9a054 25%, #a07830 55%, #c9a054 75%, #8b6510 100%)',
+                borderRadius: '4px 4px 0 0',
+                boxShadow: '0 0 18px rgba(201,160,84,0.55), inset 0 1px 2px rgba(255,255,255,0.35)',
+                position: 'relative', overflow: 'hidden',
+              }}>
+                <div style={{
+                  position: 'absolute', inset: '2px 3px',
+                  background: 'repeating-linear-gradient(90deg, rgba(255,255,255,0.18) 0px, rgba(255,255,255,0.18) 1px, transparent 1px, transparent 7px)',
+                }} />
+              </div>
+              {/* Black marble body */}
+              <div style={{
+                height: 'min(13vw, 72px)',
+                background: 'linear-gradient(180deg, #1c0e0e 0%, #120808 50%, #0a0404 100%)',
+                position: 'relative', overflow: 'hidden',
+              }}>
+                <div style={{
+                  position: 'absolute', inset: 0,
+                  backgroundImage: `
+                    repeating-linear-gradient(118deg, transparent 0px, transparent 42px, rgba(255,255,255,0.022) 42px, rgba(255,255,255,0.022) 43px),
+                    repeating-linear-gradient(62deg, transparent 0px, transparent 58px, rgba(255,255,255,0.014) 58px, rgba(255,255,255,0.014) 59px)
+                  `,
+                }} />
+                <div style={{
+                  position: 'absolute', inset: 0,
+                  background: 'linear-gradient(90deg, rgba(0,0,0,0.65) 0%, transparent 22%, transparent 78%, rgba(0,0,0,0.65) 100%)',
+                }} />
+                <div style={{
+                  position: 'absolute', top: 0, left: 0, right: 0, height: '25%',
+                  background: 'linear-gradient(180deg, rgba(201,160,84,0.10) 0%, transparent 100%)',
+                }} />
+              </div>
+              {/* Bottom gold filigree band */}
+              <div style={{
+                height: '13px',
+                background: 'linear-gradient(180deg, #8b6510 0%, #c9a054 30%, #a07830 60%, #6b4e0a 100%)',
+                borderRadius: '0 0 4px 4px',
+                boxShadow: '0 6px 20px rgba(0,0,0,0.85), inset 0 -1px 2px rgba(0,0,0,0.5)',
+                position: 'relative', overflow: 'hidden',
+              }}>
+                <div style={{
+                  position: 'absolute', inset: '2px 3px',
+                  background: 'repeating-linear-gradient(90deg, rgba(255,255,255,0.12) 0px, rgba(255,255,255,0.12) 1px, transparent 1px, transparent 7px)',
+                }} />
+              </div>
+              {/* Shadow + marble floor + reflection */}
+              <div style={{ height: '70px', position: 'relative', overflow: 'hidden' }}>
+                <div style={{
+                  position: 'absolute', inset: 0,
+                  background: 'linear-gradient(180deg, rgba(12,5,5,0.95) 0%, rgba(5,2,2,1) 100%)',
+                  backgroundImage: 'repeating-linear-gradient(112deg, transparent 0px, transparent 55px, rgba(255,255,255,0.016) 55px, rgba(255,255,255,0.016) 56px)',
+                }} />
+                <div style={{
+                  position: 'absolute', top: 0, left: '50%', transform: 'translateX(-50%)',
+                  width: '85%', height: '14px',
+                  background: 'radial-gradient(ellipse 90% 100%, rgba(0,0,0,0.95) 0%, transparent 100%)',
+                }} />
+                <div style={{
+                  position: 'absolute', top: '8px', left: '50%', transform: 'translateX(-50%) scaleY(-1)',
+                  width: 'min(40vw, 200px)', height: '55px', overflow: 'hidden',
+                  opacity: 0.18, filter: 'blur(3px)',
+                  maskImage: 'linear-gradient(to top, transparent 0%, black 100%)',
+                  WebkitMaskImage: 'linear-gradient(to top, transparent 0%, black 100%)',
+                }}>
+                  <img
+                    src="/products/shamims-bloom/bloom-hero.png"
+                    alt=""
+                    style={{ width: '100%', height: 'auto', display: 'block' }}
+                  />
+                </div>
+              </div>
+            </motion.div>
+          </div>
+
+          {/* Scroll cue */}
           <motion.div
-            initial={{ scaleX: 0 }} animate={{ scaleX: 1 }} transition={{ delay: 0.9, duration: 1.2, ease }}
-            className="w-32 h-px bg-gradient-to-r from-transparent via-[#c9a054] to-transparent mx-auto my-6"
-          />
-          <motion.p
-            initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.1, duration: 1.2 }}
-            className="font-serif italic text-zinc-400 text-lg md:text-xl tracking-[0.1em]"
+            initial={{ opacity: 0 }} animate={{ opacity: 1 }}
+            transition={{ delay: 2.8, duration: 1.2 }}
+            style={{ opacity: heroOpacity }}
+            className="absolute bottom-5 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1.5 z-30 pointer-events-none"
           >
-            The Sovereign Grace
-          </motion.p>
-          <motion.p
-            initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.3, duration: 1 }}
-            className="text-zinc-600 text-[10px] tracking-[0.3em] mt-4 uppercase"
-          >
-            Love does not fade — it blooms into eternity
-          </motion.p>
-          <motion.p
-            initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.5, duration: 1 }}
-            className="text-[9px] tracking-[0.3em] uppercase text-[#c9a054]/60 mt-2"
-          >
-            Velvet Taif &amp; Peony  ·  100ML Extrait de Parfum  ·  Rs 85,000
-          </motion.p>
-        </motion.div>
-        <motion.div
-          initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 2, duration: 1 }}
-          className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
-        >
-          <div className="w-px h-12 bg-gradient-to-b from-[#c9a054]/60 to-transparent animate-pulse" />
-        </motion.div>
-      </section>
+            <p className="text-[6px] tracking-[0.6em] uppercase text-[#c9a054]/35">Scroll</p>
+            <div className="w-px h-10 bg-gradient-to-b from-[#c9a054]/45 to-transparent animate-pulse" />
+          </motion.div>
+        </section>
 
+        {/* ── HERO INFO — ALL TEXT BELOW THE BOTTLE ── */}
+        <section id="hero-info" className="relative bg-[#050202] pt-14 pb-16 px-6" style={{ textAlign: 'center' }}>
+          <div className="w-full h-px bg-gradient-to-r from-transparent via-[#c9a054]/18 to-transparent mb-14" />
+          <motion.div
+            initial={{ opacity: 0, y: 22 }} whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }} transition={{ duration: 1.2, ease }}
+            className="max-w-lg mx-auto"
+          >
+            <p className="text-[7px] tracking-[0.7em] uppercase text-[#c9a054] mb-5">
+              Founder Reserve Allocation  ◈  Archive I
+            </p>
+            <div className="w-20 h-px bg-gradient-to-r from-transparent via-[#c9a054]/40 to-transparent mx-auto mb-7" />
+            <h1
+              className="font-serif font-light tracking-[0.28em] uppercase text-zinc-100 leading-none mb-4"
+              style={{ fontSize: 'clamp(2.5rem, 10vw, 5.5rem)' }}
+            >
+              Shamim&apos;s<br />Bloom
+            </h1>
+            <p
+              className="font-serif italic text-zinc-400 tracking-[0.12em] mb-2"
+              style={{ fontSize: 'clamp(1rem, 3vw, 1.2rem)' }}
+            >
+              The Sovereign Grace
+            </p>
+            <p className="text-zinc-600 text-[9px] tracking-[0.3em] uppercase mb-10">
+              Love does not fade — it blooms into eternity
+            </p>
+            <div className="flex items-baseline justify-center gap-5 mb-5">
+              <p className="font-serif font-light text-zinc-100" style={{ fontSize: 'clamp(1.75rem, 6vw, 2.4rem)' }}>
+                Rs 85,000
+              </p>
+              <p className="text-[#c9a054] text-sm tracking-[0.1em] font-light">$306 USD</p>
+            </div>
+            <div className="inline-flex items-center gap-2.5 border border-[#c9a054]/25 bg-[#c9a054]/5 px-5 py-2.5 mb-10">
+              <div className="w-1.5 h-1.5 rounded-full bg-[#c9a054] animate-pulse" />
+              <p className="text-[7px] tracking-[0.45em] uppercase text-[#c9a054]">
+                NFT Sovereign Passport  ·  Polygon Mainnet
+              </p>
+            </div>
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+              <button
+                onClick={() => document.getElementById('acquire')?.scrollIntoView({ behavior: 'smooth' })}
+                className="w-full sm:w-auto text-[9px] tracking-[0.45em] uppercase text-[#050202] px-10 py-4 hover:opacity-90 transition-opacity duration-300"
+                style={{ background: 'linear-gradient(135deg, #c9a054, #b8860b)' }}
+              >
+                Acquire Archive I
+              </button>
+              <button
+                onClick={onBack}
+                className="w-full sm:w-auto text-[9px] tracking-[0.45em] uppercase text-[#c9a054] border border-[#c9a054]/30 px-10 py-4 hover:border-[#c9a054]/60 hover:bg-[#c9a054]/5 transition-all duration-500"
+              >
+                Explore Archive
+              </button>
+            </div>
+          </motion.div>
+        </section>
+
+        {/* ── STORY ── */}
       {/* ── STORY ── */}
       <section className="max-w-[1400px] mx-auto px-6 md:px-20 py-32 md:py-40">
         <div className="grid md:grid-cols-2 gap-20 items-center">
@@ -493,7 +783,7 @@ export default function ShamimsBloomPage({ product, onBack }: Props) {
       </section>
 
       {/* ── PURCHASE ── */}
-      <section className="max-w-[1200px] mx-auto px-6 md:px-20 py-24 md:py-32">
+      <section id="acquire" className="max-w-[1200px] mx-auto px-6 md:px-20 py-24 md:py-32">
         <motion.div
           initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }} transition={{ duration: 1, ease }}
