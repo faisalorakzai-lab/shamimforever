@@ -32,6 +32,8 @@ import { useAccount } from 'wagmi'
     }
   }
   import { SOVEREIGN_CONFIGS, type SovereignConfig } from '@/lib/sovereign-configs'
+import dynamic from 'next/dynamic'
+const ShamimBloom3DScene = dynamic(() => import('./ShamimBloom3DScene'), { ssr: false, loading: () => null })
 
 type PayMethod = 'crypto' | 'pkr_manual' | 'cod'
 interface OrderResult { order_id: string; order_ref: string; tracking_ref: string; status: string; track_url: string }
@@ -286,115 +288,119 @@ export default function SovereignProductPage({ product }: { product: Product }) 
       <style dangerouslySetInnerHTML={{ __html: SOVEREIGN_CSS }} />
 
       {/* HERO */}
-      <section ref={heroRef} style={{ position: 'relative', height: '100svh', minHeight: 700, overflow: 'hidden', background: '#030303' }}>
         {config.modelPath ? (
-            <>
-              <img
-                src={config.heroImage}
-                alt={config.heroTitle}
-                style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center 15%', filter: 'brightness(0.45) saturate(0.7)' }}
-                onError={e => { (e.target as HTMLImageElement).style.opacity = '0' }}
-              />
-              <model-viewer
-                src={config.modelPath}
-                alt={config.heroTitle}
-                camera-controls=""
-                auto-rotate=""
-                interaction-prompt="none"
-                exposure="1.2"
-                shadow-intensity="0"
-                shadow-softness="0"
-                rotation-per-second="8deg"
-                style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', zIndex: 5, background: 'transparent' }}
-              />
-            </>
-          ) : (
-            <motion.div
-              initial={{ scale: 1.12, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              transition={{ duration: 3.2, ease: [0.25, 0.1, 0.1, 1] }}
-              style={{ position: 'absolute', inset: 0 }}
-            >
-              <img
-                src={config.heroImage}
-                alt={config.heroTitle}
-                style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center 15%' }}
-                onError={e => { (e.target as HTMLImageElement).style.opacity = '0' }}
-              />
-            </motion.div>
-          )}
-        <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to bottom, rgba(3,3,3,0.25) 0%, rgba(3,3,3,0.05) 20%, rgba(3,3,3,0.3) 55%, rgba(3,3,3,0.9) 82%, #030303 100%)' }} />
-        <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse 110% 110% at 50% 30%, transparent 45%, rgba(3,3,3,0.55) 100%)' }} />
-        <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse 60% 40% at 50% 80%, rgba(201,160,84,0.06) 0%, transparent 60%)', pointerEvents: 'none' }} />
-        <GoldParticles />
+          <>
+            {/* CINEMATIC R3F HERO — bottle unobstructed, no text overlay */}
+            <section ref={heroRef} style={{ position: 'relative', height: '100svh', minHeight: 700, overflow: 'hidden', background: '#030202' }}>
 
-        <motion.div
-          style={{
-            opacity: textOpacity,
-            y: textY,
-            position: 'absolute',
-            bottom: 0, left: 0, right: 0,
-            zIndex: 20,
-            padding: '0 clamp(20px,5vw,80px)',
-            paddingBottom: 'clamp(48px,6vw,80px)',
-          }}
-        >
-          <motion.p
-            initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 1.4, duration: 1 }}
-            style={{ fontSize: 7, letterSpacing: '0.9em', textTransform: 'uppercase', color: '#c9a054', marginBottom: 16 }}
-          >
-            {config.heroTagline}
-          </motion.p>
-          <motion.h1
-            initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 1.8, duration: 1.6, ease: [0.16, 1, 0.3, 1] }}
-            style={{ fontFamily: SERIF, fontWeight: 300, letterSpacing: '-0.01em', lineHeight: 0.88, color: '#f8f4ee', marginBottom: 14, fontSize: 'clamp(3rem,10vw,9.5rem)' }}
-          >
-            {config.heroTitle}
-          </motion.h1>
-          <motion.div
-            initial={{ scaleX: 0 }} animate={{ scaleX: 1 }} transition={{ delay: 2.5, duration: 1.2 }}
-            style={{ height: 1, width: 180, background: 'linear-gradient(to right, #c9a054 0%, rgba(201,160,84,0.3) 60%, transparent 100%)', marginBottom: 12, transformOrigin: 'left' }}
-          />
-          <motion.p
-            initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 2.3, duration: 1 }}
-            style={{ fontFamily: SERIF, fontStyle: 'italic', fontSize: 'clamp(1rem,3vw,2rem)', color: 'rgba(240,236,228,0.65)', fontWeight: 300, marginBottom: 20 }}
-          >
-            {config.heroSubtitle}
-          </motion.p>
-          <motion.div
-            initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 2.6, duration: 0.8 }}
-            style={{ display: 'flex', alignItems: 'baseline', gap: 16, marginBottom: 24, flexWrap: 'wrap' }}
-          >
-            <span style={{ fontFamily: SERIF, fontSize: 'clamp(1.8rem,5vw,3.2rem)', fontWeight: 300, color: '#f8f4ee' }}>{formatPKR(finalPkr)}</span>
-            <span style={{ fontSize: 12, letterSpacing: '0.2em', color: 'rgba(201,160,84,0.5)' }}>${product.price_usd} USD</span>
-          </motion.div>
-          <motion.div
-            initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 2.9, duration: 0.8 }}
-            style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}
-          >
-            <a href="#acquire" className="group" style={{ position: 'relative', overflow: 'hidden', padding: '14px 32px', border: '1px solid rgba(201,160,84,0.55)', fontSize: 8, letterSpacing: '0.7em', textTransform: 'uppercase', color: '#c9a054', display: 'inline-block', textDecoration: 'none' }}>
-              <span className="absolute inset-0 bg-[#c9a054] -translate-x-full group-hover:translate-x-0 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]" />
-              <span className="relative group-hover:text-black transition-colors duration-150">Acquire Now</span>
-            </a>
-            <a href="#legacy" style={{ padding: '14px 32px', border: '1px solid rgba(255,255,255,0.1)', fontSize: 8, letterSpacing: '0.7em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.35)', display: 'inline-block', textDecoration: 'none' }}
-              onMouseEnter={e => { (e.target as HTMLElement).style.borderColor = 'rgba(255,255,255,0.25)'; (e.target as HTMLElement).style.color = 'rgba(255,255,255,0.7)' }}
-              onMouseLeave={e => { (e.target as HTMLElement).style.borderColor = 'rgba(255,255,255,0.1)'; (e.target as HTMLElement).style.color = 'rgba(255,255,255,0.35)' }}
-            >
-              Explore Archive
-            </a>
-          </motion.div>
-        </motion.div>
+              {/* LAYER 1: Background artwork — full-screen, sits behind WebGL canvas */}
+              <div style={{ position: 'absolute', inset: 0, zIndex: 0 }}>
+                <img
+                  src={config.heroImage}
+                  alt=""
+                  style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center', filter: 'brightness(0.15) saturate(0.45)' }}
+                />
+                <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse 130% 80% at 50% 0%, rgba(22,5,9,0.94) 0%, transparent 60%)' }} />
+                <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse 75% 55% at 50% 22%, rgba(155,95,18,0.14) 0%, transparent 55%)' }} />
+                <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse 55% 65% at 0% 55%, rgba(145,38,65,0.10) 0%, transparent 55%)' }} />
+                <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to bottom, transparent 50%, #030202 100%)' }} />
+              </div>
 
-        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 3.8 }}
-          style={{ position: 'absolute', bottom: 24, right: 24, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 6 }}
-        >
-          <span style={{ fontSize: 6, letterSpacing: '0.5em', textTransform: 'uppercase', color: 'rgba(201,160,84,0.35)', writingMode: 'vertical-lr' }}>Scroll</span>
-          <motion.div animate={{ y: [0, 6, 0] }} transition={{ duration: 1.6, repeat: Infinity }}>
-            <ArrowDown size={10} color="rgba(201,160,84,0.35)" />
-          </motion.div>
-        </motion.div>
-      </section>
+              {/* LAYER 2: React Three Fiber — alpha:true canvas, fully transparent bg */}
+              <div style={{ position: 'absolute', inset: 0, zIndex: 10 }}>
+                <ShamimBloom3DScene modelPath={config.modelPath} />
+              </div>
+
+              {/* Scroll cue */}
+              <motion.div
+                initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 4.5, duration: 1.2 }}
+                style={{ position: 'absolute', bottom: 24, right: 24, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 6, zIndex: 30, pointerEvents: 'none' }}
+              >
+                <span style={{ fontSize: 6, letterSpacing: '0.5em', textTransform: 'uppercase', color: 'rgba(201,160,84,0.28)', writingMode: 'vertical-lr' }}>Scroll</span>
+                <motion.div animate={{ y: [0, 6, 0] }} transition={{ duration: 1.6, repeat: Infinity }}>
+                  <ArrowDown size={10} color="rgba(201,160,84,0.28)" />
+                </motion.div>
+              </motion.div>
+            </section>
+
+            {/* HERO TEXT — completely separate layer below the 3D scene */}
+            <section style={{ background: '#030202', padding: 'clamp(40px,7vw,72px) clamp(20px,5vw,80px)', textAlign: 'center' }}>
+              <div style={{ width: '100%', height: 1, background: 'linear-gradient(to right, transparent, rgba(201,160,84,0.18), transparent)', marginBottom: 48 }} />
+              <motion.div
+                initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }} transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+              >
+                <p style={{ fontSize: 7, letterSpacing: '0.85em', textTransform: 'uppercase', color: '#c9a054', marginBottom: 18 }}>
+                  {config.heroTagline}
+                </p>
+                <div style={{ width: 72, height: 1, background: 'linear-gradient(to right, transparent, #c9a054, transparent)', margin: '0 auto 24px' }} />
+                <h1 style={{ fontFamily: SERIF, fontWeight: 300, letterSpacing: '0.2em', lineHeight: 0.9, color: '#f8f4ee', marginBottom: 16, textTransform: 'uppercase', fontSize: 'clamp(2.8rem,10vw,6rem)' }}>
+                  {config.heroTitle}
+                </h1>
+                <p style={{ fontFamily: SERIF, fontStyle: 'italic', fontSize: 'clamp(1rem,3vw,1.5rem)', color: 'rgba(240,236,228,0.6)', marginBottom: 8 }}>
+                  {config.heroSubtitle}
+                </p>
+                <p style={{ fontSize: 9, letterSpacing: '0.32em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.28)', marginBottom: 32 }}>
+                  Love does not fade — it blooms into eternity
+                </p>
+                <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'center', gap: 18, marginBottom: 18, flexWrap: 'wrap' }}>
+                  <span style={{ fontFamily: SERIF, fontSize: 'clamp(2rem,6vw,2.8rem)', fontWeight: 300, color: '#f8f4ee' }}>{formatPKR(finalPkr)}</span>
+                  <span style={{ fontSize: 12, letterSpacing: '0.2em', color: 'rgba(201,160,84,0.5)' }}>${product.price_usd} USD</span>
+                </div>
+                <div style={{ display: 'inline-flex', alignItems: 'center', gap: 10, border: '1px solid rgba(201,160,84,0.22)', padding: '10px 24px', marginBottom: 36, background: 'rgba(201,160,84,0.04)' }}>
+                  <div style={{ width: 6, height: 6, borderRadius: '50%', background: '#c9a054', flexShrink: 0 }} />
+                  <p style={{ fontSize: 7, letterSpacing: '0.45em', textTransform: 'uppercase', color: '#c9a054', margin: 0 }}>
+                    NFT Sovereign Passport · Polygon Mainnet
+                  </p>
+                </div>
+                <div style={{ display: 'flex', flexWrap: 'wrap', gap: 14, justifyContent: 'center' }}>
+                  <a href="#acquire" className="group" style={{ position: 'relative', overflow: 'hidden', padding: '15px 40px', fontSize: 8, letterSpacing: '0.7em', textTransform: 'uppercase', color: '#050202', display: 'inline-block', textDecoration: 'none', background: 'linear-gradient(135deg, #c9a054 0%, #b8860b 100%)', fontWeight: 600 }}>
+                    Acquire Archive I
+                  </a>
+                  <a href="#legacy" style={{ padding: '15px 40px', border: '1px solid rgba(201,160,84,0.35)', fontSize: 8, letterSpacing: '0.7em', textTransform: 'uppercase', color: '#c9a054', display: 'inline-block', textDecoration: 'none' }}
+                    onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = 'rgba(201,160,84,0.08)' }}
+                    onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = 'transparent' }}>
+                    Explore Archive
+                  </a>
+                </div>
+              </motion.div>
+            </section>
+          </>
+        ) : (
+          <>
+            {/* Original hero for non-3D products */}
+            <section ref={heroRef} style={{ position: 'relative', height: '100svh', minHeight: 700, overflow: 'hidden', background: '#030303' }}>
+              <motion.div initial={{ scale: 1.12, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ duration: 3.2, ease: [0.25, 0.1, 0.1, 1] }} style={{ position: 'absolute', inset: 0 }}>
+                <img src={config.heroImage} alt={config.heroTitle} style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center 15%' }} onError={e => { (e.target as HTMLImageElement).style.opacity = '0' }} />
+              </motion.div>
+              <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to bottom, rgba(3,3,3,0.25) 0%, rgba(3,3,3,0.05) 20%, rgba(3,3,3,0.3) 55%, rgba(3,3,3,0.9) 82%, #030303 100%)' }} />
+              <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse 110% 110% at 50% 30%, transparent 45%, rgba(3,3,3,0.55) 100%)' }} />
+              <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse 60% 40% at 50% 80%, rgba(201,160,84,0.06) 0%, transparent 60%)', pointerEvents: 'none' }} />
+              <GoldParticles />
+              <motion.div style={{ opacity: textOpacity, y: textY, position: 'absolute', bottom: 0, left: 0, right: 0, zIndex: 20, padding: '0 clamp(20px,5vw,80px)', paddingBottom: 'clamp(48px,6vw,80px)' }}>
+                <motion.p initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 1.4, duration: 1 }} style={{ fontSize: 7, letterSpacing: '0.9em', textTransform: 'uppercase', color: '#c9a054', marginBottom: 16 }}>{config.heroTagline}</motion.p>
+                <motion.h1 initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 1.8, duration: 1.6, ease: [0.16, 1, 0.3, 1] }} style={{ fontFamily: SERIF, fontWeight: 300, letterSpacing: '-0.01em', lineHeight: 0.88, color: '#f8f4ee', marginBottom: 14, fontSize: 'clamp(3rem,10vw,9.5rem)' }}>{config.heroTitle}</motion.h1>
+                <motion.div initial={{ scaleX: 0 }} animate={{ scaleX: 1 }} transition={{ delay: 2.5, duration: 1.2 }} style={{ height: 1, width: 180, background: 'linear-gradient(to right, #c9a054 0%, rgba(201,160,84,0.3) 60%, transparent 100%)', marginBottom: 12, transformOrigin: 'left' }} />
+                <motion.p initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 2.3, duration: 1 }} style={{ fontFamily: SERIF, fontStyle: 'italic', fontSize: 'clamp(1rem,3vw,2rem)', color: 'rgba(240,236,228,0.65)', fontWeight: 300, marginBottom: 20 }}>{config.heroSubtitle}</motion.p>
+                <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 2.6, duration: 0.8 }} style={{ display: 'flex', alignItems: 'baseline', gap: 16, marginBottom: 24, flexWrap: 'wrap' }}>
+                  <span style={{ fontFamily: SERIF, fontSize: 'clamp(1.8rem,5vw,3.2rem)', fontWeight: 300, color: '#f8f4ee' }}>{formatPKR(finalPkr)}</span>
+                  <span style={{ fontSize: 12, letterSpacing: '0.2em', color: 'rgba(201,160,84,0.5)' }}>${product.price_usd} USD</span>
+                </motion.div>
+                <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 2.9, duration: 0.8 }} style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
+                  <a href="#acquire" className="group" style={{ position: 'relative', overflow: 'hidden', padding: '14px 32px', border: '1px solid rgba(201,160,84,0.55)', fontSize: 8, letterSpacing: '0.7em', textTransform: 'uppercase', color: '#c9a054', display: 'inline-block', textDecoration: 'none' }}>
+                    <span className="absolute inset-0 bg-[#c9a054] -translate-x-full group-hover:translate-x-0 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]" />
+                    <span className="relative group-hover:text-black transition-colors duration-150">Acquire Now</span>
+                  </a>
+                  <a href="#legacy" style={{ padding: '14px 32px', border: '1px solid rgba(255,255,255,0.1)', fontSize: 8, letterSpacing: '0.7em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.35)', display: 'inline-block', textDecoration: 'none' }} onMouseEnter={e => { (e.target as HTMLElement).style.borderColor = 'rgba(255,255,255,0.25)'; (e.target as HTMLElement).style.color = 'rgba(255,255,255,0.7)' }} onMouseLeave={e => { (e.target as HTMLElement).style.borderColor = 'rgba(255,255,255,0.1)'; (e.target as HTMLElement).style.color = 'rgba(255,255,255,0.35)' }}>Explore Archive</a>
+                </motion.div>
+              </motion.div>
+              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 3.8 }} style={{ position: 'absolute', bottom: 24, right: 24, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 6 }}>
+                <span style={{ fontSize: 6, letterSpacing: '0.5em', textTransform: 'uppercase', color: 'rgba(201,160,84,0.35)', writingMode: 'vertical-lr' }}>Scroll</span>
+                <motion.div animate={{ y: [0, 6, 0] }} transition={{ duration: 1.6, repeat: Infinity }}><ArrowDown size={10} color="rgba(201,160,84,0.35)" /></motion.div>
+              </motion.div>
+            </section>
+          </>
+        )}
 
       {/* LEGACY */}
       <section id="legacy" style={{ padding: 'clamp(56px,8vw,100px) 0', position: 'relative', background: 'linear-gradient(180deg, #030303 0%, #080602 50%, #030303 100%)' }}>
