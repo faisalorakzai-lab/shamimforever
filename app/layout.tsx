@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import Script from 'next/script'
 import './globals.css'
 import 'mapbox-gl/dist/mapbox-gl.css'
 import Navigation from '@/components/Navigation'
@@ -33,6 +34,11 @@ export default function RootLayout({
           </main>
           <Footer />
         </Web3Provider>
+      <Script
+        src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.5.0/model-viewer.min.js"
+        strategy="afterInteractive"
+        type="module"
+      />
       </body>
     </html>
   )
