@@ -290,9 +290,9 @@ export default function SovereignProductPage({ product }: { product: Product }) 
 
           {/* Background luxury image — darkened atmosphere */}
           <img
-            src={config.heroImage}
+            src="/products/shamims-bloom/bloom-stage-bg.png"
             alt=""
-            style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center', filter: 'brightness(0.28) saturate(0.55)', pointerEvents: 'none', zIndex: 0 }}
+            style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center top', filter: 'brightness(0.55) saturate(0.85)', pointerEvents: 'none', zIndex: 0 }}
           />
 
           {/* Atmospheric gradient overlays */}
@@ -306,11 +306,12 @@ export default function SovereignProductPage({ product }: { product: Product }) 
               alt={config.heroTitle}
               camera-controls=""
               auto-rotate=""
+              auto-rotate-delay="2000"
               interaction-prompt="none"
-              exposure="1.2"
+              exposure="1.4"
               shadow-intensity="0"
               shadow-softness="0"
-              rotation-per-second="8deg"
+              rotation-per-second="10deg"
               style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', background: 'transparent', zIndex: 10 }}
             />
           ) : (
