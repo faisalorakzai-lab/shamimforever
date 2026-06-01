@@ -25,7 +25,7 @@ const WG2     = '#EDE9DD'
 const BG      = '#020509'
 const BG2     = '#03050f'
 
-const FADE_UP = { initial:{ opacity:0, y:28 }, whileInView:{ opacity:1, y:0 }, viewport:{ once:true, margin:'-60px' }, transition:{ duration:1, ease:[0.22,1,0.36,1] as any } }
+const FADE_UP = { initial:{ opacity:0, y:28 }, whileInView:{ opacity:1, y:0 }, viewport:{ once:true, margin:'-60px' }, transition:{ duration:1, ease:[0.22,1,0.36,1] } }
 const FADE_IN = { initial:{ opacity:0 }, whileInView:{ opacity:1 }, viewport:{ once:true, margin:'-60px' }, transition:{ duration:0.9 } }
 const EG_PAGE_CSS = [
     "@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap');",
@@ -46,6 +46,8 @@ const EG_PAGE_CSS = [
     ".vault-inc{grid-template-columns:1fr!important}",
     "}",
   ].join('')
+const INPUT_STYLE={width:'100%',background:'rgba(255,255,255,0.025)',border:'1px solid rgba(26,86,219,0.12)',color:'#fff',padding:'14px 18px',fontSize:12,letterSpacing:'0.07em',fontFamily:"'Cormorant Garamond', Georgia, serif",outline:'none',boxSizing:'border-box'}
+
 
 
 /* ── Ocean particles ─────────────────────────────────────────────────── */
@@ -108,7 +110,7 @@ function Gauge({ label, value, pct, color=SAPH, delay=0 }: { label:string; value
           {value}
         </text>
       </svg>
-      <div style={{fontFamily:MONO,fontSize:7,letterSpacing:'0.3em',textTransform:'uppercase' as const,color:'rgba(255,255,255,0.26)',textAlign:'center'}}>{label}</div>
+      <div style={{fontFamily:MONO,fontSize:7,letterSpacing:'0.3em',textTransform:'uppercase',color:'rgba(255,255,255,0.26)',textAlign:'center'}}>{label}</div>
     </div>
   )
 }
@@ -120,7 +122,7 @@ function CopyBtn({ text }: { text:string }) {
     <button onClick={()=>{navigator.clipboard.writeText(text);setC(true);setTimeout(()=>setC(false),2000)}}
       style={{display:'flex',alignItems:'center',gap:6,color:WG,background:'none',border:'none',cursor:'pointer'}}>
       {c?<Check size={10}/>:<Copy size={10}/>}
-      <span style={{fontSize:7,letterSpacing:'0.3em',textTransform:'uppercase' as const}}>{c?'Copied':'Copy'}</span>
+      <span style={{fontSize:7,letterSpacing:'0.3em',textTransform:'uppercase'}}>{c?'Copied':'Copy'}</span>
     </button>
   )
 }
@@ -151,7 +153,7 @@ export default function EternalGraceSapphirePage({ product }: { product: Product
   const videoRef=useRef<HTMLVideoElement>(null)
   useAccount()
 
-  const story = (() => { try { return typeof product.story==='string'?JSON.parse(product.story):(product.story||{}) } catch{return{}} })()
+  const story = (() => { try { return typeof product.story==='string'?JSON.parse(product.story):(product.story||{}) } catch(_e){return{}} })()
   const nft       = story.nft       || {}
   const vault     = story.vault     || {}
   const pieces: string[] = Array.isArray(story.three_piece_masterwork) ? story.three_piece_masterwork : ['Royal Sapphire Pendant Necklace','Pair Of Sovereign Sapphire Earrings','Sovereign Sapphire Ring']
@@ -205,7 +207,6 @@ export default function EternalGraceSapphirePage({ product }: { product: Product
     }catch(e:any){setError(e.message)}finally{setSubmitting(false)}
   },[shipping,product.id])
 
-  const inputSt={width:'100%',background:'rgba(255,255,255,0.025)',border:'1px solid rgba(26,86,219,0.12)',color:'#fff',padding:'14px 18px',fontSize:12,letterSpacing:'0.07em',fontFamily:SERIF,outline:'none',boxSizing:'border-box'}
 
   return (
     <div style={{background:BG,minHeight:'100vh',fontFamily:SERIF}}>
@@ -281,16 +282,16 @@ export default function EternalGraceSapphirePage({ product }: { product: Product
             <motion.div initial={{opacity:0,y:12}} animate={{opacity:1,y:0}} transition={{duration:1,delay:0.28}} style={{fontSize:7,letterSpacing:'0.4em',textTransform:'uppercase',color:'rgba(212,204,184,0.32)',marginBottom:20,fontFamily:MONO}}>
               Sovereign Archive Allocation · Object XI
             </motion.div>
-            <motion.h1 initial={{opacity:0,y:22}} animate={{opacity:1,y:0}} transition={{duration:1.2,delay:0.38,ease:[0.22,1,0.36,1] as any}} style={{fontFamily:SERIF,fontSize:'clamp(30px,4vw,56px)',fontWeight:300,letterSpacing:'0.06em',lineHeight:1.05,color:'#fff',margin:0}}>
+            <motion.h1 initial={{opacity:0,y:22}} animate={{opacity:1,y:0}} transition={{duration:1.2,delay:0.38,ease:[0.22,1,0.36,1]}} style={{fontFamily:SERIF,fontSize:'clamp(30px,4vw,56px)',fontWeight:300,letterSpacing:'0.06em',lineHeight:1.05,color:'#fff',margin:0}}>
               Eternal Grace
             </motion.h1>
-            <motion.h1 initial={{opacity:0,y:22}} animate={{opacity:1,y:0}} transition={{duration:1.2,delay:0.5,ease:[0.22,1,0.36,1] as any}} style={{fontFamily:SERIF,fontSize:'clamp(20px,2.9vw,40px)',fontWeight:300,letterSpacing:'0.1em',lineHeight:1.1,color:SAPH2,marginTop:2,fontStyle:'italic'}}>
+            <motion.h1 initial={{opacity:0,y:22}} animate={{opacity:1,y:0}} transition={{duration:1.2,delay:0.5,ease:[0.22,1,0.36,1]}} style={{fontFamily:SERIF,fontSize:'clamp(20px,2.9vw,40px)',fontWeight:300,letterSpacing:'0.1em',lineHeight:1.1,color:SAPH2,marginTop:2,fontStyle:'italic'}}>
               Sapphire Set
             </motion.h1>
             <motion.div initial={{opacity:0}} animate={{opacity:1}} transition={{duration:1,delay:0.6}} style={{fontFamily:MONO,fontSize:8,letterSpacing:'0.28em',color:'rgba(212,204,184,0.28)',marginTop:10,marginBottom:20,textTransform:'uppercase'}}>
               The Sovereign Bloom · 3-Piece High Jewelry
             </motion.div>
-            <motion.div initial={{scaleX:0}} animate={{scaleX:1}} transition={{duration:1.2,delay:0.7,ease:[0.22,1,0.36,1] as any}} style={{width:50,height:1,background:'linear-gradient(90deg,'+SAPH+',transparent)',marginBottom:24,transformOrigin:'left'}}/>
+            <motion.div initial={{scaleX:0}} animate={{scaleX:1}} transition={{duration:1.2,delay:0.7,ease:[0.22,1,0.36,1]}} style={{width:50,height:1,background:'linear-gradient(90deg,'+SAPH+',transparent)',marginBottom:24,transformOrigin:'left'}}/>
             <motion.p initial={{opacity:0,y:12}} animate={{opacity:1,y:0}} transition={{duration:1,delay:0.78}} style={{fontFamily:SERIF,fontSize:15,fontWeight:300,color:'rgba(255,255,255,0.42)',lineHeight:1.9,marginBottom:30}}>
               {story.tagline||'A refined High Jewelry Sovereign Asset crafted from solid 18K white gold, natural pear-cut blue sapphires, and brilliant white diamonds — engineered as a symbol of elegance, identity, and generational legacy.'}
             </motion.p>
@@ -341,7 +342,7 @@ export default function EternalGraceSapphirePage({ product }: { product: Product
             {t:'Discipline Before Detail.',s:'clamp(16px,2vw,24px)',c:WG2},
           ].map(({t,s,c},i)=>(
             <motion.p key={i} initial={{opacity:0,y:18}} whileInView={{opacity:1,y:0}} viewport={{once:true,margin:'-40px'}}
-              transition={{duration:1.1,delay:i*0.07,ease:[0.22,1,0.36,1] as any}}
+              transition={{duration:1.1,delay:i*0.07,ease:[0.22,1,0.36,1]}}
               style={{fontFamily:SERIF,fontSize:s,fontWeight:300,lineHeight:1.68,marginBottom:10,color:c}}>
               {t}
             </motion.p>
@@ -512,7 +513,7 @@ export default function EternalGraceSapphirePage({ product }: { product: Product
             {t:'Quiet. Powerful. Impossible to ignore.',c:WG2,sz:'clamp(18px,2.4vw,30px)'},
           ].map(({t,c,sz},i)=>(
             <motion.p key={i} initial={{opacity:0,y:16}} whileInView={{opacity:1,y:0}} viewport={{once:true,margin:'-30px'}}
-              transition={{duration:1.1,delay:i*0.08,ease:[0.22,1,0.36,1] as any}}
+              transition={{duration:1.1,delay:i*0.08,ease:[0.22,1,0.36,1]}}
               style={{fontFamily:SERIF,fontSize:sz,fontWeight:300,lineHeight:1.7,marginBottom:10,color:c}}>
               {t}
             </motion.p>
@@ -712,13 +713,13 @@ export default function EternalGraceSapphirePage({ product }: { product: Product
               <div style={{marginBottom:26}}>
                 <div style={{fontFamily:MONO,fontSize:7,letterSpacing:'0.36em',textTransform:'uppercase',color:'rgba(212,204,184,0.26)',marginBottom:12}}>Delivery Information</div>
                 <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:8,marginBottom:8}}>
-                  <input value={shipping.name} onChange={e=>setShipping(s=>({...s,name:e.target.value}))} placeholder="Full Name" style={inputSt}/>
-                  <input value={shipping.phone} onChange={e=>setShipping(s=>({...s,phone:e.target.value}))} placeholder="Phone Number" style={inputSt}/>
+                  <input value={shipping.name} onChange={e=>setShipping(s=>({...s,name:e.target.value}))} placeholder="Full Name" style={INPUT_STYLE}/>
+                  <input value={shipping.phone} onChange={e=>setShipping(s=>({...s,phone:e.target.value}))} placeholder="Phone Number" style={INPUT_STYLE}/>
                 </div>
-                <input value={shipping.address} onChange={e=>setShipping(s=>({...s,address:e.target.value}))} placeholder="Delivery Address" style={{...inputSt,marginBottom:8}}/>
+                <input value={shipping.address} onChange={e=>setShipping(s=>({...s,address:e.target.value}))} placeholder="Delivery Address" style={{...INPUT_STYLE,marginBottom:8}}/>
                 <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:8}}>
-                  <input value={shipping.city} onChange={e=>setShipping(s=>({...s,city:e.target.value}))} placeholder="City" style={inputSt}/>
-                  <input value={shipping.note} onChange={e=>setShipping(s=>({...s,note:e.target.value}))} placeholder="Special Instructions" style={inputSt}/>
+                  <input value={shipping.city} onChange={e=>setShipping(s=>({...s,city:e.target.value}))} placeholder="City" style={INPUT_STYLE}/>
+                  <input value={shipping.note} onChange={e=>setShipping(s=>({...s,note:e.target.value}))} placeholder="Special Instructions" style={INPUT_STYLE}/>
                 </div>
               </div>
 
