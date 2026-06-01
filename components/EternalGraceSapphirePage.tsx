@@ -27,25 +27,25 @@ const BG2     = '#03050f'
 
 const FADE_UP = { initial:{ opacity:0, y:28 }, whileInView:{ opacity:1, y:0 }, viewport:{ once:true, margin:'-60px' }, transition:{ duration:1, ease:[0.22,1,0.36,1] } }
 const FADE_IN = { initial:{ opacity:0 }, whileInView:{ opacity:1 }, viewport:{ once:true, margin:'-60px' }, transition:{ duration:0.9 } }
-const EG_PAGE_CSS = [
-    "@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap');",
-    "html{scroll-behavior:smooth}",
-    ".sg-piece{border:1px solid rgba(26,86,219,0.16);padding:32px 28px;background:rgba(26,86,219,0.025);transition:border-color .4s,background .4s,transform .3s}",
-    ".sg-piece:hover{border-color:rgba(59,130,246,0.4);background:rgba(26,86,219,0.06);transform:translateY(-4px)}",
-    ".sg-trow td{padding:11px 0;border-bottom:1px solid rgba(255,255,255,0.05);vertical-align:top}",
-    ".sg-trow:last-child td{border-bottom:none}",
-    ".sg-priv{display:flex;align-items:center;gap:14px;padding:12px 0;border-bottom:1px solid rgba(255,255,255,0.04)}",
-    ".sg-priv:last-child{border-bottom:none}",
-    "@media(max-width:768px){",
-    ".hero-cols{grid-template-columns:1fr!important}",
-    ".three-cols{grid-template-columns:1fr!important}",
-    ".gem-cols{grid-template-columns:1fr!important}",
-    ".nft-cols{grid-template-columns:1fr!important}",
-    ".pay-cols{grid-template-columns:repeat(3,1fr)!important}",
-    ".info-cols{grid-template-columns:1fr 1fr!important}",
-    ".vault-inc{grid-template-columns:1fr!important}",
-    "}",
-  ].join('')
+const EG_PAGE_CSS = `
+    @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap');
+    html{scroll-behavior:smooth}
+    .sg-piece{border:1px solid rgba(26,86,219,0.16);padding:32px 28px;background:rgba(26,86,219,0.025);transition:border-color .4s,background .4s,transform .3s}
+    .sg-piece:hover{border-color:rgba(59,130,246,0.4);background:rgba(26,86,219,0.06);transform:translateY(-4px)}
+    .sg-trow td{padding:11px 0;border-bottom:1px solid rgba(255,255,255,0.05);vertical-align:top}
+    .sg-trow:last-child td{border-bottom:none}
+    .sg-priv{display:flex;align-items:center;gap:14px;padding:12px 0;border-bottom:1px solid rgba(255,255,255,0.04)}
+    .sg-priv:last-child{border-bottom:none}
+    @media(max-width:768px){
+      .hero-cols{grid-template-columns:1fr!important}
+      .three-cols{grid-template-columns:1fr!important}
+      .gem-cols{grid-template-columns:1fr!important}
+      .nft-cols{grid-template-columns:1fr!important}
+      .pay-cols{grid-template-columns:repeat(3,1fr)!important}
+      .info-cols{grid-template-columns:1fr 1fr!important}
+      .vault-inc{grid-template-columns:1fr!important}
+    }
+  `
 const INPUT_STYLE={width:'100%',background:'rgba(255,255,255,0.025)',border:'1px solid rgba(26,86,219,0.12)',color:'#fff',padding:'14px 18px',fontSize:12,letterSpacing:'0.07em',fontFamily:"'Cormorant Garamond', Georgia, serif",outline:'none',boxSizing:'border-box'}
 
 
@@ -210,7 +210,7 @@ export default function EternalGraceSapphirePage({ product }: { product: Product
 
   return (
     <div style={{background:BG,minHeight:'100vh',fontFamily:SERIF}}>
-      <style dangerouslySetInnerHTML={{ __html: EG_PAGE_CSS }} />
+      <style>{EG_PAGE_CSS}</style>
 
       {/* ═══════ 1. HERO — AUTOPLAY VIDEO ═══════ */}
       <div style={{position:'relative',minHeight:'100vh',overflow:'hidden',display:'flex',alignItems:'center'}}>
