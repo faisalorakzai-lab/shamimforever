@@ -117,9 +117,11 @@ export async function POST(req: NextRequest) {
     price_pkr, price_usd, payment_proof_url,
   } = body
 
-  if (!total_pkr || !payment_method) {
-    return NextResponse.json({ success: false, error: 'total_pkr and payment_method are required' }, { status: 400 })
+  if ((!total_pkr && !total_usd) || !payment_method) {
+    return NextResponse.json({ success: false, error: 'payment_method and at least one price (total_usd or total_pkr) are required' }, { status: 400 })
   }
+  // Ensure total_pkr always has a value (use USD-based fallback if PKR not provided)
+  if (!total_pkr) total_pkr = Math.round((total_usd || 0) * 285)
 
   const order_ref = generateOrderRef()
   const tracking_ref = await generateTrackingRef(order_ref)
