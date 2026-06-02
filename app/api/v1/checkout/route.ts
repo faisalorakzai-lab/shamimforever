@@ -13,22 +13,44 @@ function db() {
 }
 
 // ── ID Generators ─────────────────────────────────────────────────────────────
-function generateOrderRef(): string {
-  const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
-  const suffix = Array.from({ length: 5 }, () =>
-    chars[Math.floor(Math.random() * chars.length)]
-  ).join('')
-  return `SF-ORD-${new Date().getFullYear()}-${suffix}`
-}
+  async function generateOrderRef(supabase: ReturnType<typeof db>): Promise<string> {
+    const year = new Date().getFullYear()
+    try {
+      const { count } = await supabase
+        .from('orders')
+        .select('*', { count: 'exact', head: true })
+        .gte('created_at', `${year}-01-01T00:00:00Z`)
+      const num = String((count ?? 0) + 1).padStart(6, '0')
+      return `SF-${year}-${num}`
+    } catch {
+      const fallback = String(Math.floor(Math.random() * 999999) + 1).padStart(6, '0')
+      return `SF-${year}-${fallback}`
+    }
+  }
 
-function generateConsumerNumber(): string {
-  const year = new Date().getFullYear()
-  const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
-  const suffix = Array.from({ length: 5 }, () =>
-    chars[Math.floor(Math.random() * chars.length)]
-  ).join('')
-  return `SF-${year}-${suffix}`
-}
+  async function generateConsumerNumber(supabase: ReturnType<typeof db>): Promise<string> {
+    try {
+      const { count } = await supabase
+        .from('orders')
+        .select('*', { count: 'exact', head: true })
+      const num = String((count ?? 0) + 900000 + 1)
+      return `COLLECTOR-${num}`
+    } catch {
+      return `COLLECTOR-${Math.floor(Math.random() * 900000) + 100000}`
+    }
+  }
+
+  async function generateArchiveRef(supabase: ReturnType<typeof db>): Promise<string> {
+    try {
+      const { count } = await supabase
+        .from('orders')
+        .select('*', { count: 'exact', head: true })
+      const num = String((count ?? 0) + 1).padStart(4, '0')
+      return `ARCHIVE-I-${num}`
+    } catch {
+      return `ARCHIVE-I-${String(Math.floor(Math.random() * 9999) + 1).padStart(4, '0')}`
+    }
+  }
 
 async function generateTrackingRef(seed: string): Promise<string> {
   const data = new TextEncoder().encode(seed + Date.now().toString())
@@ -121,9 +143,10 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ success: false, error: 'total_pkr and payment_method are required' }, { status: 400 })
   }
 
-  const order_ref = generateOrderRef()
+  const order_ref = await generateOrderRef(supabase)
   const tracking_ref = await generateTrackingRef(order_ref)
-  const consumer_number = generateConsumerNumber()
+  const consumer_number = await generateConsumerNumber(supabase)
+  const archive_ref = await generateArchiveRef(supabase)
 
   const isCrypto = ['usdt', 'usdc', 'okbond'].includes(payment_method?.toLowerCase())
   const isOKBOND = payment_method?.toLowerCase() === 'okbond'
@@ -147,6 +170,7 @@ export async function POST(req: NextRequest) {
     notes: notesArr.join(' | ') || null,
     payment_proof_url: payment_proof_url || null,
     order_ref, tracking_ref, consumer_number,
+    archive_ref,
   }
 
   const { data: o1, error: e1 } = await supabase.from('orders').insert([insertPayload]).select().single()
