@@ -29,6 +29,7 @@
     ambassadorQuote?: string
     modelPath?: string
     videoPath?: string
+    category?: string
   }
 
   // ── ARCHIVE I — SHAMIM BLOOM ────────────────────────────────────────────────
@@ -90,6 +91,7 @@
       'Founder Reserve Badge — Digital and physical recognition as a founding patron of the archive',
     ],
     videoPath: '/products/shamims-bloom/shamim-bloom-hero.mp4',
+    category: 'For Her',
   }
 
   // ── ARCHIVE II — QUEEN OF TAIF ─────────────────────────────────────────────
