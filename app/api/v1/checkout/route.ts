@@ -112,20 +112,25 @@ export async function POST(req: NextRequest) {
   const {
     product_id, product_name, quantity = 1,
     payment_method, payment_status: _payStatus,
-    tx_hash, shipping_address, total_pkr, total_usd,
+    tx_hash, shipping_address, total_pkr: _total_pkr_raw, total_usd,
     discount_applied = 0, wallet_address, rarity_tier = 'ELITE',
     price_pkr, price_usd, payment_proof_url,
   } = body
 
-  if ((!total_pkr && !total_usd) || !payment_method) {
-    return NextResponse.json({ success: false, error: 'payment_method and at least one price (total_usd or total_pkr) are required' }, { status: 400 })
-  }
-  // Ensure total_pkr always has a value (use USD-based fallback if PKR not provided)
-  if (!total_pkr) total_pkr = Math.round((total_usd || 0) * 285)
+  // Accept either PKR or USD — always maintain both
+    let total_pkr: number = Number(_total_pkr_raw) || 0
+    if (!total_pkr && total_usd) total_pkr = Math.round(total_usd * 285)
+
+    if ((!total_pkr && !total_usd) || !payment_method) {
+      return NextResponse.json({ success: false, error: 'payment_method and at least one price (total_usd or total_pkr) are required' }, { status: 400 })
+    }
 
   const order_ref = generateOrderRef()
   const tracking_ref = await generateTrackingRef(order_ref)
   const consumer_number = generateConsumerNumber()
+    // Consumer ID for PKR bill payment apps (EasyPaisa, JazzCash, NayaPay, SadaPay)
+    // Format: 12-digit numeric so apps can process it as a bill consumer ID
+    const pkrConsumerId = Date.now().toString().slice(-8).padStart(12, '9')
 
   const isCrypto = ['usdt', 'usdc', 'okbond'].includes(payment_method?.toLowerCase())
   const isOKBOND = payment_method?.toLowerCase() === 'okbond'
@@ -143,6 +148,7 @@ export async function POST(req: NextRequest) {
   let order: any = null
   const insertPayload: any = {
     status: orderStatus, payment_method, payment_status: orderPayStatus,
+    pkr_consumer_id: pkrConsumerId,
     total_pkr: Math.round(total_pkr),
     total_usd: parseFloat((total_usd || 0).toFixed(2)),
     discount_applied, shipping_address: shipping_address || {},
@@ -224,6 +230,7 @@ export async function POST(req: NextRequest) {
 
   return NextResponse.json({
     success: true,
+      pkr_consumer_id: pkrConsumerId,
     order_id: order.id,
     order_ref,
     tracking_ref,
