@@ -148,163 +148,124 @@ export default function HomePage() {
   return (
     <div className="bg-[#050505] overflow-x-hidden">
 
-      {/* ══════ HERO — LUXURY ACQUISITION ══════ */}
-        <section ref={heroRef} className="relative h-[100svh] overflow-hidden bg-[#030303]">
-          {/* Cinematic Background */}
-          <div className="absolute inset-0 z-0">
-            <video
-              autoPlay muted loop playsInline
-              className="absolute inset-0 w-full h-full object-cover"
-              style={{ filter: 'brightness(0.3) contrast(1.1) saturate(0.75)' }}
-            >
-              <source src="/products/eternal-grace-sapphire-set/product-video.mp4" type="video/mp4" />
-            </video>
-            <motion.img
-              src="/products/shamims-bloom/bloom-1.png"
-              alt="Shamim's Bloom"
-              className="absolute inset-0 w-full h-full object-cover"
-              style={{ filter: 'brightness(0.32) contrast(1.12) saturate(0.72)' }}
-              initial={{ scale: 1.08, opacity: 0 }} animate={{ scale: 1.0, opacity: 1 }}
-              transition={{ duration: 2.6, ease }}
-            />
-            <div className="absolute inset-0 bg-gradient-to-r from-[#030303]/90 via-[#030303]/30 to-[#030303]/60" />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#030303] via-transparent to-[#030303]/30" />
-          </div>
-
+      {/* ══════ HERO ══════ */}
+      <section ref={heroRef} className="relative h-[100svh] overflow-hidden bg-[#050505]">
+        <div className="absolute inset-0 pointer-events-none z-[1]">
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_80%_at_20%_40%,rgba(201,160,84,0.05)_0%,transparent_70%)]" />
           <ParticleField />
+        </div>
 
-          {/* Main Content */}
-          <motion.div
-            style={{ opacity: heroOpacity }}
-            className="relative z-10 h-full flex flex-col justify-center max-w-[1600px] mx-auto px-5 md:px-12 lg:px-20"
-          >
-            <div className="max-w-xl lg:max-w-2xl">
-              {/* Campaign Label */}
-              <motion.div
-                initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.2, duration: 1.4 }}
-                className="flex items-center gap-3 mb-7"
-              >
-                <span className="text-[#c9a054] text-[8px]">◆</span>
-                <span className="text-[9px] tracking-[0.55em] uppercase text-[#c9a054]">Founder's Reserve — Limited Allocation</span>
-                <span className="text-[#c9a054] text-[8px]">◆</span>
-              </motion.div>
+        {/* Mobile bg */}
+        <div className="lg:hidden absolute inset-0 z-0">
+          <motion.img src="/founder-3.png" alt="Shamim Forever"
+            className="w-full h-full object-cover object-top"
+            style={{ filter: 'brightness(0.38) contrast(1.15) saturate(0.85)' }}
+            initial={{ scale: 1.08, opacity: 0 }} animate={{ scale: 1, opacity: 1 }}
+            transition={{ duration: 2.4, ease }}
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/55 to-[#050505]/15" />
+        </div>
 
-              {/* Product Name */}
-              <motion.h1
-                initial={{ opacity: 0, y: 45 }} animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.38, duration: 1.8, ease }}
-                className="font-serif font-light leading-[0.86] text-zinc-100 mb-4"
-                style={{ fontSize: 'clamp(3.6rem, 8.5vw, 9.5rem)', letterSpacing: '0.04em' }}
-              >
-                Shamim's<br />Bloom
-              </motion.h1>
-
-              {/* Sovereign Title */}
-              <motion.p
-                initial={{ opacity: 0 }} animate={{ opacity: 1 }}
-                transition={{ delay: 0.65, duration: 1.3 }}
-                className="text-[9px] tracking-[0.5em] uppercase text-zinc-500 mb-3"
-              >
-                Sovereign Luxury House — Extrait de Parfum
-              </motion.p>
-
-              {/* Gold Rule */}
-              <motion.div
-                initial={{ scaleX: 0 }} animate={{ scaleX: 1 }}
-                transition={{ delay: 0.82, duration: 1.2 }}
-                className="w-12 h-px bg-[#c9a054]/50 origin-left mb-6"
-              />
-
-              {/* Tagline */}
-              <motion.p
-                initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.92, duration: 1.4 }}
-                className="font-serif font-light italic text-zinc-400 leading-snug mb-7"
-                style={{ fontSize: 'clamp(1rem, 2.2vw, 1.35rem)' }}
-              >
-                "Built From Love. Forged Into Legacy."
-              </motion.p>
-
-              {/* Price */}
-              <motion.div
-                initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 1.02, duration: 1.2 }}
-                className="flex items-baseline gap-2 mb-8"
-              >
-                <span className="text-[#c9a054] font-serif font-light" style={{ fontSize: 'clamp(1.8rem, 4vw, 2.6rem)' }}>$306</span>
-                <span className="text-zinc-600 text-[9px] tracking-[0.4em] uppercase">USD</span>
-              </motion.div>
-
-              {/* Luxury Attribute Panel */}
-              <motion.div
-                initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 1.1, duration: 1.2 }}
-                className="grid grid-cols-1 sm:grid-cols-2 gap-y-2 gap-x-6 mb-10 max-w-md"
-              >
-                {[
-                  '100ML Extrait de Parfum',
-                  'Founder Reserve Allocation',
-                  'Polygon NFT Included',
-                  'Blockchain Authenticated',
-                  'Worldwide Collector Delivery',
-                  'Ultra-Limited Allocation',
-                ].map((attr) => (
-                  <div key={attr} className="flex items-center gap-2.5">
-                    <span className="w-1 h-1 rounded-full bg-[#c9a054]/70 flex-shrink-0" />
-                    <span className="text-[8px] tracking-[0.22em] uppercase text-zinc-500">{attr}</span>
-                  </div>
-                ))}
-              </motion.div>
-
-              {/* CTAs */}
-              <motion.div
-                initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 1.2, duration: 1.2 }}
-                className="flex flex-row gap-4 items-center flex-wrap"
-              >
-                <Link href="/products/shamims-bloom"
-                  className="group relative inline-flex items-center justify-center px-8 py-4 bg-[#c9a054] text-[#030303] text-[9px] tracking-[0.45em] uppercase font-medium overflow-hidden transition-all duration-500 hover:bg-[#e5ba6e]"
-                >
-                  Acquire Ownership
-                </Link>
-                <Link href="/our-story"
-                  className="inline-flex items-center gap-2 text-[9px] tracking-[0.4em] uppercase text-zinc-500 hover:text-[#c9a054] transition-colors duration-500 border border-[#1c1c1c] px-6 py-4 hover:border-[#c9a054]/25"
-                >
-                  Explore Story
-                </Link>
-              </motion.div>
-            </div>
+        {/* Mobile text */}
+        <motion.div style={{ opacity: heroOpacity }}
+          className="lg:hidden absolute inset-0 z-10 flex flex-col justify-end px-5 pb-14 pt-24">
+          <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.3, duration: 1.4 }}
+            className="text-[9px] tracking-[0.55em] uppercase text-[#c9a054] mb-5">
+            Sovereign Luxury House
+          </motion.p>
+          <motion.h1 initial={{ opacity: 0, y: 35 }} animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.5, duration: 1.6, ease }}
+            className="font-serif font-light tracking-[0.1em] leading-[0.9] text-zinc-100 mb-4"
+            style={{ fontSize: 'clamp(3.4rem, 16vw, 5.5rem)' }}>
+            Shamim<br />Forever
+          </motion.h1>
+          <motion.div initial={{ scaleX: 0 }} animate={{ scaleX: 1 }} transition={{ delay: 0.9, duration: 1.2 }}
+            className="w-10 h-px bg-[#c9a054]/60 origin-left mb-5" />
+          <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 1.0, duration: 1.2 }}
+            className="text-zinc-400 text-sm tracking-wide font-light leading-relaxed mb-8 max-w-[240px]">
+            Built From Love.<br />Forged Into Legacy.
+          </motion.p>
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 1.2, duration: 1.2 }}
+            className="flex flex-row gap-4 items-center flex-wrap">
+            <Link href="/shop"
+              className="group relative inline-flex items-center justify-center px-6 py-3.5 border border-[#c9a054]/70 text-zinc-100 text-[9px] tracking-[0.4em] uppercase overflow-hidden">
+              <span className="absolute inset-0 bg-[#c9a054] translate-y-full group-hover:translate-y-0 transition-transform duration-700" style={{ transitionTimingFunction: 'cubic-bezier(0.16,1,0.3,1)' }} />
+              <span className="relative z-10 group-hover:text-[#050505] transition-colors duration-300">Enter Collection</span>
+            </Link>
+            <Link href="/our-story"
+              className="text-[9px] tracking-[0.4em] uppercase text-zinc-500 hover:text-[#c9a054] transition-colors duration-500">
+              Our Story →
+            </Link>
           </motion.div>
-
-          {/* Digital Passport Badge */}
-          <motion.div
-            initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 1.65, duration: 1.2 }}
-            className="absolute bottom-8 right-5 md:right-12 lg:right-20 z-20 hidden md:flex flex-col items-end gap-1.5"
-          >
-            <div className="border border-[#c9a054]/22 px-4 py-3 backdrop-blur-sm bg-[#030303]/60">
-              <p className="text-[7px] tracking-[0.45em] uppercase text-[#c9a054] mb-1.5">◆ Digital Passport</p>
-              <p className="text-[7px] tracking-[0.3em] uppercase text-zinc-600 mb-0.5">Polygon Blockchain</p>
-              <p className="text-[7px] tracking-[0.3em] uppercase text-zinc-600">ERC-721 · IPFS Verified</p>
-            </div>
-          </motion.div>
-
-          {/* Scroll Indicator */}
-          <motion.div
-            initial={{ opacity: 0 }} animate={{ opacity: 1 }}
-            transition={{ delay: 1.9, duration: 1 }}
-            className="absolute bottom-8 left-5 md:left-12 lg:left-20 z-20 flex items-center gap-3"
-          >
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.8, duration: 1 }}
+            className="flex items-center gap-3 mt-10">
             <div className="relative w-10 h-px overflow-hidden">
-              <motion.div className="absolute inset-0 bg-[#c9a054]/70"
-                animate={{ x: ['-100%', '100%'] }}
-                transition={{ duration: 2.6, repeat: Infinity, ease: 'easeInOut' }} />
+              <motion.div className="absolute inset-0 bg-[#c9a054]/70" animate={{ x: ['-100%', '100%'] }} transition={{ duration: 2.6, repeat: Infinity, ease: 'easeInOut' }} />
               <div className="absolute inset-0 bg-[#c9a054]/15" />
             </div>
             <span className="text-[7px] tracking-[0.5em] uppercase text-zinc-700">Scroll</span>
           </motion.div>
-        </section>
+        </motion.div>
+
+        {/* Desktop split */}
+        <div className="hidden lg:grid grid-cols-2 h-full relative z-10">
+          <div className="relative overflow-hidden">
+            <motion.div style={{ y: heroY, scale: heroScale }} className="absolute inset-0"
+              initial={{ scale: 1.08, opacity: 0 }} animate={{ scale: 1, opacity: 1 }}
+              transition={{ duration: 2.2, ease }}>
+              <img src="/founder-3.png" alt="Shamim — Founder" className="w-full h-full object-cover object-top"
+                style={{ filter: 'brightness(0.68) contrast(1.12) saturate(0.9)' }} />
+              <div className="absolute inset-y-0 right-0 w-24 bg-gradient-to-l from-[#050505] to-transparent" />
+              <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-[#050505] to-transparent" />
+            </motion.div>
+            <motion.div className="absolute bottom-8 left-8 z-20" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.8, duration: 1.2 }}>
+              <div className="w-8 h-px bg-[#c9a054]/40 mb-3" />
+              <p className="text-[8px] tracking-[0.45em] uppercase text-zinc-700">Shamim — Founder</p>
+            </motion.div>
+          </div>
+          <motion.div style={{ opacity: heroOpacity }} className="relative flex flex-col justify-center px-14 xl:px-20 py-20">
+            <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.2, duration: 1.4 }}
+              className="text-[10px] tracking-[0.55em] uppercase text-[#c9a054] mb-12">
+              Sovereign Luxury House
+            </motion.p>
+            <motion.h1 initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.45, duration: 1.6, ease }}
+              className="font-serif font-light tracking-[0.12em] leading-[0.88] text-zinc-100 mb-6"
+              style={{ fontSize: 'clamp(4.5rem, 8.5vw, 10rem)' }}>
+              Shamim<br />Forever
+            </motion.h1>
+            <motion.div initial={{ scaleX: 0 }} animate={{ scaleX: 1 }} transition={{ delay: 0.85, duration: 1.2 }}
+              className="w-14 h-px bg-[#c9a054]/50 origin-left mb-9" />
+            <motion.p initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.9, duration: 1.4, ease }}
+              className="text-zinc-400 text-base lg:text-lg tracking-wide max-w-xs font-light leading-relaxed mb-12">
+              Built From Love.<br />Forged Into Legacy.
+            </motion.p>
+            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 1.15, duration: 1.4, ease }}
+              className="flex gap-6 items-center mb-14">
+              <Link href="/shop"
+                className="group relative inline-flex items-center justify-center px-8 py-4 border border-[#c9a054]/70 text-zinc-100 text-[9px] tracking-[0.4em] uppercase overflow-hidden hover:border-[#c9a054]">
+                <span className="absolute inset-0 bg-[#c9a054] translate-y-full group-hover:translate-y-0 transition-transform duration-700" style={{ transitionTimingFunction: 'cubic-bezier(0.16,1,0.3,1)' }} />
+                <span className="relative z-10 group-hover:text-[#050505] transition-colors duration-300">Enter the Collection</span>
+              </Link>
+              <Link href="/our-story"
+                className="text-[9px] tracking-[0.4em] uppercase text-zinc-500 hover:text-[#c9a054] transition-colors duration-500">
+                Our Story →
+              </Link>
+            </motion.div>
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.6, duration: 1.2 }}
+              className="flex items-center gap-8">
+              <span className="text-[8px] tracking-[0.45em] uppercase text-zinc-700">Est. 2023</span>
+              <div className="flex items-center gap-3">
+                <div className="relative w-14 h-px overflow-hidden">
+                  <motion.div className="absolute inset-0 bg-[#c9a054]/60" animate={{ x: ['-100%', '100%'] }} transition={{ duration: 2.8, repeat: Infinity, ease: 'easeInOut' }} />
+                  <div className="absolute inset-0 bg-[#c9a054]/15" />
+                </div>
+                <span className="text-[7px] tracking-[0.5em] uppercase text-zinc-700">Scroll</span>
+              </div>
+            </motion.div>
+          </motion.div>
+        </div>
+        <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#c9a054]/8 to-transparent pointer-events-none z-20" />
+      </section>
 
       {/* ══════ NUMBERS STRIP ══════ */}
       <section className="border-y border-[#0d0d0d]">
