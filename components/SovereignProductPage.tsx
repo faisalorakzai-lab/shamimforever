@@ -400,8 +400,8 @@ export default function SovereignProductPage({ product }: { product: Product }) 
               <motion.div initial={{ scaleX: 0 }} animate={{ scaleX: 1 }} transition={{ delay: 2.5, duration: 1.2 }} style={{ height: 1, width: 180, background: 'linear-gradient(to right, #c9a054 0%, rgba(201,160,84,0.3) 60%, transparent 100%)', marginBottom: 12, transformOrigin: 'left' }} />
               <motion.p initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 2.3, duration: 1 }} style={{ fontFamily: SERIF, fontStyle: 'italic', fontSize: 'clamp(1rem,3vw,2rem)', color: 'rgba(240,236,228,0.65)', fontWeight: 300, marginBottom: 20 }}>{config.heroSubtitle}</motion.p>
               <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 2.6, duration: 0.8 }} style={{ display: 'flex', alignItems: 'baseline', gap: 16, marginBottom: 24, flexWrap: 'wrap' }}>
-                <span style={{ fontFamily: SERIF, fontSize: 'clamp(1.8rem,5vw,3.2rem)', fontWeight: 300, color: '#f8f4ee' }}>{formatPKR(finalPkr)}</span>
-                <span style={{ fontSize: 12, letterSpacing: '0.2em', color: 'rgba(201,160,84,0.5)' }}>${product.price_usd} USD</span>
+                <span style={{ fontFamily: SERIF, fontSize: 'clamp(1.8rem,5vw,3.2rem)', fontWeight: 300, color: '#f8f4ee' }}>${product.price_usd} <span style={{ fontSize: '0.4em', letterSpacing: '0.35em', color: '#c9a054' }}>USD</span></span>
+                <span style={{ fontSize: 11, letterSpacing: '0.15em', color: 'rgba(201,160,84,0.32)' }}>{formatPKR(finalPkr)}</span>
               </motion.div>
               <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 2.9, duration: 0.8 }} style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
                 <a href="#acquire" className="group" style={{ position: 'relative', overflow: 'hidden', padding: '14px 32px', border: '1px solid rgba(201,160,84,0.55)', fontSize: 8, letterSpacing: '0.7em', textTransform: 'uppercase', color: '#c9a054', display: 'inline-block', textDecoration: 'none' }}>
@@ -438,8 +438,8 @@ export default function SovereignProductPage({ product }: { product: Product }) 
               <p style={{ fontFamily: SERIF, fontStyle: 'italic', fontSize: 'clamp(1rem,3vw,1.5rem)', color: 'rgba(240,236,228,0.6)', marginBottom: 8 }}>{config.heroSubtitle}</p>
               <p style={{ fontSize: 9, letterSpacing: '0.32em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.28)', marginBottom: 32 }}>Love does not fade — it blooms into eternity</p>
               <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'center', gap: 18, marginBottom: 20, flexWrap: 'wrap' }}>
-                <span style={{ fontFamily: SERIF, fontSize: 'clamp(2rem,6vw,2.8rem)', fontWeight: 300, color: '#f8f4ee' }}>{formatPKR(finalPkr)}</span>
-                <span style={{ fontSize: 12, letterSpacing: '0.2em', color: 'rgba(201,160,84,0.5)' }}>${product.price_usd} USD</span>
+                <span style={{ fontFamily: SERIF, fontSize: 'clamp(2rem,6vw,2.8rem)', fontWeight: 300, color: '#f8f4ee' }}>${product.price_usd} <span style={{ fontSize: '0.4em', letterSpacing: '0.35em', color: '#c9a054' }}>USD</span></span>
+                <span style={{ fontSize: 11, letterSpacing: '0.15em', color: 'rgba(201,160,84,0.32)' }}>{formatPKR(finalPkr)}</span>
               </div>
               <div style={{ display: 'inline-flex', alignItems: 'center', gap: 10, border: '1px solid rgba(201,160,84,0.22)', padding: '10px 24px', marginBottom: 36, background: 'rgba(201,160,84,0.04)' }}>
                 <div style={{ width: 6, height: 6, borderRadius: '50%', background: '#c9a054', flexShrink: 0 }} />
