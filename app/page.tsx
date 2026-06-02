@@ -5,7 +5,6 @@ import { useRef, useEffect, useState, useMemo } from 'react'
 import Link from 'next/link'
 import { supabase } from '@/lib/supabase'
 import type { Product } from '@/types'
-import { formatPKR } from '@/lib/utils'
 
 const ease = [0.16, 1, 0.3, 1] as const
 
@@ -91,7 +90,7 @@ function ProductCard({ product, index }: { product: Product; index: number }) {
         <h3 className="font-serif font-light text-sm md:text-base tracking-[0.12em] text-zinc-200 group-hover:text-[#c9a054] transition-colors duration-500 leading-tight mb-1 line-clamp-1">
           {product.name}
         </h3>
-        <p className="text-zinc-500 text-xs font-light">{formatPKR(product.price_pkr)}</p>
+        <p className="text-[#c9a054]/70 text-xs font-light tracking-widest">$ {product.price_usd} USD</p>
       </Link>
     </motion.div>
   )
