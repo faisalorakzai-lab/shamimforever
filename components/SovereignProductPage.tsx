@@ -501,7 +501,6 @@ export default function SovereignProductPage({ product }: { product: Product }) 
                   <option key={c} value={c} style={{ background: '#0a0703' }}>{c}</option>
                 ))}
               </select>
-              ))}
             </div>
 
             <div style={{ marginBottom: 2 }}>
