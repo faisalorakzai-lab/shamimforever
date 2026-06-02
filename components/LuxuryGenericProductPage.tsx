@@ -6,7 +6,6 @@ import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import Link from 'next/link'
 import { Copy, Check, Upload, X, ExternalLink, ArrowDown, ChevronLeft, ChevronRight } from 'lucide-react'
-import { formatPKR } from '@/lib/utils'
 import type { Product } from '@/types'
 import Web3PaySection, { type CoinType } from '@/components/Web3PaySection'
 import { useAccount } from 'wagmi'
@@ -294,8 +293,8 @@ export default function LuxuryGenericProductPage({ product }: { product: Product
             transition={{ delay: 2.4, duration: 0.8 }}
             style={{ display: 'flex', alignItems: 'baseline', gap: 14, marginBottom: 22, flexWrap: 'wrap' }}
           >
-            <span style={{ fontFamily: SERIF, fontSize: 'clamp(1.8rem, 4.5vw, 3rem)', fontWeight: 300, color: '#f8f4ee' }}>{formatPKR(product.price_pkr)}</span>
-            <span style={{ fontSize: 11, letterSpacing: '0.2em', color: 'rgba(201,160,84,0.45)' }}>${product.price_usd} USD</span>
+            <span style={{ fontFamily: SERIF, fontSize: 'clamp(1.8rem, 4.5vw, 3rem)', fontWeight: 300, color: '#f8f4ee' }}>$ {product.price_usd}</span>
+            <span style={{ fontSize: 13, letterSpacing: '0.35em', color: '#c9a054', fontWeight: 600 }}>USD</span>
           </motion.div>
           <motion.a
             href="#acquire"
@@ -453,8 +452,7 @@ export default function LuxuryGenericProductPage({ product }: { product: Product
           <div className="g-reveal">
             <div style={{ textAlign: 'center', padding: '28px', border: '1px solid rgba(201,160,84,0.12)', background: '#0c0906', marginBottom: 2 }}>
               <p style={{ fontSize: 7, letterSpacing: '0.5em', textTransform: 'uppercase', color: '#3f3830', marginBottom: 10 }}>Allocation Price</p>
-              <p style={{ fontFamily: SERIF, fontSize: 'clamp(2rem, 6vw, 3.8rem)', fontWeight: 300, color: '#f8f4ee', lineHeight: 1 }}>{formatPKR(product.price_pkr * quantity)}</p>
-              <p style={{ fontSize: 11, letterSpacing: '0.2em', color: 'rgba(201,160,84,0.4)', marginTop: 6 }}>${(product.price_usd * quantity).toFixed(2)} USD</p>
+              <p style={{ fontFamily: SERIF, fontSize: 'clamp(2rem, 6vw, 3.8rem)', fontWeight: 300, color: '#f8f4ee', lineHeight: 1 }}>$ {(product.price_usd * quantity).toFixed(0)} <span style={{ fontSize: '0.4em', letterSpacing: '0.35em', color: '#c9a054' }}>USD</span></p>
             </div>
 
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '14px 18px', border: '1px solid rgba(201,160,84,0.06)', background: '#0a0703', marginBottom: 2 }}>
