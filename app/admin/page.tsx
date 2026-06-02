@@ -64,7 +64,7 @@ function formatUsd(n: number) {
 export default function AdminPanel() {
   const [authed, setAuthed] = useState(false)
   const [password, setPassword] = useState('')
-  const [tab, setTab] = useState<'orders' | 'assets' | 'create'>('orders')
+  const [tab, setTab] = useState<'orders' | 'assets' | 'nft' | 'collectors' | 'analytics' | 'create'>('orders')
   const [assets, setAssets] = useState<Asset[]>([])
   const [orders, setOrders] = useState<Order[]>([])
   const [loading, setLoading] = useState(false)
@@ -209,7 +209,7 @@ export default function AdminPanel() {
 
         {/* Tabs */}
         <div style={{ display: 'flex', gap: 1, marginBottom: 32, borderBottom: '1px solid rgba(201,160,84,0.1)' }}>
-          {(['orders', 'assets', 'create'] as const).map(t => (
+          {(['orders', 'assets', 'nft', 'collectors', 'analytics', 'create'] as const).map(t => (
             <button key={t} onClick={() => { setTab(t); setMessage('') }}
               style={{
                 padding: '10px 24px', fontSize: 8, letterSpacing: '0.35em', textTransform: 'uppercase',
@@ -219,7 +219,7 @@ export default function AdminPanel() {
                 cursor: 'pointer', fontFamily: 'inherit', marginBottom: -1,
               }}
             >
-              {t === 'orders' ? '◆ Orders' : t === 'assets' ? '◈ Assets' : '+ Create'}
+              {t === 'orders' ? '◆ Orders' : t === 'assets' ? '◈ NFT Assets' : t === 'nft' ? '◇ NFT Registry' : t === 'collectors' ? '◉ Collectors' : t === 'analytics' ? '▣ Analytics' : '+ Create'}
             </button>
           ))}
         </div>
