@@ -8,7 +8,6 @@ import Link from 'next/link'
 import { supabase } from '@/lib/supabase'
 import type { Product } from '@/types'
 import { NftCardBadge } from '@/components/NftBadge'
-import { formatPKR } from '@/lib/utils'
 
 const ease = [0.16, 1, 0.3, 1] as const
 
