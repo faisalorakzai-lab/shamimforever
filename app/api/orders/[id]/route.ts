@@ -1,22 +1,30 @@
 import { NextRequest, NextResponse } from 'next/server'
-  import { createClient } from '@/lib/supabase/server'
+  import { createClient } from '@supabase/supabase-js'
+
+  function getSupabase() {
+    return createClient(
+      process.env.NEXT_PUBLIC_SUPABASE_URL!,
+      process.env.SUPABASE_SERVICE_ROLE_KEY!
+    )
+  }
+
+  const ALLOWED_STATUSES = [
+    'Pending Verification',
+    'Payment Approved',
+    'Under Private Delivery Dispatch',
+    'Completed',
+    'Cancelled',
+  ]
 
   export async function PATCH(
     req: NextRequest,
     { params }: { params: { id: string } }
   ) {
-    const supabase = await createClient()
+    const supabase = getSupabase()
     const body = await req.json()
     const { status } = body
 
-    const allowed = [
-      'Pending Verification',
-      'Payment Approved',
-      'Under Private Delivery Dispatch',
-      'Completed',
-      'Cancelled',
-    ]
-    if (!allowed.includes(status)) {
+    if (!ALLOWED_STATUSES.includes(status)) {
       return NextResponse.json({ error: 'Invalid status' }, { status: 400 })
     }
 
