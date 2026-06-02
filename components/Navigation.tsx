@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { motion, AnimatePresence } from 'framer-motion'
 import MobileDrawer from './MobileDrawer'
+import CurrencySelector from './CurrencySelector'
 
 const navLinks = [
   { label: 'Shop', href: '/shop' },
@@ -63,6 +64,8 @@ export default function Navigation() {
                 className="hidden lg:block text-[8px] tracking-[0.35em] uppercase text-zinc-600 hover:text-[#c9a054] transition-colors duration-500 border border-[#111] px-3 py-1.5 hover:border-[#c9a054]/30">
                 AI Scanner
               </Link>
+
+              <div className="hidden lg:block"><CurrencySelector /></div>
 
               {/* ── ACCESS BUTTON ── visible on mobile + desktop */}
               <Link href="/auth"
