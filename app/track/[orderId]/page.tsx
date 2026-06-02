@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
 import { supabase } from '@/lib/supabase'
-import { Search, Package, Truck, CheckCircle, Clock, MapPin } from 'lucide-react'
+import { Search, Package, Truck, CheckCircle, Clock, MapPin, ShieldCheck } from 'lucide-react'
 
 const STATUS_ICONS: Record<string, React.ElementType> = {
   order_placed:    Package,
@@ -104,7 +104,8 @@ export default function TrackOrderPage({ params }: { params: { orderId: string }
   }
 
   const orderStatus = order?.status ?? ''
-  const isDelivered = orderStatus === 'delivered'
+  const isDelivered = ['delivered', 'archive_closed'].includes(orderStatus)
+  const orderStatusLabel = STATUS_LABELS[orderStatus] || orderStatus.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase())
 
   return (
     <div className="min-h-screen bg-[#050505] pt-20">
