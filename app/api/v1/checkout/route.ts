@@ -144,7 +144,7 @@ export async function POST(req: NextRequest) {
     // Fallback without new columns
     const { data: o2, error: e2 } = await supabase.from('orders').insert([{
       ...insertPayload,
-      order_ref: undefined, tracking_ref: undefined,
+      order_ref: undefined, tracking_ref: undefined, payment_proof_url: undefined,
       notes: [...notesArr, `Ref: ${order_ref}`, `Trk: ${tracking_ref}`].join(' | '),
     }]).select().single()
     if (e2) return NextResponse.json({ success: false, error: e2.message }, { status: 500 })
