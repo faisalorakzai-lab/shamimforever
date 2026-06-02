@@ -42,7 +42,6 @@ export default function CurrencySelector() {
 
   return (
     <div ref={ref} style={{ position: 'relative', zIndex: 100 }}>
-      {/* Trigger — ultra-minimal, just 3-letter code + chevron */}
       <button
         onClick={() => setOpen(o => !o)}
         style={{
@@ -62,14 +61,13 @@ export default function CurrencySelector() {
       {open && (
         <div style={{
           position: 'absolute', top: 'calc(100% + 8px)', right: 0,
-          background: '#05040300', backdropFilter: 'blur(24px)',
+          background: 'rgba(5,4,3,0.97)',
+          backdropFilter: 'blur(24px)',
           WebkitBackdropFilter: 'blur(24px)',
           border: '1px solid rgba(201,160,84,0.12)',
           minWidth: 160, zIndex: 9999,
           boxShadow: '0 20px 60px rgba(0,0,0,0.95)',
-          background: 'rgba(5,4,3,0.97)',
         }}>
-          {/* Header */}
           <div style={{ padding: '10px 14px 8px', borderBottom: '1px solid rgba(201,160,84,0.06)' }}>
             <p style={{ fontSize: 6, letterSpacing: '0.55em', textTransform: 'uppercase', color: 'rgba(201,160,84,0.28)', margin: 0 }}>Currency</p>
           </div>
