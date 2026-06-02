@@ -429,14 +429,8 @@ export default function EternalEmpressPage({ product }: { product: Product }) {
                 golden amber resin, and velvet skin musk — engineered for ceremonial elegance and eternal feminine authority.
               </p>
               <div className="flex items-baseline gap-4 pt-2">
-                <p className="font-serif text-3xl font-light text-zinc-100">
-                  Rs {product.price_pkr?.toLocaleString()}
-                </p>
-                <p className="text-zinc-500 text-sm font-light">
-                  ${product.price_usd} USD
-                </p>
+                <p className="font-serif text-3xl font-light text-zinc-100">$ {product.price_usd} <span className="text-base tracking-[0.35em] text-[#c9a054]">USD</span></p>
               </div>
-              <div className="flex items-center gap-2 pt-1">
                 <span className="w-1.5 h-1.5 rounded-full bg-[#c9a054]" />
                 <p className="text-[7px] tracking-[0.4em] uppercase text-zinc-600">
                   Ultra-Limited Imperial Batch · Polygon Verified
