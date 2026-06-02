@@ -4,7 +4,34 @@ import { useState, useEffect, useCallback } from 'react'
 import { supabase } from '@/lib/supabase'
 import { Check, X, Eye, ExternalLink, RefreshCw, Package, MapPin, Plus, Truck } from 'lucide-react'
 
-const STATUS_OPTIONS = ['all', 'pending_verification', 'confirmed', 'shipped', 'delivered', 'cancelled']
+const STATUS_OPTIONS = [
+    'all',
+    'received',
+    'payment_verification',
+    'archive_authentication',
+    'vault_preparation',
+    'private_dispatch',
+    'in_transit',
+    'delivered',
+    'archive_closed',
+    'cancelled',
+  ]
+
+  const STATUS_DISPLAY: Record<string, string> = {
+    received:               'Received',
+    payment_verification:   'Payment Verification',
+    archive_authentication: 'Archive Authentication',
+    vault_preparation:      'Vault Preparation',
+    private_dispatch:       'Private Dispatch',
+    in_transit:             'In Transit',
+    delivered:              'Delivered',
+    archive_closed:         'Archive Closed',
+    cancelled:              'Cancelled',
+    // legacy statuses
+    pending_verification:   'Pending Verification',
+    confirmed:              'Confirmed',
+    shipped:                'Shipped',
+  }
 const PAYMENT_METHODS: Record<string, { label: string; color: string }> = {
   usdt:       { label: 'USDT',     color: '#26a17b' },
   usdc:       { label: 'USDC',     color: '#2775ca' },
