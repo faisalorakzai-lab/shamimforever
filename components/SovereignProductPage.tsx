@@ -41,7 +41,7 @@ import { useAccount } from 'wagmi'
   }
   import { SOVEREIGN_CONFIGS, type SovereignConfig } from '@/lib/sovereign-configs'
 
-type PayMethod = 'crypto' | 'pkr_manual' | 'cod'
+type PayMethod = 'crypto' | 'pkr_manual'
 interface OrderResult { order_id: string; order_ref: string; tracking_ref: string; status: string; track_url: string }
 
 
@@ -197,6 +197,8 @@ export default function SovereignProductPage({ product }: { product: Product }) 
   const [custPhone, setCustPhone] = useState('')
   const [custAddress, setCustAddress] = useState('')
   const [custCity, setCustCity] = useState('')
+  const [custCountry, setCustCountry] = useState('Pakistan')
+  const [liveRates, setLiveRates] = useState<Record<string,number>>({ PKR: 278, INR: 83.5, AED: 3.67, SAR: 3.75 })
   const [activeGallery, setActiveGallery] = useState(0)
   const { address: walletAddress } = useAccount()
   const [mintWallet, setMintWallet] = useState('')
@@ -214,6 +216,13 @@ export default function SovereignProductPage({ product }: { product: Product }) 
     return () => { ScrollTrigger.getAll().forEach(t => t.kill()) }
   }, [])
 
+    useEffect(() => {
+      fetch('https://open.er-api.com/v6/latest/USD')
+        .then(r => r.json())
+        .then(d => { if (d.rates) setLiveRates({ PKR: d.rates.PKR||278, INR: d.rates.INR||83.5, AED: d.rates.AED||3.67, SAR: d.rates.SAR||3.75 }) })
+        .catch(() => {})
+    }, [])
+
   const callCheckout = useCallback(async (opts: { paymentMethod: string; paymentStatus: string; txHash?: string; proofUrl?: string; walletAddress?: string }) => {
     if (!product) throw new Error('No product')
     const discount = opts.paymentMethod === 'okbond' ? 10 : 0
@@ -224,7 +233,7 @@ export default function SovereignProductPage({ product }: { product: Product }) 
         product_id: product.id, product_name: product.name, quantity,
         payment_method: opts.paymentMethod, payment_status: opts.paymentStatus,
         tx_hash: opts.txHash || null,
-        shipping_address: { name: custName, phone: custPhone, line1: custAddress, city: custCity, country: 'Pakistan' },
+        shipping_address: { name: custName, phone: custPhone, line1: custAddress, city: custCity, country: custCountry },
         total_pkr: product.price_pkr * quantity, total_usd: totalUsd, discount_applied: discount,
         price_pkr: product.price_pkr, price_usd: product.price_usd,
         wallet_address: opts.walletAddress || null, payment_proof_url: opts.proofUrl || null,
@@ -234,7 +243,7 @@ export default function SovereignProductPage({ product }: { product: Product }) 
     const data = await res.json()
     if (!data.success) throw new Error(data.error || 'Checkout failed')
     return data as OrderResult
-  }, [product, quantity, custName, custPhone, custAddress, custCity, config.nftRarity])
+  }, [product, quantity, custName, custPhone, custAddress, custCity, custCountry, config.nftRarity])
 
   const handleWeb3Success = useCallback(async (txHash: string, coin: CoinType) => {
     try {
@@ -254,7 +263,7 @@ export default function SovereignProductPage({ product }: { product: Product }) 
         const up = await fetch('/api/upload', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ imageStr: proofPreview }) })
         const ud = await up.json(); if (ud.url) proofUrl = ud.url
       }
-      setOrderResult(await callCheckout({ paymentMethod: payMethod, paymentStatus: payMethod === 'cod' ? 'pending' : 'awaiting_verification', proofUrl: proofUrl || undefined, txHash: txId || undefined }))
+      setOrderResult(await callCheckout({ paymentMethod: payMethod, paymentStatus: 'awaiting_verification', proofUrl: proofUrl || undefined, txHash: txId || undefined }))
     } catch (err: any) {
       setOrderError(err?.message || 'Failed to place order.')
     }
@@ -456,8 +465,12 @@ export default function SovereignProductPage({ product }: { product: Product }) 
           <div className="s-reveal">
             <div style={{ textAlign: 'center', padding: 'clamp(20px,4vw,32px) 24px', border: '1px solid rgba(201,160,84,0.12)', background: 'linear-gradient(135deg, #0e0a04 0%, #0a0703 100%)', marginBottom: 2 }}>
               <p style={{ fontSize: 7, letterSpacing: '0.5em', textTransform: 'uppercase', color: '#3f3830', marginBottom: 12 }}>Sovereign Allocation Price</p>
-              <p style={{ fontFamily: SERIF, fontSize: 'clamp(2rem,7vw,4.5rem)', fontWeight: 300, color: '#f8f4ee', lineHeight: 1 }}>{formatPKR(finalPkr)}</p>
-              <p style={{ fontSize: 12, letterSpacing: '0.2em', color: 'rgba(201,160,84,0.45)', marginTop: 8 }}>${(product.price_usd * quantity).toFixed(2)} USD</p>
+              <p style={{ fontFamily: SERIF, fontSize: 'clamp(2rem,7vw,4.5rem)', fontWeight: 300, color: '#f8f4ee', lineHeight: 1 }}>${(product.price_usd * quantity).toFixed(0)} <span style={{ fontSize: '0.4em', letterSpacing: '0.3em', color: '#c9a054' }}>USDT</span></p>
+              <div style={{ display: 'flex', gap: 14, justifyContent: 'center', flexWrap: 'wrap', marginTop: 8 }}>
+                {(['PKR','INR','AED','SAR'] as const).map(cur => (
+                  <span key={cur} style={{ fontSize: 10, letterSpacing: '0.15em', color: 'rgba(201,160,84,0.38)' }}>{cur} {Math.round(product.price_usd * quantity * (liveRates[cur]||1)).toLocaleString()}</span>
+                ))}
+              </div>
             </div>
 
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '16px 20px', border: '1px solid rgba(201,160,84,0.08)', background: '#0a0703', marginBottom: 2 }}>
@@ -477,28 +490,30 @@ export default function SovereignProductPage({ product }: { product: Product }) 
                 { v: custAddress, s: setCustAddress, ph: 'Delivery Address *' },
                 { v: custCity, s: setCustCity, ph: 'City *' },
               ] as { v: string; s: (val: string) => void; ph: string }[]).map(({ v, s, ph }) => (
-                <input
-                  key={ph}
-                  value={v}
-                  onChange={e => s(e.target.value)}
-                  placeholder={ph}
-                  style={{ width: '100%', background: '#080602', border: 'none', borderBottom: '1px solid rgba(201,160,84,0.06)', padding: '16px 20px', fontSize: 11, color: '#c9b894', outline: 'none', boxSizing: 'border-box' }}
+                <input key={ph} value={v} onChange={e => s(e.target.value)} placeholder={ph}
+                  style={{ width: '100%', background: '#080602', border: 'none', borderBottom: '1px solid rgba(201,160,84,0.06)', padding: '16px 20px', fontSize: 11, color: '#c9b894', outline: 'none', boxSizing: 'border-box' as const }}
                   onFocus={e => { e.currentTarget.style.borderBottomColor = 'rgba(201,160,84,0.3)' }}
                   onBlur={e => { e.currentTarget.style.borderBottomColor = 'rgba(201,160,84,0.06)' }}
                 />
+              ))}
+              <select value={custCountry} onChange={e => setCustCountry(e.target.value)} style={{ width: '100%', background: '#080602', border: 'none', borderBottom: '1px solid rgba(201,160,84,0.06)', padding: '16px 20px', fontSize: 11, color: '#c9b894', outline: 'none', boxSizing: 'border-box' as const, WebkitAppearance: 'none' as any, cursor: 'pointer' }}>
+                {['Pakistan','Saudi Arabia','United Arab Emirates','United Kingdom','United States','India','Qatar','Kuwait','Bahrain','Oman','Canada','Australia','Germany','France','Other'].map(c => (
+                  <option key={c} value={c} style={{ background: '#0a0703' }}>{c}</option>
+                ))}
+              </select>
               ))}
             </div>
 
             <div style={{ marginBottom: 2 }}>
               <p style={{ fontSize: 7, letterSpacing: '0.5em', textTransform: 'uppercase', color: '#3f3830', padding: '12px 20px', background: '#0a0703', border: '1px solid rgba(201,160,84,0.08)', marginBottom: 2 }}>Payment Method</p>
-              <div className="pay-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: 1, marginBottom: 16 }}>
-                {(['crypto', 'pkr_manual', 'cod'] as PayMethod[]).map(m => (
+              <div className="pay-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(2,1fr)', gap: 1, marginBottom: 16 }}>
+                {(['crypto', 'pkr_manual'] as PayMethod[]).map(m => (
                   <button
                     key={m}
                     onClick={() => setPayMethod(m)}
                     style={{ padding: '14px 4px', fontSize: 7, letterSpacing: '0.25em', textTransform: 'uppercase', cursor: 'pointer', transition: 'all 0.3s', background: payMethod === m ? 'rgba(201,160,84,0.08)' : '#080602', color: payMethod === m ? '#c9a054' : '#3f3830', border: payMethod === m ? '1px solid rgba(201,160,84,0.3)' : '1px solid rgba(255,255,255,0.04)' }}
                   >
-                    {m === 'crypto' ? '◆ Crypto' : m === 'pkr_manual' ? 'PKR Transfer' : 'COD'}
+                    {m === 'crypto' ? '◆ Crypto' : 'PKR Transfer'}
                   </button>
                 ))}
               </div>
@@ -554,19 +569,6 @@ export default function SovereignProductPage({ product }: { product: Product }) 
                     <button onClick={handlePlaceOrder} disabled={submitting} className="group" style={{ position: 'relative', overflow: 'hidden', padding: '18px', border: '1px solid rgba(201,160,84,0.45)', fontSize: 8, letterSpacing: '0.7em', textTransform: 'uppercase', color: '#c9a054', cursor: submitting ? 'not-allowed' : 'pointer', opacity: submitting ? 0.5 : 1, background: 'none', width: '100%' }}>
                       <span className="absolute inset-0 bg-[#c9a054] -translate-x-full group-hover:translate-x-0 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]" />
                       <span className="relative group-hover:text-black transition-colors duration-150">{submitting ? 'Processing...' : 'Submit Sovereign Order'}</span>
-                    </button>
-                  </motion.div>
-                )}
-                {payMethod === 'cod' && (
-                  <motion.div key="cod" initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-                    <div style={{ padding: '24px 20px', border: '1px solid rgba(201,160,84,0.1)', background: '#080602' }}>
-                      <p style={{ fontFamily: SERIF, fontSize: 22, color: '#c9b894', marginBottom: 8 }}>Cash on Delivery</p>
-                      <p style={{ fontSize: 12, color: 'rgba(255,255,255,0.25)', fontWeight: 300, lineHeight: 1.8 }}>Pay upon white-glove delivery within Pakistan. Our concierge confirms via WhatsApp within 2 hours.</p>
-                    </div>
-                    {orderError && <p style={{ fontSize: 9, color: 'rgba(248,113,113,0.7)' }}>{orderError}</p>}
-                    <button onClick={handlePlaceOrder} disabled={submitting} className="group" style={{ position: 'relative', overflow: 'hidden', padding: '18px', border: '1px solid rgba(201,160,84,0.45)', fontSize: 8, letterSpacing: '0.7em', textTransform: 'uppercase', color: '#c9a054', cursor: submitting ? 'not-allowed' : 'pointer', opacity: submitting ? 0.5 : 1, background: 'none', width: '100%' }}>
-                      <span className="absolute inset-0 bg-[#c9a054] -translate-x-full group-hover:translate-x-0 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]" />
-                      <span className="relative group-hover:text-black transition-colors duration-150">{submitting ? 'Placing Order...' : 'Confirm COD Order'}</span>
                     </button>
                   </motion.div>
                 )}
@@ -635,7 +637,7 @@ export default function SovereignProductPage({ product }: { product: Product }) 
             <p style={{ fontSize: 7, letterSpacing: '0.9em', textTransform: 'uppercase', color: '#c9a054', marginBottom: 12 }}>Olfactory Architecture</p>
             <h2 style={{ fontFamily: SERIF, fontSize: 'clamp(2rem,5vw,4rem)', fontWeight: 300, color: '#f0ece4', letterSpacing: '0.08em' }}>Scent Pyramid</h2>
           </div>
-          <div className="scent-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: 1 }}>
+          <div className="scent-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(2,1fr)', gap: 1 }}>
             {[
               { tier: 'TOP', label: 'Opening Veil', notes: config.topNotes, glow: 'rgba(201,160,84,0.05)' },
               { tier: 'HEART', label: 'Sovereign Core', notes: config.heartNotes, glow: 'rgba(201,160,84,0.07)' },
