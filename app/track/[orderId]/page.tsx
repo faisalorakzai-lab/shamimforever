@@ -4,60 +4,31 @@ import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
 import { supabase } from '@/lib/supabase'
-import { Search, Package, Truck, CheckCircle, Clock, MapPin, ShieldCheck } from 'lucide-react'
+import { Search, Package, Truck, CheckCircle, Clock, MapPin } from 'lucide-react'
 
 const STATUS_ICONS: Record<string, React.ElementType> = {
-    order_placed:           Package,
-    received:               Package,
-    payment_verification:   Clock,
-    archive_authentication: ShieldCheck,
-    vault_preparation:      Package,
-    private_dispatch:       Truck,
-    in_transit:             Truck,
-    dispatched:             Truck,
-    confirmed:              CheckCircle,
-    processing:             Clock,
-    out_for_delivery:       Truck,
-    delivered:              CheckCircle,
-    archive_closed:         CheckCircle,
-    update:                 MapPin,
-  }
+  order_placed:    Package,
+  confirmed:       CheckCircle,
+  processing:      Clock,
+  dispatched:      Truck,
+  in_transit:      Truck,
+  out_for_delivery: Truck,
+  delivered:       CheckCircle,
+  update:          MapPin,
+}
 
-  const STATUS_COLORS: Record<string, string> = {
-    order_placed:           '#888',
-    received:               '#888',
-    payment_verification:   '#c9a054',
-    archive_authentication: '#a78bfa',
-    vault_preparation:      '#60a5fa',
-    private_dispatch:       '#34d399',
-    in_transit:             '#60a5fa',
-    dispatched:             '#60a5fa',
-    confirmed:              '#c9a054',
-    processing:             '#c9a054',
-    out_for_delivery:       '#a78bfa',
-    delivered:              '#34d399',
-    archive_closed:         '#34d399',
-    update:                 '#888',
-  }
+const STATUS_COLORS: Record<string, string> = {
+  order_placed:    '#888',
+  confirmed:       '#c9a054',
+  processing:      '#c9a054',
+  dispatched:      '#60a5fa',
+  in_transit:      '#60a5fa',
+  out_for_delivery: '#a78bfa',
+  delivered:       '#34d399',
+  update:          '#888',
+}
 
-  const STATUS_LABELS: Record<string, string> = {
-    order_placed:           'Order Received',
-    received:               'Order Received',
-    payment_verification:   'Payment Verification',
-    archive_authentication: 'Archive Authentication',
-    vault_preparation:      'Vault Preparation',
-    private_dispatch:       'Private Dispatch',
-    in_transit:             'In Transit',
-    dispatched:             'Private Dispatch',
-    confirmed:              'Payment Verified',
-    processing:             'Archive Authentication',
-    out_for_delivery:       'Out for Delivery',
-    delivered:              'Delivered',
-    archive_closed:         'Archive Closed',
-    update:                 'Status Update',
-  }
-
-  interface TrackingUpdate {
+interface TrackingUpdate {
   id: string
   status: string
   title: string
@@ -133,8 +104,7 @@ export default function TrackOrderPage({ params }: { params: { orderId: string }
   }
 
   const orderStatus = order?.status ?? ''
-  const isDelivered = ['delivered', 'archive_closed'].includes(orderStatus)
-  const orderStatusLabel = STATUS_LABELS[orderStatus] || orderStatus.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase())
+  const isDelivered = orderStatus === 'delivered'
 
   return (
     <div className="min-h-screen bg-[#050505] pt-20">
