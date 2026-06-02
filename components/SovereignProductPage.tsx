@@ -54,6 +54,7 @@ const UBL_IBAN = 'PK13UNIL0109000318870498'
 const SERIF = "'Cormorant Garamond', Georgia, serif"
 
 const SOVEREIGN_CSS = [
+  '@keyframes shimmerPulse{0%,100%{opacity:0.55}50%{opacity:1}}',
   '@media(max-width:768px){',
   '.scent-grid{grid-template-columns:1fr!important}',
   '.nft-grid{grid-template-columns:1fr!important;gap:32px!important}',
@@ -198,6 +199,9 @@ export default function SovereignProductPage({ product }: { product: Product }) 
   const [custCity, setCustCity] = useState('')
   const [activeGallery, setActiveGallery] = useState(0)
   const { address: walletAddress } = useAccount()
+  const [mintWallet, setMintWallet] = useState('')
+  const [mintStatus, setMintStatus] = useState<'idle'|'minting'|'success'|'error'>('idle')
+  const [mintResult, setMintResult] = useState<{tokenId:number;txHash:string;openSeaUrl:string;polygonScanUrl:string}|null>(null)
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger)
@@ -257,6 +261,21 @@ export default function SovereignProductPage({ product }: { product: Product }) 
     setSubmitting(false)
   }
 
+  async function handleMintNFT() {
+    const addr = (mintWallet.trim() || walletAddress) as string | undefined
+    if (!addr || !addr.startsWith('0x')) { setMintStatus('error'); return }
+    setMintStatus('minting')
+    try {
+      const res = await fetch('/api/nft/mint', {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ walletAddress: addr }),
+      })
+      const data = await res.json()
+      if (!data.success) throw new Error(data.error || 'Mint failed')
+      setMintResult(data); setMintStatus('success')
+    } catch { setMintStatus('error') }
+  }
+
   if (orderResult) return (
     <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '80px 24px', background: '#030303' }}>
       <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1 }} style={{ textAlign: 'center', maxWidth: 500, width: '100%' }}>
@@ -294,7 +313,7 @@ export default function SovereignProductPage({ product }: { product: Product }) 
       <style dangerouslySetInnerHTML={{ __html: SOVEREIGN_CSS }} />
 
       {/* HERO — Black & Gold brand, edge-to-edge 3D */}
-        <section ref={heroRef} style={{ position: 'relative', height: 'clamp(320px, 50vh, 480px)', overflow: 'hidden', background: '#000000' }}>
+        <section ref={heroRef} style={{ position: 'relative', height: config.videoPath ? 'clamp(540px, 85vh, 900px)' : 'clamp(320px, 50vh, 480px)', overflow: 'hidden', background: '#000000' }}>
 
           {/* Gold crown spotlight */}
           <div style={{ position: 'absolute', left: 0, right: 0, top: '5%', height: '55%', background: 'radial-gradient(ellipse 52% 60% at 50% 26%, rgba(212,175,55,0.16) 0%, rgba(201,160,84,0.05) 40%, transparent 68%)', pointerEvents: 'none', zIndex: 2 }} />
@@ -321,8 +340,20 @@ export default function SovereignProductPage({ product }: { product: Product }) 
           <div style={{ position: 'absolute', bottom: 14, left: 14, width: 18, height: 18, borderBottom: '1px solid rgba(212,175,55,0.28)', borderLeft: '1px solid rgba(212,175,55,0.28)', pointerEvents: 'none', zIndex: 9 }} />
           <div style={{ position: 'absolute', bottom: 14, right: 14, width: 18, height: 18, borderBottom: '1px solid rgba(212,175,55,0.28)', borderRight: '1px solid rgba(212,175,55,0.28)', pointerEvents: 'none', zIndex: 9 }} />
 
-          {/* model-viewer — full width, camera zoomed to fill frame */}
-          {config.modelPath ? (
+          {/* Cinematic media — video first, then 3D model, then hero image */}
+          {config.videoPath ? (
+            <div style={{ position: 'absolute', inset: 0, zIndex: 10 }}>
+              <video autoPlay loop muted playsInline preload="metadata"
+                style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', pointerEvents: 'none' }}>
+                <source src={config.videoPath} type="video/mp4" />
+              </video>
+              <GoldParticles />
+              <div style={{ position:'absolute', top:0, left:0, right:0, height:'55%', background:'radial-gradient(ellipse 65% 55% at 50% 0%, rgba(212,175,55,0.13) 0%, transparent 65%)', pointerEvents:'none', zIndex:12 }} />
+              <div style={{ position:'absolute', inset:0, background:'radial-gradient(ellipse 80% 90% at 50% 50%, transparent 48%, rgba(0,0,0,0.72) 100%)', pointerEvents:'none', zIndex:12 }} />
+              <div style={{ position:'absolute', left:0, right:0, bottom:0, height:'45%', background:'linear-gradient(to bottom, transparent, rgba(0,0,0,0.98))', pointerEvents:'none', zIndex:13 }} />
+              <div style={{ position:'absolute', top:'8%', left:'25%', width:'50%', height:'30%', background:'radial-gradient(ellipse at center, rgba(212,175,55,0.09) 0%, transparent 68%)', pointerEvents:'none', zIndex:12, animation:'shimmerPulse 5s ease-in-out infinite' }} />
+            </div>
+          ) : config.modelPath ? (
             <div style={{ position: 'absolute', inset: 0, zIndex: 10, paddingTop: '46px', paddingBottom: '2px' }}>
               <model-viewer
                 src={config.modelPath}
@@ -351,7 +382,7 @@ export default function SovereignProductPage({ product }: { product: Product }) 
           )}
 
           {/* Text overlaid at bottom — only when NO model (existing products) */}
-          {!config.modelPath && (
+          {!config.modelPath && !config.videoPath && (
             <motion.div style={{ opacity: textOpacity, y: textY, position: 'absolute', bottom: 0, left: 0, right: 0, zIndex: 20, padding: '0 clamp(20px,5vw,80px)', paddingBottom: 'clamp(48px,6vw,80px)' }}>
               <motion.p initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 1.4, duration: 1 }} style={{ fontSize: 7, letterSpacing: '0.9em', textTransform: 'uppercase', color: '#c9a054', marginBottom: 16 }}>{config.heroTagline}</motion.p>
               <motion.h1 initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 1.8, duration: 1.6, ease: [0.16, 1, 0.3, 1] }} style={{ fontFamily: SERIF, fontWeight: 300, letterSpacing: '-0.01em', lineHeight: 0.88, color: '#f8f4ee', marginBottom: 14, fontSize: 'clamp(3rem,10vw,9.5rem)' }}>{config.heroTitle}</motion.h1>
@@ -382,7 +413,7 @@ export default function SovereignProductPage({ product }: { product: Product }) 
         </section>
 
         {/* PRODUCT INFO — fully below the 3D model section */}
-        {config.modelPath && (
+        {(config.modelPath || config.videoPath) && (
           <section style={{ background: '#030303', padding: 'clamp(40px,7vw,72px) clamp(20px,5vw,80px)', textAlign: 'center', borderTop: '1px solid rgba(201,160,84,0.1)' }}>
             <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}>
               <p style={{ fontSize: 7, letterSpacing: '0.85em', textTransform: 'uppercase', color: '#c9a054', marginBottom: 20 }}>{config.heroTagline}</p>
@@ -581,6 +612,67 @@ export default function SovereignProductPage({ product }: { product: Product }) 
               >
                 <ExternalLink size={10} /> View on Polygonscan
               </a>
+
+              {/* ── CLAIM YOUR NFT SOVEREIGN PASSPORT ── */}
+              <div style={{ marginTop: 28, border: '1px solid rgba(201,160,84,0.15)', background: 'linear-gradient(135deg, #0c0906 0%, #080603 100%)' }}>
+                <div style={{ padding: '16px 20px', borderBottom: '1px solid rgba(201,160,84,0.08)', display: 'flex', alignItems: 'center', gap: 10 }}>
+                  <div style={{ width: 6, height: 6, background: '#c9a054', transform: 'rotate(45deg)', flexShrink: 0 }} />
+                  <p style={{ fontSize: 7, letterSpacing: '0.7em', textTransform: 'uppercase', color: '#c9a054' }}>Claim Your Sovereign Passport NFT</p>
+                </div>
+                <div style={{ padding: '20px' }}>
+                  {mintStatus === 'success' && mintResult ? (
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '10px 14px', background: 'rgba(201,160,84,0.06)', border: '1px solid rgba(201,160,84,0.22)' }}>
+                        <div style={{ width: 6, height: 6, borderRadius: '50%', background: '#c9a054' }} />
+                        <p style={{ fontSize: 10, color: '#c9b894', letterSpacing: '0.04em' }}>Minted — Sovereign Passport #{String(mintResult.tokenId).padStart(4,'0')}</p>
+                      </div>
+                      <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+                        <a href={mintResult.openSeaUrl} target="_blank" rel="noopener noreferrer"
+                          style={{ flex:1, display:'inline-flex', alignItems:'center', justifyContent:'center', gap:6, padding:'11px 16px', border:'1px solid rgba(201,160,84,0.35)', fontSize:7, letterSpacing:'0.3em', textTransform:'uppercase', color:'#c9a054', textDecoration:'none' }}>
+                          <ExternalLink size={9} /> OpenSea
+                        </a>
+                        <a href={mintResult.polygonScanUrl} target="_blank" rel="noopener noreferrer"
+                          style={{ flex:1, display:'inline-flex', alignItems:'center', justifyContent:'center', gap:6, padding:'11px 16px', border:'1px solid rgba(130,71,229,0.28)', fontSize:7, letterSpacing:'0.3em', textTransform:'uppercase', color:'rgba(130,71,229,0.75)', textDecoration:'none' }}>
+                          <ExternalLink size={9} /> PolygonScan
+                        </a>
+                      </div>
+                      <p style={{ fontFamily:'monospace', fontSize:9, color:'rgba(201,160,84,0.4)', wordBreak:'break-all' }}>TX: {mintResult.txHash.slice(0,22)}...</p>
+                    </div>
+                  ) : (
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
+                      <p style={{ fontSize: 11, color: 'rgba(240,236,228,0.32)', lineHeight: 1.8, fontWeight: 300 }}>After purchase, enter your Polygon wallet address to receive your Sovereign Passport NFT. Works with MetaMask, Trust Wallet, Coinbase Wallet and all WalletConnect wallets.</p>
+                      {walletAddress ? (
+                        <div style={{ display:'flex', alignItems:'center', gap:8, padding:'10px 14px', background:'rgba(201,160,84,0.04)', border:'1px solid rgba(201,160,84,0.14)' }}>
+                          <div style={{ width:5, height:5, borderRadius:'50%', background:'#c9a054', flexShrink:0 }} />
+                          <p style={{ fontFamily:'monospace', fontSize:9, color:'#c9b894', flex:1, overflow:'hidden', textOverflow:'ellipsis', whiteSpace:'nowrap' }}>{walletAddress}</p>
+                          <p style={{ fontSize:6, letterSpacing:'0.4em', color:'rgba(201,160,84,0.5)', textTransform:'uppercase', flexShrink:0 }}>Connected</p>
+                        </div>
+                      ) : (
+                        <input
+                          value={mintWallet}
+                          onChange={e => setMintWallet(e.target.value)}
+                          placeholder="0x... Your Polygon Wallet Address"
+                          style={{ width:'100%', background:'#080602', border:'none', borderBottom:'1px solid rgba(201,160,84,0.12)', padding:'13px 16px', fontSize:10, color:'#c9b894', outline:'none', fontFamily:'monospace', boxSizing:'border-box' }}
+                          onFocus={e=>{ e.currentTarget.style.borderBottomColor='rgba(201,160,84,0.45)' }}
+                          onBlur={e=>{ e.currentTarget.style.borderBottomColor='rgba(201,160,84,0.12)' }}
+                        />
+                      )}
+                      {mintStatus === 'error' && (
+                        <p style={{ fontSize:10, color:'rgba(255,88,88,0.7)' }}>Please enter a valid Polygon wallet address (0x...)</p>
+                      )}
+                      <button
+                        onClick={handleMintNFT}
+                        disabled={mintStatus === 'minting'}
+                        style={{ padding:'14px 24px', border:'1px solid rgba(201,160,84,0.4)', fontSize:7, letterSpacing:'0.55em', textTransform:'uppercase', color: mintStatus==='minting' ? 'rgba(201,160,84,0.35)' : '#c9a054', background:'none', cursor: mintStatus==='minting' ? 'not-allowed' : 'pointer', width:'100%', transition:'all 0.3s' }}
+                        onMouseEnter={e=>{ if(mintStatus!=='minting')(e.currentTarget as HTMLButtonElement).style.background='rgba(201,160,84,0.06)' }}
+                        onMouseLeave={e=>{ (e.currentTarget as HTMLButtonElement).style.background='none' }}
+                      >
+                        {mintStatus === 'minting' ? '◆  Minting on Polygon Mainnet...' : '◆  Mint Sovereign Passport'}
+                      </button>
+                    </div>
+                  )}
+                </div>
+              </div>
             </div>
           </div>
         </div>
