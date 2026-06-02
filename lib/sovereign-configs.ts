@@ -28,6 +28,7 @@
     ambassadorImage?: string
     ambassadorQuote?: string
     modelPath?: string
+    videoPath?: string
   }
 
   // ── ARCHIVE I — SHAMIM BLOOM ────────────────────────────────────────────────
@@ -88,7 +89,7 @@
       'Direct WhatsApp Concierge Line — Priority contact with the House of Shamim Forever team',
       'Founder Reserve Badge — Digital and physical recognition as a founding patron of the archive',
     ],
-    modelPath: '/assets/models/shamim-bloom.glb',
+    videoPath: '/products/shamims-bloom/shamim-bloom-hero.mp4',
   }
 
   // ── ARCHIVE II — QUEEN OF TAIF ─────────────────────────────────────────────
