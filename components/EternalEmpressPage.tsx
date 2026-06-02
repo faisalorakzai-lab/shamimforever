@@ -107,7 +107,7 @@ function Web3PayBlock({ priceUsd, onSuccess }: {
         {(Object.keys(TOKEN_META) as CoinType[]).map(c => (
           <button key={c} onClick={() => { setCoin(c); setStep('idle') }}
             className={`flex-1 py-3 text-[8px] tracking-[0.2em] uppercase transition-all duration-300 border-b-2 ${coin === c ? 'text-[#c9a054] border-b-[#c9a054] bg-[#c9a054]/5' : 'text-zinc-600 border-b-transparent hover:text-zinc-400'}`}>
-            {c}{c === 'OKBOND' ? ' −10%' : ''}
+            {c}{c === 'OKBOND' ? ' â10%' : ''}
           </button>
         ))}
       </div>
@@ -172,7 +172,7 @@ function Web3PayBlock({ priceUsd, onSuccess }: {
         </div>
       ) : (
         <div className="p-5 border border-[#c9a054]/30 bg-[#c9a054]/8 text-center space-y-3">
-          <p className="text-[#c9a054] text-2xl">◆</p>
+          <p className="text-[#c9a054] text-2xl">â</p>
           <p className="text-[9px] tracking-[0.45em] uppercase text-[#c9a054]">Sovereign Payment Confirmed</p>
           {localTx && (
             <a href={`https://polygonscan.com/tx/${localTx}`} target="_blank" rel="noreferrer"
@@ -188,16 +188,16 @@ function Web3PayBlock({ priceUsd, onSuccess }: {
 
 const PERFORMANCE_MATRIX = [
   { label: 'Classification',        value: 'Sovereign Feminine Extrait' },
-  { label: 'Volume Allocation',     value: '100ML — 3.4 FL. OZ.' },
+  { label: 'Volume Allocation',     value: '100ML â 3.4 FL. OZ.' },
   { label: 'Concentration',         value: 'Extrait de Parfum' },
-  { label: 'Longevity',             value: '16–24+ Hours' },
+  { label: 'Longevity',             value: '16â24+ Hours' },
   { label: 'Projection',            value: 'Regal Atmospheric Aura' },
   { label: 'Sillage',               value: 'Velvet Command Presence' },
   { label: 'Production Structure',  value: 'Imperial Sovereign Allocation' },
   { label: 'Batch Philosophy',      value: 'Ultra-Limited Small-Batch Perfumery' },
   { label: 'Gender Identity',       value: 'Feminine Royal Luxury' },
   { label: 'Authentication',        value: 'Polygon Verified' },
-  { label: 'Ideal Environment',     value: 'Royal Gatherings · Gala Evenings · Ceremonial Luxury' },
+  { label: 'Ideal Environment',     value: 'Royal Gatherings Â· Gala Evenings Â· Ceremonial Luxury' },
 ]
 
 const HOLDER_PRIVILEGES = [
@@ -215,7 +215,7 @@ const HOLDER_PRIVILEGES = [
 ]
 
 const NFT_TRAITS = [
-  { label: 'NFT Name',             value: 'Eternal Empress — Imperial Sovereign Edition' },
+  { label: 'NFT Name',             value: 'Eternal Empress â Imperial Sovereign Edition' },
   { label: 'Category',             value: 'Sovereign Fragrance Artifact' },
   { label: 'Collection',           value: 'Eternal Empress' },
   { label: 'Rarity Tier',          value: 'IMPERIAL FOUNDERS' },
@@ -270,7 +270,7 @@ export default function EternalEmpressPage({ product }: { product: Product }) {
         total_usd: parseFloat((product.price_usd * (coin === 'OKBOND' ? 0.9 : 1)).toFixed(2)),
         discount_applied: coin === 'OKBOND' ? 10 : 0,
         shipping_address: { name: custName, phone: custPhone, line1: custAddress, city: custCity, country: 'Pakistan' },
-        notes: `Crypto TX: ${txHash} | Coin: ${coin} | Eternal Empress — Imperial Sovereign Edition`,
+        notes: `Crypto TX: ${txHash} | Coin: ${coin} | Eternal Empress â Imperial Sovereign Edition`,
       }]).select().single()
       if (order) {
         await supabase.from('order_items').insert([{
@@ -289,7 +289,7 @@ export default function EternalEmpressPage({ product }: { product: Product }) {
       <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.8, ease }} className="text-center max-w-lg">
         <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2 }} className="font-serif text-7xl text-[#c9a054] mb-8">◆</motion.p>
+          transition={{ delay: 0.2 }} className="font-serif text-7xl text-[#c9a054] mb-8">â</motion.p>
         <h2 className="font-serif text-3xl font-light tracking-[0.2em] uppercase text-zinc-100 mb-3">
           Imperial Order Confirmed
         </h2>
@@ -319,11 +319,11 @@ export default function EternalEmpressPage({ product }: { product: Product }) {
       <div className="max-w-[1600px] mx-auto px-6 md:px-12 lg:px-20 py-8 border-b border-[#111]">
         <nav className="flex items-center gap-3 text-[7px] tracking-[0.4em] uppercase">
           <Link href="/shop" className="text-zinc-700 hover:text-zinc-400 transition-colors">House</Link>
-          <span className="text-zinc-800">·</span>
+          <span className="text-zinc-800">Â·</span>
           <Link href="/shop" className="text-zinc-700 hover:text-zinc-400 transition-colors">Perfumes</Link>
-          <span className="text-zinc-800">·</span>
+          <span className="text-zinc-800">Â·</span>
           <Link href="/shop" className="text-zinc-700 hover:text-zinc-400 transition-colors">For Her</Link>
-          <span className="text-zinc-800">·</span>
+          <span className="text-zinc-800">Â·</span>
           <span className="text-[#c9a054]">Eternal Empress</span>
         </nav>
       </div>
@@ -331,7 +331,7 @@ export default function EternalEmpressPage({ product }: { product: Product }) {
       {/* Archive Banner */}
       <div className="border-b border-[#c9a054]/10 bg-[#c9a054]/3 py-2">
         <p className="text-center text-[7px] tracking-[0.6em] uppercase text-[#c9a054]/60">
-          Imperial Sovereign Allocation — Archive III &nbsp;·&nbsp; Ultra-Limited Imperial Batch &nbsp;·&nbsp; Polygon Verified
+          Imperial Sovereign Allocation â Archive III &nbsp;Â·&nbsp; Ultra-Limited Imperial Batch &nbsp;Â·&nbsp; Polygon Verified
         </p>
       </div>
 
@@ -339,7 +339,7 @@ export default function EternalEmpressPage({ product }: { product: Product }) {
       <div className="max-w-[1600px] mx-auto px-6 md:px-12 lg:px-20 py-16">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 xl:gap-24">
 
-          {/* Left — Images */}
+          {/* Left â Images */}
           <motion.div initial={{ opacity: 0, x: -40 }} animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 1, ease }} className="space-y-4">
             <div className="relative aspect-square bg-[#080808] border border-[#111] overflow-hidden">
@@ -396,7 +396,7 @@ export default function EternalEmpressPage({ product }: { product: Product }) {
               <p className="text-[7px] tracking-[0.5em] uppercase text-zinc-500">The Flacon Architecture</p>
               <p className="text-zinc-400 text-xs font-light leading-relaxed">
                 The Eternal Empress flacon was engineered as a sovereign jewel artifact. Sculpted from deep
-                pearl-white crystal infused with flowing golden reflections — creating the illusion of illuminated
+                pearl-white crystal infused with flowing golden reflections â creating the illusion of illuminated
                 royalty suspended within the glass. Its crown cap is forged in polished royal gold with intricate
                 imperial engravings, crowned with a massive oval-cut crystal centerpiece that refracts cinematic
                 light like a preserved crown jewel.
@@ -404,7 +404,7 @@ export default function EternalEmpressPage({ product }: { product: Product }) {
               <div className="grid grid-cols-2 gap-2 pt-2">
                 {['feminine authority', 'emotional permanence', 'inherited wealth', 'sovereign elegance'].map(q => (
                   <div key={q} className="flex items-center gap-2">
-                    <span className="text-[#c9a054] text-[8px]">◆</span>
+                    <span className="text-[#c9a054] text-[8px]">â</span>
                     <span className="text-[7px] tracking-[0.2em] uppercase text-zinc-600">{q}</span>
                   </div>
                 ))}
@@ -412,13 +412,13 @@ export default function EternalEmpressPage({ product }: { product: Product }) {
             </div>
           </motion.div>
 
-          {/* Right — Details */}
+          {/* Right â Details */}
           <motion.div initial={{ opacity: 0, x: 40 }} animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 1, ease }} className="space-y-8">
 
             {/* Header */}
             <div className="space-y-3 pb-6 border-b border-[#111]">
-              <p className="text-[7px] tracking-[0.5em] uppercase text-zinc-600">Perfume · For Her · Imperial Sovereign</p>
+              <p className="text-[7px] tracking-[0.5em] uppercase text-zinc-600">Perfume Â· For Her Â· Imperial Sovereign</p>
               <h1 className="font-serif text-3xl sm:text-4xl font-light tracking-[0.1em] text-zinc-100 leading-tight">
                 SF&nbsp;
                 <span className="text-[#c9a054]">Eternal Empress</span>
@@ -426,14 +426,15 @@ export default function EternalEmpressPage({ product }: { product: Product }) {
               <p className="text-[8px] tracking-[0.5em] uppercase text-zinc-600">The Absolute Feminine Throne</p>
               <p className="font-serif italic text-zinc-500 text-sm mt-1">
                 A sovereign feminine masterpiece sculpted around imperial white rose, molten saffron nectar,
-                golden amber resin, and velvet skin musk — engineered for ceremonial elegance and eternal feminine authority.
+                golden amber resin, and velvet skin musk â engineered for ceremonial elegance and eternal feminine authority.
               </p>
               <div className="flex items-baseline gap-4 pt-2">
                 <p className="font-serif text-3xl font-light text-zinc-100">$ {product.price_usd} <span className="text-base tracking-[0.35em] text-[#c9a054]">USD</span></p>
               </div>
+              <div className="flex items-center gap-2">
                 <span className="w-1.5 h-1.5 rounded-full bg-[#c9a054]" />
                 <p className="text-[7px] tracking-[0.4em] uppercase text-zinc-600">
-                  Ultra-Limited Imperial Batch · Polygon Verified
+                  Ultra-Limited Imperial Batch Â· Polygon Verified
                 </p>
               </div>
             </div>
@@ -462,7 +463,7 @@ export default function EternalEmpressPage({ product }: { product: Product }) {
                       <p className="text-[7px] tracking-[0.5em] uppercase text-[#c9a054]">The Legacy Statement</p>
                       <div className="space-y-3 text-zinc-400 text-xs font-light leading-relaxed">
                         <p>Throughout history, civilizations have worshipped beauty. But only a handful of women possessed something far more dangerous: <span className="text-zinc-300 italic">presence powerful enough to alter reality itself.</span></p>
-                        <p>Eternal Empress was never created as a traditional fragrance. It was conceived inside the House of Shamim Forever as a sovereign feminine artifact — engineered to preserve emotional authority long after physical moments disappear.</p>
+                        <p>Eternal Empress was never created as a traditional fragrance. It was conceived inside the House of Shamim Forever as a sovereign feminine artifact â engineered to preserve emotional authority long after physical moments disappear.</p>
                         <p className="font-serif italic text-zinc-500">This composition does not chase attraction. It establishes atmosphere. It does not seek validation. It creates psychological gravity powerful enough to command silence before a single word is spoken.</p>
                       </div>
                     </div>
@@ -474,7 +475,7 @@ export default function EternalEmpressPage({ product }: { product: Product }) {
                           <motion.div key={q} initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }}
                             transition={{ delay: i * 0.08, ease }}
                             className="flex items-center gap-2 py-2 border-b border-[#111]">
-                            <span className="text-[#c9a054] text-[8px]">◆</span>
+                            <span className="text-[#c9a054] text-[8px]">â</span>
                             <span className="text-[8px] tracking-[0.15em] uppercase text-zinc-500">{q}</span>
                           </motion.div>
                         ))}
@@ -482,7 +483,7 @@ export default function EternalEmpressPage({ product }: { product: Product }) {
                     </div>
 
                     <div className="space-y-4 border border-[#111] bg-[#060606] p-5">
-                      <p className="text-[7px] tracking-[0.5em] uppercase text-[#c9a054]">Chapter III — The Ascension of the Empress</p>
+                      <p className="text-[7px] tracking-[0.5em] uppercase text-[#c9a054]">Chapter III â The Ascension of the Empress</p>
                       <p className="font-serif italic text-zinc-400 text-sm">
                         &ldquo;Some women enter rooms. An Empress transforms them.&rdquo;
                       </p>
@@ -511,7 +512,7 @@ export default function EternalEmpressPage({ product }: { product: Product }) {
                       <div className="grid grid-cols-1 gap-0.5 pt-1">
                         {ATMOSPHERIC_QUALITIES.map(q => (
                           <div key={q} className="flex items-center gap-2 py-2 border-b border-[#0d0d0d]">
-                            <span className="text-[#c9a054]/50 text-[8px]">◆</span>
+                            <span className="text-[#c9a054]/50 text-[8px]">â</span>
                             <span className="text-[8px] tracking-[0.15em] uppercase text-zinc-600">{q}</span>
                           </div>
                         ))}
@@ -549,7 +550,7 @@ export default function EternalEmpressPage({ product }: { product: Product }) {
                           'Concierge preservation documentation',
                         ].map(item => (
                           <div key={item} className="flex items-center gap-2">
-                            <span className="text-[#c9a054]/60 text-[8px]">◆</span>
+                            <span className="text-[#c9a054]/60 text-[8px]">â</span>
                             <span className="text-[8px] tracking-[0.15em] uppercase text-zinc-600">{item}</span>
                           </div>
                         ))}
@@ -566,7 +567,7 @@ export default function EternalEmpressPage({ product }: { product: Product }) {
                           <motion.div key={p} initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }}
                             transition={{ delay: i * 0.05, ease }}
                             className="flex items-center gap-2 py-2 border-b border-[#0d0d0d]">
-                            <span className="text-[#c9a054] text-[8px]">◆</span>
+                            <span className="text-[#c9a054] text-[8px]">â</span>
                             <span className="text-[8px] tracking-[0.15em] uppercase text-zinc-500">{p}</span>
                           </motion.div>
                         ))}
@@ -586,7 +587,7 @@ export default function EternalEmpressPage({ product }: { product: Product }) {
                     <div className="space-y-2">
                       <p className="text-[7px] tracking-[0.5em] uppercase text-[#c9a054]">The Scent Architecture</p>
                       <p className="text-zinc-600 text-[9px] italic font-serif">
-                        Three sovereign layers — each a chapter in feminine authority.
+                        Three sovereign layers â each a chapter in feminine authority.
                       </p>
                     </div>
 
@@ -615,9 +616,9 @@ export default function EternalEmpressPage({ product }: { product: Product }) {
                       <p className="text-[7px] tracking-[0.5em] uppercase text-zinc-600">Scent Journey</p>
                       <div className="space-y-3">
                         {[
-                          { phase: 'Illumination', time: '0–30 min', desc: 'White rose silk and champagne accord bloom in luminous, airy radiance.' },
-                          { phase: 'Warmth', time: '30 min–4 hrs', desc: 'Imperial white rose merges with saffron nectar — warm, aristocratic, commanding.' },
-                          { phase: 'Surrender', time: '4–24+ hrs', desc: 'Golden amber resin and white skin musk create an unforgettable gravitational presence.' },
+                          { phase: 'Illumination', time: '0â30 min', desc: 'White rose silk and champagne accord bloom in luminous, airy radiance.' },
+                          { phase: 'Warmth', time: '30 minâ4 hrs', desc: 'Imperial white rose merges with saffron nectar â warm, aristocratic, commanding.' },
+                          { phase: 'Surrender', time: '4â24+ hrs', desc: 'Golden amber resin and white skin musk create an unforgettable gravitational presence.' },
                         ].map(({ phase, time, desc }) => (
                           <div key={phase} className="flex gap-4">
                             <div className="w-24 shrink-0">
@@ -660,7 +661,7 @@ export default function EternalEmpressPage({ product }: { product: Product }) {
                       <div className="grid grid-cols-2 gap-1">
                         {['authenticity', 'ownership', 'provenance', 'rarity allocation', 'archive history', 'sovereign privileges', 'generational traceability'].map(item => (
                           <div key={item} className="flex items-center gap-2 py-1.5">
-                            <span className="text-[#c9a054]/60 text-[8px]">◆</span>
+                            <span className="text-[#c9a054]/60 text-[8px]">â</span>
                             <span className="text-[8px] tracking-[0.15em] uppercase text-zinc-600">{item}</span>
                           </div>
                         ))}
@@ -789,7 +790,7 @@ export default function EternalEmpressPage({ product }: { product: Product }) {
               'Generational Ownership System',
             ].map(label => (
               <div key={label} className="text-center">
-                <p className="text-[#c9a054] text-lg font-serif">◆</p>
+                <p className="text-[#c9a054] text-lg font-serif">â</p>
                 <p className="text-[6px] tracking-[0.5em] uppercase text-zinc-700 mt-1">{label}</p>
               </div>
             ))}
