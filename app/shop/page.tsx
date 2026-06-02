@@ -354,10 +354,9 @@ function ShopPageInner() {
                             <h3 className="font-serif font-light text-sm md:text-lg tracking-[0.12em] text-zinc-200 hover:text-[#c9a054] transition-colors duration-500 leading-tight mb-1.5 md:mb-2 line-clamp-2">
                               {product.name}
                             </h3>
-                            <div className="flex flex-col md:flex-row md:items-center md:gap-3">
-                              <p className="text-zinc-300 text-xs md:text-sm font-light">{formatPKR(product.price_pkr)}</p>
-                              <span className="hidden md:block text-zinc-700 text-xs">·</span>
-                              <p className="text-zinc-600 text-[10px] md:text-xs font-light">${product.price_usd}</p>
+                            <div className="flex items-center gap-2">
+                              <p className="font-serif font-light text-sm md:text-base text-[#c9a054] tracking-wider">$ {product.price_usd}</p>
+                              <span className="text-[7px] tracking-[0.35em] text-[#c9a054]/60">USD</span>
                             </div>
                             <div className="mt-2"><NftCardBadge price_pkr={product.price_pkr} /></div>
                           </div>
