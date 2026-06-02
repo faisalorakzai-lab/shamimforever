@@ -21,6 +21,15 @@ function generateOrderRef(): string {
   return `SF-ORD-${new Date().getFullYear()}-${suffix}`
 }
 
+function generateConsumerNumber(): string {
+  const year = new Date().getFullYear()
+  const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
+  const suffix = Array.from({ length: 5 }, () =>
+    chars[Math.floor(Math.random() * chars.length)]
+  ).join('')
+  return `SF-${year}-${suffix}`
+}
+
 async function generateTrackingRef(seed: string): Promise<string> {
   const data = new TextEncoder().encode(seed + Date.now().toString())
   const hashBuffer = await crypto.subtle.digest('SHA-256', data)
@@ -114,6 +123,7 @@ export async function POST(req: NextRequest) {
 
   const order_ref = generateOrderRef()
   const tracking_ref = await generateTrackingRef(order_ref)
+  const consumer_number = generateConsumerNumber()
 
   const isCrypto = ['usdt', 'usdc', 'okbond'].includes(payment_method?.toLowerCase())
   const isOKBOND = payment_method?.toLowerCase() === 'okbond'
@@ -136,7 +146,7 @@ export async function POST(req: NextRequest) {
     discount_applied, shipping_address: shipping_address || {},
     notes: notesArr.join(' | ') || null,
     payment_proof_url: payment_proof_url || null,
-    order_ref, tracking_ref,
+    order_ref, tracking_ref, consumer_number,
   }
 
   const { data: o1, error: e1 } = await supabase.from('orders').insert([insertPayload]).select().single()
@@ -144,7 +154,7 @@ export async function POST(req: NextRequest) {
     // Fallback without new columns
     const { data: o2, error: e2 } = await supabase.from('orders').insert([{
       ...insertPayload,
-      order_ref: undefined, tracking_ref: undefined, payment_proof_url: undefined,
+      order_ref: undefined, tracking_ref: undefined, payment_proof_url: undefined, consumer_number: undefined,
       notes: [...notesArr, `Ref: ${order_ref}`, `Trk: ${tracking_ref}`].join(' | '),
     }]).select().single()
     if (e2) return NextResponse.json({ success: false, error: e2.message }, { status: 500 })
@@ -215,6 +225,7 @@ export async function POST(req: NextRequest) {
     order_id: order.id,
     order_ref,
     tracking_ref,
+    consumer_number,
     status: order.status,
     payment_status: order.payment_status,
     track_url: `/track/${order.id}`,
