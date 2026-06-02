@@ -354,7 +354,6 @@ export default function SovereignProductPage({ product }: { product: Product }) 
               <div style={{ position:'absolute', left:0, right:0, bottom:0, height:'45%', background:'linear-gradient(to bottom, transparent, rgba(0,0,0,0.98))', pointerEvents:'none', zIndex:13 }} />
               <div style={{ position:'absolute', top:'8%', left:'25%', width:'50%', height:'30%', background:'radial-gradient(ellipse at center, rgba(212,175,55,0.09) 0%, transparent 68%)', pointerEvents:'none', zIndex:12, animation:'shimmerPulse 5s ease-in-out infinite' }} />
             </div>
-              </div>
             </div>
           ) : config.modelPath ? (
             <div style={{ position: 'absolute', inset: 0, zIndex: 10, paddingTop: '46px', paddingBottom: '2px' }}>
