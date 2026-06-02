@@ -313,7 +313,7 @@ export default function SovereignProductPage({ product }: { product: Product }) 
       <style dangerouslySetInnerHTML={{ __html: SOVEREIGN_CSS }} />
 
       {/* HERO — Black & Gold brand, edge-to-edge 3D */}
-        <section ref={heroRef} style={{ position: 'relative', height: config.videoPath ? 'clamp(540px, 85vh, 900px)' : 'clamp(320px, 50vh, 480px)', overflow: 'hidden', background: '#000000' }}>
+        <section ref={heroRef} style={{ position: 'relative', background: '#000000', overflow: 'hidden' }}>
 
           {/* Gold crown spotlight */}
           <div style={{ position: 'absolute', left: 0, right: 0, top: '5%', height: '55%', background: 'radial-gradient(ellipse 52% 60% at 50% 26%, rgba(212,175,55,0.16) 0%, rgba(201,160,84,0.05) 40%, transparent 68%)', pointerEvents: 'none', zIndex: 2 }} />
@@ -342,9 +342,10 @@ export default function SovereignProductPage({ product }: { product: Product }) 
 
           {/* Cinematic media — video first, then 3D model, then hero image */}
           {config.videoPath ? (
-            <div style={{ position: 'absolute', inset: 0, zIndex: 10 }}>
-              <video autoPlay loop muted playsInline preload="metadata"
-                style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', pointerEvents: 'none' }}>
+            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'flex-start', width: '100%', background: '#000' }}>
+              <div style={{ position: 'relative', width: '100%', maxWidth: 'min(45vh, 100vw)', aspectRatio: '1 / 1', overflow: 'hidden', background: '#000' }}>
+               <video autoPlay loop muted playsInline preload="metadata"
+                style={{ width: '100%', height: '100%', objectFit: 'contain', display: 'block', pointerEvents: 'none' }}>
                 <source src={config.videoPath} type="video/mp4" />
               </video>
               <GoldParticles />
@@ -352,6 +353,8 @@ export default function SovereignProductPage({ product }: { product: Product }) 
               <div style={{ position:'absolute', inset:0, background:'radial-gradient(ellipse 80% 90% at 50% 50%, transparent 48%, rgba(0,0,0,0.72) 100%)', pointerEvents:'none', zIndex:12 }} />
               <div style={{ position:'absolute', left:0, right:0, bottom:0, height:'45%', background:'linear-gradient(to bottom, transparent, rgba(0,0,0,0.98))', pointerEvents:'none', zIndex:13 }} />
               <div style={{ position:'absolute', top:'8%', left:'25%', width:'50%', height:'30%', background:'radial-gradient(ellipse at center, rgba(212,175,55,0.09) 0%, transparent 68%)', pointerEvents:'none', zIndex:12, animation:'shimmerPulse 5s ease-in-out infinite' }} />
+            </div>
+              </div>
             </div>
           ) : config.modelPath ? (
             <div style={{ position: 'absolute', inset: 0, zIndex: 10, paddingTop: '46px', paddingBottom: '2px' }}>
@@ -419,6 +422,11 @@ export default function SovereignProductPage({ product }: { product: Product }) 
               <p style={{ fontSize: 7, letterSpacing: '0.85em', textTransform: 'uppercase', color: '#c9a054', marginBottom: 20 }}>{config.heroTagline}</p>
               <div style={{ width: 72, height: 1, background: 'linear-gradient(to right, transparent, #c9a054, transparent)', margin: '0 auto 24px' }} />
               <h1 style={{ fontFamily: SERIF, fontWeight: 300, letterSpacing: '0.2em', lineHeight: 0.9, color: '#f8f4ee', marginBottom: 16, textTransform: 'uppercase', fontSize: 'clamp(2.8rem,10vw,6rem)' }}>{config.heroTitle}</h1>
+              {config.category && (
+                <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, border: '1px solid rgba(201,160,84,0.28)', padding: '6px 20px', marginBottom: 12, marginTop: 10, background: 'rgba(201,160,84,0.04)' }}>
+                  <span style={{ fontSize: 6, letterSpacing: '0.7em', textTransform: 'uppercase', color: '#c9a054' }}>◆ {config.category}</span>
+                </div>
+              )}
               <p style={{ fontFamily: SERIF, fontStyle: 'italic', fontSize: 'clamp(1rem,3vw,1.5rem)', color: 'rgba(240,236,228,0.6)', marginBottom: 8 }}>{config.heroSubtitle}</p>
               <p style={{ fontSize: 9, letterSpacing: '0.32em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.28)', marginBottom: 32 }}>Love does not fade — it blooms into eternity</p>
               <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'center', gap: 18, marginBottom: 20, flexWrap: 'wrap' }}>
@@ -436,6 +444,139 @@ export default function SovereignProductPage({ product }: { product: Product }) 
             </motion.div>
           </section>
         )}
+
+
+              {/* ACQUIRE */}
+      <section id="acquire" style={{ padding: 'clamp(56px,8vw,100px) 0', background: 'radial-gradient(ellipse 80% 50% at 50% 0%, rgba(30,22,8,0.9) 0%, #030303 55%)' }}>
+        <div style={{ maxWidth: 680, margin: '0 auto', padding: '0 clamp(16px,4vw,24px)' }}>
+          <div className="s-reveal" style={{ textAlign: 'center', marginBottom: 48 }}>
+            <p style={{ fontSize: 7, letterSpacing: '0.9em', textTransform: 'uppercase', color: '#c9a054', marginBottom: 12 }}>Acquisition</p>
+            <h2 style={{ fontFamily: SERIF, fontSize: 'clamp(2.4rem,6vw,5rem)', fontWeight: 300, color: '#f0ece4', letterSpacing: '0.05em' }}>Claim Your Sovereign</h2>
+          </div>
+
+          <div className="s-reveal">
+            <div style={{ textAlign: 'center', padding: 'clamp(20px,4vw,32px) 24px', border: '1px solid rgba(201,160,84,0.12)', background: 'linear-gradient(135deg, #0e0a04 0%, #0a0703 100%)', marginBottom: 2 }}>
+              <p style={{ fontSize: 7, letterSpacing: '0.5em', textTransform: 'uppercase', color: '#3f3830', marginBottom: 12 }}>Sovereign Allocation Price</p>
+              <p style={{ fontFamily: SERIF, fontSize: 'clamp(2rem,7vw,4.5rem)', fontWeight: 300, color: '#f8f4ee', lineHeight: 1 }}>{formatPKR(finalPkr)}</p>
+              <p style={{ fontSize: 12, letterSpacing: '0.2em', color: 'rgba(201,160,84,0.45)', marginTop: 8 }}>${(product.price_usd * quantity).toFixed(2)} USD</p>
+            </div>
+
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '16px 20px', border: '1px solid rgba(201,160,84,0.08)', background: '#0a0703', marginBottom: 2 }}>
+              <p style={{ fontSize: 7, letterSpacing: '0.5em', textTransform: 'uppercase', color: '#3f3830' }}>Quantity</p>
+              <div style={{ display: 'flex', alignItems: 'center', border: '1px solid rgba(201,160,84,0.15)' }}>
+                <button onClick={() => setQuantity(q => Math.max(1, q - 1))} style={{ width: 40, height: 40, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#c9a054', borderRight: '1px solid rgba(201,160,84,0.15)', background: 'none', cursor: 'pointer' }}>−</button>
+                <span style={{ width: 44, textAlign: 'center', fontFamily: SERIF, fontSize: 18, color: '#f0ece4' }}>{quantity}</span>
+                <button onClick={() => setQuantity(q => q + 1)} style={{ width: 40, height: 40, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#c9a054', borderLeft: '1px solid rgba(201,160,84,0.15)', background: 'none', cursor: 'pointer' }}>+</button>
+              </div>
+            </div>
+
+            <div style={{ marginBottom: 2 }}>
+              <p style={{ fontSize: 7, letterSpacing: '0.5em', textTransform: 'uppercase', color: '#3f3830', padding: '12px 20px', background: '#0a0703', border: '1px solid rgba(201,160,84,0.08)' }}>Delivery Information</p>
+              {([
+                { v: custName, s: setCustName, ph: 'Full Name *' },
+                { v: custPhone, s: setCustPhone, ph: 'Phone Number *' },
+                { v: custAddress, s: setCustAddress, ph: 'Delivery Address *' },
+                { v: custCity, s: setCustCity, ph: 'City *' },
+              ] as { v: string; s: (val: string) => void; ph: string }[]).map(({ v, s, ph }) => (
+                <input
+                  key={ph}
+                  value={v}
+                  onChange={e => s(e.target.value)}
+                  placeholder={ph}
+                  style={{ width: '100%', background: '#080602', border: 'none', borderBottom: '1px solid rgba(201,160,84,0.06)', padding: '16px 20px', fontSize: 11, color: '#c9b894', outline: 'none', boxSizing: 'border-box' }}
+                  onFocus={e => { e.currentTarget.style.borderBottomColor = 'rgba(201,160,84,0.3)' }}
+                  onBlur={e => { e.currentTarget.style.borderBottomColor = 'rgba(201,160,84,0.06)' }}
+                />
+              ))}
+            </div>
+
+            <div style={{ marginBottom: 2 }}>
+              <p style={{ fontSize: 7, letterSpacing: '0.5em', textTransform: 'uppercase', color: '#3f3830', padding: '12px 20px', background: '#0a0703', border: '1px solid rgba(201,160,84,0.08)', marginBottom: 2 }}>Payment Method</p>
+              <div className="pay-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: 1, marginBottom: 16 }}>
+                {(['crypto', 'pkr_manual', 'cod'] as PayMethod[]).map(m => (
+                  <button
+                    key={m}
+                    onClick={() => setPayMethod(m)}
+                    style={{ padding: '14px 4px', fontSize: 7, letterSpacing: '0.25em', textTransform: 'uppercase', cursor: 'pointer', transition: 'all 0.3s', background: payMethod === m ? 'rgba(201,160,84,0.08)' : '#080602', color: payMethod === m ? '#c9a054' : '#3f3830', border: payMethod === m ? '1px solid rgba(201,160,84,0.3)' : '1px solid rgba(255,255,255,0.04)' }}
+                  >
+                    {m === 'crypto' ? '◆ Crypto' : m === 'pkr_manual' ? 'PKR Transfer' : 'COD'}
+                  </button>
+                ))}
+              </div>
+
+              <AnimatePresence mode="wait">
+                {payMethod === 'crypto' && (
+                  <motion.div key="crypto" initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}>
+                    <Web3PaySection priceUsd={product.price_usd * quantity} onSuccess={handleWeb3Success} />
+                  </motion.div>
+                )}
+                {payMethod === 'pkr_manual' && (
+                  <motion.div key="pkr" initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} style={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+                    <div style={{ border: '1px solid rgba(201,160,84,0.1)', background: '#080602' }}>
+                      {([
+                        ['EasyPaisa', `${EASYPAISA_NUMBER} · ${EASYPAISA_NAME}`, EASYPAISA_NUMBER],
+                        ['UBL IBAN', UBL_IBAN, UBL_IBAN],
+                      ] as [string, string, string][]).map(([lbl, val, copyVal], i, arr) => (
+                        <div key={lbl} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: 8, padding: '16px 20px', borderBottom: i < arr.length - 1 ? '1px solid rgba(255,255,255,0.04)' : 'none' }}>
+                          <p style={{ fontSize: 7, letterSpacing: '0.4em', textTransform: 'uppercase', color: '#3f3830' }}>{lbl}</p>
+                          <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                            <p style={{ fontFamily: 'monospace', fontSize: 10, color: '#c9b894', wordBreak: 'break-all' }}>{val}</p>
+                            <CopyBtn text={copyVal} />
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                    <input
+                      value={txId}
+                      onChange={e => setTxId(e.target.value)}
+                      placeholder="Transaction ID / Reference Number"
+                      style={{ background: '#080602', border: '1px solid rgba(201,160,84,0.08)', padding: '14px 20px', fontSize: 11, color: '#c9b894', outline: 'none', width: '100%', boxSizing: 'border-box' }}
+                    />
+                    <label style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '14px 20px', border: '1px dashed rgba(201,160,84,0.12)', cursor: 'pointer', background: '#080602' }}>
+                      <Upload size={12} color="rgba(201,160,84,0.4)" />
+                      <span style={{ fontSize: 8, letterSpacing: '0.3em', textTransform: 'uppercase', color: '#3f3830' }}>Upload Payment Screenshot</span>
+                      <input
+                        type="file"
+                        accept="image/*"
+                        onChange={e => {
+                          const f = e.target.files?.[0]; if (!f) return; setProofFile(f)
+                          const r = new FileReader(); r.onload = ev => setProofPreview(ev.target?.result as string); r.readAsDataURL(f)
+                        }}
+                        className="hidden"
+                      />
+                    </label>
+                    {proofPreview && (
+                      <div style={{ position: 'relative', display: 'inline-block' }}>
+                        <img src={proofPreview} alt="proof" style={{ height: 80, opacity: 0.7 }} />
+                        <button onClick={() => { setProofFile(null); setProofPreview(null) }} style={{ position: 'absolute', top: 4, right: 4, background: 'none', border: 'none', cursor: 'pointer', color: '#c9a054' }}><X size={12} /></button>
+                      </div>
+                    )}
+                    {orderError && <p style={{ fontSize: 9, color: 'rgba(248,113,113,0.7)', letterSpacing: '0.1em' }}>{orderError}</p>}
+                    <button onClick={handlePlaceOrder} disabled={submitting} className="group" style={{ position: 'relative', overflow: 'hidden', padding: '18px', border: '1px solid rgba(201,160,84,0.45)', fontSize: 8, letterSpacing: '0.7em', textTransform: 'uppercase', color: '#c9a054', cursor: submitting ? 'not-allowed' : 'pointer', opacity: submitting ? 0.5 : 1, background: 'none', width: '100%' }}>
+                      <span className="absolute inset-0 bg-[#c9a054] -translate-x-full group-hover:translate-x-0 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]" />
+                      <span className="relative group-hover:text-black transition-colors duration-150">{submitting ? 'Processing...' : 'Submit Sovereign Order'}</span>
+                    </button>
+                  </motion.div>
+                )}
+                {payMethod === 'cod' && (
+                  <motion.div key="cod" initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+                    <div style={{ padding: '24px 20px', border: '1px solid rgba(201,160,84,0.1)', background: '#080602' }}>
+                      <p style={{ fontFamily: SERIF, fontSize: 22, color: '#c9b894', marginBottom: 8 }}>Cash on Delivery</p>
+                      <p style={{ fontSize: 12, color: 'rgba(255,255,255,0.25)', fontWeight: 300, lineHeight: 1.8 }}>Pay upon white-glove delivery within Pakistan. Our concierge confirms via WhatsApp within 2 hours.</p>
+                    </div>
+                    {orderError && <p style={{ fontSize: 9, color: 'rgba(248,113,113,0.7)' }}>{orderError}</p>}
+                    <button onClick={handlePlaceOrder} disabled={submitting} className="group" style={{ position: 'relative', overflow: 'hidden', padding: '18px', border: '1px solid rgba(201,160,84,0.45)', fontSize: 8, letterSpacing: '0.7em', textTransform: 'uppercase', color: '#c9a054', cursor: submitting ? 'not-allowed' : 'pointer', opacity: submitting ? 0.5 : 1, background: 'none', width: '100%' }}>
+                      <span className="absolute inset-0 bg-[#c9a054] -translate-x-full group-hover:translate-x-0 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]" />
+                      <span className="relative group-hover:text-black transition-colors duration-150">{submitting ? 'Placing Order...' : 'Confirm COD Order'}</span>
+                    </button>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+          </div>
+        </div>
+      </section>
+
 
       {/* LEGACY */}
       <section id="legacy" style={{ padding: 'clamp(56px,8vw,100px) 0', position: 'relative', background: 'linear-gradient(180deg, #030303 0%, #080602 50%, #030303 100%)' }}>
@@ -721,136 +862,6 @@ export default function SovereignProductPage({ product }: { product: Product }) 
           </section>
         )}
 
-              {/* ACQUIRE */}
-      <section id="acquire" style={{ padding: 'clamp(56px,8vw,100px) 0', background: 'radial-gradient(ellipse 80% 50% at 50% 0%, rgba(30,22,8,0.9) 0%, #030303 55%)' }}>
-        <div style={{ maxWidth: 680, margin: '0 auto', padding: '0 clamp(16px,4vw,24px)' }}>
-          <div className="s-reveal" style={{ textAlign: 'center', marginBottom: 48 }}>
-            <p style={{ fontSize: 7, letterSpacing: '0.9em', textTransform: 'uppercase', color: '#c9a054', marginBottom: 12 }}>Acquisition</p>
-            <h2 style={{ fontFamily: SERIF, fontSize: 'clamp(2.4rem,6vw,5rem)', fontWeight: 300, color: '#f0ece4', letterSpacing: '0.05em' }}>Claim Your Sovereign</h2>
-          </div>
-
-          <div className="s-reveal">
-            <div style={{ textAlign: 'center', padding: 'clamp(20px,4vw,32px) 24px', border: '1px solid rgba(201,160,84,0.12)', background: 'linear-gradient(135deg, #0e0a04 0%, #0a0703 100%)', marginBottom: 2 }}>
-              <p style={{ fontSize: 7, letterSpacing: '0.5em', textTransform: 'uppercase', color: '#3f3830', marginBottom: 12 }}>Sovereign Allocation Price</p>
-              <p style={{ fontFamily: SERIF, fontSize: 'clamp(2rem,7vw,4.5rem)', fontWeight: 300, color: '#f8f4ee', lineHeight: 1 }}>{formatPKR(finalPkr)}</p>
-              <p style={{ fontSize: 12, letterSpacing: '0.2em', color: 'rgba(201,160,84,0.45)', marginTop: 8 }}>${(product.price_usd * quantity).toFixed(2)} USD</p>
-            </div>
-
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '16px 20px', border: '1px solid rgba(201,160,84,0.08)', background: '#0a0703', marginBottom: 2 }}>
-              <p style={{ fontSize: 7, letterSpacing: '0.5em', textTransform: 'uppercase', color: '#3f3830' }}>Quantity</p>
-              <div style={{ display: 'flex', alignItems: 'center', border: '1px solid rgba(201,160,84,0.15)' }}>
-                <button onClick={() => setQuantity(q => Math.max(1, q - 1))} style={{ width: 40, height: 40, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#c9a054', borderRight: '1px solid rgba(201,160,84,0.15)', background: 'none', cursor: 'pointer' }}>−</button>
-                <span style={{ width: 44, textAlign: 'center', fontFamily: SERIF, fontSize: 18, color: '#f0ece4' }}>{quantity}</span>
-                <button onClick={() => setQuantity(q => q + 1)} style={{ width: 40, height: 40, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#c9a054', borderLeft: '1px solid rgba(201,160,84,0.15)', background: 'none', cursor: 'pointer' }}>+</button>
-              </div>
-            </div>
-
-            <div style={{ marginBottom: 2 }}>
-              <p style={{ fontSize: 7, letterSpacing: '0.5em', textTransform: 'uppercase', color: '#3f3830', padding: '12px 20px', background: '#0a0703', border: '1px solid rgba(201,160,84,0.08)' }}>Delivery Information</p>
-              {([
-                { v: custName, s: setCustName, ph: 'Full Name *' },
-                { v: custPhone, s: setCustPhone, ph: 'Phone Number *' },
-                { v: custAddress, s: setCustAddress, ph: 'Delivery Address *' },
-                { v: custCity, s: setCustCity, ph: 'City *' },
-              ] as { v: string; s: (val: string) => void; ph: string }[]).map(({ v, s, ph }) => (
-                <input
-                  key={ph}
-                  value={v}
-                  onChange={e => s(e.target.value)}
-                  placeholder={ph}
-                  style={{ width: '100%', background: '#080602', border: 'none', borderBottom: '1px solid rgba(201,160,84,0.06)', padding: '16px 20px', fontSize: 11, color: '#c9b894', outline: 'none', boxSizing: 'border-box' }}
-                  onFocus={e => { e.currentTarget.style.borderBottomColor = 'rgba(201,160,84,0.3)' }}
-                  onBlur={e => { e.currentTarget.style.borderBottomColor = 'rgba(201,160,84,0.06)' }}
-                />
-              ))}
-            </div>
-
-            <div style={{ marginBottom: 2 }}>
-              <p style={{ fontSize: 7, letterSpacing: '0.5em', textTransform: 'uppercase', color: '#3f3830', padding: '12px 20px', background: '#0a0703', border: '1px solid rgba(201,160,84,0.08)', marginBottom: 2 }}>Payment Method</p>
-              <div className="pay-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: 1, marginBottom: 16 }}>
-                {(['crypto', 'pkr_manual', 'cod'] as PayMethod[]).map(m => (
-                  <button
-                    key={m}
-                    onClick={() => setPayMethod(m)}
-                    style={{ padding: '14px 4px', fontSize: 7, letterSpacing: '0.25em', textTransform: 'uppercase', cursor: 'pointer', transition: 'all 0.3s', background: payMethod === m ? 'rgba(201,160,84,0.08)' : '#080602', color: payMethod === m ? '#c9a054' : '#3f3830', border: payMethod === m ? '1px solid rgba(201,160,84,0.3)' : '1px solid rgba(255,255,255,0.04)' }}
-                  >
-                    {m === 'crypto' ? '◆ Crypto' : m === 'pkr_manual' ? 'PKR Transfer' : 'COD'}
-                  </button>
-                ))}
-              </div>
-
-              <AnimatePresence mode="wait">
-                {payMethod === 'crypto' && (
-                  <motion.div key="crypto" initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}>
-                    <Web3PaySection priceUsd={product.price_usd * quantity} onSuccess={handleWeb3Success} />
-                  </motion.div>
-                )}
-                {payMethod === 'pkr_manual' && (
-                  <motion.div key="pkr" initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} style={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
-                    <div style={{ border: '1px solid rgba(201,160,84,0.1)', background: '#080602' }}>
-                      {([
-                        ['EasyPaisa', `${EASYPAISA_NUMBER} · ${EASYPAISA_NAME}`, EASYPAISA_NUMBER],
-                        ['UBL IBAN', UBL_IBAN, UBL_IBAN],
-                      ] as [string, string, string][]).map(([lbl, val, copyVal], i, arr) => (
-                        <div key={lbl} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: 8, padding: '16px 20px', borderBottom: i < arr.length - 1 ? '1px solid rgba(255,255,255,0.04)' : 'none' }}>
-                          <p style={{ fontSize: 7, letterSpacing: '0.4em', textTransform: 'uppercase', color: '#3f3830' }}>{lbl}</p>
-                          <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                            <p style={{ fontFamily: 'monospace', fontSize: 10, color: '#c9b894', wordBreak: 'break-all' }}>{val}</p>
-                            <CopyBtn text={copyVal} />
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                    <input
-                      value={txId}
-                      onChange={e => setTxId(e.target.value)}
-                      placeholder="Transaction ID / Reference Number"
-                      style={{ background: '#080602', border: '1px solid rgba(201,160,84,0.08)', padding: '14px 20px', fontSize: 11, color: '#c9b894', outline: 'none', width: '100%', boxSizing: 'border-box' }}
-                    />
-                    <label style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '14px 20px', border: '1px dashed rgba(201,160,84,0.12)', cursor: 'pointer', background: '#080602' }}>
-                      <Upload size={12} color="rgba(201,160,84,0.4)" />
-                      <span style={{ fontSize: 8, letterSpacing: '0.3em', textTransform: 'uppercase', color: '#3f3830' }}>Upload Payment Screenshot</span>
-                      <input
-                        type="file"
-                        accept="image/*"
-                        onChange={e => {
-                          const f = e.target.files?.[0]; if (!f) return; setProofFile(f)
-                          const r = new FileReader(); r.onload = ev => setProofPreview(ev.target?.result as string); r.readAsDataURL(f)
-                        }}
-                        className="hidden"
-                      />
-                    </label>
-                    {proofPreview && (
-                      <div style={{ position: 'relative', display: 'inline-block' }}>
-                        <img src={proofPreview} alt="proof" style={{ height: 80, opacity: 0.7 }} />
-                        <button onClick={() => { setProofFile(null); setProofPreview(null) }} style={{ position: 'absolute', top: 4, right: 4, background: 'none', border: 'none', cursor: 'pointer', color: '#c9a054' }}><X size={12} /></button>
-                      </div>
-                    )}
-                    {orderError && <p style={{ fontSize: 9, color: 'rgba(248,113,113,0.7)', letterSpacing: '0.1em' }}>{orderError}</p>}
-                    <button onClick={handlePlaceOrder} disabled={submitting} className="group" style={{ position: 'relative', overflow: 'hidden', padding: '18px', border: '1px solid rgba(201,160,84,0.45)', fontSize: 8, letterSpacing: '0.7em', textTransform: 'uppercase', color: '#c9a054', cursor: submitting ? 'not-allowed' : 'pointer', opacity: submitting ? 0.5 : 1, background: 'none', width: '100%' }}>
-                      <span className="absolute inset-0 bg-[#c9a054] -translate-x-full group-hover:translate-x-0 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]" />
-                      <span className="relative group-hover:text-black transition-colors duration-150">{submitting ? 'Processing...' : 'Submit Sovereign Order'}</span>
-                    </button>
-                  </motion.div>
-                )}
-                {payMethod === 'cod' && (
-                  <motion.div key="cod" initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-                    <div style={{ padding: '24px 20px', border: '1px solid rgba(201,160,84,0.1)', background: '#080602' }}>
-                      <p style={{ fontFamily: SERIF, fontSize: 22, color: '#c9b894', marginBottom: 8 }}>Cash on Delivery</p>
-                      <p style={{ fontSize: 12, color: 'rgba(255,255,255,0.25)', fontWeight: 300, lineHeight: 1.8 }}>Pay upon white-glove delivery within Pakistan. Our concierge confirms via WhatsApp within 2 hours.</p>
-                    </div>
-                    {orderError && <p style={{ fontSize: 9, color: 'rgba(248,113,113,0.7)' }}>{orderError}</p>}
-                    <button onClick={handlePlaceOrder} disabled={submitting} className="group" style={{ position: 'relative', overflow: 'hidden', padding: '18px', border: '1px solid rgba(201,160,84,0.45)', fontSize: 8, letterSpacing: '0.7em', textTransform: 'uppercase', color: '#c9a054', cursor: submitting ? 'not-allowed' : 'pointer', opacity: submitting ? 0.5 : 1, background: 'none', width: '100%' }}>
-                      <span className="absolute inset-0 bg-[#c9a054] -translate-x-full group-hover:translate-x-0 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]" />
-                      <span className="relative group-hover:text-black transition-colors duration-150">{submitting ? 'Placing Order...' : 'Confirm COD Order'}</span>
-                    </button>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </div>
-          </div>
-        </div>
-      </section>
 
       {/* RELATED */}
       <section style={{ padding: 'clamp(44px,7vw,80px) 0 clamp(56px,8vw,100px)', background: '#030303', borderTop: '1px solid rgba(201,160,84,0.06)' }}>
