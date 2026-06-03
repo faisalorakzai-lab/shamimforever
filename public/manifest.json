@@ -1,0 +1,29 @@
+{
+  "name": "Shamim Forever — Sovereign Luxury",
+  "short_name": "Shamim Forever",
+  "description": "A global luxury digital house. Bespoke fragrances and couture.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#000000",
+  "theme_color": "#D4AF37",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "/logo-sf.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/logo-sf.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable any"
+    }
+  ],
+  "categories": [
+    "shopping",
+    "lifestyle"
+  ],
+  "lang": "en-US"
+}
