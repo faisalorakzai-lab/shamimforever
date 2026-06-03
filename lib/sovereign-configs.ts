@@ -1156,7 +1156,7 @@
       heroTitle: 'XERJOFF CASAMORATI LIRA',
       heroSubtitle: 'The Golden Theatre Archive',
       heroTagline: 'SF Guest Curation Series · Archive G-IV',
-      legacyStatement: 'A heritage gourmand. A collector's dessert. A preserved piece of olfactory history.',
+      legacyStatement: "A heritage gourmand. A collector's dessert. A preserved piece of olfactory history.",
       legacyVoice:
         "Lira preserves old-world Italian romance. Rich sweetness. Vintage elegance. Theatrical beauty. Its gourmand architecture demonstrates how luxury can feel emotional without sacrificing sophistication. The House selected Lira because it captures a vanishing world — the warmth of old Italian ateliers, the richness of a Venetian dessert table, the theatre of traditional perfumery at its most indulgent. A heritage masterpiece worthy of sovereign preservation.",
       topNotes: ['Blood Orange', 'Bergamot'],
