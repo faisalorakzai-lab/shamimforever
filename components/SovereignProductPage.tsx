@@ -314,7 +314,7 @@ export default function SovereignProductPage({ product }: { product: Product }) 
     </div>
   )
 
-  const images = config.galleryImages
+  const images = (config.galleryImages?.length > 0 ? config.galleryImages : product.images) || []
   const finalPkr = product.price_pkr * quantity
 
   return (
@@ -353,7 +353,7 @@ export default function SovereignProductPage({ product }: { product: Product }) 
           {config.videoPath ? (
             <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'flex-start', width: '100%', background: '#000' }}>
               <div style={{ position: 'relative', width: '100%', maxWidth: 'min(45vh, 100vw)', aspectRatio: '1 / 1', overflow: 'hidden', background: '#000' }}>
-               <video autoPlay loop muted playsInline preload="metadata"
+               <video autoPlay loop muted playsInline preload="auto" poster={config.heroImage}
                 style={{ width: '100%', height: '100%', objectFit: 'contain', display: 'block', pointerEvents: 'none' }}>
                 <source src={config.videoPath} type="video/mp4" />
               </video>
@@ -388,7 +388,7 @@ export default function SovereignProductPage({ product }: { product: Product }) 
             </div>
           ) : (
             <motion.div initial={{ scale: 1.12, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ duration: 3.2, ease: [0.25, 0.1, 0.1, 1] }} style={{ position: 'absolute', inset: 0, zIndex: 2 }}>
-              <img src={config.heroImage} alt={config.heroTitle} style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center 15%' }} onError={e => { (e.target as HTMLImageElement).style.opacity = '0' }} />
+              <img src={config.heroImage || product.images?.[0] || ''} alt={config.heroTitle} style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center 15%' }} onError={e => { (e.target as HTMLImageElement).style.opacity = '0' }} />
             </motion.div>
           )}
 
