@@ -205,7 +205,6 @@ export default function SovereignProductPage({ product }: { product: Product }) 
   const [mintStatus, setMintStatus] = useState<'idle'|'minting'|'success'|'error'>('idle')
   const [mintResult, setMintResult] = useState<{tokenId:number;txHash:string;openSeaUrl:string;polygonScanUrl:string}|null>(null)
   const [recentlyViewed, setRecentlyViewed] = useState<Array<{slug:string;name:string;price_usd:number;image:string}>>([])
-  const [recentlyViewed, setRecentlyViewed] = useState<Array<{slug:string;name:string;price_usd:number;image:string}>>([])
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger)
