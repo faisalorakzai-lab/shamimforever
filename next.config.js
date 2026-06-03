@@ -2,6 +2,9 @@ const path = require('path')
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+    compress: true,
+    poweredByHeader: false,
+    trailingSlash: false,
   images: {
     domains: [
       'res.cloudinary.com',
