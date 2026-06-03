@@ -333,7 +333,7 @@ export default function SovereignProductPage({ product }: { product: Product }) 
       <style dangerouslySetInnerHTML={{ __html: SOVEREIGN_CSS }} />
 
       {/* HERO — Black & Gold brand, edge-to-edge 3D */}
-        <section ref={heroRef} style={{ position: 'relative', background: '#000000', overflow: 'hidden', minHeight: '100svh' }}>
+        <section ref={heroRef} style={{ position: 'relative', background: '#000000', overflow: 'hidden', width: '100%', aspectRatio: '1 / 1' }}>
 
           {/* Gold crown spotlight */}
           <div style={{ position: 'absolute', left: 0, right: 0, top: '5%', height: '55%', background: 'radial-gradient(ellipse 52% 60% at 50% 26%, rgba(212,175,55,0.16) 0%, rgba(201,160,84,0.05) 40%, transparent 68%)', pointerEvents: 'none', zIndex: 2 }} />
