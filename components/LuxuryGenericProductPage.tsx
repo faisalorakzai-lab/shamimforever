@@ -207,118 +207,90 @@ export default function LuxuryGenericProductPage({ product }: { product: Product
     <div style={{ background: '#030303', minHeight: '100vh' }}>
       <style dangerouslySetInnerHTML={{ __html: LUX_CSS }} />
 
-      {/* HERO */}
-      <section ref={heroRef} style={{ position: 'relative', height: '100svh', minHeight: 650, overflow: 'hidden', background: '#030303' }}>
+
+      {/* HERO IMAGE — square section, no text overlay */}
+      <section style={{ position: 'relative', background: '#000000', overflow: 'hidden', width: '100%', aspectRatio: '1 / 1' }}>
+
+        {/* Gold crown spotlight */}
+        <div style={{ position: 'absolute', left: 0, right: 0, top: '5%', height: '55%', background: 'radial-gradient(ellipse 52% 60% at 50% 26%, rgba(212,175,55,0.14) 0%, rgba(201,160,84,0.04) 40%, transparent 68%)', pointerEvents: 'none', zIndex: 2 }} />
+        <div style={{ position: 'absolute', left: 0, right: 0, bottom: 0, height: '40%', background: 'radial-gradient(ellipse 62% 80% at 50% 100%, rgba(201,160,84,0.09) 0%, transparent 75%)', pointerEvents: 'none', zIndex: 2 }} />
+        <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse 90% 90% at 50% 50%, transparent 42%, rgba(0,0,0,0.65) 100%)', pointerEvents: 'none', zIndex: 3 }} />
+
+        {/* Gold border frame */}
+        <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 1, background: 'linear-gradient(to right, transparent, rgba(212,175,55,0.9) 50%, transparent)', pointerEvents: 'none', zIndex: 8 }} />
+        <div style={{ position: 'absolute', top: 0, right: 0, bottom: 0, width: 1, background: 'linear-gradient(to bottom, transparent, rgba(212,175,55,0.65) 50%, transparent)', pointerEvents: 'none', zIndex: 8 }} />
+        <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: 1, background: 'linear-gradient(to left, transparent, rgba(212,175,55,0.9) 50%, transparent)', pointerEvents: 'none', zIndex: 8 }} />
+        <div style={{ position: 'absolute', top: 0, left: 0, bottom: 0, width: 1, background: 'linear-gradient(to top, transparent, rgba(212,175,55,0.65) 50%, transparent)', pointerEvents: 'none', zIndex: 8 }} />
+
+        {/* Gold corner brackets */}
+        <div style={{ position: 'absolute', top: 54, left: 14, width: 18, height: 18, borderTop: '1px solid rgba(212,175,55,0.4)', borderLeft: '1px solid rgba(212,175,55,0.4)', pointerEvents: 'none', zIndex: 9 }} />
+        <div style={{ position: 'absolute', top: 54, right: 14, width: 18, height: 18, borderTop: '1px solid rgba(212,175,55,0.4)', borderRight: '1px solid rgba(212,175,55,0.4)', pointerEvents: 'none', zIndex: 9 }} />
+        <div style={{ position: 'absolute', bottom: 14, left: 14, width: 18, height: 18, borderBottom: '1px solid rgba(212,175,55,0.28)', borderLeft: '1px solid rgba(212,175,55,0.28)', pointerEvents: 'none', zIndex: 9 }} />
+        <div style={{ position: 'absolute', bottom: 14, right: 14, width: 18, height: 18, borderBottom: '1px solid rgba(212,175,55,0.28)', borderRight: '1px solid rgba(212,175,55,0.28)', pointerEvents: 'none', zIndex: 9 }} />
+
+        {/* Product image */}
         {heroImage ? (
-          <motion.div
-            initial={{ scale: 1.1, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{ duration: 3, ease: [0.25, 0.1, 0.1, 1] }}
-            style={{ position: 'absolute', inset: 0 }}
-          >
-            <img
-              src={heroImage}
-              alt={product.name}
-              style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center 20%' }}
-              onError={e => { (e.target as HTMLImageElement).style.opacity = '0' }}
-            />
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.8 }} style={{ position: 'absolute', inset: 0, zIndex: 2 }}>
+            <img src={heroImage} alt={product.name} style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center 15%' }} onError={e => { (e.target as HTMLImageElement).style.opacity = '0' }} />
           </motion.div>
         ) : (
-          <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse 70% 60% at 50% 40%, rgba(30,22,8,0.9) 0%, #030303 65%)' }}>
-            <motion.p
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 0.06 }}
-              transition={{ duration: 3 }}
-              style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%,-50%)', fontFamily: SERIF, fontSize: 'clamp(8rem, 30vw, 22rem)', color: '#c9a054', fontWeight: 300, whiteSpace: 'nowrap', lineHeight: 1 }}
-            >
-              SF
-            </motion.p>
+          <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse 70% 60% at 50% 40%, rgba(30,22,8,0.9) 0%, #030303 65%)', zIndex: 2 }}>
+            <motion.p initial={{ opacity: 0 }} animate={{ opacity: 0.06 }} transition={{ duration: 3 }} style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%,-50%)', fontFamily: SERIF, fontSize: 'clamp(8rem, 30vw, 22rem)', color: '#c9a054', fontWeight: 300, whiteSpace: 'nowrap', lineHeight: 1 }}>SF</motion.p>
           </div>
         )}
 
-        <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to bottom, rgba(3,3,3,0.88) 0%, rgba(3,3,3,0.55) 22%, rgba(3,3,3,0.08) 50%, rgba(3,3,3,0.55) 78%, #030303 100%)' }} />
-        <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse 120% 100% at 50% 30%, transparent 40%, rgba(3,3,3,0.55) 100%)' }} />
         <GoldParticles />
 
-        <motion.div
-          style={{
-            opacity: textOpacity,
-            y: textY,
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            right: 0,
-            zIndex: 20,
-            padding: '0 clamp(20px, 5vw, 80px)',
-            paddingTop: 'clamp(80px, 12vw, 130px)',
-          }}
-        >
-          {categoryName && (
-            <motion.p
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 1.2, duration: 1 }}
-              style={{ fontSize: 7, letterSpacing: '0.9em', textTransform: 'uppercase', color: '#c9a054', marginBottom: 14 }}
-            >
-              {categoryName} · House of Shamim
-            </motion.p>
-          )}
-          <motion.h1
-            initial={{ opacity: 0, y: 36 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 1.6, duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
-            style={{ fontFamily: SERIF, fontWeight: 300, color: '#f8f4ee', lineHeight: 0.9, marginBottom: 12, letterSpacing: '-0.01em', fontSize: 'clamp(2.8rem, 9vw, 7.5rem)' }}
-          >
-            {product.name}
-          </motion.h1>
-          {story?.tagline && (
-            <motion.p
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 2.1, duration: 1 }}
-              style={{ fontFamily: SERIF, fontStyle: 'italic', fontSize: 'clamp(1rem, 2.5vw, 1.8rem)', color: 'rgba(240,236,228,0.5)', fontWeight: 300, marginBottom: 16 }}
-            >
-              {story.tagline}
-            </motion.p>
-          )}
-          <motion.div
-            initial={{ scaleX: 0 }}
-            animate={{ scaleX: 1 }}
-            transition={{ delay: 2.3, duration: 1 }}
-            style={{ height: 1, width: 140, background: 'linear-gradient(to right, #c9a054, transparent)', marginBottom: 16, transformOrigin: 'left' }}
-          />
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 2.4, duration: 0.8 }}
-            style={{ display: 'flex', alignItems: 'baseline', gap: 14, marginBottom: 22, flexWrap: 'wrap' }}
-          >
-            <span style={{ fontFamily: SERIF, fontSize: 'clamp(1.8rem, 4.5vw, 3rem)', fontWeight: 300, color: '#f8f4ee' }}>$ {product.price_usd}</span>
-            <span style={{ fontSize: 13, letterSpacing: '0.35em', color: '#c9a054', fontWeight: 600 }}>USD</span>
-          </motion.div>
-          <motion.a
-            href="#acquire"
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 2.7, duration: 0.8 }}
-            className="group"
-            style={{ position: 'relative', overflow: 'hidden', padding: '13px 28px', border: '1px solid rgba(201,160,84,0.5)', fontSize: 8, letterSpacing: '0.65em', textTransform: 'uppercase', color: '#c9a054', display: 'inline-block', textDecoration: 'none' }}
-          >
-            <span className="group-hover:translate-x-0 -translate-x-full absolute inset-0 bg-[#c9a054] transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]" />
-            <span className="relative group-hover:text-black transition-colors duration-150">Acquire Now</span>
-          </motion.a>
-        </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 3.2 }}
-          style={{ position: 'absolute', bottom: 20, right: 20, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 5 }}
-        >
-          <span style={{ fontSize: 6, letterSpacing: '0.5em', textTransform: 'uppercase', color: 'rgba(201,160,84,0.3)', writingMode: 'vertical-lr' }}>Scroll</span>
+        {/* Scroll indicator */}
+        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.2 }}
+          style={{ position: 'absolute', bottom: 20, right: 20, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 5, zIndex: 30, pointerEvents: 'none' }}>
+          <span style={{ fontSize: 6, letterSpacing: '0.5em', textTransform: 'uppercase', color: 'rgba(201,160,84,0.35)', writingMode: 'vertical-lr' }}>Scroll</span>
           <motion.div animate={{ y: [0, 5, 0] }} transition={{ duration: 1.6, repeat: Infinity }}>
             <ArrowDown size={10} color="rgba(201,160,84,0.3)" />
           </motion.div>
+        </motion.div>
+      </section>
+
+      {/* PRODUCT INFO — below image */}
+      <section style={{ background: '#030303', padding: 'clamp(40px,7vw,72px) clamp(20px,5vw,80px)', textAlign: 'center', borderTop: '1px solid rgba(201,160,84,0.1)' }}>
+        <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}>
+          {categoryName && (
+            <p style={{ fontSize: 7, letterSpacing: '0.85em', textTransform: 'uppercase', color: '#c9a054', marginBottom: 20 }}>
+              {categoryName} — House of Shamim
+            </p>
+          )}
+          <div style={{ width: 72, height: 1, background: 'linear-gradient(to right, transparent, #c9a054, transparent)', margin: '0 auto 28px' }} />
+          <h1 style={{ fontFamily: SERIF, fontWeight: 300, letterSpacing: '0.15em', lineHeight: 0.9, color: '#f8f4ee', marginBottom: 16, textTransform: 'uppercase', fontSize: 'clamp(2.8rem,10vw,7rem)' }}>
+            {product.name}
+          </h1>
+          {story?.tagline && (
+            <p style={{ fontFamily: SERIF, fontStyle: 'italic', fontSize: 'clamp(1rem,2.5vw,1.8rem)', color: 'rgba(240,236,228,0.55)', fontWeight: 300, marginBottom: 12 }}>
+              {story.tagline}
+            </p>
+          )}
+          <p style={{ fontSize: 9, letterSpacing: '0.32em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.22)', marginBottom: 36 }}>
+            Love does not fade — it blooms into eternity
+          </p>
+          <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'center', gap: 18, marginBottom: 20, flexWrap: 'wrap' }}>
+            <span style={{ fontFamily: SERIF, fontSize: 'clamp(2rem,6vw,3rem)', fontWeight: 300, color: '#f8f4ee' }}>
+              ${product.price_usd} <span style={{ fontSize: '0.4em', letterSpacing: '0.35em', color: '#c9a054' }}>USD</span>
+            </span>
+            <span style={{ fontSize: 11, letterSpacing: '0.12em', color: 'rgba(201,160,84,0.32)' }}>Rs {Math.round(product.price_pkr).toLocaleString()}</span>
+          </div>
+          <div style={{ display: 'inline-flex', alignItems: 'center', gap: 10, border: '1px solid rgba(201,160,84,0.22)', padding: '10px 24px', marginBottom: 36, background: 'rgba(201,160,84,0.04)' }}>
+            <div style={{ width: 6, height: 6, borderRadius: '50%', background: '#c9a054', flexShrink: 0 }} />
+            <p style={{ fontSize: 7, letterSpacing: '0.45em', textTransform: 'uppercase', color: '#c9a054', margin: 0 }}>NFT Sovereign Passport · Polygon Mainnet</p>
+          </div>
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: 14, justifyContent: 'center' }}>
+            <a href="#acquire" className="group" style={{ position: 'relative', overflow: 'hidden', padding: '15px 40px', fontSize: 8, letterSpacing: '0.7em', textTransform: 'uppercase', color: '#050202', display: 'inline-block', textDecoration: 'none', background: 'linear-gradient(135deg, #c9a054 0%, #b8860b 100%)', fontWeight: 600 }}>
+              Acquire Now
+            </a>
+            <a href="#archive" style={{ padding: '15px 40px', border: '1px solid rgba(201,160,84,0.35)', fontSize: 8, letterSpacing: '0.7em', textTransform: 'uppercase', color: '#c9a054', display: 'inline-block', textDecoration: 'none' }}
+              onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = 'rgba(201,160,84,0.08)' }}
+              onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = 'transparent' }}>
+              Explore Archive
+            </a>
+          </div>
         </motion.div>
       </section>
 
