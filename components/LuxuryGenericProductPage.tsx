@@ -236,7 +236,7 @@ export default function LuxuryGenericProductPage({ product }: { product: Product
           </div>
         )}
 
-        <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to bottom, rgba(3,3,3,0.2) 0%, rgba(3,3,3,0.05) 25%, rgba(3,3,3,0.35) 55%, rgba(3,3,3,0.92) 83%, #030303 100%)' }} />
+        <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to bottom, rgba(3,3,3,0.88) 0%, rgba(3,3,3,0.55) 22%, rgba(3,3,3,0.08) 50%, rgba(3,3,3,0.55) 78%, #030303 100%)' }} />
         <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse 120% 100% at 50% 30%, transparent 40%, rgba(3,3,3,0.55) 100%)' }} />
         <GoldParticles />
 
@@ -245,12 +245,12 @@ export default function LuxuryGenericProductPage({ product }: { product: Product
             opacity: textOpacity,
             y: textY,
             position: 'absolute',
-            bottom: 0,
+            top: 0,
             left: 0,
             right: 0,
             zIndex: 20,
             padding: '0 clamp(20px, 5vw, 80px)',
-            paddingBottom: 'clamp(48px, 6vw, 80px)',
+            paddingTop: 'clamp(80px, 12vw, 130px)',
           }}
         >
           {categoryName && (
