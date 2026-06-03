@@ -397,26 +397,6 @@ export default function SovereignProductPage({ product }: { product: Product }) 
             </motion.div>
           )}
 
-          {/* Text overlaid at bottom — only when NO model (existing products) */}
-          {!config.modelPath && !config.videoPath && (
-            <motion.div style={{ opacity: textOpacity, y: textY, position: 'absolute', bottom: 0, left: 0, right: 0, zIndex: 20, padding: '0 clamp(20px,5vw,80px)', paddingBottom: 'clamp(48px,6vw,80px)' }}>
-              <motion.p initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2, duration: 0.6 }} style={{ fontSize: 7, letterSpacing: '0.9em', textTransform: 'uppercase', color: '#c9a054', marginBottom: 16 }}>{config.heroTagline}</motion.p>
-              <motion.h1 initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.35, duration: 0.8, ease: [0.16, 1, 0.3, 1] }} style={{ fontFamily: SERIF, fontWeight: 300, letterSpacing: '-0.01em', lineHeight: 0.88, color: '#f8f4ee', marginBottom: 14, fontSize: 'clamp(3rem,10vw,9.5rem)' }}>{config.heroTitle}</motion.h1>
-              <motion.div initial={{ scaleX: 0 }} animate={{ scaleX: 1 }} transition={{ delay: 0.6, duration: 0.5 }} style={{ height: 1, width: 180, background: 'linear-gradient(to right, #c9a054 0%, rgba(201,160,84,0.3) 60%, transparent 100%)', marginBottom: 12, transformOrigin: 'left' }} />
-              <motion.p initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5, duration: 0.5 }} style={{ fontFamily: SERIF, fontStyle: 'italic', fontSize: 'clamp(1rem,3vw,2rem)', color: 'rgba(240,236,228,0.65)', fontWeight: 300, marginBottom: 20 }}>{config.heroSubtitle}</motion.p>
-              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.65, duration: 0.5 }} style={{ display: 'flex', alignItems: 'baseline', gap: 16, marginBottom: 24, flexWrap: 'wrap' }}>
-                <span style={{ fontFamily: SERIF, fontSize: 'clamp(1.8rem,5vw,3.2rem)', fontWeight: 300, color: '#f8f4ee' }}>${product.price_usd} <span style={{ fontSize: '0.4em', letterSpacing: '0.35em', color: '#c9a054' }}>USD</span></span>
-                <span style={{ fontSize: 11, letterSpacing: '0.15em', color: 'rgba(201,160,84,0.32)' }}>{formatPKR(finalPkr)}</span>
-              </motion.div>
-              <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.8, duration: 0.4 }} style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
-                <a href="#acquire" className="group" style={{ position: 'relative', overflow: 'hidden', padding: '14px 32px', border: '1px solid rgba(201,160,84,0.55)', fontSize: 8, letterSpacing: '0.7em', textTransform: 'uppercase', color: '#c9a054', display: 'inline-block', textDecoration: 'none' }}>
-                  <span className="absolute inset-0 bg-[#c9a054] -translate-x-full group-hover:translate-x-0 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]" />
-                  <span className="relative group-hover:text-black transition-colors duration-150">Acquire Now</span>
-                </a>
-                <a href="#legacy" style={{ padding: '14px 32px', border: '1px solid rgba(255,255,255,0.1)', fontSize: 8, letterSpacing: '0.7em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.35)', display: 'inline-block', textDecoration: 'none' }} onMouseEnter={e => { (e.target as HTMLElement).style.borderColor = 'rgba(255,255,255,0.25)'; (e.target as HTMLElement).style.color = 'rgba(255,255,255,0.7)' }} onMouseLeave={e => { (e.target as HTMLElement).style.borderColor = 'rgba(255,255,255,0.1)'; (e.target as HTMLElement).style.color = 'rgba(255,255,255,0.35)' }}>Explore Archive</a>
-              </motion.div>
-            </motion.div>
-          )}
 
           {/* Scroll indicator */}
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.0 }}
@@ -429,7 +409,6 @@ export default function SovereignProductPage({ product }: { product: Product }) 
         </section>
 
         {/* PRODUCT INFO — fully below the 3D model section */}
-        {(config.modelPath || config.videoPath) && (
           <section style={{ background: '#030303', padding: 'clamp(40px,7vw,72px) clamp(20px,5vw,80px)', textAlign: 'center', borderTop: '1px solid rgba(201,160,84,0.1)' }}>
             <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}>
               <p style={{ fontSize: 7, letterSpacing: '0.85em', textTransform: 'uppercase', color: '#c9a054', marginBottom: 20 }}>{config.heroTagline}</p>
@@ -439,7 +418,6 @@ export default function SovereignProductPage({ product }: { product: Product }) 
                 <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, border: '1px solid rgba(201,160,84,0.28)', padding: '6px 20px', marginBottom: 12, marginTop: 10, background: 'rgba(201,160,84,0.04)' }}>
                   <span style={{ fontSize: 6, letterSpacing: '0.7em', textTransform: 'uppercase', color: '#c9a054' }}>◆ {config.category}</span>
                 </div>
-              )}
               <p style={{ fontFamily: SERIF, fontStyle: 'italic', fontSize: 'clamp(1rem,3vw,1.5rem)', color: 'rgba(240,236,228,0.6)', marginBottom: 8 }}>{config.heroSubtitle}</p>
               <p style={{ fontSize: 9, letterSpacing: '0.32em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.28)', marginBottom: 32 }}>Love does not fade — it blooms into eternity</p>
               <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'center', gap: 18, marginBottom: 20, flexWrap: 'wrap' }}>
