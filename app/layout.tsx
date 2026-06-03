@@ -41,7 +41,7 @@ import type { Metadata } from 'next'
       images: ['/logo-sf.png'],
     },
     alternates: {
-      canonical: 'https://shamimforever.com',
+      canonical: 'https://www.shamimforever.com',
     },
     robots: {
       index: true,
@@ -85,10 +85,10 @@ import type { Metadata } from 'next'
         "@id": "https://shamimforever.com/#organization",
         "name": "Shamim Forever",
         "legalName": "Shamim Forever — House of Sovereign Luxury",
-        "url": "https://shamimforever.com",
+        "url": "https://www.shamimforever.com",
         "logo": {
           "@type": "ImageObject",
-          "url": "https://shamimforever.com/logo-sf.png",
+          "url": "https://www.shamimforever.com/logo-sf.png",
           "width": 512,
           "height": 512,
           "caption": "Shamim Forever — Sovereign Luxury"
@@ -126,13 +126,13 @@ import type { Metadata } from 'next'
           "@type": "Brand",
           "name": "Shamim Forever",
           "slogan": "Sovereign Luxury. Eternally Remembered.",
-          "logo": "https://shamimforever.com/logo-sf.png"
+          "logo": "https://www.shamimforever.com/logo-sf.png"
         }
       },
       {
         "@type": "WebSite",
         "@id": "https://shamimforever.com/#website",
-        "url": "https://shamimforever.com",
+        "url": "https://www.shamimforever.com",
         "name": "Shamim Forever",
         "description": "Global Luxury Digital House — Bespoke Fragrances & Couture",
         "publisher": { "@id": "https://shamimforever.com/#organization" },
