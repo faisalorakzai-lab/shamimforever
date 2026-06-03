@@ -1024,6 +1024,413 @@
   }
 
   
+
+
+    // ══════════════════════════════════════════════════════════════════════════
+    // SF GUEST CURATION SERIES — Archive G-I through G-X
+    // International luxury fragrances curated by the House of Shamim Forever
+    // ══════════════════════════════════════════════════════════════════════════
+
+    // ── GUEST CURATION G-I — DELINA EXCLUSIF ──────────────────────────────────
+    const DELINA_EXCLUSIF_CONFIG: SovereignConfig = {
+      heroTitle: 'DELINA EXCLUSIF',
+      heroSubtitle: 'The Sovereign Rose Archive',
+      heroTagline: 'SF Guest Curation Series · Archive G-I',
+      legacyStatement: 'Not merely a floral perfume. A modern rose monument.',
+      legacyVoice:
+        "Delina Exclusif represents the meeting point between aristocratic floral craftsmanship and modern luxury architecture. Its Turkish Rose core carries extraordinary richness. Its incense foundation creates permanence. Its oud structure delivers authority. The House selected Delina Exclusif because it demonstrates a philosophy we deeply respect: Beauty strengthened by discipline. This fragrance belongs inside every sovereign feminine archive. A luxury standard. A permanent feminine signature.",
+      topNotes: ['Turkish Rose', 'Lychee'],
+      heartNotes: ['Incense', 'Floral Nectar', 'Rose Accord'],
+      baseNotes: ['Oud', 'Vanilla', 'Musk'],
+      specs: [
+        { label: 'Classification', value: 'Luxury Niche Feminine Masterpiece' },
+        { label: 'Volume', value: '75ml' },
+        { label: 'Global Retail Value', value: '$430 USD' },
+        { label: 'SF Allocation Price', value: 'See Current Pricing' },
+        { label: 'Archive Code', value: 'G-I' },
+        { label: 'Curation', value: 'SF Guest Curation Series' },
+        { label: 'Archive Label', value: 'Curated Female Allocation — Archive G-I' },
+      ],
+      nftTitle: 'Delina Exclusif — Sovereign Rose Archive',
+      nftEdition: 'SF Guest Curation — Archive G-I',
+      nftRarity: 'ELITE',
+      nftTraits: [
+        { trait: 'Series', value: 'SF Guest Curation' },
+        { trait: 'Archive', value: 'G-I' },
+        { trait: 'Classification', value: 'Luxury Niche Feminine' },
+        { trait: 'Curation Status', value: 'House Curated' },
+      ],
+      heroImage: '',
+      galleryImages: [],
+      holderPrivileges: [
+        'SF Guest Curation Member — Access to the exclusive House of Shamim Forever curated archive',
+        'Priority Allocation on Future Curated Drops — First access to new guest curation releases',
+        'House Newsletter Access — Quarterly sovereign dispatches from the curation vault',
+        'Concierge Reorder Service — White-glove restocking at House allocation pricing',
+        'Direct WhatsApp Concierge — Priority access to the House of Shamim Forever team',
+      ],
+    }
+
+    // ── GUEST CURATION G-II — AMOUAGE GUIDANCE ───────────────────────────────
+    const AMOUAGE_GUIDANCE_CONFIG: SovereignConfig = {
+      heroTitle: 'AMOUAGE GUIDANCE',
+      heroSubtitle: 'The Sovereign Harmony Archive',
+      heroTagline: 'SF Guest Curation Series · Archive G-II',
+      legacyStatement: 'Not a trend. A sensory symphony. An intelligent luxury asset.',
+      legacyVoice:
+        "Guidance represents emotional intelligence translated into fragrance. Its Omani Frankincense foundation reflects structure. Its creamy woods create depth. Its floral architecture creates sophistication. The House allocated Guidance because true luxury whispers rather than shouts. This fragrance rewards attention and reveals new dimensions over time. A sensory symphony. A preserved piece of ultra-luxury olfactory intelligence.",
+      topNotes: ['Pear', 'Hazelnut'],
+      heartNotes: ['Frankincense', 'Osmanthus', 'Rose'],
+      baseNotes: ['Sandalwood', 'Vetiver', 'Musk'],
+      specs: [
+        { label: 'Classification', value: 'Ultra-Luxury Niche Feminine Composition' },
+        { label: 'Volume', value: '100ml' },
+        { label: 'Global Retail Value', value: '$395 USD' },
+        { label: 'SF Allocation Price', value: 'See Current Pricing' },
+        { label: 'Archive Code', value: 'G-II' },
+        { label: 'Curation', value: 'SF Guest Curation Series' },
+        { label: 'Origin', value: 'Muscat, Oman' },
+      ],
+      nftTitle: 'Amouage Guidance — Sovereign Harmony Archive',
+      nftEdition: 'SF Guest Curation — Archive G-II',
+      nftRarity: 'ELITE',
+      nftTraits: [
+        { trait: 'Series', value: 'SF Guest Curation' },
+        { trait: 'Archive', value: 'G-II' },
+        { trait: 'Origin', value: 'Omani Heritage' },
+        { trait: 'Curation Status', value: 'House Curated' },
+      ],
+      heroImage: '',
+      galleryImages: [],
+      holderPrivileges: [
+        'SF Guest Curation Member — Access to the exclusive House of Shamim Forever curated archive',
+        'Priority Allocation on Future Curated Drops — First access to new guest curation releases',
+        'House Newsletter Access — Quarterly sovereign dispatches from the curation vault',
+        'Concierge Reorder Service — White-glove restocking at House allocation pricing',
+        'Direct WhatsApp Concierge — Priority access to the House of Shamim Forever team',
+      ],
+    }
+
+    // ── GUEST CURATION G-III — BACCARAT ROUGE 540 EXTRAIT ────────────────────
+    const BACCARAT_ROUGE_540_CONFIG: SovereignConfig = {
+      heroTitle: 'BACCARAT ROUGE 540',
+      heroSubtitle: 'The Crystal Empire Archive',
+      heroTagline: 'SF Guest Curation Series · Archive G-III',
+      legacyStatement: 'A fragrance icon. A global luxury reference point. A crystal monument in liquid form.',
+      legacyVoice:
+        "Few fragrances have achieved modern legendary status. Baccarat Rouge 540 Extrait is one of them. Its saffron brilliance. Its ambergris structure. Its crystalline projection. Together create one of contemporary perfumery's most recognized luxury signatures. The House includes it as an archive-worthy benchmark of modern excellence. A crystal monument in liquid form. A collector's necessity.",
+      topNotes: ['Saffron', 'Bitter Almond'],
+      heartNotes: ['Egyptian Jasmine', 'Cedarwood'],
+      baseNotes: ['Ambergris', 'Fir Resin'],
+      specs: [
+        { label: 'Classification', value: 'Luxury Amber-Wood Extrait' },
+        { label: 'Volume', value: '70ml' },
+        { label: 'Global Retail Value', value: '$465 USD' },
+        { label: 'SF Allocation Price', value: 'See Current Pricing' },
+        { label: 'Archive Code', value: 'G-III' },
+        { label: 'Curation', value: 'SF Guest Curation Series' },
+        { label: 'Concentration', value: 'Extrait de Parfum' },
+      ],
+      nftTitle: 'Baccarat Rouge 540 — Crystal Empire Archive',
+      nftEdition: 'SF Guest Curation — Archive G-III',
+      nftRarity: 'ELITE',
+      nftTraits: [
+        { trait: 'Series', value: 'SF Guest Curation' },
+        { trait: 'Archive', value: 'G-III' },
+        { trait: 'Status', value: 'Modern Legend' },
+        { trait: 'Curation Status', value: 'House Curated' },
+      ],
+      heroImage: '',
+      galleryImages: [],
+      holderPrivileges: [
+        'SF Guest Curation Member — Access to the exclusive House of Shamim Forever curated archive',
+        'Priority Allocation on Future Curated Drops — First access to new guest curation releases',
+        'House Newsletter Access — Quarterly sovereign dispatches from the curation vault',
+        'Concierge Reorder Service — White-glove restocking at House allocation pricing',
+        'Direct WhatsApp Concierge — Priority access to the House of Shamim Forever team',
+      ],
+    }
+
+    // ── GUEST CURATION G-IV — XERJOFF CASAMORATI LIRA ────────────────────────
+    const XERJOFF_LIRA_CONFIG: SovereignConfig = {
+      heroTitle: 'XERJOFF CASAMORATI LIRA',
+      heroSubtitle: 'The Golden Theatre Archive',
+      heroTagline: 'SF Guest Curation Series · Archive G-IV',
+      legacyStatement: 'A heritage gourmand. A collector's dessert. A preserved piece of olfactory history.',
+      legacyVoice:
+        "Lira preserves old-world Italian romance. Rich sweetness. Vintage elegance. Theatrical beauty. Its gourmand architecture demonstrates how luxury can feel emotional without sacrificing sophistication. The House selected Lira because it captures a vanishing world — the warmth of old Italian ateliers, the richness of a Venetian dessert table, the theatre of traditional perfumery at its most indulgent. A heritage masterpiece worthy of sovereign preservation.",
+      topNotes: ['Blood Orange', 'Bergamot'],
+      heartNotes: ['Lavender', 'Cinnamon', 'Licorice'],
+      baseNotes: ['Caramel Vanilla', 'Amber', 'Musk'],
+      specs: [
+        { label: 'Classification', value: 'Luxury Gourmand Masterpiece' },
+        { label: 'Volume', value: '100ml' },
+        { label: 'Global Retail Value', value: '$315 USD' },
+        { label: 'SF Allocation Price', value: 'See Current Pricing' },
+        { label: 'Archive Code', value: 'G-IV' },
+        { label: 'Curation', value: 'SF Guest Curation Series' },
+        { label: 'Origin', value: 'Italian Heritage' },
+      ],
+      nftTitle: 'Xerjoff Casamorati Lira — Golden Theatre Archive',
+      nftEdition: 'SF Guest Curation — Archive G-IV',
+      nftRarity: 'ELITE',
+      nftTraits: [
+        { trait: 'Series', value: 'SF Guest Curation' },
+        { trait: 'Archive', value: 'G-IV' },
+        { trait: 'Origin', value: 'Italian Heritage' },
+        { trait: 'Curation Status', value: 'House Curated' },
+      ],
+      heroImage: '',
+      galleryImages: [],
+      holderPrivileges: [
+        'SF Guest Curation Member — Access to the exclusive House of Shamim Forever curated archive',
+        'Priority Allocation on Future Curated Drops — First access to new guest curation releases',
+        'House Newsletter Access — Quarterly sovereign dispatches from the curation vault',
+        'Concierge Reorder Service — White-glove restocking at House allocation pricing',
+        'Direct WhatsApp Concierge — Priority access to the House of Shamim Forever team',
+      ],
+    }
+
+    // ── GUEST CURATION G-V — INITIO ATOMIC ROSE ──────────────────────────────
+    const INITIO_ATOMIC_ROSE_CONFIG: SovereignConfig = {
+      heroTitle: 'INITIO ATOMIC ROSE',
+      heroSubtitle: 'The Sovereign Power Rose',
+      heroTagline: 'SF Guest Curation Series · Archive G-V',
+      legacyStatement: 'Not a flower. A declaration. A rose engineered for influence.',
+      legacyVoice:
+        "Atomic Rose transforms the rose from ornament into authority. Powerful. Bold. Unapologetic. The House selected this masterpiece because it demonstrates how a classic floral note can become a commanding statement. Bulgarian Rose and Turkish Rose at their most concentrated — not softened, not sweetened, not made to please. Made to command. A sovereign rose for women who have moved beyond seeking approval. A rose engineered for permanent influence.",
+      topNotes: ['Italian Bergamot'],
+      heartNotes: ['Bulgarian Rose', 'Turkish Rose', 'Egyptian Jasmine'],
+      baseNotes: ['Madagascar Vanilla', 'Musk', 'Amber'],
+      specs: [
+        { label: 'Classification', value: 'Luxury High-Impact Floral' },
+        { label: 'Volume', value: '90ml' },
+        { label: 'Global Retail Value', value: '$360 USD' },
+        { label: 'SF Allocation Price', value: 'See Current Pricing' },
+        { label: 'Archive Code', value: 'G-V' },
+        { label: 'Curation', value: 'SF Guest Curation Series' },
+        { label: 'Character', value: 'Power Floral · Unapologetic Rose' },
+      ],
+      nftTitle: 'Initio Atomic Rose — Sovereign Power Rose',
+      nftEdition: 'SF Guest Curation — Archive G-V',
+      nftRarity: 'ELITE',
+      nftTraits: [
+        { trait: 'Series', value: 'SF Guest Curation' },
+        { trait: 'Archive', value: 'G-V' },
+        { trait: 'Character', value: 'Power Rose' },
+        { trait: 'Curation Status', value: 'House Curated' },
+      ],
+      heroImage: '',
+      galleryImages: [],
+      holderPrivileges: [
+        'SF Guest Curation Member — Access to the exclusive House of Shamim Forever curated archive',
+        'Priority Allocation on Future Curated Drops — First access to new guest curation releases',
+        'House Newsletter Access — Quarterly sovereign dispatches from the curation vault',
+        'Concierge Reorder Service — White-glove restocking at House allocation pricing',
+        'Direct WhatsApp Concierge — Priority access to the House of Shamim Forever team',
+      ],
+    }
+
+    // ── GUEST CURATION G-VI — CHANEL COCO MADEMOISELLE INTENSE ──────────────
+    const CHANEL_COCO_INTENSE_CONFIG: SovereignConfig = {
+      heroTitle: 'CHANEL COCO MADEMOISELLE INTENSE',
+      heroSubtitle: 'The Executive Elegance Archive',
+      heroTagline: 'SF Guest Curation Series · Archive G-VI',
+      legacyStatement: 'Boardroom luxury. Executive sophistication. Timeless feminine structure.',
+      legacyVoice:
+        "Modern feminine professionalism has few universal references. Coco Mademoiselle Intense remains one of them. The House recognizes its ability to balance elegance, confidence, and maturity with effortless authority. The patchouli backbone — rich and dark — gives it structure that feels architectural, not decorative. Its citrus opening gives it clarity. Its amber depth gives it weight. A fragrance for women who have earned their position and wear it without explanation.",
+      topNotes: ['Sicilian Orange', 'Calabrian Bergamot'],
+      heartNotes: ['Patchouli', 'Rose'],
+      baseNotes: ['Amber', 'Tonka Bean', 'Vanilla'],
+      specs: [
+        { label: 'Classification', value: 'Luxury Corporate Feminine Signature' },
+        { label: 'Volume', value: '100ml' },
+        { label: 'Global Retail Value', value: '$190 USD' },
+        { label: 'SF Allocation Price', value: 'See Current Pricing' },
+        { label: 'Archive Code', value: 'G-VI' },
+        { label: 'Curation', value: 'SF Guest Curation Series' },
+        { label: 'House', value: 'Chanel, Paris' },
+      ],
+      nftTitle: 'Chanel Coco Mademoiselle Intense — Executive Elegance Archive',
+      nftEdition: 'SF Guest Curation — Archive G-VI',
+      nftRarity: 'ELITE',
+      nftTraits: [
+        { trait: 'Series', value: 'SF Guest Curation' },
+        { trait: 'Archive', value: 'G-VI' },
+        { trait: 'House', value: 'Chanel' },
+        { trait: 'Curation Status', value: 'House Curated' },
+      ],
+      heroImage: '',
+      galleryImages: [],
+      holderPrivileges: [
+        'SF Guest Curation Member — Access to the exclusive House of Shamim Forever curated archive',
+        'Priority Allocation on Future Curated Drops — First access to new guest curation releases',
+        'House Newsletter Access — Quarterly sovereign dispatches from the curation vault',
+        'Concierge Reorder Service — White-glove restocking at House allocation pricing',
+        'Direct WhatsApp Concierge — Priority access to the House of Shamim Forever team',
+      ],
+    }
+
+    // ── GUEST CURATION G-VII — DIOR J'ADORE L'OR ─────────────────────────────
+    const DIOR_JADORE_LOR_CONFIG: SovereignConfig = {
+      heroTitle: "DIOR J'ADORE L'OR",
+      heroSubtitle: 'The Liquid Gold Archive',
+      heroTagline: 'SF Guest Curation Series · Archive G-VII',
+      legacyStatement: 'Liquid gold. Floral wealth. Pure feminine refinement.',
+      legacyVoice:
+        "J'adore L'Or feels like concentrated precious metal. Rich. Radiant. Refined. The House selected this composition because it embodies purity elevated to luxury. Three of the most prized florals in perfumery — Orange Blossom Absolute, Jasmine Grandiflorum, and Centifolia Rose — presented without dilution, without compromise. Simply the finest flowers, concentrated into a single act of pure opulence. This is what liquid gold smells like.",
+      topNotes: ['Orange Blossom Absolute'],
+      heartNotes: ['Jasmine Grandiflorum'],
+      baseNotes: ['Centifolia Rose', 'White Musk', 'Vetiver'],
+      specs: [
+        { label: 'Classification', value: 'Luxury Floral Essence' },
+        { label: 'Volume', value: '50ml' },
+        { label: 'Global Retail Value', value: '$170 USD' },
+        { label: 'SF Allocation Price', value: 'See Current Pricing' },
+        { label: 'Archive Code', value: 'G-VII' },
+        { label: 'Curation', value: 'SF Guest Curation Series' },
+        { label: 'House', value: 'Dior, Paris' },
+      ],
+      nftTitle: "Dior J'adore L'Or — Liquid Gold Archive",
+      nftEdition: 'SF Guest Curation — Archive G-VII',
+      nftRarity: 'ELITE',
+      nftTraits: [
+        { trait: 'Series', value: 'SF Guest Curation' },
+        { trait: 'Archive', value: 'G-VII' },
+        { trait: 'House', value: 'Dior' },
+        { trait: 'Curation Status', value: 'House Curated' },
+      ],
+      heroImage: '',
+      galleryImages: [],
+      holderPrivileges: [
+        'SF Guest Curation Member — Access to the exclusive House of Shamim Forever curated archive',
+        'Priority Allocation on Future Curated Drops — First access to new guest curation releases',
+        'House Newsletter Access — Quarterly sovereign dispatches from the curation vault',
+        'Concierge Reorder Service — White-glove restocking at House allocation pricing',
+        'Direct WhatsApp Concierge — Priority access to the House of Shamim Forever team',
+      ],
+    }
+
+    // ── GUEST CURATION G-VIII — TOM FORD VELVET ORCHID ───────────────────────
+    const TOM_FORD_VELVET_ORCHID_CONFIG: SovereignConfig = {
+      heroTitle: 'TOM FORD VELVET ORCHID',
+      heroSubtitle: 'The Midnight Society Archive',
+      heroTagline: 'SF Guest Curation Series · Archive G-VIII',
+      legacyStatement: 'Not attention. Intrigue. Not visibility. Presence.',
+      legacyVoice:
+        "Mystery remains one of luxury's most powerful currencies. Velvet Orchid operates within shadows. Its honey. Its rum. Its dark floral architecture. Together create an atmosphere of private luxury that belongs to those who understand that real power never announces itself. The House curated Velvet Orchid because it represents the olfactory equivalent of a room that falls quiet when someone enters — without them doing a single thing to cause it.",
+      topNotes: ['Mandarin', 'Rum'],
+      heartNotes: ['Black Orchid', 'Velvet Orchid'],
+      baseNotes: ['Honey', 'Myrrh', 'Amber'],
+      specs: [
+        { label: 'Classification', value: 'Dark Oriental Floral' },
+        { label: 'Volume', value: '100ml' },
+        { label: 'Global Retail Value', value: '$235 USD' },
+        { label: 'SF Allocation Price', value: 'See Current Pricing' },
+        { label: 'Archive Code', value: 'G-VIII' },
+        { label: 'Curation', value: 'SF Guest Curation Series' },
+        { label: 'House', value: 'Tom Ford' },
+      ],
+      nftTitle: 'Tom Ford Velvet Orchid — Midnight Society Archive',
+      nftEdition: 'SF Guest Curation — Archive G-VIII',
+      nftRarity: 'ELITE',
+      nftTraits: [
+        { trait: 'Series', value: 'SF Guest Curation' },
+        { trait: 'Archive', value: 'G-VIII' },
+        { trait: 'House', value: 'Tom Ford' },
+        { trait: 'Curation Status', value: 'House Curated' },
+      ],
+      heroImage: '',
+      galleryImages: [],
+      holderPrivileges: [
+        'SF Guest Curation Member — Access to the exclusive House of Shamim Forever curated archive',
+        'Priority Allocation on Future Curated Drops — First access to new guest curation releases',
+        'House Newsletter Access — Quarterly sovereign dispatches from the curation vault',
+        'Concierge Reorder Service — White-glove restocking at House allocation pricing',
+        'Direct WhatsApp Concierge — Priority access to the House of Shamim Forever team',
+      ],
+    }
+
+    // ── GUEST CURATION G-IX — YSL LIBRE LE PARFUM ────────────────────────────
+    const YSL_LIBRE_CONFIG: SovereignConfig = {
+      heroTitle: 'YSL LIBRE LE PARFUM',
+      heroSubtitle: 'The Sovereign Freedom Archive',
+      heroTagline: 'SF Guest Curation Series · Archive G-IX',
+      legacyStatement: 'Freedom with structure. Elegance with power. Modern sovereignty in liquid form.',
+      legacyVoice:
+        "Libre Le Parfum embodies self-determination. Its lavender structure creates calm authority. Its saffron warmth adds golden depth. Its amber foundation creates permanence. The House curated Libre Le Parfum because it captures a modern truth: Real freedom is not chaotic — it is structured, deliberate, and absolute. This is the fragrance of a woman who knows exactly what she wants, has built the life she chose, and wears that quiet certainty in every room she enters.",
+      topNotes: ['Moroccan Orange Blossom', 'Ginger'],
+      heartNotes: ['French Lavender', 'Saffron'],
+      baseNotes: ['Amber', 'Tonka Bean', 'Vanilla'],
+      specs: [
+        { label: 'Classification', value: 'Luxury Floral Amber' },
+        { label: 'Volume', value: '90ml' },
+        { label: 'Global Retail Value', value: '$195 USD' },
+        { label: 'SF Allocation Price', value: 'See Current Pricing' },
+        { label: 'Archive Code', value: 'G-IX' },
+        { label: 'Curation', value: 'SF Guest Curation Series' },
+        { label: 'House', value: 'Yves Saint Laurent' },
+      ],
+      nftTitle: 'YSL Libre Le Parfum — Sovereign Freedom Archive',
+      nftEdition: 'SF Guest Curation — Archive G-IX',
+      nftRarity: 'ELITE',
+      nftTraits: [
+        { trait: 'Series', value: 'SF Guest Curation' },
+        { trait: 'Archive', value: 'G-IX' },
+        { trait: 'House', value: 'Yves Saint Laurent' },
+        { trait: 'Curation Status', value: 'House Curated' },
+      ],
+      heroImage: '',
+      galleryImages: [],
+      holderPrivileges: [
+        'SF Guest Curation Member — Access to the exclusive House of Shamim Forever curated archive',
+        'Priority Allocation on Future Curated Drops — First access to new guest curation releases',
+        'House Newsletter Access — Quarterly sovereign dispatches from the curation vault',
+        'Concierge Reorder Service — White-glove restocking at House allocation pricing',
+        'Direct WhatsApp Concierge — Priority access to the House of Shamim Forever team',
+      ],
+    }
+
+    // ── GUEST CURATION G-X — KILIAN ANGEL'S SHARE ────────────────────────────
+    const KILIAN_ANGELS_SHARE_CONFIG: SovereignConfig = {
+      heroTitle: "KILIAN ANGEL'S SHARE",
+      heroSubtitle: 'The Heritage Cognac Archive',
+      heroTagline: 'SF Guest Curation Series · Archive G-X',
+      legacyStatement: 'A bottle of heritage. A vault of memories. A luxury masterpiece worthy of preservation.',
+      legacyVoice:
+        "Some fragrances transcend categories. Angel's Share is one of them. Warm. Addictive. Sophisticated. Named after the portion of aged cognac lost to evaporation — the part that disappears into the air and becomes part of everything around it — this fragrance operates the same way. It does not fade from memory. It becomes part of the places it visits. The House includes it because it captures the emotional richness of celebration, memory, and legacy.",
+      topNotes: ['Cognac Accord', 'Cinnamon'],
+      heartNotes: ['Praline', 'Tonka Bean'],
+      baseNotes: ['Vanilla', 'Oak', 'Sandalwood'],
+      specs: [
+        { label: 'Classification', value: 'Luxury Gourmand Amber' },
+        { label: 'Volume', value: '50ml' },
+        { label: 'Global Retail Value', value: '$245 USD' },
+        { label: 'SF Allocation Price', value: 'See Current Pricing' },
+        { label: 'Archive Code', value: 'G-X' },
+        { label: 'Curation', value: 'SF Guest Curation Series' },
+        { label: 'House', value: 'Kilian Paris' },
+      ],
+      nftTitle: "Kilian Angel's Share — Heritage Cognac Archive",
+      nftEdition: 'SF Guest Curation — Archive G-X',
+      nftRarity: 'ELITE',
+      nftTraits: [
+        { trait: 'Series', value: 'SF Guest Curation' },
+        { trait: 'Archive', value: 'G-X' },
+        { trait: 'House', value: 'Kilian Paris' },
+        { trait: 'Curation Status', value: 'House Curated' },
+      ],
+      heroImage: '',
+      galleryImages: [],
+      holderPrivileges: [
+        'SF Guest Curation Member — Access to the exclusive House of Shamim Forever curated archive',
+        'Priority Allocation on Future Curated Drops — First access to new guest curation releases',
+        'House Newsletter Access — Quarterly sovereign dispatches from the curation vault',
+        'Concierge Reorder Service — White-glove restocking at House allocation pricing',
+        'Direct WhatsApp Concierge — Priority access to the House of Shamim Forever team',
+      ],
+    }
+  
 export const SOVEREIGN_CONFIGS: Record<string, SovereignConfig> = {
 
     // ── ARCHIVE I ──────────────────────────────────────────────────────────────
@@ -1065,6 +1472,23 @@ export const SOVEREIGN_CONFIGS: Record<string, SovereignConfig> = {
     'midnight-iris-royale': MIDNIGHT_IRIS_ROYALE_CONFIG,
     'eternal-sovereign': ETERNAL_SOVEREIGN_CONFIG,
     'house-vault-no-001': HOUSE_VAULT_001_CONFIG,
+      // ── GUEST CURATION SERIES ────────────────────────────────────────────────
+      'delina-exclusif': DELINA_EXCLUSIF_CONFIG,
+      'amouage-guidance': AMOUAGE_GUIDANCE_CONFIG,
+      'baccarat-rouge-540-extrait': BACCARAT_ROUGE_540_CONFIG,
+      'baccarat-rouge-540': BACCARAT_ROUGE_540_CONFIG,
+      'xerjoff-casamorati-lira': XERJOFF_LIRA_CONFIG,
+      'xerjoff-lira': XERJOFF_LIRA_CONFIG,
+      'initio-atomic-rose': INITIO_ATOMIC_ROSE_CONFIG,
+      'chanel-coco-mademoiselle-intense': CHANEL_COCO_INTENSE_CONFIG,
+      'chanel-coco-mademoiselle': CHANEL_COCO_INTENSE_CONFIG,
+      'dior-jadore-lor': DIOR_JADORE_LOR_CONFIG,
+      "dior-j'adore-l'or": DIOR_JADORE_LOR_CONFIG,
+      'tom-ford-velvet-orchid': TOM_FORD_VELVET_ORCHID_CONFIG,
+      'ysl-libre-le-parfum': YSL_LIBRE_CONFIG,
+      'ysl-libre': YSL_LIBRE_CONFIG,
+      'kilian-angels-share': KILIAN_ANGELS_SHARE_CONFIG,
+      "kilian-angel's-share": KILIAN_ANGELS_SHARE_CONFIG,
     'sovereign-genesis': SOVEREIGN_GENESIS_CONFIG,
     'queen-of-taif-crown-ring': QUEEN_OF_TAIF_CROWN_RING_CONFIG,
     'queen-of-taif-ring': QUEEN_OF_TAIF_CROWN_RING_CONFIG,
