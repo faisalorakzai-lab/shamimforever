@@ -1,90 +1,63 @@
 import { MetadataRoute } from 'next'
-  import { createClient } from '@supabase/supabase-js'
 
   const BASE_URL = 'https://shamimforever.com'
 
-  // Known static product slugs (always included even without DB)
-  const KNOWN_SLUGS = [
-    'shamim-s-ghost-the-eternal-legacy',
-  'shamims-ghost',
-  'shamims-ghost-the-eternal-legacy',
-  'shamims-bloom',
-  'shamim-bloom',
-  'shamim-bloom-the-sovereign-grace',
-  'sovereign-amethyst',
-  'queen-of-taif',
-  'eternal-empress',
-  'her-legacy-vault',
-  'founder-s-eternal-archive',
-  'founders-eternal-archive',
-  'sapphire-blue-levant',
-  'sovereign-oud-absolute',
-  'imperial-black-throne',
-  'kyoto-sacred-incense',
-  'sf-kyoto-sacred-incense',
-  'kyoto-incense',
-  'sf-kyoto-incense',
-  'midnight-iris-royale',
-  'eternal-sovereign',
-  'house-vault-no-001',
-  'delina-exclusif',
-  'amouage-guidance',
-  'baccarat-rouge-540-extrait',
-  'baccarat-rouge-540',
-  'xerjoff-casamorati-lira',
-  'xerjoff-lira',
-  'initio-atomic-rose',
-  'chanel-coco-mademoiselle-intense',
-  'chanel-coco-mademoiselle',
-  'dior-jadore-lor',
-  'tom-ford-velvet-orchid',
-  'ysl-libre-le-parfum',
-  'ysl-libre',
-  'kilian-angels-share',
-  'sovereign-genesis',
-  'queen-of-taif-crown-ring',
-  'queen-of-taif-ring',
-    'queen-of-taif-crown-ring',
-    'queen-of-taif-ring',
-    'empress-sovereign-vault',
-    'eternal-grace-sapphire-set',
+  const KNOWN_PRODUCT_SLUGS = [
+    'shamims-bloom', 'shamim-bloom', 'sovereign-amethyst', 'queen-of-taif',
+    'eternal-empress', 'her-legacy-vault', 'founders-eternal-archive',
+    'sapphire-blue-levant', 'sovereign-oud-absolute', 'imperial-black-throne',
+    'kyoto-sacred-incense', 'midnight-iris-royale', 'eternal-sovereign',
+    'house-vault-no-001', 'delina-exclusif', 'amouage-guidance',
+    'baccarat-rouge-540-extrait', 'baccarat-rouge-540', 'xerjoff-casamorati-lira',
+    'initio-atomic-rose', 'chanel-coco-mademoiselle-intense', 'dior-jadore-lor',
+    'tom-ford-velvet-orchid', 'ysl-libre-le-parfum', 'kilian-angels-share',
+    'sovereign-genesis', 'queen-of-taif-crown-ring', 'queen-of-taif-ring',
+    'empress-sovereign-vault', 'eternal-grace-sapphire-set',
+    'shamim-s-ghost-the-eternal-legacy', 'shamims-ghost',
+    'sf-kyoto-sacred-incense', 'xerjoff-lira', 'chanel-coco-mademoiselle',
+    'ysl-libre', 'founder-s-eternal-archive',
+  ]
+
+  const STATIC_PAGES = [
+    { path: '/', priority: 1.0, changeFrequency: 'weekly' as const },
+    { path: '/shop', priority: 0.9, changeFrequency: 'daily' as const },
+    { path: '/collections', priority: 0.85, changeFrequency: 'weekly' as const },
+    { path: '/about', priority: 0.7, changeFrequency: 'monthly' as const },
+    { path: '/contact', priority: 0.6, changeFrequency: 'monthly' as const },
   ]
 
   export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const now = new Date()
 
-    // Static pages
-    const staticPages: MetadataRoute.Sitemap = [
-      { url: BASE_URL, lastModified: now, changeFrequency: 'weekly', priority: 1.0 },
-      { url: `${BASE_URL}/shop`, lastModified: now, changeFrequency: 'daily', priority: 0.9 },
-      { url: `${BASE_URL}/about`, lastModified: now, changeFrequency: 'monthly', priority: 0.7 },
-      { url: `${BASE_URL}/contact`, lastModified: now, changeFrequency: 'monthly', priority: 0.6 },
-      { url: `${BASE_URL}/collections`, lastModified: now, changeFrequency: 'weekly', priority: 0.8 },
-    ]
+    let productSlugs = [...KNOWN_PRODUCT_SLUGS]
 
-    // Try to fetch all products from Supabase
-    let allSlugs: string[] = [...KNOWN_SLUGS]
-
+    // Try to fetch live products from Supabase
     try {
-      const supabase = createClient(
-        process.env.NEXT_PUBLIC_SUPABASE_URL!,
-        process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-      )
-      const { data } = await supabase
-        .from('products')
-        .select('slug, updated_at')
-        .eq('is_active', true)
-
-      if (data && data.length > 0) {
-        // Merge DB slugs with known slugs, remove duplicates
-        const dbSlugs = data.map((p: { slug: string }) => p.slug).filter(Boolean)
-        allSlugs = [...new Set([...KNOWN_SLUGS, ...dbSlugs])]
+      const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
+      const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+      if (supabaseUrl && supabaseKey && !supabaseUrl.includes('placeholder')) {
+        const res = await fetch(
+          `${supabaseUrl}/rest/v1/products?select=slug&is_active=eq.true`,
+          { headers: { 'apikey': supabaseKey, 'Authorization': `Bearer ${supabaseKey}` } }
+        )
+        if (res.ok) {
+          const data: { slug: string }[] = await res.json()
+          const liveSlugs = data.map(p => p.slug).filter(Boolean)
+          productSlugs = [...new Set([...KNOWN_PRODUCT_SLUGS, ...liveSlugs])]
+        }
       }
     } catch {
-      // Fallback to known slugs if Supabase is unavailable
+      // Fallback to static known slugs
     }
 
-    const productPages: MetadataRoute.Sitemap = allSlugs.map(slug => ({
+    const staticPages: MetadataRoute.Sitemap = STATIC_PAGES.map(p => ({
+      url: `${BASE_URL}${p.path}`,
+      lastModified: now,
+      changeFrequency: p.changeFrequency,
+      priority: p.priority,
+    }))
+
+    const productPages: MetadataRoute.Sitemap = productSlugs.map(slug => ({
       url: `${BASE_URL}/products/${slug}`,
       lastModified: now,
       changeFrequency: 'weekly' as const,
