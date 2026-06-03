@@ -1,6 +1,16 @@
 'use client'
 
-import { useEffect, useRef, useState, useCallback } from 'react'
+import { useEffect, us
+
+    useEffect(() => {
+      if (!product?.slug) return
+      const KEY = 'sf_recently_viewed'
+      const entry = { slug: product.slug, name: product.name, price_usd: product.price_usd, image: config.heroImage || product.images?.[0] || '' }
+      const prev: Array<{slug:string;name:string;price_usd:number;image:string}> = JSON.parse(localStorage.getItem(KEY) || '[]')
+      const filtered = prev.filter(p => p.slug !== product.slug)
+      localStorage.setItem(KEY, JSON.stringify([entry, ...filtered].slice(0, 8)))
+      setRecentlyViewed(filtered.slice(0, 5))
+    }, [product?.slug])eRef, useState, useCallback } from 'react'
 import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
@@ -204,6 +214,7 @@ export default function SovereignProductPage({ product }: { product: Product }) 
   const [mintWallet, setMintWallet] = useState('')
   const [mintStatus, setMintStatus] = useState<'idle'|'minting'|'success'|'error'>('idle')
   const [mintResult, setMintResult] = useState<{tokenId:number;txHash:string;openSeaUrl:string;polygonScanUrl:string}|null>(null)
+  const [recentlyViewed, setRecentlyViewed] = useState<Array<{slug:string;name:string;price_usd:number;image:string}>>([])
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger)
@@ -322,7 +333,7 @@ export default function SovereignProductPage({ product }: { product: Product }) 
       <style dangerouslySetInnerHTML={{ __html: SOVEREIGN_CSS }} />
 
       {/* HERO — Black & Gold brand, edge-to-edge 3D */}
-        <section ref={heroRef} style={{ position: 'relative', background: '#000000', overflow: 'hidden' }}>
+        <section ref={heroRef} style={{ position: 'relative', background: '#000000', overflow: 'hidden', minHeight: '100svh' }}>
 
           {/* Gold crown spotlight */}
           <div style={{ position: 'absolute', left: 0, right: 0, top: '5%', height: '55%', background: 'radial-gradient(ellipse 52% 60% at 50% 26%, rgba(212,175,55,0.16) 0%, rgba(201,160,84,0.05) 40%, transparent 68%)', pointerEvents: 'none', zIndex: 2 }} />
@@ -333,15 +344,11 @@ export default function SovereignProductPage({ product }: { product: Product }) 
           {/* Black vignette edges */}
           <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse 90% 90% at 50% 50%, transparent 42%, rgba(0,0,0,0.70) 100%)', pointerEvents: 'none', zIndex: 3 }} />
 
-          {/* ── Animated gold border — jewellery box opening, clockwise ── */}
-          {/* Top: left → right */}
-          <motion.div initial={{ scaleX: 0 }} animate={{ scaleX: 1 }} transition={{ delay: 0.3, duration: 0.9, ease: [0.4, 0, 0.2, 1] }} style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 1, background: 'linear-gradient(to right, transparent 0%, rgba(212,175,55,0.75) 20%, rgba(212,175,55,0.95) 50%, rgba(212,175,55,0.75) 80%, transparent 100%)', transformOrigin: 'left', pointerEvents: 'none', zIndex: 8 }} />
-          {/* Right: top → bottom */}
-          <motion.div initial={{ scaleY: 0 }} animate={{ scaleY: 1 }} transition={{ delay: 1.2, duration: 0.6, ease: [0.4, 0, 0.2, 1] }} style={{ position: 'absolute', top: 0, right: 0, bottom: 0, width: 1, background: 'linear-gradient(to bottom, transparent 0%, rgba(212,175,55,0.65) 20%, rgba(212,175,55,0.65) 80%, transparent 100%)', transformOrigin: 'top', pointerEvents: 'none', zIndex: 8 }} />
-          {/* Bottom: right → left */}
-          <motion.div initial={{ scaleX: 0 }} animate={{ scaleX: 1 }} transition={{ delay: 1.8, duration: 0.9, ease: [0.4, 0, 0.2, 1] }} style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: 1, background: 'linear-gradient(to left, transparent 0%, rgba(212,175,55,0.75) 20%, rgba(212,175,55,0.95) 50%, rgba(212,175,55,0.75) 80%, transparent 100%)', transformOrigin: 'right', pointerEvents: 'none', zIndex: 8 }} />
-          {/* Left: bottom → top */}
-          <motion.div initial={{ scaleY: 0 }} animate={{ scaleY: 1 }} transition={{ delay: 2.7, duration: 0.6, ease: [0.4, 0, 0.2, 1] }} style={{ position: 'absolute', top: 0, left: 0, bottom: 0, width: 1, background: 'linear-gradient(to top, transparent 0%, rgba(212,175,55,0.65) 20%, rgba(212,175,55,0.65) 80%, transparent 100%)', transformOrigin: 'bottom', pointerEvents: 'none', zIndex: 8 }} />
+          {/* Gold border — static, no animation */}
+            <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 1, background: 'linear-gradient(to right, transparent 0%, rgba(212,175,55,0.75) 20%, rgba(212,175,55,0.95) 50%, rgba(212,175,55,0.75) 80%, transparent 100%)', pointerEvents: 'none', zIndex: 8 }} />
+            <div style={{ position: 'absolute', top: 0, right: 0, bottom: 0, width: 1, background: 'linear-gradient(to bottom, transparent 0%, rgba(212,175,55,0.65) 20%, rgba(212,175,55,0.65) 80%, transparent 100%)', pointerEvents: 'none', zIndex: 8 }} />
+            <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: 1, background: 'linear-gradient(to left, transparent 0%, rgba(212,175,55,0.75) 20%, rgba(212,175,55,0.95) 50%, rgba(212,175,55,0.75) 80%, transparent 100%)', pointerEvents: 'none', zIndex: 8 }} />
+            <div style={{ position: 'absolute', top: 0, left: 0, bottom: 0, width: 1, background: 'linear-gradient(to top, transparent 0%, rgba(212,175,55,0.65) 20%, rgba(212,175,55,0.65) 80%, transparent 100%)', pointerEvents: 'none', zIndex: 8 }} />
 
           {/* Gold corner brackets */}
           <div style={{ position: 'absolute', top: 54, left: 14, width: 18, height: 18, borderTop: '1px solid rgba(212,175,55,0.40)', borderLeft: '1px solid rgba(212,175,55,0.40)', pointerEvents: 'none', zIndex: 9 }} />
@@ -387,7 +394,7 @@ export default function SovereignProductPage({ product }: { product: Product }) 
               />
             </div>
           ) : (
-            <motion.div initial={{ scale: 1.12, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ duration: 3.2, ease: [0.25, 0.1, 0.1, 1] }} style={{ position: 'absolute', inset: 0, zIndex: 2 }}>
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.6 }} style={{ position: 'absolute', inset: 0, zIndex: 2 }}>
               <img src={config.heroImage || product.images?.[0] || ''} alt={config.heroTitle} style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center 15%' }} onError={e => { (e.target as HTMLImageElement).style.opacity = '0' }} />
             </motion.div>
           )}
@@ -395,15 +402,15 @@ export default function SovereignProductPage({ product }: { product: Product }) 
           {/* Text overlaid at bottom — only when NO model (existing products) */}
           {!config.modelPath && !config.videoPath && (
             <motion.div style={{ opacity: textOpacity, y: textY, position: 'absolute', bottom: 0, left: 0, right: 0, zIndex: 20, padding: '0 clamp(20px,5vw,80px)', paddingBottom: 'clamp(48px,6vw,80px)' }}>
-              <motion.p initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 1.4, duration: 1 }} style={{ fontSize: 7, letterSpacing: '0.9em', textTransform: 'uppercase', color: '#c9a054', marginBottom: 16 }}>{config.heroTagline}</motion.p>
-              <motion.h1 initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 1.8, duration: 1.6, ease: [0.16, 1, 0.3, 1] }} style={{ fontFamily: SERIF, fontWeight: 300, letterSpacing: '-0.01em', lineHeight: 0.88, color: '#f8f4ee', marginBottom: 14, fontSize: 'clamp(3rem,10vw,9.5rem)' }}>{config.heroTitle}</motion.h1>
-              <motion.div initial={{ scaleX: 0 }} animate={{ scaleX: 1 }} transition={{ delay: 2.5, duration: 1.2 }} style={{ height: 1, width: 180, background: 'linear-gradient(to right, #c9a054 0%, rgba(201,160,84,0.3) 60%, transparent 100%)', marginBottom: 12, transformOrigin: 'left' }} />
-              <motion.p initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 2.3, duration: 1 }} style={{ fontFamily: SERIF, fontStyle: 'italic', fontSize: 'clamp(1rem,3vw,2rem)', color: 'rgba(240,236,228,0.65)', fontWeight: 300, marginBottom: 20 }}>{config.heroSubtitle}</motion.p>
-              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 2.6, duration: 0.8 }} style={{ display: 'flex', alignItems: 'baseline', gap: 16, marginBottom: 24, flexWrap: 'wrap' }}>
+              <motion.p initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2, duration: 0.6 }} style={{ fontSize: 7, letterSpacing: '0.9em', textTransform: 'uppercase', color: '#c9a054', marginBottom: 16 }}>{config.heroTagline}</motion.p>
+              <motion.h1 initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.35, duration: 0.8, ease: [0.16, 1, 0.3, 1] }} style={{ fontFamily: SERIF, fontWeight: 300, letterSpacing: '-0.01em', lineHeight: 0.88, color: '#f8f4ee', marginBottom: 14, fontSize: 'clamp(3rem,10vw,9.5rem)' }}>{config.heroTitle}</motion.h1>
+              <motion.div initial={{ scaleX: 0 }} animate={{ scaleX: 1 }} transition={{ delay: 0.6, duration: 0.5 }} style={{ height: 1, width: 180, background: 'linear-gradient(to right, #c9a054 0%, rgba(201,160,84,0.3) 60%, transparent 100%)', marginBottom: 12, transformOrigin: 'left' }} />
+              <motion.p initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5, duration: 0.5 }} style={{ fontFamily: SERIF, fontStyle: 'italic', fontSize: 'clamp(1rem,3vw,2rem)', color: 'rgba(240,236,228,0.65)', fontWeight: 300, marginBottom: 20 }}>{config.heroSubtitle}</motion.p>
+              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.65, duration: 0.5 }} style={{ display: 'flex', alignItems: 'baseline', gap: 16, marginBottom: 24, flexWrap: 'wrap' }}>
                 <span style={{ fontFamily: SERIF, fontSize: 'clamp(1.8rem,5vw,3.2rem)', fontWeight: 300, color: '#f8f4ee' }}>${product.price_usd} <span style={{ fontSize: '0.4em', letterSpacing: '0.35em', color: '#c9a054' }}>USD</span></span>
                 <span style={{ fontSize: 11, letterSpacing: '0.15em', color: 'rgba(201,160,84,0.32)' }}>{formatPKR(finalPkr)}</span>
               </motion.div>
-              <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 2.9, duration: 0.8 }} style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
+              <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.8, duration: 0.4 }} style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
                 <a href="#acquire" className="group" style={{ position: 'relative', overflow: 'hidden', padding: '14px 32px', border: '1px solid rgba(201,160,84,0.55)', fontSize: 8, letterSpacing: '0.7em', textTransform: 'uppercase', color: '#c9a054', display: 'inline-block', textDecoration: 'none' }}>
                   <span className="absolute inset-0 bg-[#c9a054] -translate-x-full group-hover:translate-x-0 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]" />
                   <span className="relative group-hover:text-black transition-colors duration-150">Acquire Now</span>
@@ -414,7 +421,7 @@ export default function SovereignProductPage({ product }: { product: Product }) 
           )}
 
           {/* Scroll indicator */}
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 3.2 }}
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.0 }}
             style={{ position: 'absolute', bottom: 24, right: 24, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 6, zIndex: 30, pointerEvents: 'none' }}>
             <span style={{ fontSize: 6, letterSpacing: '0.5em', textTransform: 'uppercase', color: 'rgba(201,160,84,0.38)', writingMode: 'vertical-lr' }}>Scroll</span>
             <motion.div animate={{ y: [0, 6, 0] }} transition={{ duration: 1.6, repeat: Infinity }}>
@@ -863,7 +870,43 @@ export default function SovereignProductPage({ product }: { product: Product }) 
         )}
 
 
-      {/* RELATED */}
+      {/* RECENTLY VIEWED */}
+        {recentlyViewed.length > 0 && (
+          <section style={{ padding: 'clamp(44px,6vw,72px) 0', background: '#050504', borderTop: '1px solid rgba(201,160,84,0.05)' }}>
+            <div style={{ maxWidth: 900, margin: '0 auto', padding: '0 clamp(20px,4vw,40px)' }}>
+              <div style={{ textAlign: 'center', marginBottom: 36 }}>
+                <p style={{ fontSize: 7, letterSpacing: '0.9em', textTransform: 'uppercase', color: 'rgba(201,160,84,0.45)', marginBottom: 8 }}>Your Archive History</p>
+                <h3 style={{ fontFamily: SERIF, fontSize: 'clamp(1.4rem,3.5vw,2.4rem)', fontWeight: 300, color: 'rgba(240,236,228,0.3)', letterSpacing: '0.1em' }}>Recently Viewed</h3>
+              </div>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(140px, 1fr))', gap: 'clamp(8px,2vw,16px)' }}>
+                {recentlyViewed.map(item => (
+                  <Link key={item.slug} href={'/products/' + item.slug} style={{ textDecoration: 'none', display: 'block', border: '1px solid rgba(201,160,84,0.08)', background: '#0a0806', transition: 'border-color 0.3s' }}
+                    onMouseEnter={e => { (e.currentTarget as HTMLElement).style.borderColor = 'rgba(201,160,84,0.28)' }}
+                    onMouseLeave={e => { (e.currentTarget as HTMLElement).style.borderColor = 'rgba(201,160,84,0.08)' }}
+                  >
+                    <div style={{ aspectRatio: '1/1', overflow: 'hidden', background: '#080604' }}>
+                      {item.image ? (
+                        <img src={item.image} alt={item.name} style={{ width: '100%', height: '100%', objectFit: 'cover', opacity: 0.75 }}
+                          onError={e => { (e.target as HTMLImageElement).style.display = 'none' }}
+                        />
+                      ) : (
+                        <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                          <span style={{ fontFamily: SERIF, fontSize: 28, color: 'rgba(201,160,84,0.15)' }}>◆</span>
+                        </div>
+                      )}
+                    </div>
+                    <div style={{ padding: '10px 12px' }}>
+                      <p style={{ fontFamily: SERIF, fontSize: 11, color: 'rgba(240,236,228,0.45)', lineHeight: 1.3, marginBottom: 4 }}>{item.name}</p>
+                      <p style={{ fontSize: 8, color: 'rgba(201,160,84,0.4)', letterSpacing: '0.15em' }}>${item.price_usd}</p>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          </section>
+        )}
+
+              {/* RELATED */}
       <section style={{ padding: 'clamp(44px,7vw,80px) 0 clamp(56px,8vw,100px)', background: '#030303', borderTop: '1px solid rgba(201,160,84,0.06)' }}>
         <div style={{ maxWidth: 860, margin: '0 auto', padding: '0 clamp(20px,4vw,24px)', textAlign: 'center' }}>
           <div className="s-reveal" style={{ marginBottom: 40 }}>
