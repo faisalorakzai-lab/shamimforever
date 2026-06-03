@@ -153,6 +153,16 @@ import type { Metadata } from 'next'
           <meta httpEquiv="Content-Security-Policy" content="upgrade-insecure-requests" />
           <meta httpEquiv="X-Content-Type-Options" content="nosniff" />
 
+          {/* ENS/Web3 Sovereign Domain Anchors */}
+          <meta name="ens:address" content="shamimforever.eth" />
+          <meta name="dapp:url" content="https://shamimforever.com" />
+          <meta name="dapp:network" content="polygon" />
+          <meta name="web3:verified-domain" content="shamimforever.com" />
+
+          {/* Anti-phishing: canonical sovereign domain declaration */}
+          <meta name="application-name" content="Shamim Forever — Official Site: shamimforever.com" />
+          <meta name="theme-color" content="#D4AF37" />
+
           {/* Performance — preconnect to critical origins */}
           <link rel="preconnect" href="https://fonts.googleapis.com" crossOrigin="anonymous" />
           <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
