@@ -288,7 +288,8 @@
       { trait: 'Concierge Access', value: 'Enabled' },
       { trait: 'Archive Status', value: 'Active' },
     ],
-    heroImage: '/products/sovereign-amethyst/amethyst-hero.png',
+    videoPath: '/products/sovereign-amethyst/sovereign-amethyst-hero.mp4',
+      heroImage: '/products/sovereign-amethyst/amethyst-hero.png',
     galleryImages: [
       '/products/sovereign-amethyst/amethyst-hero.png',
       '/products/sovereign-amethyst/amethyst-1.png',
