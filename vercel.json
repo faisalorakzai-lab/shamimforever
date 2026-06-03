@@ -3,19 +3,6 @@
   "buildCommand": "next build",
   "installCommand": "npm install --include=dev --legacy-peer-deps",
   "outputDirectory": ".next",
-  "redirects": [
-    {
-      "source": "/:path*",
-      "has": [
-        {
-          "type": "host",
-          "value": "www.shamimforever.com"
-        }
-      ],
-      "destination": "https://shamimforever.com/:path*",
-      "permanent": true
-    }
-  ],
   "headers": [
     {
       "source": "/(.*)",
