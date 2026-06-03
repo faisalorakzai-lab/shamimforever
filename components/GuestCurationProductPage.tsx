@@ -193,79 +193,6 @@ export default function GuestCurationProductPage({ product }: { product: Product
         {/* Bottom fade */}
         <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: '45%', background: 'linear-gradient(to bottom, transparent, rgba(0,0,0,0.96))', pointerEvents: 'none', zIndex: 4 }} />
 
-        {/* Text overlay at bottom */}
-        <motion.div
-          className="gc-hero-overlay"
-          style={{ opacity: textOpacity, y: textY, position: 'absolute', bottom: 0, left: 0, right: 0, zIndex: 20, padding: '0 clamp(20px,5vw,80px)', paddingBottom: 'clamp(44px,6vw,72px)' }}
-        >
-          {/* Guest Curation badge */}
-          <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 1.3, duration: 1 }}
-            style={{ display: 'inline-flex', alignItems: 'center', gap: 10, marginBottom: 16 }}>
-            <div style={{ height: 1, width: 28, background: 'rgba(201,160,84,0.45)' }} />
-            <span style={{ fontSize: 6, letterSpacing: '0.9em', textTransform: 'uppercase', color: '#c9a054' }}>
-              SF Guest Curation Series
-            </span>
-            {config && (
-              <>
-                <span style={{ fontSize: 6, color: 'rgba(201,160,84,0.3)' }}>·</span>
-                <span style={{ fontSize: 6, letterSpacing: '0.7em', textTransform: 'uppercase', color: 'rgba(201,160,84,0.55)' }}>
-                  Archive {config.archiveCode}
-                </span>
-              </>
-            )}
-            <div style={{ height: 1, width: 28, background: 'rgba(201,160,84,0.45)' }} />
-          </motion.div>
-
-          {/* Collection name */}
-          {config && (
-            <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.6, duration: 1 }}
-              style={{ fontFamily: SERIF, fontStyle: 'italic', fontSize: 'clamp(0.9rem,2vw,1.4rem)', color: 'rgba(240,236,228,0.45)', fontWeight: 300, marginBottom: 10 }}>
-              {config.collectionName}
-            </motion.p>
-          )}
-
-          {/* Product name */}
-          <motion.h1 initial={{ opacity: 0, y: 36 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 1.8, duration: 1.6, ease: [0.16,1,0.3,1] }}
-            style={{ fontFamily: SERIF, fontWeight: 300, letterSpacing: '-0.01em', lineHeight: 0.9, color: '#f8f4ee', marginBottom: 14, fontSize: 'clamp(2.6rem,8vw,7rem)' }}>
-            {product.name}
-          </motion.h1>
-
-          {/* Gold divider */}
-          <motion.div initial={{ scaleX: 0 }} animate={{ scaleX: 1 }} transition={{ delay: 2.4, duration: 1.1 }}
-            style={{ height: 1, width: 160, background: 'linear-gradient(to right, #c9a054 0%, rgba(201,160,84,0.2) 70%, transparent 100%)', marginBottom: 14, transformOrigin: 'left' }} />
-
-          {/* Classification */}
-          {config && (
-            <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 2.2, duration: 1 }}
-              style={{ fontSize: 7, letterSpacing: '0.55em', textTransform: 'uppercase', color: 'rgba(201,160,84,0.5)', marginBottom: 18 }}>
-              {config.classification}
-            </motion.p>
-          )}
-
-          {/* Price */}
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 2.5, duration: 0.8 }}
-            style={{ display: 'flex', alignItems: 'baseline', gap: 14, marginBottom: 22, flexWrap: 'wrap' }}>
-            <span style={{ fontFamily: SERIF, fontSize: 'clamp(1.8rem,5vw,3rem)', fontWeight: 300, color: '#f8f4ee' }}>
-              ${product.price_usd} <span style={{ fontSize: '0.4em', letterSpacing: '0.35em', color: '#c9a054' }}>USD</span>
-            </span>
-            <span style={{ fontSize: 11, letterSpacing: '0.12em', color: 'rgba(201,160,84,0.32)' }}>{formatPKR(product.price_pkr)}</span>
-          </motion.div>
-
-          {/* CTAs */}
-          <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 2.8, duration: 0.8 }}
-            style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
-            <a href="#acquire" className="group" style={{ position: 'relative', overflow: 'hidden', padding: '14px 32px', border: '1px solid rgba(201,160,84,0.55)', fontSize: 8, letterSpacing: '0.7em', textTransform: 'uppercase', color: '#c9a054', display: 'inline-block', textDecoration: 'none' }}>
-              <span className="absolute inset-0 bg-[#c9a054] -translate-x-full group-hover:translate-x-0 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]" />
-              <span className="relative group-hover:text-black transition-colors duration-150">Acquire Now</span>
-            </a>
-            <a href="#archive" style={{ padding: '14px 32px', border: '1px solid rgba(255,255,255,0.08)', fontSize: 8, letterSpacing: '0.7em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.28)', display: 'inline-block', textDecoration: 'none' }}
-              onMouseEnter={e => { (e.target as HTMLElement).style.borderColor = 'rgba(255,255,255,0.2)'; (e.target as HTMLElement).style.color = 'rgba(255,255,255,0.6)' }}
-              onMouseLeave={e => { (e.target as HTMLElement).style.borderColor = 'rgba(255,255,255,0.08)'; (e.target as HTMLElement).style.color = 'rgba(255,255,255,0.28)' }}>
-              View Archive
-            </a>
-          </motion.div>
-        </motion.div>
-
         {/* Scroll indicator */}
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 3.2 }}
           style={{ position: 'absolute', bottom: 24, right: 24, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 6, zIndex: 30, pointerEvents: 'none' }}>
@@ -273,6 +200,47 @@ export default function GuestCurationProductPage({ product }: { product: Product
           <motion.div animate={{ y: [0, 6, 0] }} transition={{ duration: 1.6, repeat: Infinity }}>
             <ArrowDown size={10} color="rgba(201,160,84,0.35)" />
           </motion.div>
+        </motion.div>
+      </section>
+
+      {/* PRODUCT INFO — below image */}
+      <section style={{ background: '#030303', padding: 'clamp(40px,7vw,72px) clamp(20px,5vw,80px)', textAlign: 'center', borderTop: '1px solid rgba(201,160,84,0.1)' }}>
+        <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}>
+          {config && (
+            <p style={{ fontSize: 7, letterSpacing: '0.85em', textTransform: 'uppercase', color: '#c9a054', marginBottom: 20 }}>
+              SF Guest Curation Series · Archive {config.archiveCode}
+            </p>
+          )}
+          <div style={{ width: 72, height: 1, background: 'linear-gradient(to right, transparent, #c9a054, transparent)', margin: '0 auto 28px' }} />
+          <h1 style={{ fontFamily: SERIF, fontWeight: 300, letterSpacing: '0.15em', lineHeight: 0.9, color: '#f8f4ee', marginBottom: 16, textTransform: 'uppercase', fontSize: 'clamp(2.8rem,10vw,7rem)' }}>
+            {product.name}
+          </h1>
+          {config && (
+            <p style={{ fontFamily: SERIF, fontStyle: 'italic', fontSize: 'clamp(1rem,2.5vw,1.6rem)', color: 'rgba(240,236,228,0.55)', fontWeight: 300, marginBottom: 12 }}>
+              {config.collectionName}
+            </p>
+          )}
+          {config && (
+            <p style={{ fontSize: 8, letterSpacing: '0.5em', textTransform: 'uppercase', color: 'rgba(201,160,84,0.5)', marginBottom: 32 }}>
+              {config.classification}
+            </p>
+          )}
+          <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'center', gap: 18, marginBottom: 20, flexWrap: 'wrap' }}>
+            <span style={{ fontFamily: SERIF, fontSize: 'clamp(2rem,6vw,3rem)', fontWeight: 300, color: '#f8f4ee' }}>
+              ${product.price_usd} <span style={{ fontSize: '0.4em', letterSpacing: '0.35em', color: '#c9a054' }}>USD</span>
+            </span>
+            <span style={{ fontSize: 11, letterSpacing: '0.12em', color: 'rgba(201,160,84,0.32)' }}>{formatPKR(product.price_pkr)}</span>
+          </div>
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: 14, justifyContent: 'center' }}>
+            <a href="#acquire" className="group" style={{ position: 'relative', overflow: 'hidden', padding: '15px 40px', fontSize: 8, letterSpacing: '0.7em', textTransform: 'uppercase', color: '#050202', display: 'inline-block', textDecoration: 'none', background: 'linear-gradient(135deg, #c9a054 0%, #b8860b 100%)', fontWeight: 600 }}>
+              Acquire Now
+            </a>
+            <a href="#archive" style={{ padding: '15px 40px', border: '1px solid rgba(201,160,84,0.35)', fontSize: 8, letterSpacing: '0.7em', textTransform: 'uppercase', color: '#c9a054', display: 'inline-block', textDecoration: 'none' }}
+              onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = 'rgba(201,160,84,0.08)' }}
+              onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = 'transparent' }}>
+              View Archive
+            </a>
+          </div>
         </motion.div>
       </section>
 
