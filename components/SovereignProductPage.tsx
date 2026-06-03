@@ -418,6 +418,7 @@ export default function SovereignProductPage({ product }: { product: Product }) 
                 <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, border: '1px solid rgba(201,160,84,0.28)', padding: '6px 20px', marginBottom: 12, marginTop: 10, background: 'rgba(201,160,84,0.04)' }}>
                   <span style={{ fontSize: 6, letterSpacing: '0.7em', textTransform: 'uppercase', color: '#c9a054' }}>◆ {config.category}</span>
                 </div>
+              )}
               <p style={{ fontFamily: SERIF, fontStyle: 'italic', fontSize: 'clamp(1rem,3vw,1.5rem)', color: 'rgba(240,236,228,0.6)', marginBottom: 8 }}>{config.heroSubtitle}</p>
               <p style={{ fontSize: 9, letterSpacing: '0.32em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.28)', marginBottom: 32 }}>Love does not fade — it blooms into eternity</p>
               <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'center', gap: 18, marginBottom: 20, flexWrap: 'wrap' }}>
@@ -434,7 +435,6 @@ export default function SovereignProductPage({ product }: { product: Product }) 
               </div>
             </motion.div>
           </section>
-        )}
 
 
               {/* ACQUIRE */}
