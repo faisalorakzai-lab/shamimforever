@@ -358,20 +358,18 @@ export default function SovereignProductPage({ product }: { product: Product }) 
 
           {/* Cinematic media — video first, then 3D model, then hero image */}
           {config.videoPath ? (
-            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'flex-start', width: '100%', background: '#000' }}>
-              <div style={{ position: 'relative', width: '100%', maxWidth: 'min(45vh, 100vw)', aspectRatio: '1 / 1', overflow: 'hidden', background: '#000' }}>
-               <video autoPlay loop muted playsInline preload="auto" poster={config.heroImage}
-                style={{ width: '100%', height: '100%', objectFit: 'contain', display: 'block', pointerEvents: 'none' }}>
-                <source src={config.videoPath} type="video/mp4" />
-              </video>
-              <GoldParticles />
-              <div style={{ position:'absolute', top:0, left:0, right:0, height:'55%', background:'radial-gradient(ellipse 65% 55% at 50% 0%, rgba(212,175,55,0.13) 0%, transparent 65%)', pointerEvents:'none', zIndex:12 }} />
-              <div style={{ position:'absolute', inset:0, background:'radial-gradient(ellipse 80% 90% at 50% 50%, transparent 48%, rgba(0,0,0,0.72) 100%)', pointerEvents:'none', zIndex:12 }} />
-              <div style={{ position:'absolute', left:0, right:0, bottom:0, height:'45%', background:'linear-gradient(to bottom, transparent, rgba(0,0,0,0.98))', pointerEvents:'none', zIndex:13 }} />
-              <div style={{ position:'absolute', top:'8%', left:'25%', width:'50%', height:'30%', background:'radial-gradient(ellipse at center, rgba(212,175,55,0.09) 0%, transparent 68%)', pointerEvents:'none', zIndex:12, animation:'shimmerPulse 5s ease-in-out infinite' }} />
-            </div>
-            </div>
-          ) : config.modelPath ? (
+              <div style={{ position: 'absolute', inset: 0, background: '#000', overflow: 'hidden' }}>
+                <video autoPlay loop muted playsInline preload="auto" poster={config.heroImage}
+                  style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block', pointerEvents: 'none' }}>
+                  <source src={config.videoPath} type="video/mp4" />
+                </video>
+                <GoldParticles />
+                <div style={{ position:'absolute', top:0, left:0, right:0, height:'55%', background:'radial-gradient(ellipse 65% 55% at 50% 0%, rgba(212,175,55,0.13) 0%, transparent 65%)', pointerEvents:'none', zIndex:12 }} />
+                <div style={{ position:'absolute', inset:0, background:'radial-gradient(ellipse 80% 90% at 50% 50%, transparent 48%, rgba(0,0,0,0.55) 100%)', pointerEvents:'none', zIndex:12 }} />
+                <div style={{ position:'absolute', left:0, right:0, bottom:0, height:'30%', background:'linear-gradient(to bottom, transparent, rgba(0,0,0,0.9))', pointerEvents:'none', zIndex:13 }} />
+                <div style={{ position:'absolute', top:'8%', left:'25%', width:'50%', height:'30%', background:'radial-gradient(ellipse at center, rgba(212,175,55,0.09) 0%, transparent 68%)', pointerEvents:'none', zIndex:12, animation:'shimmerPulse 5s ease-in-out infinite' }} />
+              </div>
+            ) : config.modelPath ? (
             <div style={{ position: 'absolute', inset: 0, zIndex: 10, paddingTop: '46px', paddingBottom: '2px' }}>
               <model-viewer
                 src={config.modelPath}
