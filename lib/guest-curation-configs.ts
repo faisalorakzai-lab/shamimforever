@@ -299,7 +299,7 @@ export interface GuestCurationConfig {
       whyCurated: [
         'Ombre Nomade is one of the most powerful oud creations ever released.',
         'Dense. Dark. Authoritative.',
-        'Its architecture mirrors the philosophy behind the House's own archive creations.',
+        "Its architecture mirrors the philosophy behind the House's own archive creations.",
       ],
       curatorPositioning: ['A dark empire.', 'An uncompromising presence.', 'A monument of oud.'],
     },
