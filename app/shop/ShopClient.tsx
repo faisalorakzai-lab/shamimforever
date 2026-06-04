@@ -62,6 +62,12 @@ const HERO_IMAGES: Record<string, string> = {
   jewelry: '/collections/banner-him.png',
 }
 
+const GENDER_HERO_IMAGES: Record<string, string> = {
+  her: '/collections/banner-her.png',
+  him: '/collections/banner-him.png',
+  unisex: '/collections/banner-unisex.png',
+}
+
 const CAT_LABEL_MAP: Record<string, string> = {
   all: 'All',
   perfume: 'Perfumes',
