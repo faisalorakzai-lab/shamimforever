@@ -335,7 +335,6 @@ export interface GuestCurationConfig {
       ],
       curatorPositioning: ['Old-world authority.', 'Heritage craftsmanship.', 'A gentleman preserved in time.'],
     },
-  ]
 
 
       // ── UNISEX SERIES — SF GUEST CURATION ──────────────────────
@@ -449,7 +448,7 @@ export interface GuestCurationConfig {
           'Its extraordinary concentration.',
           'Its powerful longevity.',
           'Its oakmoss authority.',
-          'Make it one of modern niche perfumery's strongest signatures.',
+          "Make it one of modern niche perfumery's strongest signatures.",
         ],
         curatorPositioning: ['Legacy over speed.', 'Power over trends.', 'A signature that refuses to fade.'],
       },
@@ -487,7 +486,7 @@ export interface GuestCurationConfig {
           'Its extraordinary rose concentration.',
           'Its dark incense structure.',
           'Its unmatched depth.',
-          'Make it one of perfumery's greatest achievements.',
+          "Make it one of perfumery's greatest achievements.",
         ],
         curatorPositioning: ['A masterpiece.', 'A gallery piece.', 'A sovereign rose monument.'],
       },
@@ -529,6 +528,7 @@ export interface GuestCurationConfig {
         ],
         curatorPositioning: ['Ocean air.', 'Coastal freedom.', 'Minimalist luxury perfected.'],
       },
+  ]
 
   const CONFIG_MAP: Record<string, GuestCurationConfig> = {}
   for (const c of CONFIGS) CONFIG_MAP[c.slug] = c
