@@ -170,7 +170,7 @@ function ShopPageInner({ initialProducts }: { initialProducts: Product[] }) {
       ? CAT_LABEL_MAP[activeSub]
       : CAT_LABEL_MAP[activeCategory] ?? 'All'
 
-  const heroImage = HERO_IMAGES[activeCategory] ?? HERO_IMAGES.all
+  const heroImage = (activeSub !== 'all' ? GENDER_HERO_IMAGES[activeSub] : null) ?? HERO_IMAGES[activeCategory] ?? HERO_IMAGES.all
 
   return (
     <div className="min-h-screen bg-[#050505] overflow-x-hidden">
@@ -308,7 +308,7 @@ function ShopPageInner({ initialProducts }: { initialProducts: Product[] }) {
               </div>
               <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-8 lg:gap-10">
                 {products.map((product, i) => {
-                  const img = product.images?.[0] || SOVEREIGN_CONFIGS[product.slug]?.heroImage || null
+                  const img = SOVEREIGN_CONFIGS[product.slug]?.heroImage || product.images?.[0] || null
                   const isSovereign = product.price_pkr >= SOVEREIGN_THRESHOLD
                   return (
                     <motion.div key={product.id} initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: Math.min(i * 0.05, 0.4), duration: 0.8, ease }}>
