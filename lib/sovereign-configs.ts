@@ -2652,7 +2652,7 @@
 
   const SERGE_LUTENS_AMBRE_SULTAN_CONFIG: SovereignConfig = {
     heroTitle: 'SERGE LUTENS AMBRE SULTAN',
-    heroSubtitle: 'The Sultan's Amber Archive',
+    heroSubtitle: "The Sultan's Amber Archive",
     heroTagline: 'SF Guest Curation Series · Archive U-IX',
     legacyStatement: "Ancient luxury. Herbal amber. A sultan's private archive.",
     legacyVoice: "Ambre Sultan transforms amber from a note into a world. Its herbal opening — coriander, bay leaf — settles into one of the most powerful amber structures in modern perfumery. Serge Lutens created a monument to the ancient luxury of resins and spice. The House selected it for its uncompromising richness.",
