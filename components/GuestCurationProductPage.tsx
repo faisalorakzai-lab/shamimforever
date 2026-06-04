@@ -155,16 +155,12 @@ export default function GuestCurationProductPage({ product }: { product: Product
 
       {/* ── HERO ── */}
       <section ref={heroRef} style={{ position: 'relative', background: '#000', width: '100%', aspectRatio: '1/1', overflow: 'hidden' }}>
-        {/* Gold animated border */}
-        <motion.div initial={{ scaleX: 0 }} animate={{ scaleX: 1 }} transition={{ delay: 0.3, duration: 0.9, ease: [0.4,0,0.2,1] }}
-          style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 1, background: 'linear-gradient(to right, transparent, rgba(212,175,55,0.9) 50%, transparent)', transformOrigin: 'left', pointerEvents: 'none', zIndex: 8 }} />
-        <motion.div initial={{ scaleY: 0 }} animate={{ scaleY: 1 }} transition={{ delay: 1.2, duration: 0.6, ease: [0.4,0,0.2,1] }}
-          style={{ position: 'absolute', top: 0, right: 0, bottom: 0, width: 1, background: 'linear-gradient(to bottom, transparent, rgba(212,175,55,0.6) 50%, transparent)', transformOrigin: 'top', pointerEvents: 'none', zIndex: 8 }} />
-        <motion.div initial={{ scaleX: 0 }} animate={{ scaleX: 1 }} transition={{ delay: 1.8, duration: 0.9, ease: [0.4,0,0.2,1] }}
-          style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: 1, background: 'linear-gradient(to left, transparent, rgba(212,175,55,0.9) 50%, transparent)', transformOrigin: 'right', pointerEvents: 'none', zIndex: 8 }} />
-        <motion.div initial={{ scaleY: 0 }} animate={{ scaleY: 1 }} transition={{ delay: 2.7, duration: 0.6, ease: [0.4,0,0.2,1] }}
-          style={{ position: 'absolute', top: 0, left: 0, bottom: 0, width: 1, background: 'linear-gradient(to top, transparent, rgba(212,175,55,0.6) 50%, transparent)', transformOrigin: 'bottom', pointerEvents: 'none', zIndex: 8 }} />
-
+        {/* Gold border — static for instant load */}
+          <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 1, background: 'linear-gradient(to right, transparent, rgba(212,175,55,0.9) 50%, transparent)', pointerEvents: 'none', zIndex: 8 }} />
+          <div style={{ position: 'absolute', top: 0, right: 0, bottom: 0, width: 1, background: 'linear-gradient(to bottom, transparent, rgba(212,175,55,0.6) 50%, transparent)', pointerEvents: 'none', zIndex: 8 }} />
+          <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: 1, background: 'linear-gradient(to left, transparent, rgba(212,175,55,0.9) 50%, transparent)', pointerEvents: 'none', zIndex: 8 }} />
+          <div style={{ position: 'absolute', top: 0, left: 0, bottom: 0, width: 1, background: 'linear-gradient(to top, transparent, rgba(212,175,55,0.6) 50%, transparent)', pointerEvents: 'none', zIndex: 8 }} />
+          
         {/* Corner brackets */}
         {[[{top:54,left:14},{borderTop:'1px solid rgba(212,175,55,0.4)',borderLeft:'1px solid rgba(212,175,55,0.4)'}],
           [{top:54,right:14},{borderTop:'1px solid rgba(212,175,55,0.4)',borderRight:'1px solid rgba(212,175,55,0.4)'}],
@@ -173,20 +169,22 @@ export default function GuestCurationProductPage({ product }: { product: Product
           <div key={i} style={{ position: 'absolute', ...pos as any, width: 18, height: 18, ...border as any, pointerEvents: 'none', zIndex: 9 }} />
         ))}
 
-        {/* Product image — centered, full hero height */}
-        {heroImage && (
-          <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 2 }}>
-            <motion.img
-              initial={{ scale: 1.08, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              transition={{ duration: 3, ease: [0.25,0.1,0.1,1] }}
-              src={heroImage}
-              alt={product.name}
-              style={{ maxHeight: '82vh', maxWidth: '60vw', objectFit: 'contain', display: 'block' }}
-              onError={e => { (e.target as HTMLImageElement).style.opacity = '0' }}
-            />
-          </div>
-        )}
+        {/* Product image — fills full 1:1 square like SovereignProductPage */}
+          {heroImage && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.8 }}
+              style={{ position: 'absolute', inset: 0, zIndex: 2 }}
+            >
+              <img
+                src={heroImage}
+                alt={product.name}
+                style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center', display: 'block' }}
+                onError={e => { (e.target as HTMLImageElement).style.opacity = '0' }}
+              />
+            </motion.div>
+          )}
 
         {/* Radial vignette */}
         <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse 80% 80% at 50% 50%, transparent 30%, rgba(0,0,0,0.72) 100%)', pointerEvents: 'none', zIndex: 3 }} />
