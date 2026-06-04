@@ -142,6 +142,6 @@
 
     if (GUEST_CURATION_SLUGS.includes(product.slug)) return <><ProductJsonLd product={product} /><GuestCurationProductPage product={product} /></>
 
-    return <><ProductJsonLd product={product} /><LuxuryGenericProductPage product={product} /></>
+    return <><ProductJsonLd product={product} /><SovereignProductPage product={product} /></>
   }
   
