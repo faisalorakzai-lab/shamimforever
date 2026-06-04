@@ -154,7 +154,7 @@ export default function GuestCurationProductPage({ product }: { product: Product
       <style dangerouslySetInnerHTML={{ __html: GC_CSS }} />
 
       {/* ── HERO ── */}
-      <section ref={heroRef} style={{ position: 'relative', background: '#000', minHeight: '100svh', display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
+      <section ref={heroRef} style={{ position: 'relative', background: '#000', width: '100%', aspectRatio: '1/1', overflow: 'hidden' }}>
         {/* Gold animated border */}
         <motion.div initial={{ scaleX: 0 }} animate={{ scaleX: 1 }} transition={{ delay: 0.3, duration: 0.9, ease: [0.4,0,0.2,1] }}
           style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 1, background: 'linear-gradient(to right, transparent, rgba(212,175,55,0.9) 50%, transparent)', transformOrigin: 'left', pointerEvents: 'none', zIndex: 8 }} />
@@ -194,7 +194,7 @@ export default function GuestCurationProductPage({ product }: { product: Product
         <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: '45%', background: 'linear-gradient(to bottom, transparent, rgba(0,0,0,0.96))', pointerEvents: 'none', zIndex: 4 }} />
 
         {/* Scroll indicator */}
-        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 3.2 }}
+        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.8 }}
           style={{ position: 'absolute', bottom: 24, right: 24, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 6, zIndex: 30, pointerEvents: 'none' }}>
           <span style={{ fontSize: 6, letterSpacing: '0.5em', textTransform: 'uppercase', color: 'rgba(201,160,84,0.35)', writingMode: 'vertical-lr' }}>Scroll</span>
           <motion.div animate={{ y: [0, 6, 0] }} transition={{ duration: 1.6, repeat: Infinity }}>
