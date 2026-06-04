@@ -2838,4 +2838,4 @@ export const SOVEREIGN_CONFIGS: Record<string, SovereignConfig> = {
         'ambre-sultan': SERGE_LUTENS_AMBRE_SULTAN_CONFIG,
         'jo-malone-wood-sage-sea-salt': JO_MALONE_WOOD_SAGE_CONFIG,
         'wood-sage-sea-salt': JO_MALONE_WOOD_SAGE_CONFIG,
-  }}
+  }
