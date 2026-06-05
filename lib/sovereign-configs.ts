@@ -1981,6 +1981,8 @@
       { label: 'Archive Label', value: 'Curated Masculine Allocation — Archive M-I' },
     ],
     nftTitle: 'Creed Aventus — Empire Benchmark Archive',
+    nftEdition: 'SF Guest Curation Series — Archive M-I',
+    nftRarity: 'IMPERIAL RESERVE',
     nftTraits: [
       { trait: 'Archive Series', value: 'Guest Curation Masculine' },
       { trait: 'Archive Code', value: 'M-I' },
@@ -2017,6 +2019,8 @@
       { label: 'Archive Label', value: 'Curated Masculine Allocation — Archive M-II' },
     ],
     nftTitle: 'Roja Elysium — Sovereign Freshness Archive',
+    nftEdition: 'SF Guest Curation Series — Archive M-II',
+    nftRarity: 'IMPERIAL RESERVE',
     nftTraits: [
       { trait: 'Archive Series', value: 'Guest Curation Masculine' },
       { trait: 'Archive Code', value: 'M-II' },
@@ -2053,6 +2057,8 @@
       { label: 'Archive Label', value: 'Curated Masculine Allocation — Archive M-III' },
     ],
     nftTitle: 'Tom Ford Oud Wood — Executive Sanctuary Archive',
+    nftEdition: 'SF Guest Curation Series — Archive M-III',
+    nftRarity: 'IMPERIAL RESERVE',
     nftTraits: [
       { trait: 'Archive Series', value: 'Guest Curation Masculine' },
       { trait: 'Archive Code', value: 'M-III' },
@@ -2089,6 +2095,8 @@
       { label: 'Archive Label', value: 'Curated Masculine Allocation — Archive M-IV' },
     ],
     nftTitle: 'Parfums de Marly Layton — Aristocratic Legacy Archive',
+    nftEdition: 'SF Guest Curation Series — Archive M-IV',
+    nftRarity: 'IMPERIAL RESERVE',
     nftTraits: [
       { trait: 'Archive Series', value: 'Guest Curation Masculine' },
       { trait: 'Archive Code', value: 'M-IV' },
@@ -2125,6 +2133,8 @@
       { label: 'Archive Label', value: 'Curated Masculine Allocation — Archive M-V' },
     ],
     nftTitle: 'Amouage Interlude Man — The Fortress Archive',
+    nftEdition: 'SF Guest Curation Series — Archive M-V',
+    nftRarity: 'IMPERIAL RESERVE',
     nftTraits: [
       { trait: 'Archive Series', value: 'Guest Curation Masculine' },
       { trait: 'Archive Code', value: 'M-V' },
@@ -2161,6 +2171,8 @@
       { label: 'Archive Label', value: 'Curated Masculine Allocation — Archive M-VI' },
     ],
     nftTitle: "Kilian Angel's Share — Heritage Cognac Archive",
+    nftEdition: 'SF Guest Curation Series — Archive M-VI',
+    nftRarity: 'IMPERIAL RESERVE',
     nftTraits: [
       { trait: 'Archive Series', value: 'Guest Curation Masculine' },
       { trait: 'Archive Code', value: 'M-VI' },
@@ -2197,6 +2209,8 @@
       { label: 'Archive Label', value: 'Curated Masculine Allocation — Archive M-VII' },
     ],
     nftTitle: 'Xerjoff Naxos — Golden Tobacco Archive',
+    nftEdition: 'SF Guest Curation Series — Archive M-VII',
+    nftRarity: 'IMPERIAL RESERVE',
     nftTraits: [
       { trait: 'Archive Series', value: 'Guest Curation Masculine' },
       { trait: 'Archive Code', value: 'M-VII' },
@@ -2233,6 +2247,8 @@
       { label: 'Archive Label', value: 'Curated Masculine Allocation — Archive M-VIII' },
     ],
     nftTitle: 'LV Ombre Nomade — Dark Empire Archive',
+    nftEdition: 'SF Guest Curation Series — Archive M-VIII',
+    nftRarity: 'IMPERIAL RESERVE',
     nftTraits: [
       { trait: 'Archive Series', value: 'Guest Curation Masculine' },
       { trait: 'Archive Code', value: 'M-VIII' },
@@ -2269,6 +2285,8 @@
       { label: 'Archive Label', value: 'Curated Masculine Allocation — Archive M-IX' },
     ],
     nftTitle: 'MFK Grand Soir — Golden Midnight Archive',
+    nftEdition: 'SF Guest Curation Series — Archive M-IX',
+    nftRarity: 'IMPERIAL RESERVE',
     nftTraits: [
       { trait: 'Archive Series', value: 'Guest Curation Masculine' },
       { trait: 'Archive Code', value: 'M-IX' },
@@ -2305,6 +2323,8 @@
       { label: 'Archive Label', value: 'Curated Masculine Allocation — Archive M-X' },
     ],
     nftTitle: "Penhaligon's Lord George — Aristocratic Gentleman Archive",
+    nftEdition: 'SF Guest Curation Series — Archive M-X',
+    nftRarity: 'IMPERIAL RESERVE',
     nftTraits: [
       { trait: 'Archive Series', value: 'Guest Curation Masculine' },
       { trait: 'Archive Code', value: 'M-X' },
@@ -2345,6 +2365,8 @@
       { label: 'Archive Label', value: 'Curated Unisex Allocation — Archive U-I' },
     ],
     nftTitle: 'Byredo Gypsy Water — Sovereign Freedom Archive',
+    nftEdition: 'SF Guest Curation Series — Archive U-I',
+    nftRarity: 'IMPERIAL RESERVE',
     nftTraits: [
       { trait: 'Archive Series', value: 'Guest Curation Unisex' },
       { trait: 'Archive Code', value: 'U-I' },
@@ -2381,6 +2403,8 @@
       { label: 'Archive Label', value: 'Curated Unisex Allocation — Archive U-II' },
     ],
     nftTitle: 'Le Labo Santal 33 — The Identity Archive',
+    nftEdition: 'SF Guest Curation Series — Archive U-II',
+    nftRarity: 'IMPERIAL RESERVE',
     nftTraits: [
       { trait: 'Archive Series', value: 'Guest Curation Unisex' },
       { trait: 'Archive Code', value: 'U-II' },
@@ -2417,6 +2441,8 @@
       { label: 'Archive Label', value: 'Curated Unisex Allocation — Archive U-III' },
     ],
     nftTitle: 'Creed Silver Mountain Water — Crystal Summit Archive',
+    nftEdition: 'SF Guest Curation Series — Archive U-III',
+    nftRarity: 'IMPERIAL RESERVE',
     nftTraits: [
       { trait: 'Archive Series', value: 'Guest Curation Unisex' },
       { trait: 'Archive Code', value: 'U-III' },
@@ -2453,6 +2479,8 @@
       { label: 'Archive Label', value: 'Curated Unisex Allocation — Archive U-IV' },
     ],
     nftTitle: 'Diptyque Philosykos — Mediterranean Archive',
+    nftEdition: 'SF Guest Curation Series — Archive U-IV',
+    nftRarity: 'IMPERIAL RESERVE',
     nftTraits: [
       { trait: 'Archive Series', value: 'Guest Curation Unisex' },
       { trait: 'Archive Code', value: 'U-IV' },
@@ -2489,6 +2517,8 @@
       { label: 'Archive Label', value: 'Curated Unisex Allocation — Archive U-V' },
     ],
     nftTitle: 'Tom Ford Soleil Blanc — Private Island Archive',
+    nftEdition: 'SF Guest Curation Series — Archive U-V',
+    nftRarity: 'IMPERIAL RESERVE',
     nftTraits: [
       { trait: 'Archive Series', value: 'Guest Curation Unisex' },
       { trait: 'Archive Code', value: 'U-V' },
@@ -2525,6 +2555,8 @@
       { label: 'Archive Label', value: 'Curated Unisex Allocation — Archive U-VI' },
     ],
     nftTitle: 'Nishane Hacivat — The Legacy Archive',
+    nftEdition: 'SF Guest Curation Series — Archive U-VI',
+    nftRarity: 'IMPERIAL RESERVE',
     nftTraits: [
       { trait: 'Archive Series', value: 'Guest Curation Unisex' },
       { trait: 'Archive Code', value: 'U-VI' },
@@ -2561,6 +2593,8 @@
       { label: 'Archive Label', value: 'Curated Unisex Allocation — Archive U-VII' },
     ],
     nftTitle: 'Parfums de Marly Haltane — Prestige Archive',
+    nftEdition: 'SF Guest Curation Series — Archive U-VII',
+    nftRarity: 'IMPERIAL RESERVE',
     nftTraits: [
       { trait: 'Archive Series', value: 'Guest Curation Unisex' },
       { trait: 'Archive Code', value: 'U-VII' },
@@ -2597,6 +2631,8 @@
       { label: 'Archive Label', value: 'Curated Unisex Allocation — Archive U-VIII' },
     ],
     nftTitle: 'Frédéric Malle Portrait of a Lady — Imperial Rose Archive',
+    nftEdition: 'SF Guest Curation Series — Archive U-VIII',
+    nftRarity: 'IMPERIAL RESERVE',
     nftTraits: [
       { trait: 'Archive Series', value: 'Guest Curation Unisex' },
       { trait: 'Archive Code', value: 'U-VIII' },
@@ -2633,6 +2669,8 @@
       { label: 'Archive Label', value: 'Curated Unisex Allocation — Archive U-IX' },
     ],
     nftTitle: "Serge Lutens Ambre Sultan — The Sultan's Amber Archive",
+    nftEdition: 'SF Guest Curation Series — Archive U-IX',
+    nftRarity: 'IMPERIAL RESERVE',
     nftTraits: [
       { trait: 'Archive Series', value: 'Guest Curation Unisex' },
       { trait: 'Archive Code', value: 'U-IX' },
@@ -2669,6 +2707,8 @@
       { label: 'Archive Label', value: 'Curated Unisex Allocation — Archive U-X' },
     ],
     nftTitle: 'Jo Malone Wood Sage & Sea Salt — Coastal Sovereignty Archive',
+    nftEdition: 'SF Guest Curation Series — Archive U-X',
+    nftRarity: 'IMPERIAL RESERVE',
     nftTraits: [
       { trait: 'Archive Series', value: 'Guest Curation Unisex' },
       { trait: 'Archive Code', value: 'U-X' },
