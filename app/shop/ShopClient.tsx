@@ -41,6 +41,7 @@ const SUB_CATS: Record<string, { label: string; value: string }[]> = {
     { label: 'All Cosmetics', value: 'all' },
     { label: 'For Her', value: 'her' },
     { label: 'For Him', value: 'him' },
+    { label: 'Unisex', value: 'unisex' },
   ],
   jewelry: [
     { label: 'All Jewelry', value: 'all' },
