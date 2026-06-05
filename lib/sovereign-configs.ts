@@ -1996,8 +1996,8 @@
       'Sovereign Archive Certificate — Physical certificate of allocation authenticity',
       'House Communication Access — Direct updates from the House on new archive entries',
     ],
-    heroImage: 'https://www.shamimforever.com/guest-curation/male/creed-aventus.jpg',
-    galleryImages: ['https://www.shamimforever.com/guest-curation/male/creed-aventus.jpg'],
+    heroImage: 'https://uvgtgeauhjbdatrmmaob.supabase.co/storage/v1/object/public/products/guest-curation/male/creed-aventus.png',
+    galleryImages: ['https://uvgtgeauhjbdatrmmaob.supabase.co/storage/v1/object/public/products/guest-curation/male/creed-aventus.png'],
   }
 
   const ROJA_ELYSIUM_CONFIG: SovereignConfig = {
@@ -2034,8 +2034,8 @@
       'Sovereign Archive Certificate — Physical certificate of allocation authenticity',
       'House Communication Access — Direct updates from the House',
     ],
-    heroImage: 'https://www.shamimforever.com/guest-curation/male/roja-elysium.jpg',
-    galleryImages: ['https://www.shamimforever.com/guest-curation/male/roja-elysium.jpg'],
+    heroImage: 'https://uvgtgeauhjbdatrmmaob.supabase.co/storage/v1/object/public/products/guest-curation/male/roja-elysium-pour-homme.png',
+    galleryImages: ['https://uvgtgeauhjbdatrmmaob.supabase.co/storage/v1/object/public/products/guest-curation/male/roja-elysium-pour-homme.png'],
   }
 
   const TOM_FORD_OUD_WOOD_CONFIG: SovereignConfig = {
@@ -2072,8 +2072,8 @@
       'Sovereign Archive Certificate — Physical certificate of allocation authenticity',
       'House Communication Access — Direct updates from the House',
     ],
-    heroImage: 'https://www.shamimforever.com/guest-curation/male/tom-ford-oud-wood.jpg',
-    galleryImages: ['https://www.shamimforever.com/guest-curation/male/tom-ford-oud-wood.jpg'],
+    heroImage: 'https://uvgtgeauhjbdatrmmaob.supabase.co/storage/v1/object/public/products/guest-curation/male/tom-ford-oud-wood.png',
+    galleryImages: ['https://uvgtgeauhjbdatrmmaob.supabase.co/storage/v1/object/public/products/guest-curation/male/tom-ford-oud-wood.png'],
   }
 
   const PARFUMS_DE_MARLY_LAYTON_CONFIG: SovereignConfig = {
@@ -2110,8 +2110,8 @@
       'Sovereign Archive Certificate — Physical certificate of allocation authenticity',
       'House Communication Access — Direct updates from the House',
     ],
-    heroImage: 'https://www.shamimforever.com/guest-curation/male/layton.webp',
-    galleryImages: ['https://www.shamimforever.com/guest-curation/male/layton.webp'],
+    heroImage: 'https://uvgtgeauhjbdatrmmaob.supabase.co/storage/v1/object/public/products/guest-curation/male/parfums-de-marly-layton.png',
+    galleryImages: ['https://uvgtgeauhjbdatrmmaob.supabase.co/storage/v1/object/public/products/guest-curation/male/parfums-de-marly-layton.png'],
   }
 
   const AMOUAGE_INTERLUDE_MAN_CONFIG: SovereignConfig = {
@@ -2148,8 +2148,8 @@
       'Sovereign Archive Certificate — Physical certificate of allocation authenticity',
       'House Communication Access — Direct updates from the House',
     ],
-    heroImage: 'https://www.shamimforever.com/guest-curation/male/amouage-interlude.webp',
-    galleryImages: ['https://www.shamimforever.com/guest-curation/male/amouage-interlude.webp'],
+    heroImage: 'https://uvgtgeauhjbdatrmmaob.supabase.co/storage/v1/object/public/products/guest-curation/male/amouage-interlude-man.png',
+    galleryImages: ['https://uvgtgeauhjbdatrmmaob.supabase.co/storage/v1/object/public/products/guest-curation/male/amouage-interlude-man.png'],
   }
 
   const KILIAN_ANGELS_SHARE_HOMME_CONFIG: SovereignConfig = {
@@ -2186,8 +2186,8 @@
       'Sovereign Archive Certificate — Physical certificate of allocation authenticity',
       'House Communication Access — Direct updates from the House',
     ],
-    heroImage: 'https://www.shamimforever.com/guest-curation/male/kilian-angels-share.webp',
-    galleryImages: ['https://www.shamimforever.com/guest-curation/male/kilian-angels-share.webp'],
+    heroImage: 'https://uvgtgeauhjbdatrmmaob.supabase.co/storage/v1/object/public/products/guest-curation/male/kilian-angels-share-homme.png',
+    galleryImages: ['https://uvgtgeauhjbdatrmmaob.supabase.co/storage/v1/object/public/products/guest-curation/male/kilian-angels-share-homme.png'],
   }
 
   const XERJOFF_NAXOS_CONFIG: SovereignConfig = {
@@ -2224,8 +2224,8 @@
       'Sovereign Archive Certificate — Physical certificate of allocation authenticity',
       'House Communication Access — Direct updates from the House',
     ],
-    heroImage: 'https://www.shamimforever.com/guest-curation/male/xerjoff-naxos.webp',
-    galleryImages: ['https://www.shamimforever.com/guest-curation/male/xerjoff-naxos.webp'],
+    heroImage: 'https://uvgtgeauhjbdatrmmaob.supabase.co/storage/v1/object/public/products/guest-curation/male/xerjoff-naxos.png',
+    galleryImages: ['https://uvgtgeauhjbdatrmmaob.supabase.co/storage/v1/object/public/products/guest-curation/male/xerjoff-naxos.png'],
   }
 
   const LV_OMBRE_NOMADE_CONFIG: SovereignConfig = {
@@ -2262,8 +2262,8 @@
       'Sovereign Archive Certificate — Physical certificate of allocation authenticity',
       'House Communication Access — Direct updates from the House',
     ],
-    heroImage: 'https://www.shamimforever.com/guest-curation/male/lv-ombre-nomade.jpg',
-    galleryImages: ['https://www.shamimforever.com/guest-curation/male/lv-ombre-nomade.jpg'],
+    heroImage: 'https://uvgtgeauhjbdatrmmaob.supabase.co/storage/v1/object/public/products/guest-curation/male/lv-ombre-nomade.png',
+    galleryImages: ['https://uvgtgeauhjbdatrmmaob.supabase.co/storage/v1/object/public/products/guest-curation/male/lv-ombre-nomade.png'],
   }
 
   const MFK_GRAND_SOIR_CONFIG: SovereignConfig = {
@@ -2300,8 +2300,8 @@
       'Sovereign Archive Certificate — Physical certificate of allocation authenticity',
       'House Communication Access — Direct updates from the House',
     ],
-    heroImage: 'https://www.shamimforever.com/guest-curation/male/mfk-grand-soir.jpg',
-    galleryImages: ['https://www.shamimforever.com/guest-curation/male/mfk-grand-soir.jpg'],
+    heroImage: 'https://uvgtgeauhjbdatrmmaob.supabase.co/storage/v1/object/public/products/guest-curation/male/mfk-grand-soir.png',
+    galleryImages: ['https://uvgtgeauhjbdatrmmaob.supabase.co/storage/v1/object/public/products/guest-curation/male/mfk-grand-soir.png'],
   }
 
   const PENHALIGONS_LORD_GEORGE_CONFIG: SovereignConfig = {
@@ -2338,8 +2338,8 @@
       'Sovereign Archive Certificate — Physical certificate of allocation authenticity',
       'House Communication Access — Direct updates from the House',
     ],
-    heroImage: 'https://www.shamimforever.com/guest-curation/male/penhaligons-lord-george.webp',
-    galleryImages: ['https://www.shamimforever.com/guest-curation/male/penhaligons-lord-george.webp'],
+    heroImage: 'https://uvgtgeauhjbdatrmmaob.supabase.co/storage/v1/object/public/products/guest-curation/male/penhaligons-lord-george.png',
+    galleryImages: ['https://uvgtgeauhjbdatrmmaob.supabase.co/storage/v1/object/public/products/guest-curation/male/penhaligons-lord-george.png'],
   }
 
   // ─────────────────────────────────────────────────────────────────────────────
