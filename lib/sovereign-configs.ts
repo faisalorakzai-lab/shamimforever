@@ -1981,9 +1981,7 @@
       { label: 'Archive Label', value: 'Curated Masculine Allocation — Archive M-I' },
     ],
     nftTitle: 'Creed Aventus — Empire Benchmark Archive',
-    nftSubtitle: 'SF Guest Curation · Archive M-I',
-    nftDescription: 'Blockchain-authenticated allocation of Creed Aventus from the SF Guest Curation Series. Each token certifies sovereign access to one of the most iconic masculine luxury fragrances in modern perfumery.',
-    tokenAttributes: [
+    nftTraits: [
       { trait: 'Archive Series', value: 'Guest Curation Masculine' },
       { trait: 'Archive Code', value: 'M-I' },
       { trait: 'House', value: 'Creed' },
@@ -2019,9 +2017,7 @@
       { label: 'Archive Label', value: 'Curated Masculine Allocation — Archive M-II' },
     ],
     nftTitle: 'Roja Elysium — Sovereign Freshness Archive',
-    nftSubtitle: 'SF Guest Curation · Archive M-II',
-    nftDescription: 'Blockchain-authenticated allocation from the SF Masculine Curation Series. Precision luxury. Silent authority.',
-    tokenAttributes: [
+    nftTraits: [
       { trait: 'Archive Series', value: 'Guest Curation Masculine' },
       { trait: 'Archive Code', value: 'M-II' },
       { trait: 'House', value: 'Roja Parfums' },
@@ -2057,9 +2053,7 @@
       { label: 'Archive Label', value: 'Curated Masculine Allocation — Archive M-III' },
     ],
     nftTitle: 'Tom Ford Oud Wood — Executive Sanctuary Archive',
-    nftSubtitle: 'SF Guest Curation · Archive M-III',
-    nftDescription: 'Blockchain-authenticated allocation from the SF Masculine Curation Series. Executive elegance. Sovereign oud.',
-    tokenAttributes: [
+    nftTraits: [
       { trait: 'Archive Series', value: 'Guest Curation Masculine' },
       { trait: 'Archive Code', value: 'M-III' },
       { trait: 'House', value: 'Tom Ford Beauty' },
@@ -2095,9 +2089,7 @@
       { label: 'Archive Label', value: 'Curated Masculine Allocation — Archive M-IV' },
     ],
     nftTitle: 'Parfums de Marly Layton — Aristocratic Legacy Archive',
-    nftSubtitle: 'SF Guest Curation · Archive M-IV',
-    nftDescription: 'Blockchain-authenticated allocation from the SF Masculine Curation Series. French aristocratic luxury preserved for the modern sovereign.',
-    tokenAttributes: [
+    nftTraits: [
       { trait: 'Archive Series', value: 'Guest Curation Masculine' },
       { trait: 'Archive Code', value: 'M-IV' },
       { trait: 'House', value: 'Parfums de Marly' },
@@ -2133,9 +2125,7 @@
       { label: 'Archive Label', value: 'Curated Masculine Allocation — Archive M-V' },
     ],
     nftTitle: 'Amouage Interlude Man — The Fortress Archive',
-    nftSubtitle: 'SF Guest Curation · Archive M-V',
-    nftDescription: 'Blockchain-authenticated allocation from the SF Masculine Curation Series. Dark oriental power. A sensory fortress.',
-    tokenAttributes: [
+    nftTraits: [
       { trait: 'Archive Series', value: 'Guest Curation Masculine' },
       { trait: 'Archive Code', value: 'M-V' },
       { trait: 'House', value: 'Amouage' },
@@ -2171,9 +2161,7 @@
       { label: 'Archive Label', value: 'Curated Masculine Allocation — Archive M-VI' },
     ],
     nftTitle: "Kilian Angel's Share — Heritage Cognac Archive",
-    nftSubtitle: 'SF Guest Curation · Archive M-VI',
-    nftDescription: "Blockchain-authenticated allocation from the SF Masculine Curation Series. Heritage cognac luxury. A celebration preserved.",
-    tokenAttributes: [
+    nftTraits: [
       { trait: 'Archive Series', value: 'Guest Curation Masculine' },
       { trait: 'Archive Code', value: 'M-VI' },
       { trait: 'House', value: 'Kilian Paris' },
@@ -2209,9 +2197,7 @@
       { label: 'Archive Label', value: 'Curated Masculine Allocation — Archive M-VII' },
     ],
     nftTitle: 'Xerjoff Naxos — Golden Tobacco Archive',
-    nftSubtitle: 'SF Guest Curation · Archive M-VII',
-    nftDescription: 'Blockchain-authenticated allocation from the SF Masculine Curation Series. Golden tobacco luxury. Aristocratic warmth.',
-    tokenAttributes: [
+    nftTraits: [
       { trait: 'Archive Series', value: 'Guest Curation Masculine' },
       { trait: 'Archive Code', value: 'M-VII' },
       { trait: 'House', value: 'Xerjoff' },
@@ -2247,9 +2233,7 @@
       { label: 'Archive Label', value: 'Curated Masculine Allocation — Archive M-VIII' },
     ],
     nftTitle: 'LV Ombre Nomade — Dark Empire Archive',
-    nftSubtitle: 'SF Guest Curation · Archive M-VIII',
-    nftDescription: 'Blockchain-authenticated allocation from the SF Masculine Curation Series. Ultra-dark oud. A monument of power.',
-    tokenAttributes: [
+    nftTraits: [
       { trait: 'Archive Series', value: 'Guest Curation Masculine' },
       { trait: 'Archive Code', value: 'M-VIII' },
       { trait: 'House', value: 'Louis Vuitton' },
@@ -2285,9 +2269,7 @@
       { label: 'Archive Label', value: 'Curated Masculine Allocation — Archive M-IX' },
     ],
     nftTitle: 'MFK Grand Soir — Golden Midnight Archive',
-    nftSubtitle: 'SF Guest Curation · Archive M-IX',
-    nftDescription: 'Blockchain-authenticated allocation from the SF Masculine Curation Series. Parisian amber luxury. Golden light in crystal.',
-    tokenAttributes: [
+    nftTraits: [
       { trait: 'Archive Series', value: 'Guest Curation Masculine' },
       { trait: 'Archive Code', value: 'M-IX' },
       { trait: 'House', value: 'Maison Francis Kurkdjian' },
@@ -2323,9 +2305,7 @@
       { label: 'Archive Label', value: 'Curated Masculine Allocation — Archive M-X' },
     ],
     nftTitle: "Penhaligon's Lord George — Aristocratic Gentleman Archive",
-    nftSubtitle: 'SF Guest Curation · Archive M-X',
-    nftDescription: 'Blockchain-authenticated allocation from the SF Masculine Curation Series. British heritage luxury. A gentleman immortalised.',
-    tokenAttributes: [
+    nftTraits: [
       { trait: 'Archive Series', value: 'Guest Curation Masculine' },
       { trait: 'Archive Code', value: 'M-X' },
       { trait: 'House', value: "Penhaligon's" },
@@ -2365,9 +2345,7 @@
       { label: 'Archive Label', value: 'Curated Unisex Allocation — Archive U-I' },
     ],
     nftTitle: 'Byredo Gypsy Water — Sovereign Freedom Archive',
-    nftSubtitle: 'SF Guest Curation · Archive U-I',
-    nftDescription: 'Blockchain-authenticated allocation from the SF Unisex Curation Series. Artistic freedom. Luxury without boundaries.',
-    tokenAttributes: [
+    nftTraits: [
       { trait: 'Archive Series', value: 'Guest Curation Unisex' },
       { trait: 'Archive Code', value: 'U-I' },
       { trait: 'House', value: 'Byredo' },
@@ -2403,9 +2381,7 @@
       { label: 'Archive Label', value: 'Curated Unisex Allocation — Archive U-II' },
     ],
     nftTitle: 'Le Labo Santal 33 — The Identity Archive',
-    nftSubtitle: 'SF Guest Curation · Archive U-II',
-    nftDescription: 'Blockchain-authenticated allocation from the SF Unisex Curation Series. A global icon. Identity preserved.',
-    tokenAttributes: [
+    nftTraits: [
       { trait: 'Archive Series', value: 'Guest Curation Unisex' },
       { trait: 'Archive Code', value: 'U-II' },
       { trait: 'House', value: 'Le Labo' },
@@ -2441,9 +2417,7 @@
       { label: 'Archive Label', value: 'Curated Unisex Allocation — Archive U-III' },
     ],
     nftTitle: 'Creed Silver Mountain Water — Crystal Summit Archive',
-    nftSubtitle: 'SF Guest Curation · Archive U-III',
-    nftDescription: 'Blockchain-authenticated allocation from the SF Unisex Curation Series. Alpine luxury. Crystal precision.',
-    tokenAttributes: [
+    nftTraits: [
       { trait: 'Archive Series', value: 'Guest Curation Unisex' },
       { trait: 'Archive Code', value: 'U-III' },
       { trait: 'House', value: 'Creed' },
@@ -2479,9 +2453,7 @@
       { label: 'Archive Label', value: 'Curated Unisex Allocation — Archive U-IV' },
     ],
     nftTitle: 'Diptyque Philosykos — Mediterranean Archive',
-    nftSubtitle: 'SF Guest Curation · Archive U-IV',
-    nftDescription: 'Blockchain-authenticated allocation from the SF Unisex Curation Series. Mediterranean nature. Green luxury preserved.',
-    tokenAttributes: [
+    nftTraits: [
       { trait: 'Archive Series', value: 'Guest Curation Unisex' },
       { trait: 'Archive Code', value: 'U-IV' },
       { trait: 'House', value: 'Diptyque' },
@@ -2517,9 +2489,7 @@
       { label: 'Archive Label', value: 'Curated Unisex Allocation — Archive U-V' },
     ],
     nftTitle: 'Tom Ford Soleil Blanc — Private Island Archive',
-    nftSubtitle: 'SF Guest Curation · Archive U-V',
-    nftDescription: 'Blockchain-authenticated allocation from the SF Unisex Curation Series. Solar luxury. A private island captured.',
-    tokenAttributes: [
+    nftTraits: [
       { trait: 'Archive Series', value: 'Guest Curation Unisex' },
       { trait: 'Archive Code', value: 'U-V' },
       { trait: 'House', value: 'Tom Ford Beauty' },
@@ -2555,9 +2525,7 @@
       { label: 'Archive Label', value: 'Curated Unisex Allocation — Archive U-VI' },
     ],
     nftTitle: 'Nishane Hacivat — The Legacy Archive',
-    nftSubtitle: 'SF Guest Curation · Archive U-VI',
-    nftDescription: 'Blockchain-authenticated allocation from the SF Unisex Curation Series. Extrait concentration. A permanent legacy.',
-    tokenAttributes: [
+    nftTraits: [
       { trait: 'Archive Series', value: 'Guest Curation Unisex' },
       { trait: 'Archive Code', value: 'U-VI' },
       { trait: 'House', value: 'Nishane Istanbul' },
@@ -2593,9 +2561,7 @@
       { label: 'Archive Label', value: 'Curated Unisex Allocation — Archive U-VII' },
     ],
     nftTitle: 'Parfums de Marly Haltane — Prestige Archive',
-    nftSubtitle: 'SF Guest Curation · Archive U-VII',
-    nftDescription: 'Blockchain-authenticated allocation from the SF Unisex Curation Series. Velvet oud prestige. Modern aristocracy.',
-    tokenAttributes: [
+    nftTraits: [
       { trait: 'Archive Series', value: 'Guest Curation Unisex' },
       { trait: 'Archive Code', value: 'U-VII' },
       { trait: 'House', value: 'Parfums de Marly' },
@@ -2631,9 +2597,7 @@
       { label: 'Archive Label', value: 'Curated Unisex Allocation — Archive U-VIII' },
     ],
     nftTitle: 'Frédéric Malle Portrait of a Lady — Imperial Rose Archive',
-    nftSubtitle: 'SF Guest Curation · Archive U-VIII',
-    nftDescription: 'Blockchain-authenticated allocation from the SF Unisex Curation Series. Olfactory art. A sovereign rose masterpiece.',
-    tokenAttributes: [
+    nftTraits: [
       { trait: 'Archive Series', value: 'Guest Curation Unisex' },
       { trait: 'Archive Code', value: 'U-VIII' },
       { trait: 'House', value: 'Frédéric Malle' },
@@ -2669,9 +2633,7 @@
       { label: 'Archive Label', value: 'Curated Unisex Allocation — Archive U-IX' },
     ],
     nftTitle: "Serge Lutens Ambre Sultan — The Sultan's Amber Archive",
-    nftSubtitle: 'SF Guest Curation · Archive U-IX',
-    nftDescription: 'Blockchain-authenticated allocation from the SF Unisex Curation Series. Oriental amber mastery. Ancient luxury preserved.',
-    tokenAttributes: [
+    nftTraits: [
       { trait: 'Archive Series', value: 'Guest Curation Unisex' },
       { trait: 'Archive Code', value: 'U-IX' },
       { trait: 'House', value: 'Serge Lutens' },
@@ -2707,9 +2669,7 @@
       { label: 'Archive Label', value: 'Curated Unisex Allocation — Archive U-X' },
     ],
     nftTitle: 'Jo Malone Wood Sage & Sea Salt — Coastal Sovereignty Archive',
-    nftSubtitle: 'SF Guest Curation · Archive U-X',
-    nftDescription: 'Blockchain-authenticated allocation from the SF Unisex Curation Series. Coastal quiet luxury. The British coast preserved.',
-    tokenAttributes: [
+    nftTraits: [
       { trait: 'Archive Series', value: 'Guest Curation Unisex' },
       { trait: 'Archive Code', value: 'U-X' },
       { trait: 'House', value: 'Jo Malone London' },
