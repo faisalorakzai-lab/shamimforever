@@ -2800,7 +2800,433 @@ export const SOVEREIGN_CONFIGS: Record<string, SovereignConfig> = {
       'arabian-kingdom': ARABIAN_KINGDOM_CONFIG,
       'black-crown-absolute': BLACK_CROWN_ABSOLUTE_CONFIG,
       'dark-archive-reserve': DARK_ARCHIVE_RESERVE_CONFIG,
-        // ── FOR HIM GUEST CURATION ────────────────────────────────────────────────
+    
+      // ══════════════════════════════════════════════════════════════════════════
+      // SF ESSENTIAL ARCHIVE — FOR HER — E-I through E-X
+      // Globally respected fragrances selected as entry-level allocations
+      // ══════════════════════════════════════════════════════════════════════════
+
+      // ── ESSENTIAL ARCHIVE E-I — DOLCE & GABBANA LIGHT BLUE ────────────────────
+      const DG_LIGHT_BLUE_CONFIG: SovereignConfig = {
+        heroTitle: 'DOLCE & GABBANA LIGHT BLUE',
+        heroSubtitle: 'The Mediterranean Archive',
+        heroTagline: 'SF Essential Archive · Essential Female Allocation — E-I',
+        legacyStatement: 'Mediterranean citrus. Effortless elegance. Timeless femininity.',
+        legacyVoice:
+          'Light Blue remains one of the most successful fresh feminine fragrances ever created. Its Mediterranean citrus architecture delivers effortless elegance suitable for daily luxury wear. Clean. Fresh. Timeless. The ultimate everyday feminine signature.',
+        topNotes: ['Sicilian Lemon', 'Green Apple', 'Bellflower'],
+        heartNotes: ['Bamboo', 'White Rose', 'Jasmine'],
+        baseNotes: ['Cedarwood', 'Amber', 'Musk'],
+        specs: [
+          { label: 'Classification', value: 'Fresh Citrus Floral' },
+          { label: 'Volume', value: '50ML EDT' },
+          { label: 'House Allocation Price', value: '$119 USD' },
+          { label: 'Archive Code', value: 'E-I' },
+          { label: 'Collection', value: 'SF Essential Archive' },
+          { label: 'Archive Label', value: 'Essential Female Allocation — E-I' },
+          { label: 'Longevity', value: '6–8 Hours' },
+          { label: 'Projection', value: 'Fresh Mediterranean Aura' },
+        ],
+        nftTitle: 'Dolce & Gabbana Light Blue — Mediterranean Archive',
+        nftEdition: 'SF Essential Archive — E-I',
+        nftRarity: 'ESSENTIAL',
+        nftTraits: [
+          { trait: 'Series', value: 'SF Essential Archive' },
+          { trait: 'Archive', value: 'E-I' },
+          { trait: 'Classification', value: 'Fresh Citrus Floral' },
+          { trait: 'Curation Status', value: 'House Curated' },
+        ],
+        heroImage: 'https://uvgtgeauhjbdatrmmaob.supabase.co/storage/v1/object/public/products/guest-curation/female/dolce-gabbana-light-blue.avif',
+        galleryImages: ['https://uvgtgeauhjbdatrmmaob.supabase.co/storage/v1/object/public/products/guest-curation/female/dolce-gabbana-light-blue.avif'],
+        holderPrivileges: [
+          'SF Essential Archive Member — Access to the House of Shamim Forever curated luxury archive',
+          'Priority Allocation on Future Essential Drops — First access to new Essential Archive releases',
+          'House Newsletter Access — Quarterly sovereign dispatches from the curation vault',
+          'Concierge Reorder Service — White-glove restocking at House allocation pricing',
+          'Direct WhatsApp Concierge — Priority access to the House of Shamim Forever team',
+        ],
+        category: 'For Her',
+      }
+
+      // ── ESSENTIAL ARCHIVE E-II — MARC JACOBS DAISY ────────────────────────────
+      const MARC_JACOBS_DAISY_CONFIG: SovereignConfig = {
+        heroTitle: 'MARC JACOBS DAISY',
+        heroSubtitle: 'The Purity Archive',
+        heroTagline: 'SF Essential Archive · Essential Female Allocation — E-II',
+        legacyStatement: 'Pure elegance. Modern femininity. Everyday luxury.',
+        legacyVoice:
+          'Daisy represents youthful sophistication and effortless femininity. Its clean floral structure makes it one of the safest and most universally admired daily fragrances. Pure elegance. Modern femininity. Everyday luxury.',
+        topNotes: ['Wild Berries', 'Violet Leaves', 'Gardenia'],
+        heartNotes: ['White Violet', 'Jasmine', 'Gardenia'],
+        baseNotes: ['Sandalwood', 'Vanilla', 'White Musk'],
+        specs: [
+          { label: 'Classification', value: 'Soft Floral Signature' },
+          { label: 'Volume', value: '50ML EDT' },
+          { label: 'House Allocation Price', value: '$115 USD' },
+          { label: 'Archive Code', value: 'E-II' },
+          { label: 'Collection', value: 'SF Essential Archive' },
+          { label: 'Archive Label', value: 'Essential Female Allocation — E-II' },
+          { label: 'Longevity', value: '6–8 Hours' },
+          { label: 'Projection', value: 'Soft Floral Elegance' },
+        ],
+        nftTitle: 'Marc Jacobs Daisy — Purity Archive',
+        nftEdition: 'SF Essential Archive — E-II',
+        nftRarity: 'ESSENTIAL',
+        nftTraits: [
+          { trait: 'Series', value: 'SF Essential Archive' },
+          { trait: 'Archive', value: 'E-II' },
+          { trait: 'Classification', value: 'Soft Floral Signature' },
+          { trait: 'Curation Status', value: 'House Curated' },
+        ],
+        heroImage: 'https://uvgtgeauhjbdatrmmaob.supabase.co/storage/v1/object/public/products/guest-curation/female/marc-jacobs-daisy.png',
+        galleryImages: ['https://uvgtgeauhjbdatrmmaob.supabase.co/storage/v1/object/public/products/guest-curation/female/marc-jacobs-daisy.png'],
+        holderPrivileges: [
+          'SF Essential Archive Member — Access to the House of Shamim Forever curated luxury archive',
+          'Priority Allocation on Future Essential Drops — First access to new Essential Archive releases',
+          'House Newsletter Access — Quarterly sovereign dispatches from the curation vault',
+          'Concierge Reorder Service — White-glove restocking at House allocation pricing',
+          'Direct WhatsApp Concierge — Priority access to the House of Shamim Forever team',
+        ],
+        category: 'For Her',
+      }
+
+      // ── ESSENTIAL ARCHIVE E-III — VERSACE BRIGHT CRYSTAL ─────────────────────
+      const VERSACE_BRIGHT_CRYSTAL_CONFIG: SovereignConfig = {
+        heroTitle: 'VERSACE BRIGHT CRYSTAL',
+        heroSubtitle: 'The Crystal Bloom Archive',
+        heroTagline: 'SF Essential Archive · Essential Female Allocation — E-III',
+        legacyStatement: 'A diamond translated into fragrance.',
+        legacyVoice:
+          'Bright Crystal combines sparkle, freshness, and luxury appeal in one composition. It reflects the same brilliance expected from fine jewelry. A diamond translated into fragrance.',
+        topNotes: ['Yuzu', 'Pomegranate', 'Frosted Accord'],
+        heartNotes: ['Peony', 'Lotus', 'Magnolia'],
+        baseNotes: ['Amber', 'Mahogany', 'Musk'],
+        specs: [
+          { label: 'Classification', value: 'Luxury Fresh Floral' },
+          { label: 'Volume', value: '50ML EDT' },
+          { label: 'House Allocation Price', value: '$125 USD' },
+          { label: 'Archive Code', value: 'E-III' },
+          { label: 'Collection', value: 'SF Essential Archive' },
+          { label: 'Archive Label', value: 'Essential Female Allocation — E-III' },
+          { label: 'Longevity', value: '6–8 Hours' },
+          { label: 'Projection', value: 'Sparkling Crystal Aura' },
+        ],
+        nftTitle: 'Versace Bright Crystal — Crystal Bloom Archive',
+        nftEdition: 'SF Essential Archive — E-III',
+        nftRarity: 'ESSENTIAL',
+        nftTraits: [
+          { trait: 'Series', value: 'SF Essential Archive' },
+          { trait: 'Archive', value: 'E-III' },
+          { trait: 'Classification', value: 'Luxury Fresh Floral' },
+          { trait: 'Curation Status', value: 'House Curated' },
+        ],
+        heroImage: 'https://uvgtgeauhjbdatrmmaob.supabase.co/storage/v1/object/public/products/guest-curation/female/versace-bright-crystal.png',
+        galleryImages: ['https://uvgtgeauhjbdatrmmaob.supabase.co/storage/v1/object/public/products/guest-curation/female/versace-bright-crystal.png'],
+        holderPrivileges: [
+          'SF Essential Archive Member — Access to the House of Shamim Forever curated luxury archive',
+          'Priority Allocation on Future Essential Drops — First access to new Essential Archive releases',
+          'House Newsletter Access — Quarterly sovereign dispatches from the curation vault',
+          'Concierge Reorder Service — White-glove restocking at House allocation pricing',
+          'Direct WhatsApp Concierge — Priority access to the House of Shamim Forever team',
+        ],
+        category: 'For Her',
+      }
+
+      // ── ESSENTIAL ARCHIVE E-IV — NARCISO RODRIGUEZ MUSC NOIR ROSE ────────────
+      const NARCISO_MUSC_NOIR_ROSE_CONFIG: SovereignConfig = {
+        heroTitle: 'NARCISO RODRIGUEZ MUSC NOIR ROSE',
+        heroSubtitle: 'The Velvet Archive',
+        heroTagline: 'SF Essential Archive · Essential Female Allocation — E-IV',
+        legacyStatement: 'Quiet luxury. Velvet elegance. Pure sophistication.',
+        legacyVoice:
+          'A sophisticated skin scent that creates intimacy, softness, and refinement without overwhelming projection. Quiet luxury. Velvet elegance. Pure sophistication.',
+        topNotes: ['Plum', 'Pear'],
+        heartNotes: ['Tuberose', 'Rose', 'Heliotrope'],
+        baseNotes: ['Musk', 'Vanilla', 'Warm Amber'],
+        specs: [
+          { label: 'Classification', value: 'Powdery Musk Floral' },
+          { label: 'Volume', value: '50ML EDP' },
+          { label: 'House Allocation Price', value: '$135 USD' },
+          { label: 'Archive Code', value: 'E-IV' },
+          { label: 'Collection', value: 'SF Essential Archive' },
+          { label: 'Archive Label', value: 'Essential Female Allocation — E-IV' },
+          { label: 'Longevity', value: '8–10 Hours' },
+          { label: 'Projection', value: 'Intimate Skin Velvet' },
+        ],
+        nftTitle: 'Narciso Rodriguez Musc Noir Rose — Velvet Archive',
+        nftEdition: 'SF Essential Archive — E-IV',
+        nftRarity: 'ESSENTIAL',
+        nftTraits: [
+          { trait: 'Series', value: 'SF Essential Archive' },
+          { trait: 'Archive', value: 'E-IV' },
+          { trait: 'Classification', value: 'Powdery Musk Floral' },
+          { trait: 'Curation Status', value: 'House Curated' },
+        ],
+        heroImage: 'https://uvgtgeauhjbdatrmmaob.supabase.co/storage/v1/object/public/products/guest-curation/female/narciso-rodriguez-musc-noir-rose.jpg',
+        galleryImages: ['https://uvgtgeauhjbdatrmmaob.supabase.co/storage/v1/object/public/products/guest-curation/female/narciso-rodriguez-musc-noir-rose.jpg'],
+        holderPrivileges: [
+          'SF Essential Archive Member — Access to the House of Shamim Forever curated luxury archive',
+          'Priority Allocation on Future Essential Drops — First access to new Essential Archive releases',
+          'House Newsletter Access — Quarterly sovereign dispatches from the curation vault',
+          'Concierge Reorder Service — White-glove restocking at House allocation pricing',
+          'Direct WhatsApp Concierge — Priority access to the House of Shamim Forever team',
+        ],
+        category: 'For Her',
+      }
+
+      // ── ESSENTIAL ARCHIVE E-V — YSL BLACK OPIUM ──────────────────────────────
+      const YSL_BLACK_OPIUM_CONFIG: SovereignConfig = {
+        heroTitle: 'YSL BLACK OPIUM',
+        heroSubtitle: 'The Midnight Archive',
+        heroTagline: 'SF Essential Archive · Essential Female Allocation — E-V',
+        legacyStatement: 'The fragrance of modern ambition.',
+        legacyVoice:
+          'One of the most recognizable modern feminine fragrances. Bold, addictive, and energetic. The fragrance of modern ambition.',
+        topNotes: ['Pink Pepper', 'Orange Blossom', 'Pear'],
+        heartNotes: ['Coffee', 'White Flowers', 'Licorice'],
+        baseNotes: ['Vanilla', 'Patchouli', 'Cedar'],
+        specs: [
+          { label: 'Classification', value: 'Dark Gourmand Floral' },
+          { label: 'Volume', value: '30ML EDP' },
+          { label: 'House Allocation Price', value: '$129 USD' },
+          { label: 'Archive Code', value: 'E-V' },
+          { label: 'Collection', value: 'SF Essential Archive' },
+          { label: 'Archive Label', value: 'Essential Female Allocation — E-V' },
+          { label: 'Longevity', value: '8–12 Hours' },
+          { label: 'Projection', value: 'Bold Midnight Aura' },
+        ],
+        nftTitle: 'YSL Black Opium — Midnight Archive',
+        nftEdition: 'SF Essential Archive — E-V',
+        nftRarity: 'ESSENTIAL',
+        nftTraits: [
+          { trait: 'Series', value: 'SF Essential Archive' },
+          { trait: 'Archive', value: 'E-V' },
+          { trait: 'Classification', value: 'Dark Gourmand Floral' },
+          { trait: 'Curation Status', value: 'House Curated' },
+        ],
+        heroImage: 'https://uvgtgeauhjbdatrmmaob.supabase.co/storage/v1/object/public/products/guest-curation/female/ysl-black-opium.avif',
+        galleryImages: ['https://uvgtgeauhjbdatrmmaob.supabase.co/storage/v1/object/public/products/guest-curation/female/ysl-black-opium.avif'],
+        holderPrivileges: [
+          'SF Essential Archive Member — Access to the House of Shamim Forever curated luxury archive',
+          'Priority Allocation on Future Essential Drops — First access to new Essential Archive releases',
+          'House Newsletter Access — Quarterly sovereign dispatches from the curation vault',
+          'Concierge Reorder Service — White-glove restocking at House allocation pricing',
+          'Direct WhatsApp Concierge — Priority access to the House of Shamim Forever team',
+        ],
+        category: 'For Her',
+      }
+
+      // ── ESSENTIAL ARCHIVE E-VI — PRADA CANDY ─────────────────────────────────
+      const PRADA_CANDY_CONFIG: SovereignConfig = {
+        heroTitle: 'PRADA CANDY',
+        heroSubtitle: 'The Comfort Archive',
+        heroTagline: 'SF Essential Archive · Essential Female Allocation — E-VI',
+        legacyStatement: 'Comfort elevated into luxury.',
+        legacyVoice:
+          'Candy proves sweetness can remain elegant and sophisticated when executed with discipline. Comfort elevated into luxury.',
+        topNotes: ['Caramel Accord', 'Bergamot'],
+        heartNotes: ['Rose', 'Musk'],
+        baseNotes: ['Benzoin', 'Vanilla', 'White Musk'],
+        specs: [
+          { label: 'Classification', value: 'Luxury Gourmand' },
+          { label: 'Volume', value: '30ML EDP' },
+          { label: 'House Allocation Price', value: '$119 USD' },
+          { label: 'Archive Code', value: 'E-VI' },
+          { label: 'Collection', value: 'SF Essential Archive' },
+          { label: 'Archive Label', value: 'Essential Female Allocation — E-VI' },
+          { label: 'Longevity', value: '8–10 Hours' },
+          { label: 'Projection', value: 'Warm Comfort Sillage' },
+        ],
+        nftTitle: 'Prada Candy — Comfort Archive',
+        nftEdition: 'SF Essential Archive — E-VI',
+        nftRarity: 'ESSENTIAL',
+        nftTraits: [
+          { trait: 'Series', value: 'SF Essential Archive' },
+          { trait: 'Archive', value: 'E-VI' },
+          { trait: 'Classification', value: 'Luxury Gourmand' },
+          { trait: 'Curation Status', value: 'House Curated' },
+        ],
+        heroImage: 'https://uvgtgeauhjbdatrmmaob.supabase.co/storage/v1/object/public/products/guest-curation/female/prada-candy.avif',
+        galleryImages: ['https://uvgtgeauhjbdatrmmaob.supabase.co/storage/v1/object/public/products/guest-curation/female/prada-candy.avif'],
+        holderPrivileges: [
+          'SF Essential Archive Member — Access to the House of Shamim Forever curated luxury archive',
+          'Priority Allocation on Future Essential Drops — First access to new Essential Archive releases',
+          'House Newsletter Access — Quarterly sovereign dispatches from the curation vault',
+          'Concierge Reorder Service — White-glove restocking at House allocation pricing',
+          'Direct WhatsApp Concierge — Priority access to the House of Shamim Forever team',
+        ],
+        category: 'For Her',
+      }
+
+      // ── ESSENTIAL ARCHIVE E-VII — GIORGIO ARMANI SÌ ──────────────────────────
+      const ARMANI_SI_CONFIG: SovereignConfig = {
+        heroTitle: 'GIORGIO ARMANI SÌ',
+        heroSubtitle: 'The Executive Archive',
+        heroTagline: 'SF Essential Archive · Essential Female Allocation — E-VII',
+        legacyStatement: 'Boardroom elegance. Feminine authority.',
+        legacyVoice:
+          'A powerful professional fragrance built for confidence and leadership. Boardroom elegance. Feminine authority.',
+        topNotes: ['Blackcurrant', 'Mandarin Orange'],
+        heartNotes: ['Rose', 'Freesia', 'Heliotrope'],
+        baseNotes: ['Blond Woods', 'Vanilla', 'Patchouli'],
+        specs: [
+          { label: 'Classification', value: 'Modern Fruity Chypre' },
+          { label: 'Volume', value: '30ML EDP' },
+          { label: 'House Allocation Price', value: '$125 USD' },
+          { label: 'Archive Code', value: 'E-VII' },
+          { label: 'Collection', value: 'SF Essential Archive' },
+          { label: 'Archive Label', value: 'Essential Female Allocation — E-VII' },
+          { label: 'Longevity', value: '8–10 Hours' },
+          { label: 'Projection', value: 'Confident Executive Presence' },
+        ],
+        nftTitle: 'Giorgio Armani Sì — Executive Archive',
+        nftEdition: 'SF Essential Archive — E-VII',
+        nftRarity: 'ESSENTIAL',
+        nftTraits: [
+          { trait: 'Series', value: 'SF Essential Archive' },
+          { trait: 'Archive', value: 'E-VII' },
+          { trait: 'Classification', value: 'Modern Fruity Chypre' },
+          { trait: 'Curation Status', value: 'House Curated' },
+        ],
+        heroImage: 'https://uvgtgeauhjbdatrmmaob.supabase.co/storage/v1/object/public/products/guest-curation/female/armani-si.avif',
+        galleryImages: ['https://uvgtgeauhjbdatrmmaob.supabase.co/storage/v1/object/public/products/guest-curation/female/armani-si.avif'],
+        holderPrivileges: [
+          'SF Essential Archive Member — Access to the House of Shamim Forever curated luxury archive',
+          'Priority Allocation on Future Essential Drops — First access to new Essential Archive releases',
+          'House Newsletter Access — Quarterly sovereign dispatches from the curation vault',
+          'Concierge Reorder Service — White-glove restocking at House allocation pricing',
+          'Direct WhatsApp Concierge — Priority access to the House of Shamim Forever team',
+        ],
+        category: 'For Her',
+      }
+
+      // ── ESSENTIAL ARCHIVE E-VIII — BURBERRY HER ──────────────────────────────
+      const BURBERRY_HER_CONFIG: SovereignConfig = {
+        heroTitle: 'BURBERRY HER',
+        heroSubtitle: 'The Metropolitan Archive',
+        heroTagline: 'SF Essential Archive · Essential Female Allocation — E-VIII',
+        legacyStatement: 'Modern city luxury.',
+        legacyVoice:
+          'A vibrant British luxury signature loved globally for its balance of playfulness and sophistication. Modern city luxury.',
+        topNotes: ['Strawberry', 'Raspberry', 'Blackberry'],
+        heartNotes: ['Jasmine', 'Violet', 'Peach'],
+        baseNotes: ['Musk', 'Amber', 'Sandalwood'],
+        specs: [
+          { label: 'Classification', value: 'Modern Fruity Floral' },
+          { label: 'Volume', value: '30ML EDP' },
+          { label: 'House Allocation Price', value: '$129 USD' },
+          { label: 'Archive Code', value: 'E-VIII' },
+          { label: 'Collection', value: 'SF Essential Archive' },
+          { label: 'Archive Label', value: 'Essential Female Allocation — E-VIII' },
+          { label: 'Longevity', value: '6–8 Hours' },
+          { label: 'Projection', value: 'Vibrant Metropolitan Trail' },
+        ],
+        nftTitle: 'Burberry Her — Metropolitan Archive',
+        nftEdition: 'SF Essential Archive — E-VIII',
+        nftRarity: 'ESSENTIAL',
+        nftTraits: [
+          { trait: 'Series', value: 'SF Essential Archive' },
+          { trait: 'Archive', value: 'E-VIII' },
+          { trait: 'Classification', value: 'Modern Fruity Floral' },
+          { trait: 'Curation Status', value: 'House Curated' },
+        ],
+        heroImage: 'https://uvgtgeauhjbdatrmmaob.supabase.co/storage/v1/object/public/products/guest-curation/female/burberry-her.avif',
+        galleryImages: ['https://uvgtgeauhjbdatrmmaob.supabase.co/storage/v1/object/public/products/guest-curation/female/burberry-her.avif'],
+        holderPrivileges: [
+          'SF Essential Archive Member — Access to the House of Shamim Forever curated luxury archive',
+          'Priority Allocation on Future Essential Drops — First access to new Essential Archive releases',
+          'House Newsletter Access — Quarterly sovereign dispatches from the curation vault',
+          'Concierge Reorder Service — White-glove restocking at House allocation pricing',
+          'Direct WhatsApp Concierge — Priority access to the House of Shamim Forever team',
+        ],
+        category: 'For Her',
+      }
+
+      // ── ESSENTIAL ARCHIVE E-IX — CAROLINA HERRERA GOOD GIRL ──────────────────
+      const CAROLINA_HERRERA_GOOD_GIRL_CONFIG: SovereignConfig = {
+        heroTitle: 'CAROLINA HERRERA GOOD GIRL',
+        heroSubtitle: 'The Duality Archive',
+        heroTagline: 'SF Essential Archive · Essential Female Allocation — E-IX',
+        legacyStatement: 'Power and elegance in equilibrium.',
+        legacyVoice:
+          'Good Girl remains one of the strongest examples of feminine contrast executed perfectly. Power and elegance in equilibrium.',
+        topNotes: ['Almond', 'Bergamot', 'Coffee'],
+        heartNotes: ['Jasmine Sambac', 'Tuberose', 'Ylang-Ylang'],
+        baseNotes: ['Tonka Bean', 'Cacao', 'Vetiver'],
+        specs: [
+          { label: 'Classification', value: 'Sweet Oriental Floral' },
+          { label: 'Volume', value: '30ML EDP' },
+          { label: 'House Allocation Price', value: '$129 USD' },
+          { label: 'Archive Code', value: 'E-IX' },
+          { label: 'Collection', value: 'SF Essential Archive' },
+          { label: 'Archive Label', value: 'Essential Female Allocation — E-IX' },
+          { label: 'Longevity', value: '8–12 Hours' },
+          { label: 'Projection', value: 'Bold Feminine Duality' },
+        ],
+        nftTitle: 'Carolina Herrera Good Girl — Duality Archive',
+        nftEdition: 'SF Essential Archive — E-IX',
+        nftRarity: 'ESSENTIAL',
+        nftTraits: [
+          { trait: 'Series', value: 'SF Essential Archive' },
+          { trait: 'Archive', value: 'E-IX' },
+          { trait: 'Classification', value: 'Sweet Oriental Floral' },
+          { trait: 'Curation Status', value: 'House Curated' },
+        ],
+        heroImage: 'https://uvgtgeauhjbdatrmmaob.supabase.co/storage/v1/object/public/products/guest-curation/female/carolina-herrera-good-girl.avif',
+        galleryImages: ['https://uvgtgeauhjbdatrmmaob.supabase.co/storage/v1/object/public/products/guest-curation/female/carolina-herrera-good-girl.avif'],
+        holderPrivileges: [
+          'SF Essential Archive Member — Access to the House of Shamim Forever curated luxury archive',
+          'Priority Allocation on Future Essential Drops — First access to new Essential Archive releases',
+          'House Newsletter Access — Quarterly sovereign dispatches from the curation vault',
+          'Concierge Reorder Service — White-glove restocking at House allocation pricing',
+          'Direct WhatsApp Concierge — Priority access to the House of Shamim Forever team',
+        ],
+        category: 'For Her',
+      }
+
+      // ── ESSENTIAL ARCHIVE E-X — LANCÔME IDÔLE ────────────────────────────────
+      const LANCOME_IDOLE_CONFIG: SovereignConfig = {
+        heroTitle: 'LANCÔME IDÔLE',
+        heroSubtitle: 'The Modern Rose Archive',
+        heroTagline: 'SF Essential Archive · Essential Female Allocation — E-X',
+        legacyStatement: 'Clean. Modern. Future-facing femininity.',
+        legacyVoice:
+          'Idôle demonstrates how modern minimalism can create extraordinary elegance. Clean. Modern. Future-facing femininity.',
+        topNotes: ['Isparta Rose', 'Bergamot'],
+        heartNotes: ['Jasmine', 'Rose Absolute'],
+        baseNotes: ['White Musk', 'Sandalwood'],
+        specs: [
+          { label: 'Classification', value: 'Clean Rose Floral' },
+          { label: 'Volume', value: '25ML EDP' },
+          { label: 'House Allocation Price', value: '$109 USD' },
+          { label: 'Archive Code', value: 'E-X' },
+          { label: 'Collection', value: 'SF Essential Archive' },
+          { label: 'Archive Label', value: 'Essential Female Allocation — E-X' },
+          { label: 'Longevity', value: '6–8 Hours' },
+          { label: 'Projection', value: 'Clean Modern Aura' },
+        ],
+        nftTitle: 'Lancôme Idôle — Modern Rose Archive',
+        nftEdition: 'SF Essential Archive — E-X',
+        nftRarity: 'ESSENTIAL',
+        nftTraits: [
+          { trait: 'Series', value: 'SF Essential Archive' },
+          { trait: 'Archive', value: 'E-X' },
+          { trait: 'Classification', value: 'Clean Rose Floral' },
+          { trait: 'Curation Status', value: 'House Curated' },
+        ],
+        heroImage: 'https://uvgtgeauhjbdatrmmaob.supabase.co/storage/v1/object/public/products/guest-curation/female/lancome-idole.avif',
+        galleryImages: ['https://uvgtgeauhjbdatrmmaob.supabase.co/storage/v1/object/public/products/guest-curation/female/lancome-idole.avif'],
+        holderPrivileges: [
+          'SF Essential Archive Member — Access to the House of Shamim Forever curated luxury archive',
+          'Priority Allocation on Future Essential Drops — First access to new Essential Archive releases',
+          'House Newsletter Access — Quarterly sovereign dispatches from the curation vault',
+          'Concierge Reorder Service — White-glove restocking at House allocation pricing',
+          'Direct WhatsApp Concierge — Priority access to the House of Shamim Forever team',
+        ],
+        category: 'For Her',
+      }
+  
+    // ── FOR HIM GUEST CURATION ────────────────────────────────────────────────
         'creed-aventus': CREED_AVENTUS_CONFIG,
         'roja-elysium-pour-homme': ROJA_ELYSIUM_CONFIG,
         'roja-elysium': ROJA_ELYSIUM_CONFIG,
@@ -2838,4 +3264,25 @@ export const SOVEREIGN_CONFIGS: Record<string, SovereignConfig> = {
         'ambre-sultan': SERGE_LUTENS_AMBRE_SULTAN_CONFIG,
         'jo-malone-wood-sage-sea-salt': JO_MALONE_WOOD_SAGE_CONFIG,
         'wood-sage-sea-salt': JO_MALONE_WOOD_SAGE_CONFIG,
+
+          // ── ESSENTIAL ARCHIVE — FOR HER ──────────────────────────────────────────
+          'dolce-gabbana-light-blue': DG_LIGHT_BLUE_CONFIG,
+          'light-blue': DG_LIGHT_BLUE_CONFIG,
+          'marc-jacobs-daisy': MARC_JACOBS_DAISY_CONFIG,
+          'daisy': MARC_JACOBS_DAISY_CONFIG,
+          'versace-bright-crystal': VERSACE_BRIGHT_CRYSTAL_CONFIG,
+          'bright-crystal': VERSACE_BRIGHT_CRYSTAL_CONFIG,
+          'narciso-rodriguez-musc-noir-rose': NARCISO_MUSC_NOIR_ROSE_CONFIG,
+          'musc-noir-rose': NARCISO_MUSC_NOIR_ROSE_CONFIG,
+          'ysl-black-opium': YSL_BLACK_OPIUM_CONFIG,
+          'black-opium': YSL_BLACK_OPIUM_CONFIG,
+          'prada-candy': PRADA_CANDY_CONFIG,
+          'candy': PRADA_CANDY_CONFIG,
+          'armani-si': ARMANI_SI_CONFIG,
+          'si': ARMANI_SI_CONFIG,
+          'burberry-her': BURBERRY_HER_CONFIG,
+          'carolina-herrera-good-girl': CAROLINA_HERRERA_GOOD_GIRL_CONFIG,
+          'good-girl': CAROLINA_HERRERA_GOOD_GIRL_CONFIG,
+          'lancome-idole': LANCOME_IDOLE_CONFIG,
+          'idole': LANCOME_IDOLE_CONFIG,
   }
