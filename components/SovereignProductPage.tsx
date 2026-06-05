@@ -882,41 +882,7 @@ export default function SovereignProductPage({ product }: { product: Product }) 
           </section>
         )}
 
-              {/* RECENTLY VIEWED */}
-        {recentlyViewed.length > 0 && (
-          <section style={{ padding: 'clamp(44px,6vw,72px) 0', background: '#050504', borderTop: '1px solid rgba(201,160,84,0.05)' }}>
-            <div style={{ maxWidth: 900, margin: '0 auto', padding: '0 clamp(20px,4vw,40px)' }}>
-              <div style={{ textAlign: 'center', marginBottom: 36 }}>
-                <p style={{ fontSize: 7, letterSpacing: '0.9em', textTransform: 'uppercase', color: 'rgba(201,160,84,0.45)', marginBottom: 8 }}>Your Archive History</p>
-                <h3 style={{ fontFamily: SERIF, fontSize: 'clamp(1.4rem,3.5vw,2.4rem)', fontWeight: 300, color: 'rgba(240,236,228,0.3)', letterSpacing: '0.1em' }}>Recently Viewed</h3>
-              </div>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(140px, 1fr))', gap: 'clamp(8px,2vw,16px)' }}>
-                {recentlyViewed.map(item => (
-                  <Link key={item.slug} href={'/products/' + item.slug} style={{ textDecoration: 'none', display: 'block', border: '1px solid rgba(201,160,84,0.08)', background: '#0a0806', transition: 'border-color 0.3s' }}
-                    onMouseEnter={e => { (e.currentTarget as HTMLElement).style.borderColor = 'rgba(201,160,84,0.28)' }}
-                    onMouseLeave={e => { (e.currentTarget as HTMLElement).style.borderColor = 'rgba(201,160,84,0.08)' }}
-                  >
-                    <div style={{ aspectRatio: '1/1', overflow: 'hidden', background: '#080604' }}>
-                      {item.image ? (
-                        <img src={item.image} alt={item.name} style={{ width: '100%', height: '100%', objectFit: 'cover', opacity: 0.75 }}
-                          onError={e => { (e.target as HTMLImageElement).style.display = 'none' }}
-                        />
-                      ) : (
-                        <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                          <span style={{ fontFamily: SERIF, fontSize: 28, color: 'rgba(201,160,84,0.15)' }}>◆</span>
-                        </div>
-                      )}
-                    </div>
-                    <div style={{ padding: '10px 12px' }}>
-                      <p style={{ fontFamily: SERIF, fontSize: 11, color: 'rgba(240,236,228,0.45)', lineHeight: 1.3, marginBottom: 4 }}>{item.name}</p>
-                      <p style={{ fontSize: 8, color: 'rgba(201,160,84,0.4)', letterSpacing: '0.15em' }}>${item.price_usd}</p>
-                    </div>
-                  </Link>
-                ))}
-              </div>
-            </div>
-          </section>
-        )}
+
 
               {/* RELATED */}
       <section style={{ padding: 'clamp(44px,7vw,80px) 0 clamp(56px,8vw,100px)', background: '#030303', borderTop: '1px solid rgba(201,160,84,0.06)' }}>
