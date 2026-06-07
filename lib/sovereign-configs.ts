@@ -3133,149 +3133,6 @@
   }
 
   
-export const SOVEREIGN_CONFIGS: Record<string, SovereignConfig> = {
-
-    // ── ARCHIVE I ──────────────────────────────────────────────────────────────
-
-      // ── ARCHIVE I — FOR HIM ────────────────────────────────────────────────────
-      'shamim-s-ghost-the-eternal-legacy': SHAMIMS_GHOST_CONFIG,
-      'shamims-ghost': SHAMIMS_GHOST_CONFIG,
-      "shamim's-ghost": SHAMIMS_GHOST_CONFIG,
-      'shamims-ghost-the-eternal-legacy': SHAMIMS_GHOST_CONFIG,
-
-      'shamims-bloom': SHAMIM_BLOOM_CONFIG,
-    'shamim-bloom': SHAMIM_BLOOM_CONFIG,
-    'shamim-bloom-the-sovereign-grace': SHAMIM_BLOOM_CONFIG,
-
-    'sovereign-amethyst': SOVEREIGN_AMETHYST_CONFIG,
-
-    // ── ARCHIVE II ─────────────────────────────────────────────────────────────
-    'queen-of-taif': QUEEN_OF_TAIF_CONFIG,
-
-    // ── ARCHIVE II — IMPERIAL ──────────────────────────────────────────────────
-    'eternal-empress': ETERNAL_EMPRESS_CONFIG,
-
-    // ── ARCHIVE IV ─────────────────────────────────────────────────────────────
-    'her-legacy-vault': HER_LEGACY_VAULT_CONFIG,
-
-    // ── ARCHIVE 00 — FOR HIM (FOUNDER) ──────────────────────────────────────────
-    'founder-s-eternal-archive': FOUNDERS_ETERNAL_ARCHIVE_CONFIG,
-    'founders-eternal-archive': FOUNDERS_ETERNAL_ARCHIVE_CONFIG,
-    'sapphire-blue-levant': SAPPHIRE_BLUE_LEVANT_CONFIG,
-
-    'sovereign-oud-absolute': SOVEREIGN_OUD_ABSOLUTE_CONFIG,
-    'imperial-black-throne': IMPERIAL_BLACK_THRONE_CONFIG,
-
-    // ── ARCHIVE U — UNISEX ───────────────────────────────────────────────────
-    'kyoto-sacred-incense': KYOTO_SACRED_INCENSE_CONFIG,
-      'sf-kyoto-sacred-incense': KYOTO_SACRED_INCENSE_CONFIG,
-      'kyoto-incense': KYOTO_SACRED_INCENSE_CONFIG,
-      'sf-kyoto-incense': KYOTO_SACRED_INCENSE_CONFIG,
-    'midnight-iris-royale': MIDNIGHT_IRIS_ROYALE_CONFIG,
-    'eternal-sovereign': ETERNAL_SOVEREIGN_CONFIG,
-    'house-vault-no-001': HOUSE_VAULT_001_CONFIG,
-      // ── GUEST CURATION SERIES ────────────────────────────────────────────────
-      'delina-exclusif': DELINA_EXCLUSIF_CONFIG,
-      'amouage-guidance': AMOUAGE_GUIDANCE_CONFIG,
-      'baccarat-rouge-540-extrait': BACCARAT_ROUGE_540_CONFIG,
-      'baccarat-rouge-540': BACCARAT_ROUGE_540_CONFIG,
-      'xerjoff-casamorati-lira': XERJOFF_LIRA_CONFIG,
-      'xerjoff-lira': XERJOFF_LIRA_CONFIG,
-      'initio-atomic-rose': INITIO_ATOMIC_ROSE_CONFIG,
-      'chanel-coco-mademoiselle-intense': CHANEL_COCO_INTENSE_CONFIG,
-      'chanel-coco-mademoiselle': CHANEL_COCO_INTENSE_CONFIG,
-      'dior-jadore-lor': DIOR_JADORE_LOR_CONFIG,
-      "dior-j'adore-l'or": DIOR_JADORE_LOR_CONFIG,
-      'tom-ford-velvet-orchid': TOM_FORD_VELVET_ORCHID_CONFIG,
-      'ysl-libre-le-parfum': YSL_LIBRE_CONFIG,
-      'ysl-libre': YSL_LIBRE_CONFIG,
-      'kilian-angels-share': KILIAN_ANGELS_SHARE_CONFIG,
-      "kilian-angel's-share": KILIAN_ANGELS_SHARE_CONFIG,
-    'sovereign-genesis': SOVEREIGN_GENESIS_CONFIG,
-    'queen-of-taif-crown-ring': QUEEN_OF_TAIF_CROWN_RING_CONFIG,
-    'queen-of-taif-ring': QUEEN_OF_TAIF_CROWN_RING_CONFIG,
-      // ── FOR HIM — 10 NEW PRODUCTS ──────────────────────────────────────────
-      'obsidian-sovereign': OBSIDIAN_SOVEREIGN_CONFIG,
-      'phantom-legacy': PHANTOM_LEGACY_CONFIG,
-      'phantom-legacy-extrait': PHANTOM_LEGACY_CONFIG,
-      'black-atlas-reserve': BLACK_ATLAS_RESERVE_CONFIG,
-      'king-of-kings-oud': KING_OF_KINGS_OUD_CONFIG,
-      'midnight-throne-noir': MIDNIGHT_THRONE_NOIR_CONFIG,
-      'cedar-monarch': CEDAR_MONARCH_CONFIG,
-      'sovereign-musk-noir': SOVEREIGN_MUSK_NOIR_CONFIG,
-      'arabian-kingdom': ARABIAN_KINGDOM_CONFIG,
-      'black-crown-absolute': BLACK_CROWN_ABSOLUTE_CONFIG,
-      'dark-archive-reserve': DARK_ARCHIVE_RESERVE_CONFIG,
-        // ── FOR HIM GUEST CURATION ────────────────────────────────────────────────
-        'creed-aventus': CREED_AVENTUS_CONFIG,
-        'roja-elysium-pour-homme': ROJA_ELYSIUM_CONFIG,
-        'roja-elysium': ROJA_ELYSIUM_CONFIG,
-        'tom-ford-oud-wood': TOM_FORD_OUD_WOOD_CONFIG,
-        'parfums-de-marly-layton': PARFUMS_DE_MARLY_LAYTON_CONFIG,
-        'layton': PARFUMS_DE_MARLY_LAYTON_CONFIG,
-        'amouage-interlude-man': AMOUAGE_INTERLUDE_MAN_CONFIG,
-        'amouage-interlude': AMOUAGE_INTERLUDE_MAN_CONFIG,
-        'kilian-angels-share-homme': KILIAN_ANGELS_SHARE_HOMME_CONFIG,
-        'xerjoff-naxos': XERJOFF_NAXOS_CONFIG,
-        'lv-ombre-nomade': LV_OMBRE_NOMADE_CONFIG,
-        'ombre-nomade': LV_OMBRE_NOMADE_CONFIG,
-        'mfk-grand-soir': MFK_GRAND_SOIR_CONFIG,
-        'grand-soir': MFK_GRAND_SOIR_CONFIG,
-        'penhaligons-lord-george': PENHALIGONS_LORD_GEORGE_CONFIG,
-        'lord-george': PENHALIGONS_LORD_GEORGE_CONFIG,
-        // ── UNISEX GUEST CURATION ────────────────────────────────────────────────
-        'byredo-gypsy-water': BYREDO_GYPSY_WATER_CONFIG,
-        'gypsy-water': BYREDO_GYPSY_WATER_CONFIG,
-        'le-labo-santal-33': LE_LABO_SANTAL_33_CONFIG,
-        'santal-33': LE_LABO_SANTAL_33_CONFIG,
-        'creed-silver-mountain-water': CREED_SILVER_MOUNTAIN_WATER_CONFIG,
-        'silver-mountain-water': CREED_SILVER_MOUNTAIN_WATER_CONFIG,
-        'diptyque-philosykos': DIPTYQUE_PHILOSYKOS_CONFIG,
-        'philosykos': DIPTYQUE_PHILOSYKOS_CONFIG,
-        'tom-ford-soleil-blanc': TOM_FORD_SOLEIL_BLANC_CONFIG,
-        'soleil-blanc': TOM_FORD_SOLEIL_BLANC_CONFIG,
-        'nishane-hacivat': NISHANE_HACIVAT_CONFIG,
-        'hacivat': NISHANE_HACIVAT_CONFIG,
-        'parfums-de-marly-haltane': PARFUMS_DE_MARLY_HALTANE_CONFIG,
-        'haltane': PARFUMS_DE_MARLY_HALTANE_CONFIG,
-        'frederic-malle-portrait-of-a-lady': FREDERIC_MALLE_PORTRAIT_CONFIG,
-        'portrait-of-a-lady': FREDERIC_MALLE_PORTRAIT_CONFIG,
-        'serge-lutens-ambre-sultan': SERGE_LUTENS_AMBRE_SULTAN_CONFIG,
-        'ambre-sultan': SERGE_LUTENS_AMBRE_SULTAN_CONFIG,
-        'jo-malone-wood-sage-sea-salt': JO_MALONE_WOOD_SAGE_CONFIG,
-        'wood-sage-sea-salt': JO_MALONE_WOOD_SAGE_CONFIG,
-        // ── ESSENTIAL ARCHIVE — FOR HER ──────────────────────────────────────────
-          'dolce-gabbana-light-blue': DG_LIGHT_BLUE_CONFIG,
-          'light-blue': DG_LIGHT_BLUE_CONFIG,
-          'marc-jacobs-daisy': MARC_JACOBS_DAISY_CONFIG,
-          'daisy': MARC_JACOBS_DAISY_CONFIG,
-          'versace-bright-crystal': VERSACE_BRIGHT_CRYSTAL_CONFIG,
-          'bright-crystal': VERSACE_BRIGHT_CRYSTAL_CONFIG,
-          'narciso-rodriguez-musc-noir-rose': NARCISO_MUSC_NOIR_ROSE_CONFIG,
-          'musc-noir-rose': NARCISO_MUSC_NOIR_ROSE_CONFIG,
-          'ysl-black-opium': YSL_BLACK_OPIUM_CONFIG,
-          'black-opium': YSL_BLACK_OPIUM_CONFIG,
-          'prada-candy': PRADA_CANDY_CONFIG,
-          'candy': PRADA_CANDY_CONFIG,
-          'armani-si': ARMANI_SI_CONFIG,
-          'si': ARMANI_SI_CONFIG,
-          'burberry-her': BURBERRY_HER_CONFIG,
-          'carolina-herrera-good-girl': CAROLINA_HERRERA_GOOD_GIRL_CONFIG,
-          'good-girl': CAROLINA_HERRERA_GOOD_GIRL_CONFIG,
-          'lancome-idole': LANCOME_IDOLE_CONFIG,
-          'idole': LANCOME_IDOLE_CONFIG,
-          // ── ESSENTIAL ARCHIVE — FOR HIM ──────────────────────────────────────
-          'bleu-de-chanel-essential': BLEU_DE_CHANEL_ESSENTIAL_CONFIG,
-          'dior-sauvage-essential': DIOR_SAUVAGE_ESSENTIAL_CONFIG,
-          'acqua-di-gio-essential': ACQUA_DI_GIO_ESSENTIAL_CONFIG,
-          'ysl-la-nuit-essential': YSL_LA_NUIT_ESSENTIAL_CONFIG,
-          'versace-eros-essential': VERSACE_EROS_ESSENTIAL_CONFIG,
-          'terre-dhermes-essential': TERRE_DHERMES_ESSENTIAL_CONFIG,
-          'tom-ford-noir-anthracite-essential': TOM_FORD_NOIR_ANTHRACITE_ESSENTIAL_CONFIG,
-          'prada-lhomme-essential': PRADA_LHOMME_ESSENTIAL_CONFIG,
-          'jpg-le-male-essential': JPG_LE_MALE_ESSENTIAL_CONFIG,
-          'giorgio-armani-code-essential': GIORGIO_ARMANI_CODE_ESSENTIAL_CONFIG,
-  }
   // ── SF ESSENTIAL ARCHIVE FOR HIM ─────────────────────────────────────────────
 
   const BLEU_DE_CHANEL_ESSENTIAL_CONFIG: SovereignConfig = {
@@ -3676,4 +3533,149 @@ export const SOVEREIGN_CONFIGS: Record<string, SovereignConfig> = {
       'Direct WhatsApp Concierge — Priority access to the House of Shamim Forever team',
     ],
     category: 'For Him',
+  }
+
+
+export const SOVEREIGN_CONFIGS: Record<string, SovereignConfig> = {
+
+    // ── ARCHIVE I ──────────────────────────────────────────────────────────────
+
+      // ── ARCHIVE I — FOR HIM ────────────────────────────────────────────────────
+      'shamim-s-ghost-the-eternal-legacy': SHAMIMS_GHOST_CONFIG,
+      'shamims-ghost': SHAMIMS_GHOST_CONFIG,
+      "shamim's-ghost": SHAMIMS_GHOST_CONFIG,
+      'shamims-ghost-the-eternal-legacy': SHAMIMS_GHOST_CONFIG,
+
+      'shamims-bloom': SHAMIM_BLOOM_CONFIG,
+    'shamim-bloom': SHAMIM_BLOOM_CONFIG,
+    'shamim-bloom-the-sovereign-grace': SHAMIM_BLOOM_CONFIG,
+
+    'sovereign-amethyst': SOVEREIGN_AMETHYST_CONFIG,
+
+    // ── ARCHIVE II ─────────────────────────────────────────────────────────────
+    'queen-of-taif': QUEEN_OF_TAIF_CONFIG,
+
+    // ── ARCHIVE II — IMPERIAL ──────────────────────────────────────────────────
+    'eternal-empress': ETERNAL_EMPRESS_CONFIG,
+
+    // ── ARCHIVE IV ─────────────────────────────────────────────────────────────
+    'her-legacy-vault': HER_LEGACY_VAULT_CONFIG,
+
+    // ── ARCHIVE 00 — FOR HIM (FOUNDER) ──────────────────────────────────────────
+    'founder-s-eternal-archive': FOUNDERS_ETERNAL_ARCHIVE_CONFIG,
+    'founders-eternal-archive': FOUNDERS_ETERNAL_ARCHIVE_CONFIG,
+    'sapphire-blue-levant': SAPPHIRE_BLUE_LEVANT_CONFIG,
+
+    'sovereign-oud-absolute': SOVEREIGN_OUD_ABSOLUTE_CONFIG,
+    'imperial-black-throne': IMPERIAL_BLACK_THRONE_CONFIG,
+
+    // ── ARCHIVE U — UNISEX ───────────────────────────────────────────────────
+    'kyoto-sacred-incense': KYOTO_SACRED_INCENSE_CONFIG,
+      'sf-kyoto-sacred-incense': KYOTO_SACRED_INCENSE_CONFIG,
+      'kyoto-incense': KYOTO_SACRED_INCENSE_CONFIG,
+      'sf-kyoto-incense': KYOTO_SACRED_INCENSE_CONFIG,
+    'midnight-iris-royale': MIDNIGHT_IRIS_ROYALE_CONFIG,
+    'eternal-sovereign': ETERNAL_SOVEREIGN_CONFIG,
+    'house-vault-no-001': HOUSE_VAULT_001_CONFIG,
+      // ── GUEST CURATION SERIES ────────────────────────────────────────────────
+      'delina-exclusif': DELINA_EXCLUSIF_CONFIG,
+      'amouage-guidance': AMOUAGE_GUIDANCE_CONFIG,
+      'baccarat-rouge-540-extrait': BACCARAT_ROUGE_540_CONFIG,
+      'baccarat-rouge-540': BACCARAT_ROUGE_540_CONFIG,
+      'xerjoff-casamorati-lira': XERJOFF_LIRA_CONFIG,
+      'xerjoff-lira': XERJOFF_LIRA_CONFIG,
+      'initio-atomic-rose': INITIO_ATOMIC_ROSE_CONFIG,
+      'chanel-coco-mademoiselle-intense': CHANEL_COCO_INTENSE_CONFIG,
+      'chanel-coco-mademoiselle': CHANEL_COCO_INTENSE_CONFIG,
+      'dior-jadore-lor': DIOR_JADORE_LOR_CONFIG,
+      "dior-j'adore-l'or": DIOR_JADORE_LOR_CONFIG,
+      'tom-ford-velvet-orchid': TOM_FORD_VELVET_ORCHID_CONFIG,
+      'ysl-libre-le-parfum': YSL_LIBRE_CONFIG,
+      'ysl-libre': YSL_LIBRE_CONFIG,
+      'kilian-angels-share': KILIAN_ANGELS_SHARE_CONFIG,
+      "kilian-angel's-share": KILIAN_ANGELS_SHARE_CONFIG,
+    'sovereign-genesis': SOVEREIGN_GENESIS_CONFIG,
+    'queen-of-taif-crown-ring': QUEEN_OF_TAIF_CROWN_RING_CONFIG,
+    'queen-of-taif-ring': QUEEN_OF_TAIF_CROWN_RING_CONFIG,
+      // ── FOR HIM — 10 NEW PRODUCTS ──────────────────────────────────────────
+      'obsidian-sovereign': OBSIDIAN_SOVEREIGN_CONFIG,
+      'phantom-legacy': PHANTOM_LEGACY_CONFIG,
+      'phantom-legacy-extrait': PHANTOM_LEGACY_CONFIG,
+      'black-atlas-reserve': BLACK_ATLAS_RESERVE_CONFIG,
+      'king-of-kings-oud': KING_OF_KINGS_OUD_CONFIG,
+      'midnight-throne-noir': MIDNIGHT_THRONE_NOIR_CONFIG,
+      'cedar-monarch': CEDAR_MONARCH_CONFIG,
+      'sovereign-musk-noir': SOVEREIGN_MUSK_NOIR_CONFIG,
+      'arabian-kingdom': ARABIAN_KINGDOM_CONFIG,
+      'black-crown-absolute': BLACK_CROWN_ABSOLUTE_CONFIG,
+      'dark-archive-reserve': DARK_ARCHIVE_RESERVE_CONFIG,
+        // ── FOR HIM GUEST CURATION ────────────────────────────────────────────────
+        'creed-aventus': CREED_AVENTUS_CONFIG,
+        'roja-elysium-pour-homme': ROJA_ELYSIUM_CONFIG,
+        'roja-elysium': ROJA_ELYSIUM_CONFIG,
+        'tom-ford-oud-wood': TOM_FORD_OUD_WOOD_CONFIG,
+        'parfums-de-marly-layton': PARFUMS_DE_MARLY_LAYTON_CONFIG,
+        'layton': PARFUMS_DE_MARLY_LAYTON_CONFIG,
+        'amouage-interlude-man': AMOUAGE_INTERLUDE_MAN_CONFIG,
+        'amouage-interlude': AMOUAGE_INTERLUDE_MAN_CONFIG,
+        'kilian-angels-share-homme': KILIAN_ANGELS_SHARE_HOMME_CONFIG,
+        'xerjoff-naxos': XERJOFF_NAXOS_CONFIG,
+        'lv-ombre-nomade': LV_OMBRE_NOMADE_CONFIG,
+        'ombre-nomade': LV_OMBRE_NOMADE_CONFIG,
+        'mfk-grand-soir': MFK_GRAND_SOIR_CONFIG,
+        'grand-soir': MFK_GRAND_SOIR_CONFIG,
+        'penhaligons-lord-george': PENHALIGONS_LORD_GEORGE_CONFIG,
+        'lord-george': PENHALIGONS_LORD_GEORGE_CONFIG,
+        // ── UNISEX GUEST CURATION ────────────────────────────────────────────────
+        'byredo-gypsy-water': BYREDO_GYPSY_WATER_CONFIG,
+        'gypsy-water': BYREDO_GYPSY_WATER_CONFIG,
+        'le-labo-santal-33': LE_LABO_SANTAL_33_CONFIG,
+        'santal-33': LE_LABO_SANTAL_33_CONFIG,
+        'creed-silver-mountain-water': CREED_SILVER_MOUNTAIN_WATER_CONFIG,
+        'silver-mountain-water': CREED_SILVER_MOUNTAIN_WATER_CONFIG,
+        'diptyque-philosykos': DIPTYQUE_PHILOSYKOS_CONFIG,
+        'philosykos': DIPTYQUE_PHILOSYKOS_CONFIG,
+        'tom-ford-soleil-blanc': TOM_FORD_SOLEIL_BLANC_CONFIG,
+        'soleil-blanc': TOM_FORD_SOLEIL_BLANC_CONFIG,
+        'nishane-hacivat': NISHANE_HACIVAT_CONFIG,
+        'hacivat': NISHANE_HACIVAT_CONFIG,
+        'parfums-de-marly-haltane': PARFUMS_DE_MARLY_HALTANE_CONFIG,
+        'haltane': PARFUMS_DE_MARLY_HALTANE_CONFIG,
+        'frederic-malle-portrait-of-a-lady': FREDERIC_MALLE_PORTRAIT_CONFIG,
+        'portrait-of-a-lady': FREDERIC_MALLE_PORTRAIT_CONFIG,
+        'serge-lutens-ambre-sultan': SERGE_LUTENS_AMBRE_SULTAN_CONFIG,
+        'ambre-sultan': SERGE_LUTENS_AMBRE_SULTAN_CONFIG,
+        'jo-malone-wood-sage-sea-salt': JO_MALONE_WOOD_SAGE_CONFIG,
+        'wood-sage-sea-salt': JO_MALONE_WOOD_SAGE_CONFIG,
+        // ── ESSENTIAL ARCHIVE — FOR HER ──────────────────────────────────────────
+          'dolce-gabbana-light-blue': DG_LIGHT_BLUE_CONFIG,
+          'light-blue': DG_LIGHT_BLUE_CONFIG,
+          'marc-jacobs-daisy': MARC_JACOBS_DAISY_CONFIG,
+          'daisy': MARC_JACOBS_DAISY_CONFIG,
+          'versace-bright-crystal': VERSACE_BRIGHT_CRYSTAL_CONFIG,
+          'bright-crystal': VERSACE_BRIGHT_CRYSTAL_CONFIG,
+          'narciso-rodriguez-musc-noir-rose': NARCISO_MUSC_NOIR_ROSE_CONFIG,
+          'musc-noir-rose': NARCISO_MUSC_NOIR_ROSE_CONFIG,
+          'ysl-black-opium': YSL_BLACK_OPIUM_CONFIG,
+          'black-opium': YSL_BLACK_OPIUM_CONFIG,
+          'prada-candy': PRADA_CANDY_CONFIG,
+          'candy': PRADA_CANDY_CONFIG,
+          'armani-si': ARMANI_SI_CONFIG,
+          'si': ARMANI_SI_CONFIG,
+          'burberry-her': BURBERRY_HER_CONFIG,
+          'carolina-herrera-good-girl': CAROLINA_HERRERA_GOOD_GIRL_CONFIG,
+          'good-girl': CAROLINA_HERRERA_GOOD_GIRL_CONFIG,
+          'lancome-idole': LANCOME_IDOLE_CONFIG,
+          'idole': LANCOME_IDOLE_CONFIG,
+          // ── ESSENTIAL ARCHIVE — FOR HIM ──────────────────────────────────────
+          'bleu-de-chanel-essential': BLEU_DE_CHANEL_ESSENTIAL_CONFIG,
+          'dior-sauvage-essential': DIOR_SAUVAGE_ESSENTIAL_CONFIG,
+          'acqua-di-gio-essential': ACQUA_DI_GIO_ESSENTIAL_CONFIG,
+          'ysl-la-nuit-essential': YSL_LA_NUIT_ESSENTIAL_CONFIG,
+          'versace-eros-essential': VERSACE_EROS_ESSENTIAL_CONFIG,
+          'terre-dhermes-essential': TERRE_DHERMES_ESSENTIAL_CONFIG,
+          'tom-ford-noir-anthracite-essential': TOM_FORD_NOIR_ANTHRACITE_ESSENTIAL_CONFIG,
+          'prada-lhomme-essential': PRADA_LHOMME_ESSENTIAL_CONFIG,
+          'jpg-le-male-essential': JPG_LE_MALE_ESSENTIAL_CONFIG,
+          'giorgio-armani-code-essential': GIORGIO_ARMANI_CODE_ESSENTIAL_CONFIG,
   }
