@@ -122,6 +122,6 @@ import { notFound } from 'next/navigation'
       return <><ProductJsonLd product={product} /><GuestCurationProductPage product={product} /></>
     }
 
-    return <><ProductJsonLd product={product} /><SovereignProductPage product={product} /></>
+    return <><ProductJsonLd product={product} /><LuxuryGenericProductPage product={product} /></>
   }
   
