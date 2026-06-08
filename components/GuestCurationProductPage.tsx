@@ -469,6 +469,184 @@ export default function GuestCurationProductPage({ product }: { product: Product
           </div>
         </div>
       </section>
+        {/* ── LEGACY STATEMENT ── */}
+        {config && (
+          <section style={{ padding: 'clamp(52px,8vw,90px) clamp(20px,5vw,80px)', background: 'linear-gradient(180deg, #030303 0%, #0a0703 50%, #030303 100%)' }}>
+            <div className="gc-reveal" style={{ maxWidth: 760, margin: '0 auto', textAlign: 'center' }}>
+              <p style={{ fontSize: 6, letterSpacing: '0.9em', textTransform: 'uppercase', color: '#c9a054', marginBottom: 28 }}>Legacy Statement</p>
+              <div style={{ width: 40, height: 1, background: 'linear-gradient(to right, transparent, #c9a054, transparent)', margin: '0 auto 32px' }} />
+              <blockquote style={{ fontFamily: SERIF, fontStyle: 'italic', fontSize: 'clamp(1.4rem,3.5vw,2.2rem)', fontWeight: 300, color: 'rgba(240,236,228,0.85)', lineHeight: 1.55, marginBottom: 32, quotes: 'none' }}>
+                "{config.curatorPositioning.join(' ')}"
+              </blockquote>
+              <div style={{ maxWidth: 620, margin: '0 auto', display: 'flex', flexDirection: 'column', gap: 14 }}>
+                {config.whyCurated.slice(1).map((para, i) => (
+                  <p key={i} style={{ fontFamily: SERIF, fontStyle: 'italic', fontSize: 'clamp(0.9rem,2vw,1.15rem)', color: 'rgba(240,236,228,0.38)', fontWeight: 300, lineHeight: 1.85 }}>
+                    {para}
+                  </p>
+                ))}
+              </div>
+            </div>
+          </section>
+        )}
+
+        {/* ── INGREDIENT / OLFACTORY ARCHITECTURE ── */}
+        {config && config.signatureNotes.length > 0 && (
+          <section style={{ padding: 'clamp(52px,8vw,90px) clamp(20px,5vw,80px)', background: 'radial-gradient(ellipse 70% 50% at 50% 50%, #0e0903 0%, #030303 65%)' }}>
+            <div style={{ maxWidth: 800, margin: '0 auto' }}>
+              <div className="gc-reveal" style={{ textAlign: 'center', marginBottom: 48 }}>
+                <p style={{ fontSize: 6, letterSpacing: '0.9em', textTransform: 'uppercase', color: '#c9a054', marginBottom: 10 }}>Formulation Architecture</p>
+                <h2 style={{ fontFamily: SERIF, fontSize: 'clamp(2rem,4.5vw,3.5rem)', fontWeight: 300, color: '#f0ece4' }}>Ingredient Profile</h2>
+              </div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+                {[
+                  { label: 'Active Compounds', desc: 'Primary actives', notes: config.signatureNotes.slice(0, Math.ceil(config.signatureNotes.length / 3)) },
+                  { label: 'Core Formula', desc: 'Synergistic complex', notes: config.signatureNotes.slice(Math.ceil(config.signatureNotes.length / 3), Math.ceil(config.signatureNotes.length * 2 / 3)) },
+                  { label: 'Foundation Matrix', desc: 'Base & delivery system', notes: config.signatureNotes.slice(Math.ceil(config.signatureNotes.length * 2 / 3)) },
+                ].map(tier => (
+                  <div key={tier.label} className="gc-reveal" style={{ display: 'grid', gridTemplateColumns: '140px 1fr', border: '1px solid rgba(201,160,84,0.08)', background: '#080602' }}>
+                    <div style={{ padding: '20px 18px', borderRight: '1px solid rgba(201,160,84,0.06)', display: 'flex', flexDirection: 'column', justifyContent: 'center', gap: 4 }}>
+                      <p style={{ fontSize: 6, letterSpacing: '0.6em', textTransform: 'uppercase', color: '#c9a054' }}>{tier.label}</p>
+                      <p style={{ fontFamily: SERIF, fontStyle: 'italic', fontSize: 11, color: 'rgba(201,160,84,0.4)' }}>{tier.desc}</p>
+                    </div>
+                    <div style={{ padding: '20px 22px', display: 'flex', flexWrap: 'wrap', gap: 8, alignItems: 'center' }}>
+                      {tier.notes.map(note => (
+                        <span key={note} style={{ fontFamily: SERIF, fontSize: 13, color: '#c9b894', border: '1px solid rgba(201,160,84,0.15)', padding: '3px 10px', background: 'rgba(201,160,84,0.03)' }}>{note}</span>
+                      ))}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
+        )}
+
+        {/* ── PERFORMANCE MATRIX ── */}
+        {config && (
+          <section style={{ padding: 'clamp(52px,8vw,90px) clamp(20px,5vw,80px)', background: '#030303' }}>
+            <div style={{ maxWidth: 760, margin: '0 auto' }}>
+              <div className="gc-reveal" style={{ textAlign: 'center', marginBottom: 40 }}>
+                <p style={{ fontSize: 6, letterSpacing: '0.9em', textTransform: 'uppercase', color: '#c9a054', marginBottom: 10 }}>Technical Specifications</p>
+                <h2 style={{ fontFamily: SERIF, fontSize: 'clamp(2rem,4.5vw,3.5rem)', fontWeight: 300, color: '#f0ece4' }}>Performance Matrix</h2>
+              </div>
+              <div className="gc-reveal" style={{ border: '1px solid rgba(201,160,84,0.1)', background: 'linear-gradient(180deg, #0c0906 0%, #080603 100%)' }}>
+                {([
+                  ['Classification', config.classification],
+                  ['Volume', config.size],
+                  ['House Allocation Price', '$' + product.price_usd + ' USD'],
+                  ['Global Retail Value', '$' + config.globalRetailUsd + ' USD'],
+                  ['Collection', config.collectionName],
+                  ['Archive Label', config.archiveLabel],
+                  ['Category', config.archiveCode.startsWith('UE') ? 'Essential Cosmetics Archive' : 'Luxury Cosmetics Masterpieces'],
+                  ['Curation Status', config.archiveCode.startsWith('UE') ? 'House Essential Selection' : 'House Masterpiece Selection'],
+                ] as [string, string][]).map(([lbl, val], i, arr) => (
+                  <div key={lbl} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: 8, padding: '16px 22px', borderBottom: i < arr.length - 1 ? '1px solid rgba(255,255,255,0.03)' : 'none' }}>
+                    <p style={{ fontSize: 7, letterSpacing: '0.45em', textTransform: 'uppercase', color: '#3f3830', flexShrink: 0 }}>{lbl}</p>
+                    <p style={{ fontFamily: SERIF, fontSize: 14, color: '#c9b894', fontWeight: 300, textAlign: 'right', wordBreak: 'break-word', maxWidth: '65%' }}>{val}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
+        )}
+
+        {/* ── DIGITAL SOVEREIGN PASSPORT ── */}
+        {config && (
+          <section style={{ padding: 'clamp(52px,8vw,90px) clamp(20px,5vw,80px)', background: 'radial-gradient(ellipse 70% 50% at 50% 50%, #0a0703 0%, #030303 60%)' }}>
+            <div style={{ maxWidth: 760, margin: '0 auto' }}>
+              <div className="gc-reveal" style={{ textAlign: 'center', marginBottom: 48 }}>
+                <h2 style={{ fontFamily: SERIF, fontSize: 'clamp(2rem,4.5vw,3.5rem)', fontWeight: 300, color: '#f0ece4', marginBottom: 12 }}>Digital Sovereign Passport</h2>
+              </div>
+
+              {/* NFT Card Visual */}
+              <div className="gc-reveal" style={{ maxWidth: 320, margin: '0 auto 48px', position: 'relative' }}>
+                <div style={{ border: '1px solid rgba(201,160,84,0.25)', background: 'linear-gradient(135deg, #0c0906 0%, #06040200 100%)', padding: '28px 24px', position: 'relative', overflow: 'hidden' }}>
+                  <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 1, background: 'linear-gradient(to right, transparent, rgba(201,160,84,0.6) 50%, transparent)' }} />
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 36 }}>
+                    <div>
+                      <p style={{ fontSize: 6, letterSpacing: '0.6em', textTransform: 'uppercase', color: '#c9a054', marginBottom: 3 }}>House of Shamim</p>
+                      <p style={{ fontSize: 6, letterSpacing: '0.4em', textTransform: 'uppercase', color: 'rgba(201,160,84,0.45)' }}>Sovereign Passport</p>
+                    </div>
+                    <div style={{ width: 22, height: 22, borderRadius: '50%', background: 'radial-gradient(circle, #8b5cf6 0%, #6d28d9 100%)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                      <span style={{ fontSize: 8, color: '#fff' }}>◆</span>
+                    </div>
+                  </div>
+                  <div style={{ marginBottom: 24 }}>
+                    <p style={{ fontFamily: SERIF, fontSize: 'clamp(1rem,2.5vw,1.4rem)', fontWeight: 300, color: '#f0ece4', lineHeight: 1.3, marginBottom: 6 }}>
+                      {product.name} — {config.collectionName}
+                    </p>
+                    <p style={{ fontSize: 7, letterSpacing: '0.5em', textTransform: 'uppercase', color: '#c9a054' }}>
+                      SF Guest Curation · Archive {config.archiveCode}
+                    </p>
+                  </div>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
+                    <p style={{ fontFamily: 'monospace', fontSize: 8, color: 'rgba(201,160,84,0.35)', letterSpacing: '0.1em' }}>
+                      0xCCFc11b2...DC7640
+                    </p>
+                    <span style={{ fontSize: 7, letterSpacing: '0.4em', textTransform: 'uppercase', color: 'rgba(201,160,84,0.6)', border: '1px solid rgba(201,160,84,0.25)', padding: '3px 8px' }}>
+                      {config.archiveCode.startsWith('UE') ? 'ESSENTIAL' : 'MASTERPIECE'}
+                    </span>
+                  </div>
+                  <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: 1, background: 'linear-gradient(to right, transparent, rgba(201,160,84,0.6) 50%, transparent)' }} />
+                </div>
+              </div>
+
+              {/* Blockchain Authentication */}
+              <div className="gc-reveal">
+                <h3 style={{ fontFamily: SERIF, fontSize: 'clamp(1.5rem,3vw,2.2rem)', fontWeight: 300, color: '#f0ece4', marginBottom: 12 }}>Blockchain Authentication</h3>
+                <p style={{ fontSize: 12, color: 'rgba(240,236,228,0.32)', lineHeight: 1.8, marginBottom: 24 }}>
+                  Every sovereign creation carries a permanent, irrevocable proof of authenticity on the Polygon blockchain — the NFT is your identity, inseparable from the physical artifact.
+                </p>
+                <div style={{ border: '1px solid rgba(201,160,84,0.1)', background: '#080602' }}>
+                  {([
+                    ['Contract', '0xCCFc11b2...DC7640'],
+                    ['Network', 'Polygon Mainnet'],
+                    ['Standard', 'ERC-721 Non-Fungible'],
+                  ] as [string, string][]).map(([lbl, val], i, arr) => (
+                    <div key={lbl} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 8, padding: '14px 18px', borderBottom: i < arr.length - 1 ? '1px solid rgba(255,255,255,0.03)' : 'none' }}>
+                      <p style={{ fontSize: 7, letterSpacing: '0.45em', textTransform: 'uppercase', color: '#3f3830' }}>{lbl}</p>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                        <p style={{ fontFamily: 'monospace', fontSize: 10, color: '#c9b894' }}>{val}</p>
+                        {lbl === 'Contract' && <CopyBtn text="0xCCFc11b2DC7640" />}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </section>
+        )}
+
+        {/* ── HOLDER PRIVILEGES ── */}
+        {config && (
+          <section style={{ padding: 'clamp(52px,8vw,90px) clamp(20px,5vw,80px)', background: '#030303' }}>
+            <div style={{ maxWidth: 760, margin: '0 auto' }}>
+              <div className="gc-reveal" style={{ textAlign: 'center', marginBottom: 48 }}>
+                <p style={{ fontSize: 6, letterSpacing: '0.9em', textTransform: 'uppercase', color: '#c9a054', marginBottom: 10 }}>Ownership Benefits</p>
+                <h2 style={{ fontFamily: SERIF, fontSize: 'clamp(2rem,4.5vw,3.5rem)', fontWeight: 300, color: '#f0ece4', marginBottom: 12 }}>Holder Privileges</h2>
+                <div style={{ width: 60, height: 1, background: 'linear-gradient(to right, transparent, #c9a054, transparent)', margin: '0 auto' }} />
+              </div>
+              <div className="gc-reveal" style={{ border: '1px solid rgba(201,160,84,0.1)', background: '#080602' }}>
+                {([
+                  { title: config.archiveCode.startsWith('UE') ? 'SF Essential Cosmetics Archive Member' : 'SF Cosmetics Masterpieces Archive Member', desc: 'Access to the House of Shamim Forever curated luxury beauty collection' },
+                  { title: 'Priority Restock Alerts', desc: 'First to know when allocations are restocked or new curations are added' },
+                  { title: 'House Beauty Newsletter', desc: 'Quarterly sovereign dispatches from the curation vault' },
+                  { title: 'Bundle Allocation Access', desc: 'Exclusive bundle pricing for Archive members across all categories' },
+                  { title: 'Direct WhatsApp Concierge', desc: 'Priority access to the House of Shamim Forever team' },
+                ]).map((item, i, arr) => (
+                  <div key={i} style={{ display: 'flex', gap: 16, padding: '20px 22px', borderBottom: i < arr.length - 1 ? '1px solid rgba(255,255,255,0.03)' : 'none', alignItems: 'flex-start' }}>
+                    <span style={{ color: '#c9a054', fontSize: 14, flexShrink: 0, marginTop: 2 }}>◆</span>
+                    <div>
+                      <p style={{ fontFamily: SERIF, fontSize: 15, color: '#c9b894', marginBottom: 4 }}>{item.title}</p>
+                      <p style={{ fontSize: 11, color: 'rgba(240,236,228,0.28)', lineHeight: 1.7 }}>{item.desc}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
+        )}
+
+  
     </div>
   )
 }
