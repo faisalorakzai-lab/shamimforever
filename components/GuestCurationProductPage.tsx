@@ -320,16 +320,16 @@ export default function GuestCurationProductPage({ product }: { product: Product
           <div style={{ width: 40, height: 1, background: 'linear-gradient(to right, transparent, #c9a054, transparent)', margin: '0 auto 18px' }} />
           <p style={{ fontSize: 6, letterSpacing: '0.9em', textTransform: 'uppercase', color: '#c9a054', marginBottom: 20 }}>Sovereign Statement</p>
           <p style={{ fontFamily: SERIF, fontStyle: 'italic', fontSize: 'clamp(0.95rem,2vw,1.25rem)', color: 'rgba(240,236,228,0.55)', fontWeight: 300, lineHeight: 1.85, marginBottom: 10 }}>
-            The House of Shamim Forever does not manufacture these fragrances.
+            The House of Shamim Forever does not manufacture these products.
           </p>
           <p style={{ fontFamily: SERIF, fontStyle: 'italic', fontSize: 'clamp(0.85rem,1.8vw,1.1rem)', color: 'rgba(240,236,228,0.38)', fontWeight: 300, lineHeight: 1.85, marginBottom: 10 }}>
-            Each masterpiece is independently created by its respective luxury fragrance house.
+            Each product is independently created by its respective luxury brand.
           </p>
           <p style={{ fontFamily: SERIF, fontStyle: 'italic', fontSize: 'clamp(0.85rem,1.8vw,1.1rem)', color: 'rgba(240,236,228,0.38)', fontWeight: 300, lineHeight: 1.85, marginBottom: 10 }}>
             Our role is curation, authentication, preservation, and allocation.
           </p>
           <p style={{ fontFamily: SERIF, fontStyle: 'italic', fontSize: 'clamp(0.85rem,1.8vw,1.1rem)', color: 'rgba(240,236,228,0.38)', fontWeight: 300, lineHeight: 1.85 }}>
-            Every fragrance enters the Sovereign Vault only after meeting our standards for craftsmanship, cultural significance, performance, and collector value.
+            Every product enters the Sovereign Vault only after meeting our standards for craftsmanship, cultural significance, performance, and collector value.
           </p>
           <div style={{ width: 40, height: 1, background: 'linear-gradient(to right, transparent, rgba(201,160,84,0.4), transparent)', margin: '20px auto 0' }} />
         </div>
@@ -340,7 +340,7 @@ export default function GuestCurationProductPage({ product }: { product: Product
         <div style={{ maxWidth: 620, margin: '0 auto', padding: '0 clamp(16px,4vw,24px)' }}>
           <div className="gc-reveal" style={{ textAlign: 'center', marginBottom: 40 }}>
             <p style={{ fontSize: 7, letterSpacing: '0.9em', textTransform: 'uppercase', color: '#c9a054', marginBottom: 10 }}>Acquisition</p>
-            <h2 style={{ fontFamily: SERIF, fontSize: 'clamp(2.2rem,5vw,4rem)', fontWeight: 300, color: '#f0ece4' }}>Claim This Masterpiece</h2>
+            <h2 style={{ fontFamily: SERIF, fontSize: 'clamp(2.2rem,5vw,4rem)', fontWeight: 300, color: '#f0ece4' }}>Claim Your Sovereign</h2>
             {config && (
               <p style={{ fontFamily: SERIF, fontStyle: 'italic', fontSize: 14, color: 'rgba(240,236,228,0.3)', marginTop: 8 }}>
                 {config.collectionName} · Archive {config.archiveCode}
