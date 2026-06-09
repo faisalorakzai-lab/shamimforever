@@ -22,7 +22,7 @@ export interface GuestCurationConfig {
       classification: 'Luxury Niche Feminine Masterpiece',
       size: '75ml',
       globalRetailUsd: 430,
-      signatureNotes: ['Turkish Rose', 'Lychee', 'Pink Pepper', 'Peony', 'Incense', 'White Musk', 'Oud', 'Vanilla', 'Sandalwood']
+      signatureNotes: ['Turkish Rose', 'Lychee', 'Pink Pepper', 'Peony', 'Incense', 'White Musk', 'Oud', 'Vanilla', 'Sandalwood'],
       whyCurated: [
         'Delina Exclusif represents the meeting point between aristocratic floral craftsmanship and modern luxury architecture.',
         'Its Turkish Rose core carries extraordinary richness. Its incense foundation creates permanence. Its oud structure delivers authority.',
@@ -39,7 +39,7 @@ export interface GuestCurationConfig {
       classification: 'Ultra-Luxury Niche Feminine Composition',
       size: '100ml',
       globalRetailUsd: 395,
-      signatureNotes: ['Bergamot', 'Mandarin', 'Pink Pepper', 'Rose', 'Cistus', 'Iris', 'Musc', 'Sandalwood', 'Amber']
+      signatureNotes: ['Bergamot', 'Mandarin', 'Pink Pepper', 'Rose', 'Cistus', 'Iris', 'Musc', 'Sandalwood', 'Amber'],
       whyCurated: [
         'Guidance represents emotional intelligence translated into fragrance.',
         'Its Omani Frankincense foundation reflects structure. Its creamy woods create depth. Its floral architecture creates sophistication.',
@@ -56,7 +56,7 @@ export interface GuestCurationConfig {
       classification: 'Luxury Amber-Wood Extrait',
       size: '70ml',
       globalRetailUsd: 465,
-      signatureNotes: ['Jasmine', 'Saffron', 'Cedar', 'Amberwood', 'Ambergris', 'Fir Resin', 'Musks', 'Oakmoss', 'Cedarwood']
+      signatureNotes: ['Jasmine', 'Saffron', 'Cedar', 'Amberwood', 'Ambergris', 'Fir Resin', 'Musks', 'Oakmoss', 'Cedarwood'],
       whyCurated: [
         'Few fragrances have achieved modern legendary status. Baccarat Rouge 540 Extrait is one of them.',
         'Its saffron brilliance. Its ambergris structure. Its crystalline projection.',
@@ -73,7 +73,7 @@ export interface GuestCurationConfig {
       classification: 'Luxury Gourmand Masterpiece',
       size: '100ml',
       globalRetailUsd: 315,
-      signatureNotes: ['Rose', 'Bergamot', 'Lemon', 'Jasmine', 'Peach', 'Sandalwood', 'Musk', 'Amber', 'Vetiver']
+      signatureNotes: ['Rose', 'Bergamot', 'Lemon', 'Jasmine', 'Peach', 'Sandalwood', 'Musk', 'Amber', 'Vetiver'],
       whyCurated: [
         'Lira preserves old-world Italian romance. Rich sweetness. Vintage elegance. Theatrical beauty.',
         'Its gourmand architecture demonstrates how luxury can feel emotional without sacrificing sophistication.',
@@ -88,7 +88,7 @@ export interface GuestCurationConfig {
       classification: 'Luxury High-Impact Floral',
       size: '90ml',
       globalRetailUsd: 360,
-      signatureNotes: ['Turkish Rose', 'Bulgarian Rose', 'Geranium', 'White Musks', 'Woody Ambers', 'Skin Musks', 'Ambroxan', 'Sandalwood', 'Warm Amber']
+      signatureNotes: ['Turkish Rose', 'Bulgarian Rose', 'Geranium', 'White Musks', 'Woody Ambers', 'Skin Musks', 'Ambroxan', 'Sandalwood', 'Warm Amber'],
       whyCurated: [
         'Atomic Rose transforms the rose from ornament into authority. Powerful. Bold. Unapologetic.',
         'The House selected this masterpiece because it demonstrates how a classic floral note can become a commanding statement.',
@@ -103,7 +103,7 @@ export interface GuestCurationConfig {
       classification: 'Luxury Corporate Feminine Signature',
       size: '100ml',
       globalRetailUsd: 190,
-      signatureNotes: ['Orange', 'Bergamot', 'Mandarin', 'Rose', 'Jasmine', 'Ylang-Ylang', 'Vetiver', 'Patchouli', 'Vanilla']
+      signatureNotes: ['Orange', 'Bergamot', 'Mandarin', 'Rose', 'Jasmine', 'Ylang-Ylang', 'Vetiver', 'Patchouli', 'Vanilla'],
       whyCurated: [
         'Modern feminine professionalism has few universal references. Coco Mademoiselle Intense remains one of them.',
         'The House recognizes its ability to balance elegance, confidence, and maturity with effortless authority.',
@@ -118,7 +118,7 @@ export interface GuestCurationConfig {
       classification: 'Luxury Floral Essence',
       size: '50ml',
       globalRetailUsd: 170,
-      signatureNotes: ['Ylang-Ylang', 'Jasmine', 'Rose', 'Tuberose', 'Magnolia', 'Orchid', 'Sandalwood', 'Musk', 'Vanilla']
+      signatureNotes: ['Ylang-Ylang', 'Jasmine', 'Rose', 'Tuberose', 'Magnolia', 'Orchid', 'Sandalwood', 'Musk', 'Vanilla'],
       whyCurated: [
         "J'adore L'Or feels like concentrated precious metal. Rich. Radiant. Refined.",
         'The House selected this composition because it embodies purity elevated to luxury.',
@@ -133,7 +133,7 @@ export interface GuestCurationConfig {
       classification: 'Dark Oriental Floral',
       size: '100ml',
       globalRetailUsd: 235,
-      signatureNotes: ['Rum', 'Honey', 'Bergamot', 'Black Orchid', 'Jasmine', 'Clary Sage', 'Sandalwood', 'Incense', 'Amber']
+      signatureNotes: ['Rum', 'Honey', 'Bergamot', 'Black Orchid', 'Jasmine', 'Clary Sage', 'Sandalwood', 'Incense', 'Amber'],
       whyCurated: [
         "Mystery remains one of luxury's most powerful currencies. Velvet Orchid operates within shadows.",
         'Its honey. Its rum. Its dark floral architecture. Together create an atmosphere of private luxury.',
@@ -148,7 +148,7 @@ export interface GuestCurationConfig {
       classification: 'Luxury Floral Amber',
       size: '90ml',
       globalRetailUsd: 195,
-      signatureNotes: ['Mandarin', 'Cardamom', 'Cassis', 'Orange Blossom', 'Lavender', 'Ylang-Ylang', 'Amber', 'Vanilla', 'Cedarwood']
+      signatureNotes: ['Mandarin', 'Cardamom', 'Cassis', 'Orange Blossom', 'Lavender', 'Ylang-Ylang', 'Amber', 'Vanilla', 'Cedarwood'],
       whyCurated: [
         'Libre Le Parfum embodies self-determination. Its lavender structure. Its saffron warmth. Its amber foundation.',
         'Create a fragrance that feels modern yet authoritative.',
@@ -163,7 +163,7 @@ export interface GuestCurationConfig {
       classification: 'Luxury Gourmand Amber',
       size: '50ml',
       globalRetailUsd: 245,
-      signatureNotes: ['Cognac', 'Cinnamon', 'Nutmeg', 'Praline', 'Caramel', 'Cardamom', 'Sandalwood', 'Vetiver', 'Vanilla']
+      signatureNotes: ['Cognac', 'Cinnamon', 'Nutmeg', 'Praline', 'Caramel', 'Cardamom', 'Sandalwood', 'Vetiver', 'Vanilla'],
       whyCurated: [
         "Some fragrances transcend categories. Angels' Share is one of them. Warm. Addictive. Sophisticated.",
         'The House includes it because it captures the emotional richness of celebration, memory, and legacy.',
@@ -181,7 +181,7 @@ export interface GuestCurationConfig {
       size: '100ML',
       globalRetailUsd: 565,
       image: '/guest-curation/male/creed-aventus.jpg',
-      signatureNotes: ['Blackcurrant', 'Bergamot', 'Apple', 'Jasmine', 'Rose', 'Patchouli', 'Musk', 'Birch', 'Ambergris']
+      signatureNotes: ['Blackcurrant', 'Bergamot', 'Apple', 'Jasmine', 'Rose', 'Patchouli', 'Musk', 'Birch', 'Ambergris'],
       whyCurated: [
         'Few fragrances have influenced modern masculine perfumery like Aventus.',
         'Its fusion of bright pineapple and dry birch smoke created an entirely new luxury category.',
@@ -198,7 +198,7 @@ export interface GuestCurationConfig {
       size: '100ML',
       globalRetailUsd: 385,
       image: '/guest-curation/male/roja-elysium.jpg',
-      signatureNotes: ['Bergamot', 'Grapefruit', 'Orange', 'Cardamom', 'Iris', 'Jasmine', 'Cedarwood', 'Sandalwood', 'Amber']
+      signatureNotes: ['Bergamot', 'Grapefruit', 'Orange', 'Cardamom', 'Iris', 'Jasmine', 'Cedarwood', 'Sandalwood', 'Amber'],
       whyCurated: [
         'Fresh fragrances rarely achieve true luxury status.',
         'Elysium succeeds through extraordinary refinement and balance.',
@@ -215,7 +215,7 @@ export interface GuestCurationConfig {
       size: '100ML',
       globalRetailUsd: 365,
       image: '/guest-curation/male/tom-ford-oud-wood.jpg',
-      signatureNotes: ['Cardamom', 'Siberian Fir', 'Rosewood', 'Oud', 'Sandalwood', 'Vetiver', 'Tonka Bean', 'Amber', 'Musk']
+      signatureNotes: ['Cardamom', 'Siberian Fir', 'Rosewood', 'Oud', 'Sandalwood', 'Vetiver', 'Tonka Bean', 'Amber', 'Musk'],
       whyCurated: [
         'Oud Wood transformed oud into modern sophistication.',
         'Its creamy architecture appeals to leaders, founders, and visionaries who value refinement over excess.',
@@ -231,7 +231,7 @@ export interface GuestCurationConfig {
       size: '125ML',
       globalRetailUsd: 435,
       image: '/guest-curation/male/layton.webp',
-      signatureNotes: ['Bergamot', 'Lavender', 'Apple', 'Jasmine', 'Geranium', 'Vanilla', 'Sandalwood', 'Guaiac Wood', 'Cardamom']
+      signatureNotes: ['Bergamot', 'Lavender', 'Apple', 'Jasmine', 'Geranium', 'Vanilla', 'Sandalwood', 'Guaiac Wood', 'Cardamom'],
       whyCurated: [
         'Layton represents timeless masculine elegance.',
         "Its balance of freshness, spice, and creamy woods creates one of modern perfumery's most admired signatures.",
@@ -247,7 +247,7 @@ export interface GuestCurationConfig {
       size: '100ML',
       globalRetailUsd: 485,
       image: '/guest-curation/male/amouage-interlude.webp',
-      signatureNotes: ['Oregano', 'Incense', 'Bergamot', 'Rose', 'Amber', 'Patchouli', 'Oud', 'Sandalwood', 'Labdanum']
+      signatureNotes: ['Oregano', 'Incense', 'Bergamot', 'Rose', 'Amber', 'Patchouli', 'Oud', 'Sandalwood', 'Labdanum'],
       whyCurated: [
         'Known globally as the Blue Beast, Interlude Man represents uncompromising strength.',
         'Its fortress-like structure aligns perfectly with the House philosophy of permanence and authority.',
@@ -263,7 +263,7 @@ export interface GuestCurationConfig {
       size: '50ML',
       globalRetailUsd: 315,
       image: '/guest-curation/male/kilian-angels-share.webp',
-      signatureNotes: ['Cognac', 'Cinnamon', 'Ginger', 'Praline', 'Caramel', 'Sandalwood', 'Vetiver', 'Vanilla', 'Amber']
+      signatureNotes: ['Cognac', 'Cinnamon', 'Ginger', 'Praline', 'Caramel', 'Sandalwood', 'Vetiver', 'Vanilla', 'Amber'],
       whyCurated: [
         "Angels' Share captures celebration, heritage, and luxury in its purest form.",
         'Its cognac architecture creates one of the most addictive modern compositions.',
@@ -279,7 +279,7 @@ export interface GuestCurationConfig {
       size: '100ML',
       globalRetailUsd: 355,
       image: '/guest-curation/male/xerjoff-naxos.webp',
-      signatureNotes: ['Bergamot', 'Lemon', 'Lavender', 'Jasmine', 'Tobacco', 'Honey', 'Tonka Bean', 'Vanilla', 'Musk']
+      signatureNotes: ['Bergamot', 'Lemon', 'Lavender', 'Jasmine', 'Tobacco', 'Honey', 'Tonka Bean', 'Vanilla', 'Musk'],
       whyCurated: [
         'Naxos embodies warmth, sophistication, and comfort without sacrificing luxury.',
         'Its tobacco-honey structure feels regal and timeless.',
@@ -295,7 +295,7 @@ export interface GuestCurationConfig {
       size: '100ML',
       globalRetailUsd: 495,
       image: '/guest-curation/male/lv-ombre-nomade.jpg',
-      signatureNotes: ['Bergamot', 'Frankincense', 'Rose', 'Oud', 'Saffron', 'Birch', 'Amber', 'Sandalwood', 'Vetiver']
+      signatureNotes: ['Bergamot', 'Frankincense', 'Rose', 'Oud', 'Saffron', 'Birch', 'Amber', 'Sandalwood', 'Vetiver'],
       whyCurated: [
         'Ombre Nomade is one of the most powerful oud creations ever released.',
         'Dense. Dark. Authoritative.',
@@ -312,7 +312,7 @@ export interface GuestCurationConfig {
       size: '70ML',
       globalRetailUsd: 355,
       image: '/guest-curation/male/mfk-grand-soir.jpg',
-      signatureNotes: ['Benzoin', 'Vanilla', 'Amber', 'Tonka Bean', 'Labdanum', 'Musk', 'Benzyl Benzoate', 'Ethyl Vanillin', 'Eugenol']
+      signatureNotes: ['Benzoin', 'Vanilla', 'Amber', 'Tonka Bean', 'Labdanum', 'Musk', 'Benzyl Benzoate', 'Ethyl Vanillin', 'Eugenol'],
       whyCurated: [
         'Grand Soir transforms warmth into art.',
         'Its luminous amber structure feels like golden light preserved within crystal.',
@@ -328,7 +328,7 @@ export interface GuestCurationConfig {
       size: '75ML',
       globalRetailUsd: 395,
       image: '/guest-curation/male/penhaligons-lord-george.webp',
-      signatureNotes: ['Grapefruit', 'Bergamot', 'Tarragon', 'Lavender', 'Geranium', 'Rose', 'Cedarwood', 'Sandalwood', 'Vetiver']
+      signatureNotes: ['Grapefruit', 'Bergamot', 'Tarragon', 'Lavender', 'Geranium', 'Rose', 'Cedarwood', 'Sandalwood', 'Vetiver'],
       whyCurated: [
         'Lord George represents traditional masculine refinement.',
         'Its elegant British character reflects discipline, structure, and institutional stature.',
@@ -346,7 +346,7 @@ export interface GuestCurationConfig {
       size: '50ML EDT',
       globalRetailUsd: 129,
       image: '/images/products/bleu-de-chanel.png',
-      signatureNotes: ['Citrus', 'Grapefruit', 'Mint', 'Ginger', 'Jasmine', 'Melon', 'Sandalwood', 'Vetiver', 'Cedar']
+      signatureNotes: ['Citrus', 'Grapefruit', 'Mint', 'Ginger', 'Jasmine', 'Melon', 'Sandalwood', 'Vetiver', 'Cedar'],
       whyCurated: [
         'Few fragrances have influenced modern masculine luxury more than Bleu de Chanel.',
         'Its balance of freshness, sophistication, and executive presence has made it a universal benchmark.',
@@ -369,7 +369,7 @@ export interface GuestCurationConfig {
       size: '60ML EDT',
       globalRetailUsd: 129,
       image: '/images/products/dior-sauvage.png',
-      signatureNotes: ['Calabrian Bergamot', 'Pepper', 'Grapefruit', 'Lavender', 'Pink Pepper', 'Sichuan Pepper', 'Ambroxan', 'Cedar', 'Labdanum']
+      signatureNotes: ['Calabrian Bergamot', 'Pepper', 'Grapefruit', 'Lavender', 'Pink Pepper', 'Sichuan Pepper', 'Ambroxan', 'Cedar', 'Labdanum'],
       whyCurated: [
         'Sauvage transformed contemporary masculine perfumery through its explosive freshness and unmistakable projection.',
         'It became the world\'s best-selling masculine fragrance not through trend — but through universal magnetic appeal.',
@@ -392,7 +392,7 @@ export interface GuestCurationConfig {
       size: '50ML EDT',
       globalRetailUsd: 119,
       image: '/images/products/acqua-di-gio.png',
-      signatureNotes: ['Aquatic Notes', 'Bergamot', 'Cedar', 'Jasmine', 'Rosemary', 'Sage', 'Musk', 'Patchouli', 'Sandalwood']
+      signatureNotes: ['Aquatic Notes', 'Bergamot', 'Cedar', 'Jasmine', 'Rosemary', 'Sage', 'Musk', 'Patchouli', 'Sandalwood'],
       whyCurated: [
         'One of the most recognizable fresh fragrances ever created. Acqua di Giò captures clarity, calmness, and effortless sophistication.',
         'For over three decades it has defined what a clean, Mediterranean masculine fragrance should feel like.',
@@ -415,7 +415,7 @@ export interface GuestCurationConfig {
       size: '60ML EDT',
       globalRetailUsd: 125,
       image: '/images/products/ysl-la-nuit.png',
-      signatureNotes: ['Oud', 'Cardamom', 'Bergamot', 'Violet', 'Labdanum', 'Cedar', 'Musk', 'Amber', 'Sandalwood']
+      signatureNotes: ['Oud', 'Cardamom', 'Bergamot', 'Violet', 'Labdanum', 'Cedar', 'Musk', 'Amber', 'Sandalwood'],
       whyCurated: [
         'La Nuit de L\'Homme remains one of the most respected evening fragrances in modern luxury.',
         'Its cardamom-lavender accord created a new standard for masculine sophistication in night settings.',
@@ -438,7 +438,7 @@ export interface GuestCurationConfig {
       size: '50ML EDP',
       globalRetailUsd: 129,
       image: '/images/products/versace-eros.png',
-      signatureNotes: ['Mint', 'Green Apple', 'Lemon', 'Tonka Bean', 'Geranium', 'Ambroxan', 'Vanilla', 'Vetiver', 'Oakmoss']
+      signatureNotes: ['Mint', 'Green Apple', 'Lemon', 'Tonka Bean', 'Geranium', 'Ambroxan', 'Vanilla', 'Vetiver', 'Oakmoss'],
       whyCurated: [
         'Eros represents ambition, energy, and unapologetic confidence.',
         'Its bold mint-citrus opening creates an immediate impression — vibrant, masculine, undeniable.',
@@ -461,7 +461,7 @@ export interface GuestCurationConfig {
       size: '50ML EDT',
       globalRetailUsd: 135,
       image: '/images/products/terre-dhermes.png',
-      signatureNotes: ['Orange', 'Grapefruit', 'Flint', 'Pepper', 'Pelargonium', 'Geranium', 'Cedar', 'Vetiver', 'Benzoin']
+      signatureNotes: ['Orange', 'Grapefruit', 'Flint', 'Pepper', 'Pelargonium', 'Geranium', 'Cedar', 'Vetiver', 'Benzoin'],
       whyCurated: [
         'Terre d\'Hermès remains one of the most sophisticated woody fragrances ever created by a major house.',
         'Its flint-mineral signature is unlike anything else in the genre — grounded, intellectual, and completely self-assured.',
@@ -484,7 +484,7 @@ export interface GuestCurationConfig {
       size: '30ML Travel Allocation',
       globalRetailUsd: 125,
       image: '/images/products/tom-ford-noir.png',
-      signatureNotes: ['Violet', 'Grapefruit', 'Bergamot', 'Jasmine', 'Orris Root', 'Cardamom', 'Oud', 'Sandalwood', 'Amber']
+      signatureNotes: ['Violet', 'Grapefruit', 'Bergamot', 'Jasmine', 'Orris Root', 'Cardamom', 'Oud', 'Sandalwood', 'Amber'],
       whyCurated: [
         'Dark. Architectural. Uncompromising.',
         'Noir Anthracite represents power concealed behind discipline — the signature of men who operate at the highest levels.',
@@ -507,7 +507,7 @@ export interface GuestCurationConfig {
       size: '50ML EDT',
       globalRetailUsd: 125,
       image: '/images/products/prada-lhomme.png',
-      signatureNotes: ['Iris Root', 'Amber', 'Vetiver', 'Geranium', 'Patchouli', 'Neroli', 'Sandalwood', 'Amber Wood', 'Cedar']
+      signatureNotes: ['Iris Root', 'Amber', 'Vetiver', 'Geranium', 'Patchouli', 'Neroli', 'Sandalwood', 'Amber Wood', 'Cedar'],
       whyCurated: [
         'Prada L\'Homme exemplifies modern professionalism through immaculate cleanliness and refined structure.',
         'Its iris-forward composition signals sophistication without effort — the hallmark of genuine luxury.',
@@ -530,7 +530,7 @@ export interface GuestCurationConfig {
       size: '75ML EDP',
       globalRetailUsd: 129,
       image: '/images/products/jpg-le-male.png',
-      signatureNotes: ['Mint', 'Bergamot', 'Cardamom', 'Lavender', 'Cinnamon', 'Cumin', 'Vanilla', 'Tonka Bean', 'Sandalwood']
+      signatureNotes: ['Mint', 'Bergamot', 'Cardamom', 'Lavender', 'Cinnamon', 'Cumin', 'Vanilla', 'Tonka Bean', 'Sandalwood'],
       whyCurated: [
         'A modern evolution of one of history\'s most iconic masculine lineages.',
         'Le Parfum intensifies the original into something denser, smoother, and remarkably refined.',
@@ -552,7 +552,7 @@ export interface GuestCurationConfig {
       classification: 'Elegant Amber Aromatic',
       size: '50ML EDT',
       globalRetailUsd: 119,
-      signatureNotes: ['Bergamot', 'Anise', 'Lemon', 'Apple', 'Jasmine', 'Tobacco', 'Tonka Bean', 'Vetiver', 'Cedar']
+      signatureNotes: ['Bergamot', 'Anise', 'Lemon', 'Apple', 'Jasmine', 'Tobacco', 'Tonka Bean', 'Vetiver', 'Cedar'],
       whyCurated: [
         'Armani Code remains one of the most respected evening signatures in luxury fragrance history.',
         'Its elegance has survived generations of trends, remaining a benchmark of masculine refinement.',
@@ -577,7 +577,7 @@ export interface GuestCurationConfig {
       size: '50ML',
       globalRetailUsd: 245,
       image: '/guest-curation/unisex/byredo-gypsy-water.jpg',
-      signatureNotes: ['Bergamot', 'Lemon', 'Pepper', 'Incense', 'Orris Root', 'Pine Needles', 'Sandalwood', 'Amber', 'Vanilla']
+      signatureNotes: ['Bergamot', 'Lemon', 'Pepper', 'Incense', 'Orris Root', 'Pine Needles', 'Sandalwood', 'Amber', 'Vanilla'],
       whyCurated: [
         'Gypsy Water represents artistic independence without boundaries.',
         'Its fresh juniper opening.',
@@ -597,7 +597,7 @@ export interface GuestCurationConfig {
       size: '100ML',
       globalRetailUsd: 385,
       image: '/guest-curation/unisex/le-labo-santal-33.jpg',
-      signatureNotes: ['Cardamom', 'Iris', 'Violet', 'Sandalwood', 'Papyrus', 'Cedarwood', 'Leather', 'Amber', 'Musk']
+      signatureNotes: ['Cardamom', 'Iris', 'Violet', 'Sandalwood', 'Papyrus', 'Cedarwood', 'Leather', 'Amber', 'Musk'],
       whyCurated: [
         'Santal 33 became a global benchmark because it refuses imitation.',
         'Its dry sandalwood.',
@@ -617,7 +617,7 @@ export interface GuestCurationConfig {
       size: '100ML',
       globalRetailUsd: 565,
       image: '/guest-curation/unisex/creed-silver-mountain-water.jpg',
-      signatureNotes: ['Bergamot', 'Mandarin', 'Neroli', 'Green Tea', 'Blackcurrant', 'Rose', 'Musk', 'Sandalwood', 'Galbanum']
+      signatureNotes: ['Bergamot', 'Mandarin', 'Neroli', 'Green Tea', 'Blackcurrant', 'Rose', 'Musk', 'Sandalwood', 'Galbanum'],
       whyCurated: [
         'Silver Mountain Water represents luxury clarity.',
         'Its green tea freshness.',
@@ -636,7 +636,7 @@ export interface GuestCurationConfig {
       size: '75ML',
       globalRetailUsd: 285,
       image: '/guest-curation/unisex/diptyque-philosykos.jpg',
-      signatureNotes: ['Fig Leaves', 'Fig Bud', 'Fig Tree Wood', 'Fig Tree Milk', 'White Cedar', 'Birch', 'White Musk', 'Patchouli', 'Fig Pulp']
+      signatureNotes: ['Fig Leaves', 'Fig Bud', 'Fig Tree Wood', 'Fig Tree Milk', 'White Cedar', 'Birch', 'White Musk', 'Patchouli', 'Fig Pulp'],
       whyCurated: [
         'Philosykos preserves nature with remarkable authenticity.',
         'Every spray feels like walking beneath a Mediterranean fig tree.',
@@ -653,7 +653,7 @@ export interface GuestCurationConfig {
       size: '100ML',
       globalRetailUsd: 355,
       image: '/guest-curation/unisex/tom-ford-soleil-blanc.jpg',
-      signatureNotes: ['Cardamom', 'Bergamot', 'Coriander', 'Orange Blossom', 'Ylang-Ylang', 'Coconut', 'Sandalwood', 'Amber', 'Musks']
+      signatureNotes: ['Cardamom', 'Bergamot', 'Coriander', 'Orange Blossom', 'Ylang-Ylang', 'Coconut', 'Sandalwood', 'Amber', 'Musks'],
       whyCurated: [
         'Soleil Blanc transforms sunlight into luxury.',
         'Creamy.',
@@ -672,7 +672,7 @@ export interface GuestCurationConfig {
       size: '100ML',
       globalRetailUsd: 365,
       image: '/guest-curation/unisex/nishane-hacivat.jpg',
-      signatureNotes: ['Grapefruit', 'Bergamot', 'Pineapple', 'Jasmine', 'Rose', 'Patchouli', 'Vetiver', 'Musks', 'Oakmoss']
+      signatureNotes: ['Grapefruit', 'Bergamot', 'Pineapple', 'Jasmine', 'Rose', 'Patchouli', 'Vetiver', 'Musks', 'Oakmoss'],
       whyCurated: [
         'Hacivat represents permanence.',
         'Its extraordinary concentration.',
@@ -691,7 +691,7 @@ export interface GuestCurationConfig {
       size: '125ML',
       globalRetailUsd: 425,
       image: '/guest-curation/unisex/parfums-de-marly-haltane.jpg',
-      signatureNotes: ['Bergamot', 'Mandarin', 'Juniper', 'Iris', 'Cardamom', 'Violet', 'Sandalwood', 'Musks', 'Cedarwood']
+      signatureNotes: ['Bergamot', 'Mandarin', 'Juniper', 'Iris', 'Cardamom', 'Violet', 'Sandalwood', 'Musks', 'Cedarwood'],
       whyCurated: [
         'Haltane balances strength and elegance.',
         'Natural oud meets modern sophistication.',
@@ -709,7 +709,7 @@ export interface GuestCurationConfig {
       size: '100ML',
       globalRetailUsd: 475,
       image: '/guest-curation/unisex/frederic-malle-portrait-of-a-lady.jpg',
-      signatureNotes: ['Blackcurrant', 'Raspberry', 'Turkish Rose', 'Rose', 'Patchouli', 'Incense', 'Sandalwood', 'Musk', 'Amber']
+      signatureNotes: ['Blackcurrant', 'Raspberry', 'Turkish Rose', 'Rose', 'Patchouli', 'Incense', 'Sandalwood', 'Musk', 'Amber'],
       whyCurated: [
         'Portrait of a Lady is not merely fragrance.',
         'It is olfactory art.',
@@ -729,7 +729,7 @@ export interface GuestCurationConfig {
       size: '50ML',
       globalRetailUsd: 210,
       image: '/guest-curation/unisex/serge-lutens-ambre-sultan.jpg',
-      signatureNotes: ['Oregano', 'Coriander', 'Cinnamon', 'Labdanum', 'Bay Leaf', 'Dried Plants', 'Amber', 'Sandalwood', 'Musk']
+      signatureNotes: ['Oregano', 'Coriander', 'Cinnamon', 'Labdanum', 'Bay Leaf', 'Dried Plants', 'Amber', 'Sandalwood', 'Musk'],
       whyCurated: [
         'Ambre Sultan respects raw materials.',
         'Its dry amber structure.',
@@ -748,7 +748,7 @@ export interface GuestCurationConfig {
       size: '100ML',
       globalRetailUsd: 215,
       image: '/guest-curation/unisex/jo-malone-wood-sage-sea-salt.jpg',
-      signatureNotes: ['Sea Salt', 'Grapefruit', 'Ambrette', 'Sage', 'Driftwood', 'Ambrette Seeds', 'Driftwood', 'Amber', 'Musk']
+      signatureNotes: ['Sea Salt', 'Grapefruit', 'Ambrette', 'Sage', 'Driftwood', 'Ambrette Seeds', 'Driftwood', 'Amber', 'Musk'],
       whyCurated: [
         'Wood Sage & Sea Salt demonstrates restraint.',
         'Clean.',
@@ -1375,7 +1375,7 @@ export interface GuestCurationConfig {
           classification: 'Luxury High Jewelry Crown Ring',
           size: '18K Gold · 1.30ct Natural Diamonds',
           globalRetailUsd: 3200,
-          signatureNotes: ['Solid 18K Yellow Gold Construction', 'Hand-Cast Crown Architecture', 'SF Original Gold Standard', '1.30 Carats Natural Diamonds', 'VS Clarity Diamond Grade', 'Hand-Set Pavé Crown Band', 'Crown-Form Sovereign Architecture', 'Investment-Grade Certification', 'House Original Hallmark']
+          signatureNotes: ['Solid 18K Yellow Gold Construction', 'Hand-Cast Crown Architecture', 'SF Original Gold Standard', '1.30 Carats Natural Diamonds', 'VS Clarity Diamond Grade', 'Hand-Set Pavé Crown Band', 'Crown-Form Sovereign Architecture', 'Investment-Grade Certification', 'House Original Hallmark'],
           whyCurated: [
             '"The Queen of Taif Crown Ring is not inspired by royalty. It is royalty — engineered in gold and diamonds to be worn, invested, and inherited." — The House',
             'Crafted from solid 18K gold set with 1.30 carats of certified natural diamonds, the Queen of Taif Crown Ring is Shamim Forever's signature high-jewelry creation — a wearable crown that functions simultaneously as an investment asset and generational heirloom.',
@@ -1391,7 +1391,7 @@ export interface GuestCurationConfig {
           classification: 'Museum-Grade Natural Sapphire Set',
           size: '18K White Gold · Ceylon Sapphire',
           globalRetailUsd: 6000,
-          signatureNotes: ['Solid 18K White Gold Setting', 'Diamond Halo Construction', 'SF Original White Gold Standard', 'Natural Ceylon Sapphire Center', 'Diamond Halo Surround Setting', 'Museum-Grade Gemological Certification', 'Matched Stone Pair Selection', 'Complete Necklace & Earrings Set', 'House Original Hallmark Engraving']
+          signatureNotes: ['Solid 18K White Gold Setting', 'Diamond Halo Construction', 'SF Original White Gold Standard', 'Natural Ceylon Sapphire Center', 'Diamond Halo Surround Setting', 'Museum-Grade Gemological Certification', 'Matched Stone Pair Selection', 'Complete Necklace & Earrings Set', 'House Original Hallmark Engraving'],
           whyCurated: [
             '"The Ceylon sapphire is among the rarest things on earth. Eternal Grace sets it where it belongs — at the center of a museum-grade creation." — The House',
             'The Eternal Grace Sapphire Set pairs a natural Ceylon sapphire with a diamond halo in 18K white gold — rendered as a complete collector set (necklace and earrings) with museum-grade certification and matched stone selection.',
@@ -1407,7 +1407,7 @@ export interface GuestCurationConfig {
           classification: 'Ultra-Limited Heirloom Jewelry Vault',
           size: '22K Gold · 5-Piece Complete Set',
           globalRetailUsd: 185000,
-          signatureNotes: ['Solid 22K Yellow Gold Construction', 'Complete 5-Piece Set Architecture', 'SF Ultra-Limited Gold Standard', 'Premium Gemstone Selection', 'Investment-Grade Certification', 'Rare Stone Allocation Grade', 'NFT Sovereign Passport Issued', 'Digital Provenance System', 'House Masterpiece Original Hallmark']
+          signatureNotes: ['Solid 22K Yellow Gold Construction', 'Complete 5-Piece Set Architecture', 'SF Ultra-Limited Gold Standard', 'Premium Gemstone Selection', 'Investment-Grade Certification', 'Rare Stone Allocation Grade', 'NFT Sovereign Passport Issued', 'Digital Provenance System', 'House Masterpiece Original Hallmark'],
           whyCurated: [
             '"The Empress Sovereign Vault is not a jewelry set. It is a dynasty — five pieces of 22K gold designed to establish a legacy that outlasts generations." — The House',
             'An ultra-limited heirloom jewelry vault comprising five complete 22K gold pieces, each issued with an NFT Sovereign Passport and full digital provenance. The Vault is not offered to the public — it is allocated by The House to verified collectors.',
