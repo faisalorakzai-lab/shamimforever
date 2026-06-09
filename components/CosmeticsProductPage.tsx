@@ -1,4 +1,5 @@
 'use client'
+import type React from 'react'
 
 import { useEffect, useRef, useState, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
@@ -419,8 +420,13 @@ export default function CosmeticsProductPage({ product }: { product: Product }) 
         <div style={{ position: 'absolute', top: 0, left: 0, bottom: 0, width: 1, background: `linear-gradient(to bottom, transparent, ${rarityColor}80 50%, transparent)`, zIndex: 8 }} />
         <div style={{ position: 'absolute', top: 0, right: 0, bottom: 0, width: 1, background: `linear-gradient(to bottom, transparent, ${rarityColor}80 50%, transparent)`, zIndex: 8 }} />
         {/* Corner brackets */}
-        {[['top:54px;left:14px', 'top', 'left'], ['top:54px;right:14px', 'top', 'right'], ['bottom:14px;left:14px', 'bottom', 'left'], ['bottom:14px;right:14px', 'bottom', 'right']].map(([pos]) => (
-          <div key={pos} style={{ position: 'absolute', [pos.split(';')[0].split(':')[0]]: pos.split(';')[0].split(':')[1], [pos.split(';')[1].split(':')[0]]: pos.split(';')[1].split(':')[1], width: 18, height: 18, borderTop: pos.includes('top:') ? `1px solid ${rarityColor}55` : undefined, borderBottom: pos.includes('bottom:') ? `1px solid ${rarityColor}40` : undefined, borderLeft: pos.includes('left:') ? `1px solid ${rarityColor}55` : undefined, borderRight: pos.includes('right:') ? `1px solid ${rarityColor}55` : undefined, pointerEvents: 'none', zIndex: 9 }} />
+        {([
+          { top: 54, left: 14, borderTop: `1px solid ${rarityColor}55`, borderLeft: `1px solid ${rarityColor}55` },
+          { top: 54, right: 14, borderTop: `1px solid ${rarityColor}55`, borderRight: `1px solid ${rarityColor}55` },
+          { bottom: 14, left: 14, borderBottom: `1px solid ${rarityColor}40`, borderLeft: `1px solid ${rarityColor}40` },
+          { bottom: 14, right: 14, borderBottom: `1px solid ${rarityColor}40`, borderRight: `1px solid ${rarityColor}40` },
+        ] as React.CSSProperties[]).map((style, i) => (
+          <div key={i} style={{ position: 'absolute', ...style, width: 18, height: 18, pointerEvents: 'none', zIndex: 9 }} />
         ))}
 
         {heroImage ? (
