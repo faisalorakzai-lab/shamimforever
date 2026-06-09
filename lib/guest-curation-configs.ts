@@ -22,7 +22,7 @@ export interface GuestCurationConfig {
       classification: 'Luxury Niche Feminine Masterpiece',
       size: '75ml',
       globalRetailUsd: 430,
-      signatureNotes: ['Turkish Rose', 'Lychee', 'Incense', 'Oud', 'Vanilla'],
+      signatureNotes: ['Turkish Rose', 'Lychee', 'Pink Pepper', 'Peony', 'Incense', 'White Musk', 'Oud', 'Vanilla', 'Sandalwood']
       whyCurated: [
         'Delina Exclusif represents the meeting point between aristocratic floral craftsmanship and modern luxury architecture.',
         'Its Turkish Rose core carries extraordinary richness. Its incense foundation creates permanence. Its oud structure delivers authority.',
@@ -39,7 +39,7 @@ export interface GuestCurationConfig {
       classification: 'Ultra-Luxury Niche Feminine Composition',
       size: '100ml',
       globalRetailUsd: 395,
-      signatureNotes: ['Pear', 'Hazelnut', 'Frankincense', 'Osmanthus', 'Rose', 'Sandalwood'],
+      signatureNotes: ['Bergamot', 'Mandarin', 'Pink Pepper', 'Rose', 'Cistus', 'Iris', 'Musc', 'Sandalwood', 'Amber']
       whyCurated: [
         'Guidance represents emotional intelligence translated into fragrance.',
         'Its Omani Frankincense foundation reflects structure. Its creamy woods create depth. Its floral architecture creates sophistication.',
@@ -56,7 +56,7 @@ export interface GuestCurationConfig {
       classification: 'Luxury Amber-Wood Extrait',
       size: '70ml',
       globalRetailUsd: 465,
-      signatureNotes: ['Saffron', 'Bitter Almond', 'Egyptian Jasmine', 'Ambergris', 'Cedarwood'],
+      signatureNotes: ['Jasmine', 'Saffron', 'Cedar', 'Amberwood', 'Ambergris', 'Fir Resin', 'Musks', 'Oakmoss', 'Cedarwood']
       whyCurated: [
         'Few fragrances have achieved modern legendary status. Baccarat Rouge 540 Extrait is one of them.',
         'Its saffron brilliance. Its ambergris structure. Its crystalline projection.',
@@ -73,7 +73,7 @@ export interface GuestCurationConfig {
       classification: 'Luxury Gourmand Masterpiece',
       size: '100ml',
       globalRetailUsd: 315,
-      signatureNotes: ['Blood Orange', 'Bergamot', 'Lavender', 'Cinnamon', 'Licorice', 'Caramel Vanilla'],
+      signatureNotes: ['Rose', 'Bergamot', 'Lemon', 'Jasmine', 'Peach', 'Sandalwood', 'Musk', 'Amber', 'Vetiver']
       whyCurated: [
         'Lira preserves old-world Italian romance. Rich sweetness. Vintage elegance. Theatrical beauty.',
         'Its gourmand architecture demonstrates how luxury can feel emotional without sacrificing sophistication.',
@@ -88,7 +88,7 @@ export interface GuestCurationConfig {
       classification: 'Luxury High-Impact Floral',
       size: '90ml',
       globalRetailUsd: 360,
-      signatureNotes: ['Italian Bergamot', 'Bulgarian Rose', 'Turkish Rose', 'Egyptian Jasmine', 'Madagascar Vanilla'],
+      signatureNotes: ['Turkish Rose', 'Bulgarian Rose', 'Geranium', 'White Musks', 'Woody Ambers', 'Skin Musks', 'Ambroxan', 'Sandalwood', 'Warm Amber']
       whyCurated: [
         'Atomic Rose transforms the rose from ornament into authority. Powerful. Bold. Unapologetic.',
         'The House selected this masterpiece because it demonstrates how a classic floral note can become a commanding statement.',
@@ -103,7 +103,7 @@ export interface GuestCurationConfig {
       classification: 'Luxury Corporate Feminine Signature',
       size: '100ml',
       globalRetailUsd: 190,
-      signatureNotes: ['Patchouli', 'Sicilian Orange', 'Calabrian Bergamot', 'Amber', 'Tonka Bean'],
+      signatureNotes: ['Orange', 'Bergamot', 'Mandarin', 'Rose', 'Jasmine', 'Ylang-Ylang', 'Vetiver', 'Patchouli', 'Vanilla']
       whyCurated: [
         'Modern feminine professionalism has few universal references. Coco Mademoiselle Intense remains one of them.',
         'The House recognizes its ability to balance elegance, confidence, and maturity with effortless authority.',
@@ -118,7 +118,7 @@ export interface GuestCurationConfig {
       classification: 'Luxury Floral Essence',
       size: '50ml',
       globalRetailUsd: 170,
-      signatureNotes: ['Orange Blossom Absolute', 'Jasmine Grandiflorum', 'Centifolia Rose'],
+      signatureNotes: ['Ylang-Ylang', 'Jasmine', 'Rose', 'Tuberose', 'Magnolia', 'Orchid', 'Sandalwood', 'Musk', 'Vanilla']
       whyCurated: [
         "J'adore L'Or feels like concentrated precious metal. Rich. Radiant. Refined.",
         'The House selected this composition because it embodies purity elevated to luxury.',
@@ -133,7 +133,7 @@ export interface GuestCurationConfig {
       classification: 'Dark Oriental Floral',
       size: '100ml',
       globalRetailUsd: 235,
-      signatureNotes: ['Black Orchid', 'Velvet Orchid', 'Rum', 'Honey', 'Mandarin', 'Myrrh'],
+      signatureNotes: ['Rum', 'Honey', 'Bergamot', 'Black Orchid', 'Jasmine', 'Clary Sage', 'Sandalwood', 'Incense', 'Amber']
       whyCurated: [
         "Mystery remains one of luxury's most powerful currencies. Velvet Orchid operates within shadows.",
         'Its honey. Its rum. Its dark floral architecture. Together create an atmosphere of private luxury.',
@@ -148,7 +148,7 @@ export interface GuestCurationConfig {
       classification: 'Luxury Floral Amber',
       size: '90ml',
       globalRetailUsd: 195,
-      signatureNotes: ['French Lavender', 'Moroccan Orange Blossom', 'Ginger', 'Saffron'],
+      signatureNotes: ['Mandarin', 'Cardamom', 'Cassis', 'Orange Blossom', 'Lavender', 'Ylang-Ylang', 'Amber', 'Vanilla', 'Cedarwood']
       whyCurated: [
         'Libre Le Parfum embodies self-determination. Its lavender structure. Its saffron warmth. Its amber foundation.',
         'Create a fragrance that feels modern yet authoritative.',
@@ -163,7 +163,7 @@ export interface GuestCurationConfig {
       classification: 'Luxury Gourmand Amber',
       size: '50ml',
       globalRetailUsd: 245,
-      signatureNotes: ['Cognac Accord', 'Cinnamon', 'Tonka Bean', 'Praline', 'Vanilla', 'Oak'],
+      signatureNotes: ['Cognac', 'Cinnamon', 'Nutmeg', 'Praline', 'Caramel', 'Cardamom', 'Sandalwood', 'Vetiver', 'Vanilla']
       whyCurated: [
         "Some fragrances transcend categories. Angels' Share is one of them. Warm. Addictive. Sophisticated.",
         'The House includes it because it captures the emotional richness of celebration, memory, and legacy.',
@@ -181,7 +181,7 @@ export interface GuestCurationConfig {
       size: '100ML',
       globalRetailUsd: 565,
       image: '/guest-curation/male/creed-aventus.jpg',
-      signatureNotes: ['Pineapple', 'Bergamot', 'Birch Wood', 'Patchouli', 'Ambergris'],
+      signatureNotes: ['Blackcurrant', 'Bergamot', 'Apple', 'Jasmine', 'Rose', 'Patchouli', 'Musk', 'Birch', 'Ambergris']
       whyCurated: [
         'Few fragrances have influenced modern masculine perfumery like Aventus.',
         'Its fusion of bright pineapple and dry birch smoke created an entirely new luxury category.',
@@ -198,7 +198,7 @@ export interface GuestCurationConfig {
       size: '100ML',
       globalRetailUsd: 385,
       image: '/guest-curation/male/roja-elysium.jpg',
-      signatureNotes: ['Grapefruit', 'Lime', 'Lavender', 'Vetiver', 'Ambergris', 'Leather'],
+      signatureNotes: ['Bergamot', 'Grapefruit', 'Orange', 'Cardamom', 'Iris', 'Jasmine', 'Cedarwood', 'Sandalwood', 'Amber']
       whyCurated: [
         'Fresh fragrances rarely achieve true luxury status.',
         'Elysium succeeds through extraordinary refinement and balance.',
@@ -215,7 +215,7 @@ export interface GuestCurationConfig {
       size: '100ML',
       globalRetailUsd: 365,
       image: '/guest-curation/male/tom-ford-oud-wood.jpg',
-      signatureNotes: ['Rare Oud', 'Sandalwood', 'Chinese Pepper', 'Rosewood', 'Vanilla', 'Amber'],
+      signatureNotes: ['Cardamom', 'Siberian Fir', 'Rosewood', 'Oud', 'Sandalwood', 'Vetiver', 'Tonka Bean', 'Amber', 'Musk']
       whyCurated: [
         'Oud Wood transformed oud into modern sophistication.',
         'Its creamy architecture appeals to leaders, founders, and visionaries who value refinement over excess.',
@@ -231,7 +231,7 @@ export interface GuestCurationConfig {
       size: '125ML',
       globalRetailUsd: 435,
       image: '/guest-curation/male/layton.webp',
-      signatureNotes: ['Apple', 'Lavender', 'Bergamot', 'Violet', 'Vanilla', 'Guaiac Wood'],
+      signatureNotes: ['Bergamot', 'Lavender', 'Apple', 'Jasmine', 'Geranium', 'Vanilla', 'Sandalwood', 'Guaiac Wood', 'Cardamom']
       whyCurated: [
         'Layton represents timeless masculine elegance.',
         "Its balance of freshness, spice, and creamy woods creates one of modern perfumery's most admired signatures.",
@@ -247,7 +247,7 @@ export interface GuestCurationConfig {
       size: '100ML',
       globalRetailUsd: 485,
       image: '/guest-curation/male/amouage-interlude.webp',
-      signatureNotes: ['Oregano', 'Pimento Berry', 'Frankincense', 'Amber', 'Myrrh', 'Leather'],
+      signatureNotes: ['Oregano', 'Incense', 'Bergamot', 'Rose', 'Amber', 'Patchouli', 'Oud', 'Sandalwood', 'Labdanum']
       whyCurated: [
         'Known globally as the Blue Beast, Interlude Man represents uncompromising strength.',
         'Its fortress-like structure aligns perfectly with the House philosophy of permanence and authority.',
@@ -263,7 +263,7 @@ export interface GuestCurationConfig {
       size: '50ML',
       globalRetailUsd: 315,
       image: '/guest-curation/male/kilian-angels-share.webp',
-      signatureNotes: ['Cognac Oil', 'Oak', 'Cinnamon', 'Tonka Bean', 'Praline', 'Sandalwood'],
+      signatureNotes: ['Cognac', 'Cinnamon', 'Ginger', 'Praline', 'Caramel', 'Sandalwood', 'Vetiver', 'Vanilla', 'Amber']
       whyCurated: [
         "Angels' Share captures celebration, heritage, and luxury in its purest form.",
         'Its cognac architecture creates one of the most addictive modern compositions.',
@@ -279,7 +279,7 @@ export interface GuestCurationConfig {
       size: '100ML',
       globalRetailUsd: 355,
       image: '/guest-curation/male/xerjoff-naxos.webp',
-      signatureNotes: ['Honey', 'Tobacco', 'Lavender', 'Bergamot', 'Cinnamon', 'Vanilla'],
+      signatureNotes: ['Bergamot', 'Lemon', 'Lavender', 'Jasmine', 'Tobacco', 'Honey', 'Tonka Bean', 'Vanilla', 'Musk']
       whyCurated: [
         'Naxos embodies warmth, sophistication, and comfort without sacrificing luxury.',
         'Its tobacco-honey structure feels regal and timeless.',
@@ -295,7 +295,7 @@ export interface GuestCurationConfig {
       size: '100ML',
       globalRetailUsd: 495,
       image: '/guest-curation/male/lv-ombre-nomade.jpg',
-      signatureNotes: ['Oud Wood', 'Incense', 'Benzoin', 'Raspberry'],
+      signatureNotes: ['Bergamot', 'Frankincense', 'Rose', 'Oud', 'Saffron', 'Birch', 'Amber', 'Sandalwood', 'Vetiver']
       whyCurated: [
         'Ombre Nomade is one of the most powerful oud creations ever released.',
         'Dense. Dark. Authoritative.',
@@ -312,7 +312,7 @@ export interface GuestCurationConfig {
       size: '70ML',
       globalRetailUsd: 355,
       image: '/guest-curation/male/mfk-grand-soir.jpg',
-      signatureNotes: ['Labdanum', 'Benzoin', 'Tonka Bean', 'Amber', 'Vanilla'],
+      signatureNotes: ['Benzoin', 'Vanilla', 'Amber', 'Tonka Bean', 'Labdanum', 'Musk', 'Benzyl Benzoate', 'Ethyl Vanillin', 'Eugenol']
       whyCurated: [
         'Grand Soir transforms warmth into art.',
         'Its luminous amber structure feels like golden light preserved within crystal.',
@@ -328,7 +328,7 @@ export interface GuestCurationConfig {
       size: '75ML',
       globalRetailUsd: 395,
       image: '/guest-curation/male/penhaligons-lord-george.webp',
-      signatureNotes: ['Brandy', 'Shaving Soap', 'Amber', 'Tonka Bean'],
+      signatureNotes: ['Grapefruit', 'Bergamot', 'Tarragon', 'Lavender', 'Geranium', 'Rose', 'Cedarwood', 'Sandalwood', 'Vetiver']
       whyCurated: [
         'Lord George represents traditional masculine refinement.',
         'Its elegant British character reflects discipline, structure, and institutional stature.',
@@ -346,7 +346,7 @@ export interface GuestCurationConfig {
       size: '50ML EDT',
       globalRetailUsd: 129,
       image: '/images/products/bleu-de-chanel.png',
-      signatureNotes: ['Grapefruit', 'Mint', 'Ginger', 'Incense', 'Cedarwood', 'Sandalwood'],
+      signatureNotes: ['Citrus', 'Grapefruit', 'Mint', 'Ginger', 'Jasmine', 'Melon', 'Sandalwood', 'Vetiver', 'Cedar']
       whyCurated: [
         'Few fragrances have influenced modern masculine luxury more than Bleu de Chanel.',
         'Its balance of freshness, sophistication, and executive presence has made it a universal benchmark.',
@@ -369,7 +369,7 @@ export interface GuestCurationConfig {
       size: '60ML EDT',
       globalRetailUsd: 129,
       image: '/images/products/dior-sauvage.png',
-      signatureNotes: ['Calabrian Bergamot', 'Sichuan Pepper', 'Lavender', 'Pink Pepper', 'Patchouli', 'Ambroxan'],
+      signatureNotes: ['Calabrian Bergamot', 'Pepper', 'Grapefruit', 'Lavender', 'Pink Pepper', 'Sichuan Pepper', 'Ambroxan', 'Cedar', 'Labdanum']
       whyCurated: [
         'Sauvage transformed contemporary masculine perfumery through its explosive freshness and unmistakable projection.',
         'It became the world\'s best-selling masculine fragrance not through trend — but through universal magnetic appeal.',
@@ -392,7 +392,7 @@ export interface GuestCurationConfig {
       size: '50ML EDT',
       globalRetailUsd: 119,
       image: '/images/products/acqua-di-gio.png',
-      signatureNotes: ['Sea Notes', 'Bergamot', 'Neroli', 'Jasmine', 'Rosemary', 'Cedarwood', 'Patchouli'],
+      signatureNotes: ['Aquatic Notes', 'Bergamot', 'Cedar', 'Jasmine', 'Rosemary', 'Sage', 'Musk', 'Patchouli', 'Sandalwood']
       whyCurated: [
         'One of the most recognizable fresh fragrances ever created. Acqua di Giò captures clarity, calmness, and effortless sophistication.',
         'For over three decades it has defined what a clean, Mediterranean masculine fragrance should feel like.',
@@ -415,7 +415,7 @@ export interface GuestCurationConfig {
       size: '60ML EDT',
       globalRetailUsd: 125,
       image: '/images/products/ysl-la-nuit.png',
-      signatureNotes: ['Cardamom', 'Lavender', 'Virginia Cedar', 'Coumarin', 'White Musk'],
+      signatureNotes: ['Oud', 'Cardamom', 'Bergamot', 'Violet', 'Labdanum', 'Cedar', 'Musk', 'Amber', 'Sandalwood']
       whyCurated: [
         'La Nuit de L\'Homme remains one of the most respected evening fragrances in modern luxury.',
         'Its cardamom-lavender accord created a new standard for masculine sophistication in night settings.',
@@ -438,7 +438,7 @@ export interface GuestCurationConfig {
       size: '50ML EDP',
       globalRetailUsd: 129,
       image: '/images/products/versace-eros.png',
-      signatureNotes: ['Mint', 'Italian Lemon', 'Green Apple', 'Tonka Bean', 'Amber', 'Vetiver', 'Atlas Cedarwood'],
+      signatureNotes: ['Mint', 'Green Apple', 'Lemon', 'Tonka Bean', 'Geranium', 'Ambroxan', 'Vanilla', 'Vetiver', 'Oakmoss']
       whyCurated: [
         'Eros represents ambition, energy, and unapologetic confidence.',
         'Its bold mint-citrus opening creates an immediate impression — vibrant, masculine, undeniable.',
@@ -461,7 +461,7 @@ export interface GuestCurationConfig {
       size: '50ML EDT',
       globalRetailUsd: 135,
       image: '/images/products/terre-dhermes.png',
-      signatureNotes: ['Orange', 'Pink Pepper', 'Flint', 'Vetiver', 'Cedarwood', 'Benzoin', 'Grapefruit'],
+      signatureNotes: ['Orange', 'Grapefruit', 'Flint', 'Pepper', 'Pelargonium', 'Geranium', 'Cedar', 'Vetiver', 'Benzoin']
       whyCurated: [
         'Terre d\'Hermès remains one of the most sophisticated woody fragrances ever created by a major house.',
         'Its flint-mineral signature is unlike anything else in the genre — grounded, intellectual, and completely self-assured.',
@@ -484,7 +484,7 @@ export interface GuestCurationConfig {
       size: '30ML Travel Allocation',
       globalRetailUsd: 125,
       image: '/images/products/tom-ford-noir.png',
-      signatureNotes: ['Sichuan Pepper', 'Ginger', 'Galbanum', 'Cedarwood', 'Ebony Wood', 'Vetiver'],
+      signatureNotes: ['Violet', 'Grapefruit', 'Bergamot', 'Jasmine', 'Orris Root', 'Cardamom', 'Oud', 'Sandalwood', 'Amber']
       whyCurated: [
         'Dark. Architectural. Uncompromising.',
         'Noir Anthracite represents power concealed behind discipline — the signature of men who operate at the highest levels.',
@@ -507,7 +507,7 @@ export interface GuestCurationConfig {
       size: '50ML EDT',
       globalRetailUsd: 125,
       image: '/images/products/prada-lhomme.png',
-      signatureNotes: ['Iris', 'Amber', 'Neroli', 'Geranium', 'Patchouli', 'Vetiver'],
+      signatureNotes: ['Iris Root', 'Amber', 'Vetiver', 'Geranium', 'Patchouli', 'Neroli', 'Sandalwood', 'Amber Wood', 'Cedar']
       whyCurated: [
         'Prada L\'Homme exemplifies modern professionalism through immaculate cleanliness and refined structure.',
         'Its iris-forward composition signals sophistication without effort — the hallmark of genuine luxury.',
@@ -530,7 +530,7 @@ export interface GuestCurationConfig {
       size: '75ML EDP',
       globalRetailUsd: 129,
       image: '/images/products/jpg-le-male.png',
-      signatureNotes: ['Cardamom', 'Lavender', 'Iris', 'Vanilla', 'Vetiver', 'Sandalwood', 'Oriental Woods'],
+      signatureNotes: ['Mint', 'Bergamot', 'Cardamom', 'Lavender', 'Cinnamon', 'Cumin', 'Vanilla', 'Tonka Bean', 'Sandalwood']
       whyCurated: [
         'A modern evolution of one of history\'s most iconic masculine lineages.',
         'Le Parfum intensifies the original into something denser, smoother, and remarkably refined.',
@@ -552,7 +552,7 @@ export interface GuestCurationConfig {
       classification: 'Elegant Amber Aromatic',
       size: '50ML EDT',
       globalRetailUsd: 119,
-      signatureNotes: ['Green Mandarin', 'Bergamot', 'Lavender', 'Guaiac Wood', 'Tonka Bean', 'Cedarwood', 'Olive Blossom'],
+      signatureNotes: ['Bergamot', 'Anise', 'Lemon', 'Apple', 'Jasmine', 'Tobacco', 'Tonka Bean', 'Vetiver', 'Cedar']
       whyCurated: [
         'Armani Code remains one of the most respected evening signatures in luxury fragrance history.',
         'Its elegance has survived generations of trends, remaining a benchmark of masculine refinement.',
@@ -577,7 +577,7 @@ export interface GuestCurationConfig {
       size: '50ML',
       globalRetailUsd: 245,
       image: '/guest-curation/unisex/byredo-gypsy-water.jpg',
-      signatureNotes: ['Juniper', 'Lemon', 'Bergamot', 'Pine Needles', 'Incense', 'Sandalwood', 'Vanilla'],
+      signatureNotes: ['Bergamot', 'Lemon', 'Pepper', 'Incense', 'Orris Root', 'Pine Needles', 'Sandalwood', 'Amber', 'Vanilla']
       whyCurated: [
         'Gypsy Water represents artistic independence without boundaries.',
         'Its fresh juniper opening.',
@@ -597,7 +597,7 @@ export interface GuestCurationConfig {
       size: '100ML',
       globalRetailUsd: 385,
       image: '/guest-curation/unisex/le-labo-santal-33.jpg',
-      signatureNotes: ['Cardamom', 'Iris', 'Violet', 'Ambrox', 'Sandalwood', 'Papyrus', 'Cedarwood'],
+      signatureNotes: ['Cardamom', 'Iris', 'Violet', 'Sandalwood', 'Papyrus', 'Cedarwood', 'Leather', 'Amber', 'Musk']
       whyCurated: [
         'Santal 33 became a global benchmark because it refuses imitation.',
         'Its dry sandalwood.',
@@ -617,7 +617,7 @@ export interface GuestCurationConfig {
       size: '100ML',
       globalRetailUsd: 565,
       image: '/guest-curation/unisex/creed-silver-mountain-water.jpg',
-      signatureNotes: ['Bergamot', 'Mandarin', 'Green Tea', 'Blackcurrant', 'Musk', 'Petitgrain', 'Sandalwood'],
+      signatureNotes: ['Bergamot', 'Mandarin', 'Neroli', 'Green Tea', 'Blackcurrant', 'Rose', 'Musk', 'Sandalwood', 'Galbanum']
       whyCurated: [
         'Silver Mountain Water represents luxury clarity.',
         'Its green tea freshness.',
@@ -636,7 +636,7 @@ export interface GuestCurationConfig {
       size: '75ML',
       globalRetailUsd: 285,
       image: '/guest-curation/unisex/diptyque-philosykos.jpg',
-      signatureNotes: ['Fig Leaf', 'Fig Fruit', 'Coconut', 'Green Notes', 'Cedar', 'Fig Tree Wood'],
+      signatureNotes: ['Fig Leaves', 'Fig Bud', 'Fig Tree Wood', 'Fig Tree Milk', 'White Cedar', 'Birch', 'White Musk', 'Patchouli', 'Fig Pulp']
       whyCurated: [
         'Philosykos preserves nature with remarkable authenticity.',
         'Every spray feels like walking beneath a Mediterranean fig tree.',
@@ -653,7 +653,7 @@ export interface GuestCurationConfig {
       size: '100ML',
       globalRetailUsd: 355,
       image: '/guest-curation/unisex/tom-ford-soleil-blanc.jpg',
-      signatureNotes: ['Coconut', 'Ylang-Ylang', 'Bergamot', 'Cardamom', 'Pistachio', 'Amber', 'Tuberose'],
+      signatureNotes: ['Cardamom', 'Bergamot', 'Coriander', 'Orange Blossom', 'Ylang-Ylang', 'Coconut', 'Sandalwood', 'Amber', 'Musks']
       whyCurated: [
         'Soleil Blanc transforms sunlight into luxury.',
         'Creamy.',
@@ -672,7 +672,7 @@ export interface GuestCurationConfig {
       size: '100ML',
       globalRetailUsd: 365,
       image: '/guest-curation/unisex/nishane-hacivat.jpg',
-      signatureNotes: ['Pineapple', 'Grapefruit', 'Bergamot', 'Oakmoss', 'Patchouli', 'Timberwood'],
+      signatureNotes: ['Grapefruit', 'Bergamot', 'Pineapple', 'Jasmine', 'Rose', 'Patchouli', 'Vetiver', 'Musks', 'Oakmoss']
       whyCurated: [
         'Hacivat represents permanence.',
         'Its extraordinary concentration.',
@@ -691,7 +691,7 @@ export interface GuestCurationConfig {
       size: '125ML',
       globalRetailUsd: 425,
       image: '/guest-curation/unisex/parfums-de-marly-haltane.jpg',
-      signatureNotes: ['Clary Sage', 'Lavender', 'Bergamot', 'Saffron', 'Praline', 'Oud Wood', 'Cedarwood'],
+      signatureNotes: ['Bergamot', 'Mandarin', 'Juniper', 'Iris', 'Cardamom', 'Violet', 'Sandalwood', 'Musks', 'Cedarwood']
       whyCurated: [
         'Haltane balances strength and elegance.',
         'Natural oud meets modern sophistication.',
@@ -709,7 +709,7 @@ export interface GuestCurationConfig {
       size: '100ML',
       globalRetailUsd: 475,
       image: '/guest-curation/unisex/frederic-malle-portrait-of-a-lady.jpg',
-      signatureNotes: ['Rose', 'Patchouli', 'Clove', 'Cinnamon', 'Incense', 'Amber', 'Sandalwood'],
+      signatureNotes: ['Blackcurrant', 'Raspberry', 'Turkish Rose', 'Rose', 'Patchouli', 'Incense', 'Sandalwood', 'Musk', 'Amber']
       whyCurated: [
         'Portrait of a Lady is not merely fragrance.',
         'It is olfactory art.',
@@ -729,7 +729,7 @@ export interface GuestCurationConfig {
       size: '50ML',
       globalRetailUsd: 210,
       image: '/guest-curation/unisex/serge-lutens-ambre-sultan.jpg',
-      signatureNotes: ['Amber', 'Bay Leaf', 'Coriander', 'Oregano', 'Patchouli', 'Myrrh', 'Vanilla Resin'],
+      signatureNotes: ['Oregano', 'Coriander', 'Cinnamon', 'Labdanum', 'Bay Leaf', 'Dried Plants', 'Amber', 'Sandalwood', 'Musk']
       whyCurated: [
         'Ambre Sultan respects raw materials.',
         'Its dry amber structure.',
@@ -748,7 +748,7 @@ export interface GuestCurationConfig {
       size: '100ML',
       globalRetailUsd: 215,
       image: '/guest-curation/unisex/jo-malone-wood-sage-sea-salt.jpg',
-      signatureNotes: ['Ambrette Seeds', 'Sea Salt', 'Sage', 'Red Algae', 'Grapefruit'],
+      signatureNotes: ['Sea Salt', 'Grapefruit', 'Ambrette', 'Sage', 'Driftwood', 'Ambrette Seeds', 'Driftwood', 'Amber', 'Musk']
       whyCurated: [
         'Wood Sage & Sea Salt demonstrates restraint.',
         'Clean.',
@@ -1416,6 +1416,368 @@ export interface GuestCurationConfig {
           curatorPositioning: ['Ultra-limited allocation.', 'Dynasty-grade gold.', 'The House masterpiece.'],
         }
     ]
+      // ── FOR HIM LUXURY COSMETICS (FHM) ─────────────────────────────────
+      {
+        slug: 'la-mer-the-moisturizing-gel-cream-men',
+        archiveCode: 'FHM-I',
+        archiveLabel: 'For Him Luxury Cosmetics — Archive FHM-I',
+        collectionName: 'The Sovereign Men's Archive',
+        classification: 'Ultra-Luxury Men's Moisturiser',
+        size: '60ml',
+        globalRetailUsd: 395,
+        signatureNotes: ['Miracle Broth™ Complex', 'Marine Kelp Extract', 'Sea Kelp Bio-Ferment', 'Hydration Surge System', 'Gel-Cream Lightweight Formula', 'Oil-Control Actives', 'Skin-Renewing Concentrate', 'Cooling Marine Texture', 'Dermatologist-Tested Formula'],
+        whyCurated: ['The definitive moisturiser for the sovereign man.', 'La Mer's legendary Miracle Broth™ is reimagined in a weightless gel formula engineered for men's skin — deeper pores, faster absorption, superior hydration without sheen.', 'This is not skincare. It is a daily sovereign ritual.'],
+        curatorPositioning: ['The world's most recognised moisturising complex, perfected for masculine skin architecture.'],
+      },
+      {
+        slug: 'aesop-moroccan-neroli-post-shave-lotion',
+        archiveCode: 'FHM-II',
+        archiveLabel: 'For Him Luxury Cosmetics — Archive FHM-II',
+        collectionName: 'The Sovereign Men's Archive',
+        classification: 'Luxury Post-Shave Botanical Lotion',
+        size: '100ml',
+        globalRetailUsd: 58,
+        signatureNotes: ['Neroli Essential Oil', 'Moroccan Herb Extracts', 'Botanical Calming Complex', 'Post-Shave pH Balance', 'Witch Hazel Distillate', 'Lavender Floral Water', 'Chamomile Anti-Redness', 'Skin-Soothing Actives', 'Aesop Formulation Standard'],
+        whyCurated: ['Aesop's post-shave mastery distilled into a single sovereign vessel.', 'Moroccan neroli and botanicals calm post-blade irritation while restoring skin's equilibrium — crafted for those who regard the morning shave as ceremony, not routine.'],
+        curatorPositioning: ['Botanical formulation philosophy applied to the daily shaving ritual.'],
+      },
+      {
+        slug: 'kiehl-s-facial-fuel-energising-moisturiser',
+        archiveCode: 'FHM-III',
+        archiveLabel: 'For Him Luxury Cosmetics — Archive FHM-III',
+        collectionName: 'The Sovereign Men's Archive',
+        classification: 'Luxury Energising Men's Moisturiser',
+        size: '125ml',
+        globalRetailUsd: 38,
+        signatureNotes: ['Caffeine 1.5% Complex', 'Vitamin E Tocopherol', 'Sodium PCA Hydrator', 'Energising Freshness System', 'Fast-Absorbing Gel Formula', 'Skin-Tone Correcting Actives', 'Blue Agave Extract', 'Non-Greasy Finish System', 'pH-Balanced Formula'],
+        whyCurated: ['Kiehl's most iconic men's formula — a staple in the archives of any man who respects his skin.', 'Caffeine-powered energisation meets fast-absorb technology in this cornerstone moisturiser. From Kiehl's legendary Apothecary heritage since 1851.'],
+        curatorPositioning: ['Heritage apothecary science meets modern men's skincare performance.'],
+      },
+      {
+        slug: 'tom-ford-for-men-purifying-face-cleanser',
+        archiveCode: 'FHM-IV',
+        archiveLabel: 'For Him Luxury Cosmetics — Archive FHM-IV',
+        collectionName: 'The Sovereign Men's Archive',
+        classification: 'Ultra-Luxury Men's Facial Cleanser',
+        size: '150ml',
+        globalRetailUsd: 65,
+        signatureNotes: ['Purifying Gel-to-Foam System', 'Glycolic Exfoliant Complex', 'Vitamin C Brightening', 'Deep Pore Cleansing Actives', 'Oil-Regulating Formula', 'Skin-Barrier Protection', 'Microbiome-Respecting pH', 'Tom Ford Apothecary Standard', 'Dermatologist Validated'],
+        whyCurated: ['Tom Ford's precision applied to the morning cleanse.', 'A gel-to-foam cleanser engineered with the same uncompromising quality as a Tom Ford suit — precise, powerful, immaculately finished. For the man who accepts nothing but the finest.'],
+        curatorPositioning: ['Tom Ford luxury standards reimagined for men's daily skin ritual.'],
+      },
+      {
+        slug: 'la-prairie-skin-caviar-men-cellular-cream',
+        archiveCode: 'FHM-V',
+        archiveLabel: 'For Him Luxury Cosmetics — Archive FHM-V',
+        collectionName: 'The Sovereign Men's Archive',
+        classification: 'Ultra-Luxury Men's Caviar Cream',
+        size: '50ml',
+        globalRetailUsd: 560,
+        signatureNotes: ['Exclusive Cellular Complex F', 'Caviar Extracts', 'Swiss Glacier Water', 'Collagen-Stimulating Actives', 'Firming Lift Complex', 'Age-Reversing Peptides', 'Luminosity Enhancement System', 'La Prairie Swiss Precision', 'Ultra-Luxury Texture'],
+        whyCurated: ['The most prestigious men's moisturiser in the world.', 'La Prairie's legendary caviar complex reformulated for men's skin — denser, more resilient, more demanding. This is the pinnacle of men's luxury skincare, placed in the hands of those who understand that appearance is power.'],
+        curatorPositioning: ['Swiss precision skincare at the summit of men's luxury beauty.'],
+      },
+      {
+        slug: 'clinique-for-men-face-scrub',
+        archiveCode: 'FHM-VI',
+        archiveLabel: 'For Him Luxury Cosmetics — Archive FHM-VI',
+        collectionName: 'The Sovereign Men's Archive',
+        classification: 'Luxury Men's Exfoliating Face Scrub',
+        size: '100ml',
+        globalRetailUsd: 32,
+        signatureNotes: ['Dual-Action Exfoliant System', 'Allantoin Soothing Complex', 'Bamboo Micro-Exfoliants', 'Glycerine Hydration Retention', 'Daily-Use Safe Formula', 'Pore-Unclogging Actives', 'Oil-Absorbing System', 'Allergy-Tested Formula', 'Clinique Dermatology Standard'],
+        whyCurated: ['Clinique's dermatologist-developed exfoliation for the modern man.', 'A weekly sovereign ritual — dual-action scrub technology unclogs, refines and prepares skin for peak performance. Allergy-tested, fragrance-free, engineered for discipline not indulgence.'],
+        curatorPositioning: ['Dermatologist-formulated exfoliation at men's luxury standard.'],
+      },
+      {
+        slug: 'sisley-paris-ecological-compound-men',
+        archiveCode: 'FHM-VII',
+        archiveLabel: 'For Him Luxury Cosmetics — Archive FHM-VII',
+        collectionName: 'The Sovereign Men's Archive',
+        classification: 'Ultra-Luxury Men's Anti-Ageing Treatment',
+        size: '125ml',
+        globalRetailUsd: 280,
+        signatureNotes: ['Lemon Thyme Extract', 'Tropical Almond Tree Oil', 'Vitamins A, E, F Complex', 'Anti-Ageing Phyto-Complex', 'Skin-Renewal Botanicals', 'Barrier-Reinforcing System', 'Stress-Relief Botanicals', 'Sisley Phytology Standard', 'Rare Botanical Actives'],
+        whyCurated: ['Sisley Paris — the most respected botanical house in French luxury beauty — for the sovereign man.', 'A phytological masterpiece. Rare botanical extracts from around the world are orchestrated into a formula that transforms men's skin over time — visibly firmer, deeply hydrated, magnificently refined.'],
+        curatorPositioning: ['French botanical luxury science at the absolute apex of men's skincare.'],
+      },
+      {
+        slug: 'chanel-hydra-beauty-men-gel-creme',
+        archiveCode: 'FHM-VIII',
+        archiveLabel: 'For Him Luxury Cosmetics — Archive FHM-VIII',
+        collectionName: 'The Sovereign Men's Archive',
+        classification: 'Luxury Men's Hydrating Gel-Crème',
+        size: '50ml',
+        globalRetailUsd: 120,
+        signatureNotes: ['Blue Ginger Extract', 'PHA Complex', 'Camellia Extract', 'Long-Lasting Hydration System', 'Fresh Gel-Crème Texture', 'Skin-Smoothing Formula', 'Chanel Blue Serenity Extract', 'Intensive Moisture Reservoir', 'Chanel Formulation Standard'],
+        whyCurated: ['The house of Chanel's precision extended to men's skincare.', 'Blue ginger and camellia converge in a lightweight gel-crème that delivers sustained hydration without weight — immaculately engineered, unmistakably Chanel. The sovereign man's daily companion.'],
+        curatorPositioning: ['Chanel luxury formulation philosophy applied to men's daily hydration.'],
+      },
+      {
+        slug: 'dior-homme-dermo-system-pore-control',
+        archiveCode: 'FHM-IX',
+        archiveLabel: 'For Him Luxury Cosmetics — Archive FHM-IX',
+        collectionName: 'The Sovereign Men's Archive',
+        classification: 'Luxury Men's Pore-Perfecting Serum',
+        size: '50ml',
+        globalRetailUsd: 90,
+        signatureNotes: ['Hyaluronic Acid Complex', 'Dermo-Correcting Actives', 'Pore-Minimising System', 'Oil-Sebum Control Formula', 'Mattifying Film-Formers', 'Hydration-Locking Peptides', 'Vitamin B5 Calming', 'Dior Homme Formulation', 'Dermatologist Tested'],
+        whyCurated: ['Dior's legendary house intelligence applied to men's skin perfection.', 'The Dior Homme Dermo-System series is a surgical approach to men's skincare — each formula addressing a specific physiological challenge with the precision of haute couture. This serum visibly minimises pores and controls sebum across the day.'],
+        curatorPositioning: ['Dior Homme precision skincare for the architecturally refined masculine face.'],
+      },
+      {
+        slug: 'bulgari-man-wood-essence-aftershave-balm',
+        archiveCode: 'FHM-X',
+        archiveLabel: 'For Him Luxury Cosmetics — Archive FHM-X',
+        collectionName: 'The Sovereign Men's Archive',
+        classification: 'Ultra-Luxury Men's Post-Shave Balm',
+        size: '100ml',
+        globalRetailUsd: 75,
+        signatureNotes: ['Sandalwood Essential Oil', 'Cacao Extract', 'Plum Wood Extract', 'Skin-Calming Actives', 'Hydration Surge Complex', 'Redness-Reducing Formula', 'Non-Alcohol Soothing System', 'Bulgari Roman Heritage', 'Skin-Barrier Protection'],
+        whyCurated: ['Bvlgari's Roman goldsmith heritage translated into post-shave luxury.', 'Wood Essence is the most architecturally sophisticated men's balm in the archive — sandalwood, cacao and plum wood converge in a formula that soothes, hydrates and dignifies the skin after every shave.'],
+        curatorPositioning: ['Roman luxury house craftsmanship applied to the gentleman's post-shave ritual.'],
+      },
+      {
+        slug: 'clinique-for-men-max-hydrator-oil-control',
+        archiveCode: 'FHM-XI',
+        archiveLabel: 'For Him Luxury Cosmetics — Archive FHM-XI',
+        collectionName: 'The Sovereign Men's Archive',
+        classification: 'Luxury Men's Oil-Control Moisturiser',
+        size: '50ml',
+        globalRetailUsd: 40,
+        signatureNotes: ['Maximum Hydration System', 'Sebum-Absorbing Microspheres', 'Kombucha Ferment Extract', 'Matte-Finish Film Former', 'Anti-Shine Actives', 'Long-Wearing Moisture Lock', 'Allantoin Soothing Agent', 'Allergy-Tested Standard', 'Oil-Free Clinique Formula'],
+        whyCurated: ['Clinique's dermatology-grade oil control for the man who commands the room.', 'Maximised hydration meets maximised oil control in a formula that keeps skin matte, dignified and camera-ready from morning to evening. The sovereign man's answer to city living.'],
+        curatorPositioning: ['Dermatologist-grade oil-control technology in a luxury men's format.'],
+      },
+      {
+        slug: 'acqua-di-parma-barbiere-shaving-cream',
+        archiveCode: 'FHM-XII',
+        archiveLabel: 'For Him Luxury Cosmetics — Archive FHM-XII',
+        collectionName: 'The Sovereign Men's Archive',
+        classification: 'Ultra-Luxury Italian Shaving Cream',
+        size: '150ml',
+        globalRetailUsd: 52,
+        signatureNotes: ['Sweet Almond Oil', 'Coconut Oil Derivative', 'Glycerin Hydration Base', 'Skin-Softening Emollients', 'Dense Protective Lather', 'Anti-Friction Shield', 'Post-Shave Skin Comfort', 'Acqua di Parma Parma Heritage', 'Italian Artisan Standard'],
+        whyCurated: ['The Italian art of the shave, elevated to sovereign ritual.', 'Acqua di Parma's Barbiere collection embodies the tradition of the great Italian barbershop — every element engineered to transform the morning shave into a ceremony of luxury. Dense lather, exceptional slip, unmistakable Italian refinement.'],
+        curatorPositioning: ['Italian barbershop heritage translated into the world's finest shaving cream.'],
+      },
+      {
+        slug: 'perricone-md-no-sheen-high-performance-face-finish-men',
+        archiveCode: 'FHM-XIII',
+        archiveLabel: 'For Him Luxury Cosmetics — Archive FHM-XIII',
+        collectionName: 'The Sovereign Men's Archive',
+        classification: 'Luxury Men's Anti-Ageing Face Finish',
+        size: '59ml',
+        globalRetailUsd: 72,
+        signatureNotes: ['DMAE Firming Peptide', 'Alpha Lipoic Acid', 'Vitamin C Ester', 'No-Sheen Mattifying System', 'Instant Skin-Tightening Complex', 'Anti-Puffiness Actives', 'Photo-Ageing Defense', 'Perricone MD Science', 'Clinical-Grade Formula'],
+        whyCurated: ['Dr Perricone's clinical anti-ageing science for the man who demands results.', 'DMAE, alpha lipoic acid and vitamin C ester — three of the most clinically validated anti-ageing actives — delivered in a no-sheen formula that performs invisibly. This is sovereign skincare with measurable outcomes.'],
+        curatorPositioning: ['Clinical anti-ageing science formulated exclusively for masculine skin.'],
+      },
+      {
+        slug: 'givenchy-l-intemporel-global-youth-men',
+        archiveCode: 'FHM-XIV',
+        archiveLabel: 'For Him Luxury Cosmetics — Archive FHM-XIV',
+        collectionName: 'The Sovereign Men's Archive',
+        classification: 'Ultra-Luxury Men's Youth-Preserving Cream',
+        size: '50ml',
+        globalRetailUsd: 145,
+        signatureNotes: ['Everlasting Flower Stem Cells', 'Lipo-Filling Complex', 'Givenchy Youth Preserve Complex', 'Global Skin-Volumising System', 'Wrinkle-Smoothing Actives', 'Skin-Density Restoration', 'Luminosity Enhancement', 'Givenchy Paris Standard', 'Luxury French Formulation'],
+        whyCurated: ['Givenchy's global youth science placed in men's hands.', 'L'Intemporel is Givenchy's flagship anti-ageing formula — now refined for the specific density and resilience profile of men's skin. Everlasting flower stem cells restore, volumise and perfect over time.'],
+        curatorPositioning: ['Givenchy Paris luxury anti-ageing science for the timeless sovereign man.'],
+      },
+      {
+        slug: 'ysl-homme-le-gel-facial-moisturiser',
+        archiveCode: 'FHM-XV',
+        archiveLabel: 'For Him Luxury Cosmetics — Archive FHM-XV',
+        collectionName: 'The Sovereign Men's Archive',
+        classification: 'Luxury Men's Energising Facial Gel',
+        size: '50ml',
+        globalRetailUsd: 78,
+        signatureNotes: ['Hyaluronic Acid Triple Complex', 'Blue Ginger Extract', 'Caffeine Energising System', 'Instant Cooling Gel Texture', 'Skin-Reviving Actives', 'Urban Pollution Shield', 'Anti-Fatigue Formula', 'YSL Beauté Standard', 'Rapid Absorption Technology'],
+        whyCurated: ['Yves Saint Laurent's masculine edge applied to daily skincare.', 'Le Gel is the sovereign man's morning ritual in a bottle — hyaluronic acid, blue ginger and caffeine converge in an instantly refreshing formula that makes skin look awake, alive and utterly prepared. YSL, uncompromised.'],
+        curatorPositioning: ['YSL Beauté masculine precision in a daily energising facial treatment.'],
+      },
+      // ── FOR HIM ESSENTIAL COSMETICS (FHMe) ─────────────────────────────
+      {
+        slug: 'nivea-men-sensitive-post-shave-balm',
+        archiveCode: 'FHMe-I',
+        archiveLabel: 'For Him Essential Cosmetics — Archive FHMe-I',
+        collectionName: 'The For Him Essential Archive',
+        classification: 'Essential Men's Sensitive Post-Shave Balm',
+        size: '100ml',
+        globalRetailUsd: 8,
+        signatureNotes: ['Chamomile Extract', 'Vitamin E Complex', 'Pro-Vitamin B5', 'Sensitive Skin Formula', 'Alcohol-Free Soothing System', 'Anti-Redness Actives', 'Instant Relief Complex', 'Dermatologist Approved', 'Nickel-Tested Formula'],
+        whyCurated: ['The most trusted post-shave balm for sensitive masculine skin.', 'NIVEA Men Sensitive is the entry point to serious post-shave skincare — dermatologist-tested, alcohol-free, with chamomile and vitamin E for instant relief. A sovereign daily essential.'],
+        curatorPositioning: ['Clinical-grade sensitive skin care at an accessible price point.'],
+      },
+      {
+        slug: 'loreal-men-expert-hydra-power-moisturiser',
+        archiveCode: 'FHMe-II',
+        archiveLabel: 'For Him Essential Cosmetics — Archive FHMe-II',
+        collectionName: 'The For Him Essential Archive',
+        classification: 'Essential Men's Daily Moisturiser',
+        size: '75ml',
+        globalRetailUsd: 10,
+        signatureNotes: ['Magnesium Hydration System', 'Mountain Water Extract', 'Vitamin E Tocopherol', 'Hyaluronic Acid', 'Fast-Absorbing Gel Formula', 'Non-Greasy Finish', 'Skin-Firming Actives', 'Paraben-Free Formula', 'L'Oreal Paris Standard'],
+        whyCurated: ['L'Oreal Men Expert — the foundation of men's accessible luxury skincare.', 'Magnesium-powered hydration meets a refreshing mountain water extract in this fast-absorbing essential daily moisturiser. The starting point for every sovereign men's skincare routine.'],
+        curatorPositioning: ['L'Oreal skincare science at the essential daily moisturiser price point.'],
+      },
+      {
+        slug: 'gillette-series-sensitive-shaving-gel',
+        archiveCode: 'FHMe-III',
+        archiveLabel: 'For Him Essential Cosmetics — Archive FHMe-III',
+        collectionName: 'The For Him Essential Archive',
+        classification: 'Essential Men's Sensitive Shaving Gel',
+        size: '200ml',
+        globalRetailUsd: 7,
+        signatureNotes: ['Aloe Vera Soothing Extract', 'Sensitive Skin Formula', 'Protective Lather System', 'Anti-Razor-Burn Formula', 'Cooling Menthol Actives', 'Skin-Lubricating Film', 'Dermatologist Tested', 'Gillette Precision Standard', 'pH-Balanced Formula'],
+        whyCurated: ['Gillette's century of shaving science distilled into the essential gel.', 'Aloe vera-fortified sensitive formula provides protective lather that reduces blade friction and post-shave irritation — the sovereign daily foundation for a clean, precise shave.'],
+        curatorPositioning: ['Over a century of Gillette precision science in every daily shave.'],
+      },
+      {
+        slug: 'cerave-moisturising-lotion-men',
+        archiveCode: 'FHMe-IV',
+        archiveLabel: 'For Him Essential Cosmetics — Archive FHMe-IV',
+        collectionName: 'The For Him Essential Archive',
+        classification: 'Essential Men's Hydrating Body Lotion',
+        size: '473ml',
+        globalRetailUsd: 14,
+        signatureNotes: ['3 Essential Ceramides', 'Hyaluronic Acid', 'MVE Technology', 'Skin-Barrier Restoration', '24-Hour Hydration Release', 'Non-Greasy Fast Absorption', 'Fragrance-Free Formula', 'National Eczema Association Approved', 'Dermatologist Recommended'],
+        whyCurated: ['CeraVe's ceramide technology — the gold standard in accessible dermatology skincare.', 'Three essential ceramides and hyaluronic acid delivered via MVE slow-release technology restores and maintains skin barrier function across 24 hours. Dermatologist-recommended. Essential in every archive.'],
+        curatorPositioning: ['Dermatologist-developed ceramide science at the essential care price point.'],
+      },
+      {
+        slug: 'old-spice-swagger-body-wash-men',
+        archiveCode: 'FHMe-V',
+        archiveLabel: 'For Him Essential Cosmetics — Archive FHMe-V',
+        collectionName: 'The For Him Essential Archive',
+        classification: 'Essential Men's Body Wash',
+        size: '473ml',
+        globalRetailUsd: 7,
+        signatureNotes: ['Cedarwood Fragrance Complex', 'Citrus Top Notes', 'Hydrating Glycerin', 'Rich Lathering Formula', 'Odour-Blocking Technology', 'Skin-Conditioning Actives', 'Refreshing Daily Cleanse', 'Old Spice Heritage Formula', 'Confidence-Grade Freshness'],
+        whyCurated: ['The iconic men's body wash redefined for the sovereign daily cleanse.', 'Old Spice Swagger is one of the most globally recognised men's fragrance formulas — now in an essential body wash that delivers rich lather, sustained freshness and the confidence that comes with a great scent.'],
+        curatorPositioning: ['Heritage men's fragrance house classics at the essential daily care level.'],
+      },
+      {
+        slug: 'dove-men-plus-care-face-wash',
+        archiveCode: 'FHMe-VI',
+        archiveLabel: 'For Him Essential Cosmetics — Archive FHMe-VI',
+        collectionName: 'The For Him Essential Archive',
+        classification: 'Essential Men's Gentle Face Wash',
+        size: '150ml',
+        globalRetailUsd: 8,
+        signatureNotes: ['MicroMoisture Technology', 'Glycerin Skin Guard', 'Mild Cleansing Actives', 'Anti-Dryness Formula', 'Skin-Comfort Balance', 'pH-Optimised Cleansing', 'Non-Comedogenic Formula', 'Dermatologist Tested', 'Dove Care Standard'],
+        whyCurated: ['Dove's MicroMoisture technology applied to men's daily facial cleansing.', 'Dove Men+Care Face Wash delivers thorough cleansing without stripping skin's natural moisture barrier — essential for men who shave daily. Gentle, effective, sovereign.'],
+        curatorPositioning: ['Dove's moisturising technology applied to men's daily facial care.'],
+      },
+      {
+        slug: 'neutrogena-men-skin-clearing-face-wash',
+        archiveCode: 'FHMe-VII',
+        archiveLabel: 'For Him Essential Cosmetics — Archive FHMe-VII',
+        collectionName: 'The For Him Essential Archive',
+        classification: 'Essential Men's Acne-Control Face Wash',
+        size: '200ml',
+        globalRetailUsd: 10,
+        signatureNotes: ['Salicylic Acid 2% BHA', 'MicroClear Technology', 'Oil-Control Actives', 'Pore-Clearing Formula', 'Anti-Blemish System', 'Daily-Use Safe Formula', 'Non-Comedogenic Tested', 'Neutrogena Derma Standard', 'Deep Pore Cleansing'],
+        whyCurated: ['Neutrogena's clinical BHA technology in men's daily skin clearing.', 'Salicylic acid at 2% clinical strength penetrates pores, clears blemishes and controls oil production — essential for men managing combination or oily skin. Neutrogena precision, daily.'],
+        curatorPositioning: ['Clinical BHA acne-control science in a daily men's face wash.'],
+      },
+      {
+        slug: 'the-ordinary-niacinamide-10-men',
+        archiveCode: 'FHMe-VIII',
+        archiveLabel: 'For Him Essential Cosmetics — Archive FHMe-VIII',
+        collectionName: 'The For Him Essential Archive',
+        classification: 'Essential Men's Pore-Minimising Serum',
+        size: '30ml',
+        globalRetailUsd: 6,
+        signatureNotes: ['Niacinamide 10%', 'Zinc PCA 1%', 'Sepiwhite™ Brightening', 'Pore-Size Reduction System', 'Oil-Sebum Regulation', 'Skin-Tone Balancing', 'Anti-Blemish Actives', 'Non-Comedogenic Formula', 'Clinical Ingredient Concentration'],
+        whyCurated: ['The Ordinary's clinical-concentration niacinamide for men — science without pretence.', '10% niacinamide plus zinc PCA at clinical concentration visibly minimises pores, regulates oil and balances skin tone. The most efficient spend in men's skincare. Sovereign value.'],
+        curatorPositioning: ['Clinical-concentration active skincare at essential price accessibility.'],
+      },
+      {
+        slug: 'gillette-mach3-turbo-razor-men',
+        archiveCode: 'FHMe-IX',
+        archiveLabel: 'For Him Essential Cosmetics — Archive FHMe-IX',
+        collectionName: 'The For Him Essential Archive',
+        classification: 'Essential Men's Premium Razor',
+        size: '1 Unit + 2 Blades',
+        globalRetailUsd: 15,
+        signatureNotes: ['Triple-Blade System', 'Lubrastrip Moisture Release', 'Anti-Friction Coating', 'Pivot-Flex Head Technology', 'Precision Comfort Guard', 'Hypo-Allergenic Blades', 'Ergonomic Grip Handle', 'Gillette Blade Standard', 'DuraComfort Edge'],
+        whyCurated: ['Gillette's flagship triple-blade precision — the standard bearer of men's grooming.', 'The Mach3 Turbo represents over 100 years of Gillette blade engineering at its most accessible — triple blades, lubrastrip moisture and pivot technology combine for a close, sovereign shave every morning.'],
+        curatorPositioning: ['A century of Gillette blade mastery in the sovereign daily shave.'],
+      },
+      {
+        slug: 'loreal-men-expert-vita-lift-anti-ageing',
+        archiveCode: 'FHMe-X',
+        archiveLabel: 'For Him Essential Cosmetics — Archive FHMe-X',
+        collectionName: 'The For Him Essential Archive',
+        classification: 'Essential Men's Anti-Ageing Moisturiser',
+        size: '50ml',
+        globalRetailUsd: 18,
+        signatureNotes: ['Pro-Retinol Complex', 'Vitamin C Brightening', 'Firming Peptide System', 'Anti-Wrinkle Actives', 'Skin-Lifting Formula', 'Hydration Reservoir Complex', 'Daily SPF Protection', 'L'Oreal Anti-Age Science', 'Non-Greasy Finish'],
+        whyCurated: ['L'Oreal Men Expert's anti-ageing science at the essential price point.', 'Pro-retinol, vitamin C and firming peptides converge in this accessible daily moisturiser that visibly reduces fine lines and firms skin over time. The sovereign man's introduction to anti-ageing skincare.'],
+        curatorPositioning: ['Anti-ageing peptide science at the accessible daily skincare price point.'],
+      },
+      {
+        slug: 'bulldog-original-moisturiser-men',
+        archiveCode: 'FHMe-XI',
+        archiveLabel: 'For Him Essential Cosmetics — Archive FHMe-XI',
+        collectionName: 'The For Him Essential Archive',
+        classification: 'Essential Men's Natural Moisturiser',
+        size: '100ml',
+        globalRetailUsd: 12,
+        signatureNotes: ['Aloe Vera Extract', 'Camelina Oil', 'Green Tea Extract', 'Natural Fragrance Complex', 'Hydration-Boost System', 'Skin-Soothing Botanicals', 'No Artificial Colours', 'No Artificial Fragrances', 'Cruelty-Free Standard'],
+        whyCurated: ['Bulldog — Britain's pioneer of natural men's skincare.', 'Camelina oil, green tea and aloe vera in a clean, effective formula with no artificial colours or fragrances. Bulldog's original moisturiser is the essential entry point into natural men's skincare — sovereign and sustainable.'],
+        curatorPositioning: ['Natural men's skincare pioneer with clean, effective botanical formulas.'],
+      },
+      {
+        slug: 'jack-black-pure-clean-daily-facial-cleanser',
+        archiveCode: 'FHMe-XII',
+        archiveLabel: 'For Him Essential Cosmetics — Archive FHMe-XII',
+        collectionName: 'The For Him Essential Archive',
+        classification: 'Essential Men's Dual-Action Cleanser',
+        size: '177ml',
+        globalRetailUsd: 24,
+        signatureNotes: ['Sage Leaf Extract', 'Chamomile Botanical', 'Dual-Action Cleanser System', 'Toning Actives', 'Oil-Removing Formula', 'Skin-Calming Complex', 'Non-Drying Balance Formula', 'Paraben-Free Certified', 'Cruelty-Free Standard'],
+        whyCurated: ['Jack Black's clean-ingredient philosophy applied to men's essential facial cleansing.', 'Sage and chamomile in a dual-action formula that simultaneously cleanses and tones — ideal for post-shave use or standalone daily cleansing. Clean ingredients, precise results. Essential.'],
+        curatorPositioning: ['Clean-ingredient men's grooming at the essential price archive.'],
+      },
+      {
+        slug: 'ponds-men-energy-charge-face-wash',
+        archiveCode: 'FHMe-XIII',
+        archiveLabel: 'For Him Essential Cosmetics — Archive FHMe-XIII',
+        collectionName: 'The For Him Essential Archive',
+        classification: 'Essential Men's Energising Face Wash',
+        size: '100ml',
+        globalRetailUsd: 5,
+        signatureNotes: ['Coffee Energising Actives', 'Activated Charcoal', 'Deep-Pore Cleansing System', 'Dual-Action Detox Formula', 'Oil-Absorbing Microspheres', 'Skin-Awakening Menthol', 'Refreshing Gel Formula', 'POND'S Derma Standard', 'Everyday-Use Safe'],
+        whyCurated: ['POND'S Men — the accessible sovereign for daily men's face care.', 'Coffee-powered energising actives and activated charcoal combine in a deep-pore cleansing formula that wakes up skin and removes excess oil in one step. Essential value, sovereign routine.'],
+        curatorPositioning: ['POND'S heritage skincare science at the most accessible price in the archive.'],
+      },
+      {
+        slug: 'vaseline-men-fast-absorbing-body-lotion',
+        archiveCode: 'FHMe-XIV',
+        archiveLabel: 'For Him Essential Cosmetics — Archive FHMe-XIV',
+        collectionName: 'The For Him Essential Archive',
+        classification: 'Essential Men's Body Moisturiser',
+        size: '400ml',
+        globalRetailUsd: 8,
+        signatureNotes: ['Pure Petroleum Jelly Complex', 'Glycerin Deep Hydration', 'Fast-Absorb Lightweight Formula', 'Non-Greasy Skin Finish', '48-Hour Moisture Retention', 'Vitamin B3 Niacinamide', 'Skin-Healing Actives', 'Vaseline Heritage Formula', 'Dermatologist Trusted'],
+        whyCurated: ['Vaseline's 150-year heritage in skin healing, adapted for men's daily body care.', 'Fast-absorbing formula with glycerin and petroleum jelly delivers 48-hour moisture retention without greasiness — the sovereign essential for daily post-shower body care.'],
+        curatorPositioning: ['150 years of Vaseline skin science at the essential body care price point.'],
+      },
+      {
+        slug: 'simple-kind-to-skin-men-moisturiser',
+        archiveCode: 'FHMe-XV',
+        archiveLabel: 'For Him Essential Cosmetics — Archive FHMe-XV',
+        collectionName: 'The For Him Essential Archive',
+        classification: 'Essential Men's Sensitive Moisturiser',
+        size: '125ml',
+        globalRetailUsd: 9,
+        signatureNotes: ['Pro-Vitamin B5', 'Vitamin E Complex', 'Vitamin B3 Niacinamide', 'No Artificial Perfume', 'No Artificial Colour', 'No Harsh Chemicals', 'Sensitive-Skin Certified', 'Hypoallergenic Tested', 'Simple Skin Science'],
+        whyCurated: ['Simple — the sovereign choice for men with sensitive skin.', 'No artificial perfumes, no harsh chemicals, no compromise. Simple Kind to Skin's men's moisturiser delivers essential daily hydration with pro-vitamin B5, vitamin E and niacinamide — clean, gentle, effective.'],
+        curatorPositioning: ['Clean, no-nasties sensitive skincare at the essential daily care level.'],
+      },
 
   const CONFIG_MAP: Record<string, GuestCurationConfig> = {}
   for (const c of CONFIGS) CONFIG_MAP[c.slug] = c
