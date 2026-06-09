@@ -1365,7 +1365,56 @@ export interface GuestCurationConfig {
         { slug: 'de-beers-enchanted-lotus-earrings', archiveCode: 'JL-XIII', archiveLabel: 'SF Ultra-Luxury Feminine Jewelry Archive · For Her', collectionName: 'The Diamond Purity Archive', classification: 'Luxury Diamond Earrings', size: '3cm Drop', globalRetailUsd: 21000, signatureNotes: ['De Beers Forevermark Diamonds', '18k White Gold', 'Lotus Petal Construction', 'Certified Origin Diamonds', 'Pavé Flower Setting', 'Maximum Diamond Brilliance'], whyCurated: ['"De Beers does not merely sell diamonds — they curate the world's finest stones and give them the settings they deserve." — The House', 'The De Beers Enchanted Lotus Earrings feature Forevermark certified diamonds arranged in lotus bloom motifs of extraordinary refinement.', 'The House curated it for collectors who demand the highest standard of diamond provenance.'], curatorPositioning: ['Diamond expertise.', 'Refined craftsmanship.', 'Global excellence.'] },
         { slug: 'chaumet-josephine-tiara-ring', archiveCode: 'JL-XIV', archiveLabel: 'SF Ultra-Luxury Feminine Jewelry Archive · For Her', collectionName: 'The Imperial Empress Archive', classification: 'Crown-Inspired High Jewelry Ring', size: 'Sizes 48–62', globalRetailUsd: 25000, signatureNotes: ['18k White Gold', 'Pear-Cut Diamond Crown', 'Chaumet Imperial Heritage', 'Certified Diamond Quality', 'Tiara-Inspired Silhouette', 'Pavé Diamond Band'], whyCurated: ['"Chaumet has crowned the heads of empresses. The Joséphine ring brings that heritage to the hand." — The House', 'The Chaumet Joséphine Tiara Ring is inspired by the imperial tiara created for Empress Joséphine — a crown-silhouette ring carrying two centuries of French high jewelry heritage.', 'The House curated it for women who understand that sovereignty is also worn.'], curatorPositioning: ['Royal heritage.', 'French elegance.', 'Sovereign beauty.'] },
         { slug: 'graff-icon-diamond-necklace', archiveCode: 'JL-XV', archiveLabel: 'SF Ultra-Luxury Feminine Jewelry Archive · For Her', collectionName: 'The Ultimate Diamond Archive', classification: 'Ultra-Luxury Diamond Masterpiece', size: '42cm', globalRetailUsd: 43000, signatureNotes: ['Exceptional D-Color Diamonds', 'Platinum Construction', 'Graff Signature Setting', 'Investment-Grade Certified', 'Flawless Clarity Diamonds', 'Maison Master Craftsmanship'], whyCurated: ['"The Graff Icon Necklace is not the summit of this archive. It is the summit of what jewelry can be." — The House', 'The Graff Icon Diamond Necklace concentrates the rarest, most exceptional diamonds in the world into a single spectacular creation — the pinnacle of feminine jewelry.', 'The House curated it because some objects exist outside the concept of price. They exist in the realm of legacy.'], curatorPositioning: ['Exceptional rarity.', 'Investment-grade diamonds.', 'The pinnacle of feminine luxury.'] },
-  
+  ,
+        // ═══ SHAMIM FOREVER ORIGINAL JEWELRY (SFJ-I to SFJ-III) ═══
+        {
+          slug: 'queen-of-taif-crown-ring',
+          archiveCode: 'SFJ-I',
+          archiveLabel: 'SF Original High Jewelry Archive · For Her',
+          collectionName: 'The Sovereign Crown Archive',
+          classification: 'Luxury High Jewelry Crown Ring',
+          size: '18K Gold · 1.30ct Natural Diamonds',
+          globalRetailUsd: 3200,
+          signatureNotes: ['Solid 18K Yellow Gold', '1.30 Carats Natural Diamonds', 'Crown-Form Architecture', 'Hand-Set Pavé Band', 'Sovereign Investment Grade', 'Certified Diamond Quality'],
+          whyCurated: [
+            '"The Queen of Taif Crown Ring is not inspired by royalty. It is royalty — engineered in gold and diamonds to be worn, invested, and inherited." — The House',
+            'Crafted from solid 18K gold set with 1.30 carats of certified natural diamonds, the Queen of Taif Crown Ring is Shamim Forever's signature high-jewelry creation — a wearable crown that functions simultaneously as an investment asset and generational heirloom.',
+            'The House created this ring for women who understand that the greatest luxury is an object that grows in meaning, and in value, with every generation it passes through.',
+          ],
+          curatorPositioning: ['Sovereign architecture.', 'Investment-grade diamonds.', 'The House original.'],
+        },
+        {
+          slug: 'eternal-grace-sapphire-set',
+          archiveCode: 'SFJ-II',
+          archiveLabel: 'SF Original High Jewelry Archive · For Her',
+          collectionName: 'The Ceylon Sovereign Archive',
+          classification: 'Museum-Grade Natural Sapphire Set',
+          size: '18K White Gold · Ceylon Sapphire',
+          globalRetailUsd: 6000,
+          signatureNotes: ['Ceylon Natural Sapphire', 'Diamond Halo Setting', '18K White Gold Construction', 'Necklace + Earrings Collector Set', 'Museum-Grade Certification', 'Matched Stone Selection'],
+          whyCurated: [
+            '"The Ceylon sapphire is among the rarest things on earth. Eternal Grace sets it where it belongs — at the center of a museum-grade creation." — The House',
+            'The Eternal Grace Sapphire Set pairs a natural Ceylon sapphire with a diamond halo in 18K white gold — rendered as a complete collector set (necklace and earrings) with museum-grade certification and matched stone selection.',
+            'The House created this set for collectors who understand that natural sapphires of true Ceylon origin are becoming rarer with every passing year — and that rarity, preserved in gold and diamonds, is the most beautiful form of wealth.',
+          ],
+          curatorPositioning: ['Natural Ceylon rarity.', 'Collector-grade completeness.', 'Museum certified beauty.'],
+        },
+        {
+          slug: 'empress-sovereign-vault',
+          archiveCode: 'SFJ-III',
+          archiveLabel: 'SF Ultra-Limited Original Archive · For Her',
+          collectionName: 'The Imperial Vault Archive',
+          classification: 'Ultra-Limited Heirloom Jewelry Vault',
+          size: '22K Gold · 5-Piece Complete Set',
+          globalRetailUsd: 185000,
+          signatureNotes: ['22K Yellow Gold', 'Complete 5-Piece Jewelry Architecture', 'NFT Sovereign Passport Included', 'Digital Provenance System', 'Ultra-Limited Allocation', 'Generational Heirloom Grade'],
+          whyCurated: [
+            '"The Empress Sovereign Vault is not a jewelry set. It is a dynasty — five pieces of 22K gold designed to establish a legacy that outlasts generations." — The House',
+            'An ultra-limited heirloom jewelry vault comprising five complete 22K gold pieces, each issued with an NFT Sovereign Passport and full digital provenance. The Vault is not offered to the public — it is allocated by The House to verified collectors.',
+            'The House created the Empress Sovereign Vault for women who understand that the highest form of wealth is not measured. It is inherited.',
+          ],
+          curatorPositioning: ['Ultra-limited allocation.', 'Dynasty-grade gold.', 'The House masterpiece.'],
+        }
     ]
 
   const CONFIG_MAP: Record<string, GuestCurationConfig> = {}
