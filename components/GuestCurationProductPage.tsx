@@ -52,6 +52,7 @@ export default function GuestCurationProductPage({ product }: { product: Product
 
   const config = getGuestCurationConfig(product.slug)
   const isJewelry = config ? (config.archiveCode.startsWith('J') || config.archiveCode.startsWith('SFJ')) : false
+  const isFragrance = config ? /^[GMEU]-/.test(config.archiveCode) : false
 
   const [quantity, setQuantity] = useState(1)
   const [payMethod, setPayMethod] = useState<PayMethod>('crypto')
@@ -495,14 +496,14 @@ export default function GuestCurationProductPage({ product }: { product: Product
           <section style={{ padding: 'clamp(52px,8vw,90px) clamp(20px,5vw,80px)', background: 'radial-gradient(ellipse 70% 50% at 50% 50%, #0e0903 0%, #030303 65%)' }}>
             <div style={{ maxWidth: 800, margin: '0 auto' }}>
               <div className="gc-reveal" style={{ textAlign: 'center', marginBottom: 48 }}>
-                <p style={{ fontSize: 6, letterSpacing: '0.9em', textTransform: 'uppercase', color: '#c9a054', marginBottom: 10 }>{isJewelry ? 'Material Architecture' : 'Formulation Architecture'}</p>
-                <h2 style={{ fontFamily: SERIF, fontSize: 'clamp(2rem,4.5vw,3.5rem)', fontWeight: 300, color: '#f0ece4' }}>{isJewelry ? 'Craftsmanship Profile' : 'Ingredient Profile'}</h2>
+                <p style={{ fontSize: 6, letterSpacing: '0.9em', textTransform: 'uppercase', color: '#c9a054', marginBottom: 10 }>{isJewelry ? 'Material Architecture' : isFragrance ? 'Olfactory Architecture' : 'Formulation Architecture'}</p>
+                <h2 style={{ fontFamily: SERIF, fontSize: 'clamp(2rem,4.5vw,3.5rem)', fontWeight: 300, color: '#f0ece4' }}>{isJewelry ? 'Craftsmanship Profile' : isFragrance ? 'Fragrance Profile' : 'Ingredient Profile'}</h2>
               </div>
               <div style={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
                 {[
-                  { label: isJewelry ? 'Precious Materials' : 'Active Compounds', desc: isJewelry ? 'Metal & material grade' : 'Primary actives', notes: config.signatureNotes.slice(0, Math.ceil(config.signatureNotes.length / 3)) },
-                  { label: isJewelry ? 'Gemstone Profile' : 'Core Formula', desc: isJewelry ? 'Stone specification' : 'Synergistic complex', notes: config.signatureNotes.slice(Math.ceil(config.signatureNotes.length / 3), Math.ceil(config.signatureNotes.length * 2 / 3)) },
-                  { label: isJewelry ? 'Craftsmanship Architecture' : 'Foundation Matrix', desc: isJewelry ? 'Construction method' : 'Base & delivery system', notes: config.signatureNotes.slice(Math.ceil(config.signatureNotes.length * 2 / 3)) },
+                  { label: isJewelry ? 'Precious Materials' : isFragrance ? 'Top Notes' : 'Active Compounds', desc: isJewelry ? 'Metal & material grade' : isFragrance ? 'Opening accord' : 'Primary actives', notes: config.signatureNotes.slice(0, Math.ceil(config.signatureNotes.length / 3)) },
+                  { label: isJewelry ? 'Gemstone Profile' : isFragrance ? 'Heart Notes' : 'Core Formula', desc: isJewelry ? 'Stone specification' : isFragrance ? 'Core sillage' : 'Synergistic complex', notes: config.signatureNotes.slice(Math.ceil(config.signatureNotes.length / 3), Math.ceil(config.signatureNotes.length * 2 / 3)) },
+                  { label: isJewelry ? 'Craftsmanship Architecture' : isFragrance ? 'Base Notes' : 'Foundation Matrix', desc: isJewelry ? 'Construction method' : isFragrance ? 'Dry-down accord' : 'Base & delivery system', notes: config.signatureNotes.slice(Math.ceil(config.signatureNotes.length * 2 / 3)) },
                 ].map(tier => (
                   <div key={tier.label} className="gc-reveal" style={{ display: 'grid', gridTemplateColumns: '140px 1fr', border: '1px solid rgba(201,160,84,0.08)', background: '#080602' }}>
                     <div style={{ padding: '20px 18px', borderRight: '1px solid rgba(201,160,84,0.06)', display: 'flex', flexDirection: 'column', justifyContent: 'center', gap: 4 }}>
@@ -526,7 +527,7 @@ export default function GuestCurationProductPage({ product }: { product: Product
           <section style={{ padding: 'clamp(52px,8vw,90px) clamp(20px,5vw,80px)', background: '#030303' }}>
             <div style={{ maxWidth: 760, margin: '0 auto' }}>
               <div className="gc-reveal" style={{ textAlign: 'center', marginBottom: 40 }}>
-                <p style={{ fontSize: 6, letterSpacing: '0.9em', textTransform: 'uppercase', color: '#c9a054', marginBottom: 10 }>{isJewelry ? 'Gemological Specifications' : 'Technical Specifications'}</p>
+                <p style={{ fontSize: 6, letterSpacing: '0.9em', textTransform: 'uppercase', color: '#c9a054', marginBottom: 10 }>{isJewelry ? 'Gemological Specifications' : isFragrance ? 'Olfactory Specifications' : 'Technical Specifications'}</p>
                 <h2 style={{ fontFamily: SERIF, fontSize: 'clamp(2rem,4.5vw,3.5rem)', fontWeight: 300, color: '#f0ece4' }}>{isJewelry ? 'Material Matrix' : 'Performance Matrix'}</h2>
               </div>
               <div className="gc-reveal" style={{ border: '1px solid rgba(201,160,84,0.1)', background: 'linear-gradient(180deg, #0c0906 0%, #080603 100%)' }}>
@@ -537,8 +538,8 @@ export default function GuestCurationProductPage({ product }: { product: Product
                   ['Global Retail Value', '$' + config.globalRetailUsd + ' USD'],
                   ['Collection', config.collectionName],
                   ['Archive Label', config.archiveLabel],
-                  ['Category', isJewelry ? (config.archiveCode.startsWith('JE') ? 'Essential Feminine Jewelry Archive' : config.archiveCode.startsWith('SFJ') ? 'SF Original High Jewelry Archive' : 'Ultra-Luxury Feminine Jewelry Archive') : (config.archiveCode.startsWith('UE') || config.archiveCode.startsWith('FHE') ? 'Essential Beauty Archive' : 'Luxury Cosmetics Masterpieces')],
-                  ['Curation Status', isJewelry ? (config.archiveCode.startsWith('SFJ') ? 'House Original Masterpiece' : config.archiveCode.startsWith('JL') ? 'Ultra-Luxury Selection' : 'House Jewelry Selection') : (config.archiveCode.startsWith('UE') || config.archiveCode.startsWith('FHE') ? 'House Essential Selection' : 'House Masterpiece Selection')],
+                  ['Category', isJewelry ? (config.archiveCode.startsWith('JE') ? 'Essential Feminine Jewelry Archive' : config.archiveCode.startsWith('SFJ') ? 'SF Original High Jewelry Archive' : 'Ultra-Luxury Feminine Jewelry Archive') : isFragrance ? (config.archiveCode.startsWith('G-') ? 'Luxury Feminine Fragrance Archive' : config.archiveCode.startsWith('M-') ? 'Luxury Masculine Fragrance Archive' : config.archiveCode.startsWith('E-') ? 'Essential Masculine Fragrance Archive' : 'Unisex Fragrance Archive') : (config.archiveCode.startsWith('UE') || config.archiveCode.startsWith('FHE') ? 'Essential Beauty Archive' : config.archiveCode.startsWith('UC') ? 'Unisex Luxury Cosmetics Archive' : config.archiveCode.startsWith('FHM') ? 'For Him Cosmetics Archive' : 'Luxury Cosmetics Masterpieces')],
+                  ['Curation Status', isJewelry ? (config.archiveCode.startsWith('SFJ') ? 'House Original Masterpiece' : config.archiveCode.startsWith('JL') ? 'Ultra-Luxury Selection' : 'House Jewelry Selection') : isFragrance ? (config.archiveCode.startsWith('E-') ? 'House Essential Selection' : 'House Fragrance Masterpiece') : (config.archiveCode.startsWith('UE') || config.archiveCode.startsWith('FHE') ? 'House Essential Selection' : 'House Masterpiece Selection')],
                 ] as [string, string][]).map(([lbl, val], i, arr) => (
                   <div key={lbl} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: 8, padding: '16px 22px', borderBottom: i < arr.length - 1 ? '1px solid rgba(255,255,255,0.03)' : 'none' }}>
                     <p style={{ fontSize: 7, letterSpacing: '0.45em', textTransform: 'uppercase', color: '#3f3830', flexShrink: 0 }}>{lbl}</p>
@@ -584,7 +585,7 @@ export default function GuestCurationProductPage({ product }: { product: Product
                       0xCCFc11b2...DC7640
                     </p>
                     <span style={{ fontSize: 7, letterSpacing: '0.4em', textTransform: 'uppercase', color: 'rgba(201,160,84,0.6)', border: '1px solid rgba(201,160,84,0.25)', padding: '3px 8px' }}>
-                      {config.archiveCode.startsWith('UE') ? 'ESSENTIAL' : 'MASTERPIECE'}
+                      {config.archiveCode.startsWith('JE') || config.archiveCode.startsWith('UE') || config.archiveCode.startsWith('FHE') || config.archiveCode.startsWith('E-') ? 'ESSENTIAL' : config.archiveCode.startsWith('SFJ') ? 'ORIGINAL' : 'MASTERPIECE'}
                     </span>
                   </div>
                   <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: 1, background: 'linear-gradient(to right, transparent, rgba(201,160,84,0.6) 50%, transparent)' }} />
@@ -628,7 +629,7 @@ export default function GuestCurationProductPage({ product }: { product: Product
               </div>
               <div className="gc-reveal" style={{ border: '1px solid rgba(201,160,84,0.1)', background: '#080602' }}>
                 {([
-                  { title: config.archiveCode.startsWith('UE') ? 'SF Essential Cosmetics Archive Member' : 'SF Cosmetics Masterpieces Archive Member', desc: 'Access to the House of Shamim Forever curated luxury beauty collection' },
+                  { title: isJewelry ? (config.archiveCode.startsWith('SFJ') ? 'SF Original High Jewelry Holder' : config.archiveCode.startsWith('JL') ? 'SF Ultra-Luxury Jewelry Archive Member' : 'SF Jewelry Archive Member') : isFragrance ? (config.archiveCode.startsWith('E-') ? 'SF Essential Fragrance Archive Member' : config.archiveCode.startsWith('G-') ? 'SF Feminine Fragrance Archive Member' : 'SF Fragrance Archive Member') : (config.archiveCode.startsWith('UE') || config.archiveCode.startsWith('FHE') ? 'SF Essential Beauty Archive Member' : config.archiveCode.startsWith('UC') ? 'SF Unisex Luxury Beauty Member' : 'SF Cosmetics Masterpieces Archive Member'), desc: isJewelry ? 'Exclusive access to the House of Shamim curated fine jewelry & high jewelry collection' : isFragrance ? 'Access to the House of Shamim curated luxury fragrance archive' : 'Access to the House of Shamim Forever curated luxury beauty collection' },
                   { title: 'Priority Restock Alerts', desc: 'First to know when allocations are restocked or new curations are added' },
                   { title: 'House Beauty Newsletter', desc: 'Quarterly sovereign dispatches from the curation vault' },
                   { title: 'Bundle Allocation Access', desc: 'Exclusive bundle pricing for Archive members across all categories' },
