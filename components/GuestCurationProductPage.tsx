@@ -51,6 +51,7 @@ export default function GuestCurationProductPage({ product }: { product: Product
   const textY = useTransform(scrollYProgress, [0, 0.6], [0, 45])
 
   const config = getGuestCurationConfig(product.slug)
+  const isJewelry = config ? (config.archiveCode.startsWith('J') || config.archiveCode.startsWith('SFJ')) : false
 
   const [quantity, setQuantity] = useState(1)
   const [payMethod, setPayMethod] = useState<PayMethod>('crypto')
@@ -494,14 +495,14 @@ export default function GuestCurationProductPage({ product }: { product: Product
           <section style={{ padding: 'clamp(52px,8vw,90px) clamp(20px,5vw,80px)', background: 'radial-gradient(ellipse 70% 50% at 50% 50%, #0e0903 0%, #030303 65%)' }}>
             <div style={{ maxWidth: 800, margin: '0 auto' }}>
               <div className="gc-reveal" style={{ textAlign: 'center', marginBottom: 48 }}>
-                <p style={{ fontSize: 6, letterSpacing: '0.9em', textTransform: 'uppercase', color: '#c9a054', marginBottom: 10 }}>Formulation Architecture</p>
-                <h2 style={{ fontFamily: SERIF, fontSize: 'clamp(2rem,4.5vw,3.5rem)', fontWeight: 300, color: '#f0ece4' }}>Ingredient Profile</h2>
+                <p style={{ fontSize: 6, letterSpacing: '0.9em', textTransform: 'uppercase', color: '#c9a054', marginBottom: 10 }>{isJewelry ? 'Material Architecture' : 'Formulation Architecture'}</p>
+                <h2 style={{ fontFamily: SERIF, fontSize: 'clamp(2rem,4.5vw,3.5rem)', fontWeight: 300, color: '#f0ece4' }}>{isJewelry ? 'Craftsmanship Profile' : 'Ingredient Profile'}</h2>
               </div>
               <div style={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
                 {[
-                  { label: 'Active Compounds', desc: 'Primary actives', notes: config.signatureNotes.slice(0, Math.ceil(config.signatureNotes.length / 3)) },
-                  { label: 'Core Formula', desc: 'Synergistic complex', notes: config.signatureNotes.slice(Math.ceil(config.signatureNotes.length / 3), Math.ceil(config.signatureNotes.length * 2 / 3)) },
-                  { label: 'Foundation Matrix', desc: 'Base & delivery system', notes: config.signatureNotes.slice(Math.ceil(config.signatureNotes.length * 2 / 3)) },
+                  { label: isJewelry ? 'Precious Materials' : 'Active Compounds', desc: isJewelry ? 'Metal & material grade' : 'Primary actives', notes: config.signatureNotes.slice(0, Math.ceil(config.signatureNotes.length / 3)) },
+                  { label: isJewelry ? 'Gemstone Profile' : 'Core Formula', desc: isJewelry ? 'Stone specification' : 'Synergistic complex', notes: config.signatureNotes.slice(Math.ceil(config.signatureNotes.length / 3), Math.ceil(config.signatureNotes.length * 2 / 3)) },
+                  { label: isJewelry ? 'Craftsmanship Architecture' : 'Foundation Matrix', desc: isJewelry ? 'Construction method' : 'Base & delivery system', notes: config.signatureNotes.slice(Math.ceil(config.signatureNotes.length * 2 / 3)) },
                 ].map(tier => (
                   <div key={tier.label} className="gc-reveal" style={{ display: 'grid', gridTemplateColumns: '140px 1fr', border: '1px solid rgba(201,160,84,0.08)', background: '#080602' }}>
                     <div style={{ padding: '20px 18px', borderRight: '1px solid rgba(201,160,84,0.06)', display: 'flex', flexDirection: 'column', justifyContent: 'center', gap: 4 }}>
@@ -525,19 +526,19 @@ export default function GuestCurationProductPage({ product }: { product: Product
           <section style={{ padding: 'clamp(52px,8vw,90px) clamp(20px,5vw,80px)', background: '#030303' }}>
             <div style={{ maxWidth: 760, margin: '0 auto' }}>
               <div className="gc-reveal" style={{ textAlign: 'center', marginBottom: 40 }}>
-                <p style={{ fontSize: 6, letterSpacing: '0.9em', textTransform: 'uppercase', color: '#c9a054', marginBottom: 10 }}>Technical Specifications</p>
-                <h2 style={{ fontFamily: SERIF, fontSize: 'clamp(2rem,4.5vw,3.5rem)', fontWeight: 300, color: '#f0ece4' }}>Performance Matrix</h2>
+                <p style={{ fontSize: 6, letterSpacing: '0.9em', textTransform: 'uppercase', color: '#c9a054', marginBottom: 10 }>{isJewelry ? 'Gemological Specifications' : 'Technical Specifications'}</p>
+                <h2 style={{ fontFamily: SERIF, fontSize: 'clamp(2rem,4.5vw,3.5rem)', fontWeight: 300, color: '#f0ece4' }}>{isJewelry ? 'Material Matrix' : 'Performance Matrix'}</h2>
               </div>
               <div className="gc-reveal" style={{ border: '1px solid rgba(201,160,84,0.1)', background: 'linear-gradient(180deg, #0c0906 0%, #080603 100%)' }}>
                 {([
                   ['Classification', config.classification],
-                  ['Volume', config.size],
+                  [isJewelry ? 'Material' : 'Volume', config.size],
                   ['House Allocation Price', '$' + product.price_usd + ' USD'],
                   ['Global Retail Value', '$' + config.globalRetailUsd + ' USD'],
                   ['Collection', config.collectionName],
                   ['Archive Label', config.archiveLabel],
-                  ['Category', config.archiveCode.startsWith('UE') ? 'Essential Cosmetics Archive' : 'Luxury Cosmetics Masterpieces'],
-                  ['Curation Status', config.archiveCode.startsWith('UE') ? 'House Essential Selection' : 'House Masterpiece Selection'],
+                  ['Category', isJewelry ? (config.archiveCode.startsWith('JE') ? 'Essential Feminine Jewelry Archive' : config.archiveCode.startsWith('SFJ') ? 'SF Original High Jewelry Archive' : 'Ultra-Luxury Feminine Jewelry Archive') : (config.archiveCode.startsWith('UE') || config.archiveCode.startsWith('FHE') ? 'Essential Beauty Archive' : 'Luxury Cosmetics Masterpieces')],
+                  ['Curation Status', isJewelry ? (config.archiveCode.startsWith('SFJ') ? 'House Original Masterpiece' : config.archiveCode.startsWith('JL') ? 'Ultra-Luxury Selection' : 'House Jewelry Selection') : (config.archiveCode.startsWith('UE') || config.archiveCode.startsWith('FHE') ? 'House Essential Selection' : 'House Masterpiece Selection')],
                 ] as [string, string][]).map(([lbl, val], i, arr) => (
                   <div key={lbl} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: 8, padding: '16px 22px', borderBottom: i < arr.length - 1 ? '1px solid rgba(255,255,255,0.03)' : 'none' }}>
                     <p style={{ fontSize: 7, letterSpacing: '0.45em', textTransform: 'uppercase', color: '#3f3830', flexShrink: 0 }}>{lbl}</p>
