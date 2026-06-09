@@ -70,7 +70,7 @@ export default function GuestCurationProductPage({ product }: { product: Product
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger)
-    gsap.utils.toArray<Element>('.gc-reveal').forEach(el => {
+    (gsap.utils.toArray('.gc-reveal') as Element[]).forEach(el => {
       gsap.fromTo(el, { opacity: 0, y: 36, filter: 'blur(6px)' },
         { opacity: 1, y: 0, filter: 'blur(0px)', duration: 1.2, ease: 'power3.out', scrollTrigger: { trigger: el, start: 'top 88%', once: true } })
     })
