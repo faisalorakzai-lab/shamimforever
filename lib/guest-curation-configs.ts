@@ -1296,7 +1296,7 @@ export interface GuestCurationConfig {
           'Dermatological excellence. Reliable hydration. Long-term protection.',
         ],
         curatorPositioning: ['Dermatological excellence.', 'Reliable hydration.', 'Long-term protection.'],
-      },,
+      },
         // ═══ FOR-HER COSMETICS LUXURY (FHC-I to FHC-XV) ═══
         { slug: 'charlotte-tilbury-magic-cream', archiveCode: 'FHC-I', archiveLabel: 'SF Luxury Beauty Archive · For Her', collectionName: 'The Feminine Mastery Collection', classification: 'Luxury Face Cream', size: '50ml', globalRetailUsd: 180, signatureNotes: ['Magic Mushroom Complex', 'Hyaluronic Acid', 'Vitamin C', 'Collagen Boost Peptides', 'Rose Hip Seed Oil', 'Vitamin E'], whyCurated: ['"Magic Cream is not skincare. It is the secret of every red carpet, every premiere, every morning a woman decides she deserves the best." — The House', 'Charlotte Tilbury\'s Magic Cream is the cult formula used by the world\'s most photographed faces — a rich moisturizer that transforms skin in minutes.', 'The House curated it for women who understand that great skin is the ultimate luxury.'], curatorPositioning: ['Effortless radiance.', 'Transformative luxury.', 'The skin of your dreams.'] },
         { slug: 'tom-ford-shade-illuminate', archiveCode: 'FHC-II', archiveLabel: 'SF Luxury Beauty Archive · For Her', collectionName: 'The Artistic Excellence Collection', classification: 'Luxury Highlight Palette', size: 'Dual-Shade Compact', globalRetailUsd: 155, signatureNotes: ['Pressed Pearl Pigments', 'Burnished Gold Duochrome', 'Silk-Bind Technology', 'Luminescent Mica', 'Rose Gold Shimmer', 'Champagne Highlight'], whyCurated: ['"To illuminate is to reveal beauty that was always there — waiting for the right light." — The House', 'Tom Ford\'s Shade & Illuminate Palette is the architect\'s tool for sculptured, luminous skin — dual tones that contour and glow simultaneously.', 'The House curated it for women who understand that light is a language.'], curatorPositioning: ['Sculptural beauty.', 'Architectural glow.', 'The art of light.'] },
@@ -1413,8 +1413,7 @@ export interface GuestCurationConfig {
             'The House created the Empress Sovereign Vault for women who understand that the highest form of wealth is not measured. It is inherited.',
           ],
           curatorPositioning: ['Ultra-limited allocation.', 'Dynasty-grade gold.', 'The House masterpiece.'],
-        }
-    ]
+        },
       // ── FOR HIM LUXURY COSMETICS (FHM) ─────────────────────────────────
       {
         slug: 'la-mer-the-moisturizing-gel-cream-men',
@@ -1777,6 +1776,8 @@ export interface GuestCurationConfig {
         whyCurated: ['Simple — the sovereign choice for men with sensitive skin.', 'No artificial perfumes, no harsh chemicals, no compromise. Simple Kind to Skin\'s men\'s moisturiser delivers essential daily hydration with pro-vitamin B5, vitamin E and niacinamide — clean, gentle, effective.'],
         curatorPositioning: ['Clean, no-nasties sensitive skincare at the essential daily care level.'],
       },
+
+  ]
 
   const CONFIG_MAP: Record<string, GuestCurationConfig> = {}
   for (const c of CONFIGS) CONFIG_MAP[c.slug] = c
