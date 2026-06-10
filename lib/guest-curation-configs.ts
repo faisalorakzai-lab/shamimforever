@@ -1,4 +1,3 @@
-SHA: fec27c39bc3d4ec140d742bbd342d1010df20b8c
 export interface GuestCurationConfig {
     slug: string
     archiveCode: string
