@@ -496,7 +496,7 @@ export default function GuestCurationProductPage({ product }: { product: Product
           <section style={{ padding: 'clamp(52px,8vw,90px) clamp(20px,5vw,80px)', background: 'radial-gradient(ellipse 70% 50% at 50% 50%, #0e0903 0%, #030303 65%)' }}>
             <div style={{ maxWidth: 800, margin: '0 auto' }}>
               <div className="gc-reveal" style={{ textAlign: 'center', marginBottom: 48 }}>
-                <p style={{ fontSize: 6, letterSpacing: '0.9em', textTransform: 'uppercase', color: '#c9a054', marginBottom: 10 }>{isJewelry ? 'Material Architecture' : isFragrance ? 'Olfactory Architecture' : 'Formulation Architecture'}</p>
+                <p style={{ fontSize: 6, letterSpacing: '0.9em', textTransform: 'uppercase', color: '#c9a054', marginBottom: 10 }}>{isJewelry ? 'Material Architecture' : isFragrance ? 'Olfactory Architecture' : 'Formulation Architecture'}</p>
                 <h2 style={{ fontFamily: SERIF, fontSize: 'clamp(2rem,4.5vw,3.5rem)', fontWeight: 300, color: '#f0ece4' }}>{isJewelry ? 'Craftsmanship Profile' : isFragrance ? 'Fragrance Profile' : 'Ingredient Profile'}</h2>
               </div>
               <div style={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
@@ -527,7 +527,7 @@ export default function GuestCurationProductPage({ product }: { product: Product
           <section style={{ padding: 'clamp(52px,8vw,90px) clamp(20px,5vw,80px)', background: '#030303' }}>
             <div style={{ maxWidth: 760, margin: '0 auto' }}>
               <div className="gc-reveal" style={{ textAlign: 'center', marginBottom: 40 }}>
-                <p style={{ fontSize: 6, letterSpacing: '0.9em', textTransform: 'uppercase', color: '#c9a054', marginBottom: 10 }>{isJewelry ? 'Gemological Specifications' : isFragrance ? 'Olfactory Specifications' : 'Technical Specifications'}</p>
+                <p style={{ fontSize: 6, letterSpacing: '0.9em', textTransform: 'uppercase', color: '#c9a054', marginBottom: 10 }}>{isJewelry ? 'Gemological Specifications' : isFragrance ? 'Olfactory Specifications' : 'Technical Specifications'}</p>
                 <h2 style={{ fontFamily: SERIF, fontSize: 'clamp(2rem,4.5vw,3.5rem)', fontWeight: 300, color: '#f0ece4' }}>{isJewelry ? 'Material Matrix' : 'Performance Matrix'}</h2>
               </div>
               <div className="gc-reveal" style={{ border: '1px solid rgba(201,160,84,0.1)', background: 'linear-gradient(180deg, #0c0906 0%, #080603 100%)' }}>
