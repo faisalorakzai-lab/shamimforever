@@ -72,9 +72,109 @@ function GoldParticles() {
 
 interface ParsedStory {
   tagline?: string
-  olfactory?: string | { top_description?: string; heart_description?: string; base_description?: string }
+  sovereign_title?: string
+  legacy_statement?: string
+  positioning?: string
+  atmospheric_presence?: string
+  allocation?: string
+  olfactory?: string | {
+    top?: string[]; heart?: string[]; base?: string[]
+    top_description?: string; heart_description?: string; base_description?: string
+  }
   scentPyramid?: { top: string; heart: string; base: string }
-  specs?: { volume?: string; concentration?: string; sillage?: string; longevity?: string; batch?: string; price?: string }
+  specs?: {
+    title?: string; volume?: string; concentration?: string; sillage?: string; longevity?: string
+    batch?: string; price?: string; classification?: string; projection?: string
+    production?: string; gender?: string; wearing_environment?: string
+    production_philosophy?: string; blockchain?: string
+    allocation?: string; price_pkr?: string; price_usd?: string
+  }
+  nft?: {
+    title?: string; description?: string; blockchain?: string; rarity?: string
+    edition?: string; contract?: string; tx?: string; holder_privileges?: string[]
+  }
+  packaging?: { flacon?: string; vault?: string }
+}
+
+function NftCard({ product, story }: { product: Product; story: ParsedStory | null }) {
+  const [deg, setDeg] = useState(0)
+  useEffect(() => {
+    let frame: number; let t = 0
+    const go = () => { t += 0.28; setDeg(t); frame = requestAnimationFrame(go) }
+    go(); return () => cancelAnimationFrame(frame)
+  }, [])
+  const nft = story?.nft
+  const rarity = nft?.rarity || (product.price_usd >= 10000 ? 'SOVEREIGN FOUNDERS' : product.price_usd >= 1000 ? 'INSTITUTIONAL RESERVE' : 'HERITAGE ARCHIVE')
+  const gold = product.price_usd >= 50000 ? '#f0d080' : product.price_usd >= 10000 ? '#c9a054' : '#a08040'
+  const serial = 'SF-' + product.id.replace(/-/g,'').slice(0,8).toUpperCase()
+  const catName = (product as any).main_category?.name || 'Luxury'
+  const traits = [
+    ['Category', catName],
+    ['Rarity', rarity],
+    ['Network', nft?.blockchain || 'Polygon Mainnet'],
+    ['Standard', 'ERC-721'],
+    ['Edition', nft?.edition || 'House Allocation Reserve'],
+    ['Authentication', 'Polygon Verified'],
+  ]
+  return (
+    <div style={{ perspective: '1100px', maxWidth: 280, margin: '0 auto', userSelect: 'none' }}>
+      <div style={{ transform: `rotateY(${deg}deg)`, transformStyle: 'preserve-3d', position: 'relative', width: '100%', aspectRatio: '3/4', transition: 'none' }}>
+        {[false, true].map(isBack => (
+          <div key={String(isBack)} style={{
+            position: 'absolute', inset: 0, backfaceVisibility: 'hidden',
+            transform: isBack ? 'rotateY(180deg)' : 'none',
+            background: 'linear-gradient(145deg, #0c0906 0%, #100d07 50%, #080604 100%)',
+            border: `1px solid ${gold}55`, display: 'flex', flexDirection: 'column', padding: 20
+          }}>
+            {!isBack ? (
+              <>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 16 }}>
+                  <div>
+                    <p style={{ fontSize: 7, letterSpacing: '0.5em', textTransform: 'uppercase', color: gold, marginBottom: 2 }}>House of Shamim Forever</p>
+                    <p style={{ fontSize: 6, letterSpacing: '0.3em', textTransform: 'uppercase', color: '#3f3830' }}>Sovereign Digital Passport</p>
+                  </div>
+                  <motion.div animate={{ opacity: [0.4,1,0.4] }} transition={{ duration: 2.5, repeat: Infinity }} style={{ fontSize: 20, color: gold }}>◆</motion.div>
+                </div>
+                <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  {product.images?.[0] ? (
+                    <img src={product.images[0]} alt={product.name} style={{ width: '80%', height: '80%', objectFit: 'contain', opacity: 0.85 }} />
+                  ) : (
+                    <p style={{ fontFamily: SERIF, fontSize: 52, color: `${gold}15`, fontWeight: 300 }}>SF</p>
+                  )}
+                </div>
+                <div style={{ marginTop: 'auto', paddingTop: 12, borderTop: `1px solid ${gold}20` }}>
+                  <p style={{ fontFamily: SERIF, fontSize: 12, color: '#c9b894', fontWeight: 300, lineHeight: 1.3, marginBottom: 4 }}>{product.name}</p>
+                  <p style={{ fontSize: 6, letterSpacing: '0.35em', textTransform: 'uppercase', color: `${gold}80` }}>{rarity}</p>
+                </div>
+              </>
+            ) : (
+              <>
+                <div style={{ marginBottom: 10 }}>
+                  <p style={{ fontSize: 6, letterSpacing: '0.4em', textTransform: 'uppercase', color: gold, marginBottom: 6 }}>Sovereign Traits</p>
+                  <div style={{ borderTop: `1px solid ${gold}20`, paddingTop: 8 }}>
+                    <p style={{ fontSize: 6, letterSpacing: '0.3em', textTransform: 'uppercase', color: '#3f3830', marginBottom: 3 }}>Serial Number</p>
+                    <p style={{ fontFamily: 'monospace', fontSize: 13, color: gold, letterSpacing: '0.1em' }}>{serial}</p>
+                  </div>
+                </div>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 4, flex: 1 }}>
+                  {traits.map(([lbl, val]) => (
+                    <div key={lbl} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '4px 8px', background: '#0a0806' }}>
+                      <p style={{ fontSize: 6, letterSpacing: '0.25em', textTransform: 'uppercase', color: '#2a2520' }}>{lbl}</p>
+                      <p style={{ fontSize: 7, color: '#a08060', maxWidth: 120, textAlign: 'right' }}>{val}</p>
+                    </div>
+                  ))}
+                </div>
+                <div style={{ marginTop: 10, paddingTop: 8, borderTop: `1px solid ${gold}12`, display: 'flex', alignItems: 'center', gap: 6 }}>
+                  <motion.div animate={{ opacity: [0.4,1,0.4] }} transition={{ duration: 1.5, repeat: Infinity }} style={{ width: 5, height: 5, borderRadius: '50%', background: '#4ade80' }} />
+                  <p style={{ fontSize: 6, letterSpacing: '0.3em', textTransform: 'uppercase', color: '#3f3830' }}>Polygon Active — NFT Enabled</p>
+                </div>
+              </>
+            )}
+          </div>
+        ))}
+      </div>
+    </div>
+  )
 }
 
 export default function LuxuryGenericProductPage({ product }: { product: Product }) {
@@ -384,34 +484,195 @@ export default function LuxuryGenericProductPage({ product }: { product: Product
         </section>
       )}
 
-      {/* SPECS */}
+      {/* LEGACY STATEMENT */}
+      {(story?.legacy_statement || story?.positioning) && (
+        <section style={{ padding: 'clamp(52px,8vw,90px) 0', background: 'linear-gradient(180deg, #030303 0%, #080602 50%, #030303 100%)' }}>
+          <div style={{ maxWidth: 860, margin: '0 auto', padding: '0 24px', textAlign: 'center' }}>
+            <div className="g-reveal">
+              <p style={{ fontSize: 7, letterSpacing: '0.9em', textTransform: 'uppercase', color: '#c9a054', marginBottom: 28 }}>Legacy Statement</p>
+              <div style={{ width: 64, height: 1, background: 'linear-gradient(to right, transparent, #c9a054, transparent)', margin: '0 auto 40px' }} />
+            </div>
+            {story?.legacy_statement && (
+              <div className="g-reveal">
+                <p style={{ fontFamily: SERIF, fontStyle: 'italic', fontSize: 'clamp(1.3rem,3.5vw,2.4rem)', fontWeight: 300, color: '#f0ece4', lineHeight: 1.6, marginBottom: 32 }}>
+                  &ldquo;{story.legacy_statement}&rdquo;
+                </p>
+              </div>
+            )}
+            {story?.positioning && (
+              <div className="g-reveal">
+                <p style={{ fontFamily: SERIF, fontSize: 'clamp(0.9rem,1.8vw,1.25rem)', color: 'rgba(240,236,228,0.45)', fontWeight: 300, lineHeight: 1.9, maxWidth: 720, margin: '0 auto' }}>
+                  {story.positioning}
+                </p>
+              </div>
+            )}
+            {story?.atmospheric_presence && (
+              <div className="g-reveal" style={{ marginTop: 32 }}>
+                <p style={{ fontFamily: SERIF, fontStyle: 'italic', fontSize: 'clamp(0.85rem,1.5vw,1.1rem)', color: 'rgba(201,160,84,0.4)', fontWeight: 300, lineHeight: 1.8 }}>
+                  {story.atmospheric_presence}
+                </p>
+              </div>
+            )}
+          </div>
+        </section>
+      )}
+
+      {/* FULL PERFORMANCE MATRIX */}
       {story?.specs && Object.values(story.specs).some(Boolean) && (
         <section style={{ padding: 'clamp(44px,7vw,80px) 0', background: 'radial-gradient(ellipse 60% 50% at 50% 50%, #0e0903 0%, #030303 60%)' }}>
-          <div style={{ maxWidth: 700, margin: '0 auto', padding: '0 24px' }}>
+          <div style={{ maxWidth: 760, margin: '0 auto', padding: '0 24px' }}>
             <div className="g-reveal" style={{ textAlign: 'center', marginBottom: 40 }}>
-              <p style={{ fontSize: 7, letterSpacing: '0.9em', textTransform: 'uppercase', color: '#c9a054', marginBottom: 10 }}>Specifications</p>
-              <h2 style={{ fontFamily: SERIF, fontSize: 'clamp(2rem, 4vw, 3rem)', fontWeight: 300, color: '#f0ece4' }}>Performance Profile</h2>
+              <p style={{ fontSize: 7, letterSpacing: '0.9em', textTransform: 'uppercase', color: '#c9a054', marginBottom: 10 }}>Technical Specifications</p>
+              <h2 style={{ fontFamily: SERIF, fontSize: 'clamp(2rem, 4vw, 3.5rem)', fontWeight: 300, color: '#f0ece4' }}>Performance Matrix</h2>
+              <div style={{ width: 64, height: 1, background: 'linear-gradient(to right, transparent, #c9a054, transparent)', margin: '20px auto 0' }} />
             </div>
             <div className="g-reveal" style={{ border: '1px solid rgba(201,160,84,0.1)', background: 'linear-gradient(180deg, #0c0906 0%, #080603 100%)' }}>
               {([
-                ['Volume', story.specs.volume],
-                ['Concentration', story.specs.concentration],
+                ['Classification', story.specs.classification],
+                ['Concentration Class', story.specs.concentration],
+                ['Volume Allocation', story.specs.volume],
                 ['Longevity', story.specs.longevity],
+                ['Projection', story.specs.projection],
                 ['Sillage', story.specs.sillage],
-                ['Batch', story.specs.batch],
+                ['Batch Philosophy', story.specs.batch],
+                ['Gender Profile', story.specs.gender],
+                ['Production Method', story.specs.production || story.specs.production_philosophy],
+                ['Wearing Environment', story.specs.wearing_environment],
+                ['Authentication', story.specs.blockchain || 'Polygon Verified — NFT Enabled'],
+                ['NFT Pairing', story.nft?.edition || story.specs.allocation || 'Enabled'],
               ] as [string, string | undefined][]).filter(([, v]) => v).map(([lbl, val], i, arr) => (
-                <div
-                  key={lbl}
-                  style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: 6, padding: '16px 22px', borderBottom: i < arr.length - 1 ? '1px solid rgba(255,255,255,0.03)' : 'none' }}
-                >
-                  <p style={{ fontSize: 7, letterSpacing: '0.5em', textTransform: 'uppercase', color: '#3f3830' }}>{lbl}</p>
-                  <p style={{ fontFamily: SERIF, fontSize: 14, color: '#c9b894', fontWeight: 300, wordBreak: 'break-word' }}>{val}</p>
+                <div key={lbl} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: 8, padding: '18px 24px', borderBottom: i < arr.length - 1 ? '1px solid rgba(255,255,255,0.03)' : 'none' }}>
+                  <p style={{ fontSize: 7, letterSpacing: '0.5em', textTransform: 'uppercase', color: '#3f3830', flexShrink: 0 }}>{lbl}</p>
+                  <p style={{ fontFamily: SERIF, fontSize: 14, color: '#c9b894', fontWeight: 300, wordBreak: 'break-word', textAlign: 'right', maxWidth: '55%' }}>{val}</p>
                 </div>
               ))}
             </div>
           </div>
         </section>
       )}
+
+      {/* OLFACTORY ARCHITECTURE / DESIGN ARCHITECTURE */}
+      {story?.olfactory && typeof story.olfactory === 'object' && (story.olfactory.top?.length || story.olfactory.heart?.length || story.olfactory.base?.length) && (
+        <section style={{ padding: 'clamp(52px,8vw,90px) 0', background: 'linear-gradient(180deg, #030303 0%, #0a0805 50%, #030303 100%)' }}>
+          <div style={{ maxWidth: 820, margin: '0 auto', padding: '0 24px' }}>
+            <div className="g-reveal" style={{ textAlign: 'center', marginBottom: 48 }}>
+              <p style={{ fontSize: 7, letterSpacing: '0.9em', textTransform: 'uppercase', color: '#c9a054', marginBottom: 10 }}>Olfactory Architecture</p>
+              <h2 style={{ fontFamily: SERIF, fontSize: 'clamp(2rem, 4vw, 3.5rem)', fontWeight: 300, color: '#f0ece4' }}>Scent Pyramid</h2>
+              <div style={{ width: 64, height: 1, background: 'linear-gradient(to right, transparent, #c9a054, transparent)', margin: '20px auto 0' }} />
+            </div>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: 2 }}>
+              {([
+                { label: 'Top', key: 'top' as const, desc: (story.olfactory as any).top_description, sym: '◈' },
+                { label: 'Heart', key: 'heart' as const, desc: (story.olfactory as any).heart_description, sym: '◉' },
+                { label: 'Base', key: 'base' as const, desc: (story.olfactory as any).base_description, sym: '◌' },
+              ]).filter(s => ((story.olfactory as any)[s.key] || []).length > 0).map(({ label, key, desc, sym }) => (
+                <div key={label} className="g-reveal" style={{ padding: '32px 24px', border: '1px solid rgba(201,160,84,0.08)', background: 'linear-gradient(180deg, #0c0906 0%, #080604 100%)' }}>
+                  <p style={{ fontSize: 7, letterSpacing: '0.7em', textTransform: 'uppercase', color: '#c9a054', marginBottom: 6 }}>{sym} {label}</p>
+                  <div style={{ width: 32, height: 1, background: 'rgba(201,160,84,0.25)', marginBottom: 20 }} />
+                  {((story.olfactory as any)[key] as string[]).map((note: string) => (
+                    <p key={note} style={{ fontFamily: SERIF, fontSize: 14, color: '#c9b894', fontWeight: 300, marginBottom: 8, lineHeight: 1.4 }}>· {note}</p>
+                  ))}
+                  {desc && <p style={{ fontSize: 10, color: 'rgba(201,160,84,0.35)', fontStyle: 'italic', marginTop: 16, lineHeight: 1.7 }}>{desc}</p>}
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* DIGITAL SOVEREIGN PASSPORT */}
+      <section style={{ padding: 'clamp(52px,8vw,90px) 0', background: 'radial-gradient(ellipse 70% 50% at 50% 50%, #0e0903 0%, #030303 70%)' }}>
+        <div style={{ maxWidth: 900, margin: '0 auto', padding: '0 24px' }}>
+          <div className="g-reveal" style={{ textAlign: 'center', marginBottom: 48 }}>
+            <p style={{ fontSize: 7, letterSpacing: '0.9em', textTransform: 'uppercase', color: '#c9a054', marginBottom: 10 }}>Polygon · Blockchain Identity</p>
+            <h2 style={{ fontFamily: SERIF, fontSize: 'clamp(2rem, 4vw, 3.5rem)', fontWeight: 300, color: '#f0ece4' }}>Digital Sovereign Passport</h2>
+            <div style={{ width: 64, height: 1, background: 'linear-gradient(to right, transparent, #c9a054, transparent)', margin: '20px auto 0' }} />
+          </div>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 48, alignItems: 'center' }}>
+            <div className="g-reveal">
+              <NftCard product={product} story={story} />
+            </div>
+            <div className="g-reveal">
+              <p style={{ fontSize: 7, letterSpacing: '0.5em', textTransform: 'uppercase', color: '#c9a054', marginBottom: 20 }}>Blockchain Authentication</p>
+              <p style={{ fontFamily: SERIF, fontSize: 'clamp(0.95rem,1.8vw,1.3rem)', color: 'rgba(240,236,228,0.5)', fontWeight: 300, lineHeight: 1.85, marginBottom: 28 }}>
+                {story?.nft?.description || 'Every sovereign creation carries a permanent, irrevocable proof of authenticity on the Polygon blockchain — the NFT is your identity, inseparable from the physical artifact.'}
+              </p>
+              <div style={{ border: '1px solid rgba(201,160,84,0.1)', background: '#0a0806' }}>
+                {([
+                  ['Contract', story?.nft?.contract || '0xCCFc11b2...DC7640'],
+                  ['Network', story?.nft?.blockchain || 'Polygon Mainnet'],
+                  ['Standard', 'ERC-721 — Non-Fungible'],
+                  ['Edition', story?.nft?.edition || 'House Allocation Reserve'],
+                ] as [string, string][]).map(([lbl, val], i, arr) => (
+                  <div key={lbl} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 8, padding: '14px 18px', borderBottom: i < arr.length - 1 ? '1px solid rgba(255,255,255,0.03)' : 'none' }}>
+                    <p style={{ fontSize: 7, letterSpacing: '0.4em', textTransform: 'uppercase', color: '#3f3830' }}>{lbl}</p>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                      <p style={{ fontFamily: 'monospace', fontSize: 10, color: '#c9b894', wordBreak: 'break-all' }}>{val}</p>
+                      {lbl === 'Contract' && <CopyBtn text={story?.nft?.contract || '0xCCFc11b2DC7640'} />}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* CLAIM SOVEREIGN PASSPORT NFT */}
+      <section style={{ padding: 'clamp(44px,7vw,80px) 0', background: '#030303', borderTop: '1px solid rgba(201,160,84,0.05)', borderBottom: '1px solid rgba(201,160,84,0.05)' }}>
+        <div style={{ maxWidth: 560, margin: '0 auto', padding: '0 24px' }}>
+          <div className="g-reveal" style={{ textAlign: 'center', marginBottom: 32 }}>
+            <p style={{ fontSize: 7, letterSpacing: '0.9em', textTransform: 'uppercase', color: '#c9a054', marginBottom: 12 }}>◆ Claim Your Sovereign Passport NFT</p>
+            <p style={{ fontFamily: SERIF, fontSize: 'clamp(0.85rem,1.6vw,1.1rem)', color: 'rgba(255,255,255,0.3)', fontWeight: 300, lineHeight: 1.8 }}>
+              After purchase, enter your Polygon wallet address to receive your Sovereign Passport NFT. Works with MetaMask, Trust Wallet, Coinbase Wallet and all WalletConnect wallets.
+            </p>
+          </div>
+          <div className="g-reveal">
+            <input
+              readOnly
+              placeholder="0x... Your Polygon Wallet Address"
+              style={{ width: '100%', background: '#080602', border: '1px solid rgba(201,160,84,0.12)', padding: '16px 20px', fontSize: 11, color: '#3f3830', outline: 'none', boxSizing: 'border-box', marginBottom: 8, fontFamily: 'monospace' }}
+            />
+            <button style={{ width: '100%', padding: '16px', border: '1px solid rgba(201,160,84,0.3)', background: 'transparent', fontSize: 8, letterSpacing: '0.65em', textTransform: 'uppercase', color: '#c9a054', cursor: 'pointer' }}>
+              ◆ Mint Sovereign Passport
+            </button>
+          </div>
+        </div>
+      </section>
+
+      {/* HOLDER PRIVILEGES */}
+      <section style={{ padding: 'clamp(52px,8vw,90px) 0', background: 'radial-gradient(ellipse 60% 50% at 50% 100%, #0e0903 0%, #030303 60%)' }}>
+        <div style={{ maxWidth: 760, margin: '0 auto', padding: '0 24px' }}>
+          <div className="g-reveal" style={{ textAlign: 'center', marginBottom: 48 }}>
+            <p style={{ fontSize: 7, letterSpacing: '0.9em', textTransform: 'uppercase', color: '#c9a054', marginBottom: 10 }}>Ownership Benefits</p>
+            <h2 style={{ fontFamily: SERIF, fontSize: 'clamp(2rem, 4vw, 3.5rem)', fontWeight: 300, color: '#f0ece4' }}>Holder Privileges</h2>
+            <div style={{ width: 64, height: 1, background: 'linear-gradient(to right, transparent, #c9a054, transparent)', margin: '20px auto 0' }} />
+          </div>
+          <div className="g-reveal" style={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+            {(story?.nft?.holder_privileges || [
+              'Institutional Founder Status — Recognized as a founding institutional member of the House',
+              'Sovereign Vault Access — Lifetime access to the Institutional Vault private archive',
+              'Future Founder Allocations — Priority access to all upcoming institutional releases',
+              'Private House Ceremonies — Invitation to exclusive House of Shamim Forever events',
+              'Restoration & Refill Privileges — Priority access to sovereign restoration services',
+              'Blockchain Provenance — Permanent irrevocable proof of ownership on Polygon',
+              'Concierge Authentication — Direct access to House authentication concierge',
+              'Priority Restock Alerts — First to receive allocation updates before public release',
+            ]).map((priv, i) => {
+              const [title, ...rest] = priv.split(' — ')
+              return (
+                <div key={i} style={{ padding: '22px 24px', border: '1px solid rgba(201,160,84,0.06)', background: 'linear-gradient(90deg, #0c0906 0%, #080603 100%)', display: 'flex', gap: 16, alignItems: 'flex-start' }}>
+                  <span style={{ color: '#c9a054', fontSize: 12, flexShrink: 0, marginTop: 2 }}>◆</span>
+                  <div>
+                    <p style={{ fontSize: 11, letterSpacing: '0.04em', color: '#c9b894', marginBottom: rest.length ? 4 : 0, fontWeight: 400 }}>{title}</p>
+                    {rest.length > 0 && <p style={{ fontSize: 10, color: 'rgba(255,255,255,0.25)', fontWeight: 300, lineHeight: 1.65 }}>{rest.join(' — ')}</p>}
+                  </div>
+                </div>
+              )
+            })}
+          </div>
+        </div>
+      </section>
 
       {/* ACQUIRE */}
       <section id="acquire" style={{ padding: 'clamp(52px,8vw,90px) 0 clamp(64px,9vw,100px)', background: 'radial-gradient(ellipse 70% 50% at 50% 0%, rgba(25,18,6,0.95) 0%, #030303 55%)' }}>
