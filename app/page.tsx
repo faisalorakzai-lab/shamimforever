@@ -135,9 +135,7 @@ export default function HomePage() {
   function onHeroVideoEnd() { nextHero() }
 
   useEffect(() => {
-    if (HERO_MEDIA[heroIndex].type === 'image') {
-      heroTimerRef.current = setTimeout(nextHero, 4500)
-    }
+    heroTimerRef.current = setTimeout(nextHero, 1000)
     return () => { if (heroTimerRef.current) clearTimeout(heroTimerRef.current) }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [heroIndex])
