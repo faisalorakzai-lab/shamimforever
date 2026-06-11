@@ -177,7 +177,26 @@ function NftCard({ product, story }: { product: Product; story: ParsedStory | nu
   )
 }
 
-export default function LuxuryGenericProductPage({ product }: { product: Product }) {
+
+  // Product video mapping — slug → video path (public/videos/products/)
+  const PRODUCT_VIDEOS: Record<string, string> = {
+    'her-legacy-vault':                '/videos/products/her-legacy-vault.mp4',
+    'sovereign-amethyst':              '/videos/products/sovereign-amethyst.mp4',
+    'eternal-empress':                 '/videos/products/eternal-empress.mp4',
+    'queen-of-taif':                   '/videos/products/queen-of-taif.mp4',
+    'shamim-bloom-the-sovereign-grace':'/videos/products/shamim-bloom-the-sovereign-grace.mp4',
+    'imperial-black-throne':           '/videos/products/imperial-black-throne.mp4',
+    'shamim-s-ghost-the-eternal-legacy':'/videos/products/shamim-s-ghost-the-eternal-legacy.mp4',
+    'sovereign-oud-absolute':          '/videos/products/sovereign-oud-absolute.mp4',
+    'sapphire-blue-levant':            '/videos/products/sapphire-blue-levant.mp4',
+    'founder-s-eternal-archive':       '/videos/products/founder-s-eternal-archive.mp4',
+    'house-vault-no-001':              '/videos/products/house-vault-no-001.mp4',
+    'midnight-iris-royale':            '/videos/products/midnight-iris-royale.mp4',
+    'eternal-sovereign':               '/videos/products/eternal-sovereign.mp4',
+    'sovereign-genesis':               '/videos/products/sovereign-genesis.mp4',
+  }
+
+  export default function LuxuryGenericProductPage({ product }: { product: Product }) {
   const heroRef = useRef<HTMLDivElement>(null)
   const { scrollYProgress } = useScroll({ target: heroRef, offset: ['start start', 'end start'] })
   const textOpacity = useTransform(scrollYProgress, [0, 0.5], [1, 0])
@@ -268,6 +287,7 @@ export default function LuxuryGenericProductPage({ product }: { product: Product
   }
 
   const heroImage = images[0] || null
+  const videoUrl = PRODUCT_VIDEOS[product.slug] || null
   const categoryName = (product as any).main_category?.name
 
   if (orderResult) {
