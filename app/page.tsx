@@ -121,24 +121,40 @@ export default function HomePage() {
   const [activeCategory, setActiveCategory] = useState('all')
   const [loadingProducts, setLoadingProducts] = useState(true)
 
-  // Hero media cycling: 0=founder image, 1-3=videos
-  const HERO_MEDIA = [
-    { type: 'image' as const, src: '/founder-3.png' },
-    { type: 'video' as const, src: '/videos/hero-1.mp4' },
-    { type: 'video' as const, src: '/videos/hero-2.mp4' },
-    { type: 'video' as const, src: '/videos/hero-3.mp4' },
-  ]
-  const [heroIndex, setHeroIndex] = useState(0)
-  const heroTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+    // Hero media — all items always in DOM, zero-loading crossfade
+    const HERO_MEDIA = [
+      { type: 'image' as const, src: '/founder-3.png' },
+      { type: 'video' as const, src: '/videos/hero-1.mp4' },
+      { type: 'video' as const, src: '/videos/hero-2.mp4' },
+      { type: 'video' as const, src: '/videos/hero-3.mp4' },
+    ]
+    const [heroIndex, setHeroIndex] = useState(0)
+    const heroTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+    const videoRefs = useRef<(HTMLVideoElement | null)[]>([null, null, null])
 
-  function nextHero() { setHeroIndex(i => (i + 1) % HERO_MEDIA.length) }
-  function onHeroVideoEnd() { nextHero() }
+    function nextHero() {
+      setHeroIndex(i => (i + 1) % HERO_MEDIA.length)
+    }
 
-  useEffect(() => {
-    heroTimerRef.current = setTimeout(nextHero, 1000)
-    return () => { if (heroTimerRef.current) clearTimeout(heroTimerRef.current) }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [heroIndex])
+    // When heroIndex changes: play active video, pause others, set image timer
+    useEffect(() => {
+      // Play/pause videos
+      videoRefs.current.forEach((vid, i) => {
+        if (!vid) return
+        if (heroIndex === i + 1) {
+          vid.currentTime = 0
+          vid.play().catch(() => {})
+        } else {
+          vid.pause()
+        }
+      })
+      // Image gets a fixed 2-second display, videos auto-advance via onEnded
+      if (heroIndex === 0) {
+        heroTimerRef.current = setTimeout(nextHero, 2000)
+      }
+      return () => { if (heroTimerRef.current) clearTimeout(heroTimerRef.current) }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [heroIndex])
 
   useEffect(() => { fetchProducts('all') }, [])
 
@@ -174,31 +190,31 @@ export default function HomePage() {
           <ParticleField />
         </div>
 
-        {/* Mobile bg — auto-cycling media */}
-        <div className="lg:hidden absolute inset-0 z-0">
-          <AnimatePresence mode="sync">
-            {HERO_MEDIA[heroIndex].type === 'image' ? (
-              <motion.img key={'img-' + heroIndex} src={HERO_MEDIA[heroIndex].src} alt="Shamim Forever"
+        {/* Mobile bg — all media layers always mounted, CSS opacity crossfade */}
+          <div className="lg:hidden absolute inset-0 z-0">
+            {/* Image layer */}
+            <div className="absolute inset-0 transition-opacity duration-700" style={{ opacity: heroIndex === 0 ? 1 : 0 }}>
+              <img src="/founder-3.png" alt="Shamim Forever"
                 className="absolute inset-0 w-full h-full object-cover object-top"
                 style={{ filter: 'brightness(0.38) contrast(1.15) saturate(0.85)' }}
-                initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-                transition={{ duration: 0.9, ease }}
               />
-            ) : (
-              <motion.video key={'vid-' + heroIndex} src={HERO_MEDIA[heroIndex].src}
-                className="absolute inset-0 w-full h-full object-cover"
-                style={{ filter: 'brightness(0.38) contrast(1.15) saturate(0.85)' }}
-                initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-                transition={{ duration: 0.9, ease }}
-                autoPlay muted playsInline
-                onEnded={onHeroVideoEnd}
-              />
-            )}
-          </AnimatePresence>
-          <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/55 to-[#050505]/15 z-10" />
-        </div>
-
-        {/* Mobile text */}
+            </div>
+            {/* Video layers — always mounted so browser can preload */}
+            {['/videos/hero-1.mp4', '/videos/hero-2.mp4', '/videos/hero-3.mp4'].map((src, i) => (
+              <div key={src} className="absolute inset-0 transition-opacity duration-700" style={{ opacity: heroIndex === i + 1 ? 1 : 0 }}>
+                <video
+                  ref={el => { videoRefs.current[i] = el }}
+                  src={src}
+                  className="absolute inset-0 w-full h-full object-cover"
+                  style={{ filter: 'brightness(0.38) contrast(1.15) saturate(0.85)' }}
+                  muted playsInline preload="auto"
+                  onEnded={nextHero}
+                />
+              </div>
+            ))}
+            <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/55 to-[#050505]/15 z-10" />
+          </div>
+          {/* Mobile text */}
         <motion.div style={{ opacity: heroOpacity }}
           className="lg:hidden absolute inset-0 z-10 flex flex-col justify-end px-5 pb-14 pt-24">
           <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.3, duration: 1.4 }}
@@ -245,25 +261,25 @@ export default function HomePage() {
             <motion.div style={{ y: heroY, scale: heroScale }} className="absolute inset-0"
               initial={{ opacity: 0 }} animate={{ opacity: 1 }}
               transition={{ duration: 2.2, ease }}>
-              <AnimatePresence mode="sync">
-                {HERO_MEDIA[heroIndex].type === 'image' ? (
-                  <motion.img key={'dimg-' + heroIndex} src={HERO_MEDIA[heroIndex].src} alt="Shamim — Founder"
-                    className="absolute inset-0 w-full h-full object-cover object-top"
-                    style={{ filter: 'brightness(0.68) contrast(1.12) saturate(0.9)' }}
-                    initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-                    transition={{ duration: 0.9, ease }}
-                  />
-                ) : (
-                  <motion.video key={'dvid-' + heroIndex} src={HERO_MEDIA[heroIndex].src}
-                    className="absolute inset-0 w-full h-full object-cover"
-                    style={{ filter: 'brightness(0.68) contrast(1.12) saturate(0.9)' }}
-                    initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-                    transition={{ duration: 0.9, ease }}
-                    autoPlay muted playsInline
-                    onEnded={onHeroVideoEnd}
-                  />
-                )}
-              </AnimatePresence>
+              {/* All media layers always mounted — opacity crossfade, zero loading */}
+                  {/* Image layer */}
+                  <div className="absolute inset-0 transition-opacity duration-700" style={{ opacity: heroIndex === 0 ? 1 : 0 }}>
+                    <img src="/founder-3.png" alt="Shamim — Founder"
+                      className="absolute inset-0 w-full h-full object-cover object-top"
+                      style={{ filter: 'brightness(0.68) contrast(1.12) saturate(0.9)' }}
+                    />
+                  </div>
+                  {/* Video layers — always in DOM so they buffer on load */}
+                  {['/videos/hero-1.mp4', '/videos/hero-2.mp4', '/videos/hero-3.mp4'].map((src, i) => (
+                    <div key={src} className="absolute inset-0 transition-opacity duration-700" style={{ opacity: heroIndex === i + 1 ? 1 : 0 }}>
+                      <video
+                        src={src}
+                        className="absolute inset-0 w-full h-full object-cover"
+                        style={{ filter: 'brightness(0.68) contrast(1.12) saturate(0.9)' }}
+                        muted playsInline preload="auto"
+                      />
+                    </div>
+                  ))}
               <div className="absolute inset-y-0 right-0 w-24 bg-gradient-to-l from-[#050505] to-transparent z-10" />
               <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-[#050505] to-transparent z-10" />
             </motion.div>
