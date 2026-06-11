@@ -121,6 +121,27 @@ export default function HomePage() {
   const [activeCategory, setActiveCategory] = useState('all')
   const [loadingProducts, setLoadingProducts] = useState(true)
 
+  // Hero media cycling: 0=founder image, 1-3=videos
+  const HERO_MEDIA = [
+    { type: 'image' as const, src: '/founder-3.png' },
+    { type: 'video' as const, src: '/videos/hero-1.mp4' },
+    { type: 'video' as const, src: '/videos/hero-2.mp4' },
+    { type: 'video' as const, src: '/videos/hero-3.mp4' },
+  ]
+  const [heroIndex, setHeroIndex] = useState(0)
+  const heroTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+
+  function nextHero() { setHeroIndex(i => (i + 1) % HERO_MEDIA.length) }
+  function onHeroVideoEnd() { nextHero() }
+
+  useEffect(() => {
+    if (HERO_MEDIA[heroIndex].type === 'image') {
+      heroTimerRef.current = setTimeout(nextHero, 4500)
+    }
+    return () => { if (heroTimerRef.current) clearTimeout(heroTimerRef.current) }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [heroIndex])
+
   useEffect(() => { fetchProducts('all') }, [])
 
   async function fetchProducts(categorySlug: string) {
@@ -155,15 +176,28 @@ export default function HomePage() {
           <ParticleField />
         </div>
 
-        {/* Mobile bg */}
+        {/* Mobile bg — auto-cycling media */}
         <div className="lg:hidden absolute inset-0 z-0">
-          <motion.img src="/founder-3.png" alt="Shamim Forever"
-            className="w-full h-full object-cover object-top"
-            style={{ filter: 'brightness(0.38) contrast(1.15) saturate(0.85)' }}
-            initial={{ scale: 1.08, opacity: 0 }} animate={{ scale: 1, opacity: 1 }}
-            transition={{ duration: 2.4, ease }}
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/55 to-[#050505]/15" />
+          <AnimatePresence mode="crossfade">
+            {HERO_MEDIA[heroIndex].type === 'image' ? (
+              <motion.img key={'img-' + heroIndex} src={HERO_MEDIA[heroIndex].src} alt="Shamim Forever"
+                className="absolute inset-0 w-full h-full object-cover object-top"
+                style={{ filter: 'brightness(0.38) contrast(1.15) saturate(0.85)' }}
+                initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+                transition={{ duration: 0.9, ease }}
+              />
+            ) : (
+              <motion.video key={'vid-' + heroIndex} src={HERO_MEDIA[heroIndex].src}
+                className="absolute inset-0 w-full h-full object-cover"
+                style={{ filter: 'brightness(0.38) contrast(1.15) saturate(0.85)' }}
+                initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+                transition={{ duration: 0.9, ease }}
+                autoPlay muted playsInline
+                onEnded={onHeroVideoEnd}
+              />
+            )}
+          </AnimatePresence>
+          <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/55 to-[#050505]/15 z-10" />
         </div>
 
         {/* Mobile text */}
@@ -211,12 +245,29 @@ export default function HomePage() {
         <div className="hidden lg:grid grid-cols-2 h-full relative z-10">
           <div className="relative overflow-hidden">
             <motion.div style={{ y: heroY, scale: heroScale }} className="absolute inset-0"
-              initial={{ scale: 1.08, opacity: 0 }} animate={{ scale: 1, opacity: 1 }}
+              initial={{ opacity: 0 }} animate={{ opacity: 1 }}
               transition={{ duration: 2.2, ease }}>
-              <img src="/founder-3.png" alt="Shamim — Founder" className="w-full h-full object-cover object-top"
-                style={{ filter: 'brightness(0.68) contrast(1.12) saturate(0.9)' }} />
-              <div className="absolute inset-y-0 right-0 w-24 bg-gradient-to-l from-[#050505] to-transparent" />
-              <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-[#050505] to-transparent" />
+              <AnimatePresence mode="crossfade">
+                {HERO_MEDIA[heroIndex].type === 'image' ? (
+                  <motion.img key={'dimg-' + heroIndex} src={HERO_MEDIA[heroIndex].src} alt="Shamim — Founder"
+                    className="absolute inset-0 w-full h-full object-cover object-top"
+                    style={{ filter: 'brightness(0.68) contrast(1.12) saturate(0.9)' }}
+                    initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+                    transition={{ duration: 0.9, ease }}
+                  />
+                ) : (
+                  <motion.video key={'dvid-' + heroIndex} src={HERO_MEDIA[heroIndex].src}
+                    className="absolute inset-0 w-full h-full object-cover"
+                    style={{ filter: 'brightness(0.68) contrast(1.12) saturate(0.9)' }}
+                    initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+                    transition={{ duration: 0.9, ease }}
+                    autoPlay muted playsInline
+                    onEnded={onHeroVideoEnd}
+                  />
+                )}
+              </AnimatePresence>
+              <div className="absolute inset-y-0 right-0 w-24 bg-gradient-to-l from-[#050505] to-transparent z-10" />
+              <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-[#050505] to-transparent z-10" />
             </motion.div>
             <motion.div className="absolute bottom-8 left-8 z-20" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.8, duration: 1.2 }}>
               <div className="w-8 h-px bg-[#c9a054]/40 mb-3" />
