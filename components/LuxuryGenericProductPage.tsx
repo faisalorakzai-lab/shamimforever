@@ -178,22 +178,22 @@ function NftCard({ product, story }: { product: Product; story: ParsedStory | nu
 }
 
 
-  // Product video mapping — slug → video path (public/videos/products/)
+  // Product video mapping — slug → video path (confirmed by owner)
   const PRODUCT_VIDEOS: Record<string, string> = {
-    'her-legacy-vault':                '/videos/products/her-legacy-vault.mp4',
-    'sovereign-amethyst':              '/videos/products/sovereign-amethyst.mp4',
-    'eternal-empress':                 '/videos/products/eternal-empress.mp4',
-    'queen-of-taif':                   '/videos/products/queen-of-taif.mp4',
-    'shamim-bloom-the-sovereign-grace':'/videos/products/shamim-bloom-the-sovereign-grace.mp4',
-    'imperial-black-throne':           '/videos/products/imperial-black-throne.mp4',
+    'shamim-bloom-the-sovereign-grace': '/videos/products/shamim-bloom-the-sovereign-grace.mp4',
+    'queen-of-taif':                    '/videos/products/queen-of-taif.mp4',
+    'eternal-empress':                  '/videos/products/eternal-empress.mp4',
+    'her-legacy-vault':                 '/videos/products/her-legacy-vault.mp4',
+    'sapphire-blue-levant':             '/videos/products/sapphire-blue-levant.mp4',
+    'house-vault-no-001':               '/videos/products/house-vault-no-001.mp4',
+    'imperial-black-throne':            '/videos/products/imperial-black-throne.mp4',
     'shamim-s-ghost-the-eternal-legacy':'/videos/products/shamim-s-ghost-the-eternal-legacy.mp4',
-    'sovereign-oud-absolute':          '/videos/products/sovereign-oud-absolute.mp4',
-    'sapphire-blue-levant':            '/videos/products/sapphire-blue-levant.mp4',
-    'founder-s-eternal-archive':       '/videos/products/founder-s-eternal-archive.mp4',
-    'house-vault-no-001':              '/videos/products/house-vault-no-001.mp4',
-    'midnight-iris-royale':            '/videos/products/midnight-iris-royale.mp4',
-    'eternal-sovereign':               '/videos/products/eternal-sovereign.mp4',
-    'sovereign-genesis':               '/videos/products/sovereign-genesis.mp4',
+    'midnight-iris-royale':             '/videos/products/midnight-iris-royale.mp4',
+    'sovereign-oud-absolute':           '/videos/products/sovereign-oud-absolute.mp4',
+    'kyoto-sacred-incense':             '/videos/products/kyoto-sacred-incense.mp4',
+    'sovereign-genesis':                '/videos/products/sovereign-genesis.mp4',
+    'founder-s-eternal-archive':        '/videos/products/founder-s-eternal-archive.mp4',
+    'eternal-sovereign':                '/videos/products/eternal-sovereign.mp4',
   }
 
   export default function LuxuryGenericProductPage({ product }: { product: Product }) {
@@ -348,8 +348,19 @@ function NftCard({ product, story }: { product: Product; story: ParsedStory | nu
         <div style={{ position: 'absolute', bottom: 14, left: 14, width: 18, height: 18, borderBottom: '1px solid rgba(212,175,55,0.28)', borderLeft: '1px solid rgba(212,175,55,0.28)', pointerEvents: 'none', zIndex: 9 }} />
         <div style={{ position: 'absolute', bottom: 14, right: 14, width: 18, height: 18, borderBottom: '1px solid rgba(212,175,55,0.28)', borderRight: '1px solid rgba(212,175,55,0.28)', pointerEvents: 'none', zIndex: 9 }} />
 
-        {/* Product image */}
-        {heroImage ? (
+        {/* Product video / image hero — video autoplay when available */}
+        {videoUrl ? (
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1 }} style={{ position: 'absolute', inset: 0, zIndex: 2 }}>
+            <video
+              src={videoUrl}
+              autoPlay
+              muted
+              loop
+              playsInline
+              style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center 15%' }}
+            />
+          </motion.div>
+        ) : heroImage ? (
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.8 }} style={{ position: 'absolute', inset: 0, zIndex: 2 }}>
             <img src={heroImage} alt={product.name} style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center 15%' }} onError={e => { (e.target as HTMLImageElement).style.opacity = '0' }} />
           </motion.div>
