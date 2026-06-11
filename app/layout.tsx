@@ -58,14 +58,15 @@ import type { Metadata } from 'next'
     },
     icons: {
       icon: [
-        { url: '/logo-sf.png', sizes: '32x32', type: 'image/png' },
-        { url: '/logo-sf.png', sizes: '192x192', type: 'image/png' },
+        { url: '/favicon.png', sizes: '512x512', type: 'image/png' },
+        { url: '/favicon.png', sizes: '192x192', type: 'image/png' },
+        { url: '/favicon.png', sizes: '32x32', type: 'image/png' },
       ],
       apple: [
-        { url: '/logo-sf.png', sizes: '180x180', type: 'image/png' },
+        { url: '/favicon.png', sizes: '180x180', type: 'image/png' },
       ],
       other: [
-        { rel: 'mask-icon', url: '/logo-sf.png', color: '#D4AF37' },
+        { rel: 'mask-icon', url: '/favicon.png', color: '#D4AF37' },
       ],
     },
     manifest: '/manifest.json',
@@ -150,6 +151,8 @@ import type { Metadata } from 'next'
       <html lang="en" dir="ltr">
         <head>
           {/* Security — upgrade all HTTP to HTTPS */}
+          <link rel="icon" type="image/png" href="/favicon.png" />
+          <link rel="shortcut icon" type="image/png" href="/favicon.png" />
           <meta httpEquiv="Content-Security-Policy" content="upgrade-insecure-requests" />
           <meta httpEquiv="X-Content-Type-Options" content="nosniff" />
 
