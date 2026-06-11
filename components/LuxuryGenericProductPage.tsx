@@ -394,6 +394,147 @@ export default function LuxuryGenericProductPage({ product }: { product: Product
         </motion.div>
       </section>
 
+      {/* ACQUIRE */}
+      <section id="acquire" style={{ padding: 'clamp(52px,8vw,90px) 0 clamp(64px,9vw,100px)', background: 'radial-gradient(ellipse 70% 50% at 50% 0%, rgba(25,18,6,0.95) 0%, #030303 55%)' }}>
+        <div style={{ maxWidth: 620, margin: '0 auto', padding: '0 clamp(16px,4vw,24px)' }}>
+          <div className="g-reveal" style={{ textAlign: 'center', marginBottom: 40 }}>
+            <p style={{ fontSize: 7, letterSpacing: '0.9em', textTransform: 'uppercase', color: '#c9a054', marginBottom: 10 }}>Acquisition</p>
+            <h2 style={{ fontFamily: SERIF, fontSize: 'clamp(2.2rem, 5vw, 4rem)', fontWeight: 300, color: '#f0ece4' }}>Claim Your Sovereign</h2>
+          </div>
+
+          <div className="g-reveal">
+            <div style={{ textAlign: 'center', padding: '28px', border: '1px solid rgba(201,160,84,0.12)', background: '#0c0906', marginBottom: 2 }}>
+              <p style={{ fontSize: 7, letterSpacing: '0.5em', textTransform: 'uppercase', color: '#3f3830', marginBottom: 10 }}>Allocation Price</p>
+              <p style={{ fontFamily: SERIF, fontSize: 'clamp(2rem, 6vw, 3.8rem)', fontWeight: 300, color: '#f8f4ee', lineHeight: 1 }}>$ {(product.price_usd * quantity).toFixed(0)} <span style={{ fontSize: '0.4em', letterSpacing: '0.35em', color: '#c9a054' }}>USD</span></p>
+            </div>
+
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '14px 18px', border: '1px solid rgba(201,160,84,0.06)', background: '#0a0703', marginBottom: 2 }}>
+              <p style={{ fontSize: 7, letterSpacing: '0.5em', textTransform: 'uppercase', color: '#3f3830' }}>Quantity</p>
+              <div style={{ display: 'flex', border: '1px solid rgba(201,160,84,0.15)' }}>
+                <button onClick={() => setQuantity(q => Math.max(1, q - 1))} style={{ width: 38, height: 38, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#c9a054', borderRight: '1px solid rgba(201,160,84,0.15)', background: 'none', cursor: 'pointer', fontSize: 18 }}>−</button>
+                <span style={{ width: 40, textAlign: 'center', fontFamily: SERIF, fontSize: 18, color: '#f0ece4', lineHeight: '38px' }}>{quantity}</span>
+                <button onClick={() => setQuantity(q => q + 1)} style={{ width: 38, height: 38, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#c9a054', borderLeft: '1px solid rgba(201,160,84,0.15)', background: 'none', cursor: 'pointer', fontSize: 18 }}>+</button>
+              </div>
+            </div>
+
+            <div style={{ marginBottom: 2 }}>
+              <p style={{ fontSize: 7, letterSpacing: '0.5em', textTransform: 'uppercase', color: '#3f3830', padding: '12px 18px', background: '#0a0703', border: '1px solid rgba(201,160,84,0.06)' }}>Delivery Information</p>
+              {([
+                { v: custName, s: setCustName, ph: 'Full Name *' },
+                { v: custPhone, s: setCustPhone, ph: 'Phone Number *' },
+                { v: custAddress, s: setCustAddress, ph: 'Delivery Address *' },
+                { v: custCity, s: setCustCity, ph: 'City *' },
+              ] as { v: string; s: (val: string) => void; ph: string }[]).map(({ v, s, ph }) => (
+                <input
+                  key={ph}
+                  value={v}
+                  onChange={e => s(e.target.value)}
+                  placeholder={ph}
+                  style={{ width: '100%', background: '#080602', border: 'none', borderBottom: '1px solid rgba(201,160,84,0.05)', padding: '15px 18px', fontSize: 11, color: '#c9b894', outline: 'none', boxSizing: 'border-box' }}
+                  onFocus={e => { e.currentTarget.style.borderBottomColor = 'rgba(201,160,84,0.28)' }}
+                  onBlur={e => { e.currentTarget.style.borderBottomColor = 'rgba(201,160,84,0.05)' }}
+                />
+              ))}
+            </div>
+
+            <div>
+              <p style={{ fontSize: 7, letterSpacing: '0.5em', textTransform: 'uppercase', color: '#3f3830', padding: '12px 18px', background: '#0a0703', border: '1px solid rgba(201,160,84,0.06)', marginBottom: 2 }}>Payment Method</p>
+              <div className="lux-pay-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: 2, marginBottom: 12 }}>
+                {(['crypto', 'pkr_manual', 'cod'] as PayMethod[]).map(m => (
+                  <button
+                    key={m}
+                    onClick={() => setPayMethod(m)}
+                    style={{ padding: '13px 4px', fontSize: 7, letterSpacing: '0.2em', textTransform: 'uppercase', cursor: 'pointer', background: payMethod === m ? 'rgba(201,160,84,0.07)' : '#080602', color: payMethod === m ? '#c9a054' : '#3f3830', border: payMethod === m ? '1px solid rgba(201,160,84,0.28)' : '1px solid rgba(255,255,255,0.03)', transition: 'all 0.3s' }}
+                  >
+                    {m === 'crypto' ? '◆ Crypto' : m === 'pkr_manual' ? 'PKR Transfer' : 'COD'}
+                  </button>
+                ))}
+              </div>
+
+              <AnimatePresence mode="wait">
+                {payMethod === 'crypto' && (
+                  <motion.div key="crypto" initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}>
+                    <Web3PaySection priceUsd={product.price_usd * quantity} onSuccess={handleWeb3Success} />
+                  </motion.div>
+                )}
+                {payMethod === 'pkr_manual' && (
+                  <motion.div key="pkr" initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} style={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+                    <div style={{ border: '1px solid rgba(201,160,84,0.1)', background: '#080602' }}>
+                      {([
+                        ['EasyPaisa', `${EASYPAISA_NUMBER} · ${EASYPAISA_NAME}`, EASYPAISA_NUMBER],
+                        ['UBL IBAN', UBL_IBAN, UBL_IBAN],
+                      ] as [string, string, string][]).map(([lbl, val, copyVal], i, arr) => (
+                        <div key={lbl} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: 8, padding: '14px 18px', borderBottom: i < arr.length - 1 ? '1px solid rgba(255,255,255,0.03)' : 'none' }}>
+                          <p style={{ fontSize: 7, letterSpacing: '0.4em', textTransform: 'uppercase', color: '#3f3830' }}>{lbl}</p>
+                          <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                            <p style={{ fontFamily: 'monospace', fontSize: 10, color: '#c9b894', wordBreak: 'break-all' }}>{val}</p>
+                            <CopyBtn text={copyVal} />
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                    <input
+                      value={txId}
+                      onChange={e => setTxId(e.target.value)}
+                      placeholder="Transaction ID / Reference Number"
+                      style={{ background: '#080602', border: '1px solid rgba(201,160,84,0.07)', padding: '13px 18px', fontSize: 11, color: '#c9b894', outline: 'none', width: '100%', boxSizing: 'border-box' }}
+                    />
+                    <label style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '13px 18px', border: '1px dashed rgba(201,160,84,0.1)', cursor: 'pointer', background: '#080602' }}>
+                      <Upload size={11} color="rgba(201,160,84,0.35)" />
+                      <span style={{ fontSize: 7, letterSpacing: '0.3em', textTransform: 'uppercase', color: '#3f3830' }}>Upload Payment Screenshot</span>
+                      <input
+                        type="file"
+                        accept="image/*"
+                        onChange={e => {
+                          const f = e.target.files?.[0]; if (!f) return; setProofFile(f)
+                          const r = new FileReader(); r.onload = ev => setProofPreview(ev.target?.result as string); r.readAsDataURL(f)
+                        }}
+                        className="hidden"
+                      />
+                    </label>
+                    {proofPreview && (
+                      <div style={{ position: 'relative', display: 'inline-block' }}>
+                        <img src={proofPreview} alt="proof" style={{ height: 72, opacity: 0.7 }} />
+                        <button onClick={() => { setProofFile(null); setProofPreview(null) }} style={{ position: 'absolute', top: 3, right: 3, background: 'none', border: 'none', cursor: 'pointer', color: '#c9a054' }}><X size={11} /></button>
+                      </div>
+                    )}
+                    {orderError && <p style={{ fontSize: 9, color: 'rgba(248,113,113,0.65)', padding: '4px 0' }}>{orderError}</p>}
+                    <button
+                      onClick={handlePlaceOrder}
+                      disabled={submitting}
+                      className="group"
+                      style={{ position: 'relative', overflow: 'hidden', padding: '17px', border: '1px solid rgba(201,160,84,0.4)', fontSize: 8, letterSpacing: '0.65em', textTransform: 'uppercase', color: '#c9a054', cursor: submitting ? 'not-allowed' : 'pointer', opacity: submitting ? 0.5 : 1, background: 'none', width: '100%' }}
+                    >
+                      <span className="group-hover:translate-x-0 -translate-x-full absolute inset-0 bg-[#c9a054] transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]" />
+                      <span className="relative group-hover:text-black transition-colors duration-150">{submitting ? 'Processing...' : 'Submit Order'}</span>
+                    </button>
+                  </motion.div>
+                )}
+                {payMethod === 'cod' && (
+                  <motion.div key="cod" initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+                    <div style={{ padding: '20px 18px', border: '1px solid rgba(201,160,84,0.1)', background: '#080602' }}>
+                      <p style={{ fontFamily: SERIF, fontSize: 20, color: '#c9b894', marginBottom: 6 }}>Cash on Delivery</p>
+                      <p style={{ fontSize: 12, color: 'rgba(255,255,255,0.25)', fontWeight: 300, lineHeight: 1.8 }}>Pay upon delivery. Available within Pakistan. Confirmed via WhatsApp within 2 hours.</p>
+                    </div>
+                    {orderError && <p style={{ fontSize: 9, color: 'rgba(248,113,113,0.65)' }}>{orderError}</p>}
+                    <button
+                      onClick={handlePlaceOrder}
+                      disabled={submitting}
+                      className="group"
+                      style={{ position: 'relative', overflow: 'hidden', padding: '17px', border: '1px solid rgba(201,160,84,0.4)', fontSize: 8, letterSpacing: '0.65em', textTransform: 'uppercase', color: '#c9a054', cursor: submitting ? 'not-allowed' : 'pointer', opacity: submitting ? 0.5 : 1, background: 'none', width: '100%' }}
+                    >
+                      <span className="group-hover:translate-x-0 -translate-x-full absolute inset-0 bg-[#c9a054] transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]" />
+                      <span className="relative group-hover:text-black transition-colors duration-150">{submitting ? 'Placing Order...' : 'Confirm COD Order'}</span>
+                    </button>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+          </div>
+        </div>
+      </section>
+
+
       {/* GALLERY */}
       {images.length > 1 && (
         <section style={{ padding: 'clamp(48px,7vw,80px) 0', background: 'radial-gradient(ellipse 70% 50% at 50% 50%, #0e0903 0%, #030303 65%)' }}>
@@ -674,145 +815,6 @@ export default function LuxuryGenericProductPage({ product }: { product: Product
         </div>
       </section>
 
-      {/* ACQUIRE */}
-      <section id="acquire" style={{ padding: 'clamp(52px,8vw,90px) 0 clamp(64px,9vw,100px)', background: 'radial-gradient(ellipse 70% 50% at 50% 0%, rgba(25,18,6,0.95) 0%, #030303 55%)' }}>
-        <div style={{ maxWidth: 620, margin: '0 auto', padding: '0 clamp(16px,4vw,24px)' }}>
-          <div className="g-reveal" style={{ textAlign: 'center', marginBottom: 40 }}>
-            <p style={{ fontSize: 7, letterSpacing: '0.9em', textTransform: 'uppercase', color: '#c9a054', marginBottom: 10 }}>Acquisition</p>
-            <h2 style={{ fontFamily: SERIF, fontSize: 'clamp(2.2rem, 5vw, 4rem)', fontWeight: 300, color: '#f0ece4' }}>Claim Your Sovereign</h2>
-          </div>
-
-          <div className="g-reveal">
-            <div style={{ textAlign: 'center', padding: '28px', border: '1px solid rgba(201,160,84,0.12)', background: '#0c0906', marginBottom: 2 }}>
-              <p style={{ fontSize: 7, letterSpacing: '0.5em', textTransform: 'uppercase', color: '#3f3830', marginBottom: 10 }}>Allocation Price</p>
-              <p style={{ fontFamily: SERIF, fontSize: 'clamp(2rem, 6vw, 3.8rem)', fontWeight: 300, color: '#f8f4ee', lineHeight: 1 }}>$ {(product.price_usd * quantity).toFixed(0)} <span style={{ fontSize: '0.4em', letterSpacing: '0.35em', color: '#c9a054' }}>USD</span></p>
-            </div>
-
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '14px 18px', border: '1px solid rgba(201,160,84,0.06)', background: '#0a0703', marginBottom: 2 }}>
-              <p style={{ fontSize: 7, letterSpacing: '0.5em', textTransform: 'uppercase', color: '#3f3830' }}>Quantity</p>
-              <div style={{ display: 'flex', border: '1px solid rgba(201,160,84,0.15)' }}>
-                <button onClick={() => setQuantity(q => Math.max(1, q - 1))} style={{ width: 38, height: 38, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#c9a054', borderRight: '1px solid rgba(201,160,84,0.15)', background: 'none', cursor: 'pointer', fontSize: 18 }}>−</button>
-                <span style={{ width: 40, textAlign: 'center', fontFamily: SERIF, fontSize: 18, color: '#f0ece4', lineHeight: '38px' }}>{quantity}</span>
-                <button onClick={() => setQuantity(q => q + 1)} style={{ width: 38, height: 38, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#c9a054', borderLeft: '1px solid rgba(201,160,84,0.15)', background: 'none', cursor: 'pointer', fontSize: 18 }}>+</button>
-              </div>
-            </div>
-
-            <div style={{ marginBottom: 2 }}>
-              <p style={{ fontSize: 7, letterSpacing: '0.5em', textTransform: 'uppercase', color: '#3f3830', padding: '12px 18px', background: '#0a0703', border: '1px solid rgba(201,160,84,0.06)' }}>Delivery Information</p>
-              {([
-                { v: custName, s: setCustName, ph: 'Full Name *' },
-                { v: custPhone, s: setCustPhone, ph: 'Phone Number *' },
-                { v: custAddress, s: setCustAddress, ph: 'Delivery Address *' },
-                { v: custCity, s: setCustCity, ph: 'City *' },
-              ] as { v: string; s: (val: string) => void; ph: string }[]).map(({ v, s, ph }) => (
-                <input
-                  key={ph}
-                  value={v}
-                  onChange={e => s(e.target.value)}
-                  placeholder={ph}
-                  style={{ width: '100%', background: '#080602', border: 'none', borderBottom: '1px solid rgba(201,160,84,0.05)', padding: '15px 18px', fontSize: 11, color: '#c9b894', outline: 'none', boxSizing: 'border-box' }}
-                  onFocus={e => { e.currentTarget.style.borderBottomColor = 'rgba(201,160,84,0.28)' }}
-                  onBlur={e => { e.currentTarget.style.borderBottomColor = 'rgba(201,160,84,0.05)' }}
-                />
-              ))}
-            </div>
-
-            <div>
-              <p style={{ fontSize: 7, letterSpacing: '0.5em', textTransform: 'uppercase', color: '#3f3830', padding: '12px 18px', background: '#0a0703', border: '1px solid rgba(201,160,84,0.06)', marginBottom: 2 }}>Payment Method</p>
-              <div className="lux-pay-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: 2, marginBottom: 12 }}>
-                {(['crypto', 'pkr_manual', 'cod'] as PayMethod[]).map(m => (
-                  <button
-                    key={m}
-                    onClick={() => setPayMethod(m)}
-                    style={{ padding: '13px 4px', fontSize: 7, letterSpacing: '0.2em', textTransform: 'uppercase', cursor: 'pointer', background: payMethod === m ? 'rgba(201,160,84,0.07)' : '#080602', color: payMethod === m ? '#c9a054' : '#3f3830', border: payMethod === m ? '1px solid rgba(201,160,84,0.28)' : '1px solid rgba(255,255,255,0.03)', transition: 'all 0.3s' }}
-                  >
-                    {m === 'crypto' ? '◆ Crypto' : m === 'pkr_manual' ? 'PKR Transfer' : 'COD'}
-                  </button>
-                ))}
-              </div>
-
-              <AnimatePresence mode="wait">
-                {payMethod === 'crypto' && (
-                  <motion.div key="crypto" initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}>
-                    <Web3PaySection priceUsd={product.price_usd * quantity} onSuccess={handleWeb3Success} />
-                  </motion.div>
-                )}
-                {payMethod === 'pkr_manual' && (
-                  <motion.div key="pkr" initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} style={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
-                    <div style={{ border: '1px solid rgba(201,160,84,0.1)', background: '#080602' }}>
-                      {([
-                        ['EasyPaisa', `${EASYPAISA_NUMBER} · ${EASYPAISA_NAME}`, EASYPAISA_NUMBER],
-                        ['UBL IBAN', UBL_IBAN, UBL_IBAN],
-                      ] as [string, string, string][]).map(([lbl, val, copyVal], i, arr) => (
-                        <div key={lbl} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: 8, padding: '14px 18px', borderBottom: i < arr.length - 1 ? '1px solid rgba(255,255,255,0.03)' : 'none' }}>
-                          <p style={{ fontSize: 7, letterSpacing: '0.4em', textTransform: 'uppercase', color: '#3f3830' }}>{lbl}</p>
-                          <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                            <p style={{ fontFamily: 'monospace', fontSize: 10, color: '#c9b894', wordBreak: 'break-all' }}>{val}</p>
-                            <CopyBtn text={copyVal} />
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                    <input
-                      value={txId}
-                      onChange={e => setTxId(e.target.value)}
-                      placeholder="Transaction ID / Reference Number"
-                      style={{ background: '#080602', border: '1px solid rgba(201,160,84,0.07)', padding: '13px 18px', fontSize: 11, color: '#c9b894', outline: 'none', width: '100%', boxSizing: 'border-box' }}
-                    />
-                    <label style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '13px 18px', border: '1px dashed rgba(201,160,84,0.1)', cursor: 'pointer', background: '#080602' }}>
-                      <Upload size={11} color="rgba(201,160,84,0.35)" />
-                      <span style={{ fontSize: 7, letterSpacing: '0.3em', textTransform: 'uppercase', color: '#3f3830' }}>Upload Payment Screenshot</span>
-                      <input
-                        type="file"
-                        accept="image/*"
-                        onChange={e => {
-                          const f = e.target.files?.[0]; if (!f) return; setProofFile(f)
-                          const r = new FileReader(); r.onload = ev => setProofPreview(ev.target?.result as string); r.readAsDataURL(f)
-                        }}
-                        className="hidden"
-                      />
-                    </label>
-                    {proofPreview && (
-                      <div style={{ position: 'relative', display: 'inline-block' }}>
-                        <img src={proofPreview} alt="proof" style={{ height: 72, opacity: 0.7 }} />
-                        <button onClick={() => { setProofFile(null); setProofPreview(null) }} style={{ position: 'absolute', top: 3, right: 3, background: 'none', border: 'none', cursor: 'pointer', color: '#c9a054' }}><X size={11} /></button>
-                      </div>
-                    )}
-                    {orderError && <p style={{ fontSize: 9, color: 'rgba(248,113,113,0.65)', padding: '4px 0' }}>{orderError}</p>}
-                    <button
-                      onClick={handlePlaceOrder}
-                      disabled={submitting}
-                      className="group"
-                      style={{ position: 'relative', overflow: 'hidden', padding: '17px', border: '1px solid rgba(201,160,84,0.4)', fontSize: 8, letterSpacing: '0.65em', textTransform: 'uppercase', color: '#c9a054', cursor: submitting ? 'not-allowed' : 'pointer', opacity: submitting ? 0.5 : 1, background: 'none', width: '100%' }}
-                    >
-                      <span className="group-hover:translate-x-0 -translate-x-full absolute inset-0 bg-[#c9a054] transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]" />
-                      <span className="relative group-hover:text-black transition-colors duration-150">{submitting ? 'Processing...' : 'Submit Order'}</span>
-                    </button>
-                  </motion.div>
-                )}
-                {payMethod === 'cod' && (
-                  <motion.div key="cod" initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-                    <div style={{ padding: '20px 18px', border: '1px solid rgba(201,160,84,0.1)', background: '#080602' }}>
-                      <p style={{ fontFamily: SERIF, fontSize: 20, color: '#c9b894', marginBottom: 6 }}>Cash on Delivery</p>
-                      <p style={{ fontSize: 12, color: 'rgba(255,255,255,0.25)', fontWeight: 300, lineHeight: 1.8 }}>Pay upon delivery. Available within Pakistan. Confirmed via WhatsApp within 2 hours.</p>
-                    </div>
-                    {orderError && <p style={{ fontSize: 9, color: 'rgba(248,113,113,0.65)' }}>{orderError}</p>}
-                    <button
-                      onClick={handlePlaceOrder}
-                      disabled={submitting}
-                      className="group"
-                      style={{ position: 'relative', overflow: 'hidden', padding: '17px', border: '1px solid rgba(201,160,84,0.4)', fontSize: 8, letterSpacing: '0.65em', textTransform: 'uppercase', color: '#c9a054', cursor: submitting ? 'not-allowed' : 'pointer', opacity: submitting ? 0.5 : 1, background: 'none', width: '100%' }}
-                    >
-                      <span className="group-hover:translate-x-0 -translate-x-full absolute inset-0 bg-[#c9a054] transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]" />
-                      <span className="relative group-hover:text-black transition-colors duration-150">{submitting ? 'Placing Order...' : 'Confirm COD Order'}</span>
-                    </button>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </div>
-          </div>
-        </div>
-      </section>
     </div>
   )
 }
