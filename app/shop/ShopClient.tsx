@@ -2,7 +2,7 @@
 
 import { SOVEREIGN_CONFIGS } from '@/lib/sovereign-configs'
 import { useState, useEffect, useRef, useCallback, Suspense } from 'react'
-import { useSearchParams } from 'next/navigation'
+import { useSearchParams, useRouter } from 'next/navigation'
 import { motion, AnimatePresence } from 'framer-motion'
 import Link from 'next/link'
 import { supabase } from '@/lib/supabase'
@@ -103,6 +103,7 @@ function Card3D({ children }: { children: React.ReactNode }) {
 
 function ShopPageInner({ initialProducts }: { initialProducts: Product[] }) {
   const searchParams = useSearchParams()
+  const router = useRouter()
   const [products, setProducts] = useState<Product[]>([])
   const [loading, setLoading] = useState(true)
   const [activeCategory, setActiveCategory] = useState('all')
@@ -114,9 +115,12 @@ function ShopPageInner({ initialProducts }: { initialProducts: Product[] }) {
   useEffect(() => {
     const cat = searchParams.get('category') || 'all'
     const gender = searchParams.get('gender') || 'all'
+    const sov = searchParams.get('sovereign') === '1'
     setActiveCategory(cat)
     setActiveSub(gender)
-    fetchProducts(cat, gender, 'newest', false)
+    setSovereignOnly(sov)
+    fetchProducts(cat, gender, sortBy, sov)
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchParams])
 
   async function fetchProducts(category: string, sub: string, sort: string, sovereign: boolean) {
@@ -148,15 +152,17 @@ function ShopPageInner({ initialProducts }: { initialProducts: Product[] }) {
   }
 
   function handleCategory(slug: string) {
-    setActiveCategory(slug)
-    setActiveSub('all')
-    setSovereignOnly(false)
-    fetchProducts(slug, 'all', sortBy, false)
+    const params = new URLSearchParams()
+    if (slug !== 'all') params.set('category', slug)
+    router.push('/shop' + (params.toString() ? '?' + params.toString() : ''), { scroll: false })
   }
 
   function handleSub(sub: string) {
-    setActiveSub(sub)
-    fetchProducts(activeCategory, sub, sortBy, sovereignOnly)
+    const params = new URLSearchParams()
+    if (activeCategory !== 'all') params.set('category', activeCategory)
+    if (sub !== 'all') params.set('gender', sub)
+    if (sovereignOnly) params.set('sovereign', '1')
+    router.push('/shop' + (params.toString() ? '?' + params.toString() : ''), { scroll: false })
   }
 
   function handleSort(sort: string) {
@@ -167,8 +173,11 @@ function ShopPageInner({ initialProducts }: { initialProducts: Product[] }) {
 
   function handleSovereignToggle() {
     const next = !sovereignOnly
-    setSovereignOnly(next)
-    fetchProducts(activeCategory, activeSub, sortBy, next)
+    const params = new URLSearchParams()
+    if (activeCategory !== 'all') params.set('category', activeCategory)
+    if (activeSub !== 'all') params.set('gender', activeSub)
+    if (next) params.set('sovereign', '1')
+    router.push('/shop' + (params.toString() ? '?' + params.toString() : ''), { scroll: false })
   }
 
   const subLabel = sovereignOnly
