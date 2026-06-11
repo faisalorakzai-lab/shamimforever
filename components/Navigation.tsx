@@ -97,14 +97,13 @@
                       className="group flex items-center gap-2 border-l border-[#1a1a1a] pl-4"
                       aria-label="Go back"
                     >
-                      {/* Arrow */}
-                      <svg
-                        width="14" height="10" viewBox="0 0 14 10" fill="none"
-                        className="text-[#c9a054] group-hover:text-zinc-200 transition-colors duration-400 flex-shrink-0"
-                        style={{ transitionTimingFunction: 'cubic-bezier(0.16,1,0.3,1)' }}
-                      >
-                        <path d="M13 5H1M1 5L5 1M1 5L5 9" stroke="currentColor" strokeWidth="0.9" strokeLinecap="round" strokeLinejoin="round"/>
-                      </svg>
+                      {/* SF logo icon as back indicator */}
+                      <img
+                        src="/logo-icon.png"
+                        alt="SF"
+                        className="w-[18px] h-[18px] object-contain opacity-50 group-hover:opacity-100 transition-opacity duration-400 flex-shrink-0"
+                        style={{ filter: 'drop-shadow(0 0 4px rgba(201,160,84,0.3))' }}
+                      />
                       {/* Label */}
                       <span className="text-[8px] tracking-[0.4em] uppercase text-[#c9a054]/70 group-hover:text-[#c9a054] transition-colors duration-400 hidden sm:block"
                         style={{ transitionTimingFunction: 'cubic-bezier(0.16,1,0.3,1)' }}>
