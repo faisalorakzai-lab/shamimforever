@@ -176,7 +176,7 @@ export default function HomePage() {
 
         {/* Mobile bg — auto-cycling media */}
         <div className="lg:hidden absolute inset-0 z-0">
-          <AnimatePresence mode="crossfade">
+          <AnimatePresence mode="sync">
             {HERO_MEDIA[heroIndex].type === 'image' ? (
               <motion.img key={'img-' + heroIndex} src={HERO_MEDIA[heroIndex].src} alt="Shamim Forever"
                 className="absolute inset-0 w-full h-full object-cover object-top"
@@ -245,7 +245,7 @@ export default function HomePage() {
             <motion.div style={{ y: heroY, scale: heroScale }} className="absolute inset-0"
               initial={{ opacity: 0 }} animate={{ opacity: 1 }}
               transition={{ duration: 2.2, ease }}>
-              <AnimatePresence mode="crossfade">
+              <AnimatePresence mode="sync">
                 {HERO_MEDIA[heroIndex].type === 'image' ? (
                   <motion.img key={'dimg-' + heroIndex} src={HERO_MEDIA[heroIndex].src} alt="Shamim — Founder"
                     className="absolute inset-0 w-full h-full object-cover object-top"
