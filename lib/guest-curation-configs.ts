@@ -71,6 +71,7 @@ export interface GuestCurationConfig {
       classification: 'Luxury Gourmand Masterpiece',
       size: '100ml',
       globalRetailUsd: 315,
+      image: '/products/xerjoff-lira/hero.png',
       signatureNotes: ['Rose', 'Bergamot', 'Lemon', 'Jasmine', 'Peach', 'Sandalwood', 'Musk', 'Amber', 'Vetiver'],
       whyCurated: [
         'Lira preserves old-world Italian romance. Rich sweetness. Vintage elegance. Theatrical beauty.',
@@ -86,6 +87,7 @@ export interface GuestCurationConfig {
       classification: 'Luxury High-Impact Floral',
       size: '90ml',
       globalRetailUsd: 360,
+      image: '/products/initio-atomic-rose/hero.png',
       signatureNotes: ['Turkish Rose', 'Bulgarian Rose', 'Geranium', 'White Musks', 'Woody Ambers', 'Skin Musks', 'Ambroxan', 'Sandalwood', 'Warm Amber'],
       whyCurated: [
         'Atomic Rose transforms the rose from ornament into authority. Powerful. Bold. Unapologetic.',
@@ -101,6 +103,7 @@ export interface GuestCurationConfig {
       classification: 'Luxury Corporate Feminine Signature',
       size: '100ml',
       globalRetailUsd: 190,
+      image: '/products/chanel-coco-mademoiselle/hero.png',
       signatureNotes: ['Orange', 'Bergamot', 'Mandarin', 'Rose', 'Jasmine', 'Ylang-Ylang', 'Vetiver', 'Patchouli', 'Vanilla'],
       whyCurated: [
         'Modern feminine professionalism has few universal references. Coco Mademoiselle Intense remains one of them.',
@@ -116,6 +119,7 @@ export interface GuestCurationConfig {
       classification: 'Luxury Floral Essence',
       size: '50ml',
       globalRetailUsd: 170,
+      image: '/products/dior-jadore-lor/hero.png',
       signatureNotes: ['Ylang-Ylang', 'Jasmine', 'Rose', 'Tuberose', 'Magnolia', 'Orchid', 'Sandalwood', 'Musk', 'Vanilla'],
       whyCurated: [
         "J'adore L'Or feels like concentrated precious metal. Rich. Radiant. Refined.",
