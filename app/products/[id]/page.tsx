@@ -6,6 +6,7 @@ import { notFound } from 'next/navigation'
   import LuxuryGenericProductPage from '@/components/LuxuryGenericProductPage'
   import GuestCurationProductPage from '@/components/GuestCurationProductPage'
   import { GUEST_CURATION_SLUGS } from '@/lib/guest-curation-configs'
+import { PRODUCT_IMAGE_OVERRIDES } from '@/lib/product-image-overrides'
   import CosmeticsProductPage from '@/components/CosmeticsProductPage'
 
   const BASE_URL = 'https://www.shamimforever.com'
@@ -188,6 +189,12 @@ import { notFound } from 'next/navigation'
   }) {
     const product = await getProduct(params.id)
     if (!product) notFound()
+
+  // Inject correct image from static override map
+  const _imgOverride = PRODUCT_IMAGE_OVERRIDES[product.slug]
+  if (_imgOverride) {
+    product = { ...product, images: [_imgOverride, ...(product.images ?? [])] } as typeof product
+  }
 
     if (SOVEREIGN_SLUGS.includes(product.slug)) {
       return (

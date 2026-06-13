@@ -28,6 +28,7 @@ export interface GuestCurationConfig {
         'This fragrance belongs inside every sovereign feminine archive.',
       ],
       curatorPositioning: ['Not merely a floral perfume.', 'A modern rose monument.', 'A luxury standard.', 'A permanent feminine signature.'],
+      image: '/products/delina-exclusif/hero.png',
     },
     {
       slug: 'amouage-guidance',
@@ -45,6 +46,7 @@ export interface GuestCurationConfig {
         'And reveals new dimensions over time.',
       ],
       curatorPositioning: ['Not a trend.', 'A sensory symphony.', 'An intelligent luxury asset.'],
+      image: '/products/amouage-guidance/hero.png',
     },
     {
       slug: 'baccarat-rouge-540-extrait',
@@ -62,6 +64,7 @@ export interface GuestCurationConfig {
         'The House includes it as an archive-worthy benchmark of modern excellence.',
       ],
       curatorPositioning: ['A fragrance icon.', 'A global luxury reference point.', 'A crystal monument in liquid form.'],
+      image: '/products/baccarat-rouge-540-extrait/hero.png',
     },
     {
       slug: 'xerjoff-casamorati-lira',
@@ -141,6 +144,7 @@ export interface GuestCurationConfig {
         'Its honey. Its rum. Its dark floral architecture. Together create an atmosphere of private luxury.',
       ],
       curatorPositioning: ['Not attention.', 'Intrigue.', 'Not visibility.', 'Presence.'],
+      image: '/products/tom-ford-velvet-orchid/hero.png',
     },
     {
       slug: 'ysl-libre-le-parfum',
@@ -171,6 +175,7 @@ export interface GuestCurationConfig {
         'The House includes it because it captures the emotional richness of celebration, memory, and legacy.',
       ],
       curatorPositioning: ["A bottle of heritage.", "A vault of memories.", 'A luxury masterpiece worthy of preservation.'],
+      image: '/products/kilian-angels-share/hero.png',
     },
 
     // ── MALE SERIES — SF GUEST CURATION ──────────────────────
