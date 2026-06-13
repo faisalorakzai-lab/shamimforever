@@ -49,7 +49,7 @@
         .eq('is_active', true)
         .order('name')
       if (data) {
-        setProducts(data as Product[])
+        setProducts(data as unknown as Product[])
         const cats = [...new Set(data.map((p: Product) => p.main_category?.name).filter(Boolean) as string[])]
         setCategories(cats.sort())
       }
