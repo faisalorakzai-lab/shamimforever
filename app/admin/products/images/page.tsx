@@ -50,7 +50,7 @@
         .order('name')
       if (data) {
         setProducts(data as unknown as Product[])
-        const cats = [...new Set(data.map((p: Product) => p.main_category?.name).filter(Boolean) as string[])]
+        const cats = [...new Set(data.map((p: any) => Array.isArray(p.main_category) ? p.main_category[0]?.name : p.main_category?.name).filter(Boolean) as string[])]
         setCategories(cats.sort())
       }
       setLoading(false)
