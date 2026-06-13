@@ -121,7 +121,7 @@ export default function GuestCurationProductPage({ product }: { product: Product
     setSubmitting(false)
   }
 
-  const heroImage = config?.image || product.images?.[0] || null
+  const heroImage = product.images?.[0] || config?.image || null
 
   if (orderResult) {
     return (

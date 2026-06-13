@@ -13,6 +13,7 @@ import {
 const navItems = [
   { label: 'Overview', href: '/admin', icon: LayoutDashboard },
   { label: 'Products', href: '/admin/products', icon: Package },
+  { label: 'Image Manager', href: '/admin/products/images', icon: Package },
   { label: 'Orders', href: '/admin/orders', icon: ShoppingBag },
   { label: 'Customers', href: '/admin/customers', icon: Users },
   { label: 'Shipments', href: '/admin/shipments', icon: Truck },
