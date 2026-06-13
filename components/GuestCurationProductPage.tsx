@@ -8,6 +8,7 @@ import type { Product } from '@/types'
 import Web3PaySection, { type CoinType } from '@/components/Web3PaySection'
 import { useAccount } from 'wagmi'
 import { getGuestCurationConfig } from '@/lib/guest-curation-configs'
+  import { PRODUCT_IMAGE_OVERRIDES } from '@/lib/product-image-overrides'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
@@ -121,7 +122,7 @@ export default function GuestCurationProductPage({ product }: { product: Product
     setSubmitting(false)
   }
 
-  const heroImage = product.images?.[0] || config?.image || null
+  const heroImage = PRODUCT_IMAGE_OVERRIDES[product.slug] || product.images?.[0] || config?.image || null
 
   if (orderResult) {
     return (
