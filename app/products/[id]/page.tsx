@@ -9,6 +9,8 @@ import { notFound } from 'next/navigation'
 import { PRODUCT_IMAGE_OVERRIDES } from '@/lib/product-image-overrides'
   import CosmeticsProductPage from '@/components/CosmeticsProductPage'
 
+export const dynamic = 'force-dynamic'
+
   const BASE_URL = 'https://www.shamimforever.com'
   const SOVEREIGN_SLUGS = Object.keys(SOVEREIGN_CONFIGS)
   const COSMETICS_CATEGORY_ID = '22226324-4789-419d-a9e2-f763df2d24f1'
