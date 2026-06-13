@@ -187,14 +187,13 @@ import { PRODUCT_IMAGE_OVERRIDES } from '@/lib/product-image-overrides'
   }: {
     params: { id: string }
   }) {
-    const product = await getProduct(params.id)
-    if (!product) notFound()
+    const _rawProduct = await getProduct(params.id)
+    if (!_rawProduct) notFound()
 
-  // Inject correct image from static override map
-  const _imgOverride = PRODUCT_IMAGE_OVERRIDES[product.slug]
-  if (_imgOverride) {
-    product = { ...product, images: [_imgOverride, ...(product.images ?? [])] } as typeof product
-  }
+    const _imgOverride = PRODUCT_IMAGE_OVERRIDES[_rawProduct!.slug]
+    const product = _imgOverride
+      ? { ..._rawProduct!, images: [_imgOverride, ...(_rawProduct!.images ?? [])] }
+      : _rawProduct!
 
     if (SOVEREIGN_SLUGS.includes(product.slug)) {
       return (
