@@ -3523,8 +3523,8 @@
       { trait: 'Classification', value: 'Elegant Amber Aromatic' },
       { trait: 'Curation Status', value: 'House Curated' },
     ],
-    heroImage: '/images/products/giorgio-armani-code.png',
-    galleryImages: ['/images/products/giorgio-armani-code.png'],
+    heroImage: 'https://uvgtgeauhjbdatrmmaob.supabase.co/storage/v1/object/public/products/for-him/giorgio-armani-code/hero.png',
+    galleryImages: ['https://uvgtgeauhjbdatrmmaob.supabase.co/storage/v1/object/public/products/for-him/giorgio-armani-code/hero.png'],
     holderPrivileges: [
       'SF Essential Archive For Him Member — Access to the House of Shamim Forever curated masculine archive',
       'Priority Allocation on Future Essential Drops — First access to new Essential Archive For Him releases',
