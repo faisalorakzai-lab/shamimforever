@@ -24,6 +24,9 @@
     '.lux-thumbs{flex-direction:row!important;flex-wrap:wrap!important;max-height:none!important;overflow:visible!important}',
     '.lux-thumb{flex:1 1 calc(50% - 4px)!important;aspect-ratio:1!important}',
     '.lux-pay-grid{grid-template-columns:1fr 1fr!important}',
+    '.lux-nft-grid{flex-direction:column!important;align-items:center!important}',
+    '.lux-nft-card{flex:0 0 auto!important;width:100%!important;max-width:280px!important;margin:0 auto 40px!important}',
+    '.lux-nft-info{max-width:100%!important;width:100%!important}',
     '}',
   ].join('')
 
@@ -81,33 +84,30 @@
       primary?: string[]; secondary?: string[]; accent?: string[]
       primary_description?: string; secondary_description?: string; accent_description?: string
     }
-    designArchitecture?: { primary: string; secondary: string; accent: string }
     specs?: {
       title?: string; piece_type?: string; classification?: string
       material?: string; gemstone?: string; carat?: string; cut?: string
       setting?: string; finish?: string; weight?: string; dimensions?: string
       gender?: string; production?: string; production_philosophy?: string
-      blockchain?: string; allocation?: string; price_pkr?: string; price_usd?: string
-      longevity?: string; batch?: string
+      blockchain?: string; allocation?: string
     }
     nft?: {
       title?: string; description?: string; blockchain?: string; rarity?: string
       edition?: string; contract?: string; tx?: string; holder_privileges?: string[]
     }
-    packaging?: { box?: string; certificate?: string }
   }
 
   function NftCard({ product, story }: { product: Product; story: ParsedStory | null }) {
     const [deg, setDeg] = useState(0)
     useEffect(() => {
       let frame: number; let t = 0
-      const go = () => { t += 0.28; setDeg(t); frame = requestAnimationFrame(go) }
+      const go = () => { t += 0.3; setDeg(t); frame = requestAnimationFrame(go) }
       go(); return () => cancelAnimationFrame(frame)
     }, [])
     const nft = story?.nft
     const rarity = nft?.rarity || (product.price_usd >= 10000 ? 'SOVEREIGN FOUNDERS' : product.price_usd >= 1000 ? 'INSTITUTIONAL RESERVE' : 'HERITAGE ARCHIVE')
     const gold = product.price_usd >= 50000 ? '#f0d080' : product.price_usd >= 10000 ? '#c9a054' : '#a08040'
-    const serial = 'SF-' + product.id.replace(/-/g,'').slice(0,8).toUpperCase()
+    const serial = 'SF-' + product.id.replace(/-/g, '').slice(0, 8).toUpperCase()
     const catName = (product as any).main_category?.name || 'Jewelry'
     const traits = [
       ['Category', catName],
@@ -118,61 +118,106 @@
       ['Authentication', 'Polygon Verified'],
     ]
     return (
-      <div style={{ perspective: '1100px', maxWidth: 280, margin: '0 auto', userSelect: 'none' }}>
-        <div style={{ transform: `rotateY(${deg}deg)`, transformStyle: 'preserve-3d', position: 'relative', width: '100%', aspectRatio: '3/4', transition: 'none' }}>
-          {[false, true].map(isBack => (
-            <div key={String(isBack)} style={{
-              position: 'absolute', inset: 0, backfaceVisibility: 'hidden',
-              transform: isBack ? 'rotateY(180deg)' : 'none',
-              background: 'linear-gradient(145deg, #0c0906 0%, #100d07 50%, #080604 100%)',
-              border: `1px solid ${gold}55`, display: 'flex', flexDirection: 'column', padding: 20
-            }}>
-              {!isBack ? (
-                <>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 16 }}>
-                    <div>
-                      <p style={{ fontSize: 7, letterSpacing: '0.5em', textTransform: 'uppercase', color: gold, marginBottom: 2 }}>House of Shamim Forever</p>
-                      <p style={{ fontSize: 6, letterSpacing: '0.3em', textTransform: 'uppercase', color: '#3f3830' }}>Sovereign Digital Passport</p>
-                    </div>
-                    <motion.div animate={{ opacity: [0.4,1,0.4] }} transition={{ duration: 2.5, repeat: Infinity }} style={{ fontSize: 20, color: gold }}>◆</motion.div>
-                  </div>
-                  <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                    {product.images?.[0] ? (
-                      <img src={product.images[0]} alt={product.name} style={{ width: '80%', height: '80%', objectFit: 'contain', opacity: 0.85 }} />
-                    ) : (
-                      <p style={{ fontFamily: SERIF, fontSize: 52, color: `${gold}15`, fontWeight: 300 }}>SF</p>
-                    )}
-                  </div>
-                  <div style={{ marginTop: 'auto', paddingTop: 12, borderTop: `1px solid ${gold}20` }}>
-                    <p style={{ fontFamily: SERIF, fontSize: 12, color: '#c9b894', fontWeight: 300, lineHeight: 1.3, marginBottom: 4 }}>{product.name}</p>
-                    <p style={{ fontSize: 6, letterSpacing: '0.35em', textTransform: 'uppercase', color: `${gold}80` }}>{rarity}</p>
-                  </div>
-                </>
-              ) : (
-                <>
-                  <div style={{ marginBottom: 10 }}>
-                    <p style={{ fontSize: 6, letterSpacing: '0.4em', textTransform: 'uppercase', color: gold, marginBottom: 6 }}>Sovereign Traits</p>
-                    <div style={{ borderTop: `1px solid ${gold}20`, paddingTop: 8 }}>
-                      <p style={{ fontSize: 6, letterSpacing: '0.3em', textTransform: 'uppercase', color: '#3f3830', marginBottom: 3 }}>Serial Number</p>
-                      <p style={{ fontFamily: 'monospace', fontSize: 13, color: gold, letterSpacing: '0.1em' }}>{serial}</p>
-                    </div>
-                  </div>
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: 4, flex: 1 }}>
-                    {traits.map(([lbl, val]) => (
-                      <div key={lbl} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '4px 8px', background: '#0a0806' }}>
-                        <p style={{ fontSize: 6, letterSpacing: '0.25em', textTransform: 'uppercase', color: '#2a2520' }}>{lbl}</p>
-                        <p style={{ fontSize: 7, color: '#a08060', maxWidth: 120, textAlign: 'right' }}>{val}</p>
+      <div style={{ perspective: '1200px', width: '100%', userSelect: 'none' }}>
+        <div style={{ position: 'relative' }}>
+          {/* Ambient glow behind card */}
+          <div style={{
+            position: 'absolute', inset: -24,
+            background: `radial-gradient(ellipse 80% 80% at 50% 50%, ${gold}22 0%, transparent 70%)`,
+            pointerEvents: 'none', filter: 'blur(20px)', zIndex: 0,
+          }} />
+          <div style={{
+            transform: `rotateY(${deg}deg)`,
+            transformStyle: 'preserve-3d',
+            position: 'relative',
+            width: '100%',
+            aspectRatio: '3/4',
+            zIndex: 1,
+          }}>
+            {[false, true].map(isBack => (
+              <div
+                key={String(isBack)}
+                style={{
+                  position: 'absolute', inset: 0,
+                  backfaceVisibility: 'hidden',
+                  transform: isBack ? 'rotateY(180deg)' : 'none',
+                  background: 'linear-gradient(145deg, #0e0b07 0%, #130f09 45%, #080604 100%)',
+                  border: `1px solid ${gold}65`,
+                  boxShadow: `0 0 40px ${gold}25, 0 8px 32px rgba(0,0,0,0.8), inset 0 0 24px rgba(0,0,0,0.5)`,
+                  display: 'flex', flexDirection: 'column', padding: 20, overflow: 'hidden',
+                }}
+              >
+                {/* Top shimmer */}
+                <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 1, background: `linear-gradient(to right, transparent, ${gold}, transparent)` }} />
+                {/* Bottom shimmer */}
+                <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: 1, background: `linear-gradient(to right, transparent, ${gold}60, transparent)` }} />
+
+                {!isBack ? (
+                  <>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 12 }}>
+                      <div>
+                        <p style={{ fontSize: 6.5, letterSpacing: '0.5em', textTransform: 'uppercase', color: gold, marginBottom: 2 }}>House of Shamim Forever</p>
+                        <p style={{ fontSize: 5.5, letterSpacing: '0.28em', textTransform: 'uppercase', color: '#3f3830' }}>Sovereign Digital Passport</p>
                       </div>
-                    ))}
-                  </div>
-                  <div style={{ marginTop: 10, paddingTop: 8, borderTop: `1px solid ${gold}12`, display: 'flex', alignItems: 'center', gap: 6 }}>
-                    <motion.div animate={{ opacity: [0.4,1,0.4] }} transition={{ duration: 1.5, repeat: Infinity }} style={{ width: 5, height: 5, borderRadius: '50%', background: '#4ade80' }} />
-                    <p style={{ fontSize: 6, letterSpacing: '0.3em', textTransform: 'uppercase', color: '#3f3830' }}>Polygon Active — NFT Enabled</p>
-                  </div>
-                </>
-              )}
-            </div>
-          ))}
+                      <motion.div
+                        animate={{ opacity: [0.3, 1, 0.3], scale: [0.9, 1.1, 0.9] }}
+                        transition={{ duration: 2.4, repeat: Infinity }}
+                        style={{ fontSize: 18, color: gold, lineHeight: 1 }}
+                      >◆</motion.div>
+                    </div>
+
+                    {/* Corner brackets */}
+                    <div style={{ position: 'absolute', top: 46, left: 10, width: 12, height: 12, borderTop: `1px solid ${gold}55`, borderLeft: `1px solid ${gold}55` }} />
+                    <div style={{ position: 'absolute', top: 46, right: 10, width: 12, height: 12, borderTop: `1px solid ${gold}55`, borderRight: `1px solid ${gold}55` }} />
+
+                    <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative' }}>
+                      <div style={{ position: 'absolute', inset: 0, background: `radial-gradient(ellipse 60% 60% at 50% 50%, ${gold}10 0%, transparent 70%)` }} />
+                      {product.images?.[0] ? (
+                        <img
+                          src={product.images[0]}
+                          alt={product.name}
+                          style={{ width: '80%', height: '80%', objectFit: 'contain', opacity: 0.9, position: 'relative', zIndex: 1 }}
+                        />
+                      ) : (
+                        <p style={{ fontFamily: SERIF, fontSize: 48, color: `${gold}12`, fontWeight: 300 }}>SF</p>
+                      )}
+                    </div>
+
+                    {/* Bottom corner brackets */}
+                    <div style={{ position: 'absolute', bottom: 44, left: 10, width: 12, height: 12, borderBottom: `1px solid ${gold}38`, borderLeft: `1px solid ${gold}38` }} />
+                    <div style={{ position: 'absolute', bottom: 44, right: 10, width: 12, height: 12, borderBottom: `1px solid ${gold}38`, borderRight: `1px solid ${gold}38` }} />
+
+                    <div style={{ paddingTop: 10, borderTop: `1px solid ${gold}20` }}>
+                      <p style={{ fontFamily: SERIF, fontSize: 11, color: '#c9b894', fontWeight: 300, lineHeight: 1.3, marginBottom: 3 }}>{product.name}</p>
+                      <p style={{ fontSize: 5.5, letterSpacing: '0.38em', textTransform: 'uppercase', color: `${gold}78` }}>{rarity}</p>
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <div style={{ marginBottom: 8 }}>
+                      <p style={{ fontSize: 6, letterSpacing: '0.4em', textTransform: 'uppercase', color: gold, marginBottom: 6 }}>Sovereign Traits</p>
+                      <div style={{ borderTop: `1px solid ${gold}18`, paddingTop: 6 }}>
+                        <p style={{ fontSize: 5.5, letterSpacing: '0.28em', textTransform: 'uppercase', color: '#3f3830', marginBottom: 2 }}>Serial Number</p>
+                        <p style={{ fontFamily: 'monospace', fontSize: 12, color: gold, letterSpacing: '0.08em' }}>{serial}</p>
+                      </div>
+                    </div>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: 3, flex: 1 }}>
+                      {traits.map(([lbl, val]) => (
+                        <div key={lbl} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '5px 8px', background: 'rgba(10,8,6,0.8)', borderLeft: `2px solid ${gold}22` }}>
+                          <p style={{ fontSize: 5.5, letterSpacing: '0.22em', textTransform: 'uppercase', color: '#2a2520' }}>{lbl}</p>
+                          <p style={{ fontSize: 7, color: '#a08060', maxWidth: 110, textAlign: 'right', fontFamily: SERIF }}>{val}</p>
+                        </div>
+                      ))}
+                    </div>
+                    <div style={{ marginTop: 8, paddingTop: 7, borderTop: `1px solid ${gold}10`, display: 'flex', alignItems: 'center', gap: 6 }}>
+                      <motion.div animate={{ opacity: [0.3, 1, 0.3] }} transition={{ duration: 1.5, repeat: Infinity }} style={{ width: 5, height: 5, borderRadius: '50%', background: '#4ade80', flexShrink: 0 }} />
+                      <p style={{ fontSize: 5.5, letterSpacing: '0.28em', textTransform: 'uppercase', color: '#3f3830' }}>Polygon Active — NFT Enabled</p>
+                    </div>
+                  </>
+                )}
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     )
@@ -368,7 +413,7 @@
               <p style={{ fontSize: 7, letterSpacing: '0.45em', textTransform: 'uppercase', color: '#c9a054', margin: 0 }}>NFT Sovereign Passport · Polygon Mainnet</p>
             </div>
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: 14, justifyContent: 'center' }}>
-              <a href="#acquire" className="group" style={{ position: 'relative', overflow: 'hidden', padding: '15px 40px', fontSize: 8, letterSpacing: '0.7em', textTransform: 'uppercase', color: '#050202', display: 'inline-block', textDecoration: 'none', background: 'linear-gradient(135deg, #c9a054 0%, #b8860b 100%)', fontWeight: 600 }}>
+              <a href="#acquire" style={{ padding: '15px 40px', fontSize: 8, letterSpacing: '0.7em', textTransform: 'uppercase', color: '#050202', display: 'inline-block', textDecoration: 'none', background: 'linear-gradient(135deg, #c9a054 0%, #b8860b 100%)', fontWeight: 600 }}>
                 Acquire Now
               </a>
               <a href="#archive" style={{ padding: '15px 40px', border: '1px solid rgba(201,160,84,0.35)', fontSize: 8, letterSpacing: '0.7em', textTransform: 'uppercase', color: '#c9a054', display: 'inline-block', textDecoration: 'none' }}
@@ -627,7 +672,7 @@
           </section>
         )}
 
-        {/* DESIGN / MATERIAL ARCHITECTURE */}
+        {/* MATERIAL ARCHITECTURE */}
         {story?.material_notes && typeof story.material_notes === 'object' && ((story.material_notes as any).primary?.length || (story.material_notes as any).secondary?.length || (story.material_notes as any).accent?.length) && (
           <section style={{ padding: 'clamp(52px,8vw,90px) 0', background: 'linear-gradient(180deg, #030303 0%, #0a0805 50%, #030303 100%)' }}>
             <div style={{ maxWidth: 820, margin: '0 auto', padding: '0 24px' }}>
@@ -663,9 +708,11 @@
               <h2 style={{ fontFamily: SERIF, fontSize: 'clamp(2rem, 4vw, 3.5rem)', fontWeight: 300, color: '#f0ece4' }}>NFT Digital Passport</h2>
               <div style={{ width: 64, height: 1, background: 'linear-gradient(to right, transparent, #c9a054, transparent)', margin: '20px auto 0' }} />
             </div>
-            <div className="g-reveal" style={{ display: 'flex', flexWrap: 'wrap', gap: 48, alignItems: 'flex-start', justifyContent: 'center' }}>
-              <NftCard product={product} story={story} />
-              <div style={{ flex: '1 1 300px', maxWidth: 480 }}>
+            <div className="lux-nft-grid g-reveal" style={{ display: 'flex', flexWrap: 'wrap', gap: 48, alignItems: 'flex-start', justifyContent: 'center' }}>
+              <div className="lux-nft-card" style={{ flex: '0 0 260px', maxWidth: 260 }}>
+                <NftCard product={product} story={story} />
+              </div>
+              <div className="lux-nft-info" style={{ flex: '1 1 300px', maxWidth: 480 }}>
                 <p style={{ fontFamily: SERIF, fontStyle: 'italic', fontSize: 'clamp(1rem,2vw,1.4rem)', color: 'rgba(240,236,228,0.5)', fontWeight: 300, lineHeight: 1.9, marginBottom: 32 }}>
                   {story?.nft?.description || 'Every sovereign jewelry creation from House of Shamim Forever is authenticated with a Digital Twin NFT on Polygon — a permanent on-chain record of your ownership, rarity tier, and provenance. Your serial number is engraved on both the physical certificate and the blockchain simultaneously.'}
                 </p>
