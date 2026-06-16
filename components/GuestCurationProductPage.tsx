@@ -122,7 +122,8 @@ export default function GuestCurationProductPage({ product }: { product: Product
     setSubmitting(false)
   }
 
-  const heroImage = PRODUCT_IMAGE_OVERRIDES[product.slug] || product.images?.[0] || config?.image || null
+  const _rawImg = PRODUCT_IMAGE_OVERRIDES[product.slug] || product.images?.[0] || config?.image || null
+  const heroImage: string | null = Array.isArray(_rawImg) ? (_rawImg[0] ?? null) : _rawImg
 
   if (orderResult) {
     return (
