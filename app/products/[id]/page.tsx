@@ -199,6 +199,15 @@ import { notFound } from 'next/navigation'
         ? { ..._rawProduct!, images: [_imgOverride, ...(_rawProduct!.images ?? [])] }
         : _rawProduct!
 
+      if (product.main_category_id === JEWELRY_CATEGORY_ID) {
+        return (
+          <>
+            <ProductJsonLd product={product} />
+            <JewelryProductPage product={product} />
+          </>
+        )
+      }
+
       if (SOVEREIGN_SLUGS.includes(product.slug)) {
         return (
           <>
@@ -222,15 +231,6 @@ import { notFound } from 'next/navigation'
           <>
             <ProductJsonLd product={product} />
             <CosmeticsProductPage product={product} />
-          </>
-        )
-      }
-
-      if (product.main_category_id === JEWELRY_CATEGORY_ID) {
-        return (
-          <>
-            <ProductJsonLd product={product} />
-            <JewelryProductPage product={product} />
           </>
         )
       }
