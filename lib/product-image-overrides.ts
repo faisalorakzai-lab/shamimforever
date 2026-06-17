@@ -1,19 +1,35 @@
 export const PRODUCT_IMAGE_OVERRIDES: Record<string, string | string[]> = {
-    'prada-candy': '/products/prada-candy/hero.png',
-    'armani-si': '/products/armani-si/hero.png',
-    'burberry-her': '/products/burberry-her/hero.png',
-    'ysl-black-opium': '/products/ysl-black-opium/hero.png',
-    'empress-sovereign-vault': [
-      '/products/empress-sovereign-vault/hero.png',
-      '/products/empress-sovereign-vault/packing.png',
-    ],
-    'queen-of-taif-crown-ring': '/products/queen-of-taif-crown-ring/ring-hero.png',
-  }
+      'prada-candy': '/products/prada-candy/hero.png',
+      'armani-si': '/products/armani-si/hero.png',
+      'burberry-her': '/products/burberry-her/hero.png',
+      'ysl-black-opium': '/products/ysl-black-opium/hero.png',
+      'empress-sovereign-vault': [
+        '/products/empress-sovereign-vault/hero.png',
+        '/products/empress-sovereign-vault/packing.png',
+      ],
+      'queen-of-taif-crown-ring': '/products/queen-of-taif-crown-ring/ring-hero.png',
+      // Sovereign perfumes — own-brand
+      'eternal-empress': '/products/eternal-empress/empress-hero.png',
+      'sovereign-genesis': '/products/sovereign-genesis/hero.png',
+      'eternal-sovereign': '/products/eternal-sovereign/hero.png',
+      'sovereign-oud-absolute': '/products/sovereign-oud-absolute/oud-bottle.png',
+      'imperial-black-throne': '/products/imperial-black-throne/throne-bottle.png',
+      'her-legacy-vault': '/products/her-legacy-vault/vault-hero.png',
+      'midnight-iris-royale': '/products/midnight-iris-royale/mir-hero.png',
+      'sapphire-blue-levant': '/products/sapphire-blue-levant/levant-bottle.png',
+      'house-vault-no-001': '/products/house-vault-no-001/hero.png',
+      'founders-eternal-archive': '/products/founders-eternal-archive/founder-hero.png',
+      'founder-s-eternal-archive': '/products/founders-eternal-archive/founder-hero.png',
+      'shamims-ghost': '/products/shamims-ghost/ghost-hero.png',
+      'shamim-s-ghost-the-eternal-legacy': '/products/shamims-ghost/ghost-hero.png',
+      'shamims-ghost-the-eternal-legacy': '/products/shamims-ghost/ghost-hero.png',
+      'initio-atomic-rose': '/products/initio-atomic-rose/hero.png',
+    }
 
-  export const PRODUCT_VIDEO_OVERRIDES: Record<string, string> = {
-    'messika-move-bracelet': '/products/messika-move-high-jewelry-bracelet/hero.mp4',
-    'sovereign-amethyst': '/products/sovereign-amethyst/sovereign-amethyst-hero.mp4',
-    'shamim-bloom-the-sovereign-grace': '/products/shamims-bloom/shamim-bloom-hero.mp4',
-    'eternal-grace-sapphire-set': '/products/eternal-grace-sapphire-set/product-video.mp4',
-  }
-  
+    export const PRODUCT_VIDEO_OVERRIDES: Record<string, string> = {
+      'messika-move-bracelet': '/products/messika-move-high-jewelry-bracelet/hero.mp4',
+      'sovereign-amethyst': '/products/sovereign-amethyst/sovereign-amethyst-hero.mp4',
+      'shamim-bloom-the-sovereign-grace': '/products/shamims-bloom/shamim-bloom-hero.mp4',
+      'eternal-grace-sapphire-set': '/products/eternal-grace-sapphire-set/product-video.mp4',
+    }
+    
