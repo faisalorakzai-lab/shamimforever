@@ -11,6 +11,6 @@ export const PRODUCT_IMAGE_OVERRIDES: Record<string, string | string[]> = {
   }
 
   export const PRODUCT_VIDEO_OVERRIDES: Record<string, string> = {
-    'messika-move-high-jewelry-bracelet': '/products/messika-move-high-jewelry-bracelet/hero.mp4',
+    'messika-move-bracelet': '/products/messika-move-high-jewelry-bracelet/hero.mp4',
   }
   
