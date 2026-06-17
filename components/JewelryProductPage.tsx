@@ -365,7 +365,11 @@
           <div style={{ position: 'absolute', bottom: 14, left: 14, width: 18, height: 18, borderBottom: '1px solid rgba(212,175,55,0.28)', borderLeft: '1px solid rgba(212,175,55,0.28)', pointerEvents: 'none', zIndex: 9 }} />
           <div style={{ position: 'absolute', bottom: 14, right: 14, width: 18, height: 18, borderBottom: '1px solid rgba(212,175,55,0.28)', borderRight: '1px solid rgba(212,175,55,0.28)', pointerEvents: 'none', zIndex: 9 }} />
 
-          {heroImage ? (
+          {heroVideo ? (
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.8 }} style={{ position: 'absolute', inset: 0, zIndex: 2 }}>
+              <video src={heroVideo} autoPlay muted loop playsInline style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center' }} />
+            </motion.div>
+          ) : heroImage ? (
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.8 }} style={{ position: 'absolute', inset: 0, zIndex: 2 }}>
               <img src={heroImage} alt={product.name} style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center 15%' }} onError={e => { (e.target as HTMLImageElement).style.opacity = '0' }} />
             </motion.div>
