@@ -12,5 +12,8 @@ export const PRODUCT_IMAGE_OVERRIDES: Record<string, string | string[]> = {
 
   export const PRODUCT_VIDEO_OVERRIDES: Record<string, string> = {
     'messika-move-bracelet': '/products/messika-move-high-jewelry-bracelet/hero.mp4',
+    'sovereign-amethyst': '/products/sovereign-amethyst/sovereign-amethyst-hero.mp4',
+    'shamim-bloom-the-sovereign-grace': '/products/shamims-bloom/shamim-bloom-hero.mp4',
+    'eternal-grace-sapphire-set': '/products/eternal-grace-sapphire-set/product-video.mp4',
   }
   
