@@ -127,6 +127,8 @@ export default function HomePage() {
       { type: 'video' as const, src: '/videos/hero-1.mp4' },
       { type: 'video' as const, src: '/videos/hero-2.mp4' },
       { type: 'video' as const, src: '/videos/hero-3.mp4' },
+      { type: 'video' as const, src: '/products/sovereign-amethyst/sovereign-amethyst-hero.mp4' },
+      { type: 'video' as const, src: '/products/shamims-bloom/shamim-bloom-hero.mp4' },
     ]
     const [heroIndex, setHeroIndex] = useState(0)
     const heroTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
@@ -200,7 +202,7 @@ export default function HomePage() {
               />
             </div>
             {/* Video layers — always mounted so browser can preload */}
-            {['/videos/hero-1.mp4', '/videos/hero-2.mp4', '/videos/hero-3.mp4'].map((src, i) => (
+            {['/videos/hero-1.mp4', '/videos/hero-2.mp4', '/videos/hero-3.mp4', '/products/sovereign-amethyst/sovereign-amethyst-hero.mp4', '/products/shamims-bloom/shamim-bloom-hero.mp4'].map((src, i) => (
               <div key={src} className="absolute inset-0 transition-opacity duration-700" style={{ opacity: heroIndex === i + 1 ? 1 : 0 }}>
                 <video
                   ref={el => { videoRefs.current[i] = el }}
