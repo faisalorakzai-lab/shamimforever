@@ -10,6 +10,7 @@ import { formatPKR } from '@/lib/utils'
 import type { Product } from '@/types'
 import Web3PaySection, { type CoinType } from '@/components/Web3PaySection'
 import { useAccount } from 'wagmi'
+  import { PRODUCT_VIDEO_OVERRIDES } from '@/lib/product-image-overrides'
 
   declare global {
     namespace JSX {
