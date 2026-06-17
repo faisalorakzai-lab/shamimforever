@@ -1,7 +1,7 @@
 'use client'
 
 import { SOVEREIGN_CONFIGS } from '@/lib/sovereign-configs'
-import { PRODUCT_IMAGE_OVERRIDES } from '@/lib/product-image-overrides'
+import { PRODUCT_IMAGE_OVERRIDES, PRODUCT_VIDEO_OVERRIDES } from '@/lib/product-image-overrides'
 import { useState, useEffect, useRef, useCallback, Suspense } from 'react'
 import { useSearchParams, useRouter } from 'next/navigation'
 import { motion, AnimatePresence } from 'framer-motion'
