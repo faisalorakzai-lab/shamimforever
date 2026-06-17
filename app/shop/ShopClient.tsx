@@ -326,7 +326,7 @@ function ShopPageInner({ initialProducts }: { initialProducts: Product[] }) {
               <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-8 lg:gap-10">
                 {products.map((product, i) => {
                   const _imgOvr = PRODUCT_IMAGE_OVERRIDES[product.slug]
-                  const img: string | null = SOVEREIGN_CONFIGS[product.slug]?.heroImage || (Array.isArray(_imgOvr) ? (_imgOvr[0] ?? null) : _imgOvr) || product.images?.[0] || null
+                  const img: string | null = (Array.isArray(_imgOvr) ? (_imgOvr[0] ?? null) : _imgOvr) || SOVEREIGN_CONFIGS[product.slug]?.heroImage || product.images?.[0] || null
                   const isSovereign = product.price_pkr >= SOVEREIGN_THRESHOLD
                   return (
                     <motion.div key={product.id} initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: Math.min(i * 0.05, 0.4), duration: 0.8, ease }}>
