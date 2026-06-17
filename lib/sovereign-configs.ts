@@ -180,7 +180,7 @@
       { trait: 'Concierge Access', value: 'Enabled' },
       { trait: 'Archive Status', value: 'Active' },
     ],
-    heroImage: '/products/eternal-empress/empress-woman.png',
+    heroImage: '/products/eternal-empress/empress-hero.png',
     galleryImages: [
       '/products/eternal-empress/empress-woman.png',
       '/products/eternal-empress/empress-packing.png',
