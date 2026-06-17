@@ -7,6 +7,7 @@
   import Link from 'next/link'
   import { Copy, Check, Upload, X, ExternalLink, ArrowDown, ChevronLeft, ChevronRight } from 'lucide-react'
   import type { Product } from '@/types'
+    import { PRODUCT_VIDEO_OVERRIDES } from '@/lib/product-image-overrides'
   import Web3PaySection, { type CoinType } from '@/components/Web3PaySection'
   import { useAccount } from 'wagmi'
 
@@ -314,6 +315,7 @@
     }
 
     const heroImage = images[0] || null
+      const heroVideo = PRODUCT_VIDEO_OVERRIDES[product.slug] || null
     const categoryName = (product as any).main_category?.name
 
     if (orderResult) {
