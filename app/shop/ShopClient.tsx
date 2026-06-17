@@ -326,6 +326,7 @@ function ShopPageInner({ initialProducts }: { initialProducts: Product[] }) {
               <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-8 lg:gap-10">
                 {products.map((product, i) => {
                   const _imgOvr = PRODUCT_IMAGE_OVERRIDES[product.slug]
+                  const _vidOvr = PRODUCT_VIDEO_OVERRIDES[product.slug] || null
                   const img: string | null = (Array.isArray(_imgOvr) ? (_imgOvr[0] ?? null) : _imgOvr) || SOVEREIGN_CONFIGS[product.slug]?.heroImage || product.images?.[0] || null
                   const isSovereign = product.price_pkr >= SOVEREIGN_THRESHOLD
                   return (
@@ -333,7 +334,18 @@ function ShopPageInner({ initialProducts }: { initialProducts: Product[] }) {
                       <Link href={'/products/' + (product.slug || product.id)} className="block">
                         <Card3D>
                           <div className="relative aspect-[3/4] overflow-hidden bg-[#0a0a0a] mb-3 md:mb-5" style={{ transformStyle: 'preserve-3d' }}>
-                            {img ? (
+                            {_vidOvr ? (
+                              <>
+                                <video src={_vidOvr} autoPlay muted loop playsInline
+                                  style={{ filter: 'brightness(0.9) contrast(1.05)' }}
+                                  className="w-full h-full object-cover" />
+                                <div className="absolute inset-0 pointer-events-none" style={{ background: 'linear-gradient(135deg,rgba(255,255,255,0.07) 0%,transparent 45%,rgba(0,0,0,0.18) 100%)', transform: 'translateZ(2px)' }} />
+                                <div className="absolute inset-0 pointer-events-none" style={{ boxShadow: isSovereign ? 'inset 0 0 40px rgba(201,160,84,0.08),inset 0 0 0 1px rgba(201,160,84,0.12)' : 'inset 0 0 40px rgba(201,160,84,0.05),inset 0 0 0 1px rgba(201,160,84,0.07)', transform: 'translateZ(4px)' }} />
+                                <div className="absolute bottom-0 left-0 right-0 p-3 md:p-4 opacity-0 hover:opacity-100 transition-opacity duration-500" style={{ transform: 'translateZ(20px)' }}>
+                                  <span className="block w-full text-center text-[7px] md:text-[8px] tracking-[0.35em] uppercase text-[#c9a054] border border-[#c9a054]/40 py-2 md:py-2.5 bg-[#050505]/85 backdrop-blur-sm">View Creation</span>
+                                </div>
+                              </>
+                            ) : img ? (
                               <>
                                 <img src={img} alt={product.name} className="w-full h-full object-cover"
                                   style={{ filter: 'brightness(0.9) contrast(1.05)' }} />
