@@ -358,11 +358,11 @@ export default function SovereignProductPage({ product }: { product: Product }) 
           <div style={{ position: 'absolute', bottom: 14, right: 14, width: 18, height: 18, borderBottom: '1px solid rgba(212,175,55,0.28)', borderRight: '1px solid rgba(212,175,55,0.28)', pointerEvents: 'none', zIndex: 9 }} />
 
           {/* Cinematic media — video first, then 3D model, then hero image */}
-          {config.videoPath ? (
+          {(PRODUCT_VIDEO_OVERRIDES[product.slug] || config.videoPath) ? (
               <div style={{ position: 'absolute', inset: 0, background: '#000', overflow: 'hidden' }}>
                 <video autoPlay loop muted playsInline preload="auto" poster={config.heroImage}
                   style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block', pointerEvents: 'none' }}>
-                  <source src={config.videoPath} type="video/mp4" />
+                  <source src={PRODUCT_VIDEO_OVERRIDES[product.slug] || config.videoPath} type="video/mp4" />
                 </video>
                 <GoldParticles />
                 <div style={{ position:'absolute', top:0, left:0, right:0, height:'55%', background:'radial-gradient(ellipse 65% 55% at 50% 0%, rgba(212,175,55,0.13) 0%, transparent 65%)', pointerEvents:'none', zIndex:12 }} />
