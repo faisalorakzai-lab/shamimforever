@@ -270,7 +270,7 @@ export default function HomePage() {
                     />
                   </div>
                   {/* Video layers — always in DOM so they buffer on load */}
-                  {['/videos/hero-1.mp4', '/videos/hero-2.mp4', '/videos/hero-3.mp4'].map((src, i) => (
+                  {['/videos/hero-1.mp4', '/videos/hero-2.mp4', '/videos/hero-3.mp4', '/products/sovereign-amethyst/sovereign-amethyst-hero.mp4', '/products/shamims-bloom/shamim-bloom-hero.mp4'].map((src, i) => (
                     <div key={src} className="absolute inset-0 transition-opacity duration-700" style={{ opacity: heroIndex === i + 1 ? 1 : 0 }}>
                       <video
                         src={src}
