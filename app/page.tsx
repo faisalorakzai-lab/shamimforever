@@ -130,7 +130,7 @@ export default function HomePage() {
     ]
     const [heroIndex, setHeroIndex] = useState(0)
     const heroTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
-    const videoRefs = useRef<(HTMLVideoElement | null)[]>([null, null, null])
+    const videoRefs = useRef<(HTMLVideoElement | null)[]>([null, null, null, null, null])
 
     function nextHero() {
       setHeroIndex(i => (i + 1) % HERO_MEDIA.length)
