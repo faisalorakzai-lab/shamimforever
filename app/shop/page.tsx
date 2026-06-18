@@ -58,6 +58,7 @@ import { supabaseAdmin } from '@/lib/supabase-server'
       .eq('is_active', true)
       .order('is_featured', { ascending: false })
       .order('created_at', { ascending: false })
+      .limit(48)
 
     return data || []
   }
