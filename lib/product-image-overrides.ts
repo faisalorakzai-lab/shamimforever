@@ -25,7 +25,8 @@ export const PRODUCT_IMAGE_OVERRIDES: Record<string, string | string[]> = {
       'shamims-ghost-the-eternal-legacy': '/products/shamims-ghost/ghost-hero.png',
       'initio-atomic-rose': '/products/initio-atomic-rose/hero.png',
       'de-beers-enchanted-lotus-earrings': '/products/de-beers-enchanted-lotus/nft.avif',
-      'coach-signature-crystal-studs': '/products/coach-signature-crystal-studs/hero.jpg',
+      'coach-signature-crystal-studs': '/products/coach-signature-crystal-studs/hero.png',
+      'pandora-sparkling-halo-ring': '/products/pandora-sparkling-halo-ring/hero.png',
     }
 
     export const PRODUCT_VIDEO_OVERRIDES: Record<string, string> = {
