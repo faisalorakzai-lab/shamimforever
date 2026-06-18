@@ -209,7 +209,7 @@ export default function HomePage() {
                   src={src}
                   className="absolute inset-0 w-full h-full object-cover"
                   style={{ filter: 'brightness(0.38) contrast(1.15) saturate(0.85)' }}
-                  muted playsInline preload="auto"
+                  muted playsInline preload="none"
                   onEnded={nextHero}
                 />
               </div>
@@ -278,7 +278,7 @@ export default function HomePage() {
                         src={src}
                         className="absolute inset-0 w-full h-full object-cover"
                         style={{ filter: 'brightness(0.68) contrast(1.12) saturate(0.9)' }}
-                        muted playsInline preload="auto"
+                        muted playsInline preload="none"
                       />
                     </div>
                   ))}
