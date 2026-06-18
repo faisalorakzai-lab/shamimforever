@@ -35,6 +35,7 @@ export const PRODUCT_IMAGE_OVERRIDES: Record<string, string | string[]> = {
         'bulgari-serpenti-viper-bracelet': '/products/bulgari-serpenti-viper-bracelet/hero.png',
         'chaumet-josephine-tiara-ring': '/products/chaumet-josephine-tiara-ring/hero.png',
         'mikimoto-south-sea-pearl-set': '/products/mikimoto-south-sea-pearl-set/hero.png',
+        'cartier-panthere-ring': '/products/cartier-panthere-ring/hero.png',
         'graff-icon-diamond-necklace': [],
         'graff-butterfly-diamond-pendant': [],
     }
