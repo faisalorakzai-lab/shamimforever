@@ -30,6 +30,7 @@ export const PRODUCT_IMAGE_OVERRIDES: Record<string, string | string[]> = {
         'chopard-happy-diamonds-necklace': '/products/chopard-happy-diamonds-necklace/hero.png',
         'monica-vinader-siren-gemstone-ring': '/products/monica-vinader-siren-gemstone-ring/hero.png',
         'van-cleef-alhambra-necklace': '/products/van-cleef-alhambra-necklace/hero.png',
+        'graff-icon-diamond-necklace': [],
     }
 
     export const PRODUCT_VIDEO_OVERRIDES: Record<string, string> = {
@@ -38,5 +39,6 @@ export const PRODUCT_IMAGE_OVERRIDES: Record<string, string | string[]> = {
       'shamim-bloom-the-sovereign-grace': '/products/shamims-bloom/shamim-bloom-hero.mp4',
       'eternal-grace-sapphire-set': '/products/eternal-grace-sapphire-set/product-video.mp4',
       'de-beers-enchanted-lotus-earrings': '/products/de-beers-enchanted-lotus/hero.mp4',
+        'graff-icon-diamond-necklace': '/products/graff-icon-diamond-necklace/hero.mp4',
     }
     
