@@ -29,6 +29,7 @@ export const PRODUCT_IMAGE_OVERRIDES: Record<string, string | string[]> = {
       'pandora-sparkling-halo-ring': '/products/pandora-sparkling-halo-ring/hero.png',
         'chopard-happy-diamonds-necklace': '/products/chopard-happy-diamonds-necklace/hero.png',
         'monica-vinader-siren-gemstone-ring': '/products/monica-vinader-siren-gemstone-ring/hero.png',
+        'van-cleef-alhambra-necklace': '/products/van-cleef-alhambra-necklace/hero.png',
     }
 
     export const PRODUCT_VIDEO_OVERRIDES: Record<string, string> = {
