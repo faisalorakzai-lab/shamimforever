@@ -64,7 +64,7 @@ function ProductCard({ product, index }: { product: Product; index: number }) {
       <Link href={`/products/${product.id}`} className="block group">
         <div className="relative aspect-[3/4] bg-[#0a0a0a] overflow-hidden mb-3 md:mb-5">
           {product.images?.[0] ? (
-            <img src={product.images[0]} alt={product.name}
+            <img src={product.images[0]} alt={product.name} loading="lazy"
               className="w-full h-full object-cover group-hover:scale-[1.05] transition-transform duration-[1400ms]"
               style={{ transitionTimingFunction: 'cubic-bezier(0.16,1,0.3,1)' }}
             />
