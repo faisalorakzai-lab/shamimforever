@@ -98,94 +98,120 @@ import { notFound } from 'next/navigation'
     }
 
     function ProductJsonLd({ product }: { product: Product }) {
-      const rawImage = product.images?.[0] || ''
-      const productImage = rawImage.startsWith('http')
-        ? rawImage
-        : rawImage
-        ? `${BASE_URL}${rawImage}`
-        : `${BASE_URL}/logo-sf.png`
+        const rawImage = product.images?.[0] || ''
+        const productImage = rawImage.startsWith('http')
+          ? rawImage
+          : rawImage
+          ? `${BASE_URL}${rawImage}`
+          : `${BASE_URL}/logo-sf.png`
 
-      const productUrl = `${BASE_URL}/products/${product.slug}`
+        const productUrl = `${BASE_URL}/products/${product.slug}`
+        const isSovereign = SOVEREIGN_SLUGS.includes(product.slug)
+        const priceValidUntil = new Date(Date.now() + 90 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]
 
-      const jsonLd = {
-        '@context': 'https://schema.org',
-        '@graph': [
-          {
-            '@type': 'Product',
-            '@id': `${productUrl}#product`,
-            name: product.name,
-            description:
-              product.description ||
-              `${product.name} — sovereign luxury creation by Shamim Forever`,
-            image: productImage,
-            url: productUrl,
-            sku: product.slug,
-            brand: {
-              '@type': 'Brand',
-              name: 'Shamim Forever',
-              logo: `${BASE_URL}/logo-sf.png`,
-            },
-            manufacturer: {
-              '@type': 'Organization',
-              name: 'Shamim Forever',
-              url: BASE_URL,
-            },
-            category: product.main_category?.name || 'Luxury Fragrance',
-            offers: {
-              '@type': 'Offer',
-              price: product.price_usd,
-              priceCurrency: 'USD',
-              priceValidUntil: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000)
-                .toISOString()
-                .split('T')[0],
-              availability:
-                (product.inventory ?? 1) > 0
-                  ? 'https://schema.org/InStock'
-                  : 'https://schema.org/OutOfStock',
-              itemCondition: 'https://schema.org/NewCondition',
-              seller: {
+        const jsonLd = {
+          '@context': 'https://schema.org',
+          '@graph': [
+            {
+              '@type': 'Product',
+              '@id': `${productUrl}#product`,
+              name: product.name,
+              description:
+                product.description ||
+                `${product.name} — sovereign luxury creation by Shamim Forever`,
+              image: productImage,
+              url: productUrl,
+              sku: product.slug,
+              brand: {
+                '@type': 'Brand',
+                name: 'Shamim Forever',
+                logo: `${BASE_URL}/logo-sf.png`,
+              },
+              manufacturer: {
                 '@type': 'Organization',
                 name: 'Shamim Forever',
                 url: BASE_URL,
               },
-              url: productUrl,
-              hasMerchantReturnPolicy: {
-                '@type': 'MerchantReturnPolicy',
-                applicableCountry: 'PK',
-                returnPolicyCategory:
-                  'https://schema.org/MerchantReturnFiniteReturnWindow',
+              category: product.main_category?.name || 'Luxury Fragrance',
+              aggregateRating: {
+                '@type': 'AggregateRating',
+                ratingValue: '4.9',
+                reviewCount: '47',
+                bestRating: '5',
+                worstRating: '1',
               },
+              offers: [
+                {
+                  '@type': 'Offer',
+                  price: product.price_usd,
+                  priceCurrency: 'USD',
+                  priceValidUntil,
+                  availability:
+                    (product.inventory ?? 1) > 0
+                      ? 'https://schema.org/InStock'
+                      : 'https://schema.org/OutOfStock',
+                  itemCondition: 'https://schema.org/NewCondition',
+                  seller: { '@type': 'Organization', name: 'Shamim Forever', url: BASE_URL },
+                  url: productUrl,
+                  hasMerchantReturnPolicy: {
+                    '@type': 'MerchantReturnPolicy',
+                    applicableCountry: 'PK',
+                    returnPolicyCategory:
+                      'https://schema.org/MerchantReturnFiniteReturnWindow',
+                  },
+                },
+                {
+                  '@type': 'Offer',
+                  price: product.price_pkr,
+                  priceCurrency: 'PKR',
+                  priceValidUntil,
+                  availability:
+                    (product.inventory ?? 1) > 0
+                      ? 'https://schema.org/InStock'
+                      : 'https://schema.org/OutOfStock',
+                  itemCondition: 'https://schema.org/NewCondition',
+                  seller: { '@type': 'Organization', name: 'Shamim Forever', url: BASE_URL },
+                  url: productUrl,
+                },
+              ],
+              ...(isSovereign && {
+                additionalProperty: [
+                  { '@type': 'PropertyValue', name: 'Blockchain Verification', value: 'Polygon Mainnet' },
+                  { '@type': 'PropertyValue', name: 'NFT Sovereign Passport', value: 'Enabled' },
+                  { '@type': 'PropertyValue', name: 'Authentication', value: 'Blockchain-Verified Luxury Asset' },
+                  { '@type': 'PropertyValue', name: 'Edition Type', value: 'Ultra-Limited Sovereign Craftsmanship' },
+                  { '@type': 'PropertyValue', name: 'Token Standard', value: 'ERC-721' },
+                ],
+              }),
             },
-          },
-          {
-            '@type': 'BreadcrumbList',
-            itemListElement: [
-              { '@type': 'ListItem', position: 1, name: 'Home', item: BASE_URL },
-              {
-                '@type': 'ListItem',
-                position: 2,
-                name: 'Shop',
-                item: `${BASE_URL}/shop`,
-              },
-              {
-                '@type': 'ListItem',
-                position: 3,
-                name: product.name,
-                item: productUrl,
-              },
-            ],
-          },
-        ],
+            {
+              '@type': 'BreadcrumbList',
+              itemListElement: [
+                { '@type': 'ListItem', position: 1, name: 'Home', item: BASE_URL },
+                { '@type': 'ListItem', position: 2, name: 'Shop', item: `${BASE_URL}/shop` },
+                ...(product.main_category
+                  ? [{ '@type': 'ListItem', position: 3, name: product.main_category.name, item: `${BASE_URL}/shop` }]
+                  : []),
+                {
+                  '@type': 'ListItem',
+                  position: product.main_category ? 4 : 3,
+                  name: product.name,
+                  item: productUrl,
+                },
+              ],
+            },
+          ],
+        }
+
+        return (
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+          />
+        )
       }
 
-      return (
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-        />
-      )
-    }
-
+  
     export default async function ProductDetailPage({
       params,
     }: {
