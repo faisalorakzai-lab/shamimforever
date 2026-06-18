@@ -222,7 +222,7 @@ import { notFound } from 'next/navigation'
 
       const _imgOverride = PRODUCT_IMAGE_OVERRIDES[_rawProduct!.slug]
       const product = _imgOverride
-        ? { ..._rawProduct!, images: Array.isArray(_imgOverride) ? [..._imgOverride, ...(_rawProduct!.images ?? [])] : [_imgOverride, ...(_rawProduct!.images ?? [])] }
+        ? { ..._rawProduct!, images: Array.isArray(_imgOverride) ? [..._imgOverride] : [_imgOverride] }
         : _rawProduct!
 
       if (product.main_category_id === JEWELRY_CATEGORY_ID) {
