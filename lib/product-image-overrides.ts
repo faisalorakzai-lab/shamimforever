@@ -8,7 +8,7 @@ export const PRODUCT_IMAGE_OVERRIDES: Record<string, string | string[]> = {
         '/products/empress-sovereign-vault/packing.png',
       ],
       'queen-of-taif-crown-ring': '/products/queen-of-taif-crown-ring/ring-hero.png',
-      // Sovereign perfumes ÃÂ¢ÃÂÃÂ own-brand
+      // Sovereign perfumes ÃÂÃÂ¢ÃÂÃÂÃÂÃÂ own-brand
       'eternal-empress': '/products/eternal-empress/empress-hero.png',
       'sovereign-genesis': '/products/sovereign-genesis/hero.png',
       'eternal-sovereign': '/products/eternal-sovereign/hero.png',
@@ -38,6 +38,7 @@ export const PRODUCT_IMAGE_OVERRIDES: Record<string, string | string[]> = {
         'cartier-panthere-ring': '/products/cartier-panthere-ring/hero.png',
         'graff-icon-diamond-necklace': [],
         'graff-butterfly-diamond-pendant': [],
+        'swarovski-millenia-tennis-necklace': [],
         'tiffany-victoria-diamond-earrings': '/products/tiffany-victoria-diamond-earrings/hero.png',
         'tiffany-heart-tag-bracelet': '/products/tiffany-heart-tag-bracelet/hero.png',
         'pandora-moments-charm-bracelet': '/products/pandora-moments-charm-bracelet/hero.png',
