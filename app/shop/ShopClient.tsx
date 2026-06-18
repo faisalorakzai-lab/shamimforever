@@ -347,7 +347,7 @@ function ShopPageInner({ initialProducts }: { initialProducts: Product[] }) {
                               </>
                             ) : img ? (
                               <>
-                                <img src={img} alt={product.name} className="w-full h-full object-cover"
+                                <img src={img} alt={product.name} className="w-full h-full object-cover" loading="lazy"
                                   style={{ filter: 'brightness(0.9) contrast(1.05)' }} />
                                 <div className="absolute inset-0 pointer-events-none" style={{ background: 'linear-gradient(135deg,rgba(255,255,255,0.07) 0%,transparent 45%,rgba(0,0,0,0.18) 100%)', transform: 'translateZ(2px)' }} />
                                 <div className="absolute inset-0 pointer-events-none" style={{ boxShadow: isSovereign ? 'inset 0 0 40px rgba(201,160,84,0.08),inset 0 0 0 1px rgba(201,160,84,0.12)' : 'inset 0 0 40px rgba(201,160,84,0.05),inset 0 0 0 1px rgba(201,160,84,0.07)', transform: 'translateZ(4px)' }} />
