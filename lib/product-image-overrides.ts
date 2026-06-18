@@ -33,6 +33,7 @@ export const PRODUCT_IMAGE_OVERRIDES: Record<string, string | string[]> = {
         'michael-kors-pave-logo-bangle': '/products/michael-kors-pave-logo-bangle/hero.png',
         'buccellati-opera-tulle-bracelet': '/products/buccellati-opera-tulle-bracelet/hero.png',
         'bulgari-serpenti-viper-bracelet': '/products/bulgari-serpenti-viper-bracelet/hero.png',
+        'chaumet-josephine-tiara-ring': '/products/chaumet-josephine-tiara-ring/hero.png',
         'graff-icon-diamond-necklace': [],
         'graff-butterfly-diamond-pendant': [],
     }
