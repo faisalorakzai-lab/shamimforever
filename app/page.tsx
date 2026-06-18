@@ -9,7 +9,7 @@ import type { Product } from '@/types'
 const ease = [0.16, 1, 0.3, 1] as const
 
 const JOURNAL_DISPATCHES = [
-  { num: '01', label: 'Dispatch', title: 'The Architecture of Scent', sub: 'How a fragrance is engineered for permanence â not trend.', slug: 'architecture-of-scent', date: 'May 2025' },
+  { num: '01', label: 'Dispatch', title: 'The Architecture of Scent', sub: 'How a fragrance is engineered for permanence Ã¢ÂÂ not trend.', slug: 'architecture-of-scent', date: 'May 2025' },
   { num: '02', label: 'Field Notes', title: 'Sourcing Oud in Assam', sub: 'The forty-year-old trees that make our heaviest accord possible.', slug: 'sourcing-oud-assam', date: 'Apr 2025' },
   { num: '03', label: 'Craft', title: 'Why We Rejected the Formula', sub: 'Fourteen iterations. One final decision. The obsession behind our Signature Blend.', slug: 'rejected-formula', date: 'Mar 2025' },
 ]
@@ -22,16 +22,16 @@ const CATEGORY_TABS = [
 ]
 
 const WORLD_CITIES = [
-  { city: 'Karachi', region: 'Tariq Road', flag: 'ðµð°' },
-  { city: 'Karachi', region: 'Clifton', flag: 'ðµð°' },
-  { city: 'Lahore', region: 'DHA Phase 6', flag: 'ðµð°' },
-  { city: 'Islamabad', region: 'DHA Phase II', flag: 'ðµð°' },
-  { city: 'Peshawar', region: 'Ring Road', flag: 'ðµð°' },
-  { city: 'Dubai', region: 'The Dubai Mall', flag: 'ð¦ðª' },
-  { city: 'London', region: 'New Bond Street', flag: 'ð¬ð§' },
-  { city: 'Paris', region: 'Place VendÃ´me', flag: 'ð«ð·' },
-  { city: 'New York', region: 'Fifth Avenue', flag: 'ðºð¸' },
-  { city: 'Riyadh', region: 'VIA District', flag: 'ð¸ð¦' },
+  { city: 'Karachi', region: 'Tariq Road', flag: 'Ã°ÂÂÂµÃ°ÂÂÂ°' },
+  { city: 'Karachi', region: 'Clifton', flag: 'Ã°ÂÂÂµÃ°ÂÂÂ°' },
+  { city: 'Lahore', region: 'DHA Phase 6', flag: 'Ã°ÂÂÂµÃ°ÂÂÂ°' },
+  { city: 'Islamabad', region: 'DHA Phase II', flag: 'Ã°ÂÂÂµÃ°ÂÂÂ°' },
+  { city: 'Peshawar', region: 'Ring Road', flag: 'Ã°ÂÂÂµÃ°ÂÂÂ°' },
+  { city: 'Dubai', region: 'The Dubai Mall', flag: 'Ã°ÂÂÂ¦Ã°ÂÂÂª' },
+  { city: 'London', region: 'New Bond Street', flag: 'Ã°ÂÂÂ¬Ã°ÂÂÂ§' },
+  { city: 'Paris', region: 'Place VendÃÂ´me', flag: 'Ã°ÂÂÂ«Ã°ÂÂÂ·' },
+  { city: 'New York', region: 'Fifth Avenue', flag: 'Ã°ÂÂÂºÃ°ÂÂÂ¸' },
+  { city: 'Riyadh', region: 'VIA District', flag: 'Ã°ÂÂÂ¸Ã°ÂÂÂ¦' },
 ]
 
 function ParticleField() {
@@ -121,7 +121,7 @@ export default function HomePage() {
   const [activeCategory, setActiveCategory] = useState('all')
   const [loadingProducts, setLoadingProducts] = useState(true)
 
-    // Hero media â all items always in DOM, zero-loading crossfade
+    // Hero media Ã¢ÂÂ all items always in DOM, zero-loading crossfade
     const HERO_MEDIA = [
       { type: 'image' as const, src: '/founder-3.png' },
       { type: 'video' as const, src: '/videos/hero-1.mp4' },
@@ -133,7 +133,7 @@ export default function HomePage() {
     ]
     const [heroIndex, setHeroIndex] = useState(0)
     const heroTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
-    const videoRefs = useRef<(HTMLVideoElement | null)[]>([null, null, null, null, null, null])
+    const videoRefs = useRef<(HTMLVideoElement | null)[]>([null, null, null, null, null, null, null])
 
     function nextHero() {
       setHeroIndex(i => (i + 1) % HERO_MEDIA.length)
@@ -186,14 +186,14 @@ export default function HomePage() {
   return (
     <div className="bg-[#050505] overflow-x-hidden">
 
-      {/* ââââââ HERO ââââââ */}
+      {/* Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ HERO Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ */}
       <section ref={heroRef} className="relative h-[100svh] overflow-hidden bg-[#050505]">
         <div className="absolute inset-0 pointer-events-none z-[1]">
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_80%_at_20%_40%,rgba(201,160,84,0.05)_0%,transparent_70%)]" />
           <ParticleField />
         </div>
 
-        {/* Mobile bg â all media layers always mounted, CSS opacity crossfade */}
+        {/* Mobile bg Ã¢ÂÂ all media layers always mounted, CSS opacity crossfade */}
           <div className="lg:hidden absolute inset-0 z-0">
             {/* Image layer */}
             <div className="absolute inset-0 transition-opacity duration-700" style={{ opacity: heroIndex === 0 ? 1 : 0 }}>
@@ -202,8 +202,8 @@ export default function HomePage() {
                 style={{ filter: 'brightness(0.38) contrast(1.15) saturate(0.85)' }}
               />
             </div>
-            {/* Video layers â always mounted so browser can preload */}
-            {['/videos/hero-1.mp4', '/videos/hero-2.mp4', '/videos/hero-3.mp4', '/products/sovereign-amethyst/sovereign-amethyst-hero.mp4', '/products/shamims-bloom/shamim-bloom-hero.mp4', '/products/swarovski-millenia-tennis-necklace/hero.mp4'].map((src, i) => (
+            {/* Video layers Ã¢ÂÂ always mounted so browser can preload */}
+            {['/products/de-beers-enchanted-lotus/hero.mp4', '/products/swarovski-millenia-tennis-necklace/hero.mp4', '/videos/hero-1.mp4', '/videos/hero-2.mp4', '/videos/hero-3.mp4', '/products/sovereign-amethyst/sovereign-amethyst-hero.mp4', '/products/shamims-bloom/shamim-bloom-hero.mp4'].map((src, i) => (
               <div key={src} className="absolute inset-0 transition-opacity duration-700" style={{ opacity: heroIndex === i + 1 ? 1 : 0 }}>
                 <video
                   ref={el => { videoRefs.current[i] = el }}
@@ -245,7 +245,7 @@ export default function HomePage() {
             </Link>
             <Link href="/our-story"
               className="text-[9px] tracking-[0.4em] uppercase text-zinc-500 hover:text-[#c9a054] transition-colors duration-500">
-              Our Story â
+              Our Story Ã¢ÂÂ
             </Link>
           </motion.div>
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.8, duration: 1 }}
@@ -264,15 +264,15 @@ export default function HomePage() {
             <motion.div style={{ y: heroY, scale: heroScale }} className="absolute inset-0"
               initial={{ opacity: 0 }} animate={{ opacity: 1 }}
               transition={{ duration: 2.2, ease }}>
-              {/* All media layers always mounted â opacity crossfade, zero loading */}
+              {/* All media layers always mounted Ã¢ÂÂ opacity crossfade, zero loading */}
                   {/* Image layer */}
                   <div className="absolute inset-0 transition-opacity duration-700" style={{ opacity: heroIndex === 0 ? 1 : 0 }}>
-                    <img src="/founder-3.png" alt="Shamim â Founder"
+                    <img src="/founder-3.png" alt="Shamim Ã¢ÂÂ Founder"
                       className="absolute inset-0 w-full h-full object-cover object-top"
                       style={{ filter: 'brightness(0.68) contrast(1.12) saturate(0.9)' }}
                     />
                   </div>
-                  {/* Video layers â always in DOM so they buffer on load */}
+                  {/* Video layers Ã¢ÂÂ always in DOM so they buffer on load */}
                   {['/videos/hero-1.mp4', '/videos/hero-2.mp4', '/videos/hero-3.mp4', '/products/sovereign-amethyst/sovereign-amethyst-hero.mp4', '/products/shamims-bloom/shamim-bloom-hero.mp4'].map((src, i) => (
                     <div key={src} className="absolute inset-0 transition-opacity duration-700" style={{ opacity: heroIndex === i + 1 ? 1 : 0 }}>
                       <video
@@ -288,7 +288,7 @@ export default function HomePage() {
             </motion.div>
             <motion.div className="absolute bottom-8 left-8 z-20" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.8, duration: 1.2 }}>
               <div className="w-8 h-px bg-[#c9a054]/40 mb-3" />
-              <p className="text-[8px] tracking-[0.45em] uppercase text-zinc-700">Shamim â Founder</p>
+              <p className="text-[8px] tracking-[0.45em] uppercase text-zinc-700">Shamim Ã¢ÂÂ Founder</p>
             </motion.div>
           </div>
           <motion.div style={{ opacity: heroOpacity }} className="relative flex flex-col justify-center px-14 xl:px-20 py-20">
@@ -316,7 +316,7 @@ export default function HomePage() {
               </Link>
               <Link href="/our-story"
                 className="text-[9px] tracking-[0.4em] uppercase text-zinc-500 hover:text-[#c9a054] transition-colors duration-500">
-                Our Story â
+                Our Story Ã¢ÂÂ
               </Link>
             </motion.div>
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.6, duration: 1.2 }}
@@ -335,14 +335,14 @@ export default function HomePage() {
         <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#c9a054]/8 to-transparent pointer-events-none z-20" />
       </section>
 
-      {/* ââââââ NUMBERS STRIP ââââââ */}
+      {/* Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ NUMBERS STRIP Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ */}
       <section className="border-y border-[#0d0d0d]">
         <div className="grid grid-cols-2 md:grid-cols-4 divide-x divide-y md:divide-y-0 divide-[#0d0d0d]">
           {[
             { value: '100+', label: 'Sovereign Creations' },
             { value: '10', label: 'Global Boutiques' },
             { value: '5', label: 'Countries' },
-            { value: 'â', label: 'Generational Legacy' },
+            { value: 'Ã¢ÂÂ', label: 'Generational Legacy' },
           ].map((stat, i) => (
             <motion.div key={stat.label} initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}
               transition={{ delay: i * 0.08, duration: 0.8 }}
@@ -354,7 +354,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ââââââ EDITORIAL INTRO ââââââ */}
+      {/* Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ EDITORIAL INTRO Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ */}
       <section className="py-16 md:py-28 px-5 md:px-12 lg:px-20">
         <div className="max-w-[1400px] mx-auto grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-20 items-center">
           <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 1.2, ease }}>
@@ -364,7 +364,7 @@ export default function HomePage() {
               <span className="italic text-[#c9a054]">A presence.</span>
             </h2>
             <p className="text-zinc-500 font-light text-sm leading-relaxed mb-8 md:mb-10 max-w-sm">
-              Each creation from Shamim Forever is an act of cultural sovereignty â a distillation of heritage, 
+              Each creation from Shamim Forever is an act of cultural sovereignty Ã¢ÂÂ a distillation of heritage, 
               ambition, and quiet power. We do not make products. We architect identity.
             </p>
             <Link href="/atelier"
@@ -385,7 +385,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ââââââ PRODUCT SHOWCASE ââââââ */}
+      {/* Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ PRODUCT SHOWCASE Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ */}
       <section className="border-t border-[#0d0d0d] pb-14 md:pb-24">
         {/* Category tabs */}
         <div className="flex items-center justify-between border-b border-[#0d0d0d] overflow-x-auto scrollbar-none">
@@ -403,7 +403,7 @@ export default function HomePage() {
           </div>
           <Link href="/shop"
             className="flex-shrink-0 px-5 md:px-8 py-4 md:py-5 text-[9px] tracking-[0.4em] uppercase text-zinc-700 hover:text-[#c9a054] transition-colors duration-500 whitespace-nowrap border-l border-[#0d0d0d]">
-            View All â
+            View All Ã¢ÂÂ
           </Link>
         </div>
 
@@ -430,7 +430,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ââââââ JOURNAL DISPATCH ââââââ */}
+      {/* Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ JOURNAL DISPATCH Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ */}
       <section className="border-t border-[#0d0d0d] py-14 md:py-24">
         <div className="px-5 md:px-12 lg:px-20 max-w-[1400px] mx-auto">
           <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-5 mb-10 md:mb-16">
@@ -443,7 +443,7 @@ export default function HomePage() {
             </motion.div>
             <Link href="/journal"
               className="self-start md:self-auto text-[9px] tracking-[0.45em] uppercase text-zinc-700 hover:text-[#c9a054] transition-colors duration-500">
-              Full Archive â
+              Full Archive Ã¢ÂÂ
             </Link>
           </div>
 
@@ -466,7 +466,7 @@ export default function HomePage() {
                   <div className="flex items-center gap-3">
                     <div className="w-0 h-px bg-[#c9a054] group-hover:w-6 transition-all duration-700" style={{ transitionTimingFunction: 'cubic-bezier(0.16,1,0.3,1)' }} />
                     <span className="text-[7px] tracking-[0.4em] uppercase text-[#c9a054] opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                      Read â {article.date}
+                      Read Ã¢ÂÂ {article.date}
                     </span>
                   </div>
                 </Link>
@@ -476,7 +476,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ââââââ WORLD BOUTIQUES TICKER ââââââ */}
+      {/* Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ WORLD BOUTIQUES TICKER Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ */}
       <section className="border-t border-b border-[#0d0d0d] py-5 overflow-hidden">
         <div className="flex items-center gap-0">
           {/* Two sets for seamless loop */}
@@ -492,7 +492,7 @@ export default function HomePage() {
               <span className="text-[8px] md:text-[9px] tracking-[0.4em] uppercase text-zinc-600 whitespace-nowrap">
                 {loc.city}
               </span>
-              <span className="text-zinc-800 text-xs hidden md:inline">Â·</span>
+              <span className="text-zinc-800 text-xs hidden md:inline">ÃÂ·</span>
               <span className="text-[7px] tracking-[0.3em] uppercase text-zinc-800 whitespace-nowrap hidden md:inline">
                 {loc.region}
               </span>
@@ -505,13 +505,13 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ââââââ TECHNOLOGY STRIP ââââââ */}
+      {/* Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ TECHNOLOGY STRIP Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ */}
       <section className="border-b border-[#0d0d0d]">
         <div className="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-[#0d0d0d]">
           {[
-            { icon: 'â', title: 'Blockchain Verified', desc: 'Each creation carries a unique cryptographic signature â immutable proof of authenticity and provenance.' },
-            { icon: 'â', title: 'Sovereign Vault', desc: 'Members of the Inner Circle gain access to exclusive drops, private viewings, and bespoke commissions.' },
-            { icon: 'â¬¡', title: 'OKBOND Protocol', desc: 'Our proprietary loyalty currency. Pay with OKBOND and receive an automatic 10% sovereign discount.' },
+            { icon: 'Ã¢ÂÂ', title: 'Blockchain Verified', desc: 'Each creation carries a unique cryptographic signature Ã¢ÂÂ immutable proof of authenticity and provenance.' },
+            { icon: 'Ã¢ÂÂ', title: 'Sovereign Vault', desc: 'Members of the Inner Circle gain access to exclusive drops, private viewings, and bespoke commissions.' },
+            { icon: 'Ã¢Â¬Â¡', title: 'OKBOND Protocol', desc: 'Our proprietary loyalty currency. Pay with OKBOND and receive an automatic 10% sovereign discount.' },
           ].map((item, i) => (
             <motion.div key={item.title} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.12, duration: 0.9, ease }}
               className="px-5 md:px-10 lg:px-14 py-10 md:py-16 hover:bg-[#080808] transition-colors duration-700">
@@ -523,7 +523,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ââââââ INNER CIRCLE CTA ââââââ */}
+      {/* Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ INNER CIRCLE CTA Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ */}
       <section className="py-20 md:py-36 px-5 md:px-12 lg:px-20 relative overflow-hidden">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_60%_at_50%_50%,rgba(201,160,84,0.04)_0%,transparent_70%)]" />
         <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 1.2, ease }}
