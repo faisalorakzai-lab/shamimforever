@@ -61,11 +61,11 @@ const HERO_IMAGES: Record<string, string> = {
   all: '/collections/banner-her.png',
   perfume: '/collections/banner-her.png',
   cosmetics: '/collections/banner-unisex.png',
-  jewelry: '/collections/banner-him.png',
+  jewelry: '/collections/banner-jewelry-her.png',
 }
 
 const GENDER_HERO_IMAGES: Record<string, string> = {
-  her: '/collections/banner-her.png',
+  her: '/collections/banner-jewelry-her.png',
   him: '/collections/banner-him.png',
   unisex: '/collections/banner-unisex.png',
 }
