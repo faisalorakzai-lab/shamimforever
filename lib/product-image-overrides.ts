@@ -27,6 +27,7 @@ export const PRODUCT_IMAGE_OVERRIDES: Record<string, string | string[]> = {
       'de-beers-enchanted-lotus-earrings': '/products/de-beers-enchanted-lotus/nft.avif',
       'coach-signature-crystal-studs': '/products/coach-signature-crystal-studs/hero.png',
       'pandora-sparkling-halo-ring': '/products/pandora-sparkling-halo-ring/hero.png',
+        'chopard-happy-diamonds-necklace': '/products/chopard-happy-diamonds-necklace/hero.png',
     }
 
     export const PRODUCT_VIDEO_OVERRIDES: Record<string, string> = {
