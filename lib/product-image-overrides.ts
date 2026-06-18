@@ -30,6 +30,7 @@ export const PRODUCT_IMAGE_OVERRIDES: Record<string, string | string[]> = {
         'chopard-happy-diamonds-necklace': '/products/chopard-happy-diamonds-necklace/hero.png',
         'monica-vinader-siren-gemstone-ring': '/products/monica-vinader-siren-gemstone-ring/hero.png',
         'van-cleef-alhambra-necklace': '/products/van-cleef-alhambra-necklace/hero.png',
+        'michael-kors-pave-logo-bangle': '/products/michael-kors-pave-logo-bangle/hero.png',
         'graff-icon-diamond-necklace': [],
     }
 
