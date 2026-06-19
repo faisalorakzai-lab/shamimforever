@@ -61,5 +61,6 @@ export const PRODUCT_IMAGE_OVERRIDES: Record<string, string | string[]> = {
         'graff-classic-diamond-mens-ring': 'https://uvgtgeauhjbdatrmmaob.supabase.co/storage/v1/object/public/products/graff-classic-diamond-mens-ring/hero.mp4',
         'jacob-co-astronomia-diamond-cuff': 'https://uvgtgeauhjbdatrmmaob.supabase.co/storage/v1/object/public/products/jacob-co-astronomia-diamond-cuff/hero.mp4',
         'bvlgari-bvlgari-ring': 'https://uvgtgeauhjbdatrmmaob.supabase.co/storage/v1/object/public/products/bvlgari-bvlgari-ring/hero.mp4',
-      }
-      
+      'boucheron-quatre-black-edition-ring': 'https://uvgtgeauhjbdatrmmaob.supabase.co/storage/v1/object/public/products/boucheron-quatre-black-edition-ring/hero.mp4',
+    }
+    
