@@ -55,48 +55,56 @@ function ParticleField() {
 }
 
 function ProductCard({ product, index }: { product: Product; index: number }) {
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 50 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: '-40px' }}
-      transition={{ delay: index * 0.12, duration: 1.2, ease }}
-    >
-      <Link href={`/products/${product.id}`} className="block group">
-        <div className="relative aspect-[3/4] bg-[#0a0a0a] overflow-hidden mb-3 md:mb-5">
-          {product.images?.[0] ? (
-            <img src={product.images[0]} alt={product.name} loading="lazy"
-              className="w-full h-full object-cover group-hover:scale-[1.05] transition-transform duration-[1400ms]"
-              style={{ transitionTimingFunction: 'cubic-bezier(0.16,1,0.3,1)' }}
-            />
-          ) : (
-            <div className="w-full h-full flex items-center justify-center">
-              <img src="/logo-icon.png" alt="SF" className="w-10 h-10 object-contain" style={{ opacity: 0.08 }} />
-            </div>
-          )}
-          <div className="absolute inset-0 bg-gradient-to-t from-[#050505]/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
-          <div className="absolute bottom-0 left-0 right-0 p-3 md:p-4 translate-y-full group-hover:translate-y-0 transition-transform duration-700" style={{ transitionTimingFunction: 'cubic-bezier(0.16,1,0.3,1)' }}>
-            <span className="block w-full text-center text-[7px] md:text-[8px] tracking-[0.35em] uppercase text-[#c9a054] border border-[#c9a054]/40 py-2 bg-[#050505]/80 backdrop-blur-sm">
-              View Creation
-            </span>
-          </div>
-          {(product as any).main_category?.name && (
-            <div className="absolute top-2 left-2">
-              <span className="text-[6px] tracking-[0.3em] uppercase text-[#c9a054] bg-[#050505]/80 px-2 py-1">
-                {(product as any).main_category.name}
+    const vidOvr = PRODUCT_VIDEO_OVERRIDES[product.slug] || null
+    const imgOvr = PRODUCT_IMAGE_OVERRIDES[product.slug]
+    const imgSrc = imgOvr ? (Array.isArray(imgOvr) ? imgOvr[0] : imgOvr) : product.images?.[0]
+    return (
+      <motion.div
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: '-40px' }}
+        transition={{ delay: index * 0.12, duration: 1.2, ease }}
+      >
+        <Link href={`/products/${product.slug}`} className="block group">
+          <div className="relative aspect-[3/4] bg-[#0a0a0a] overflow-hidden mb-3 md:mb-5">
+            {vidOvr ? (
+              <video src={vidOvr} autoPlay muted loop playsInline
+                className="w-full h-full object-cover group-hover:scale-[1.05] transition-transform duration-[1400ms]"
+                style={{ transitionTimingFunction: 'cubic-bezier(0.16,1,0.3,1)' }}
+              />
+            ) : imgSrc ? (
+              <img src={imgSrc} alt={product.name} loading="lazy"
+                className="w-full h-full object-cover group-hover:scale-[1.05] transition-transform duration-[1400ms]"
+                style={{ transitionTimingFunction: 'cubic-bezier(0.16,1,0.3,1)' }}
+              />
+            ) : (
+              <div className="w-full h-full flex items-center justify-center">
+                <img src="/logo-icon.png" alt="SF" className="w-10 h-10 object-contain" style={{ opacity: 0.08 }} />
+              </div>
+            )}
+            <div className="absolute inset-0 bg-gradient-to-t from-[#050505]/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+            <div className="absolute bottom-0 left-0 right-0 p-3 md:p-4 translate-y-full group-hover:translate-y-0 transition-transform duration-700" style={{ transitionTimingFunction: 'cubic-bezier(0.16,1,0.3,1)' }}>
+              <span className="block w-full text-center text-[7px] md:text-[8px] tracking-[0.35em] uppercase text-[#c9a054] border border-[#c9a054]/40 py-2 bg-[#050505]/80 backdrop-blur-sm">
+                View Creation
               </span>
             </div>
-          )}
-        </div>
-        <h3 className="font-serif font-light text-sm md:text-base tracking-[0.12em] text-zinc-200 group-hover:text-[#c9a054] transition-colors duration-500 leading-tight mb-1 line-clamp-1">
-          {product.name}
-        </h3>
-        <p className="text-[#c9a054]/70 text-xs font-light tracking-widest">$ {product.price_usd} USD</p>
-      </Link>
-    </motion.div>
-  )
-}
-
+            {(product as any).main_category?.name && (
+              <div className="absolute top-2 left-2">
+                <span className="text-[6px] tracking-[0.3em] uppercase text-[#c9a054] bg-[#050505]/80 px-2 py-1">
+                  {(product as any).main_category.name}
+                </span>
+              </div>
+            )}
+          </div>
+          <h3 className="font-serif font-light text-sm md:text-base tracking-[0.12em] text-zinc-200 group-hover:text-[#c9a054] transition-colors duration-500 leading-tight mb-1 line-clamp-1">
+            {product.name}
+          </h3>
+          <p className="text-[#c9a054]/70 text-xs font-light tracking-widest">$ {product.price_usd} USD</p>
+        </Link>
+      </motion.div>
+    )
+  }
+  
 function ProductSkeleton({ index }: { index: number }) {
   return (
     <motion.div initial={{ opacity: 0, y: 50 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: index * 0.12, duration: 1.2, ease }}>
