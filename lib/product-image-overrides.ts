@@ -36,6 +36,7 @@ export const PRODUCT_IMAGE_OVERRIDES: Record<string, string | string[]> = {
         'chaumet-josephine-tiara-ring': '/products/chaumet-josephine-tiara-ring/hero.png',
         'mikimoto-south-sea-pearl-set': '/products/mikimoto-south-sea-pearl-set/hero.png',
         'cartier-panthere-ring': '/products/cartier-panthere-ring/hero.png',
+        'harry-winston-cluster-diamond-ring': '/products/harry-winston-cluster-diamond-ring/hero.png',
         'graff-icon-diamond-necklace': [],
         'graff-butterfly-diamond-pendant': [],
         'swarovski-millenia-tennis-necklace': [],
