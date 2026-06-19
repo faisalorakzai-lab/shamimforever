@@ -338,7 +338,7 @@ function ShopPageInner({ initialProducts }: { initialProducts: Product[] }) {
                               <>
                                 <video src={_vidOvr} autoPlay muted loop playsInline
                                   style={{ filter: 'brightness(0.9) contrast(1.05)' }}
-                                  className="w-full h-full object-contain" />
+                                  className="w-full h-full object-cover" />
                                 <div className="absolute inset-0 pointer-events-none" style={{ background: 'linear-gradient(135deg,rgba(255,255,255,0.07) 0%,transparent 45%,rgba(0,0,0,0.18) 100%)', transform: 'translateZ(2px)' }} />
                                 <div className="absolute inset-0 pointer-events-none" style={{ boxShadow: isSovereign ? 'inset 0 0 40px rgba(201,160,84,0.08),inset 0 0 0 1px rgba(201,160,84,0.12)' : 'inset 0 0 40px rgba(201,160,84,0.05),inset 0 0 0 1px rgba(201,160,84,0.07)', transform: 'translateZ(4px)' }} />
                                 <div className="absolute bottom-0 left-0 right-0 p-3 md:p-4 opacity-0 hover:opacity-100 transition-opacity duration-500" style={{ transform: 'translateZ(20px)' }}>
