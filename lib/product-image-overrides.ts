@@ -44,6 +44,13 @@ export const PRODUCT_IMAGE_OVERRIDES: Record<string, string | string[]> = {
           'graff-classic-diamond-mens-ring': [],
           'de-beers-talisman-diamond-pendant': [],
           'cartier-juste-un-clou-bracelet': [],
+          'messika-move-titanium-bracelet': 'https://uvgtgeauhjbdatrmmaob.supabase.co/storage/v1/object/public/products/messika-move-titanium-bracelet/hero.png',
+          'chaumet-liens-mens-bracelet': 'https://uvgtgeauhjbdatrmmaob.supabase.co/storage/v1/object/public/products/chaumet-liens-mens-bracelet/hero.png',
+          'pandora-signature-mens-ring': 'https://uvgtgeauhjbdatrmmaob.supabase.co/storage/v1/object/public/products/pandora-signature-mens-ring/hero.png',
+          'fossil-stainless-steel-chain': 'https://uvgtgeauhjbdatrmmaob.supabase.co/storage/v1/object/public/products/fossil-stainless-steel-chain/hero.png',
+          'tommy-hilfiger-classic-bracelet': 'https://uvgtgeauhjbdatrmmaob.supabase.co/storage/v1/object/public/products/tommy-hilfiger-classic-bracelet/hero.png',
+          'swarovski-mens-crystal-ring': 'https://uvgtgeauhjbdatrmmaob.supabase.co/storage/v1/object/public/products/swarovski-mens-crystal-ring/hero.png',
+          'damiani-belle-epoque-cross-pendant': 'https://uvgtgeauhjbdatrmmaob.supabase.co/storage/v1/object/public/products/damiani-belle-epoque-cross-pendant/hero.png',
       }
 
       export const PRODUCT_VIDEO_OVERRIDES: Record<string, string> = {
