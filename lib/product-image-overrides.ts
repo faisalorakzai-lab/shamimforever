@@ -43,6 +43,7 @@ export const PRODUCT_IMAGE_OVERRIDES: Record<string, string | string[]> = {
         'jacob-co-astronomia-diamond-cuff': [],
         'graff-classic-diamond-mens-ring': [],
         'de-beers-talisman-diamond-pendant': [],
+        'cartier-juste-un-clou-bracelet': [],
     }
 
     export const PRODUCT_VIDEO_OVERRIDES: Record<string, string> = {
@@ -55,6 +56,7 @@ export const PRODUCT_IMAGE_OVERRIDES: Record<string, string | string[]> = {
         'graff-butterfly-diamond-pendant': '/products/graff-butterfly-diamond-pendant/hero.mp4',
         'swarovski-millenia-tennis-necklace': '/products/swarovski-millenia-tennis-necklace/hero.mp4',
       'swarovski-constella-bracelet': 'https://uvgtgeauhjbdatrmmaob.supabase.co/storage/v1/object/public/products/swarovski-constella-bracelet/hero.mp4',
+      'cartier-juste-un-clou-bracelet': 'https://uvgtgeauhjbdatrmmaob.supabase.co/storage/v1/object/public/products/cartier-juste-un-clou-bracelet/hero.mp4',
       'de-beers-talisman-diamond-pendant': 'https://uvgtgeauhjbdatrmmaob.supabase.co/storage/v1/object/public/products/de-beers-talisman-diamond-pendant/hero.mp4',
       'graff-classic-diamond-mens-ring': 'https://uvgtgeauhjbdatrmmaob.supabase.co/storage/v1/object/public/products/graff-classic-diamond-mens-ring/hero.mp4',
       'jacob-co-astronomia-diamond-cuff': 'https://uvgtgeauhjbdatrmmaob.supabase.co/storage/v1/object/public/products/jacob-co-astronomia-diamond-cuff/hero.mp4',
