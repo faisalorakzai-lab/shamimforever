@@ -51,6 +51,10 @@ export const PRODUCT_IMAGE_OVERRIDES: Record<string, string | string[]> = {
           'tommy-hilfiger-classic-bracelet': 'https://uvgtgeauhjbdatrmmaob.supabase.co/storage/v1/object/public/products/tommy-hilfiger-classic-bracelet/hero.png',
           'swarovski-mens-crystal-ring': 'https://uvgtgeauhjbdatrmmaob.supabase.co/storage/v1/object/public/products/swarovski-mens-crystal-ring/hero.png',
           'damiani-belle-epoque-cross-pendant': 'https://uvgtgeauhjbdatrmmaob.supabase.co/storage/v1/object/public/products/damiani-belle-epoque-cross-pendant/hero.png',
+          'calvin-klein-minimalist-cuff': 'https://uvgtgeauhjbdatrmmaob.supabase.co/storage/v1/object/public/products/calvin-klein-minimalist-cuff/hero.png',
+          'chopard-ice-cube-bracelet': 'https://uvgtgeauhjbdatrmmaob.supabase.co/storage/v1/object/public/products/chopard-ice-cube-bracelet/hero.png',
+          'van-cleef-perlee-couples-ring': 'https://uvgtgeauhjbdatrmmaob.supabase.co/storage/v1/object/public/products/van-cleef-perlee-couples-ring/hero.png',
+          'piaget-possession-mens-ring': 'https://uvgtgeauhjbdatrmmaob.supabase.co/storage/v1/object/public/products/piaget-possession-mens-ring/hero.png',
       }
 
       export const PRODUCT_VIDEO_OVERRIDES: Record<string, string> = {
