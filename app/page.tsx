@@ -4,6 +4,7 @@ import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion'
 import { useRef, useEffect, useState, useMemo } from 'react'
 import Link from 'next/link'
 import { supabase } from '@/lib/supabase'
+import { PRODUCT_IMAGE_OVERRIDES, PRODUCT_VIDEO_OVERRIDES } from '@/lib/product-image-overrides'
 import type { Product } from '@/types'
 
 const ease = [0.16, 1, 0.3, 1] as const
