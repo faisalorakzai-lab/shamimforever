@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import Link from 'next/link'
+import { useCart } from '@/lib/cart-context'
 import { Copy, Check, Upload, X, Shield, Gem, Droplets, ChevronDown } from 'lucide-react'
 import { formatPKR } from '@/lib/utils'
 import type { Product } from '@/types'
@@ -145,10 +146,13 @@ function Divider() {
 ══════════════════════════════════════════════════════════════════════ */
 export default function EternalGraceSapphirePage({ product }: { product: Product }) {
   const [payMethod,setPayMethod]=useState<PayMethod>('crypto')
+  const { addItem } = useCart()
   const [receipt,setReceipt]=useState<File|null>(null)
   const [orderResult,setOrderResult]=useState<OrderResult|null>(null)
   const [submitting,setSubmitting]=useState(false)
   const [error,setError]=useState('')
+  const [custMessage,setCustMessage]=useState('')
+  const [walletAdded,setWalletAdded]=useState(false)
   const [shipping,setShipping]=useState({name:'',phone:'',address:'',city:'',note:''})
   const videoRef=useRef<HTMLVideoElement>(null)
   useAccount()
@@ -701,91 +705,26 @@ export default function EternalGraceSapphirePage({ product }: { product: Product
             </motion.div>
           ) : (
             <>
-              <div className="pay-cols" style={{display:'grid',gridTemplateColumns:'repeat(3,1fr)',gap:2,marginBottom:32}}>
-                {(['crypto','pkr_manual','cod'] as PayMethod[]).map((m,i)=>(
-                  <button key={m} onClick={()=>setPayMethod(m)} style={{padding:'16px 8px',background:payMethod===m?'rgba(26,86,219,0.07)':'rgba(255,255,255,0.015)',border:payMethod===m?'1px solid '+SAPH:'1px solid rgba(255,255,255,0.06)',color:payMethod===m?WG2:'rgba(255,255,255,0.3)',fontFamily:MONO,fontSize:7.5,letterSpacing:'0.18em',textTransform:'uppercase',cursor:'pointer',transition:'all 0.3s'}}>
-                    {['Crypto · USDT/USDC','Bank Transfer','COD'][i]}
-                  </button>
-                ))}
-              </div>
-
-              {/* Shipping */}
-              <div style={{marginBottom:26}}>
-                <div style={{fontFamily:MONO,fontSize:7,letterSpacing:'0.36em',textTransform:'uppercase',color:'rgba(212,204,184,0.26)',marginBottom:12}}>Delivery Information</div>
-                <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:8,marginBottom:8}}>
-                  <input value={shipping.name} onChange={e=>setShipping(s=>({...s,name:e.target.value}))} placeholder="Full Name" style={INPUT_STYLE}/>
-                  <input value={shipping.phone} onChange={e=>setShipping(s=>({...s,phone:e.target.value}))} placeholder="Phone Number" style={INPUT_STYLE}/>
-                </div>
-                <input value={shipping.address} onChange={e=>setShipping(s=>({...s,address:e.target.value}))} placeholder="Delivery Address" style={{...INPUT_STYLE,marginBottom:8}}/>
-                <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:8}}>
-                  <input value={shipping.city} onChange={e=>setShipping(s=>({...s,city:e.target.value}))} placeholder="City" style={INPUT_STYLE}/>
-                  <input value={shipping.note} onChange={e=>setShipping(s=>({...s,note:e.target.value}))} placeholder="Special Instructions" style={INPUT_STYLE}/>
-                </div>
-              </div>
-
-              <AnimatePresence mode="wait">
-                {payMethod==='crypto' && (
-                  <motion.div key="cr" initial={{opacity:0,y:10}} animate={{opacity:1,y:0}} exit={{opacity:0,y:-10}} transition={{duration:0.3}}>
-                    <div style={{marginBottom:14,padding:'11px 16px',border:'1px solid rgba(26,86,219,0.08)',background:'rgba(26,86,219,0.02)'}}>
-                      <div style={{fontFamily:MONO,fontSize:7.5,letterSpacing:'0.16em',color:'rgba(212,204,184,0.35)',marginBottom:3,textTransform:'uppercase'}}>Polygon · USDT / USDC / OKBOND</div>
-                      <div style={{fontFamily:SERIF,fontSize:13,color:'rgba(255,255,255,0.25)'}}>10% discount with OKBOND · Blockchain confirmed on Polygon</div>
+                <div className="space-y-4">
+                  <textarea
+                    value={custMessage} onChange={e=>setCustMessage(e.target.value)}
+                    placeholder="Message / special instructions (optional)"
+                    style={{width:'100%',background:'transparent',border:'1px solid rgba(255,255,255,0.06)',padding:'12px 16px',fontSize:11,color:'rgba(212,204,184,0.7)',outline:'none',resize:'none',fontFamily:'inherit'}}
+                    rows={3}
+                  />
+                  {walletAdded ? (
+                    <div style={{padding:'16px',border:'1px solid rgba(201,160,84,0.2)',background:'rgba(201,160,84,0.04)',textAlign:'center'}}>
+                      <p style={{fontFamily:'monospace',fontSize:8.5,letterSpacing:'0.4em',textTransform:'uppercase',color:'rgba(201,160,84,0.8)'}}>◆ Added to Wallet</p>
+                      <Link href="/wallet" style={{fontSize:7.5,letterSpacing:'0.3em',textTransform:'uppercase',color:'rgba(212,204,184,0.35)',marginTop:8,display:'inline-block',textDecoration:'none'}}>View Wallet →</Link>
                     </div>
-                    <Web3PaySection priceUsd={product.price_usd} onSuccess={handleCryptoSuccess}/>
-                  </motion.div>
-                )}
-                {payMethod==='pkr_manual' && (
-                  <motion.div key="pk" initial={{opacity:0,y:10}} animate={{opacity:1,y:0}} exit={{opacity:0,y:-10}} transition={{duration:0.3}}>
-                    <div style={{border:'1px solid rgba(26,86,219,0.08)',padding:'26px',background:'rgba(0,0,0,0.2)',marginBottom:16}}>
-                      <div style={{fontFamily:MONO,fontSize:7,letterSpacing:'0.36em',textTransform:'uppercase',color:'rgba(212,204,184,0.26)',marginBottom:18}}>Bank Transfer Details</div>
-                      {[{lab:'Easypaisa',val:EASYPAISA_NUMBER,sub:EASYPAISA_NAME},{lab:'UBL IBAN',val:UBL_IBAN,sub:'Bank Transfer'},{lab:'Amount',val:'Rs '+formatPKR(product.price_pkr),sub:'Exact Amount'}].map(({lab,val,sub})=>(
-                        <div key={lab} style={{marginBottom:14,paddingBottom:14,borderBottom:'1px solid rgba(255,255,255,0.04)'}}>
-                          <div style={{fontFamily:MONO,fontSize:6.5,letterSpacing:'0.2em',color:'rgba(255,255,255,0.18)',textTransform:'uppercase',marginBottom:3}}>{lab}</div>
-                          <div style={{display:'flex',justifyContent:'space-between',alignItems:'center'}}>
-                            <span style={{fontFamily:SERIF,fontSize:14,color:WG}}>{val}</span>
-                            <CopyBtn text={val}/>
-                          </div>
-                          <div style={{fontFamily:MONO,fontSize:7,color:'rgba(255,255,255,0.16)',marginTop:2}}>{sub}</div>
-                        </div>
-                      ))}
-                      <div style={{border:'2px dashed '+(receipt?'rgba(0,255,157,0.2)':'rgba(26,86,219,0.12)'),padding:'22px',textAlign:'center',cursor:'pointer'}}
-                        onClick={()=>document.getElementById('receipt-sg')?.click()}>
-                        <input id="receipt-sg" type="file" accept="image/*,application/pdf" style={{display:'none'}} onChange={e=>setReceipt(e.target.files?.[0]||null)}/>
-                        {receipt?(
-                          <div style={{display:'flex',alignItems:'center',justifyContent:'center',gap:8}}>
-                            <Check size={12} color="#00ff9d"/>
-                            <span style={{fontFamily:SERIF,fontSize:13,color:'rgba(0,255,157,0.65)'}}>{receipt.name}</span>
-                            <button onClick={e=>{e.stopPropagation();setReceipt(null)}} style={{background:'none',border:'none',cursor:'pointer',color:'rgba(255,255,255,0.22)'}}><X size={10}/></button>
-                          </div>
-                        ):(
-                          <><Upload size={13} color={WG} style={{marginBottom:6}}/><div style={{fontFamily:MONO,fontSize:7.5,letterSpacing:'0.2em',color:'rgba(212,204,184,0.36)',textTransform:'uppercase'}}>Upload Payment Receipt</div></>
-                        )}
-                      </div>
-                    </div>
-                    <button onClick={handleManual} disabled={submitting||!receipt}
-                      style={{width:'100%',background:receipt?'linear-gradient(135deg,rgba(26,86,219,0.12),rgba(212,204,184,0.03))':'rgba(255,255,255,0.02)',border:'1px solid '+(receipt?SAPH:'rgba(255,255,255,0.06)'),color:receipt?WG2:'rgba(255,255,255,0.16)',padding:'16px',fontFamily:MONO,fontSize:8,letterSpacing:'0.36em',textTransform:'uppercase',cursor:receipt?'pointer':'not-allowed',transition:'all 0.3s'}}>
-                      {submitting?'Processing...':'Complete Acquisition'}
+                  ) : (
+                    <button
+                      onClick={()=>{ addItem({ product_id:product.id, product_name:product.name, slug:product.slug, price_usd:product.price_usd, quantity:1, image:product.images?.[0]||'', custom_message:custMessage }); setWalletAdded(true) }}
+                      style={{width:'100%',background:'linear-gradient(135deg,rgba(26,86,219,0.09),rgba(212,204,184,0.02))',border:'1px solid rgba(26,86,219,0.25)',color:'rgba(212,204,184,0.8)',padding:'17px',fontFamily:'monospace',fontSize:8.5,letterSpacing:'0.4em',textTransform:'uppercase',cursor:'pointer',transition:'all 0.3s'}}>
+                      ADD TO WALLET
                     </button>
-                  </motion.div>
-                )}
-                {payMethod==='cod' && (
-                  <motion.div key="cd" initial={{opacity:0,y:10}} animate={{opacity:1,y:0}} exit={{opacity:0,y:-10}} transition={{duration:0.3}}>
-                    <div style={{border:'1px solid rgba(26,86,219,0.08)',padding:'26px',background:'rgba(0,0,0,0.2)',marginBottom:16}}>
-                      <div style={{fontFamily:MONO,fontSize:7,letterSpacing:'0.36em',textTransform:'uppercase',color:'rgba(212,204,184,0.26)',marginBottom:14}}>Cash on Delivery</div>
-                      <p style={{fontFamily:SERIF,fontSize:14,color:'rgba(255,255,255,0.38)',lineHeight:1.8,marginBottom:14}}>Your Eternal Grace Sapphire Set will be delivered by certified white-glove courier. Payment collected upon delivery. A 5% COD surcharge applies.</p>
-                      <div style={{display:'flex',gap:20,flexWrap:'wrap'}}>
-                        <div><div style={{fontFamily:MONO,fontSize:6.5,color:'rgba(255,255,255,0.18)',textTransform:'uppercase',marginBottom:3}}>COD Amount</div><div style={{fontFamily:SERIF,fontSize:18,color:WG}}>Rs {formatPKR(Math.round(product.price_pkr*1.05))}</div></div>
-                        <div><div style={{fontFamily:MONO,fontSize:6.5,color:'rgba(255,255,255,0.18)',textTransform:'uppercase',marginBottom:3}}>Delivery</div><div style={{fontFamily:SERIF,fontSize:18,color:WG}}>3–5 Business Days</div></div>
-                      </div>
-                    </div>
-                    <button onClick={handleCOD} disabled={submitting||!shipping.name||!shipping.phone||!shipping.address}
-                      style={{width:'100%',background:'linear-gradient(135deg,rgba(26,86,219,0.11),rgba(212,204,184,0.03))',border:'1px solid '+SAPH,color:WG2,padding:'16px',fontFamily:MONO,fontSize:8,letterSpacing:'0.36em',textTransform:'uppercase',cursor:'pointer',transition:'all 0.3s'}}>
-                      {submitting?'Confirming...':'Confirm Archive Acquisition'}
-                    </button>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-              {error&&<div style={{marginTop:10,padding:'10px 13px',border:'1px solid rgba(255,80,80,0.12)',background:'rgba(255,80,80,0.03)',fontFamily:MONO,fontSize:8,color:'rgba(255,120,120,0.65)'}}>{error}</div>}
-            </>
+                  )}
+                </div>
           )}
         </div>
       </div>
