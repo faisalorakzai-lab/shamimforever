@@ -8,6 +8,7 @@ import { useAccount, useWriteContract, useWaitForTransactionReceipt } from 'wagm
 import { ConnectButton } from '@rainbow-me/rainbowkit'
 import { parseUnits } from 'viem'
 import { supabase } from '@/lib/supabase'
+import { useCart } from '@/lib/cart-context'
 import type { Product } from '@/types'
 import { formatPKR } from '@/lib/utils'
 
@@ -222,6 +223,8 @@ export default function QueenOfTaifPage({ product }: { product: Product }) {
   const [custPhone, setCustPhone] = useState('')
   const [custAddress, setCustAddress] = useState('')
   const [custCity, setCustCity] = useState('')
+  const [custMessage, setCustMessage] = useState('')
+  const [walletAdded, setWalletAdded] = useState(false)
 
   const story: StoryData = (() => {
     try {
@@ -257,6 +260,7 @@ export default function QueenOfTaifPage({ product }: { product: Product }) {
     }
   })()
 
+  const { addItem } = useCart()
   const images = product.images ?? []
   const scentPyramid = story.scentPyramid
 
@@ -619,15 +623,27 @@ export default function QueenOfTaifPage({ product }: { product: Product }) {
                         ))}
                       </div>
                     </div>
-                    <div>
-                      <p className="text-[8px] tracking-[0.4em] uppercase text-zinc-600 mb-3">
-                        Pay with Crypto · Polygon Network
-                      </p>
-                      <Web3PaySection
-                        priceUsd={product.price_usd}
-                        onSuccess={handleWeb3Success}
-                      />
-                    </div>
+                    <div className="space-y-3">
+                        <textarea
+                          value={custMessage} onChange={e => setCustMessage(e.target.value)}
+                          placeholder="Message / special instructions (optional)"
+                          className="w-full bg-transparent border border-[#1a1a1a] px-4 py-3 text-[10px] text-zinc-300 focus:border-[#c9a054]/30 focus:outline-none transition-colors resize-none"
+                          rows={3}
+                        />
+                        {walletAdded ? (
+                          <div className="p-4 border border-[#c9a054]/20 bg-[#c9a054]/5 text-center">
+                            <p className="text-[9px] tracking-[0.45em] uppercase text-[#c9a054]">◆ Added to Wallet</p>
+                            <Link href="/wallet" className="text-[7px] tracking-[0.3em] uppercase text-zinc-500 hover:text-zinc-300 transition-colors mt-2 inline-block">View Wallet →</Link>
+                          </div>
+                        ) : (
+                          <button
+                            onClick={() => { addItem({ product_id: product.id, product_name: product.name, slug: product.slug, price_usd: product.price_usd, quantity: 1, image: product.images?.[0] || '', custom_message: custMessage }); setWalletAdded(true) }}
+                            className="w-full py-4 flex items-center justify-center gap-3 border border-[#c9a054]/40 text-[9px] tracking-[0.5em] uppercase text-[#c9a054] hover:bg-[#c9a054]/10 transition-all duration-500"
+                          >
+                            ADD TO WALLET
+                          </button>
+                        )}
+                      </div>
                     <div className="pt-4 border-t border-[#0d0d0d]">
                       <p className="text-[8px] tracking-[0.4em] uppercase text-[#c9a054] mb-2">
                         Sovereign Acquisition
