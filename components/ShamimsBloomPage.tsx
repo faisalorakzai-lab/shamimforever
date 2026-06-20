@@ -5,6 +5,7 @@ import { motion, useScroll, useTransform } from 'framer-motion'
 import Link from 'next/link'
 import { Copy, Check } from 'lucide-react'
 import { supabase } from '@/lib/supabase'
+import { useCart } from '@/lib/cart-context'
 import type { Product } from '@/types'
 import { formatPKR } from '@/lib/utils'
 
@@ -171,10 +172,13 @@ export default function ShamimsBloomPage({ product, onBack }: Props) {
   const [submitting, setSubmitting] = useState(false)
   const [placed, setPlaced] = useState(false)
   const [err, setErr] = useState<string | null>(null)
+  const [custMessage, setCustMessage] = useState('')
+  const [walletAdded, setWalletAdded] = useState(false)
   const [walletAddr, setWalletAddr] = useState('')
   const [nftStatus, setNftStatus] = useState<'idle' | 'minting' | 'minted'>('idle')
   const [mintedTx, setMintedTx] = useState('')
 
+  const { addItem } = useCart()
   const isOK = payMethod === 'crypto' && coin === 'OKBOND'
   const basePkr = product.price_pkr || 85000
   const baseUsd = product.price_usd || 306
@@ -834,93 +838,27 @@ export default function ShamimsBloomPage({ product, onBack }: Props) {
               </div>
             </div>
 
-            <div className="mb-8">
-              <p className="text-[7px] tracking-[0.4em] uppercase text-zinc-600 mb-4">Payment Method</p>
-              <div className="flex gap-0 border border-[#1a1a1a]">
-                {(['crypto', 'pkr_manual', 'cod'] as PayMethod[]).map(m => (
+              <div className="mb-8 space-y-3">
+                <textarea
+                  value={custMessage} onChange={e => setCustMessage(e.target.value)}
+                  placeholder="Message / special instructions (optional)"
+                  className="w-full bg-transparent border border-[#1a1a1a] px-4 py-3 text-[10px] text-zinc-300 focus:border-[#c9a054]/30 focus:outline-none transition-colors resize-none"
+                  rows={3}
+                />
+                {walletAdded ? (
+                  <div className="p-4 border border-[#c9a054]/20 bg-[#c9a054]/5 text-center">
+                    <p className="text-[9px] tracking-[0.45em] uppercase text-[#c9a054]">◆ Added to Wallet</p>
+                    <Link href="/wallet" className="text-[7px] tracking-[0.3em] uppercase text-zinc-500 hover:text-zinc-300 transition-colors mt-2 inline-block">View Wallet →</Link>
+                  </div>
+                ) : (
                   <button
-                    key={m} onClick={() => setPayMethod(m)}
-                    className={'flex-1 py-3 text-[8px] tracking-[0.25em] uppercase transition-all duration-300 ' + (payMethod === m ? 'bg-[#c9a054]/10 text-[#c9a054] border-b-2 border-b-[#c9a054]' : 'text-zinc-600 hover:text-zinc-400')}
+                    onClick={() => { addItem({ product_id: product.id, product_name: product.name, slug: product.slug, price_usd: product.price_usd, quantity: qty, image: product.images?.[0] || '', custom_message: custMessage }); setWalletAdded(true) }}
+                    className="w-full py-4 border border-[#c9a054]/40 text-[9px] tracking-[0.5em] uppercase text-[#c9a054] hover:bg-[#c9a054]/10 transition-all duration-500"
                   >
-                    {m === 'crypto' ? 'Crypto' : m === 'pkr_manual' ? 'PKR Bank' : 'COD'}
+                    ADD TO WALLET
                   </button>
-                ))}
+                )}
               </div>
-            </div>
-
-            {payMethod === 'crypto' && (
-              <div className="mb-8 space-y-4">
-                <div className="flex gap-2">
-                  {(['USDT', 'USDC', 'OKBOND'] as Coin[]).map(c => (
-                    <button
-                      key={c} onClick={() => setCoin(c)}
-                      className={'flex-1 py-2.5 text-[8px] tracking-[0.2em] uppercase border transition-all duration-300 ' + (coin === c ? 'border-[#c9a054]/50 text-[#c9a054] bg-[#c9a054]/5' : 'border-[#1a1a1a] text-zinc-600 hover:text-zinc-400')}
-                    >
-                      {c}{c === 'OKBOND' ? ' −10%' : ''}
-                    </button>
-                  ))}
-                </div>
-                <div className="p-4 border border-[#1a1a1a] bg-[#080808]">
-                  <p className="text-[7px] tracking-[0.35em] uppercase text-zinc-600 mb-2">Send to Wallet</p>
-                  <div className="flex items-center justify-between gap-2">
-                    <p className="text-[9px] text-zinc-400 font-mono truncate">{WALLET}</p>
-                    <CopyBtn text={WALLET} />
-                  </div>
-                </div>
-                <input
-                  value={txHash} onChange={e => setTxHash(e.target.value)}
-                  placeholder="Transaction hash (0x...)"
-                  className="w-full bg-transparent border border-[#1a1a1a] px-4 py-3 text-[10px] text-zinc-300 focus:border-[#c9a054]/30 focus:outline-none transition-colors"
-                />
-              </div>
-            )}
-
-            {payMethod === 'pkr_manual' && (
-              <div className="mb-8 p-5 border border-[#1a1a1a] bg-[#080808] space-y-3">
-                <div className="flex justify-between items-center py-2 border-b border-[#111]">
-                  <span className="text-[7px] tracking-[0.3em] uppercase text-zinc-600">EasyPaisa</span>
-                  <div className="flex items-center gap-2">
-                    <span className="text-zinc-400 text-xs font-light">03367970004 · M Faisal</span>
-                    <CopyBtn text="03367970004" />
-                  </div>
-                </div>
-                <div className="flex justify-between items-center py-2">
-                  <span className="text-[7px] tracking-[0.3em] uppercase text-zinc-600">UBL IBAN</span>
-                  <div className="flex items-center gap-2">
-                    <span className="text-zinc-400 text-[10px] font-light">PK13UNIL0109000318870498</span>
-                    <CopyBtn text="PK13UNIL0109000318870498" />
-                  </div>
-                </div>
-                <input
-                  placeholder="Transaction ID or reference"
-                  className="w-full bg-transparent border border-[#1a1a1a] px-4 py-3 text-[10px] text-zinc-300 focus:border-[#c9a054]/30 focus:outline-none transition-colors mt-2"
-                />
-              </div>
-            )}
-
-            <div className="mb-8 space-y-3">
-              <p className="text-[7px] tracking-[0.4em] uppercase text-zinc-600 mb-4">Delivery Information</p>
-              {[
-                { v: name, s: setName, ph: 'Full Name' },
-                { v: phone, s: setPhone, ph: 'Phone Number' },
-                { v: addr, s: setAddr, ph: 'Delivery Address' },
-                { v: city, s: setCity, ph: 'City' },
-              ].map(({ v, s, ph }) => (
-                <input
-                  key={ph} value={v} onChange={e => s(e.target.value)} placeholder={ph}
-                  className="w-full bg-transparent border border-[#1a1a1a] px-4 py-3 text-[10px] text-zinc-300 focus:border-[#c9a054]/30 focus:outline-none transition-colors"
-                />
-              ))}
-            </div>
-
-            {err && <p className="text-red-400/80 text-[10px] mb-4">{err}</p>}
-
-            <button
-              onClick={placeOrder} disabled={submitting}
-              className="w-full py-4 border border-[#c9a054]/40 text-[9px] tracking-[0.5em] uppercase text-[#c9a054] hover:bg-[#c9a054]/10 transition-all duration-500 disabled:opacity-50"
-            >
-              {submitting ? 'Processing...' : 'Place Sovereign Order'}
-            </button>
 
             <div className="mt-6 flex items-center justify-center gap-6 text-[7px] tracking-[0.3em] uppercase text-zinc-700">
               <span>◆ Secure</span>
