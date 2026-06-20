@@ -35,6 +35,8 @@ import { MetadataRoute } from 'next'
       { path: '/shop',            priority: 0.95, changeFrequency: 'daily'   as const },
       { path: '/collections',     priority: 0.85, changeFrequency: 'weekly'  as const },
       { path: '/our-story',       priority: 0.80, changeFrequency: 'monthly' as const },
+      { path: '/founder',         priority: 0.85, changeFrequency: 'monthly' as const },
+      { path: '/about',           priority: 0.80, changeFrequency: 'monthly' as const },
       { path: '/journal',         priority: 0.75, changeFrequency: 'weekly'  as const },
       { path: '/gallery',         priority: 0.70, changeFrequency: 'weekly'  as const },
       { path: '/boutiques',       priority: 0.65, changeFrequency: 'monthly' as const },
