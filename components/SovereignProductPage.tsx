@@ -41,7 +41,6 @@ import type { Product } from '@/types'
   }
   import { SOVEREIGN_CONFIGS, type SovereignConfig } from '@/lib/sovereign-configs'
 
-type PayMethod = 'crypto' | 'pkr_manual'
 interface OrderResult { order_id: string; order_ref: string; tracking_ref: string; status: string; track_url: string }
 
 
@@ -186,11 +185,6 @@ export default function SovereignProductPage({ product }: { product: Product }) 
   const textY = useTransform(scrollYProgress, [0, 0.6], [0, 60])
 
   const [quantity, setQuantity] = useState(1)
-  const [payMethod, setPayMethod] = useState<PayMethod>('crypto')
-  const [txId, setTxId] = useState('')
-  const [proofFile, setProofFile] = useState<File | null>(null)
-  const [proofPreview, setProofPreview] = useState<string | null>(null)
-  const [submitting, setSubmitting] = useState(false)
   const [orderResult, setOrderResult] = useState<OrderResult | null>(null)
   const [orderError, setOrderError] = useState<string | null>(null)
   const [custName, setCustName] = useState('')
@@ -236,61 +230,14 @@ export default function SovereignProductPage({ product }: { product: Product }) 
       setRecentlyViewed(filtered.slice(0, 5))
     }, [product?.slug])
 
-  const callCheckout = useCallback(async (opts: { paymentMethod: string; paymentStatus: string; txHash?: string; proofUrl?: string; walletAddress?: string }) => {
-    if (!product) throw new Error('No product')
-    const discount = opts.paymentMethod === 'okbond' ? 10 : 0
-    const totalUsd = parseFloat((product.price_usd * quantity * (1 - discount / 100)).toFixed(2))
-    const res = await fetch('/api/v1/checkout', {
-      method: 'POST', headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        product_id: product.id, product_name: product.name, quantity,
-        payment_method: opts.paymentMethod, payment_status: opts.paymentStatus,
-        tx_hash: opts.txHash || null,
-        shipping_address: { name: custName, phone: custPhone, line1: custAddress, city: custCity, country: custCountry },
-        total_pkr: product.price_pkr * quantity, total_usd: totalUsd, discount_applied: discount,
-        price_pkr: product.price_pkr, price_usd: product.price_usd,
-        wallet_address: opts.walletAddress || null, payment_proof_url: opts.proofUrl || null,
-        rarity_tier: config.nftRarity,
-      }),
-    })
-    const data = await res.json()
-    if (!data.success) throw new Error(data.error || 'Checkout failed')
-    return data as OrderResult
-  }, [product, quantity, custName, custPhone, custAddress, custCity, custCountry, config.nftRarity])
-
-  const handleWeb3Success = useCallback(async (txHash: string, coin: CoinType) => {
-    try {
-      setOrderResult(await callCheckout({ paymentMethod: coin.toLowerCase(), paymentStatus: 'paid', txHash, walletAddress: walletAddress || undefined }))
-    } catch (err: any) {
-      setOrderError(err?.message || 'Payment received. Contact us with your TX hash.')
-    }
-  }, [callCheckout, walletAddress])
-
-  async function handlePlaceOrder() {
-    if (!custName || !custPhone || !custAddress || !custCity) { setOrderError('Please fill in all delivery details.'); return }
-    if (payMethod === 'pkr_manual' && !txId && !proofFile) { setOrderError('Please provide Transaction ID or screenshot.'); return }
-    setSubmitting(true); setOrderError(null)
-    try {
-      let proofUrl: string | null = null
-      if (proofFile && proofPreview) {
-        const up = await fetch('/api/upload', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ imageStr: proofPreview }) })
-        const ud = await up.json(); if (ud.url) proofUrl = ud.url
-      }
-      setOrderResult(await callCheckout({ paymentMethod: payMethod, paymentStatus: 'awaiting_verification', proofUrl: proofUrl || undefined, txHash: txId || undefined }))
-    } catch (err: any) {
-      setOrderError(err?.message || 'Failed to place order.')
-    }
-    setSubmitting(false)
-  }
-
   async function handleMintNFT() {
-    const addr = (mintWallet.trim() || walletAddress) as string | undefined
+    const addr = mintWallet.trim() as string | undefined
     if (!addr || !addr.startsWith('0x')) { setMintStatus('error'); return }
     setMintStatus('minting')
     try {
       const res = await fetch('/api/nft/mint', {
         method: 'POST', headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ walletAddress: addr }),
+        body: JSON.stringify({ walletAddress: addr || '' }),
       })
       const data = await res.json()
       if (!data.success) throw new Error(data.error || 'Mint failed')
@@ -738,10 +685,10 @@ export default function SovereignProductPage({ product }: { product: Product }) 
                   ) : (
                     <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
                       <p style={{ fontSize: 11, color: 'rgba(240,236,228,0.32)', lineHeight: 1.8, fontWeight: 300 }}>After purchase, enter your Polygon wallet address to receive your Sovereign Passport NFT. Works with MetaMask, Trust Wallet, Coinbase Wallet and all WalletConnect wallets.</p>
-                      {walletAddress ? (
+                      {mintWallet ? (
                         <div style={{ display:'flex', alignItems:'center', gap:8, padding:'10px 14px', background:'rgba(201,160,84,0.04)', border:'1px solid rgba(201,160,84,0.14)' }}>
                           <div style={{ width:5, height:5, borderRadius:'50%', background:'#c9a054', flexShrink:0 }} />
-                          <p style={{ fontFamily:'monospace', fontSize:9, color:'#c9b894', flex:1, overflow:'hidden', textOverflow:'ellipsis', whiteSpace:'nowrap' }}>{walletAddress}</p>
+                          <p style={{ fontFamily:'monospace', fontSize:9, color:'#c9b894', flex:1, overflow:'hidden', textOverflow:'ellipsis', whiteSpace:'nowrap' }}>{mintWallet}</p>
                           <p style={{ fontSize:6, letterSpacing:'0.4em', color:'rgba(201,160,84,0.5)', textTransform:'uppercase', flexShrink:0 }}>Connected</p>
                         </div>
                       ) : (
