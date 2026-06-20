@@ -1,4 +1,5 @@
 'use client'
+import { useCart } from '@/lib/cart-context'
 
 import { useEffect, useRef, useState, useCallback } from 'react'
 import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion'
@@ -216,7 +217,11 @@ function NftCard({ product, story }: { product: Product; story: ParsedStory | nu
   const [custPhone, setCustPhone] = useState('')
   const [custAddress, setCustAddress] = useState('')
   const [custCity, setCustCity] = useState('')
+  const [custCountry, setCustCountry] = useState('')
+  const [custMessage, setCustMessage] = useState('')
+  const [walletAdded, setWalletAdded] = useState(false)
   const { address: walletAddress } = useAccount()
+  const { addItem } = useCart()
   const [story, setStory] = useState<ParsedStory | null>(null)
 
   useEffect(() => {
@@ -455,6 +460,7 @@ function NftCard({ product, story }: { product: Product; story: ParsedStory | nu
                 { v: custPhone, s: setCustPhone, ph: 'Phone Number *' },
                 { v: custAddress, s: setCustAddress, ph: 'Delivery Address *' },
                 { v: custCity, s: setCustCity, ph: 'City *' },
+                { v: custCountry, s: setCustCountry, ph: 'Country *' },
               ] as { v: string; s: (val: string) => void; ph: string }[]).map(({ v, s, ph }) => (
                 <input
                   key={ph}
@@ -469,97 +475,20 @@ function NftCard({ product, story }: { product: Product; story: ParsedStory | nu
             </div>
 
             <div>
-              <p style={{ fontSize: 7, letterSpacing: '0.5em', textTransform: 'uppercase', color: '#3f3830', padding: '12px 18px', background: '#0a0703', border: '1px solid rgba(201,160,84,0.06)', marginBottom: 2 }}>Payment Method</p>
-              <div className="lux-pay-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: 2, marginBottom: 12 }}>
-                {(['crypto', 'pkr_manual', 'cod'] as PayMethod[]).map(m => (
-                  <button
-                    key={m}
-                    onClick={() => setPayMethod(m)}
-                    style={{ padding: '13px 4px', fontSize: 7, letterSpacing: '0.2em', textTransform: 'uppercase', cursor: 'pointer', background: payMethod === m ? 'rgba(201,160,84,0.07)' : '#080602', color: payMethod === m ? '#c9a054' : '#3f3830', border: payMethod === m ? '1px solid rgba(201,160,84,0.28)' : '1px solid rgba(255,255,255,0.03)', transition: 'all 0.3s' }}
-                  >
-                    {m === 'crypto' ? '◆ Crypto' : m === 'pkr_manual' ? 'PKR Transfer' : 'COD'}
+              <p style={{ fontSize: 7, letterSpacing: '0.5em', textTransform: 'uppercase', color: '#3f3830', padding: '12px 18px', background: '#0a0703', border: '1px solid rgba(201,160,84,0.06)', marginBottom: 2 }}>Custom Message / Size</p>
+                <textarea value={custMessage} onChange={e => setCustMessage(e.target.value)} placeholder="Optional: size, personalization, or special instructions..." rows={3}
+                  style={{ width: '100%', padding: '14px 18px', background: '#080602', border: '1px solid rgba(201,160,84,0.08)', color: '#e8dcc8', fontSize: 11, letterSpacing: '0.08em', outline: 'none', marginBottom: 12, resize: 'vertical', fontFamily: 'inherit' }} />
+                {walletAdded ? (
+                  <div style={{ padding: '20px', textAlign: 'center', border: '1px solid rgba(201,160,84,0.25)', background: 'rgba(201,160,84,0.04)' }}>
+                    <p style={{ color: '#c9a054', fontSize: 10, letterSpacing: '0.35em', textTransform: 'uppercase', marginBottom: 10 }}>✓ Added to Wallet</p>
+                    <a href="/wallet" style={{ color: '#c9a054', fontSize: 9, letterSpacing: '0.35em', textTransform: 'uppercase', textDecoration: 'underline' }}>View Wallet →</a>
+                  </div>
+                ) : (
+                  <button onClick={() => { if (!custName || !custPhone || !custAddress || !custCity || !custCountry) { setError('Please fill all delivery fields'); return } setError(null); addItem({ product_id: product.id, product_name: product.name, slug: (product as any).slug || '', price_usd: product.price_usd, quantity, image: product.images?.[0] || '', custom_message: custMessage }); setWalletAdded(true) }}
+                    style={{ width: '100%', padding: '17px', background: '#c9a054', color: '#050505', fontSize: 9, letterSpacing: '0.5em', textTransform: 'uppercase', cursor: 'pointer', border: 'none', fontWeight: 600 }}>
+                    + ADD TO WALLET
                   </button>
-                ))}
-              </div>
-
-              <AnimatePresence mode="wait">
-                {payMethod === 'crypto' && (
-                  <motion.div key="crypto" initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}>
-                    <Web3PaySection priceUsd={product.price_usd * quantity} onSuccess={handleWeb3Success} />
-                  </motion.div>
                 )}
-                {payMethod === 'pkr_manual' && (
-                  <motion.div key="pkr" initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} style={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
-                    <div style={{ border: '1px solid rgba(201,160,84,0.1)', background: '#080602' }}>
-                      {([
-                        ['EasyPaisa', `${EASYPAISA_NUMBER} · ${EASYPAISA_NAME}`, EASYPAISA_NUMBER],
-                        ['UBL IBAN', UBL_IBAN, UBL_IBAN],
-                      ] as [string, string, string][]).map(([lbl, val, copyVal], i, arr) => (
-                        <div key={lbl} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: 8, padding: '14px 18px', borderBottom: i < arr.length - 1 ? '1px solid rgba(255,255,255,0.03)' : 'none' }}>
-                          <p style={{ fontSize: 7, letterSpacing: '0.4em', textTransform: 'uppercase', color: '#3f3830' }}>{lbl}</p>
-                          <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                            <p style={{ fontFamily: 'monospace', fontSize: 10, color: '#c9b894', wordBreak: 'break-all' }}>{val}</p>
-                            <CopyBtn text={copyVal} />
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                    <input
-                      value={txId}
-                      onChange={e => setTxId(e.target.value)}
-                      placeholder="Transaction ID / Reference Number"
-                      style={{ background: '#080602', border: '1px solid rgba(201,160,84,0.07)', padding: '13px 18px', fontSize: 11, color: '#c9b894', outline: 'none', width: '100%', boxSizing: 'border-box' }}
-                    />
-                    <label style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '13px 18px', border: '1px dashed rgba(201,160,84,0.1)', cursor: 'pointer', background: '#080602' }}>
-                      <Upload size={11} color="rgba(201,160,84,0.35)" />
-                      <span style={{ fontSize: 7, letterSpacing: '0.3em', textTransform: 'uppercase', color: '#3f3830' }}>Upload Payment Screenshot</span>
-                      <input
-                        type="file"
-                        accept="image/*"
-                        onChange={e => {
-                          const f = e.target.files?.[0]; if (!f) return; setProofFile(f)
-                          const r = new FileReader(); r.onload = ev => setProofPreview(ev.target?.result as string); r.readAsDataURL(f)
-                        }}
-                        className="hidden"
-                      />
-                    </label>
-                    {proofPreview && (
-                      <div style={{ position: 'relative', display: 'inline-block' }}>
-                        <img src={proofPreview} alt="proof" style={{ height: 72, opacity: 0.7 }} />
-                        <button onClick={() => { setProofFile(null); setProofPreview(null) }} style={{ position: 'absolute', top: 3, right: 3, background: 'none', border: 'none', cursor: 'pointer', color: '#c9a054' }}><X size={11} /></button>
-                      </div>
-                    )}
-                    {orderError && <p style={{ fontSize: 9, color: 'rgba(248,113,113,0.65)', padding: '4px 0' }}>{orderError}</p>}
-                    <button
-                      onClick={handlePlaceOrder}
-                      disabled={submitting}
-                      className="group"
-                      style={{ position: 'relative', overflow: 'hidden', padding: '17px', border: '1px solid rgba(201,160,84,0.4)', fontSize: 8, letterSpacing: '0.65em', textTransform: 'uppercase', color: '#c9a054', cursor: submitting ? 'not-allowed' : 'pointer', opacity: submitting ? 0.5 : 1, background: 'none', width: '100%' }}
-                    >
-                      <span className="group-hover:translate-x-0 -translate-x-full absolute inset-0 bg-[#c9a054] transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]" />
-                      <span className="relative group-hover:text-black transition-colors duration-150">{submitting ? 'Processing...' : 'Submit Order'}</span>
-                    </button>
-                  </motion.div>
-                )}
-                {payMethod === 'cod' && (
-                  <motion.div key="cod" initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-                    <div style={{ padding: '20px 18px', border: '1px solid rgba(201,160,84,0.1)', background: '#080602' }}>
-                      <p style={{ fontFamily: SERIF, fontSize: 20, color: '#c9b894', marginBottom: 6 }}>Cash on Delivery</p>
-                      <p style={{ fontSize: 12, color: 'rgba(255,255,255,0.25)', fontWeight: 300, lineHeight: 1.8 }}>Pay upon delivery. Available within Pakistan. Confirmed via WhatsApp within 2 hours.</p>
-                    </div>
-                    {orderError && <p style={{ fontSize: 9, color: 'rgba(248,113,113,0.65)' }}>{orderError}</p>}
-                    <button
-                      onClick={handlePlaceOrder}
-                      disabled={submitting}
-                      className="group"
-                      style={{ position: 'relative', overflow: 'hidden', padding: '17px', border: '1px solid rgba(201,160,84,0.4)', fontSize: 8, letterSpacing: '0.65em', textTransform: 'uppercase', color: '#c9a054', cursor: submitting ? 'not-allowed' : 'pointer', opacity: submitting ? 0.5 : 1, background: 'none', width: '100%' }}
-                    >
-                      <span className="group-hover:translate-x-0 -translate-x-full absolute inset-0 bg-[#c9a054] transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]" />
-                      <span className="relative group-hover:text-black transition-colors duration-150">{submitting ? 'Placing Order...' : 'Confirm COD Order'}</span>
-                    </button>
-                  </motion.div>
-                )}
-              </AnimatePresence>
             </div>
           </div>
         </div>
