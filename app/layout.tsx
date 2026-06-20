@@ -6,6 +6,7 @@ import type { Metadata } from 'next'
   import Footer from '@/components/Footer'
   import LuxuryCursor from '@/components/LuxuryCursor'
   import { Web3Provider } from '@/components/Web3Provider'
+import { CartProvider } from '@/lib/cart-context'
 
   export const metadata: Metadata = {
     metadataBase: new URL('https://shamimforever.com'),
@@ -201,6 +202,7 @@ import type { Metadata } from 'next'
             />
           </head>
         <body className="bg-[#050505] text-zinc-200 antialiased cursor-none lg:cursor-none">
+          <CartProvider>
           <Web3Provider>
             <LuxuryCursor />
             <Navigation />
@@ -209,6 +211,7 @@ import type { Metadata } from 'next'
             </main>
             <Footer />
           </Web3Provider>
+          </CartProvider>
           <Script
             src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.5.0/model-viewer.min.js"
             strategy="afterInteractive"
