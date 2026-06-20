@@ -7,9 +7,8 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import Link from 'next/link'
 import { Copy, Check, Upload, X, ExternalLink, ArrowDown } from 'lucide-react'
 import { formatPKR } from '@/lib/utils'
+import { useCart } from '@/lib/cart-context'
 import type { Product } from '@/types'
-import Web3PaySection, { type CoinType } from '@/components/Web3PaySection'
-import { useAccount } from 'wagmi'
   import { PRODUCT_VIDEO_OVERRIDES } from '@/lib/product-image-overrides'
 
   declare global {
@@ -199,9 +198,11 @@ export default function SovereignProductPage({ product }: { product: Product }) 
   const [custAddress, setCustAddress] = useState('')
   const [custCity, setCustCity] = useState('')
   const [custCountry, setCustCountry] = useState('Pakistan')
+  const [custMessage, setCustMessage] = useState('')
+  const [walletAdded, setWalletAdded] = useState(false)
+  const { addItem } = useCart()
   const [liveRates, setLiveRates] = useState<Record<string,number>>({ PKR: 278, INR: 83.5, AED: 3.67, SAR: 3.75 })
   const [activeGallery, setActiveGallery] = useState(0)
-  const { address: walletAddress } = useAccount()
   const [mintWallet, setMintWallet] = useState('')
   const [mintStatus, setMintStatus] = useState<'idle'|'minting'|'success'|'error'>('idle')
   const [mintResult, setMintResult] = useState<{tokenId:number;txHash:string;openSeaUrl:string;polygonScanUrl:string}|null>(null)
@@ -487,79 +488,50 @@ export default function SovereignProductPage({ product }: { product: Product }) 
               </select>
             </div>
 
-            <div style={{ marginBottom: 2 }}>
-              <p style={{ fontSize: 7, letterSpacing: '0.5em', textTransform: 'uppercase', color: '#3f3830', padding: '12px 20px', background: '#0a0703', border: '1px solid rgba(201,160,84,0.08)', marginBottom: 2 }}>Payment Method</p>
-              <div className="pay-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(2,1fr)', gap: 1, marginBottom: 16 }}>
-                {(['crypto', 'pkr_manual'] as PayMethod[]).map(m => (
-                  <button
-                    key={m}
-                    onClick={() => setPayMethod(m)}
-                    style={{ padding: '14px 4px', fontSize: 7, letterSpacing: '0.25em', textTransform: 'uppercase', cursor: 'pointer', transition: 'all 0.3s', background: payMethod === m ? 'rgba(201,160,84,0.08)' : '#080602', color: payMethod === m ? '#c9a054' : '#3f3830', border: payMethod === m ? '1px solid rgba(201,160,84,0.3)' : '1px solid rgba(255,255,255,0.04)' }}
-                  >
-                    {m === 'crypto' ? '◆ Crypto' : 'PKR Transfer'}
-                  </button>
-                ))}
-              </div>
 
-              <AnimatePresence mode="wait">
-                {payMethod === 'crypto' && (
-                  <motion.div key="crypto" initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}>
-                    <Web3PaySection priceUsd={product.price_usd * quantity} onSuccess={handleWeb3Success} />
-                  </motion.div>
+              <div>
+                <p style={{ fontSize: 7, letterSpacing: '0.5em', textTransform: 'uppercase', color: '#3f3830', padding: '12px 20px', background: '#0a0703', border: '1px solid rgba(201,160,84,0.08)', marginBottom: 2 }}>Custom Message / Size</p>
+                <textarea
+                  value={custMessage}
+                  onChange={e => setCustMessage(e.target.value)}
+                  placeholder="Optional: size, personalization, or special instructions..."
+                  rows={3}
+                  style={{ width: '100%', padding: '14px 20px', background: '#080602', border: '1px solid rgba(201,160,84,0.08)', color: '#c9b894', fontSize: 11, letterSpacing: '0.06em', outline: 'none', marginBottom: 2, resize: 'vertical', fontFamily: 'inherit', boxSizing: 'border-box' as const }}
+                />
+                {orderError && <p style={{ fontSize: 9, color: 'rgba(248,113,113,0.7)', letterSpacing: '0.1em', marginBottom: 8 }}>{orderError}</p>}
+                {walletAdded ? (
+                  <div style={{ padding: '20px', textAlign: 'center', border: '1px solid rgba(201,160,84,0.25)', background: 'rgba(201,160,84,0.04)' }}>
+                    <p style={{ color: '#c9a054', fontSize: 10, letterSpacing: '0.35em', textTransform: 'uppercase', marginBottom: 10 }}>✓ Added to Wallet</p>
+                    <a href="/wallet" style={{ color: '#c9a054', fontSize: 9, letterSpacing: '0.35em', textTransform: 'uppercase', textDecoration: 'underline' }}>View Wallet →</a>
+                  </div>
+                ) : (
+                  <button
+                    onClick={() => {
+                      if (!custName || !custPhone || !custAddress || !custCity || !custCountry) {
+                        setOrderError('Please fill in all delivery details.')
+                        return
+                      }
+                      setOrderError(null)
+                      addItem({
+                        product_id: product.id,
+                        product_name: product.name,
+                        slug: product.slug || '',
+                        price_usd: product.price_usd,
+                        quantity,
+                        image: config.heroImage || product.images?.[0] || '',
+                        custom_message: custMessage,
+                      })
+                      setWalletAdded(true)
+                    }}
+                    style={{ width: '100%', padding: '18px', background: '#c9a054', color: '#050505', fontSize: 9, letterSpacing: '0.6em', textTransform: 'uppercase', cursor: 'pointer', border: 'none', fontWeight: 600 }}
+                  >
+                    + ADD TO WALLET
+                  </button>
                 )}
-                {payMethod === 'pkr_manual' && (
-                  <motion.div key="pkr" initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} style={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
-                    <div style={{ border: '1px solid rgba(201,160,84,0.1)', background: '#080602' }}>
-                      {([
-                        ['EasyPaisa', `${EASYPAISA_NUMBER} · ${EASYPAISA_NAME}`, EASYPAISA_NUMBER],
-                        ['UBL IBAN', UBL_IBAN, UBL_IBAN],
-                      ] as [string, string, string][]).map(([lbl, val, copyVal], i, arr) => (
-                        <div key={lbl} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: 8, padding: '16px 20px', borderBottom: i < arr.length - 1 ? '1px solid rgba(255,255,255,0.04)' : 'none' }}>
-                          <p style={{ fontSize: 7, letterSpacing: '0.4em', textTransform: 'uppercase', color: '#3f3830' }}>{lbl}</p>
-                          <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                            <p style={{ fontFamily: 'monospace', fontSize: 10, color: '#c9b894', wordBreak: 'break-all' }}>{val}</p>
-                            <CopyBtn text={copyVal} />
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                    <input
-                      value={txId}
-                      onChange={e => setTxId(e.target.value)}
-                      placeholder="Transaction ID / Reference Number"
-                      style={{ background: '#080602', border: '1px solid rgba(201,160,84,0.08)', padding: '14px 20px', fontSize: 11, color: '#c9b894', outline: 'none', width: '100%', boxSizing: 'border-box' }}
-                    />
-                    <label style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '14px 20px', border: '1px dashed rgba(201,160,84,0.12)', cursor: 'pointer', background: '#080602' }}>
-                      <Upload size={12} color="rgba(201,160,84,0.4)" />
-                      <span style={{ fontSize: 8, letterSpacing: '0.3em', textTransform: 'uppercase', color: '#3f3830' }}>Upload Payment Screenshot</span>
-                      <input
-                        type="file"
-                        accept="image/*"
-                        onChange={e => {
-                          const f = e.target.files?.[0]; if (!f) return; setProofFile(f)
-                          const r = new FileReader(); r.onload = ev => setProofPreview(ev.target?.result as string); r.readAsDataURL(f)
-                        }}
-                        className="hidden"
-                      />
-                    </label>
-                    {proofPreview && (
-                      <div style={{ position: 'relative', display: 'inline-block' }}>
-                        <img src={proofPreview} alt="proof" style={{ height: 80, opacity: 0.7 }} />
-                        <button onClick={() => { setProofFile(null); setProofPreview(null) }} style={{ position: 'absolute', top: 4, right: 4, background: 'none', border: 'none', cursor: 'pointer', color: '#c9a054' }}><X size={12} /></button>
-                      </div>
-                    )}
-                    {orderError && <p style={{ fontSize: 9, color: 'rgba(248,113,113,0.7)', letterSpacing: '0.1em' }}>{orderError}</p>}
-                    <button onClick={handlePlaceOrder} disabled={submitting} className="group" style={{ position: 'relative', overflow: 'hidden', padding: '18px', border: '1px solid rgba(201,160,84,0.45)', fontSize: 8, letterSpacing: '0.7em', textTransform: 'uppercase', color: '#c9a054', cursor: submitting ? 'not-allowed' : 'pointer', opacity: submitting ? 0.5 : 1, background: 'none', width: '100%' }}>
-                      <span className="absolute inset-0 bg-[#c9a054] -translate-x-full group-hover:translate-x-0 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]" />
-                      <span className="relative group-hover:text-black transition-colors duration-150">{submitting ? 'Processing...' : 'Submit Sovereign Order'}</span>
-                    </button>
-                  </motion.div>
-                )}
-              </AnimatePresence>
+              </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
 
       {/* LEGACY */}
