@@ -1,4 +1,5 @@
 'use client'
+import { useCart } from '@/lib/cart-context'
 
   import { useState, useEffect } from 'react'
   import Link from 'next/link'
@@ -43,7 +44,8 @@
   }
 
   export default function Navigation() {
-    const [scrolled, setScrolled] = useState(false)
+    const { totalItems } = useCart()
+  const [scrolled, setScrolled] = useState(false)
     const [drawerOpen, setDrawerOpen] = useState(false)
     const [canGoBack, setCanGoBack] = useState(false)
     const pathname = usePathname()
@@ -138,7 +140,19 @@
 
                 <div className="hidden lg:block"><CurrencySelector /></div>
 
-                {/* ── ACCESS BUTTON ── visible on mobile + desktop */}
+                {/* ── WALLET ICON ── */}
+                  <Link href="/wallet" className="relative flex items-center justify-center w-8 h-8 text-zinc-500 hover:text-[#c9a054] transition-colors duration-300">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M20 12V22H4V12"/><path d="M22 7H2v5h20V7z"/><path d="M12 22V7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/>
+                    </svg>
+                    {totalItems > 0 && (
+                      <span className="absolute -top-1 -right-1 flex items-center justify-center w-4 h-4 rounded-full bg-[#c9a054] text-[#050505] text-[8px] font-bold leading-none">
+                        {totalItems > 9 ? '9+' : totalItems}
+                      </span>
+                    )}
+                  </Link>
+
+                  {/* ── ACCESS BUTTON ── visible on mobile + desktop */}
                 <Link href="/auth"
                   className="group relative inline-flex items-center justify-center px-3 md:px-4 py-1.5 md:py-2 border border-[#c9a054]/50 text-[7px] md:text-[8px] tracking-[0.35em] md:tracking-[0.4em] uppercase text-[#c9a054] overflow-hidden hover:border-[#c9a054] transition-colors duration-300">
                   <span className="absolute inset-0 bg-[#c9a054] translate-y-full group-hover:translate-y-0 transition-transform duration-500" />
