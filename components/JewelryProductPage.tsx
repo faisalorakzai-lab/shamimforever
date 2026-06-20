@@ -482,7 +482,7 @@ import { useCart } from '@/lib/cart-context'
                       <a href="/wallet" style={{ color: '#c9a054', fontSize: 9, letterSpacing: '0.35em', textTransform: 'uppercase', textDecoration: 'underline' }}>View Wallet →</a>
                     </div>
                   ) : (
-                    <button onClick={() => { if (!custName || !custPhone || !custAddress || !custCity || !custCountry) { setError('Please fill all delivery fields'); return } setError(null); addItem({ product_id: product.id, product_name: product.name, slug: (product as any).slug || '', price_usd: product.price_usd, quantity, image: product.images?.[0] || '', custom_message: custMessage }); setWalletAdded(true) }}
+                    <button onClick={() => { if (!custName || !custPhone || !custAddress || !custCity || !custCountry) { setOrderError('Please fill all delivery fields'); return } setOrderError(null); addItem({ product_id: product.id, product_name: product.name, slug: (product as any).slug || '', price_usd: product.price_usd, quantity, image: product.images?.[0] || '', custom_message: custMessage }); setWalletAdded(true) }}
                       style={{ width: '100%', padding: '17px', background: '#c9a054', color: '#050505', fontSize: 9, letterSpacing: '0.5em', textTransform: 'uppercase', cursor: 'pointer', border: 'none', fontWeight: 600 }}>
                       + ADD TO WALLET
                     </button>
