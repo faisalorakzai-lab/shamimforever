@@ -146,10 +146,10 @@ function Divider() {
 ══════════════════════════════════════════════════════════════════════ */
 export default function EternalGraceSapphirePage({ product }: { product: Product }) {
   const [payMethod,setPayMethod]=useState<PayMethod>('crypto')
-  const { addItem } = useCart()
   const [receipt,setReceipt]=useState<File|null>(null)
   const [orderResult,setOrderResult]=useState<OrderResult|null>(null)
   const [submitting,setSubmitting]=useState(false)
+  const { addItem } = useCart()
   const [error,setError]=useState('')
   const [custMessage,setCustMessage]=useState('')
   const [walletAdded,setWalletAdded]=useState(false)
@@ -705,26 +705,27 @@ export default function EternalGraceSapphirePage({ product }: { product: Product
             </motion.div>
           ) : (
             <>
-                <div className="space-y-4">
-                  <textarea
-                    value={custMessage} onChange={e=>setCustMessage(e.target.value)}
-                    placeholder="Message / special instructions (optional)"
-                    style={{width:'100%',background:'transparent',border:'1px solid rgba(255,255,255,0.06)',padding:'12px 16px',fontSize:11,color:'rgba(212,204,184,0.7)',outline:'none',resize:'none',fontFamily:'inherit'}}
-                    rows={3}
-                  />
-                  {walletAdded ? (
-                    <div style={{padding:'16px',border:'1px solid rgba(201,160,84,0.2)',background:'rgba(201,160,84,0.04)',textAlign:'center'}}>
-                      <p style={{fontFamily:'monospace',fontSize:8.5,letterSpacing:'0.4em',textTransform:'uppercase',color:'rgba(201,160,84,0.8)'}}>◆ Added to Wallet</p>
-                      <Link href="/wallet" style={{fontSize:7.5,letterSpacing:'0.3em',textTransform:'uppercase',color:'rgba(212,204,184,0.35)',marginTop:8,display:'inline-block',textDecoration:'none'}}>View Wallet →</Link>
-                    </div>
-                  ) : (
-                    <button
-                      onClick={()=>{ addItem({ product_id:product.id, product_name:product.name, slug:product.slug, price_usd:product.price_usd, quantity:1, image:product.images?.[0]||'', custom_message:custMessage }); setWalletAdded(true) }}
-                      style={{width:'100%',background:'linear-gradient(135deg,rgba(26,86,219,0.09),rgba(212,204,184,0.02))',border:'1px solid rgba(26,86,219,0.25)',color:'rgba(212,204,184,0.8)',padding:'17px',fontFamily:'monospace',fontSize:8.5,letterSpacing:'0.4em',textTransform:'uppercase',cursor:'pointer',transition:'all 0.3s'}}>
-                      ADD TO WALLET
-                    </button>
-                  )}
-                </div>
+              <div style={{display:'flex',flexDirection:'column',gap:12}}>
+                <textarea
+                  value={custMessage} onChange={e=>setCustMessage(e.target.value)}
+                  placeholder="Message / special instructions (optional)"
+                  style={{width:'100%',background:'transparent',border:'1px solid rgba(26,86,219,0.18)',padding:'13px 16px',fontSize:11,color:'rgba(212,204,184,0.7)',outline:'none',resize:'none',fontFamily:'inherit',boxSizing:'border-box' as const}}
+                  rows={3}
+                />
+                {walletAdded?(
+                  <div style={{padding:'16px',border:'1px solid rgba(26,86,219,0.2)',background:'rgba(26,86,219,0.04)',textAlign:'center'}}>
+                    <p style={{fontFamily:MONO,fontSize:8.5,letterSpacing:'0.4em',textTransform:'uppercase',color:'rgba(26,86,219,0.8)'}}>◆ Added to Wallet</p>
+                    <Link href="/wallet" style={{fontSize:7.5,letterSpacing:'0.3em',textTransform:'uppercase',color:'rgba(212,204,184,0.35)',marginTop:8,display:'inline-block',textDecoration:'none'}}>View Wallet →</Link>
+                  </div>
+                ):(
+                  <button
+                    onClick={()=>{ addItem({ product_id:product.id, product_name:product.name, slug:product.slug, price_usd:product.price_usd, quantity:1, image:product.images?.[0]||'', custom_message:custMessage }); setWalletAdded(true) }}
+                    style={{width:'100%',background:'linear-gradient(135deg,rgba(26,86,219,0.09),rgba(212,204,184,0.02))',border:'1px solid rgba(26,86,219,0.25)',color:WG2,padding:'17px',fontFamily:MONO,fontSize:8.5,letterSpacing:'0.4em',textTransform:'uppercase',cursor:'pointer',transition:'all 0.3s'}}>
+                    ADD TO WALLET
+                  </button>
+                )}
+              </div>
+            </>
           )}
         </div>
       </div>
