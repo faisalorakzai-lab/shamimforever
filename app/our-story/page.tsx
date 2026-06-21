@@ -13,6 +13,43 @@
     transition: { duration: 1.2, ease: [0.16, 1, 0.3, 1] },
   }
 
+  // Word-by-word reveal variants
+  const heroTextContainer = {
+    hidden: {},
+    show: {
+      transition: {
+        staggerChildren: 0.09,
+        delayChildren: 0.5,
+      },
+    },
+  }
+
+  const wordReveal = {
+    hidden: { opacity: 0, y: 28, filter: 'blur(4px)' },
+    show: {
+      opacity: 1,
+      y: 0,
+      filter: 'blur(0px)',
+      transition: { duration: 1.1, ease: [0.16, 1, 0.3, 1] },
+    },
+  }
+
+  function RevealWords({ text, className }: { text: string; className?: string }) {
+    return (
+      <span className={className} style={{ display: 'inline' }}>
+        {text.split(' ').map((word, i) => (
+          <motion.span
+            key={i}
+            variants={wordReveal}
+            style={{ display: 'inline-block', marginRight: '0.25em' }}
+          >
+            {word}
+          </motion.span>
+        ))}
+      </span>
+    )
+  }
+
   const CHAPTERS = [
     {
       num: 'I',
@@ -46,7 +83,7 @@
       label: 'THE FUTURE',
       headline: 'Sovereign\nCommerce.',
       sub: 'The future of Shamim Forever extends beyond physical luxury into the architecture of a new kind of ownership — where digital and material sovereignty are inseparable.',
-      body: "OKBOND is the House\'s declaration that luxury must also be sovereign in its systems. Not dependent on platforms, not mediated by intermediaries, not subject to the logic of mass commerce. The next decade belongs to those who build their own infrastructure — and the House is building from the ground up.",
+      body: "OKBOND is the House's declaration that luxury must also be sovereign in its systems. Not dependent on platforms, not mediated by intermediaries, not subject to the logic of mass commerce. The next decade belongs to those who build their own infrastructure — and the House is building from the ground up.",
       image: '/founder-3.png',
       imageRight: true,
     },
@@ -79,61 +116,76 @@
               loop
               playsInline
               preload="auto"
+              poster="/founder-5.png"
               className="w-full h-full object-cover object-top"
-              style={{ filter: 'brightness(0.3) contrast(1.15) saturate(0.75)' }}
+              style={{ filter: 'brightness(0.32) contrast(1.15) saturate(0.75)' }}
             >
               <source src="/videos/our-story-hero.mp4" type="video/mp4" />
             </video>
-            <div className="absolute inset-0 bg-gradient-to-r from-[#050505]/85 via-[#050505]/40 to-[#050505]/20" />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-transparent to-[#050505]/40" />
+            {/* Stronger contrast overlays for text readability */}
+            <div className="absolute inset-0 bg-gradient-to-r from-[#050505]/90 via-[#050505]/55 to-[#050505]/25" />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-transparent to-[#050505]/50" />
+            {/* Extra vignette at bottom for text area */}
+            <div className="absolute bottom-0 left-0 right-0 h-2/3 bg-gradient-to-t from-[#050505]/80 via-[#050505]/20 to-transparent" />
           </motion.div>
 
           <motion.div
             style={{ opacity: heroOpacity }}
             className="relative z-10 h-full flex flex-col justify-end pb-16 md:pb-24 px-8 md:px-14 lg:px-20"
           >
+            {/* Label */}
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1.2, delay: 0.3, ease }}
+              transition={{ duration: 1.2, delay: 0.2, ease }}
               className="text-[9px] tracking-[0.5em] uppercase text-[#c9a054] mb-10"
             >
               Our Story
             </motion.p>
 
+            {/* Word-by-word animated headline */}
             <motion.h1
-              initial={{ opacity: 0, y: 50 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1.6, delay: 0.5, ease }}
+              variants={heroTextContainer}
+              initial="hidden"
+              animate="show"
               className="font-serif font-light tracking-[0.1em] text-zinc-100 leading-[0.92] mb-10"
               style={{ fontSize: 'clamp(3.5rem, 9vw, 9rem)' }}
             >
-              Built From Love.<br />
-              <span className="text-zinc-400">Forged Into</span><br />
-              <span className="italic text-zinc-300">Legacy.</span>
+              <RevealWords text="Built From Love." /><br />
+              <RevealWords text="Forged Into" className="text-zinc-400" /><br />
+              <motion.span
+                variants={wordReveal}
+                className="italic text-zinc-300"
+                style={{ display: 'inline-block' }}
+              >
+                Legacy.
+              </motion.span>
             </motion.h1>
 
+            {/* Divider line */}
             <motion.div
               initial={{ scaleX: 0 }}
               animate={{ scaleX: 1 }}
-              transition={{ duration: 1.6, delay: 1, ease }}
+              transition={{ duration: 1.6, delay: 1.4, ease }}
               className="w-20 h-px bg-gradient-to-r from-[#c9a054] to-transparent origin-left mb-10"
             />
 
+            {/* Subtext */}
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1.2, delay: 1.1, ease }}
-              className="text-zinc-500 font-light text-sm leading-[2] max-w-md tracking-wide"
+              transition={{ duration: 1.2, delay: 1.6, ease }}
+              className="text-zinc-400 font-light text-sm leading-[2] max-w-md tracking-wide"
             >
               Shamim Forever was never built to become another brand.<br />
               It was built to preserve emotion, memory, and timeless identity.
             </motion.p>
 
+            {/* Scroll indicator */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ duration: 1, delay: 1.8 }}
+              transition={{ duration: 1, delay: 2.1 }}
               className="flex items-center gap-3 mt-12"
             >
               <motion.div
@@ -141,7 +193,7 @@
                 transition={{ duration: 2.5, repeat: Infinity, ease: 'easeInOut' }}
                 className="w-px h-10 bg-gradient-to-b from-[#c9a054] to-transparent"
               />
-              <span className="text-[8px] tracking-[0.4em] uppercase text-zinc-700">Scroll to explore</span>
+              <span className="text-[8px] tracking-[0.4em] uppercase text-zinc-600">Scroll to explore</span>
             </motion.div>
           </motion.div>
 
