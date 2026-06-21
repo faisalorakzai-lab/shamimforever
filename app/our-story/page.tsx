@@ -805,8 +805,12 @@ export default function OurStoryPage() {
                 style={{ position: 'absolute', inset: 0, background: GOLD, zIndex: 3, transformOrigin: 'left' }}
               />
               <motion.div style={{ y: ch4ImgY, height: '115%', marginTop: '-7.5%' }}>
-                <img src="/founder-3.png" alt="Sovereign Future"
-                  style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top center', filter: 'brightness(0.38) contrast(1.18) saturate(0.55)' }} />
+                <video
+                  autoPlay muted loop playsInline preload="auto"
+                  style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center', filter: 'brightness(0.55) contrast(1.12) saturate(0.7)' }}
+                >
+                  <source src="https://uvgtgeauhjbdatrmmaob.supabase.co/storage/v1/object/public/products/de-beers-talisman-diamond-pendant/hero.mp4" type="video/mp4" />
+                </video>
               </motion.div>
               <motion.div
                 animate={{ opacity: [0.3, 0.8, 0.3] }}
@@ -867,7 +871,12 @@ export default function OurStoryPage() {
                 transition={{ duration: 0.65, delay: 0.2, ease: [0.76, 0, 0.24, 1] }}
                 style={{ position: 'absolute', inset: 0, background: GOLD, zIndex: 3, transformOrigin: 'left' }}
               />
-              <img src="/founder-3.png" alt="Sovereign" style={{ width:'100%', height:'100%', objectFit:'cover', objectPosition:'top center', filter:'brightness(0.38) contrast(1.18) saturate(0.55)' }} />
+              <video
+                autoPlay muted loop playsInline preload="auto"
+                style={{ width:'100%', height:'100%', objectFit:'cover', objectPosition:'center', filter:'brightness(0.55) contrast(1.12) saturate(0.7)' }}
+              >
+                <source src="https://uvgtgeauhjbdatrmmaob.supabase.co/storage/v1/object/public/products/de-beers-talisman-diamond-pendant/hero.mp4" type="video/mp4" />
+              </video>
               <motion.div animate={{ opacity:[0.3,0.8,0.3] }} transition={{ duration:4, repeat:Infinity }}
                 style={{ position:'absolute', inset:0, background:'radial-gradient(ellipse at 50% 40%, rgba(212,175,55,0.26) 0%, transparent 60%)', pointerEvents:'none', zIndex: 2 }} />
               <div style={{ position:'absolute', inset:0, background:'linear-gradient(to top, #050505 0%, transparent 55%)', zIndex: 2 }} />
