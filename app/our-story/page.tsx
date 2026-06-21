@@ -13,7 +13,6 @@
     transition: { duration: 1.2, ease: [0.16, 1, 0.3, 1] },
   }
 
-  // Word-by-word reveal variants
   const heroTextContainer = {
     hidden: {},
     show: {
@@ -50,16 +49,107 @@
     )
   }
 
-  const CHAPTERS = [
-    {
-      num: 'I',
-      label: 'THE BEGINNING',
-      headline: 'Built From\nEmotion.',
-      sub: 'Every legacy begins not with a business plan — but with something felt so deeply it demands to exist. Shamim Forever was born from remembrance, not from markets or trends.',
-      body: 'What started as a deeply personal emotional connection evolved into something far greater: a sovereign luxury house built around meaning, craftsmanship, and timeless presence. This brand carries the essence of loyalty, elegance, and permanence — in every material, every composition, every decision.',
-      image: '/founder-1.png',
-      imageRight: false,
-    },
+  // Parallax Chapter I component
+  function ChapterOneSection() {
+    const ref = useRef<HTMLDivElement>(null)
+    const { scrollYProgress } = useScroll({ target: ref, offset: ['start end', 'end start'] })
+    const imageY = useTransform(scrollYProgress, [0, 1], ['5%', '-5%'])
+    const macroY = useTransform(scrollYProgress, [0, 1], ['-5%', '5%'])
+    const textY = useTransform(scrollYProgress, [0, 1], ['8%', '-8%'])
+
+    return (
+      <section ref={ref} className="border-b border-[#111] overflow-hidden">
+        <div className="grid grid-cols-1 lg:grid-cols-3 min-h-[90vh]">
+
+          {/* Founder portrait — parallax */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1.4, ease }}
+            className="relative overflow-hidden aspect-[3/4] lg:aspect-auto lg:order-1"
+          >
+            <motion.div style={{ y: imageY }} className="absolute inset-[-8%]">
+              <img
+                src="/founder-1.png"
+                alt="THE BEGINNING"
+                className="w-full h-full object-cover object-top"
+                style={{ filter: 'brightness(0.55) contrast(1.12) saturate(0.8)' }}
+              />
+            </motion.div>
+            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#050505]/10 to-[#050505]/70" />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#050505]/70 via-transparent to-transparent" />
+            <div className="absolute bottom-8 left-8">
+              <span className="font-serif text-7xl md:text-9xl font-light text-white/5 leading-none select-none">I</span>
+            </div>
+          </motion.div>
+
+          {/* Text — moves slightly faster */}
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1.2, ease }}
+            className="relative flex flex-col justify-center px-8 md:px-14 lg:px-12 py-16 md:py-20 lg:order-2 border-x border-[#111] z-10"
+          >
+            <motion.div style={{ y: textY }}>
+              <div className="flex items-center gap-5 mb-10">
+                <span className="text-[9px] tracking-[0.45em] uppercase text-[#c9a054]">Chapter I</span>
+                <div className="w-6 h-px bg-[#c9a054]/30" />
+                <span className="text-[9px] tracking-[0.45em] uppercase text-zinc-700">THE BEGINNING</span>
+              </div>
+
+              <h2 className="font-serif font-light text-4xl md:text-5xl xl:text-6xl tracking-[0.08em] text-zinc-100 leading-[1.05] mb-10 whitespace-pre-line">
+                {'Built From\nEmotion.'}
+              </h2>
+
+              <div className="w-14 h-px bg-[#c9a054]/40 mb-10" />
+
+              <p className="text-zinc-300 font-light text-lg leading-[1.85] mb-8 italic font-serif">
+                Every legacy begins not with a business plan — but with something felt so deeply it demands to exist. Shamim Forever was born from remembrance, not from markets or trends.
+              </p>
+
+              <p className="text-zinc-500 font-light text-[15px] leading-[2] max-w-md">
+                What started as a deeply personal emotional connection evolved into something far greater: a sovereign luxury house built around meaning, craftsmanship, and timeless presence. This brand carries the essence of loyalty, elegance, and permanence — in every material, every composition, every decision.
+              </p>
+            </motion.div>
+          </motion.div>
+
+          {/* Macro / craft shot — parallax opposite direction */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1.6, ease, delay: 0.2 }}
+            className="relative overflow-hidden aspect-[3/4] lg:aspect-auto lg:order-3"
+          >
+            <motion.div style={{ y: macroY }} className="absolute inset-[-8%]">
+              <img
+                src="/founder-4.png"
+                alt="The Craft — Raw Material"
+                className="w-full h-full object-cover"
+                style={{
+                  objectPosition: 'center 30%',
+                  filter: 'brightness(0.45) contrast(1.25) saturate(0.5) sepia(0.3)',
+                }}
+              />
+            </motion.div>
+            {/* Golden shimmer overlay */}
+            <div className="absolute inset-0 bg-gradient-to-br from-[#c9a054]/8 via-transparent to-[#c9a054]/4" />
+            <div className="absolute inset-0 bg-gradient-to-l from-transparent via-[#050505]/10 to-[#050505]/70" />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#050505]/60 via-transparent to-transparent" />
+            {/* Label */}
+            <div className="absolute top-8 right-8">
+              <span className="text-[8px] tracking-[0.45em] uppercase text-[#c9a054]/60">The Craft</span>
+            </div>
+          </motion.div>
+
+        </div>
+      </section>
+    )
+  }
+
+  const CHAPTERS_REST = [
     {
       num: 'II',
       label: 'THE PHILOSOPHY',
@@ -90,10 +180,10 @@
   ]
 
   const NUMBERS = [
-    { value: '2023', label: 'Founded' },
-    { value: '925', label: 'Sterling Silver' },
-    { value: '∞', label: 'The Standard' },
-    { value: 'Forever', label: 'The Promise' },
+    { value: '2023', label: 'Founded', type: 'plain' },
+    { value: '925', label: 'Sterling Silver', type: 'shimmer' },
+    { value: '∞', label: 'The Standard', type: 'infinity' },
+    { value: 'Forever', label: 'The Promise', type: 'plain' },
   ]
 
   export default function OurStoryPage() {
@@ -105,9 +195,7 @@
     return (
       <div className="bg-[#050505] overflow-x-hidden">
 
-        {/* ─────────────────────────────────────────
-            CINEMATIC HERO
-        ───────────────────────────────────────── */}
+        {/* CINEMATIC HERO */}
         <section ref={heroRef} className="relative h-screen overflow-hidden">
           <motion.div style={{ y: heroY }} className="absolute inset-0">
             <video
@@ -122,10 +210,8 @@
             >
               <source src="/videos/our-story-hero.mp4" type="video/mp4" />
             </video>
-            {/* Stronger contrast overlays for text readability */}
             <div className="absolute inset-0 bg-gradient-to-r from-[#050505]/90 via-[#050505]/55 to-[#050505]/25" />
             <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-transparent to-[#050505]/50" />
-            {/* Extra vignette at bottom for text area */}
             <div className="absolute bottom-0 left-0 right-0 h-2/3 bg-gradient-to-t from-[#050505]/80 via-[#050505]/20 to-transparent" />
           </motion.div>
 
@@ -133,7 +219,6 @@
             style={{ opacity: heroOpacity }}
             className="relative z-10 h-full flex flex-col justify-end pb-16 md:pb-24 px-8 md:px-14 lg:px-20"
           >
-            {/* Label */}
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -143,7 +228,6 @@
               Our Story
             </motion.p>
 
-            {/* Word-by-word animated headline */}
             <motion.h1
               variants={heroTextContainer}
               initial="hidden"
@@ -162,7 +246,6 @@
               </motion.span>
             </motion.h1>
 
-            {/* Divider line */}
             <motion.div
               initial={{ scaleX: 0 }}
               animate={{ scaleX: 1 }}
@@ -170,7 +253,6 @@
               className="w-20 h-px bg-gradient-to-r from-[#c9a054] to-transparent origin-left mb-10"
             />
 
-            {/* Subtext */}
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -181,7 +263,6 @@
               It was built to preserve emotion, memory, and timeless identity.
             </motion.p>
 
-            {/* Scroll indicator */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -197,29 +278,62 @@
             </motion.div>
           </motion.div>
 
-          {/* Bottom metadata bar */}
           <div className="absolute bottom-0 right-0 px-8 md:px-14 pb-8 z-10">
             <span className="text-[8px] tracking-[0.4em] uppercase text-zinc-700">Est. 2023</span>
           </div>
         </section>
 
-        {/* ─────────────────────────────────────────
-            NUMBERS STRIP
-        ───────────────────────────────────────── */}
+        {/* NUMBERS STRIP — with micro-animations */}
         <section className="border-y border-[#111] py-12 px-8 md:px-14 lg:px-20">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-0">
             {NUMBERS.map((item, i) => (
               <motion.div
                 key={item.label}
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.8, delay: i * 0.08, ease }}
+                transition={{ duration: 0.9, delay: i * 0.12, ease }}
                 className={`py-8 px-6 md:px-10 flex flex-col gap-3 ${i < 3 ? 'border-r border-[#111]' : ''}`}
               >
-                <span className="font-serif font-light text-3xl md:text-4xl text-zinc-200 tracking-wide">
-                  {item.value}
-                </span>
+                {item.type === 'shimmer' ? (
+                  /* 925 — gold shimmer sweep every few seconds */
+                  <div className="relative overflow-hidden">
+                    <span className="font-serif font-light text-3xl md:text-4xl text-zinc-200 tracking-wide block">
+                      {item.value}
+                    </span>
+                    <motion.div
+                      className="absolute inset-0 pointer-events-none"
+                      style={{
+                        background: 'linear-gradient(105deg, transparent 20%, rgba(201,160,84,0.55) 50%, transparent 80%)',
+                        backgroundSize: '200% 100%',
+                      }}
+                      animate={{ backgroundPosition: ['200% 0', '-200% 0'] }}
+                      transition={{ duration: 1.2, ease: 'easeInOut', repeat: Infinity, repeatDelay: 3 }}
+                    />
+                  </div>
+                ) : item.type === 'infinity' ? (
+                  /* ∞ — slow pulsing glow */
+                  <motion.span
+                    className="font-serif font-light text-3xl md:text-4xl tracking-wide block"
+                    style={{ color: '#c9a054' }}
+                    animate={{
+                      textShadow: [
+                        '0 0 0px rgba(201,160,84,0)',
+                        '0 0 18px rgba(201,160,84,0.7)',
+                        '0 0 0px rgba(201,160,84,0)',
+                      ],
+                      scale: [1, 1.07, 1],
+                    }}
+                    transition={{ duration: 3, ease: 'easeInOut', repeat: Infinity }}
+                  >
+                    {item.value}
+                  </motion.span>
+                ) : (
+                  <span className="font-serif font-light text-3xl md:text-4xl text-zinc-200 tracking-wide">
+                    {item.value}
+                  </span>
+                )}
+
                 <span className="text-[9px] tracking-[0.45em] uppercase text-[#c9a054]">
                   {item.label}
                 </span>
@@ -228,17 +342,14 @@
           </div>
         </section>
 
-        {/* ─────────────────────────────────────────
-            CHAPTERS — Alternating Editorial Layouts
-        ───────────────────────────────────────── */}
-        {CHAPTERS.map((chapter, index) => (
-          <section
-            key={chapter.num}
-            className="border-b border-[#111]"
-          >
-            <div className={`grid grid-cols-1 lg:grid-cols-2 min-h-[80vh]`}>
+        {/* CHAPTER I — Split-Screen Parallax (special layout) */}
+        <ChapterOneSection />
 
-              {/* Image */}
+        {/* CHAPTERS II–IV — Standard alternating layout */}
+        {CHAPTERS_REST.map((chapter) => (
+          <section key={chapter.num} className="border-b border-[#111]">
+            <div className="grid grid-cols-1 lg:grid-cols-2 min-h-[80vh]">
+
               <motion.div
                 initial={{ opacity: 0 }}
                 whileInView={{ opacity: 1 }}
@@ -257,8 +368,6 @@
                   : 'bg-gradient-to-l from-[#050505]/60 via-[#050505]/20 to-transparent'
                 }`} />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#050505]/70 via-transparent to-transparent" />
-
-                {/* Chapter number watermark */}
                 <div className="absolute bottom-8 right-8 md:bottom-10 md:right-10">
                   <span className="font-serif text-7xl md:text-9xl font-light text-white/5 leading-none select-none">
                     {chapter.num}
@@ -266,7 +375,6 @@
                 </div>
               </motion.div>
 
-              {/* Text */}
               <motion.div
                 {...fadeUp}
                 className={`flex flex-col justify-center px-8 md:px-14 lg:px-16 py-16 md:py-20 ${
@@ -302,9 +410,7 @@
           </section>
         ))}
 
-        {/* ─────────────────────────────────────────
-            MANIFESTO SECTION
-        ───────────────────────────────────────── */}
+        {/* MANIFESTO */}
         <section className="py-28 md:py-44 px-8 text-center relative overflow-hidden border-b border-[#111]">
           <div className="absolute inset-0 bg-gradient-to-r from-[#c9a054]/3 via-transparent to-[#c9a054]/3" />
 
@@ -316,7 +422,6 @@
             className="relative z-10 max-w-5xl mx-auto"
           >
             <div className="w-px h-14 bg-gradient-to-b from-transparent to-[#c9a054]/40 mx-auto mb-16" />
-
             <p className="text-[9px] tracking-[0.5em] uppercase text-[#c9a054] mb-12">The Philosophy</p>
 
             <blockquote className="font-serif font-light text-3xl md:text-5xl lg:text-6xl text-zinc-100 tracking-[0.07em] leading-[1.25] mb-16">
@@ -343,14 +448,11 @@
                 </motion.div>
               ))}
             </div>
-
             <div className="w-px h-14 bg-gradient-to-t from-transparent to-[#c9a054]/40 mx-auto mt-16" />
           </motion.div>
         </section>
 
-        {/* ─────────────────────────────────────────
-            FINAL LEGACY STATEMENT
-        ───────────────────────────────────────── */}
+        {/* FINAL LEGACY STATEMENT */}
         <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
           <div className="absolute inset-0">
             <img
