@@ -51,92 +51,163 @@ function RevealLine({ text, className }: { text: string; className?: string }) {
 function ChapterOne() {
   const ref = useRef<HTMLDivElement>(null)
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start end', 'end start'] })
-  const imgY = useTransform(scrollYProgress, [0, 1], ['6%', '-6%'])
-  const macroY = useTransform(scrollYProgress, [0, 1], ['-6%', '6%'])
+  const portraitY = useTransform(scrollYProgress, [0, 1], ['5%', '-5%'])
+  const macroY = useTransform(scrollYProgress, [0, 1], ['-5%', '5%'])
+  const textY = useTransform(scrollYProgress, [0, 1], ['4%', '-4%'])
 
   return (
     <section ref={ref} className="border-b border-[#111] overflow-hidden">
-      <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.1fr_1fr] min-h-[90vh]">
 
-        {/* Left — founder portrait with parallax */}
+      {/* ── Desktop: 3-column side-by-side ── */}
+      <div className="hidden lg:grid lg:grid-cols-[1fr_1fr_1fr] min-h-[90vh]">
+
+        {/* Col 1 — Founder portrait, clearly lit, parallax down */}
+        <div className="relative overflow-hidden">
+          <motion.div style={{ y: portraitY }} className="absolute inset-[-6%]">
+            <img
+              src="/founder-1.png"
+              alt="Shamim — The Beginning"
+              className="w-full h-full object-cover object-top"
+              style={{ filter: 'brightness(0.72) contrast(1.08) saturate(0.85)' }}
+            />
+          </motion.div>
+          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-transparent to-[#050505]/70" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#050505]/50 via-transparent to-transparent" />
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1.4 }}
+            className="absolute bottom-8 left-8"
+          >
+            <span className="font-serif text-9xl font-light text-white/5 select-none leading-none">I</span>
+          </motion.div>
+        </div>
+
+        {/* Col 2 — Text, moves slightly faster */}
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 1.2, ease, delay: 0.1 }}
+          className="relative flex flex-col justify-center px-12 py-20 border-x border-[#111] z-10"
+        >
+          <motion.div style={{ y: textY }}>
+            <div className="flex items-center gap-4 mb-10">
+              <span className="text-[9px] tracking-[0.45em] uppercase text-[#c9a054]">Chapter I</span>
+              <div className="w-6 h-px bg-[#c9a054]/30" />
+              <span className="text-[9px] tracking-[0.45em] uppercase text-zinc-700">THE BEGINNING</span>
+            </div>
+            <h2 className="font-serif font-light text-5xl xl:text-6xl tracking-[0.06em] text-zinc-100 leading-[1.05] mb-10">
+              Built From<br />Emotion.
+            </h2>
+            <div className="w-12 h-px bg-[#c9a054]/40 mb-10" />
+            <p className="text-zinc-300 font-light text-lg leading-[1.9] mb-7 italic font-serif">
+              Every legacy begins not with a business plan — but with something felt so deeply it demands to exist.
+            </p>
+            <p className="text-zinc-500 font-light text-sm leading-[2]">
+              What started as a deeply personal emotional connection evolved into something far greater: a sovereign luxury house built around meaning, craftsmanship, and timeless presence.
+            </p>
+          </motion.div>
+        </motion.div>
+
+        {/* Col 3 — Silver craft macro shot, parallax up (opposite direction) */}
+        <div className="relative overflow-hidden">
+          <motion.div style={{ y: macroY }} className="absolute inset-[-6%]">
+            <img
+              src="/products/eternal-sovereign/vault.png"
+              alt="The Craft — Silver"
+              className="w-full h-full object-cover object-center"
+              style={{ filter: 'brightness(0.5) contrast(1.2) saturate(0.6)' }}
+            />
+          </motion.div>
+          <div className="absolute inset-0 bg-gradient-to-l from-transparent via-transparent to-[#050505]/70" />
+          <div className="absolute inset-0 bg-gradient-to-br from-[#c9a054]/6 via-transparent to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#050505]/50 via-transparent to-transparent" />
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1.4, delay: 0.3 }}
+            className="absolute top-8 right-8"
+          >
+            <span className="text-[8px] tracking-[0.5em] uppercase text-[#c9a054]/60">The Craft</span>
+          </motion.div>
+        </div>
+
+      </div>
+
+      {/* ── Mobile: stacked portrait → text → craft ── */}
+      <div className="lg:hidden">
+
+        {/* Portrait — full width, good brightness */}
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          transition={{ duration: 1.4, ease }}
-          className="relative overflow-hidden aspect-[4/5] lg:aspect-auto order-1"
+          transition={{ duration: 1.2, ease }}
+          className="relative overflow-hidden aspect-[3/4]"
         >
-          <motion.div style={{ y: imgY }} className="absolute inset-[-8%]">
-            <img
-              src="/founder-1.png"
-              alt="The Beginning"
-              className="w-full h-full object-cover object-top"
-              style={{ filter: 'brightness(0.55) contrast(1.1) saturate(0.8)' }}
-            />
-          </motion.div>
-          <div className="absolute inset-0 bg-gradient-to-r from-transparent to-[#050505]/80" />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#050505]/60 via-transparent to-transparent" />
+          <img
+            src="/founder-1.png"
+            alt="Shamim — The Beginning"
+            className="w-full h-full object-cover object-top"
+            style={{ filter: 'brightness(0.72) contrast(1.08) saturate(0.85)' }}
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/10 to-transparent" />
           <div className="absolute bottom-6 left-6">
-            <span className="font-serif text-8xl font-light text-white/4 select-none leading-none">I</span>
+            <span className="font-serif text-8xl font-light text-white/5 select-none leading-none">I</span>
           </div>
         </motion.div>
 
-        {/* Center — text column */}
+        {/* Text */}
         <motion.div
-          initial={{ opacity: 0, y: 50 }}
+          initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 1.2, ease, delay: 0.15 }}
-          className="flex flex-col justify-center px-8 md:px-12 py-16 md:py-20 border-x border-[#111] order-2"
+          transition={{ duration: 1, ease }}
+          className="px-8 py-14 border-b border-[#111]"
         >
-          <div className="flex items-center gap-4 mb-10">
+          <div className="flex items-center gap-4 mb-8">
             <span className="text-[9px] tracking-[0.45em] uppercase text-[#c9a054]">Chapter I</span>
             <div className="w-6 h-px bg-[#c9a054]/30" />
             <span className="text-[9px] tracking-[0.45em] uppercase text-zinc-700">THE BEGINNING</span>
           </div>
-
-          <h2 className="font-serif font-light text-4xl md:text-5xl tracking-[0.06em] text-zinc-100 leading-[1.08] mb-10">
+          <h2 className="font-serif font-light text-4xl tracking-[0.06em] text-zinc-100 leading-[1.08] mb-8">
             Built From<br />Emotion.
           </h2>
-
-          <div className="w-12 h-px bg-[#c9a054]/40 mb-10" />
-
-          <p className="text-zinc-300 font-light text-base md:text-lg leading-[1.9] mb-7 italic font-serif">
+          <div className="w-12 h-px bg-[#c9a054]/40 mb-8" />
+          <p className="text-zinc-300 font-light text-base leading-[1.9] mb-6 italic font-serif">
             Every legacy begins not with a business plan — but with something felt so deeply it demands to exist. Shamim Forever was born from remembrance, not from markets or trends.
           </p>
-
-          <p className="text-zinc-500 font-light text-sm leading-[2] max-w-sm">
+          <p className="text-zinc-500 font-light text-sm leading-[2]">
             What started as a deeply personal emotional connection evolved into something far greater: a sovereign luxury house built around meaning, craftsmanship, and timeless presence.
           </p>
         </motion.div>
 
-        {/* Right — craft / material image with opposite parallax */}
+        {/* Craft image — visible on mobile too */}
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          transition={{ duration: 1.6, ease, delay: 0.25 }}
-          className="relative overflow-hidden aspect-[4/5] lg:aspect-auto order-3 hidden lg:block"
+          transition={{ duration: 1.2, ease, delay: 0.1 }}
+          className="relative overflow-hidden aspect-[4/3]"
         >
-          <motion.div style={{ y: macroY }} className="absolute inset-[-8%]">
-            <img
-              src="/founder-4.png"
-              alt="The Craft"
-              className="w-full h-full object-cover"
-              style={{
-                objectPosition: 'center 25%',
-                filter: 'brightness(0.4) contrast(1.3) saturate(0.35) sepia(0.25)',
-              }}
-            />
-          </motion.div>
-          <div className="absolute inset-0 bg-gradient-to-l from-transparent to-[#050505]/80" />
-          <div className="absolute inset-0 bg-gradient-to-br from-[#c9a054]/5 via-transparent to-transparent" />
-          <div className="absolute top-8 right-8">
-            <span className="text-[8px] tracking-[0.5em] uppercase text-[#c9a054]/50">The Craft</span>
+          <img
+            src="/products/eternal-sovereign/vault.png"
+            alt="The Craft"
+            className="w-full h-full object-cover object-center"
+            style={{ filter: 'brightness(0.5) contrast(1.2) saturate(0.6)' }}
+          />
+          <div className="absolute inset-0 bg-gradient-to-br from-[#c9a054]/6 via-transparent to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#050505]/60 via-transparent to-transparent" />
+          <div className="absolute top-6 right-6">
+            <span className="text-[8px] tracking-[0.5em] uppercase text-[#c9a054]/60">The Craft</span>
           </div>
         </motion.div>
 
       </div>
+
     </section>
   )
 }
