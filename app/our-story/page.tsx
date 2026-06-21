@@ -847,14 +847,12 @@ export default function OurStoryPage() {
                 style={{ position: 'absolute', inset: 0, background: GOLD, zIndex: 3, transformOrigin: 'right' }}
               />
               <motion.div style={{ y: ch3ImgY, height: '115%', marginTop: '-7.5%', position: 'relative' }}>
-                <motion.img
-                  src="https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=1400&q=90&fit=crop"
-                  alt="925 Sterling Silver Craft"
-                  className="craft-img"
-                  animate={{ scale: craftHover ? 1.08 : 1, filter: craftHover ? 'brightness(0.62) contrast(1.2) saturate(0.7)' : 'brightness(0.5) contrast(1.18) saturate(0.6)' }}
-                  transition={{ duration: 1.2, ease: [0.16,1,0.3,1] }}
-                  style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center', display: 'block' }}
-                />
+                <video
+                  autoPlay muted loop playsInline preload="auto"
+                  style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center', display: 'block', filter: 'brightness(0.55) contrast(1.12) saturate(0.75)' }}
+                >
+                  <source src="/products/shamims-bloom/shamim-bloom-hero.mp4" type="video/mp4" />
+                </video>
               </motion.div>
               <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to left, transparent, rgba(5,5,5,0.55))', zIndex: 2 }} />
 
@@ -883,7 +881,9 @@ export default function OurStoryPage() {
                 transition={{ duration: 0.65, delay: 0.25, ease: [0.76, 0, 0.24, 1] }}
                 style={{ position: 'absolute', inset: 0, background: GOLD, zIndex: 3, transformOrigin: 'right' }}
               />
-              <img src="https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=900&q=90&fit=crop" alt="Craft" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center', filter: 'brightness(0.5) contrast(1.18) saturate(0.6)' }} />
+              <video autoPlay muted loop playsInline preload="auto" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center', filter: 'brightness(0.55) contrast(1.12) saturate(0.75)' }}>
+                <source src="/products/shamims-bloom/shamim-bloom-hero.mp4" type="video/mp4" />
+              </video>
               <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, #050505 0%, transparent 55%)', zIndex: 2 }} />
             </motion.div>
             <div style={{ padding: '3.5rem 2rem 4.5rem' }}>
