@@ -930,7 +930,7 @@ export default function OurStoryPage() {
                   autoPlay muted loop playsInline preload="auto"
                   style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center', filter: 'brightness(0.55) contrast(1.12) saturate(0.75)' }}
                 >
-                  <source src="/products/shamims-bloom/shamim-bloom-hero.mp4" type="video/mp4" />
+                  <source src="https://uvgtgeauhjbdatrmmaob.supabase.co/storage/v1/object/public/products/de-beers-talisman-diamond-pendant/hero.mp4" type="video/mp4" />
                 </video>
               </motion.div>
               <motion.div
@@ -996,7 +996,7 @@ export default function OurStoryPage() {
                 autoPlay muted loop playsInline preload="auto"
                 style={{ width:'100%', height:'100%', objectFit:'cover', objectPosition:'center', filter:'brightness(0.55) contrast(1.12) saturate(0.75)' }}
               >
-                <source src="/products/shamims-bloom/shamim-bloom-hero.mp4" type="video/mp4" />
+                <source src="https://uvgtgeauhjbdatrmmaob.supabase.co/storage/v1/object/public/products/de-beers-talisman-diamond-pendant/hero.mp4" type="video/mp4" />
               </video>
               <motion.div animate={{ opacity:[0.3,0.8,0.3] }} transition={{ duration:4, repeat:Infinity }}
                 style={{ position:'absolute', inset:0, background:'radial-gradient(ellipse at 50% 40%, rgba(212,175,55,0.26) 0%, transparent 60%)', pointerEvents:'none', zIndex: 2 }} />
