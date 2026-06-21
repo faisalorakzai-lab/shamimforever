@@ -165,6 +165,7 @@ function ChapNumOutline({ num }: { num: string }) {
   return (
     <div
       aria-hidden
+      className="chap-num-outline"
       style={{
         position: 'absolute',
         top: '-0.15em',
@@ -378,6 +379,45 @@ export default function OurStoryPage() {
         @keyframes tenetIn {
           from { opacity: 0; transform: translateY(24px); filter: blur(4px); }
           to   { opacity: 1; transform: translateY(0);    filter: blur(0px); }
+        }
+
+        /* ── Gold underline from CENTER on hover ── */
+        .gold-link-center {
+          position: relative;
+          text-decoration: none;
+          transition: color 0.4s;
+        }
+        .gold-link-center::after {
+          content: '';
+          position: absolute;
+          bottom: -2px;
+          left: 50%;
+          width: 0;
+          height: 1px;
+          background: ${GOLD};
+          transform: translateX(-50%);
+          transition: width 0.45s cubic-bezier(0.16,1,0.3,1);
+        }
+        .gold-link-center:hover::after { width: 100%; }
+        .gold-link-center:hover { color: ${GOLD} !important; }
+
+        /* ── Mobile: hide outlined chapter numerals ── */
+        @media (max-width: 1023px) {
+          .chap-num-outline { display: none !important; }
+        }
+
+        /* ── Enhanced grain for premium film look ── */
+        .grain-wrap::after {
+          content: '';
+          position: fixed;
+          inset: 0;
+          z-index: 9998;
+          pointer-events: none;
+          opacity: 0.025;
+          background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='turbulence' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23g)' opacity='1'/%3E%3C/svg%3E");
+          background-repeat: repeat;
+          background-size: 150px 150px;
+          mix-blend-mode: screen;
         }
       `}</style>
 
@@ -687,8 +727,8 @@ export default function OurStoryPage() {
               />
               <motion.div style={{ y: ch3ImgY, height: '115%', marginTop: '-7.5%', position: 'relative' }}>
                 <motion.img
-                  src="/products/chopard-happy-diamonds-necklace/hero.png"
-                  alt="925 Sterling Silver"
+                  src="https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=1400&q=90&fit=crop"
+                  alt="925 Sterling Silver Craft"
                   className="craft-img"
                   animate={{ scale: craftHover ? 1.08 : 1, filter: craftHover ? 'brightness(0.62) contrast(1.2) saturate(0.7)' : 'brightness(0.5) contrast(1.18) saturate(0.6)' }}
                   transition={{ duration: 1.2, ease: [0.16,1,0.3,1] }}
@@ -722,7 +762,7 @@ export default function OurStoryPage() {
                 transition={{ duration: 0.65, delay: 0.25, ease: [0.76, 0, 0.24, 1] }}
                 style={{ position: 'absolute', inset: 0, background: GOLD, zIndex: 3, transformOrigin: 'right' }}
               />
-              <img src="/products/chopard-happy-diamonds-necklace/hero.png" alt="Craft" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center', filter: 'brightness(0.5) contrast(1.18) saturate(0.6)' }} />
+              <img src="https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=900&q=90&fit=crop" alt="Craft" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center', filter: 'brightness(0.5) contrast(1.18) saturate(0.6)' }} />
               <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, #050505 0%, transparent 55%)', zIndex: 2 }} />
             </motion.div>
             <div style={{ padding: '3.5rem 2rem 4.5rem' }}>
@@ -966,10 +1006,9 @@ export default function OurStoryPage() {
             <MagneticBtn href="/shop" variant="outline">Enter the Atelier</MagneticBtn>
             <div style={{ display:'flex', flexDirection:'column', gap:'0.75rem', alignItems:'center' }} className="sm:items-end">
               {[{label:'Sovereign Panel',href:'/sovereign-panel'},{label:'Virtual Atelier',href:'/virtual-atelier'}].map(l=>(
-                <a key={l.label} href={l.href} className="gold-cap"
-                  style={{ color:'rgba(248,248,248,0.2)', textDecoration:'none', transition:'color 0.4s' }}
-                  onMouseEnter={e=>(e.currentTarget.style.color=GOLD)}
-                  onMouseLeave={e=>(e.currentTarget.style.color='rgba(248,248,248,0.2)')}>
+                <a key={l.label} href={l.href}
+                  className="gold-cap gold-link-center"
+                  style={{ color:'rgba(248,248,248,0.2)', textDecoration:'none' }}>
                   {l.label}
                 </a>
               ))}
