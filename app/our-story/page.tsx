@@ -1,251 +1,308 @@
 'use client'
 
-import { useRef, useState, useEffect } from 'react'
-import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion'
+import { useRef, useState, useEffect, useCallback } from 'react'
+import {
+  motion,
+  useScroll,
+  useTransform,
+  useMotionValue,
+  useSpring,
+  AnimatePresence,
+} from 'framer-motion'
 import Link from 'next/link'
 
-/* ─── Typography helpers ─── */
+/* ══════════════════════════════════════
+   CONSTANTS
+══════════════════════════════════════ */
+const GOLD = '#D4AF37'
+const BG   = '#050505'
 const ease = [0.16, 1, 0.3, 1] as const
 
-function FadeUp({
+/* ══════════════════════════════════════
+   MAGNETIC BUTTON
+══════════════════════════════════════ */
+function MagneticBtn({
   children,
-  delay = 0,
-  className = '',
+  href,
+  variant = 'outline',
 }: {
   children: React.ReactNode
-  delay?: number
-  className?: string
+  href: string
+  variant?: 'outline' | 'ghost'
 }) {
+  const ref = useRef<HTMLAnchorElement>(null)
+  const x = useSpring(0, { stiffness: 160, damping: 22 })
+  const y = useSpring(0, { stiffness: 160, damping: 22 })
+
+  const onMove = useCallback((e: React.MouseEvent) => {
+    const r = ref.current!.getBoundingClientRect()
+    x.set((e.clientX - r.left - r.width / 2) * 0.32)
+    y.set((e.clientY - r.top  - r.height / 2) * 0.32)
+  }, [x, y])
+
+  const onLeave = useCallback(() => { x.set(0); y.set(0) }, [x, y])
+
+  const base: React.CSSProperties = {
+    display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
+    padding: '1.1rem 2.8rem',
+    fontFamily: 'Inter, system-ui, sans-serif',
+    fontSize: 9, letterSpacing: '0.55em', textTransform: 'uppercase' as const,
+    textDecoration: 'none', cursor: 'pointer',
+    transition: 'background 0.5s, color 0.5s',
+    whiteSpace: 'nowrap' as const,
+  }
+
+  const styles: React.CSSProperties = variant === 'outline'
+    ? { ...base, border: `1px solid ${GOLD}60`, color: GOLD }
+    : { ...base, color: `rgba(248,248,248,0.3)`, border: 'none', background: 'transparent' }
+
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 44 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: '-60px' }}
-      transition={{ duration: 1.3, ease, delay }}
-      className={className}
+    <motion.a
+      ref={ref}
+      href={href}
+      style={{ ...styles, x, y }}
+      onMouseMove={onMove}
+      onMouseLeave={onLeave}
+      whileHover={variant === 'outline' ? { backgroundColor: GOLD, color: BG } : { color: GOLD }}
     >
       {children}
-    </motion.div>
+    </motion.a>
   )
 }
 
-/* ─── Chapter label ─── */
-function ChapterLabel({ num, title }: { num: string; title: string }) {
+/* ══════════════════════════════════════
+   STAGGERED SECTION REVEAL
+══════════════════════════════════════ */
+const stagContainer = {
+  hidden: {},
+  show: { transition: { staggerChildren: 0.2, delayChildren: 0.05 } },
+}
+const stagChild = {
+  hidden: { opacity: 0, y: 48, filter: 'blur(6px)' },
+  show:   { opacity: 1, y: 0,  filter: 'blur(0px)',
+    transition: { duration: 1.3, ease: [0.16, 1, 0.3, 1] } },
+}
+const stagImg = {
+  hidden: { opacity: 0, x: -52, filter: 'blur(8px)' },
+  show:   { opacity: 1, x: 0,   filter: 'blur(0px)',
+    transition: { duration: 1.5, ease: [0.16, 1, 0.3, 1] } },
+}
+
+/* ══════════════════════════════════════
+   CHAPTER LABEL (sticky)
+══════════════════════════════════════ */
+function ChapLabel({ num, sub }: { num: string; sub: string }) {
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      whileInView={{ opacity: 1 }}
-      viewport={{ once: true }}
-      transition={{ duration: 1.2 }}
-      className="flex items-center gap-5 mb-14"
+    <div
+      style={{
+        position: 'sticky', top: '6rem', zIndex: 20, alignSelf: 'flex-start',
+        display: 'flex', flexDirection: 'column', gap: 6,
+        padding: '1rem 0',
+      }}
     >
-      <span
-        className="text-[10px] tracking-[0.6em] uppercase"
-        style={{ color: '#D4AF37', fontFamily: 'Inter, sans-serif' }}
-      >
+      <span style={{ fontFamily: 'Inter, sans-serif', fontSize: 9, letterSpacing: '0.6em', textTransform: 'uppercase', color: GOLD }}>
         Chapter {num}
       </span>
-      <div className="flex-1 max-w-[60px] h-px" style={{ background: '#D4AF37', opacity: 0.25 }} />
-      <span
-        className="text-[9px] tracking-[0.5em] uppercase"
-        style={{ color: 'rgba(248,248,248,0.3)', fontFamily: 'Inter, sans-serif' }}
-      >
-        {title}
+      <div style={{ width: 32, height: 1, background: GOLD, opacity: 0.25 }} />
+      <span style={{ fontFamily: 'Inter, sans-serif', fontSize: 8, letterSpacing: '0.45em', textTransform: 'uppercase', color: 'rgba(248,248,248,0.22)' }}>
+        {sub}
+      </span>
+    </div>
+  )
+}
+
+/* ══════════════════════════════════════
+   WATERMARK TEXT (parallax)
+══════════════════════════════════════ */
+function Watermark({ text, progress, from = '-6%', to = '6%' }: {
+  text: string; progress: any; from?: string; to?: string
+}) {
+  const y = useTransform(progress, [0, 1], [from, to])
+  return (
+    <motion.div
+      aria-hidden
+      style={{
+        position: 'absolute', inset: 0, display: 'flex', alignItems: 'center',
+        justifyContent: 'center', overflow: 'hidden', pointerEvents: 'none', zIndex: 0,
+        y,
+      }}
+    >
+      <span style={{
+        fontFamily: "'Playfair Display', Georgia, serif",
+        fontStyle: 'italic', fontWeight: 700,
+        fontSize: 'clamp(5rem, 20vw, 18rem)',
+        color: 'rgba(248,248,248,0.025)',
+        letterSpacing: '0.15em', textTransform: 'uppercase',
+        whiteSpace: 'nowrap', userSelect: 'none',
+        lineHeight: 1,
+      }}>
+        {text}
       </span>
     </motion.div>
   )
 }
 
-/* ─── OKBOND Glitch ─── */
+/* ══════════════════════════════════════
+   OKBOND GLITCH
+══════════════════════════════════════ */
 function OkbondGlitch() {
-  const [glitching, setGlitching] = useState(false)
+  const [g, setG] = useState(false)
   useEffect(() => {
-    const interval = setInterval(() => {
-      setGlitching(true)
-      setTimeout(() => setGlitching(false), 400)
-    }, 5000)
-    return () => clearInterval(interval)
+    const id = setInterval(() => {
+      setG(true); setTimeout(() => setG(false), 350)
+    }, 4800)
+    return () => clearInterval(id)
   }, [])
   return (
-    <span
+    <motion.span
       style={{
         fontFamily: "'Playfair Display', Georgia, serif",
-        fontWeight: 700,
-        color: '#D4AF37',
-        letterSpacing: '0.25em',
-        position: 'relative',
+        fontWeight: 700, fontStyle: 'italic',
+        color: GOLD, letterSpacing: '0.2em',
         display: 'inline-block',
-        textShadow: glitching
-          ? '3px 0 rgba(59,130,246,0.7), -3px 0 rgba(239,68,68,0.5)'
-          : 'none',
-        transform: glitching ? 'skewX(-2deg)' : 'skewX(0deg)',
-        transition: 'text-shadow 0.05s, transform 0.05s',
+        textShadow: g ? `3px 0 rgba(59,130,246,0.7), -3px 0 rgba(239,68,68,0.5)` : 'none',
+        transform: g ? 'skewX(-3deg)' : 'skewX(0)',
+        transition: 'text-shadow 0.06s, transform 0.06s',
       }}
     >
       OKBOND
-    </span>
+    </motion.span>
   )
 }
 
+/* ══════════════════════════════════════
+   PAGE
+══════════════════════════════════════ */
 export default function OurStoryPage() {
-  /* ── Hero parallax ── */
+
+  /* Hero scroll */
   const heroRef = useRef<HTMLDivElement>(null)
   const { scrollYProgress: heroP } = useScroll({ target: heroRef, offset: ['start start', 'end start'] })
-  const heroVideoY = useTransform(heroP, [0, 1], ['0%', '25%'])
-  const heroContentOpacity = useTransform(heroP, [0, 0.75], [1, 0])
+  const heroVidY   = useTransform(heroP, [0, 1], ['0%', '28%'])
+  const heroFade   = useTransform(heroP, [0, 0.8], [1, 0])
 
-  /* ── Chapter III craft zoom ── */
-  const craftRef = useRef<HTMLDivElement>(null)
-  const { scrollYProgress: craftP } = useScroll({ target: craftRef, offset: ['start end', 'end start'] })
-  const craftScale = useTransform(craftP, [0, 1], [1, 1.14])
+  /* Chapter parallax refs */
+  const ch1Ref = useRef<HTMLDivElement>(null)
+  const ch2Ref = useRef<HTMLDivElement>(null)
+  const ch3Ref = useRef<HTMLDivElement>(null)
+  const ch4Ref = useRef<HTMLDivElement>(null)
+  const philRef = useRef<HTMLDivElement>(null)
 
-  /* ── Interactive filter (Chapter II) ── */
-  const [activeFilter, setActiveFilter] = useState<string | null>(null)
-  const filterDesc: Record<string, string> = {
-    Beauty: 'Beyond transient beauty lies permanence.',
-    Price: 'Value is measured in meaning, not currency.',
-    Soul: 'Soul — the quality that makes a thing worth keeping across generations.',
-  }
+  const { scrollYProgress: ch1P } = useScroll({ target: ch1Ref, offset: ['start end', 'end start'] })
+  const { scrollYProgress: ch2P } = useScroll({ target: ch2Ref, offset: ['start end', 'end start'] })
+  const { scrollYProgress: ch3P } = useScroll({ target: ch3Ref, offset: ['start end', 'end start'] })
+  const { scrollYProgress: ch4P } = useScroll({ target: ch4Ref, offset: ['start end', 'end start'] })
+  const { scrollYProgress: philP } = useScroll({ target: philRef, offset: ['start end', 'end start'] })
+
+  /* Craft hover zoom */
+  const [craftHover, setCraftHover] = useState(false)
 
   return (
     <>
-      {/* ─── Google Fonts — scoped to this page only ─── */}
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&family=Inter:wght@300;400&display=swap');
 
-        .lx-head {
-          font-family: 'Playfair Display', Georgia, serif;
-          letter-spacing: 0.06em;
-          line-height: 1.02;
+        /* ── Film grain overlay ── */
+        .grain-wrap::before {
+          content: '';
+          position: fixed;
+          inset: 0;
+          z-index: 9999;
+          pointer-events: none;
+          opacity: 0.04;
+          background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+          background-repeat: repeat;
+          background-size: 200px 200px;
+          mix-blend-mode: overlay;
         }
-        .lx-body {
-          font-family: 'Inter', system-ui, sans-serif;
-          font-weight: 300;
-          line-height: 2;
-          color: rgba(248,248,248,0.55);
-          letter-spacing: 0.03em;
+
+        .pf { font-family: 'Playfair Display', Georgia, serif; }
+        .inter { font-family: 'Inter', system-ui, sans-serif; font-weight: 300; }
+        .gold-cap { font-family: 'Inter', system-ui, sans-serif; font-size: 9px; letter-spacing: 0.55em; text-transform: uppercase; color: ${GOLD}; }
+        .sub-body { font-family: 'Inter', system-ui, sans-serif; font-weight: 300; line-height: 2.1; letter-spacing: 0.03em; color: rgba(248,248,248,0.45); }
+
+        /* OKBOND pulse border */
+        @keyframes okpulse {
+          0%,100% { box-shadow: 0 0 0 0 rgba(212,175,55,0); border-color: rgba(212,175,55,0.25); }
+          50%      { box-shadow: 0 0 24px 4px rgba(212,175,55,0.18); border-color: rgba(212,175,55,0.7); }
         }
-        .lx-caption {
-          font-family: 'Inter', system-ui, sans-serif;
-          font-size: 9px;
-          letter-spacing: 0.55em;
-          text-transform: uppercase;
-          color: #D4AF37;
-        }
-        .gold-btn:hover {
-          background: #D4AF37;
-          color: #050505;
-        }
+        .okbond-box { animation: okpulse 3.2s ease-in-out infinite; }
+
+        /* Value card hover */
+        .val-card:hover { background: rgba(212,175,55,0.04); }
+
+        /* Craft image zoom */
+        .craft-img { transition: transform 1.2s cubic-bezier(0.16,1,0.3,1), filter 1.2s; }
+        .craft-img:hover { transform: scale(1.07) !important; filter: brightness(0.62) contrast(1.2) saturate(0.7) !important; }
       `}</style>
 
-      <div style={{ background: '#050505', color: '#F8F8F8', overflowX: 'hidden' }}>
+      <div className="grain-wrap" style={{ background: BG, color: '#F8F8F8', overflowX: 'hidden' }}>
 
-        {/* ════════════════════════════════
-            HERO — Full-screen video
-        ════════════════════════════════ */}
+        {/* ══════════════════════════════════════
+            HERO
+        ══════════════════════════════════════ */}
         <section ref={heroRef} style={{ position: 'relative', height: '100dvh', overflow: 'hidden' }}>
 
-          {/* Video layer */}
-          <motion.div style={{ y: heroVideoY, position: 'absolute', inset: '-10%' }}>
-            <video
-              autoPlay muted loop playsInline preload="auto"
-              poster="/founder-5.png"
-              style={{ width: '100%', height: '100%', objectFit: 'cover', filter: 'brightness(0.28) contrast(1.12) saturate(0.6)' }}
-            >
+          {/* Parallax video */}
+          <motion.div style={{ y: heroVidY, position: 'absolute', inset: '-12%' }}>
+            <video autoPlay muted loop playsInline preload="auto" poster="/founder-5.png"
+              style={{ width: '100%', height: '100%', objectFit: 'cover', filter: 'brightness(0.24) contrast(1.15) saturate(0.55)' }}>
               <source src="/videos/our-story-hero.mp4" type="video/mp4" />
-              <img src="/founder-5.png" alt="Shamim Forever" />
+              <img src="/founder-5.png" alt="" />
             </video>
           </motion.div>
 
-          {/* Overlays */}
-          <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to bottom, rgba(5,5,5,0.55) 0%, rgba(5,5,5,0.25) 45%, rgba(5,5,5,0.92) 100%)' }} />
-          <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to right, rgba(5,5,5,0.7) 0%, rgba(5,5,5,0.15) 60%, transparent 100%)' }} />
+          {/* Vignette overlays */}
+          <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse at center, transparent 30%, rgba(5,5,5,0.85) 100%)' }} />
+          <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to bottom, rgba(5,5,5,0.5) 0%, transparent 40%, rgba(5,5,5,0.95) 100%)' }} />
+
+          {/* Watermark */}
+          <Watermark text="FOREVER" progress={heroP} from="0%" to="12%" />
 
           {/* Content */}
-          <motion.div
-            style={{ position: 'relative', zIndex: 10, height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', textAlign: 'center', padding: '0 32px', opacity: heroContentOpacity }}
-          >
-            <motion.p
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1, delay: 0.3 }}
-              className="lx-caption"
-              style={{ marginBottom: '3.5rem' }}
-            >
+          <motion.div style={{ opacity: heroFade, position: 'relative', zIndex: 10, height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', textAlign: 'center', padding: '0 clamp(1.5rem, 6vw, 5rem)' }}>
+
+            <motion.p initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, delay: 0.3 }} className="gold-cap" style={{ marginBottom: '3.5rem' }}>
               Our Story
             </motion.p>
 
-            {/* Main headline */}
-            <div style={{ overflow: 'hidden', marginBottom: '0.2em' }}>
-              <motion.h1
-                initial={{ y: '105%' }}
-                animate={{ y: 0 }}
-                transition={{ duration: 1.4, ease: [0.16, 1, 0.3, 1], delay: 0.5 }}
-                className="lx-head"
-                style={{ fontSize: 'clamp(2.8rem, 7.5vw, 8rem)', fontWeight: 400, color: '#F8F8F8', margin: 0 }}
-              >
+            {/* Headline — slide up from clip */}
+            <div style={{ overflow: 'hidden', marginBottom: '0.1em' }}>
+              <motion.h1 initial={{ y: '110%' }} animate={{ y: 0 }} transition={{ duration: 1.5, ease: [0.16,1,0.3,1], delay: 0.55 }}
+                className="pf" style={{ fontSize: 'clamp(3rem, 8.5vw, 9.5rem)', fontWeight: 400, margin: 0, lineHeight: 1 }}>
                 Built From Love.
               </motion.h1>
             </div>
-            <div style={{ overflow: 'hidden', marginBottom: '3.5rem' }}>
-              <motion.h1
-                initial={{ y: '105%' }}
-                animate={{ y: 0 }}
-                transition={{ duration: 1.4, ease: [0.16, 1, 0.3, 1], delay: 0.7 }}
-                className="lx-head"
-                style={{ fontSize: 'clamp(2.8rem, 7.5vw, 8rem)', fontWeight: 400, fontStyle: 'italic', color: 'rgba(248,248,248,0.45)', margin: 0 }}
-              >
-                Forged Into Legacy.
+            <div style={{ overflow: 'hidden', marginBottom: '4rem' }}>
+              <motion.h1 initial={{ y: '110%' }} animate={{ y: 0 }} transition={{ duration: 1.5, ease: [0.16,1,0.3,1], delay: 0.75 }}
+                className="pf" style={{ fontSize: 'clamp(3rem, 8.5vw, 9.5rem)', fontWeight: 500, fontStyle: 'italic', margin: 0, lineHeight: 1, color: 'rgba(248,248,248,0.32)' }}>
+                <em>Forged</em> Into Legacy.
               </motion.h1>
             </div>
 
-            <motion.div
-              initial={{ scaleX: 0 }}
-              animate={{ scaleX: 1 }}
-              transition={{ duration: 1.8, delay: 1.4, ease: [0.16, 1, 0.3, 1] }}
-              style={{ width: 80, height: 1, background: 'linear-gradient(to right, transparent, #D4AF37, transparent)', marginBottom: '3rem' }}
-            />
+            <motion.div initial={{ scaleX: 0 }} animate={{ scaleX: 1 }} transition={{ duration: 2, delay: 1.4, ease: [0.16,1,0.3,1] }}
+              style={{ width: 80, height: 1, background: `linear-gradient(to right, transparent, ${GOLD}, transparent)`, marginBottom: '3rem' }} />
 
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1.2, delay: 1.8 }}
-              className="lx-body"
-              style={{ maxWidth: 520, fontSize: '0.88rem' }}
-            >
-              Shamim Forever transcends the conventional — a profound testament to the preservation of cherished emotion, indelible memory, and timeless identity. An ode to permanence in an ephemeral world.
+            <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1.3, delay: 1.8 }}
+              className="sub-body" style={{ maxWidth: 500, fontSize: '0.88rem' }}>
+              A profound testament to the preservation of cherished emotion, indelible memory, and timeless identity. An ode to permanence in an ephemeral world.
             </motion.p>
 
-            {/* Scroll cue */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 1, delay: 2.4 }}
-              style={{ position: 'absolute', bottom: '5rem', left: '50%', transform: 'translateX(-50%)', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 12 }}
-            >
-              <motion.div
-                animate={{ y: [0, 10, 0] }}
-                transition={{ duration: 2.6, repeat: Infinity, ease: 'easeInOut' }}
-                style={{ width: 1, height: 52, background: 'linear-gradient(to bottom, #D4AF37, transparent)' }}
-              />
-              <span className="lx-caption" style={{ color: 'rgba(248,248,248,0.25)', letterSpacing: '0.45em' }}>
-                Scroll to explore
-              </span>
+            {/* Scroll indicator */}
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 2.4 }}
+              style={{ position: 'absolute', bottom: '5.5rem', left: '50%', transform: 'translateX(-50%)', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 12 }}>
+              <motion.div animate={{ y: [0, 12, 0] }} transition={{ duration: 2.8, repeat: Infinity, ease: 'easeInOut' }}
+                style={{ width: 1, height: 56, background: `linear-gradient(to bottom, ${GOLD}, transparent)` }} />
+              <span className="gold-cap" style={{ color: 'rgba(212,175,55,0.35)', fontSize: 8, letterSpacing: '0.45em' }}>Scroll to explore</span>
             </motion.div>
           </motion.div>
 
           {/* Stats bar */}
-          <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, zIndex: 10, borderTop: '1px solid rgba(255,255,255,0.06)', background: 'rgba(5,5,5,0.75)', backdropFilter: 'blur(12px)', padding: '1.1rem 2rem' }}>
-            <div style={{ display: 'flex', justifyContent: 'center', gap: 'clamp(2rem, 6vw, 5rem)', flexWrap: 'wrap' }}>
-              {['Est. 2023', '925 Sterling Silver', '∞  The Standard', 'Forever The Promise'].map((s, i) => (
-                <motion.span
-                  key={s}
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ delay: 2.6 + i * 0.12 }}
-                  className="lx-caption"
-                  style={{ color: 'rgba(212,175,55,0.5)', fontSize: 8, letterSpacing: '0.45em' }}
-                >
+          <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, zIndex: 10, borderTop: '1px solid rgba(255,255,255,0.05)', background: 'rgba(5,5,5,0.8)', backdropFilter: 'blur(16px)', padding: '1.1rem 2rem' }}>
+            <div style={{ display: 'flex', justifyContent: 'center', gap: 'clamp(1.5rem, 5vw, 4rem)', flexWrap: 'wrap' }}>
+              {['Est. 2023','925 Sterling Silver','∞  The Standard','Forever The Promise'].map((s,i)=>(
+                <motion.span key={s} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 2.6 + i*0.1 }}
+                  style={{ fontFamily: 'Inter, sans-serif', fontSize: 8, letterSpacing: '0.45em', textTransform: 'uppercase', color: 'rgba(212,175,55,0.45)', whiteSpace: 'nowrap' }}>
                   {s}
                 </motion.span>
               ))}
@@ -253,483 +310,467 @@ export default function OurStoryPage() {
           </div>
         </section>
 
-        {/* ════════════════════════════════
-            CHAPTER I — The Genesis
-        ════════════════════════════════ */}
-        <section style={{ borderBottom: '1px solid #111', overflow: 'hidden' }}>
+        {/* ══════════════════════════════════════
+            CHAPTER I — Asymmetric overlapping
+        ══════════════════════════════════════ */}
+        <section ref={ch1Ref} style={{ position: 'relative', borderBottom: '1px solid #0f0f0f', padding: 'clamp(5rem,12vw,10rem) 0', overflow: 'hidden' }}>
+          <Watermark text="GENESIS" progress={ch1P} />
 
-          {/* Desktop */}
-          <div className="hidden lg:flex" style={{ minHeight: '100vh' }}>
+          <div className="hidden lg:flex" style={{ position: 'relative', zIndex: 1, alignItems: 'flex-start', gap: 0 }}>
 
-            {/* Image column */}
+            {/* Sticky label */}
+            <div style={{ width: '14%', padding: '0 2rem 0 3rem', flexShrink: 0 }}>
+              <ChapLabel num="I" sub="The Genesis" />
+            </div>
+
+            {/* Image — slides in from left */}
             <motion.div
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 1.6, ease }}
-              style={{ flex: 1, position: 'relative', overflow: 'hidden' }}
+              variants={stagImg}
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true, margin: '-80px' }}
+              style={{ width: '42%', flexShrink: 0, position: 'relative', aspectRatio: '4/5', overflow: 'hidden', borderRadius: 2 }}
             >
-              <img
-                src="/founder-1.png"
-                alt="The Genesis — Shamim"
-                style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top center', filter: 'brightness(0.68) contrast(1.05) saturate(0.8)' }}
-              />
-              <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to right, transparent 60%, #050505)' }} />
-              <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(5,5,5,0.7) 0%, transparent 45%)' }} />
+              <img src="/founder-1.png" alt="The Genesis"
+                style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top center', filter: 'brightness(0.68) contrast(1.06) saturate(0.8)' }} />
+              <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to right, transparent 55%, rgba(5,5,5,0.9))' }} />
             </motion.div>
 
-            {/* Text column */}
-            <div style={{ width: '52%', flexShrink: 0, display: 'flex', flexDirection: 'column', justifyContent: 'center', padding: '6rem 6rem 6rem 5rem', borderLeft: '1px solid #111' }}>
-              <ChapterLabel num="I" title="The Genesis of Emotion" />
-
-              <FadeUp delay={0.1}>
-                <h2 className="lx-head" style={{ fontSize: 'clamp(2.4rem, 4.5vw, 5.5rem)', fontWeight: 400, color: '#F8F8F8', marginBottom: '2.5rem' }}>
-                  Born From<br />Remembrance,<br />
-                  <em style={{ color: 'rgba(248,248,248,0.38)', fontStyle: 'italic' }}>Not Markets.</em>
+            {/* Text — overlaps image */}
+            <motion.div
+              variants={stagContainer}
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true, margin: '-80px' }}
+              style={{ flex: 1, marginLeft: '-8%', padding: '6rem 4rem 4rem 5rem', position: 'relative', zIndex: 5 }}
+            >
+              <motion.div variants={stagChild}>
+                <h2 className="pf" style={{ fontSize: 'clamp(2.8rem, 4.5vw, 6rem)', fontWeight: 400, lineHeight: 1.0, marginBottom: '2.5rem' }}>
+                  Born From<br />
+                  <em style={{ fontStyle: 'italic', color: 'rgba(248,248,248,0.32)' }}>Remembrance,</em><br />
+                  Not Markets.
                 </h2>
-              </FadeUp>
+              </motion.div>
+              <motion.div variants={stagChild} style={{ width: 48, height: 1, background: GOLD, opacity: 0.4, marginBottom: '2.5rem' }} />
+              <motion.p variants={stagChild} className="sub-body" style={{ fontSize: '1rem', color: 'rgba(248,248,248,0.62)', fontStyle: 'italic', marginBottom: '1.5rem' }}>
+                Every enduring legacy finds its genesis not in strategic blueprints, but in a profound, ineffable sentiment.
+              </motion.p>
+              <motion.p variants={stagChild} className="sub-body" style={{ fontSize: '0.84rem' }}>
+                Shamim Forever emerged from the crucible of remembrance — a sanctuary distinct from the transient currents of markets and ephemeral trends. What began as an intimately personal resonance has blossomed into a sovereign luxury atelier, sculpted around meaning, craftsmanship, and timeless presence.
+              </motion.p>
+            </motion.div>
 
-              <FadeUp delay={0.2}>
-                <div style={{ width: 48, height: 1, background: '#D4AF37', opacity: 0.4, marginBottom: '2.5rem' }} />
-              </FadeUp>
+          </div>
 
-              <FadeUp delay={0.3}>
-                <p className="lx-body" style={{ fontSize: '1.05rem', color: 'rgba(248,248,248,0.65)', marginBottom: '1.5rem', fontStyle: 'italic' }}>
-                  Every enduring legacy finds its genesis not in strategic blueprints, but in a profound, ineffable sentiment that compels its very existence.
-                </p>
-              </FadeUp>
-
-              <FadeUp delay={0.4}>
-                <p className="lx-body" style={{ fontSize: '0.85rem' }}>
-                  Shamim Forever emerged from the crucible of remembrance — a sanctuary distinct from the transient currents of markets and ephemeral trends. What began as an intimately personal emotional resonance has blossomed into a sovereign luxury atelier, meticulously sculpted around meaning, unparalleled craftsmanship, and timeless presence.
-                </p>
-              </FadeUp>
+          {/* Mobile */}
+          <div className="lg:hidden" style={{ position: 'relative', zIndex: 1 }}>
+            <motion.div variants={stagImg} initial="hidden" whileInView="show" viewport={{ once: true }}
+              style={{ position: 'relative', aspectRatio: '3/4', overflow: 'hidden' }}>
+              <img src="/founder-1.png" alt="The Genesis" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top center', filter: 'brightness(0.68) contrast(1.06) saturate(0.8)' }} />
+              <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, #050505 0%, transparent 55%)' }} />
+            </motion.div>
+            <div style={{ padding: '3.5rem 2rem 4.5rem' }}>
+              <div className="gold-cap" style={{ marginBottom: '2rem' }}>Chapter I — The Genesis</div>
+              <motion.div variants={stagContainer} initial="hidden" whileInView="show" viewport={{ once: true }}>
+                <motion.h2 variants={stagChild} className="pf" style={{ fontSize: 'clamp(2.4rem, 9vw, 4.5rem)', fontWeight: 400, lineHeight: 1.0, marginBottom: '2rem' }}>
+                  Born From<br /><em style={{ color: 'rgba(248,248,248,0.32)' }}>Remembrance.</em>
+                </motion.h2>
+                <motion.div variants={stagChild} style={{ width: 40, height: 1, background: GOLD, opacity: 0.35, marginBottom: '2rem' }} />
+                <motion.p variants={stagChild} className="sub-body" style={{ fontSize: '0.88rem' }}>
+                  Shamim Forever emerged from the crucible of remembrance — a sanctuary distinct from transient markets. An intimately personal resonance that blossomed into a sovereign luxury atelier.
+                </motion.p>
+              </motion.div>
             </div>
+          </div>
+        </section>
+
+        {/* ══════════════════════════════════════
+            CHAPTER II — Centered declaration
+        ══════════════════════════════════════ */}
+        <section ref={ch2Ref} style={{ position: 'relative', padding: 'clamp(6rem,14vw,12rem) clamp(2rem,8vw,6rem)', borderBottom: '1px solid #0f0f0f', overflow: 'hidden' }}>
+          <Watermark text="DECLARATION" progress={ch2P} />
+
+          <div style={{ maxWidth: 820, margin: '0 auto', position: 'relative', zIndex: 1, textAlign: 'center' }}>
+
+            {/* Sticky label — centered on desktop */}
+            <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} style={{ marginBottom: '4rem' }}>
+              <span className="gold-cap">Chapter II</span>
+              <div style={{ width: 40, height: 1, background: GOLD, opacity: 0.25, margin: '0.75rem auto' }} />
+              <span style={{ fontFamily: 'Inter, sans-serif', fontSize: 8, letterSpacing: '0.45em', textTransform: 'uppercase', color: 'rgba(248,248,248,0.2)' }}>A Declaration of Intent</span>
+            </motion.div>
+
+            <motion.div variants={stagContainer} initial="hidden" whileInView="show" viewport={{ once: true, margin: '-60px' }}>
+              <motion.h2 variants={stagChild} className="pf" style={{ fontSize: 'clamp(2.8rem, 6vw, 6.5rem)', fontWeight: 400, lineHeight: 1.0, marginBottom: '4.5rem' }}>
+                Not a Brand.<br />
+                <em style={{ fontStyle: 'italic', color: 'rgba(248,248,248,0.32)' }}>A Declaration.</em>
+              </motion.h2>
+
+              <motion.div variants={stagChild} style={{ width: 1, height: 72, background: `linear-gradient(to bottom, transparent, ${GOLD}, transparent)`, margin: '0 auto 4.5rem' }} />
+
+              <motion.blockquote variants={stagChild} className="pf" style={{ fontSize: 'clamp(1.4rem, 3vw, 2.2rem)', fontWeight: 400, fontStyle: 'italic', color: 'rgba(248,248,248,0.72)', lineHeight: 1.55, margin: '0 0 1.25rem', padding: 0 }}>
+                "True luxury is not created for attention.<br />It is created for permanence."
+              </motion.blockquote>
+
+              <motion.p variants={stagChild} style={{ fontFamily: 'Inter, sans-serif', fontSize: 9, letterSpacing: '0.4em', textTransform: 'uppercase', color: `${GOLD}55`, marginBottom: '4.5rem' }}>
+                — The House of Shamim Forever
+              </motion.p>
+
+              <motion.p variants={stagChild} className="sub-body" style={{ fontSize: '0.9rem', marginBottom: '1.5rem' }}>
+                Shamim Forever was conceived as an antidote to cacophony. In an era defined by pervasive visibility yet devoid of substance, the House deliberately chose profound silence, unwavering integrity, and unparalleled emotional depth.
+              </motion.p>
+              <motion.p variants={stagChild} className="sub-body" style={{ fontSize: '0.84rem', marginBottom: '4rem' }}>
+                Every creation is evaluated through a singular inquiry: <em style={{ color: 'rgba(248,248,248,0.55)' }}>Does this possess an intrinsic soul?</em>
+              </motion.p>
+
+              {/* Interactive filter */}
+              <motion.div variants={stagChild}>
+                <p style={{ fontFamily: 'Inter, sans-serif', fontSize: 9, letterSpacing: '0.45em', textTransform: 'uppercase', color: `${GOLD}40`, marginBottom: '1rem' }}>We do not evaluate by</p>
+                <FilterRow />
+              </motion.div>
+            </motion.div>
+          </div>
+        </section>
+
+        {/* ══════════════════════════════════════
+            CHAPTER III — Craft / zoom on hover
+        ══════════════════════════════════════ */}
+        <section ref={ch3Ref} style={{ position: 'relative', borderBottom: '1px solid #0f0f0f', overflow: 'hidden' }}>
+          <Watermark text="MASTERY" progress={ch3P} />
+
+          <div className="hidden lg:flex" style={{ position: 'relative', zIndex: 1, alignItems: 'flex-start', minHeight: '92vh' }}>
+
+            {/* Text column */}
+            <motion.div
+              variants={stagContainer}
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true, margin: '-80px' }}
+              style={{ width: '48%', display: 'flex', flexDirection: 'column', justifyContent: 'center', padding: '8rem 5rem 8rem 6rem', borderRight: '1px solid #111' }}
+            >
+              <div style={{ position: 'sticky', top: '5rem' }}>
+                <ChapLabel num="III" sub="Discipline Before Detail" />
+                <motion.h2 variants={stagChild} className="pf" style={{ fontSize: 'clamp(2.6rem, 4vw, 5.5rem)', fontWeight: 400, lineHeight: 1.0, marginBottom: '2.5rem' }}>
+                  Discipline<br />
+                  <em style={{ fontStyle: 'italic', color: 'rgba(248,248,248,0.30)' }}>Before Detail.</em>
+                </motion.h2>
+                <motion.div variants={stagChild} style={{ width: 48, height: 1, background: GOLD, opacity: 0.38, marginBottom: '2.5rem' }} />
+                <motion.p variants={stagChild} className="sub-body" style={{ fontSize: '0.95rem', color: 'rgba(248,248,248,0.62)', fontStyle: 'italic', marginBottom: '1.5rem' }}>
+                  Within the hallowed halls of the House, serendipity holds no dominion.
+                </motion.p>
+                <motion.p variants={stagChild} className="sub-body" style={{ fontSize: '0.83rem', marginBottom: '3rem' }}>
+                  Our 925 sterling silver is painstakingly hand-finished to a mirror-like brilliance. Our Oud compositions are cultivated over months, not days. The packaging is an extension of the object. The process is the product.
+                </motion.p>
+
+                {/* Spec grid */}
+                <motion.div variants={stagChild} style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 1, border: '1px solid #1a1a1a' }}>
+                  {[{v:'925',s:'Sterling Silver'},{v:'Hand',s:'Finished'},{v:'Months',s:'Cultivated'},{v:'∞',s:'The Standard'}].map((item,i)=>(
+                    <div key={item.v} style={{ padding:'1.4rem 1.2rem', borderRight:i%2===0?'1px solid #1a1a1a':'none', borderBottom:i<2?'1px solid #1a1a1a':'none' }}>
+                      <p className="pf" style={{ fontSize: '1.5rem', color: GOLD, marginBottom: '0.3rem' }}>{item.v}</p>
+                      <p style={{ fontFamily:'Inter,sans-serif', fontSize:8, letterSpacing:'0.4em', textTransform:'uppercase', color:'rgba(248,248,248,0.25)' }}>{item.s}</p>
+                    </div>
+                  ))}
+                </motion.div>
+              </div>
+            </motion.div>
+
+            {/* Craft image — zoom on hover */}
+            <motion.div
+              initial={{ opacity: 0, x: 48 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 1.5, ease }}
+              style={{ flex: 1, position: 'relative', overflow: 'hidden' }}
+              onMouseEnter={() => setCraftHover(true)}
+              onMouseLeave={() => setCraftHover(false)}
+            >
+              <motion.img
+                src="/products/chopard-happy-diamonds-necklace/hero.png"
+                alt="925 Sterling Silver"
+                className="craft-img"
+                animate={{ scale: craftHover ? 1.08 : 1, filter: craftHover ? 'brightness(0.62) contrast(1.2) saturate(0.7)' : 'brightness(0.5) contrast(1.18) saturate(0.6)' }}
+                transition={{ duration: 1.2, ease: [0.16,1,0.3,1] }}
+                style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center', display: 'block' }}
+              />
+              <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to left, transparent, rgba(5,5,5,0.55))' }} />
+              <div style={{ position: 'absolute', bottom: '2.5rem', left: '2.5rem' }}>
+                <span style={{ fontFamily:'Inter,sans-serif', fontSize:8, letterSpacing:'0.6em', textTransform:'uppercase', color:`${GOLD}60` }}>925 Sterling Silver</span>
+                <div style={{ width:28, height:1, background:GOLD, opacity:0.3, marginTop:6 }} />
+              </div>
+              {craftHover && (
+                <motion.div initial={{ opacity:0 }} animate={{ opacity:1 }} exit={{ opacity:0 }}
+                  style={{ position:'absolute', top:'2rem', right:'2rem', fontFamily:'Inter,sans-serif', fontSize:8, letterSpacing:'0.45em', textTransform:'uppercase', color:`${GOLD}70` }}>
+                  Mirror Finish
+                </motion.div>
+              )}
+            </motion.div>
+
           </div>
 
           {/* Mobile */}
           <div className="lg:hidden">
-            <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ duration: 1.4 }} style={{ position: 'relative', aspectRatio: '3/4', overflow: 'hidden' }}>
-              <img src="/founder-1.png" alt="The Genesis" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top center', filter: 'brightness(0.68) contrast(1.05) saturate(0.8)' }} />
-              <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, #050505 0%, rgba(5,5,5,0.1) 60%, transparent 100%)' }} />
+            <motion.div initial={{ opacity:0 }} whileInView={{ opacity:1 }} viewport={{ once:true }} style={{ aspectRatio:'3/4', overflow:'hidden', position:'relative' }}>
+              <img src="/products/chopard-happy-diamonds-necklace/hero.png" alt="The Craft"
+                style={{ width:'100%', height:'100%', objectFit:'cover', filter:'brightness(0.5) contrast(1.18) saturate(0.6)' }} />
+              <div style={{ position:'absolute', inset:0, background:'linear-gradient(to top, #050505 0%, transparent 55%)' }} />
             </motion.div>
-            <div style={{ padding: '4rem 2rem 5rem' }}>
-              <ChapterLabel num="I" title="The Genesis of Emotion" />
-              <FadeUp>
-                <h2 className="lx-head" style={{ fontSize: 'clamp(2.2rem, 8vw, 4rem)', fontWeight: 400, color: '#F8F8F8', marginBottom: '2rem' }}>
-                  Born From Remembrance,<br />
-                  <em style={{ color: 'rgba(248,248,248,0.38)' }}>Not Markets.</em>
-                </h2>
-              </FadeUp>
-              <FadeUp delay={0.1}>
-                <div style={{ width: 40, height: 1, background: '#D4AF37', opacity: 0.4, marginBottom: '2rem' }} />
-                <p className="lx-body" style={{ fontSize: '0.9rem', color: 'rgba(248,248,248,0.65)', marginBottom: '1.25rem', fontStyle: 'italic' }}>
-                  Every enduring legacy finds its genesis not in strategic blueprints, but in a profound, ineffable sentiment.
-                </p>
-                <p className="lx-body" style={{ fontSize: '0.82rem' }}>
-                  Shamim Forever emerged from the crucible of remembrance — a sanctuary distinct from the transient currents of markets. What began as an intimately personal resonance has blossomed into a sovereign luxury atelier.
-                </p>
-              </FadeUp>
+            <div style={{ padding:'3.5rem 2rem 4.5rem' }}>
+              <div className="gold-cap" style={{ marginBottom:'2rem' }}>Chapter III — Discipline Before Detail</div>
+              <motion.div variants={stagContainer} initial="hidden" whileInView="show" viewport={{ once:true }}>
+                <motion.h2 variants={stagChild} className="pf" style={{ fontSize:'clamp(2.4rem,9vw,4.5rem)', fontWeight:400, lineHeight:1.0, marginBottom:'2rem' }}>
+                  Discipline<br /><em style={{ color:'rgba(248,248,248,0.3)' }}>Before Detail.</em>
+                </motion.h2>
+                <motion.div variants={stagChild} style={{ width:40,height:1,background:GOLD,opacity:0.35,marginBottom:'2rem' }} />
+                <motion.p variants={stagChild} className="sub-body" style={{ fontSize:'0.88rem' }}>
+                  925 sterling silver, hand-finished to mirror brilliance. Oud compositions cultivated over months. The process is the product.
+                </motion.p>
+              </motion.div>
             </div>
           </div>
-
         </section>
 
-        {/* ════════════════════════════════
-            CHAPTER II — The Declaration
-        ════════════════════════════════ */}
-        <section style={{ padding: 'clamp(5rem, 12vw, 10rem) clamp(2rem, 8vw, 7rem)', textAlign: 'center', borderBottom: '1px solid #111', position: 'relative' }}>
-          <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse at center, rgba(212,175,55,0.04) 0%, transparent 70%)', pointerEvents: 'none' }} />
+        {/* ══════════════════════════════════════
+            CHAPTER IV — OKBOND / Sovereign
+        ══════════════════════════════════════ */}
+        <section ref={ch4Ref} style={{ position: 'relative', borderBottom: '1px solid #0f0f0f', overflow: 'hidden' }}>
+          <Watermark text="SOVEREIGN" progress={ch4P} />
 
-          <div style={{ maxWidth: 780, margin: '0 auto', position: 'relative', zIndex: 1 }}>
-            <ChapterLabel num="II" title="A Declaration of Intent" />
+          <div className="hidden lg:flex" style={{ position: 'relative', zIndex: 1, alignItems: 'flex-start', minHeight: '92vh' }}>
 
-            <FadeUp>
-              <h2 className="lx-head" style={{ fontSize: 'clamp(2.6rem, 6vw, 6rem)', fontWeight: 400, color: '#F8F8F8', marginBottom: '4rem' }}>
-                Not a Brand.<br />
-                <em style={{ color: 'rgba(248,248,248,0.35)' }}>A Declaration.</em>
-              </h2>
-            </FadeUp>
-
-            <FadeUp delay={0.15}>
-              <div style={{ width: 1, height: 72, background: 'linear-gradient(to bottom, transparent, #D4AF37, transparent)', margin: '0 auto 4rem' }} />
-            </FadeUp>
-
-            <FadeUp delay={0.2}>
-              <blockquote className="lx-head" style={{ fontSize: 'clamp(1.4rem, 3vw, 2.2rem)', fontWeight: 400, fontStyle: 'italic', color: 'rgba(248,248,248,0.78)', lineHeight: 1.5, margin: '0 0 1.5rem', padding: '0 1rem' }}>
-                "True luxury is not created for attention.<br />It is created for permanence."
-              </blockquote>
-              <p className="lx-caption" style={{ color: 'rgba(212,175,55,0.5)', marginBottom: '4.5rem' }}>
-                — The House of Shamim Forever
-              </p>
-            </FadeUp>
-
-            <FadeUp delay={0.3}>
-              <p className="lx-body" style={{ fontSize: '0.9rem', marginBottom: '1.5rem' }}>
-                Shamim Forever was conceived as an antidote to cacophony. In an era defined by pervasive visibility yet often devoid of intrinsic substance, the House deliberately chose an antithetical path — one consecrated to profound silence, unwavering structural integrity, and unparalleled emotional depth.
-              </p>
-              <p className="lx-body" style={{ fontSize: '0.85rem', marginBottom: '3.5rem' }}>
-                Every creation is evaluated through a singular inquiry: <em style={{ color: 'rgba(248,248,248,0.6)' }}>Does this possess an intrinsic soul?</em>
-              </p>
-            </FadeUp>
-
-            {/* Interactive filter */}
-            <FadeUp delay={0.35}>
-              <p className="lx-caption" style={{ marginBottom: '1.25rem', color: 'rgba(212,175,55,0.4)' }}>We do not evaluate by</p>
-              <div style={{ display: 'flex', border: '1px solid #1a1a1a', marginBottom: '1rem' }}>
-                {['Beauty', 'Price', 'Soul'].map((f, i) => (
-                  <button
-                    key={f}
-                    onMouseEnter={() => setActiveFilter(f)}
-                    onMouseLeave={() => setActiveFilter(null)}
-                    style={{
-                      flex: 1,
-                      padding: '1.1rem',
-                      fontSize: 9,
-                      letterSpacing: '0.5em',
-                      textTransform: 'uppercase',
-                      fontFamily: 'Inter, sans-serif',
-                      fontWeight: 300,
-                      background: activeFilter === f ? '#D4AF37' : 'transparent',
-                      color: activeFilter === f ? '#050505' : activeFilter ? 'rgba(248,248,248,0.2)' : '#D4AF37',
-                      border: 'none',
-                      borderRight: i < 2 ? '1px solid #1a1a1a' : 'none',
-                      cursor: 'pointer',
-                      transition: 'all 0.45s cubic-bezier(0.16,1,0.3,1)',
-                    }}
-                  >
-                    {f}
-                  </button>
-                ))}
-              </div>
-              <AnimatePresence mode="wait">
-                {activeFilter && (
-                  <motion.p
-                    key={activeFilter}
-                    initial={{ opacity: 0, y: 8 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -8 }}
-                    transition={{ duration: 0.3 }}
-                    className="lx-caption"
-                    style={{ color: 'rgba(248,248,248,0.35)', letterSpacing: '0.3em' }}
-                  >
-                    {filterDesc[activeFilter]}
-                  </motion.p>
-                )}
-              </AnimatePresence>
-            </FadeUp>
-          </div>
-        </section>
-
-        {/* ════════════════════════════════
-            CHAPTER III — The Mastery
-        ════════════════════════════════ */}
-        <section ref={craftRef} style={{ borderBottom: '1px solid #111', overflow: 'hidden' }}>
-          <div className="grid grid-cols-1 lg:grid-cols-2" style={{ minHeight: '90vh' }}>
-
-            {/* Zoom-on-scroll visual */}
+            {/* Image — digital glow */}
             <motion.div
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
+              initial={{ opacity: 0, x: -48 }}
+              whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 1.6, ease }}
-              style={{ position: 'relative', overflow: 'hidden', aspectRatio: '3/4' }}
-              className="lg:aspect-auto"
+              transition={{ duration: 1.5, ease }}
+              style={{ width: '46%', position: 'relative', overflow: 'hidden', alignSelf: 'stretch' }}
             >
-              <motion.img
-                src="/products/chopard-happy-diamonds-necklace/hero.png"
-                alt="925 Sterling Silver — The Craft"
-                style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center', filter: 'brightness(0.5) contrast(1.2) saturate(0.55)', scale: craftScale }}
-              />
-              <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to right, transparent, rgba(5,5,5,0.6))' }} />
-              <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(5,5,5,0.7) 0%, transparent 50%)' }} />
-              <div style={{ position: 'absolute', bottom: '2rem', left: '2rem' }}>
-                <span className="lx-caption" style={{ color: 'rgba(212,175,55,0.6)', fontSize: 8, letterSpacing: '0.6em' }}>925 Sterling Silver</span>
-                <div style={{ width: 32, height: 1, background: '#D4AF37', opacity: 0.35, marginTop: 6 }} />
+              <img src="/founder-3.png" alt="Sovereign Future"
+                style={{ width:'100%', height:'100%', objectFit:'cover', objectPosition:'top center', filter:'brightness(0.38) contrast(1.18) saturate(0.55)' }} />
+              <div style={{ position:'absolute', inset:0, background:'linear-gradient(to right, transparent, rgba(5,5,5,0.6))' }} />
+              <motion.div animate={{ opacity:[0.3,0.8,0.3] }} transition={{ duration:4, repeat:Infinity, ease:'easeInOut' }}
+                style={{ position:'absolute', inset:0, background:'radial-gradient(ellipse at 50% 40%, rgba(212,175,55,0.26) 0%, transparent 60%)', pointerEvents:'none' }} />
+              <div style={{ position:'absolute', bottom:'2.5rem', right:'2.5rem' }}>
+                <span style={{ fontFamily:"'Playfair Display',Georgia,serif", fontSize:10, letterSpacing:'0.45em', color:'rgba(212,175,55,0.28)', textTransform:'uppercase', fontStyle:'italic' }}>OKBOND</span>
               </div>
             </motion.div>
 
             {/* Text */}
-            <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', padding: 'clamp(3rem, 6vw, 6rem)', borderLeft: '1px solid #111' }}>
-              <ChapterLabel num="III" title="Discipline Before Detail" />
-
-              <FadeUp>
-                <h2 className="lx-head" style={{ fontSize: 'clamp(2.2rem, 4vw, 5rem)', fontWeight: 400, color: '#F8F8F8', marginBottom: '2.5rem' }}>
-                  Discipline<br />
-                  <em style={{ color: 'rgba(248,248,248,0.35)' }}>Before Detail.</em>
-                </h2>
-              </FadeUp>
-
-              <FadeUp delay={0.15}>
-                <div style={{ width: 40, height: 1, background: '#D4AF37', opacity: 0.4, marginBottom: '2.5rem' }} />
-                <p className="lx-body" style={{ fontSize: '0.95rem', color: 'rgba(248,248,248,0.65)', marginBottom: '1.5rem', fontStyle: 'italic' }}>
-                  Within the hallowed halls of the House, serendipity holds no dominion. Each material is chosen with unwavering, singular intent.
-                </p>
-                <p className="lx-body" style={{ fontSize: '0.84rem', marginBottom: '3rem' }}>
-                  Our 925 sterling silver is painstakingly hand-finished to achieve a mirror-like brilliance. Our exquisite Oud compositions are cultivated over months, not days — allowing their profound complexities to fully mature. The packaging is an extension of the object itself. The process is the product.
-                </p>
-              </FadeUp>
-
-              {/* Detail grid */}
-              <FadeUp delay={0.25}>
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 1, border: '1px solid #1a1a1a' }}>
-                  {[
-                    { label: '925', sub: 'Sterling Silver' },
-                    { label: 'Hand', sub: 'Finished' },
-                    { label: 'Months', sub: 'Cultivated' },
-                    { label: '∞', sub: 'The Standard' },
-                  ].map((item, i) => (
-                    <motion.div
-                      key={item.label}
-                      whileHover={{ background: 'rgba(212,175,55,0.04)' }}
-                      style={{ padding: '1.5rem', borderRight: i % 2 === 0 ? '1px solid #1a1a1a' : 'none', borderBottom: i < 2 ? '1px solid #1a1a1a' : 'none', transition: 'background 0.4s' }}
-                    >
-                      <p className="lx-head" style={{ fontSize: '1.5rem', fontWeight: 400, color: '#D4AF37', marginBottom: '0.3rem' }}>{item.label}</p>
-                      <p className="lx-caption" style={{ color: 'rgba(248,248,248,0.3)', fontSize: 8, letterSpacing: '0.45em' }}>{item.sub}</p>
-                    </motion.div>
-                  ))}
-                </div>
-              </FadeUp>
-            </div>
-
-          </div>
-        </section>
-
-        {/* ════════════════════════════════
-            CHAPTER IV — OKBOND / Sovereign Future
-        ════════════════════════════════ */}
-        <section style={{ borderBottom: '1px solid #111', overflow: 'hidden' }}>
-          <div className="grid grid-cols-1 lg:grid-cols-2" style={{ minHeight: '90vh' }}>
-
-            {/* Text */}
-            <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', padding: 'clamp(3rem, 6vw, 6rem)', borderRight: '1px solid #111', order: 2 }} className="lg:order-1">
-              <ChapterLabel num="IV" title="The Sovereign Future" />
-
-              <FadeUp>
-                <h2 className="lx-head" style={{ fontSize: 'clamp(2.2rem, 4vw, 5rem)', fontWeight: 400, color: '#F8F8F8', marginBottom: '2.5rem' }}>
+            <motion.div
+              variants={stagContainer}
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true, margin: '-80px' }}
+              style={{ flex:1, display:'flex', flexDirection:'column', justifyContent:'center', padding:'8rem 5rem 8rem 6rem', borderLeft:'1px solid #111' }}
+            >
+              <div style={{ position:'sticky', top:'5rem' }}>
+                <ChapLabel num="IV" sub="The Sovereign Future" />
+                <motion.h2 variants={stagChild} className="pf" style={{ fontSize:'clamp(2.6rem,4vw,5.5rem)', fontWeight:400, lineHeight:1.0, marginBottom:'2.5rem' }}>
                   Architecture of<br />
-                  <em style={{ color: 'rgba(248,248,248,0.35)' }}>A New Ownership.</em>
-                </h2>
-              </FadeUp>
+                  <em style={{ fontStyle:'italic', color:'rgba(248,248,248,0.30)' }}>A New Ownership.</em>
+                </motion.h2>
+                <motion.div variants={stagChild} style={{ width:48,height:1,background:GOLD,opacity:0.38,marginBottom:'2.5rem' }} />
+                <motion.p variants={stagChild} className="sub-body" style={{ fontSize:'0.95rem', color:'rgba(248,248,248,0.62)', fontStyle:'italic', marginBottom:'1.5rem' }}>
+                  Shamim Forever ventures into a novel paradigm where digital and material sovereignty are inextricably intertwined.
+                </motion.p>
+                <motion.p variants={stagChild} className="sub-body" style={{ fontSize:'0.83rem', marginBottom:'2.5rem' }}>
+                  <OkbondGlitch /> stands as the House's unequivocal declaration: true luxury must assert its sovereignty within its foundational systems — liberated from external platforms, free from intermediaries, defiant of mass commerce.
+                </motion.p>
 
-              <FadeUp delay={0.15}>
-                <div style={{ width: 40, height: 1, background: '#D4AF37', opacity: 0.4, marginBottom: '2.5rem' }} />
-                <p className="lx-body" style={{ fontSize: '0.95rem', color: 'rgba(248,248,248,0.65)', marginBottom: '1.5rem', fontStyle: 'italic' }}>
-                  The trajectory of Shamim Forever transcends conventional luxury — venturing into a novel paradigm where digital and material sovereignty are inextricably intertwined.
-                </p>
-              </FadeUp>
-
-              <FadeUp delay={0.2}>
-                <p className="lx-body" style={{ fontSize: '0.84rem', marginBottom: '2.5rem' }}>
-                  <OkbondGlitch /> stands as the House's unequivocal declaration: true luxury must assert its sovereignty within its foundational systems. Liberated from external platforms, free from intermediaries, defiant of mass commerce.
-                </p>
-              </FadeUp>
-
-              {/* High-tech detail strip */}
-              <FadeUp delay={0.3}>
-                <div style={{ border: '1px solid #1a1a1a', padding: '1.5rem', position: 'relative', overflow: 'hidden' }}>
-                  <motion.div
-                    animate={{ opacity: [0.4, 0.8, 0.4] }}
-                    transition={{ duration: 3.5, repeat: Infinity, ease: 'easeInOut' }}
-                    style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 1, background: 'linear-gradient(to right, transparent, #D4AF37, transparent)' }}
-                  />
-                  <p className="lx-caption" style={{ marginBottom: '0.75rem', color: 'rgba(212,175,55,0.5)' }}>Status: Forthcoming</p>
-                  <p className="lx-body" style={{ fontSize: '0.82rem' }}>
-                    The forthcoming decade shall belong to those audacious few who dare to build their own sovereign architecture — commanding their own narrative, their own platforms, their own permanence.
+                {/* Pulse box */}
+                <motion.div variants={stagChild} className="okbond-box" style={{ border:'1px solid rgba(212,175,55,0.25)', padding:'1.5rem', position:'relative', overflow:'hidden' }}>
+                  <motion.div animate={{ opacity:[0.5,1,0.5] }} transition={{ duration:3.2, repeat:Infinity }}
+                    style={{ position:'absolute', top:0, left:0, right:0, height:1, background:`linear-gradient(to right, transparent, ${GOLD}, transparent)` }} />
+                  <span className="gold-cap" style={{ display:'block', marginBottom:'0.75rem', color:`${GOLD}50` }}>Status: Forthcoming</span>
+                  <p className="sub-body" style={{ fontSize:'0.82rem' }}>
+                    The forthcoming decade shall belong to those audacious few who dare to build their own sovereign architecture — commanding their own narrative, their own permanence.
                   </p>
-                </div>
-              </FadeUp>
-            </div>
-
-            {/* Visual — digital glow */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 1.6, ease }}
-              style={{ position: 'relative', overflow: 'hidden', aspectRatio: '3/4', order: 1 }}
-              className="lg:aspect-auto lg:order-2"
-            >
-              <img
-                src="/founder-3.png"
-                alt="Sovereign Future"
-                style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top center', filter: 'brightness(0.4) contrast(1.18) saturate(0.6)' }}
-              />
-              <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to left, transparent, rgba(5,5,5,0.65))' }} />
-              <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(5,5,5,0.65) 0%, transparent 55%)' }} />
-
-              {/* Pulsing gold glow */}
-              <motion.div
-                animate={{ opacity: [0.3, 0.75, 0.3] }}
-                transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
-                style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse at 50% 35%, rgba(212,175,55,0.28) 0%, rgba(212,175,55,0) 65%)', pointerEvents: 'none' }}
-              />
-
-              {/* OKBOND watermark */}
-              <div style={{ position: 'absolute', bottom: '2rem', right: '2rem' }}>
-                <span style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: 11, letterSpacing: '0.4em', color: 'rgba(212,175,55,0.3)', textTransform: 'uppercase' }}>OKBOND</span>
+                </motion.div>
               </div>
             </motion.div>
 
           </div>
+
+          {/* Mobile */}
+          <div className="lg:hidden">
+            <motion.div initial={{ opacity:0 }} whileInView={{ opacity:1 }} viewport={{ once:true }} style={{ aspectRatio:'3/4', overflow:'hidden', position:'relative' }}>
+              <img src="/founder-3.png" alt="Sovereign" style={{ width:'100%', height:'100%', objectFit:'cover', objectPosition:'top center', filter:'brightness(0.38) contrast(1.18) saturate(0.55)' }} />
+              <motion.div animate={{ opacity:[0.3,0.8,0.3] }} transition={{ duration:4, repeat:Infinity }}
+                style={{ position:'absolute', inset:0, background:'radial-gradient(ellipse at 50% 40%, rgba(212,175,55,0.26) 0%, transparent 60%)', pointerEvents:'none' }} />
+              <div style={{ position:'absolute', inset:0, background:'linear-gradient(to top, #050505 0%, transparent 55%)' }} />
+            </motion.div>
+            <div style={{ padding:'3.5rem 2rem 4.5rem' }}>
+              <div className="gold-cap" style={{ marginBottom:'2rem' }}>Chapter IV — The Sovereign Future</div>
+              <motion.div variants={stagContainer} initial="hidden" whileInView="show" viewport={{ once:true }}>
+                <motion.h2 variants={stagChild} className="pf" style={{ fontSize:'clamp(2.4rem,9vw,4.5rem)', fontWeight:400, lineHeight:1.0, marginBottom:'2rem' }}>
+                  Architecture of<br /><em style={{ color:'rgba(248,248,248,0.3)' }}>New Ownership.</em>
+                </motion.h2>
+                <motion.div variants={stagChild} style={{ width:40,height:1,background:GOLD,opacity:0.35,marginBottom:'2rem' }} />
+                <motion.p variants={stagChild} className="sub-body" style={{ fontSize:'0.88rem', marginBottom:'1.5rem' }}>
+                  <OkbondGlitch /> — the House's declaration of sovereignty. Liberated from external platforms, defiant of mass commerce.
+                </motion.p>
+                <motion.div variants={stagChild} className="okbond-box" style={{ border:'1px solid rgba(212,175,55,0.25)', padding:'1.25rem' }}>
+                  <span className="gold-cap" style={{ display:'block', marginBottom:'0.6rem', color:`${GOLD}50` }}>Status: Forthcoming</span>
+                  <p className="sub-body" style={{ fontSize:'0.81rem' }}>The forthcoming decade belongs to those who dare build sovereign architecture.</p>
+                </motion.div>
+              </motion.div>
+            </div>
+          </div>
         </section>
 
-        {/* ════════════════════════════════
-            PHILOSOPHY — Values
-        ════════════════════════════════ */}
-        <section style={{ padding: 'clamp(5rem, 12vw, 10rem) clamp(2rem, 8vw, 5rem)', borderBottom: '1px solid #111', textAlign: 'center', position: 'relative', overflow: 'hidden' }}>
-          <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse at 50% 50%, rgba(212,175,55,0.03) 0%, transparent 65%)', pointerEvents: 'none' }} />
+        {/* ══════════════════════════════════════
+            PHILOSOPHY / VALUES
+        ══════════════════════════════════════ */}
+        <section ref={philRef} style={{ position:'relative', padding:'clamp(6rem,14vw,12rem) clamp(2rem,8vw,5rem)', borderBottom:'1px solid #0f0f0f', textAlign:'center', overflow:'hidden' }}>
+          <Watermark text="LEGACY" progress={philP} />
+          <div style={{ position:'absolute', inset:0, background:'radial-gradient(ellipse at center, rgba(212,175,55,0.03) 0%, transparent 65%)', pointerEvents:'none' }} />
 
-          <div style={{ maxWidth: 900, margin: '0 auto', position: 'relative' }}>
-            <FadeUp>
-              <div style={{ width: 1, height: 56, background: 'linear-gradient(to bottom, transparent, #D4AF37)', margin: '0 auto 4rem' }} />
-              <p className="lx-caption" style={{ marginBottom: '3.5rem' }}>The Philosophy</p>
-              <blockquote className="lx-head" style={{ fontSize: 'clamp(1.8rem, 4vw, 3.5rem)', fontWeight: 400, color: '#F8F8F8', lineHeight: 1.3, marginBottom: '1.25rem' }}>
+          <div style={{ maxWidth:900, margin:'0 auto', position:'relative', zIndex:1 }}>
+            <motion.div variants={stagContainer} initial="hidden" whileInView="show" viewport={{ once:true, margin:'-60px' }}>
+              <motion.div variants={stagChild} style={{ width:1,height:60,background:`linear-gradient(to bottom, transparent, ${GOLD})`,margin:'0 auto 4rem' }} />
+              <motion.p variants={stagChild} className="gold-cap" style={{ marginBottom:'3.5rem' }}>The Philosophy</motion.p>
+
+              <motion.blockquote variants={stagChild} className="pf" style={{ fontSize:'clamp(1.8rem,4vw,3.6rem)', fontWeight:400, lineHeight:1.3, marginBottom:'0.8rem' }}>
                 "True luxury does not seek<br />fleeting attention —
-              </blockquote>
-              <blockquote className="lx-head" style={{ fontSize: 'clamp(1.8rem, 4vw, 3.5rem)', fontWeight: 400, fontStyle: 'italic', color: 'rgba(248,248,248,0.4)', lineHeight: 1.3, marginBottom: '2rem' }}>
+              </motion.blockquote>
+              <motion.blockquote variants={stagChild} className="pf" style={{ fontSize:'clamp(1.8rem,4vw,3.6rem)', fontWeight:400, fontStyle:'italic', color:'rgba(248,248,248,0.36)', lineHeight:1.3, marginBottom:'2rem' }}>
                 it is crafted for enduring permanence."
-              </blockquote>
-              <p className="lx-caption" style={{ color: 'rgba(212,175,55,0.4)', marginBottom: '5rem' }}>— The House of Shamim Forever</p>
-            </FadeUp>
+              </motion.blockquote>
+              <motion.p variants={stagChild} style={{ fontFamily:'Inter,sans-serif', fontSize:9, letterSpacing:'0.4em', textTransform:'uppercase', color:`${GOLD}45`, marginBottom:'5rem' }}>
+                — The House of Shamim Forever
+              </motion.p>
+            </motion.div>
 
-            <FadeUp delay={0.15}>
-              <p className="lx-caption" style={{ color: 'rgba(248,248,248,0.2)', marginBottom: '3rem' }}>Our tenets are immutable</p>
-            </FadeUp>
+            <motion.p initial={{ opacity:0 }} whileInView={{ opacity:1 }} viewport={{ once:true }}
+              style={{ fontFamily:'Inter,sans-serif', fontSize:9, letterSpacing:'0.45em', textTransform:'uppercase', color:'rgba(248,248,248,0.18)', marginBottom:'3rem' }}>
+              Our tenets are immutable
+            </motion.p>
 
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 0, border: '1px solid #1a1a1a' }} className="md:grid-cols-4">
+            <div style={{ display:'grid', gridTemplateColumns:'repeat(2,1fr)', border:'1px solid #1a1a1a', gap:0 }} className="md:grid-cols-4">
               {[
-                { title: 'Timelessness', sub: 'over transient trends' },
-                { title: 'Discipline', sub: 'over pervasive noise' },
-                { title: 'Authentic Identity', sub: 'over superficial imitation' },
-                { title: 'Enduring Legacy', sub: 'over ephemeral speed' },
-              ].map((v, i) => (
-                <motion.div
-                  key={v.title}
-                  initial={{ opacity: 0, y: 28 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.9, delay: i * 0.1, ease }}
-                  whileHover={{ backgroundColor: 'rgba(212,175,55,0.04)' }}
-                  style={{
-                    padding: '2.5rem 1.5rem',
-                    borderRight: i % 2 === 0 ? '1px solid #1a1a1a' : 'none',
-                    borderBottom: i < 2 ? '1px solid #1a1a1a' : 'none',
-                    textAlign: 'left',
-                    transition: 'background 0.5s',
-                    cursor: 'default',
-                  }}
-                  className="md:border-r md:border-b-0"
-                >
-                  <div style={{ width: 24, height: 1, background: '#D4AF37', opacity: 0.4, marginBottom: '1.5rem' }} />
-                  <p className="lx-head" style={{ fontSize: '1.15rem', fontWeight: 500, color: '#F8F8F8', marginBottom: '0.6rem' }}>{v.title}</p>
-                  <p className="lx-caption" style={{ color: 'rgba(248,248,248,0.25)', fontSize: 8, letterSpacing: '0.4em' }}>{v.sub}</p>
+                { h:'Timelessness', s:'over transient trends' },
+                { h:'Discipline', s:'over pervasive noise' },
+                { h:'Authentic Identity', s:'over superficial imitation' },
+                { h:'Enduring Legacy', s:'over ephemeral speed' },
+              ].map((v,i)=>(
+                <motion.div key={v.h}
+                  initial={{ opacity:0, y:28 }} whileInView={{ opacity:1, y:0 }} viewport={{ once:true }}
+                  transition={{ duration:0.9, delay:i*0.12, ease }}
+                  className="val-card"
+                  style={{ padding:'2.5rem 1.5rem', borderRight:i%2===0?'1px solid #1a1a1a':'none', borderBottom:i<2?'1px solid #1a1a1a':'none', textAlign:'left', transition:'background 0.5s', cursor:'default' }}>
+                  <div style={{ width:20, height:1, background:GOLD, opacity:0.38, marginBottom:'1.5rem' }} />
+                  <p className="pf" style={{ fontSize:'1.1rem', fontWeight:500, color:'#F8F8F8', marginBottom:'0.5rem' }}>{v.h}</p>
+                  <p style={{ fontFamily:'Inter,sans-serif', fontSize:8, letterSpacing:'0.4em', textTransform:'uppercase', color:'rgba(248,248,248,0.22)' }}>{v.s}</p>
                 </motion.div>
               ))}
             </div>
 
-            <FadeUp delay={0.2}>
-              <div style={{ width: 1, height: 56, background: 'linear-gradient(to top, transparent, #D4AF37)', margin: '5rem auto 0' }} />
-            </FadeUp>
+            <motion.div initial={{ opacity:0 }} whileInView={{ opacity:1 }} viewport={{ once:true }}
+              style={{ width:1,height:60,background:`linear-gradient(to top, transparent, ${GOLD})`,margin:'5rem auto 0' }} />
           </div>
         </section>
 
-        {/* ════════════════════════════════
+        {/* ══════════════════════════════════════
             FINAL — "Forever."
-        ════════════════════════════════ */}
-        <section style={{ position: 'relative', minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden' }}>
-          <div style={{ position: 'absolute', inset: 0 }}>
-            <img src="/founder-5.png" alt="Shamim Forever" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top center', filter: 'brightness(0.16) contrast(1.15) saturate(0.5)' }} />
-            <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, #050505 0%, rgba(5,5,5,0.7) 50%, rgba(5,5,5,0.5) 100%)' }} />
+        ══════════════════════════════════════ */}
+        <section style={{ position:'relative', minHeight:'100vh', display:'flex', alignItems:'center', justifyContent:'center', overflow:'hidden' }}>
+          <div style={{ position:'absolute', inset:0 }}>
+            <img src="/founder-5.png" alt="" style={{ width:'100%', height:'100%', objectFit:'cover', objectPosition:'top center', filter:'brightness(0.15) contrast(1.2) saturate(0.45)' }} />
+            <div style={{ position:'absolute', inset:0, background:'radial-gradient(ellipse at center, rgba(5,5,5,0.3) 0%, rgba(5,5,5,0.9) 100%)' }} />
+            <div style={{ position:'absolute', inset:0, background:'linear-gradient(to top, #050505 0%, rgba(5,5,5,0.6) 50%, rgba(5,5,5,0.45) 100%)' }} />
           </div>
 
-          <div style={{ position: 'relative', zIndex: 10, textAlign: 'center', padding: 'clamp(4rem, 10vw, 8rem) 2rem', maxWidth: 860, margin: '0 auto' }}>
-            <FadeUp>
-              <p className="lx-caption" style={{ marginBottom: '4rem' }}>Forever</p>
-              <p className="lx-body" style={{ fontSize: 'clamp(0.9rem, 2vw, 1.1rem)', color: 'rgba(248,248,248,0.45)', marginBottom: '4rem', fontStyle: 'italic', lineHeight: 2.2 }}>
-                While many marques merely transact in products, and others chase the fleeting currents of trends, a select few are destined to forge something far more profound —
-              </p>
-            </FadeUp>
+          {/* Background "FOREVER" */}
+          <div aria-hidden style={{ position:'absolute', inset:0, display:'flex', alignItems:'center', justifyContent:'center', overflow:'hidden', pointerEvents:'none' }}>
+            <span className="pf" style={{ fontSize:'clamp(6rem,28vw,22rem)', fontStyle:'italic', fontWeight:700, color:'rgba(248,248,248,0.018)', letterSpacing:'0.1em', userSelect:'none', lineHeight:1 }}>FOREVER</span>
+          </div>
 
-            <motion.div
-              initial={{ scaleX: 0 }}
-              whileInView={{ scaleX: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 1.8, ease: [0.16, 1, 0.3, 1] }}
-              style={{ width: 80, height: 1, background: 'linear-gradient(to right, transparent, #D4AF37, transparent)', margin: '0 auto 4rem' }}
-            />
+          <div style={{ position:'relative', zIndex:10, textAlign:'center', padding:'clamp(5rem,12vw,9rem) 2rem', maxWidth:860, margin:'0 auto' }}>
+            <motion.div variants={stagContainer} initial="hidden" whileInView="show" viewport={{ once:true, margin:'-40px' }}>
+              <motion.p variants={stagChild} className="gold-cap" style={{ marginBottom:'4rem' }}>Forever</motion.p>
 
-            {/* Dramatic "Forever." */}
-            <motion.h2
-              initial={{ opacity: 0, y: 70, filter: 'blur(12px)' }}
-              whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-              viewport={{ once: true }}
-              transition={{ duration: 2, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
-              className="lx-head"
-              style={{ fontSize: 'clamp(4rem, 14vw, 11rem)', fontWeight: 400, fontStyle: 'italic', color: '#D4AF37', marginBottom: '5rem', letterSpacing: '0.08em' }}
-            >
-              Forever.
-            </motion.h2>
+              <motion.p variants={stagChild} className="sub-body" style={{ fontSize:'clamp(0.88rem,2vw,1.1rem)', fontStyle:'italic', lineHeight:2.3, marginBottom:'4rem' }}>
+                While many marques merely transact in products, and others chase the fleeting currents of trends,<br />a select few are destined to forge something far more profound —
+              </motion.p>
 
-            {/* CTA buttons */}
-            <motion.div
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 1.2, ease, delay: 0.5 }}
-              style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1.5rem' }}
-              className="sm:flex-row sm:justify-center"
-            >
-              <Link
-                href="/shop"
-                className="gold-btn"
-                style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', padding: '1.1rem 3rem', border: '1px solid rgba(212,175,55,0.55)', fontSize: 9, letterSpacing: '0.5em', textTransform: 'uppercase', fontFamily: 'Inter, sans-serif', color: '#D4AF37', textDecoration: 'none', transition: 'all 0.5s cubic-bezier(0.16,1,0.3,1)' }}
+              <motion.div variants={stagChild} style={{ width:80,height:1,background:`linear-gradient(to right, transparent, ${GOLD}, transparent)`,margin:'0 auto 4rem' }} />
+
+              {/* Dramatic "Forever." */}
+              <motion.h2
+                variants={{
+                  hidden: { opacity:0, y:80, filter:'blur(14px)' },
+                  show: { opacity:1, y:0, filter:'blur(0px)', transition:{ duration:2.2, ease:[0.16,1,0.3,1] } }
+                }}
+                className="pf"
+                style={{ fontSize:'clamp(4.5rem,16vw,13rem)', fontWeight:400, fontStyle:'italic', color:GOLD, marginBottom:'5rem', letterSpacing:'0.06em', lineHeight:1 }}
               >
-                Discover the Collection
-              </Link>
-              <Link
-                href="/journal"
-                className="lx-caption"
-                style={{ color: 'rgba(248,248,248,0.28)', textDecoration: 'none', transition: 'color 0.4s', letterSpacing: '0.4em' }}
-                onMouseEnter={e => (e.currentTarget.style.color = '#D4AF37')}
-                onMouseLeave={e => (e.currentTarget.style.color = 'rgba(248,248,248,0.28)')}
-              >
-                Explore the Journal →
-              </Link>
+                Forever.
+              </motion.h2>
+
+              <motion.div variants={stagChild} style={{ display:'flex', flexDirection:'column', alignItems:'center', gap:'1.5rem' }} className="sm:flex-row sm:justify-center">
+                <MagneticBtn href="/shop" variant="outline">Discover the Collection</MagneticBtn>
+                <MagneticBtn href="/journal" variant="ghost">Explore the Journal →</MagneticBtn>
+              </motion.div>
             </motion.div>
           </div>
         </section>
 
-        {/* ════════════════════════════════
+        {/* ══════════════════════════════════════
             CONCIERGE FOOTER
-        ════════════════════════════════ */}
-        <section style={{ borderTop: '1px solid #111', padding: 'clamp(3rem, 7vw, 5rem) clamp(2rem, 8vw, 5rem)', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '2.5rem', textAlign: 'center' }} className="sm:flex-row sm:justify-between sm:text-left">
-          <div>
-            <p className="lx-caption" style={{ marginBottom: '0.75rem' }}>The House</p>
-            <p className="lx-head" style={{ fontSize: '1.5rem', fontWeight: 400, color: '#F8F8F8' }}>Shamim Forever</p>
-          </div>
-
-          <motion.a
-            href="/shop"
-            whileHover={{ backgroundColor: '#D4AF37', color: '#050505' }}
-            style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', padding: '1.1rem 2.5rem', border: '1px solid rgba(212,175,55,0.6)', fontSize: 9, letterSpacing: '0.55em', textTransform: 'uppercase', fontFamily: 'Inter, sans-serif', color: '#D4AF37', textDecoration: 'none', transition: 'all 0.5s cubic-bezier(0.16,1,0.3,1)', whiteSpace: 'nowrap' }}
-          >
-            Enter the Atelier
-          </motion.a>
-
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', alignItems: 'center' }} className="sm:items-end">
-            <a href="/sovereign-panel" className="lx-caption" style={{ color: 'rgba(248,248,248,0.22)', textDecoration: 'none', transition: 'color 0.4s' }}
-              onMouseEnter={e => (e.currentTarget.style.color = '#D4AF37')} onMouseLeave={e => (e.currentTarget.style.color = 'rgba(248,248,248,0.22)')}>
-              Sovereign Panel
-            </a>
-            <a href="/virtual-atelier" className="lx-caption" style={{ color: 'rgba(248,248,248,0.22)', textDecoration: 'none', transition: 'color 0.4s' }}
-              onMouseEnter={e => (e.currentTarget.style.color = '#D4AF37')} onMouseLeave={e => (e.currentTarget.style.color = 'rgba(248,248,248,0.22)')}>
-              Virtual Atelier
-            </a>
+        ══════════════════════════════════════ */}
+        <section style={{ borderTop:'1px solid #111', padding:'clamp(3rem,7vw,5rem) clamp(2rem,8vw,5rem)' }}>
+          <div style={{ display:'flex', flexDirection:'column', alignItems:'center', gap:'2.5rem', textAlign:'center' }} className="sm:flex-row sm:justify-between sm:text-left">
+            <div>
+              <p className="gold-cap" style={{ marginBottom:'0.75rem' }}>The House</p>
+              <p className="pf" style={{ fontSize:'1.5rem', fontWeight:400 }}>Shamim Forever</p>
+            </div>
+            <MagneticBtn href="/shop" variant="outline">Enter the Atelier</MagneticBtn>
+            <div style={{ display:'flex', flexDirection:'column', gap:'0.75rem', alignItems:'center' }} className="sm:items-end">
+              {[{label:'Sovereign Panel',href:'/sovereign-panel'},{label:'Virtual Atelier',href:'/virtual-atelier'}].map(l=>(
+                <a key={l.label} href={l.href} className="gold-cap"
+                  style={{ color:'rgba(248,248,248,0.2)', textDecoration:'none', transition:'color 0.4s' }}
+                  onMouseEnter={e=>(e.currentTarget.style.color=GOLD)}
+                  onMouseLeave={e=>(e.currentTarget.style.color='rgba(248,248,248,0.2)')}>
+                  {l.label}
+                </a>
+              ))}
+            </div>
           </div>
         </section>
 
       </div>
     </>
+  )
+}
+
+/* ══════════════════════════════════════
+   FILTER ROW (Chapter II)
+══════════════════════════════════════ */
+function FilterRow() {
+  const [active, setActive] = useState<string|null>(null)
+  const desc: Record<string,string> = {
+    Beauty: 'Beyond transient beauty lies permanence.',
+    Price: 'Value is measured in meaning, not currency.',
+    Soul: 'Soul — the quality that makes a thing worth keeping across generations.',
+  }
+  return (
+    <div>
+      <div style={{ display:'flex', border:'1px solid #1a1a1a' }}>
+        {['Beauty','Price','Soul'].map((f,i)=>(
+          <button key={f}
+            onMouseEnter={()=>setActive(f)} onMouseLeave={()=>setActive(null)}
+            style={{ flex:1, padding:'1.1rem', fontFamily:'Inter,sans-serif', fontSize:9, letterSpacing:'0.5em', textTransform:'uppercase', fontWeight:300, background:active===f?GOLD:'transparent', color:active===f?BG:active?'rgba(248,248,248,0.18)':GOLD, border:'none', borderRight:i<2?'1px solid #1a1a1a':'none', cursor:'pointer', transition:'all 0.45s cubic-bezier(0.16,1,0.3,1)' }}>
+            {f}
+          </button>
+        ))}
+      </div>
+      <AnimatePresence mode="wait">
+        {active&&(
+          <motion.p key={active} initial={{opacity:0,y:8}} animate={{opacity:1,y:0}} exit={{opacity:0,y:-8}} transition={{duration:0.28}}
+            style={{ fontFamily:'Inter,sans-serif', fontSize:9, letterSpacing:'0.3em', textTransform:'uppercase', color:'rgba(248,248,248,0.32)', marginTop:'1rem' }}>
+            {desc[active]}
+          </motion.p>
+        )}
+      </AnimatePresence>
+    </div>
   )
 }
