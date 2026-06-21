@@ -19,6 +19,124 @@ const BG   = '#050505'
 const ease = [0.16, 1, 0.3, 1] as const
 
 /* ══════════════════════════════════════
+   CHAPTER NAVIGATOR (fixed left dots)
+══════════════════════════════════════ */
+const CHAPTERS = [
+  { num: 'I',   id: 'chapter-1', label: 'The Genesis' },
+  { num: 'II',  id: 'chapter-2', label: 'A Declaration' },
+  { num: 'III', id: 'chapter-3', label: 'Mastery' },
+  { num: 'IV',  id: 'chapter-4', label: 'Sovereign Future' },
+]
+
+function ChapterNavigator() {
+  const [active, setActive] = useState<string>('')
+  const [visible, setVisible] = useState(false)
+
+  useEffect(() => {
+    const observers: IntersectionObserver[] = []
+    CHAPTERS.forEach(({ id }) => {
+      const el = document.getElementById(id)
+      if (!el) return
+      const obs = new IntersectionObserver(
+        ([entry]) => { if (entry.isIntersecting) setActive(id) },
+        { threshold: 0.25 }
+      )
+      obs.observe(el)
+      observers.push(obs)
+    })
+    // Show navigator after hero scrolls past
+    const onScroll = () => setVisible(window.scrollY > window.innerHeight * 0.6)
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => {
+      observers.forEach(o => o.disconnect())
+      window.removeEventListener('scroll', onScroll)
+    }
+  }, [])
+
+  const scrollTo = (id: string) => {
+    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  }
+
+  return (
+    <AnimatePresence>
+      {visible && (
+        <motion.nav
+          aria-label="Chapter navigation"
+          initial={{ opacity: 0, x: -16 }}
+          animate={{ opacity: 1, x: 0 }}
+          exit={{ opacity: 0, x: -16 }}
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          style={{
+            position: 'fixed',
+            left: '1.4rem',
+            top: '50%',
+            transform: 'translateY(-50%)',
+            zIndex: 9980,
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '1.6rem',
+            alignItems: 'flex-start',
+          }}
+        >
+          {CHAPTERS.map(({ num, id, label }) => {
+            const isActive = active === id
+            return (
+              <button
+                key={id}
+                onClick={() => scrollTo(id)}
+                title={label}
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '0.6rem',
+                  background: 'none',
+                  border: 'none',
+                  cursor: 'pointer',
+                  padding: 0,
+                  outline: 'none',
+                }}
+              >
+                {/* Roman numeral dot */}
+                <motion.div
+                  animate={{
+                    width: isActive ? 28 : 12,
+                    background: isActive ? GOLD : 'rgba(212,175,55,0.25)',
+                    boxShadow: isActive ? `0 0 10px 2px rgba(212,175,55,0.5)` : 'none',
+                  }}
+                  transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                  style={{ height: 1, borderRadius: 1 }}
+                />
+                {/* Label — only shown when active */}
+                <AnimatePresence>
+                  {isActive && (
+                    <motion.span
+                      initial={{ opacity: 0, x: -6 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      exit={{ opacity: 0, x: -6 }}
+                      transition={{ duration: 0.3 }}
+                      style={{
+                        fontFamily: 'Inter, sans-serif',
+                        fontSize: 7,
+                        letterSpacing: '0.45em',
+                        textTransform: 'uppercase',
+                        color: GOLD,
+                        whiteSpace: 'nowrap',
+                      }}
+                    >
+                      {num}
+                    </motion.span>
+                  )}
+                </AnimatePresence>
+              </button>
+            )
+          })}
+        </motion.nav>
+      )}
+    </AnimatePresence>
+  )
+}
+
+/* ══════════════════════════════════════
    SCROLL PROGRESS BAR (vertical, right side)
 ══════════════════════════════════════ */
 function ScrollProgressBar() {
@@ -424,6 +542,9 @@ export default function OurStoryPage() {
       {/* Fixed scroll progress bar */}
       <ScrollProgressBar />
 
+      {/* Chapter navigator — fixed left */}
+      <ChapterNavigator />
+
       <div className="grain-wrap" style={{ background: BG, color: '#F8F8F8', overflowX: 'hidden' }}>
 
         {/* ══════════════════════════════════════
@@ -501,7 +622,7 @@ export default function OurStoryPage() {
         {/* ══════════════════════════════════════
             CHAPTER I — Asymmetric overlapping
         ══════════════════════════════════════ */}
-        <section ref={ch1Ref} style={{ position: 'relative', borderBottom: '1px solid #0f0f0f', padding: 'clamp(5rem,12vw,10rem) 0', overflow: 'hidden' }}>
+        <section id="chapter-1" ref={ch1Ref} style={{ position: 'relative', borderBottom: '1px solid #0f0f0f', padding: 'clamp(5rem,12vw,10rem) 0', overflow: 'hidden' }}>
           <Watermark text="GENESIS" progress={ch1P} />
 
           <div className="hidden lg:flex" style={{ position: 'relative', zIndex: 1, alignItems: 'flex-start', gap: 0 }}>
@@ -600,7 +721,7 @@ export default function OurStoryPage() {
         {/* ══════════════════════════════════════
             CHAPTER II — Centered declaration
         ══════════════════════════════════════ */}
-        <section ref={ch2Ref} style={{ position: 'relative', padding: 'clamp(6rem,14vw,12rem) clamp(2rem,8vw,6rem)', borderBottom: '1px solid #0f0f0f', overflow: 'hidden' }}>
+        <section id="chapter-2" ref={ch2Ref} style={{ position: 'relative', padding: 'clamp(6rem,14vw,12rem) clamp(2rem,8vw,6rem)', borderBottom: '1px solid #0f0f0f', overflow: 'hidden' }}>
           <Watermark text="DECLARATION" progress={ch2P} />
 
           <div style={{ maxWidth: 820, margin: '0 auto', position: 'relative', zIndex: 1, textAlign: 'center' }}>
@@ -661,7 +782,7 @@ export default function OurStoryPage() {
         {/* ══════════════════════════════════════
             CHAPTER III — Craft / zoom on hover
         ══════════════════════════════════════ */}
-        <section ref={ch3Ref} style={{ position: 'relative', borderBottom: '1px solid #0f0f0f', overflow: 'hidden' }}>
+        <section id="chapter-3" ref={ch3Ref} style={{ position: 'relative', borderBottom: '1px solid #0f0f0f', overflow: 'hidden' }}>
           <Watermark text="MASTERY" progress={ch3P} />
 
           <div className="hidden lg:flex" style={{ position: 'relative', zIndex: 1, alignItems: 'flex-start', minHeight: '92vh' }}>
@@ -785,7 +906,7 @@ export default function OurStoryPage() {
         {/* ══════════════════════════════════════
             CHAPTER IV — Sovereign Future
         ══════════════════════════════════════ */}
-        <section ref={ch4Ref} style={{ position: 'relative', borderBottom: '1px solid #0f0f0f', overflow: 'hidden' }}>
+        <section id="chapter-4" ref={ch4Ref} style={{ position: 'relative', borderBottom: '1px solid #0f0f0f', overflow: 'hidden' }}>
           <Watermark text="SOVEREIGN" progress={ch4P} />
 
           <div className="hidden lg:flex" style={{ position: 'relative', zIndex: 1, alignItems: 'stretch', minHeight: '90vh' }}>
@@ -807,9 +928,9 @@ export default function OurStoryPage() {
               <motion.div style={{ y: ch4ImgY, height: '115%', marginTop: '-7.5%' }}>
                 <video
                   autoPlay muted loop playsInline preload="auto"
-                  style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center', filter: 'brightness(0.55) contrast(1.12) saturate(0.7)' }}
+                  style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center', filter: 'brightness(0.55) contrast(1.12) saturate(0.75)' }}
                 >
-                  <source src="https://uvgtgeauhjbdatrmmaob.supabase.co/storage/v1/object/public/products/de-beers-talisman-diamond-pendant/hero.mp4" type="video/mp4" />
+                  <source src="/products/shamims-bloom/shamim-bloom-hero.mp4" type="video/mp4" />
                 </video>
               </motion.div>
               <motion.div
@@ -873,9 +994,9 @@ export default function OurStoryPage() {
               />
               <video
                 autoPlay muted loop playsInline preload="auto"
-                style={{ width:'100%', height:'100%', objectFit:'cover', objectPosition:'center', filter:'brightness(0.55) contrast(1.12) saturate(0.7)' }}
+                style={{ width:'100%', height:'100%', objectFit:'cover', objectPosition:'center', filter:'brightness(0.55) contrast(1.12) saturate(0.75)' }}
               >
-                <source src="https://uvgtgeauhjbdatrmmaob.supabase.co/storage/v1/object/public/products/de-beers-talisman-diamond-pendant/hero.mp4" type="video/mp4" />
+                <source src="/products/shamims-bloom/shamim-bloom-hero.mp4" type="video/mp4" />
               </video>
               <motion.div animate={{ opacity:[0.3,0.8,0.3] }} transition={{ duration:4, repeat:Infinity }}
                 style={{ position:'absolute', inset:0, background:'radial-gradient(ellipse at 50% 40%, rgba(212,175,55,0.26) 0%, transparent 60%)', pointerEvents:'none', zIndex: 2 }} />
