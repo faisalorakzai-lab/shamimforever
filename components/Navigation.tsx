@@ -19,7 +19,6 @@ import { useCart } from '@/lib/cart-context'
     { label: 'Concierge', href: '/concierge' },
   ]
 
-  // Derive a contextual back-label from the current path
   function getBackLabel(pathname: string): string {
     if (pathname.startsWith('/products')) return 'Shop'
     if (pathname.startsWith('/shop')) return 'Shop'
@@ -38,7 +37,6 @@ import { useCart } from '@/lib/cart-context'
     return 'Back'
   }
 
-  // Only show back button on pages that are not the root
   function isInnerPage(pathname: string): boolean {
     return pathname !== '/' && pathname !== ''
   }
@@ -57,7 +55,6 @@ import { useCart } from '@/lib/cart-context'
       return () => window.removeEventListener('scroll', handleScroll)
     }, [])
 
-    // Track if there is real browser history to go back to
     useEffect(() => {
       setCanGoBack(isInnerPage(pathname) && window.history.length > 1)
     }, [pathname])
@@ -81,9 +78,17 @@ import { useCart } from '@/lib/cart-context'
               {/* Left: Logo + contextual back button */}
               <div className="flex items-center gap-4 flex-shrink-0">
                 <Link href="/" className="group flex-shrink-0">
-                  <img src="/logo.png" alt="Shamim Forever"
-                    className="h-9 md:h-11 w-auto object-contain opacity-90 group-hover:opacity-100 transition-opacity duration-500"
-                    style={{ filter: 'drop-shadow(0 0 8px rgba(201,160,84,0.15))' }} />
+                  {/* Logo — slow cinematic fade in on page load */}
+                  <motion.img
+                    src="/logo.png"
+                    alt="Shamim Forever"
+                    initial={{ opacity: 0, filter: 'blur(4px)' }}
+                    animate={{ opacity: 0.9, filter: 'blur(0px)' }}
+                    transition={{ duration: 1.5, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+                    whileHover={{ opacity: 1 }}
+                    className="h-9 md:h-11 w-auto object-contain transition-opacity duration-500"
+                    style={{ filter: 'drop-shadow(0 0 8px rgba(201,160,84,0.15))' }}
+                  />
                 </Link>
 
                 {/* Luxury back button — only on inner pages */}
@@ -99,32 +104,38 @@ import { useCart } from '@/lib/cart-context'
                       className="group flex items-center gap-2 border-l border-[#1a1a1a] pl-4"
                       aria-label="Go back"
                     >
-                      {/* SF logo icon as back indicator */}
                       <img
                         src="/logo-icon.png"
                         alt="SF"
                         className="w-[18px] h-[18px] object-contain opacity-50 group-hover:opacity-100 transition-opacity duration-400 flex-shrink-0"
                         style={{ filter: 'drop-shadow(0 0 4px rgba(201,160,84,0.3))' }}
                       />
-                      {/* Label */}
                       <span className="text-[8px] tracking-[0.4em] uppercase text-[#c9a054]/70 group-hover:text-[#c9a054] transition-colors duration-400 hidden sm:block"
                         style={{ transitionTimingFunction: 'cubic-bezier(0.16,1,0.3,1)' }}>
                         {backLabel}
                       </span>
-                      {/* Animated underline */}
                       <span className="absolute bottom-0 left-0 w-0 h-px bg-[#c9a054]/30 group-hover:w-full transition-all duration-500" />
                     </motion.button>
                   )}
                 </AnimatePresence>
               </div>
 
+              {/* Nav links — gold underline grows from CENTER on hover */}
               <nav className="hidden lg:flex items-center gap-7 xl:gap-9">
-                {navLinks.map(link => (
-                  <Link key={link.href} href={link.href}
-                    className="text-[10px] tracking-[0.35em] uppercase text-zinc-400 hover:text-[#c9a054] transition-colors duration-500 relative group">
-                    {link.label}
-                    <span className="absolute -bottom-1 left-0 w-0 h-px bg-[#c9a054] group-hover:w-full transition-all duration-500" />
-                  </Link>
+                {navLinks.map((link, i) => (
+                  <motion.div
+                    key={link.href}
+                    initial={{ opacity: 0, y: -8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.7, delay: 0.4 + i * 0.06, ease: [0.16, 1, 0.3, 1] }}
+                  >
+                    <Link href={link.href}
+                      className="text-[10px] tracking-[0.35em] uppercase text-zinc-400 hover:text-[#c9a054] transition-colors duration-500 relative group inline-block">
+                      {link.label}
+                      {/* Gold underline — grows from center outward */}
+                      <span className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-0 h-px bg-[#c9a054] group-hover:w-full transition-all duration-500 ease-out" />
+                    </Link>
+                  </motion.div>
                 ))}
               </nav>
 
@@ -152,7 +163,7 @@ import { useCart } from '@/lib/cart-context'
                     )}
                   </Link>
 
-                  {/* ── ACCESS BUTTON ── visible on mobile + desktop */}
+                  {/* ── ACCESS BUTTON ── */}
                 <Link href="/auth"
                   className="group relative inline-flex items-center justify-center px-3 md:px-4 py-1.5 md:py-2 border border-[#c9a054]/50 text-[7px] md:text-[8px] tracking-[0.35em] md:tracking-[0.4em] uppercase text-[#c9a054] overflow-hidden hover:border-[#c9a054] transition-colors duration-300">
                   <span className="absolute inset-0 bg-[#c9a054] translate-y-full group-hover:translate-y-0 transition-transform duration-500" />
@@ -173,4 +184,3 @@ import { useCart } from '@/lib/cart-context'
       </>
     )
   }
-  
