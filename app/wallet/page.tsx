@@ -4,76 +4,106 @@
   import Link from 'next/link'
   import { motion, AnimatePresence } from 'framer-motion'
 
+  const WALLET_CSS = `
+    .wlt-wrap { min-height:100vh; background:#050505; padding:100px clamp(16px,6vw,80px) 80px; font-family:inherit }
+    .wlt-inner { max-width:1100px; margin:0 auto }
+    .wlt-grid { display:grid; grid-template-columns:1fr 380px; gap:60px; align-items:start }
+    .wlt-form-col { position:sticky; top:100px }
+    @media(max-width:860px){
+      .wlt-grid { grid-template-columns:1fr; gap:0 }
+      .wlt-form-col { position:static; margin-top:48px; border-top:1px solid rgba(201,160,84,0.08); padding-top:40px }
+    }
+    .wlt-item { display:grid; grid-template-columns:96px 1fr; gap:20px; padding:28px 0; border-bottom:1px solid rgba(255,255,255,0.04) }
+    @media(max-width:480px){ .wlt-item { grid-template-columns:72px 1fr; gap:14px; padding:20px 0 } }
+    .wlt-img { width:100%; aspect-ratio:3/4; object-fit:cover; display:block; background:#0a0a0a }
+    .wlt-img-wrap { overflow:hidden; background:#0a0a0a }
+    .wlt-input { width:100%; padding:15px 18px; background:#07060a; border:1px solid rgba(201,160,84,0.1); border-bottom:none; color:#e8dcc8; font-size:11px; letter-spacing:0.08em; outline:none; font-family:inherit; transition:border-color 0.2s; box-sizing:border-box; display:block }
+    .wlt-input:last-of-type { border-bottom:1px solid rgba(201,160,84,0.1) }
+    .wlt-input:focus { border-color:rgba(201,160,84,0.3); background:#090710 }
+    .wlt-input::placeholder { color:rgba(201,160,84,0.25) }
+    .wlt-btn { width:100%; padding:20px 24px; background:linear-gradient(135deg,#c9a054,#a8823c); color:#050505; font-size:9px; letter-spacing:0.55em; text-transform:uppercase; cursor:pointer; border:none; font-weight:700; font-family:inherit; transition:opacity 0.2s; margin-top:0 }
+    .wlt-btn:hover:not(:disabled){ opacity:0.88 }
+    .wlt-btn:disabled { cursor:wait; opacity:0.6 }
+    .wlt-qty { display:flex; align-items:center; border:1px solid rgba(201,160,84,0.18) }
+    .wlt-qty-btn { width:34px; height:34px; background:none; border:none; color:rgba(201,160,84,0.5); cursor:pointer; font-size:16px; display:flex; align-items:center; justify-content:center; transition:color 0.2s; font-family:inherit }
+    .wlt-qty-btn:hover { color:#c9a054 }
+    .wlt-qty-val { width:34px; text-align:center; color:#e8dcc8; font-size:11px }
+    .wlt-remove { background:none; border:none; color:rgba(255,255,255,0.12); font-size:8px; letter-spacing:0.35em; cursor:pointer; text-transform:uppercase; font-family:inherit; padding:0; margin-left:16px; transition:color 0.2s }
+    .wlt-remove:hover { color:rgba(255,80,80,0.5) }
+    .wlt-label { font-size:7px; letter-spacing:0.55em; text-transform:uppercase; color:rgba(201,160,84,0.35); margin-bottom:3px }
+    .wlt-name { color:#e8dcc8; font-size:12px; letter-spacing:0.12em; line-height:1.5; margin-bottom:5px; word-break:break-word }
+    .wlt-note { color:rgba(255,255,255,0.22); font-size:9px; letter-spacing:0.15em; line-height:1.6; margin-bottom:10px; font-style:italic }
+    .wlt-price { color:#c9a054; font-size:11px; letter-spacing:0.25em; margin-bottom:16px }
+    .wlt-divider { height:1px; background:linear-gradient(90deg,rgba(201,160,84,0.12),transparent); margin:32px 0 }
+    .wlt-total-row { display:flex; justify-content:space-between; align-items:baseline; padding:0 0 28px }
+    .wlt-summary-box { background:#07060a; border:1px solid rgba(201,160,84,0.1); padding:24px; margin-bottom:0 }
+    .wlt-summary-row { display:flex; justify-content:space-between; margin-bottom:14px }
+    .wlt-error { color:rgba(255,80,80,0.75); font-size:9px; letter-spacing:0.2em; padding:12px 16px; border:1px solid rgba(255,80,80,0.12); background:rgba(255,80,80,0.04); margin-bottom:12px }
+  `
+
   export default function WalletPage() {
     const { items, removeItem, updateQty, clearCart, totalPrice } = useCart()
-    const [name, setName] = useState('')
-    const [phone, setPhone] = useState('')
+    const [name, setName]       = useState('')
+    const [phone, setPhone]     = useState('')
     const [address, setAddress] = useState('')
-    const [city, setCity] = useState('')
+    const [city, setCity]       = useState('')
     const [country, setCountry] = useState('')
     const [loading, setLoading] = useState(false)
-    const [orderResult, setOrderResult] = useState<any[]>([])
-    const [error, setError] = useState<string | null>(null)
+    const [orderResult, setOrderResult] = useState<{order_ref?:string,tracking_ref?:string,order_id?:string}[]>([])
+    const [error, setError]     = useState<string | null>(null)
 
-    const inputSt: React.CSSProperties = {
-      width: '100%', padding: '14px 18px', background: '#080602', border: '1px solid rgba(201,160,84,0.08)',
-      color: '#e8dcc8', fontSize: 11, letterSpacing: '0.08em', outline: 'none', marginBottom: 2,
-      fontFamily: 'inherit',
-    }
+    const gold = '#c9a054'
+    const MONO = 'ui-monospace,SFMono-Regular,Menlo,monospace'
 
     async function handlePlaceOrder() {
-      if (!name || !phone || !address || !city || !country) { setError('Please fill all delivery fields'); return }
+      if (!name || !phone || !address || !city || !country) { setError('Please complete all delivery fields'); return }
       if (items.length === 0) { setError('Your wallet is empty'); return }
       setLoading(true); setError(null)
       try {
-        const results = []
+        const results: typeof orderResult = []
         for (const item of items) {
           const res = await fetch('/api/v1/checkout', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
-              product_id: item.product_id,
-              product_name: item.product_name,
-              quantity: item.quantity,
-              payment_method: 'cod',
-              payment_status: 'pending',
-              customer_name: name,
-              customer_phone: phone,
+              product_id: item.product_id, product_name: item.product_name,
+              quantity: item.quantity, payment_method: 'cod', payment_status: 'pending',
+              customer_name: name, customer_phone: phone,
               delivery_address: `${address}, ${city}, ${country}`,
-              city,
-              country,
-              custom_message: item.custom_message,
+              city, country, custom_message: item.custom_message,
             })
           })
           const data = await res.json()
           if (res.ok) results.push(data)
           else throw new Error(data.error || 'Order failed')
         }
-        setOrderResult(results)
-        clearCart()
-      } catch(e: any) {
-        setError(e.message)
-      } finally {
-        setLoading(false)
-      }
+        setOrderResult(results); clearCart()
+      } catch(e: unknown) {
+        setError(e instanceof Error ? e.message : 'Order failed')
+      } finally { setLoading(false) }
     }
 
-    const st: React.CSSProperties = { minHeight: '100vh', background: '#050505', padding: 'clamp(80px,12vw,120px) clamp(16px,5vw,80px) 60px', fontFamily: 'inherit' }
-    const gold = '#c9a054'
-
+    // ── Order confirmed screen ───────────────────────────────────────
     if (orderResult.length > 0) {
       return (
-        <div style={st}>
-          <div style={{ maxWidth: 560, margin: '0 auto', textAlign: 'center' }}>
-            <p style={{ color: gold, fontSize: 9, letterSpacing: '0.5em', textTransform: 'uppercase', marginBottom: 24 }}>Order Confirmed</p>
-            <h1 style={{ fontFamily: 'Georgia, serif', fontSize: 'clamp(2rem,6vw,3rem)', color: '#e8dcc8', fontWeight: 300, marginBottom: 32, letterSpacing: '0.06em' }}>Thank You</h1>
-            <p style={{ color: '#6b6b6b', fontSize: 11, letterSpacing: '0.1em', marginBottom: 40 }}>{orderResult.length} order{orderResult.length > 1 ? 's' : ''} placed successfully. Our team will contact you shortly.</p>
-            {orderResult.map((o, i) => (
-              <div key={i} style={{ padding: '16px 20px', border: '1px solid rgba(201,160,84,0.12)', marginBottom: 8, textAlign: 'left' }}>
-                <p style={{ color: gold, fontSize: 9, letterSpacing: '0.3em' }}>Order Ref: {o.order_ref || o.tracking_ref || o.order_id}</p>
-              </div>
-            ))}
-            <Link href="/shop" style={{ display: 'inline-block', marginTop: 32, padding: '14px 40px', border: '1px solid rgba(201,160,84,0.4)', color: gold, fontSize: 9, letterSpacing: '0.4em', textTransform: 'uppercase', textDecoration: 'none' }}>
+        <div className="wlt-wrap">
+          <style>{WALLET_CSS}</style>
+          <div style={{ maxWidth:520, margin:'0 auto', textAlign:'center' }}>
+            <div style={{ width:56, height:56, borderRadius:'50%', border:'1px solid rgba(201,160,84,0.3)', display:'flex', alignItems:'center', justifyContent:'center', margin:'0 auto 32px', color:gold, fontSize:20 }}>✓</div>
+            <p style={{ color:gold, fontSize:8, letterSpacing:'0.55em', textTransform:'uppercase', marginBottom:16, fontFamily:MONO }}>Order Confirmed</p>
+            <h1 style={{ fontFamily:'Georgia,serif', fontSize:'clamp(2rem,6vw,3rem)', color:'#e8dcc8', fontWeight:300, marginBottom:16, letterSpacing:'0.06em' }}>Thank You</h1>
+            <p style={{ color:'rgba(255,255,255,0.3)', fontSize:11, letterSpacing:'0.1em', lineHeight:1.7, marginBottom:40 }}>
+              {orderResult.length} order{orderResult.length > 1 ? 's' : ''} placed. Our team will contact you shortly to confirm delivery.
+            </p>
+            <div style={{ marginBottom:32 }}>
+              {orderResult.map((o, i) => (
+                <div key={i} style={{ padding:'16px 20px', border:'1px solid rgba(201,160,84,0.1)', marginBottom:6, display:'flex', justifyContent:'space-between', alignItems:'center' }}>
+                  <span style={{ color:'rgba(255,255,255,0.25)', fontSize:8, letterSpacing:'0.3em', textTransform:'uppercase', fontFamily:MONO }}>Ref</span>
+                  <span style={{ color:gold, fontSize:10, letterSpacing:'0.2em', fontFamily:MONO }}>{o.order_ref || o.tracking_ref || o.order_id}</span>
+                </div>
+              ))}
+            </div>
+            <Link href="/shop" style={{ display:'inline-block', padding:'15px 44px', border:'1px solid rgba(201,160,84,0.35)', color:gold, fontSize:8, letterSpacing:'0.45em', textTransform:'uppercase', textDecoration:'none', fontFamily:MONO }}>
               Continue Shopping
             </Link>
           </div>
@@ -81,50 +111,75 @@
       )
     }
 
+    // ── Main wallet page ─────────────────────────────────────────────
     return (
-      <div style={st}>
-        <div style={{ maxWidth: 860, margin: '0 auto' }}>
-          <p style={{ color: gold, fontSize: 9, letterSpacing: '0.5em', textTransform: 'uppercase', marginBottom: 12 }}>My Wallet</p>
-          <h1 style={{ fontFamily: 'Georgia, serif', fontSize: 'clamp(1.8rem,5vw,2.8rem)', color: '#e8dcc8', fontWeight: 300, letterSpacing: '0.06em', marginBottom: 48 }}>
-            Your Selections
-          </h1>
+      <div className="wlt-wrap">
+        <style>{WALLET_CSS}</style>
+        <div className="wlt-inner">
+
+          {/* Header */}
+          <div style={{ marginBottom:48, borderBottom:'1px solid rgba(255,255,255,0.04)', paddingBottom:32 }}>
+            <p style={{ color:gold, fontSize:8, letterSpacing:'0.55em', textTransform:'uppercase', marginBottom:10, fontFamily:MONO }}>My Wallet</p>
+            <h1 style={{ fontFamily:'Georgia,serif', fontSize:'clamp(1.8rem,4vw,2.6rem)', color:'#e8dcc8', fontWeight:300, letterSpacing:'0.06em', margin:0 }}>
+              Your Selections
+            </h1>
+          </div>
 
           {items.length === 0 ? (
-            <div style={{ textAlign: 'center', padding: '80px 0' }}>
-              <p style={{ color: '#3f3830', fontSize: 11, letterSpacing: '0.3em', marginBottom: 32 }}>Your wallet is empty</p>
-              <Link href="/shop" style={{ color: gold, fontSize: 9, letterSpacing: '0.4em', textTransform: 'uppercase', textDecoration: 'none', border: '1px solid rgba(201,160,84,0.3)', padding: '12px 32px' }}>
+            <div style={{ textAlign:'center', padding:'100px 0' }}>
+              <div style={{ width:48, height:48, border:'1px solid rgba(201,160,84,0.15)', margin:'0 auto 28px', display:'flex', alignItems:'center', justifyContent:'center', color:'rgba(201,160,84,0.3)', fontSize:18 }}>◇</div>
+              <p style={{ color:'rgba(255,255,255,0.15)', fontSize:10, letterSpacing:'0.3em', textTransform:'uppercase', marginBottom:32, fontFamily:MONO }}>Your wallet is empty</p>
+              <Link href="/shop" style={{ color:gold, fontSize:8, letterSpacing:'0.45em', textTransform:'uppercase', textDecoration:'none', border:'1px solid rgba(201,160,84,0.3)', padding:'13px 36px', fontFamily:MONO }}>
                 Browse Collections
               </Link>
             </div>
           ) : (
-            <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0,1fr) 340px', gap: 48, alignItems: 'start' }}>
-              {/* Items list */}
+            <div className="wlt-grid">
+
+              {/* ── Left: Items ───────────────────────────── */}
               <div>
+                <p style={{ color:'rgba(255,255,255,0.15)', fontSize:7.5, letterSpacing:'0.4em', textTransform:'uppercase', marginBottom:0, fontFamily:MONO, paddingBottom:16, borderBottom:'1px solid rgba(255,255,255,0.04)' }}>
+                  {items.length} {items.length === 1 ? 'item' : 'items'} selected
+                </p>
+
                 <AnimatePresence>
                   {items.map(item => (
-                    <motion.div key={item.product_id} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, x: -20 }}
-                      style={{ display: 'flex', gap: 16, padding: '20px 0', borderBottom: '1px solid rgba(255,255,255,0.04)' }}>
-                      {item.image && (
-                        <div style={{ width: 80, height: 100, flexShrink: 0, overflow: 'hidden', background: '#0a0a0a' }}>
-                          <img src={item.image} alt={item.product_name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-                        </div>
-                      )}
-                      <div style={{ flex: 1, minWidth: 0 }}>
-                        <p style={{ color: '#e8dcc8', fontSize: 11, letterSpacing: '0.1em', marginBottom: 4, lineHeight: 1.4 }}>{item.product_name}</p>
+                    <motion.div key={item.product_id}
+                      initial={{ opacity:0, y:12 }} animate={{ opacity:1, y:0 }} exit={{ opacity:0, height:0, marginBottom:0 }}
+                      transition={{ duration:0.35 }}
+                      className="wlt-item"
+                    >
+                      {/* Image */}
+                      <div className="wlt-img-wrap">
+                        {item.image
+                          ? <img src={item.image} alt={item.product_name} className="wlt-img" />
+                          : <div className="wlt-img" style={{ display:'flex', alignItems:'center', justifyContent:'center', color:'rgba(201,160,84,0.12)', fontSize:22 }}>◇</div>
+                        }
+                      </div>
+
+                      {/* Details */}
+                      <div style={{ minWidth:0 }}>
+                        <p className="wlt-label">House of Shamim Forever</p>
+                        <p className="wlt-name">{item.product_name}</p>
                         {item.custom_message && (
-                          <p style={{ color: '#4a4a4a', fontSize: 9, letterSpacing: '0.2em', marginBottom: 8 }}>Note: {item.custom_message}</p>
+                          <p className="wlt-note">"{item.custom_message}"</p>
                         )}
-                        <p style={{ color: gold, fontSize: 10, letterSpacing: '0.2em', marginBottom: 12 }}>$ {(item.price_usd * item.quantity).toLocaleString()} USD</p>
-                        <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-                          <div style={{ display: 'flex', alignItems: 'center', border: '1px solid rgba(201,160,84,0.15)' }}>
-                            <button onClick={() => item.quantity > 1 ? updateQty(item.product_id, item.quantity - 1) : removeItem(item.product_id)}
-                              style={{ width: 32, height: 32, background: 'none', border: 'none', color: '#6b6b6b', cursor: 'pointer', fontSize: 14 }}>−</button>
-                            <span style={{ width: 32, textAlign: 'center', color: '#e8dcc8', fontSize: 11 }}>{item.quantity}</span>
-                            <button onClick={() => updateQty(item.product_id, item.quantity + 1)}
-                              style={{ width: 32, height: 32, background: 'none', border: 'none', color: '#6b6b6b', cursor: 'pointer', fontSize: 14 }}>+</button>
+                        <p className="wlt-price">$ {(item.price_usd * item.quantity).toLocaleString(undefined,{minimumFractionDigits:0})} <span style={{ fontSize:8, color:'rgba(201,160,84,0.55)', letterSpacing:'0.3em' }}>USD</span></p>
+
+                        {/* Qty + Remove row */}
+                        <div style={{ display:'flex', alignItems:'center', flexWrap:'wrap', gap:8 }}>
+                          <div className="wlt-qty">
+                            <button className="wlt-qty-btn"
+                              onClick={() => item.quantity > 1 ? updateQty(item.product_id, item.quantity - 1) : removeItem(item.product_id)}>
+                              −
+                            </button>
+                            <span className="wlt-qty-val">{item.quantity}</span>
+                            <button className="wlt-qty-btn"
+                              onClick={() => updateQty(item.product_id, item.quantity + 1)}>
+                              +
+                            </button>
                           </div>
-                          <button onClick={() => removeItem(item.product_id)}
-                            style={{ background: 'none', border: 'none', color: '#3f3830', fontSize: 9, letterSpacing: '0.3em', cursor: 'pointer', textTransform: 'uppercase' }}>
+                          <button className="wlt-remove" onClick={() => removeItem(item.product_id)}>
                             Remove
                           </button>
                         </div>
@@ -133,37 +188,59 @@
                   ))}
                 </AnimatePresence>
 
-                <div style={{ paddingTop: 24, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                  <p style={{ color: '#3f3830', fontSize: 9, letterSpacing: '0.3em', textTransform: 'uppercase' }}>{items.length} item{items.length !== 1 ? 's' : ''}</p>
-                  <p style={{ color: '#e8dcc8', fontFamily: 'Georgia, serif', fontSize: 18, letterSpacing: '0.06em' }}>
-                    $ {totalPrice.toLocaleString()} <span style={{ fontSize: 10, color: '#6b6b6b' }}>USD</span>
-                  </p>
+                {/* Total row */}
+                <div className="wlt-divider" />
+                <div className="wlt-total-row">
+                  <span style={{ color:'rgba(255,255,255,0.25)', fontSize:9, letterSpacing:'0.35em', textTransform:'uppercase', fontFamily:MONO }}>Total</span>
+                  <span style={{ fontFamily:'Georgia,serif', fontSize:22, color:'#e8dcc8', letterSpacing:'0.04em' }}>
+                    $ {totalPrice.toLocaleString(undefined,{minimumFractionDigits:0})} <span style={{ fontSize:10, color:'rgba(255,255,255,0.3)', letterSpacing:'0.2em' }}>USD</span>
+                  </span>
                 </div>
               </div>
 
-              {/* Checkout form */}
-              <div style={{ position: 'sticky', top: 100 }}>
-                <p style={{ fontSize: 7, letterSpacing: '0.5em', textTransform: 'uppercase', color: '#3f3830', padding: '12px 18px', background: '#0a0703', border: '1px solid rgba(201,160,84,0.06)', marginBottom: 2 }}>
+              {/* ── Right: Form ───────────────────────────── */}
+              <div className="wlt-form-col">
+
+                {/* Order summary box */}
+                <div className="wlt-summary-box" style={{ marginBottom:3 }}>
+                  <p style={{ fontSize:7, letterSpacing:'0.5em', textTransform:'uppercase', color:'rgba(201,160,84,0.4)', marginBottom:18, fontFamily:MONO }}>Order Summary</p>
+                  {items.map(item => (
+                    <div key={item.product_id} className="wlt-summary-row">
+                      <span style={{ color:'rgba(255,255,255,0.35)', fontSize:10, letterSpacing:'0.05em', flex:1, paddingRight:8, lineHeight:1.4 }}>{item.product_name}</span>
+                      <span style={{ color:gold, fontSize:10, letterSpacing:'0.1em', whiteSpace:'nowrap', fontFamily:MONO }}>$ {(item.price_usd * item.quantity).toLocaleString()}</span>
+                    </div>
+                  ))}
+                  <div style={{ borderTop:'1px solid rgba(201,160,84,0.1)', paddingTop:14, marginTop:4, display:'flex', justifyContent:'space-between' }}>
+                    <span style={{ color:'rgba(255,255,255,0.4)', fontSize:8, letterSpacing:'0.3em', textTransform:'uppercase', fontFamily:MONO }}>Total</span>
+                    <span style={{ color:'#e8dcc8', fontSize:13, letterSpacing:'0.06em', fontFamily:'Georgia,serif' }}>$ {totalPrice.toLocaleString()}</span>
+                  </div>
+                </div>
+
+                {/* Delivery form */}
+                <p style={{ fontSize:7, letterSpacing:'0.5em', textTransform:'uppercase', color:'rgba(201,160,84,0.4)', padding:'18px', background:'#07060a', border:'1px solid rgba(201,160,84,0.1)', borderBottom:'none', marginTop:20, fontFamily:MONO }}>
                   Delivery Information
                 </p>
-                {[
-                  { v: name, s: setName, ph: 'Full Name *' },
-                  { v: phone, s: setPhone, ph: 'Phone Number *' },
-                  { v: address, s: setAddress, ph: 'Delivery Address *' },
-                  { v: city, s: setCity, ph: 'City *' },
-                  { v: country, s: setCountry, ph: 'Country *' },
-                ].map(({ v, s, ph }) => (
-                  <input key={ph} value={v} onChange={e => s(e.target.value)} placeholder={ph} style={inputSt} />
+                {([
+                  { v:name,    s:setName,    ph:'Full Name',         type:'text' },
+                  { v:phone,   s:setPhone,   ph:'Phone Number',      type:'tel' },
+                  { v:address, s:setAddress, ph:'Delivery Address',  type:'text' },
+                  { v:city,    s:setCity,    ph:'City',              type:'text' },
+                  { v:country, s:setCountry, ph:'Country',           type:'text' },
+                ] as {v:string,s:(x:string)=>void,ph:string,type:string}[]).map(({ v, s, ph, type }) => (
+                  <input key={ph} value={v} onChange={e => s(e.target.value)} placeholder={ph + ' *'} type={type} className="wlt-input" />
                 ))}
 
-                {error && <p style={{ color: '#c0392b', fontSize: 9, letterSpacing: '0.2em', padding: '8px 0' }}>{error}</p>}
+                {error && <div className="wlt-error">{error}</div>}
 
-                <button onClick={handlePlaceOrder} disabled={loading}
-                  style={{ width: '100%', padding: '18px', background: gold, color: '#050505', fontSize: 9, letterSpacing: '0.5em', textTransform: 'uppercase', cursor: loading ? 'wait' : 'pointer', border: 'none', fontWeight: 600, marginTop: 12 }}>
-                  {loading ? 'Placing Orders...' : `Place Order — $ ${totalPrice.toLocaleString()} USD`}
+                <button onClick={handlePlaceOrder} disabled={loading} className="wlt-btn" style={{ marginTop:3 }}>
+                  {loading ? 'Placing Orders…' : `Place Order — $ ${totalPrice.toLocaleString()} USD`}
                 </button>
-                <p style={{ color: '#2a2a2a', fontSize: 8, letterSpacing: '0.2em', textAlign: 'center', marginTop: 12 }}>Cash on Delivery</p>
+
+                <p style={{ color:'rgba(255,255,255,0.1)', fontSize:8, letterSpacing:'0.25em', textAlign:'center', marginTop:14, fontFamily:MONO }}>
+                  ◆ Secure · Verified · Shamim Forever
+                </p>
               </div>
+
             </div>
           )}
         </div>
