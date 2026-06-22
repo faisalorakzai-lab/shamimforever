@@ -124,16 +124,23 @@ export default function AtelierPage() {
 
       {/* ─── CINEMATIC HERO ─── */}
       <section ref={heroRef} className="relative h-[100svh] overflow-hidden">
-        <motion.div style={{ y: heroY }} className="absolute inset-0">
-          <img
-            src="/founder-1.png"
-            alt="The Atelier"
-            className="w-full h-full object-cover object-top"
-            style={{ filter: 'brightness(0.3) contrast(1.15) saturate(0.8)' }}
-          />
-          <div className="absolute inset-0 bg-gradient-to-b from-[#050505]/60 via-transparent to-[#050505]" />
-          <div className="absolute inset-0 bg-gradient-to-r from-[#050505]/70 via-transparent to-transparent" />
+        <motion.div style={{ y: heroY, position: 'absolute', inset: '-12%' }}>
+          <video
+            autoPlay muted loop playsInline preload="auto"
+            poster="/founder-1.png"
+            style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center', filter: 'brightness(0.28) contrast(1.22) saturate(0.45) hue-rotate(200deg)' }}
+          >
+            <source src="/videos/atelier-hero.mp4" type="video/mp4" />
+            <img src="/founder-1.png" alt="The Atelier" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+          </video>
         </motion.div>
+
+        {/* Dark cyberpunk overlays */}
+        <div style={{ position: 'absolute', inset: 0, background: 'rgba(0,4,18,0.45)', zIndex: 1 }} />
+        <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse 60% 55% at 50% 50%, transparent 0%, rgba(5,5,5,0.88) 100%)', zIndex: 1 }} />
+        <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to bottom, rgba(5,5,5,0.6) 0%, transparent 30%, rgba(5,5,5,0.98) 100%)', zIndex: 1 }} />
+        {/* Cyberpunk blue-gold scan-line shimmer */}
+        <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(180deg, transparent 0%, rgba(30,60,120,0.04) 50%, transparent 100%)', zIndex: 1, backgroundSize: '100% 4px', backgroundRepeat: 'repeat-y' }} />
 
         <motion.div
           style={{ opacity: heroOpacity }}
