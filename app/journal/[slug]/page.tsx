@@ -30,6 +30,32 @@ type ArticleData = JournalPost & {
 }
 
 const STATIC: Record<string, ArticleData> = {
+  'founders-vision': {
+    id: '0', slug: 'founders-vision', published: true, content: null,
+    title: "The Founder's Vision: Why Shamim Forever Was Created",
+    excerpt: 'In every generation, a handful of brands emerge that aspire to do more than sell products—they seek to create a lasting legacy.',
+    cover_image: '/founders-vision.png',
+    secondImage: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1800&q=90&fit=crop',
+    category: 'VISION',
+    created_at: '2025-06-01T00:00:00Z',
+    pullQuote: 'True luxury is never rushed. It is patiently built, thoughtfully curated, and responsibly preserved for future generations.',
+    nextSlug: 'sovereign-materials',
+    nextTitle: 'Sovereign Materials: A Journey from Khyber to Grasse',
+    nextImage: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=900&q=85&fit=crop',
+    nextCategory: 'CRAFT',
+    body: [
+      'In every generation, a handful of brands emerge that aspire to do more than sell products — they seek to create a lasting legacy. Shamim Forever was founded with that ambition: to build a luxury house where craftsmanship, innovation, authenticity, and timeless design come together under one vision.',
+      'The inspiration behind the House was simple yet powerful. Luxury should not be measured only by price or exclusivity; it should represent meaning, permanence, and the ability to be appreciated across generations. Every fragrance, every jewelry piece, every curated object, and every digital innovation introduced by Shamim Forever reflects this philosophy.',
+      'From the beginning, the objective was never to become another online retailer or trend-driven lifestyle brand. The goal was to establish an ecosystem where carefully selected creations could be appreciated not only for their beauty but also for their authenticity, provenance, and enduring value. The founder envisioned a brand that would stand confidently between traditional luxury craftsmanship and the possibilities offered by modern technology. Rather than replacing heritage, innovation would strengthen it.',
+      'The modern luxury market is filled with countless products competing for attention. Shamim Forever follows a different path. The House believes that exceptional quality deserves careful selection. This philosophy is reflected in its own exclusive creations as well as the Guest Curation Series, where internationally respected fragrances and luxury objects are recognized for their craftsmanship. The focus remains on excellence rather than volume.',
+      'Trust is one of the most valuable assets in luxury. Collectors increasingly expect transparent documentation and confidence in the origin of the products they acquire. For this reason, Shamim Forever embraces modern verification concepts through Digital Passports designed to strengthen authenticity and preserve provenance for eligible creations. Technology is used not to replace craftsmanship, but to reinforce it.',
+      'Luxury should create an ongoing relationship between the House and the collector. This belief inspired the development of the OKBOND Lifetime Loyalty Program, designed to reward long-term engagement through meaningful benefits. Eligible participants enjoy lifetime advantages such as continued savings on qualifying purchases, priority access to selected releases, and opportunities to participate more deeply in the evolving Shamim Forever ecosystem.',
+      'For centuries, fragrance has represented memory, emotion, and personal identity. Shamim Forever approaches perfumery with this understanding, seeking compositions that balance artistry with permanence. Every fragrance is intended to become part of the wearer\'s story rather than simply a seasonal accessory. Fine jewelry occupies an equally profound place — viewed as an enduring object capable of carrying emotional significance across generations, conceived as heirlooms intended to outlive trends.',
+      'The founder envisioned Shamim Forever not merely as a company but as a community of discerning individuals who value excellence, authenticity, and thoughtful design. The House aspires to serve collectors across cultures and regions while maintaining consistent standards of quality and presentation. Every detail matters — from product selection and packaging to customer experience and digital infrastructure.',
+      'The founder\'s ambition extends well beyond today\'s product catalogue. Future initiatives include expanded archive collections, enhanced digital experiences, broader international reach, and continued investment in authentication technologies that strengthen collector confidence. At the same time, the guiding philosophy remains unchanged: create objects and experiences worthy of preservation.',
+      'For Shamim Forever, that vision is not limited to fragrances or jewelry. It is the pursuit of a modern luxury house where timeless craftsmanship, careful curation, verified authenticity, and meaningful relationships come together to create lasting value. Luxury may capture attention for a moment. Legacy earns its place forever.',
+    ],
+  },
   'architecture-of-scent': {
     id: '1', slug: 'architecture-of-scent', published: true, content: null,
     title: 'The Architecture of Scent: Why Structure Precedes Soul',
@@ -144,10 +170,10 @@ const STATIC: Record<string, ArticleData> = {
     category: 'DIGITAL LUXURY',
     created_at: '2025-02-15T00:00:00Z',
     pullQuote: 'Sovereignty in commerce means owning not just the product, but the entire system through which it reaches its patron.',
-    nextSlug: 'architecture-of-scent',
-    nextTitle: 'The Architecture of Scent: Why Structure Precedes Soul',
-    nextImage: 'https://images.unsplash.com/photo-1541643600914-78b084683702?w=900&q=85&fit=crop',
-    nextCategory: 'CRAFT',
+    nextSlug: 'founders-vision',
+    nextTitle: "The Founder's Vision: Why Shamim Forever Was Created",
+    nextImage: '/founders-vision.png',
+    nextCategory: 'VISION',
     body: [
       'The next decade of luxury will not be won by those with the largest catalogues. It will be won by those with the deepest systems — and the courage to build independently of the platforms that have come to mediate all commercial relationships.',
       'Sovereign commerce is not a rejection of technology. It is a refusal to cede control of the customer relationship to intermediaries who do not share the values of the House. When a luxury brand distributes through a platform that also distributes mass-market goods, it does not gain exposure. It loses identity.',
@@ -173,7 +199,6 @@ export default function ArticlePage({ params }: { params: { slug: string } }) {
         if (data) setPost({ ...data, body: [data.content ?? data.excerpt ?? ''], pullQuote: '', secondImage: '', nextSlug: '', nextTitle: '', nextImage: '', nextCategory: '' })
         setLoading(false)
       })
-      
   }, [params.slug])
 
   if (loading) return (
@@ -240,7 +265,6 @@ export default function ArticlePage({ params }: { params: { slug: string } }) {
             {post.title}
           </h1>
 
-          {/* Floating metadata */}
           <div className="flex flex-wrap items-center gap-8">
             <div className="flex items-center gap-3">
               <div className="w-5 h-px bg-[#c9a054]/50" />
@@ -262,7 +286,7 @@ export default function ArticlePage({ params }: { params: { slug: string } }) {
       <section className="px-8 md:px-14 lg:px-24 pb-20">
         <div className="max-w-[680px] mx-auto">
 
-          {/* Lead */}
+          {/* Lead paragraph */}
           {post.body[0] && (
             <motion.p
               initial={{ opacity: 0, y: 40 }}
@@ -294,6 +318,19 @@ export default function ArticlePage({ params }: { params: { slug: string } }) {
               {post.body[1]}
             </motion.p>
           )}
+
+          {/* Body P3 */}
+          {post.body[2] && (
+            <motion.p
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 1.2, ease }}
+              className="text-zinc-400 font-light leading-[2.1] text-[16px] mb-12"
+            >
+              {post.body[2]}
+            </motion.p>
+          )}
         </div>
 
         {/* Pull Quote */}
@@ -315,7 +352,7 @@ export default function ArticlePage({ params }: { params: { slug: string } }) {
           </motion.div>
         )}
 
-        {/* Full-width image */}
+        {/* Full-width second image */}
         {post.secondImage && (
           <motion.div
             initial={{ opacity: 0, y: 40 }}
@@ -331,9 +368,9 @@ export default function ArticlePage({ params }: { params: { slug: string } }) {
           </motion.div>
         )}
 
-        {/* Remaining body */}
+        {/* Remaining body paragraphs */}
         <div className="max-w-[680px] mx-auto">
-          {post.body.slice(2).map((para, i) => (
+          {post.body.slice(3).map((para, i) => (
             <motion.p
               key={i}
               initial={{ opacity: 0, y: 40 }}
@@ -357,7 +394,7 @@ export default function ArticlePage({ params }: { params: { slug: string } }) {
         </div>
       </div>
 
-      {/* ─── NEXT ARTICLE PREVIEW ─── */}
+      {/* ─── NEXT ARTICLE ─── */}
       {post.nextSlug && (
         <motion.section
           initial={{ opacity: 0, y: 40 }}
@@ -367,7 +404,6 @@ export default function ArticlePage({ params }: { params: { slug: string } }) {
           className="border-t border-[#111] mt-16"
         >
           <Link href={`/journal/${post.nextSlug}`} className="group grid grid-cols-1 md:grid-cols-2">
-            {/* Text */}
             <div className="flex flex-col justify-center px-8 md:px-14 lg:px-20 py-16 md:py-20 border-r border-[#111] order-2 md:order-1">
               <span className="text-[9px] tracking-[0.45em] uppercase text-zinc-700 mb-6 block">Next Dispatch</span>
               <span className="text-[9px] tracking-[0.45em] uppercase text-[#c9a054] mb-6 block">{post.nextCategory}</span>
@@ -379,7 +415,6 @@ export default function ArticlePage({ params }: { params: { slug: string } }) {
                 <span className="text-[9px] tracking-[0.45em] uppercase text-[#c9a054]">Enter Dispatch →</span>
               </div>
             </div>
-            {/* Image */}
             <div className="relative overflow-hidden aspect-[3/2] md:aspect-auto order-1 md:order-2">
               <img
                 src={post.nextImage}
