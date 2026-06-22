@@ -605,6 +605,7 @@ export default function OurStoryPage() {
           </motion.div>
 
           {/* Main dark vignette — edges glow dark, center text pops */}
+          <div style={{ position: 'absolute', inset: 0, background: 'rgba(5,5,5,0.38)', zIndex: 1 }} />
           <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse 55% 60% at 50% 50%, transparent 0%, rgba(5,5,5,0.82) 100%)', zIndex: 1 }} />
           <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to bottom, rgba(5,5,5,0.55) 0%, transparent 35%, rgba(5,5,5,0.98) 100%)', zIndex: 1 }} />
 
@@ -1168,12 +1169,12 @@ export default function OurStoryPage() {
                 style={{ position: 'absolute', inset: 0, background: '#D4AF37', zIndex: 3, transformOrigin: 'top' }}
               />
               <motion.img
-                src="/products/founders-eternal-archive/founder-hero.png"
+                src="/founder-portrait.jpg"
                 alt="Faisal Orakzai — Founder, Shamim Forever"
                 initial={{ scale: 1.08 }} whileInView={{ scale: 1 }} viewport={{ once: true }}
                 transition={{ duration: 1.8, ease: [0.16, 1, 0.3, 1] }}
                 style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center top',
-                  filter: 'grayscale(100%) brightness(0.55) contrast(1.15)', display: 'block', minHeight: 420 }}
+                  filter: 'brightness(0.82) contrast(1.08) saturate(0.85)', display: 'block', minHeight: 420 }}
               />
               <div style={{ position: 'absolute', inset: 0,
                 background: 'linear-gradient(to right, transparent 60%, #030303 100%)', zIndex: 2 }} />
