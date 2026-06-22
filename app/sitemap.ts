@@ -37,7 +37,7 @@ import { MetadataRoute } from 'next'
       { path: '/our-story',       priority: 0.80, changeFrequency: 'monthly' as const },
       { path: '/founder',         priority: 0.85, changeFrequency: 'monthly' as const },
       { path: '/about',           priority: 0.80, changeFrequency: 'monthly' as const },
-      { path: '/journal',         priority: 0.75, changeFrequency: 'weekly'  as const },
+      { path: '/journal',         priority: 0.88, changeFrequency: 'weekly'  as const },
       { path: '/gallery',         priority: 0.70, changeFrequency: 'weekly'  as const },
       { path: '/boutiques',       priority: 0.65, changeFrequency: 'monthly' as const },
       { path: '/concierge',       priority: 0.65, changeFrequency: 'monthly' as const },
@@ -54,7 +54,17 @@ import { MetadataRoute } from 'next'
       { path: '/care',            priority: 0.55, changeFrequency: 'monthly' as const },
     ]
 
-    export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+    
+    const JOURNAL_SLUGS = [
+      'founders-vision',
+      'architecture-of-scent',
+      'sovereign-materials',
+      'okbond-digital-sovereignty',
+      'psychology-of-prestige',
+      'silence-new-luxury',
+      'future-sovereign-commerce',
+    ]
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       const now = new Date()
       let productSlugs = [...new Set(KNOWN_PRODUCT_SLUGS)]
 
@@ -88,6 +98,13 @@ import { MetadataRoute } from 'next'
         priority: 0.85,
       }))
 
-      return [...staticPages, ...productPages]
+      const journalPages: MetadataRoute.Sitemap = JOURNAL_SLUGS.map(slug => ({
+        url: `${BASE_URL}/journal/${slug}`,
+        lastModified: now,
+        changeFrequency: 'monthly' as const,
+        priority: 0.82,
+      }))
+
+      return [...staticPages, ...productPages, ...journalPages]
     }
     
