@@ -89,6 +89,7 @@ const ARTICLES: JournalPost[] = [
 ]
 
 const CATEGORIES = ['HOME', 'CULTURE', 'CRAFT', 'LIFESTYLE', 'WELLNESS', 'VOYAGES', 'COLLECTIBLES', 'MASTERCLASS']
+
 const FEATURES = [
   { icon: '◆', label: 'Curated Perspectives' },
   { icon: '❋', label: 'Expert Voices' },
@@ -121,77 +122,94 @@ export default function JournalPage() {
     <div className="min-h-screen overflow-x-hidden" style={{ background: '#070a1a', color: '#e8e8e8', fontFamily: "'Inter', sans-serif" }}>
 
       {/* ── TOP BAR (desktop only) ── */}
-      <div className="hidden md:flex items-center justify-between px-6 py-3 border-b" style={{ borderColor: '#1e2140', fontSize: '11px', letterSpacing: '0.15em', color: '#a0a0a0' }}>
+      <div
+        className="hidden md:flex items-center justify-between px-6 py-3 border-b"
+        style={{ borderColor: '#1a1d2e', fontSize: '10px', letterSpacing: '0.18em', color: '#666' }}
+      >
         <span>MAY 2025 &nbsp;|&nbsp; ISSUE 07</span>
         <span style={{ color: '#d4af37' }}>EXPLORING THE WORLD OF TIMELESS LUXURY &nbsp;→</span>
       </div>
 
       <div className="flex flex-col md:flex-row">
 
-        {/* ── SIDEBAR (desktop) ── */}
-        <aside className="hidden md:flex flex-col justify-between w-48 lg:w-56 flex-shrink-0 border-r py-8 px-5 sticky top-0 h-screen" style={{ borderColor: '#1e2140' }}>
+        {/* ─────────────────── SIDEBAR ─────────────────── */}
+        <aside
+          className="hidden md:flex flex-col justify-between w-44 lg:w-52 flex-shrink-0 border-r sticky top-0 h-screen py-8 px-5"
+          style={{ borderColor: '#1a1d2e' }}
+        >
           <div>
             {/* Logo */}
-            <div className="mb-10">
-              <div style={{ fontFamily: "'Playfair Display', serif", fontSize: '20px', fontWeight: 700, letterSpacing: '3px', color: '#d4af37', lineHeight: 1.1 }}>
-                SHAMIM<br />
-                <span style={{ fontSize: '18px' }}>FOREVER</span>
+            <div className="mb-8">
+              <div style={{ fontFamily: "'Playfair Display', serif", fontSize: '18px', fontWeight: 700, letterSpacing: '4px', color: '#d4af37', lineHeight: 1.1 }}>
+                SHAMIM<br /><span style={{ fontSize: '16px' }}>FOREVER</span>
               </div>
-              <div style={{ fontSize: '9px', letterSpacing: '3px', color: '#666', marginTop: '4px' }}>JOURNAL</div>
-              <div className="mt-3 w-8 h-px" style={{ background: '#d4af37' }} />
+              <div style={{ fontSize: '8px', letterSpacing: '4px', color: '#555', marginTop: '3px' }}>JOURNAL</div>
+              <div className="mt-3" style={{ width: '28px', height: '1px', background: 'linear-gradient(to right, #d4af37, #d4af3700)' }} />
             </div>
 
             {/* Nav */}
-            <nav className="flex flex-col gap-1">
+            <nav className="flex flex-col gap-0.5">
               {CATEGORIES.map((cat) => (
                 <button
                   key={cat}
                   onClick={() => setActiveCategory(cat)}
-                  className="text-left py-2 transition-all duration-200"
+                  className="text-left py-2.5 transition-all duration-200 relative"
                   style={{
                     fontSize: '10px',
                     letterSpacing: '2px',
-                    color: activeCategory === cat ? '#d4af37' : '#888',
-                    borderLeft: activeCategory === cat ? '2px solid #d4af37' : '2px solid transparent',
-                    paddingLeft: activeCategory === cat ? '10px' : '8px',
+                    color: activeCategory === cat ? '#d4af37' : '#666',
                     background: 'none',
                     border: 'none',
                     cursor: 'pointer',
                     fontFamily: "'Inter', sans-serif",
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '8px',
+                    paddingLeft: activeCategory === cat ? '14px' : '0px',
                   }}
                 >
-                  {activeCategory === cat && <span style={{ display: 'inline-block', width: '2px', height: '12px', background: '#d4af37', borderRadius: '1px', marginRight: '6px' }} />}
+                  {activeCategory === cat && (
+                    <span style={{
+                      position: 'absolute', left: 0, top: '50%', transform: 'translateY(-50%)',
+                      width: '2px', height: '14px', background: '#d4af37', borderRadius: '1px'
+                    }} />
+                  )}
                   {cat}
                 </button>
               ))}
             </nav>
           </div>
 
-          {/* Bottom sidebar actions */}
-          <div className="flex flex-col gap-4">
-            <div className="w-full h-px" style={{ background: '#1e2140' }} />
-            <button style={{ fontSize: '9px', letterSpacing: '2px', color: '#888', background: 'none', border: 'none', cursor: 'pointer', textAlign: 'left' }}>🔍 SEARCH</button>
-            <button style={{ fontSize: '9px', letterSpacing: '2px', color: '#888', background: 'none', border: 'none', cursor: 'pointer', textAlign: 'left' }}>👤 SIGN IN</button>
-            <button style={{ fontSize: '9px', letterSpacing: '2px', color: '#888', background: 'none', border: 'none', cursor: 'pointer', textAlign: 'left' }}>📖 SUBSCRIBE</button>
-            <div className="flex gap-3 mt-2">
+          {/* Bottom sidebar */}
+          <div className="flex flex-col gap-0.5">
+            <div className="mb-4" style={{ width: '100%', height: '1px', background: '#1a1d2e' }} />
+            {[{ icon: '🔍', label: 'SEARCH' }, { icon: '👤', label: 'SIGN IN' }, { icon: '📖', label: 'SUBSCRIBE' }].map(item => (
+              <button
+                key={item.label}
+                style={{ fontSize: '9px', letterSpacing: '2px', color: '#555', background: 'none', border: 'none', cursor: 'pointer', textAlign: 'left', padding: '6px 0', fontFamily: "'Inter', sans-serif" }}
+              >
+                {item.icon} &nbsp;{item.label}
+              </button>
+            ))}
+            <div className="flex gap-4 mt-3">
               {['IG', 'PT', 'IN'].map(s => (
-                <span key={s} style={{ fontSize: '9px', color: '#555', cursor: 'pointer' }}>{s}</span>
+                <span key={s} style={{ fontSize: '9px', color: '#444', cursor: 'pointer', letterSpacing: '1px' }}>{s}</span>
               ))}
             </div>
           </div>
         </aside>
 
         {/* ── MOBILE HEADER ── */}
-        <div className="md:hidden flex items-center justify-between px-4 py-4 border-b sticky top-0 z-50" style={{ borderColor: '#1e2140', background: 'rgba(7,10,26,0.97)', backdropFilter: 'blur(12px)' }}>
+        <div
+          className="md:hidden flex items-center justify-between px-4 py-4 border-b sticky top-0 z-50"
+          style={{ borderColor: '#1a1d2e', background: 'rgba(7,10,26,0.97)', backdropFilter: 'blur(12px)' }}
+        >
           <div>
-            <div style={{ fontFamily: "'Playfair Display', serif", fontSize: '16px', fontWeight: 700, letterSpacing: '2px', color: '#d4af37', lineHeight: 1 }}>SHAMIM FOREVER</div>
-            <div style={{ fontSize: '8px', letterSpacing: '3px', color: '#666', marginTop: '2px' }}>JOURNAL</div>
+            <div style={{ fontFamily: "'Playfair Display', serif", fontSize: '15px', fontWeight: 700, letterSpacing: '2px', color: '#d4af37' }}>SHAMIM FOREVER</div>
+            <div style={{ fontSize: '8px', letterSpacing: '3px', color: '#555', marginTop: '2px' }}>JOURNAL</div>
           </div>
-          <button onClick={() => setMenuOpen(!menuOpen)} style={{ background: 'none', border: '1px solid #1e2140', color: '#d4af37', padding: '8px 12px', fontSize: '10px', letterSpacing: '1px', cursor: 'pointer' }}>
-            {menuOpen ? '✕ CLOSE' : '☰ MENU'}
+          <button
+            onClick={() => setMenuOpen(!menuOpen)}
+            style={{ background: 'none', border: '1px solid #1a1d2e', color: '#d4af37', padding: '7px 12px', fontSize: '9px', letterSpacing: '1px', cursor: 'pointer' }}
+          >
+            {menuOpen ? '✕' : '☰'}
           </button>
         </div>
 
@@ -202,21 +220,20 @@ export default function JournalPage() {
               initial={{ height: 0, opacity: 0 }}
               animate={{ height: 'auto', opacity: 1 }}
               exit={{ height: 0, opacity: 0 }}
-              transition={{ duration: 0.3, ease: 'easeInOut' }}
+              transition={{ duration: 0.25 }}
               className="md:hidden overflow-hidden border-b"
-              style={{ borderColor: '#1e2140', background: '#070a1a' }}
+              style={{ borderColor: '#1a1d2e', background: '#070a1a' }}
             >
-              <div className="px-4 py-4 grid grid-cols-2 gap-2">
+              <div className="px-4 py-4 grid grid-cols-2 gap-1.5">
                 {CATEGORIES.map(cat => (
                   <button
                     key={cat}
                     onClick={() => { setActiveCategory(cat); setMenuOpen(false) }}
-                    className="py-3 px-3 text-left transition-all"
                     style={{
                       fontSize: '10px', letterSpacing: '2px',
-                      color: activeCategory === cat ? '#d4af37' : '#888',
-                      border: activeCategory === cat ? '1px solid #d4af3740' : '1px solid #1e2140',
-                      background: 'none', cursor: 'pointer',
+                      color: activeCategory === cat ? '#d4af37' : '#666',
+                      border: activeCategory === cat ? '1px solid #d4af3740' : '1px solid #1a1d2e',
+                      background: 'none', cursor: 'pointer', padding: '10px 12px', textAlign: 'left',
                       fontFamily: "'Inter', sans-serif",
                     }}
                   >
@@ -228,234 +245,205 @@ export default function JournalPage() {
           )}
         </AnimatePresence>
 
-        {/* ── MAIN CONTENT ── */}
+        {/* ─────────────────── MAIN CONTENT ─────────────────── */}
         <main className="flex-1 min-w-0">
 
-          {/* ══════════════════════════════════════════════════════
-              EDITORIAL HERO — Bloomberg / Jacob & Co. style
-          ══════════════════════════════════════════════════════ */}
-          <section className="grid grid-cols-1 md:grid-cols-2 border-b" style={{ borderColor: '#1e2140', minHeight: 'clamp(420px, 60vh, 680px)' }}>
+          {/* ══════════════════════════════════════════════
+              ROW 1 — HERO: 2 large featured articles
+          ══════════════════════════════════════════════ */}
+          <div className="grid grid-cols-1 md:grid-cols-[3fr_2fr] border-b" style={{ borderColor: '#1a1d2e' }}>
 
-            {/* Left: Editorial text */}
-            <motion.div
-              initial={{ opacity: 0, y: 40 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1.2, ease }}
-              className="flex flex-col justify-center px-8 md:px-10 lg:px-14 py-14 md:py-20 border-b md:border-b-0 md:border-r"
-              style={{ borderColor: '#1e2140' }}
-            >
-              {/* Issue meta */}
-              <div className="flex items-center gap-3 mb-8">
-                <div className="w-6 h-px" style={{ background: '#d4af37' }} />
-                <span style={{ fontSize: '9px', letterSpacing: '4px', color: '#d4af37', textTransform: 'uppercase' }}>May 2025 &nbsp;·&nbsp; Issue 07</span>
-              </div>
-
-              {/* Issue label */}
-              <div className="mb-6">
-                <span style={{ fontSize: '9px', letterSpacing: '4px', color: '#666', textTransform: 'uppercase' }}>The Craft Issue &nbsp;— 01</span>
-                <div className="mt-2 w-12 h-px" style={{ background: '#d4af37' }} />
-              </div>
-
-              {/* Headline */}
-              <h1 style={{
-                fontFamily: "'Playfair Display', serif",
-                fontSize: 'clamp(36px, 5.5vw, 78px)',
-                fontWeight: 700,
-                lineHeight: 1.05,
-                color: '#f0f0f0',
-                marginBottom: '20px',
-                letterSpacing: '-0.01em',
-              }}>
-                The Architecture<br />
-                <em style={{ color: '#d4af37' }}>of Scent</em>
-              </h1>
-
-              {/* Excerpt */}
-              <p style={{ fontSize: '13px', color: '#888', lineHeight: 1.85, maxWidth: '380px', marginBottom: '36px' }}>
-                Inside the world where perfumery becomes timeless design. Structure precedes soul — and restraint is the highest form of ambition.
-              </p>
-
-              {/* CTA */}
-              <Link href="/journal/architecture-of-scent" className="group inline-flex items-center gap-4">
-                <span style={{ fontSize: '9px', letterSpacing: '3px', color: '#d4af37', textTransform: 'uppercase' }}>Explore the Issue</span>
-                <div className="h-px transition-all duration-500 group-hover:w-10 w-5" style={{ background: '#d4af37' }} />
-                <span style={{ color: '#d4af37', fontSize: '13px' }}>→</span>
-              </Link>
-            </motion.div>
-
-            {/* Right: Hero image */}
-            <motion.div
-              initial={{ opacity: 0, scale: 1.06 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 1.8, ease }}
-              className="relative overflow-hidden"
-              style={{ minHeight: 'clamp(300px, 45vw, 680px)' }}
-            >
-              <Link href="/journal/architecture-of-scent" className="block h-full group">
-                <img
-                  src="https://images.unsplash.com/photo-1541643600914-78b084683702?w=1800&q=90&fit=crop"
-                  alt="The Architecture of Scent"
-                  className="w-full h-full object-cover transition-transform duration-[3000ms] group-hover:scale-[1.04]"
-                  style={{ transitionTimingFunction: 'cubic-bezier(0.16,1,0.3,1)' }}
-                />
-                {/* Gradient overlay */}
-                <div className="absolute inset-0" style={{ background: 'linear-gradient(135deg, rgba(7,10,26,0.35) 0%, transparent 60%)' }} />
-                {/* Category badge */}
-                <div className="absolute top-6 right-6">
-                  <span style={{ fontSize: '8px', letterSpacing: '3px', color: '#d4af37', border: '1px solid #d4af3750', padding: '6px 14px', background: 'rgba(7,10,26,0.6)', backdropFilter: 'blur(4px)' }}>CRAFT</span>
-                </div>
-                {/* Subtle bottom gradient */}
-                <div className="absolute bottom-0 left-0 right-0 h-1/3" style={{ background: 'linear-gradient(to top, rgba(7,10,26,0.5) 0%, transparent 100%)' }} />
-              </Link>
-            </motion.div>
-          </section>
-
-          {/* ══════════════════════════════════════════════════════
-              SECTION LABEL
-          ══════════════════════════════════════════════════════ */}
-          <div className="flex items-center gap-4 px-6 md:px-8 py-5 border-b" style={{ borderColor: '#1e2140' }}>
-            <span style={{ fontSize: '8px', letterSpacing: '4px', color: '#d4af37', textTransform: 'uppercase' }}>Featured</span>
-            <div className="flex-1 h-px" style={{ background: '#1e2140' }} />
-            <span style={{ fontSize: '8px', letterSpacing: '3px', color: '#444', textTransform: 'uppercase' }}>This Issue</span>
-          </div>
-
-          {/* ══════════════════════════════════════════════════════
-              FEATURED 2-COLUMN HERO GRID
-          ══════════════════════════════════════════════════════ */}
-          <div className="grid grid-cols-1 md:grid-cols-2 border-b" style={{ borderColor: '#1e2140' }}>
-
-            {/* Hero 1 */}
+            {/* LEFT HERO — large, full-bleed image */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ duration: 1, ease }}
-              className="relative overflow-hidden border-b md:border-b-0 md:border-r group transition-all duration-300 hover:-translate-y-0"
-              style={{ borderColor: '#1e2140', minHeight: '320px', height: 'clamp(320px, 45vw, 560px)' }}
+              transition={{ duration: 1.2, ease }}
+              className="relative overflow-hidden border-b md:border-b-0 md:border-r group"
+              style={{ borderColor: '#1a1d2e', height: 'clamp(380px, 52vw, 620px)' }}
             >
               <Link href={`/journal/${hero1?.slug || '#'}`} className="block h-full">
-                <div className="w-full h-full overflow-hidden">
-                  <img
-                    src={hero1?.cover_image || ARTICLES[0].cover_image!}
-                    alt={hero1?.title}
-                    className="w-full h-full object-cover transition-transform duration-[2500ms] group-hover:scale-[1.05]"
-                    style={{ transitionTimingFunction: 'cubic-bezier(0.16,1,0.3,1)' }}
-                  />
-                </div>
-                <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(7,10,26,0.95) 0%, rgba(7,10,26,0.4) 50%, transparent 100%)' }} />
-                <div className="absolute bottom-0 left-0 right-0 p-5 md:p-8">
-                  <div className="flex items-center gap-2 mb-3">
-                    <div className="h-px w-5" style={{ background: '#d4af37' }} />
-                    <span style={{ fontSize: '9px', letterSpacing: '3px', color: '#d4af37' }}>{hero1?.category || 'CRAFT'}</span>
+                {/* Full-bleed image */}
+                <img
+                  src={hero1?.cover_image || ARTICLES[0].cover_image!}
+                  alt={hero1?.title}
+                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-[3s] group-hover:scale-[1.04]"
+                  style={{ transitionTimingFunction: 'cubic-bezier(0.16,1,0.3,1)' }}
+                />
+                {/* Multi-layer gradient for text legibility */}
+                <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(5,6,18,0.97) 0%, rgba(5,6,18,0.6) 40%, rgba(5,6,18,0.1) 70%, transparent 100%)' }} />
+                <div className="absolute inset-0" style={{ background: 'linear-gradient(to right, rgba(5,6,18,0.5) 0%, transparent 60%)' }} />
+
+                {/* Text block — bottom left */}
+                <div className="absolute bottom-0 left-0 right-0 p-7 md:p-10">
+                  {/* Category */}
+                  <div className="flex items-center gap-3 mb-4">
+                    <span style={{ fontSize: '9px', letterSpacing: '3px', color: '#d4af37', fontFamily: "'Inter', sans-serif" }}>
+                      {hero1?.category || 'CRAFT'}
+                    </span>
+                    <div style={{ width: '24px', height: '1px', background: '#d4af37' }} />
                   </div>
-                  <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: 'clamp(24px, 4vw, 44px)', fontWeight: 700, lineHeight: 1.1, color: '#f0f0f0', marginBottom: '10px' }}>
+
+                  {/* Title — very large */}
+                  <h2 style={{
+                    fontFamily: "'Playfair Display', serif",
+                    fontSize: 'clamp(36px, 5.5vw, 72px)',
+                    fontWeight: 700,
+                    lineHeight: 1.0,
+                    color: '#ffffff',
+                    marginBottom: '14px',
+                    letterSpacing: '-0.01em',
+                  }}>
                     {hero1?.title}
                   </h2>
-                  <p style={{ fontSize: '12px', color: '#aaa', lineHeight: 1.65, marginBottom: '16px', display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
+
+                  {/* Excerpt */}
+                  <p style={{ fontSize: '12px', color: '#9a9aaa', lineHeight: 1.7, marginBottom: '20px', maxWidth: '380px', display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
                     {hero1?.excerpt}
                   </p>
-                  <div className="flex items-center gap-3">
-                    <div className="w-4 h-px group-hover:w-8 transition-all duration-500" style={{ background: '#d4af37' }} />
-                    <span style={{ fontSize: '9px', letterSpacing: '2px', color: '#d4af37' }}>READ ARTICLE →</span>
+
+                  {/* CTA */}
+                  <div className="flex items-center gap-3 group/link">
+                    <span style={{ fontSize: '9px', letterSpacing: '2.5px', color: '#d4af37', fontFamily: "'Inter', sans-serif" }}>READ ARTICLE</span>
+                    <div className="w-5 h-px group-hover/link:w-10 transition-all duration-500" style={{ background: '#d4af37' }} />
+                    <span style={{ color: '#d4af37', fontSize: '12px' }}>→</span>
                   </div>
                 </div>
               </Link>
             </motion.div>
 
-            {/* Hero 2 */}
+            {/* RIGHT HERO — slightly smaller */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ duration: 1, delay: 0.15, ease }}
+              transition={{ duration: 1.2, delay: 0.12, ease }}
               className="relative overflow-hidden group"
-              style={{ minHeight: '280px', height: 'clamp(280px, 40vw, 560px)' }}
+              style={{ height: 'clamp(300px, 40vw, 620px)' }}
             >
               <Link href={`/journal/${hero2?.slug || '#'}`} className="block h-full">
-                <div className="w-full h-full overflow-hidden">
-                  <img
-                    src={hero2?.cover_image || ARTICLES[1].cover_image!}
-                    alt={hero2?.title}
-                    className="w-full h-full object-cover transition-transform duration-[2500ms] group-hover:scale-[1.05]"
-                    style={{ transitionTimingFunction: 'cubic-bezier(0.16,1,0.3,1)' }}
-                  />
-                </div>
-                <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(7,10,26,0.95) 0%, rgba(7,10,26,0.35) 55%, transparent 100%)' }} />
-                <div className="absolute bottom-0 left-0 right-0 p-5 md:p-8">
-                  <div className="flex items-center gap-2 mb-3">
-                    <div className="h-px w-5" style={{ background: '#d4af37' }} />
-                    <span style={{ fontSize: '9px', letterSpacing: '3px', color: '#d4af37' }}>{hero2?.category || 'PSYCHOLOGY'}</span>
+                <img
+                  src={hero2?.cover_image || ARTICLES[1].cover_image!}
+                  alt={hero2?.title}
+                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-[3s] group-hover:scale-[1.04]"
+                  style={{ transitionTimingFunction: 'cubic-bezier(0.16,1,0.3,1)' }}
+                />
+                <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(5,6,18,0.96) 0%, rgba(5,6,18,0.55) 45%, rgba(5,6,18,0.1) 75%, transparent 100%)' }} />
+
+                {/* Text block — bottom left */}
+                <div className="absolute bottom-0 left-0 right-0 p-6 md:p-9">
+                  <div className="flex items-center gap-3 mb-4">
+                    <span style={{ fontSize: '9px', letterSpacing: '3px', color: '#d4af37', fontFamily: "'Inter', sans-serif" }}>
+                      {hero2?.category || 'PSYCHOLOGY'}
+                    </span>
+                    <div style={{ width: '24px', height: '1px', background: '#d4af37' }} />
                   </div>
-                  <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: 'clamp(20px, 3vw, 38px)', fontWeight: 700, lineHeight: 1.15, color: '#f0f0f0', marginBottom: '10px' }}>
+
+                  <h2 style={{
+                    fontFamily: "'Playfair Display', serif",
+                    fontSize: 'clamp(26px, 3.8vw, 48px)',
+                    fontWeight: 700,
+                    lineHeight: 1.05,
+                    color: '#ffffff',
+                    marginBottom: '12px',
+                    letterSpacing: '-0.01em',
+                  }}>
                     {hero2?.title}
                   </h2>
-                  <p style={{ fontSize: '12px', color: '#aaa', lineHeight: 1.65, marginBottom: '16px', display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
+
+                  <p style={{ fontSize: '11px', color: '#9a9aaa', lineHeight: 1.7, marginBottom: '18px', display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
                     {hero2?.excerpt}
                   </p>
-                  <div className="flex items-center gap-3">
-                    <div className="w-4 h-px group-hover:w-8 transition-all duration-500" style={{ background: '#d4af37' }} />
-                    <span style={{ fontSize: '9px', letterSpacing: '2px', color: '#d4af37' }}>READ ARTICLE →</span>
+
+                  <div className="flex items-center gap-3 group/link">
+                    <span style={{ fontSize: '9px', letterSpacing: '2.5px', color: '#d4af37', fontFamily: "'Inter', sans-serif" }}>READ ARTICLE</span>
+                    <div className="w-5 h-px group-hover/link:w-8 transition-all duration-500" style={{ background: '#d4af37' }} />
+                    <span style={{ color: '#d4af37', fontSize: '12px' }}>→</span>
                   </div>
+                </div>
+
+                {/* Scroll dots — right edge decoration */}
+                <div className="absolute right-3 top-1/2 -translate-y-1/2 flex flex-col gap-1.5">
+                  {[0,1,2,3,4].map(i => (
+                    <div key={i} style={{ width: '4px', height: '4px', borderRadius: '50%', background: i === 0 ? '#d4af37' : '#333' }} />
+                  ))}
                 </div>
               </Link>
             </motion.div>
           </div>
 
-          {/* ══════════════════════════════════════════════════════
-              SMALL CARDS ROW (4 columns)
-          ══════════════════════════════════════════════════════ */}
-          <div className="grid grid-cols-2 md:grid-cols-4 border-b" style={{ borderColor: '#1e2140' }}>
+          {/* ══════════════════════════════════════════════
+              ROW 2 — 4 SMALL CARDS + NEWSLETTER
+          ══════════════════════════════════════════════ */}
+          <div className="grid grid-cols-2 md:grid-cols-4 border-b" style={{ borderColor: '#1a1d2e' }}>
 
+            {/* Cards 1–3: small article cards */}
             {[card1, card2, card3].filter(Boolean).map((post, i) => (
               <motion.div
                 key={post?.id || i}
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 16 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.8, delay: i * 0.1, ease }}
-                className="border-r transition-all duration-300 hover:-translate-y-1"
-                style={{ borderColor: '#1e2140' }}
+                transition={{ duration: 0.8, delay: i * 0.08, ease }}
+                className="relative border-r overflow-hidden group"
+                style={{ borderColor: '#1a1d2e', height: 'clamp(220px, 28vw, 340px)' }}
               >
-                <Link href={`/journal/${post?.slug || '#'}`} className="group block h-full">
-                  <div className="relative overflow-hidden" style={{ height: 'clamp(140px, 20vw, 240px)' }}>
-                    <img
-                      src={post?.cover_image || ARTICLES[i + 2].cover_image!}
-                      alt={post?.title}
-                      className="w-full h-full object-cover transition-transform duration-[2000ms] group-hover:scale-[1.06]"
-                      style={{ transitionTimingFunction: 'cubic-bezier(0.16,1,0.3,1)' }}
-                    />
-                    <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(7,10,26,0.6) 0%, transparent 60%)' }} />
-                  </div>
-                  <div className="p-4 md:p-5" style={{ borderTop: '1px solid #1e2140', transition: 'border-color 0.3s' }}>
-                    <div className="flex items-center gap-2 mb-3">
-                      <div className="h-px w-4 group-hover:w-6 transition-all duration-300" style={{ background: '#d4af37' }} />
-                      <span style={{ fontSize: '8px', letterSpacing: '2px', color: '#d4af37' }}>{post?.category}</span>
+                <Link href={`/journal/${post?.slug || '#'}`} className="block h-full">
+                  {/* Background image */}
+                  <img
+                    src={post?.cover_image || ARTICLES[i + 2].cover_image!}
+                    alt={post?.title}
+                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-[2.5s] group-hover:scale-[1.06]"
+                    style={{ transitionTimingFunction: 'cubic-bezier(0.16,1,0.3,1)' }}
+                  />
+                  <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(5,6,18,0.97) 0%, rgba(5,6,18,0.5) 45%, rgba(5,6,18,0.0) 80%)' }} />
+
+                  {/* Text overlay — bottom */}
+                  <div className="absolute bottom-0 left-0 right-0 p-4 md:p-5">
+                    <div className="flex items-center gap-2 mb-2.5">
+                      <span style={{ fontSize: '8px', letterSpacing: '2.5px', color: '#d4af37', fontFamily: "'Inter', sans-serif" }}>{post?.category}</span>
+                      <div style={{ width: '14px', height: '1px', background: '#d4af37' }} />
                     </div>
-                    <h3 style={{ fontFamily: "'Playfair Display', serif", fontSize: 'clamp(14px, 2.5vw, 20px)', fontWeight: 700, color: '#e8e8e8', lineHeight: 1.25 }}>
+                    <h3 style={{ fontFamily: "'Playfair Display', serif", fontSize: 'clamp(14px, 2.2vw, 22px)', fontWeight: 700, color: '#f0f0f0', lineHeight: 1.2, marginBottom: '6px' }}>
                       {post?.title}
                     </h3>
-                    <div className="mt-4 w-0 h-px group-hover:w-full transition-all duration-500" style={{ background: '#d4af37', transitionTimingFunction: 'cubic-bezier(0.16,1,0.3,1)' }} />
+                    <p style={{ fontSize: '10px', color: '#888', lineHeight: 1.6, display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden', marginBottom: '10px' }}>
+                      {post?.excerpt}
+                    </p>
+                    <div className="flex items-center gap-2 group/link">
+                      <span style={{ fontSize: '8px', letterSpacing: '2px', color: '#d4af37' }}>READ ARTICLE</span>
+                      <div className="w-3 h-px group-hover/link:w-5 transition-all duration-400" style={{ background: '#d4af37' }} />
+                      <span style={{ color: '#d4af37', fontSize: '10px' }}>→</span>
+                    </div>
                   </div>
                 </Link>
               </motion.div>
             ))}
 
-            {/* Newsletter box — 4th card */}
+            {/* Card 4: Newsletter box */}
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 16 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.8, delay: 0.3, ease }}
-              className="p-5 md:p-7 flex flex-col justify-between col-span-2 md:col-span-1"
-              style={{ background: 'rgba(212,175,55,0.04)', borderLeft: '1px solid #2a2a3e', border: '1px solid #d4af3720' }}
+              transition={{ duration: 0.8, delay: 0.24, ease }}
+              className="flex flex-col justify-between p-6 md:p-7 col-span-2 md:col-span-1"
+              style={{
+                background: 'rgba(212,175,55,0.04)',
+                border: '1px solid #d4af3725',
+                borderTop: 'none',
+                borderBottom: 'none',
+              }}
             >
               <div>
-                <div style={{ fontSize: '22px', color: '#d4af37', marginBottom: '12px' }}>✉</div>
-                <h4 style={{ fontFamily: "'Playfair Display', serif", fontSize: '22px', color: '#d4af37', marginBottom: '10px', lineHeight: 1.2 }}>The Journal</h4>
-                <p style={{ fontSize: '11px', color: '#888', lineHeight: 1.8, marginBottom: '18px' }}>
+                <div style={{ fontSize: '24px', color: '#d4af37', marginBottom: '10px', lineHeight: 1 }}>✉</div>
+                <h4 style={{ fontFamily: "'Playfair Display', serif", fontSize: '22px', color: '#d4af37', marginBottom: '10px', lineHeight: 1.2, fontWeight: 700 }}>
+                  The Journal
+                </h4>
+                <p style={{ fontSize: '11px', color: '#777', lineHeight: 1.8, marginBottom: '20px' }}>
                   Curated insights on luxury, culture, and the art of living beautifully. Delivered weekly.
                 </p>
               </div>
+
               {subscribed ? (
-                <div style={{ fontSize: '10px', letterSpacing: '2px', color: '#d4af37' }}>✓ SUBSCRIBED</div>
+                <div style={{ fontSize: '9px', letterSpacing: '2px', color: '#d4af37' }}>✓ SUBSCRIBED</div>
               ) : (
                 <form onSubmit={(e) => { e.preventDefault(); if (email) setSubscribed(true) }} className="flex flex-col gap-2">
                   <input
@@ -464,245 +452,126 @@ export default function JournalPage() {
                     onChange={e => setEmail(e.target.value)}
                     placeholder="Enter your email"
                     required
-                    className="w-full px-3 py-2"
-                    style={{ background: 'transparent', border: '1px solid #2a2a3e', color: '#e8e8e8', fontSize: '11px', fontFamily: "'Inter', sans-serif", outline: 'none', transition: 'border-color 0.3s' }}
-                    onFocus={e => { e.target.style.borderColor = '#d4af37' }}
-                    onBlur={e => { e.target.style.borderColor = '#2a2a3e' }}
+                    style={{
+                      width: '100%',
+                      padding: '10px 12px',
+                      background: 'transparent',
+                      border: '1px solid #2a2a3e',
+                      color: '#e8e8e8',
+                      fontSize: '11px',
+                      fontFamily: "'Inter', sans-serif",
+                      outline: 'none',
+                      transition: 'border-color 0.3s',
+                    }}
+                    onFocus={e => (e.target.style.borderColor = '#d4af37')}
+                    onBlur={e => (e.target.style.borderColor = '#2a2a3e')}
                   />
                   <button
                     type="submit"
-                    className="w-full py-2.5 transition-all duration-300 hover:opacity-85"
-                    style={{ background: '#d4af37', color: '#070a1a', fontSize: '9px', letterSpacing: '2px', fontWeight: 700, border: 'none', cursor: 'pointer', fontFamily: "'Inter', sans-serif" }}
+                    style={{
+                      width: '100%',
+                      padding: '10px',
+                      background: '#d4af37',
+                      color: '#070a1a',
+                      fontSize: '9px',
+                      letterSpacing: '2px',
+                      fontWeight: 700,
+                      border: 'none',
+                      cursor: 'pointer',
+                      fontFamily: "'Inter', sans-serif",
+                      transition: 'opacity 0.2s',
+                    }}
+                    onMouseEnter={e => (e.currentTarget.style.opacity = '0.85')}
+                    onMouseLeave={e => (e.currentTarget.style.opacity = '1')}
                   >
-                    SUBSCRIBE →
+                    SUBSCRIBE
                   </button>
                 </form>
               )}
             </motion.div>
           </div>
 
-          {/* ══════════════════════════════════════════════════════
-              QUOTE SECTION — Large, dramatic, Bloomberg-level
-          ══════════════════════════════════════════════════════ */}
-          <motion.section
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 1.2, ease }}
-            className="relative py-16 md:py-24 px-6 md:px-16 border-b text-center"
-            style={{ borderColor: '#1e2140', borderTop: '1px solid #1e2140', background: 'rgba(212,175,55,0.02)' }}
-          >
-            {/* Top accent line */}
-            <div className="flex items-center justify-center gap-6 mb-10">
-              <div className="h-px flex-1 max-w-24" style={{ background: 'linear-gradient(to right, transparent, #d4af3740)' }} />
-              <div className="w-1.5 h-1.5 rounded-full" style={{ background: '#d4af3760' }} />
-              <div className="h-px flex-1 max-w-24" style={{ background: 'linear-gradient(to left, transparent, #d4af3740)' }} />
-            </div>
-
-            {/* Large quotation mark */}
-            <div style={{ fontFamily: "'Playfair Display', serif", fontSize: 'clamp(80px, 12vw, 140px)', lineHeight: 0.6, color: '#d4af37', opacity: 0.25, marginBottom: '16px', fontWeight: 700 }}>"</div>
-
-            {/* Quote text */}
-            <blockquote style={{
-              fontFamily: "'Playfair Display', serif",
-              fontSize: 'clamp(18px, 3vw, 32px)',
-              fontStyle: 'italic',
-              fontWeight: 400,
-              color: '#ddd',
-              lineHeight: 1.55,
-              maxWidth: '680px',
-              margin: '0 auto 24px',
-              letterSpacing: '0.01em',
-            }}>
-              Luxury is not about owning,<br />
-              it's about choosing—intentionally.
-            </blockquote>
-
-            {/* Attribution */}
-            <div className="flex items-center justify-center gap-4 mt-8">
-              <div className="h-px w-8" style={{ background: '#d4af3750' }} />
-              <span style={{ fontSize: '9px', letterSpacing: '4px', color: '#d4af37', textTransform: 'uppercase' }}>— Shamim Forever</span>
-              <div className="h-px w-8" style={{ background: '#d4af3750' }} />
-            </div>
-
-            {/* Bottom accent line */}
-            <div className="flex items-center justify-center gap-6 mt-10">
-              <div className="h-px flex-1 max-w-24" style={{ background: 'linear-gradient(to right, transparent, #d4af3740)' }} />
-              <div className="w-1.5 h-1.5 rounded-full" style={{ background: '#d4af3660' }} />
-              <div className="h-px flex-1 max-w-24" style={{ background: 'linear-gradient(to left, transparent, #d4af3740)' }} />
-            </div>
-          </motion.section>
-
-          {/* ══════════════════════════════════════════════════════
-              FEATURES BAR
-          ══════════════════════════════════════════════════════ */}
+          {/* ══════════════════════════════════════════════
+              ROW 3 — QUOTE (left) + FEATURES (right)
+              Matches screenshot exactly: combined strip
+          ══════════════════════════════════════════════ */}
           <motion.div
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.8, ease }}
-            className="grid grid-cols-2 md:grid-cols-4 border-b"
-            style={{ borderColor: '#1e2140' }}
-          >
-            {FEATURES.map((f, i) => (
-              <motion.div
-                key={f.label}
-                initial={{ opacity: 0, y: 10 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: i * 0.1, ease }}
-                className="flex flex-col items-center justify-center gap-3 py-8 px-4 text-center border-r group cursor-default"
-                style={{ borderColor: i < FEATURES.length - 1 ? '#1e2140' : 'transparent' }}
-              >
-                <span className="transition-transform duration-300 group-hover:scale-110" style={{ fontSize: '22px', color: '#d4af37' }}>{f.icon}</span>
-                <span style={{ fontSize: '8px', letterSpacing: '2.5px', color: '#d4af37', textTransform: 'uppercase' }}>{f.label}</span>
-                <div className="w-0 h-px group-hover:w-8 transition-all duration-500" style={{ background: '#d4af37' }} />
-              </motion.div>
-            ))}
-          </motion.div>
-
-          {/* ══════════════════════════════════════════════════════
-              ALL DISPATCHES GRID
-          ══════════════════════════════════════════════════════ */}
-          {displayPosts.length > 3 && (
-            <section className="border-b" style={{ borderColor: '#1e2140' }}>
-              <div className="px-5 md:px-8 py-5 border-b flex items-center gap-4" style={{ borderColor: '#1e2140' }}>
-                <span style={{ fontSize: '8px', letterSpacing: '4px', color: '#666', textTransform: 'uppercase' }}>All Dispatches</span>
-                <div className="flex-1 h-px" style={{ background: '#1e2140' }} />
-              </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-                {displayPosts.map((post, i) => (
-                  <motion.div
-                    key={post.id}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.7, delay: (i % 3) * 0.08, ease }}
-                    className="border-b border-r transition-all duration-300 hover:-translate-y-1"
-                    style={{ borderColor: '#1e2140' }}
-                  >
-                    <Link href={`/journal/${post.slug}`} className="group flex flex-col h-full">
-                      <div className="relative overflow-hidden" style={{ height: '200px' }}>
-                        <img
-                          src={post.cover_image || ARTICLES[i % ARTICLES.length].cover_image!}
-                          alt={post.title}
-                          className="w-full h-full object-cover transition-transform duration-[2000ms] group-hover:scale-[1.05]"
-                          style={{ transitionTimingFunction: 'cubic-bezier(0.16,1,0.3,1)' }}
-                        />
-                        <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(7,10,26,0.75) 0%, transparent 60%)' }} />
-                        <div className="absolute bottom-3 left-4 flex items-center gap-2">
-                          <div className="h-px w-4" style={{ background: '#d4af37' }} />
-                          <span style={{ fontSize: '8px', letterSpacing: '2px', color: '#d4af37' }}>{post.category}</span>
-                        </div>
-                      </div>
-                      <div className="p-5 flex-1 flex flex-col justify-between" style={{ borderTop: '1px solid #1e2140', transition: 'border-color 0.3s' }}>
-                        <div>
-                          <h3 style={{ fontFamily: "'Playfair Display', serif", fontSize: '18px', fontWeight: 700, color: '#e8e8e8', lineHeight: 1.3, marginBottom: '8px' }}>
-                            {post.title}
-                          </h3>
-                          {post.excerpt && (
-                            <p style={{ fontSize: '11px', color: '#777', lineHeight: 1.7, display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
-                              {post.excerpt}
-                            </p>
-                          )}
-                        </div>
-                        <div className="mt-4 flex items-center gap-3">
-                          <div className="w-0 h-px group-hover:w-6 transition-all duration-500" style={{ background: '#d4af37' }} />
-                          <span style={{ fontSize: '8px', letterSpacing: '2px', color: '#d4af37' }}>READ →</span>
-                        </div>
-                      </div>
-                    </Link>
-                  </motion.div>
-                ))}
-              </div>
-            </section>
-          )}
-
-          {/* ══════════════════════════════════════════════════════
-              MANIFESTO QUOTE
-          ══════════════════════════════════════════════════════ */}
-          <motion.section
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
             transition={{ duration: 1, ease }}
-            className="py-16 md:py-24 px-6 md:px-16 text-center border-b"
-            style={{ borderColor: '#1e2140' }}
+            className="grid grid-cols-1 md:grid-cols-[2fr_3fr] border-b"
+            style={{ borderColor: '#1a1d2e' }}
           >
-            <div className="w-px h-10 mx-auto mb-10" style={{ background: 'linear-gradient(to bottom, transparent, #d4af37aa)' }} />
-            <blockquote style={{ fontFamily: "'Playfair Display', serif", fontSize: 'clamp(20px, 3.5vw, 44px)', fontWeight: 400, color: '#e0e0e0', lineHeight: 1.35, maxWidth: '700px', margin: '0 auto' }}>
-              "Luxury should not chase attention.<br />
-              It should command permanence."
-            </blockquote>
-            <div className="flex items-center justify-center gap-5 mt-10">
-              <div className="h-px w-8" style={{ background: '#d4af3750' }} />
-              <span style={{ fontSize: '8px', letterSpacing: '4px', color: '#d4af37', textTransform: 'uppercase' }}>House of Shamim Forever</span>
-              <div className="h-px w-8" style={{ background: '#d4af3750' }} />
-            </div>
-            <div className="w-px h-10 mx-auto mt-10" style={{ background: 'linear-gradient(to top, transparent, #d4af37aa)' }} />
-          </motion.section>
-
-          {/* ══════════════════════════════════════════════════════
-              NEWSLETTER — Premium gold box
-          ══════════════════════════════════════════════════════ */}
-          <section className="px-5 md:px-10 py-12 md:py-16 border-b" style={{ borderColor: '#1e2140' }}>
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.9, ease }}
-              className="flex flex-col md:flex-row md:items-center md:justify-between gap-8 p-8 md:p-10"
-              style={{ border: '1px solid #d4af3730', background: 'rgba(212,175,55,0.03)' }}
+            {/* Left: Quote */}
+            <div
+              className="flex items-center gap-5 px-7 md:px-10 py-8 md:py-10 border-b md:border-b-0 md:border-r"
+              style={{ borderColor: '#1a1d2e', background: 'rgba(212,175,55,0.02)' }}
             >
+              {/* Big quotation mark */}
+              <div style={{
+                fontFamily: "'Playfair Display', serif",
+                fontSize: '80px',
+                color: '#d4af37',
+                lineHeight: 0.7,
+                flexShrink: 0,
+                opacity: 0.7,
+                alignSelf: 'flex-start',
+                marginTop: '4px',
+              }}>"</div>
+
               <div>
-                <div className="flex items-center gap-3 mb-4">
-                  <span style={{ fontSize: '18px', color: '#d4af37' }}>✉</span>
-                  <span style={{ fontSize: '9px', letterSpacing: '4px', color: '#d4af37', textTransform: 'uppercase' }}>The Journal</span>
-                </div>
-                <h3 style={{ fontFamily: "'Playfair Display', serif", fontSize: 'clamp(22px, 3vw, 30px)', color: '#f0f0f0', marginBottom: '8px', fontWeight: 700 }}>
-                  The Sovereign Journal
-                </h3>
-                <p style={{ fontSize: '12px', color: '#777', lineHeight: 1.8, maxWidth: '340px' }}>
-                  Curated insights on luxury, culture, and sovereign living. Delivered weekly to the discerning few.
-                </p>
+                <blockquote style={{
+                  fontFamily: "'Playfair Display', serif",
+                  fontSize: 'clamp(14px, 1.8vw, 19px)',
+                  fontStyle: 'italic',
+                  color: '#c8c8d8',
+                  lineHeight: 1.6,
+                  marginBottom: '10px',
+                  fontWeight: 400,
+                }}>
+                  Luxury is not about owning,<br />
+                  it's about choosing—intentionally.
+                </blockquote>
+                <p style={{ fontSize: '9px', letterSpacing: '3px', color: '#d4af37', fontFamily: "'Inter', sans-serif" }}>— SHAMIM</p>
               </div>
-              {subscribed ? (
-                <div style={{ fontSize: '10px', letterSpacing: '3px', color: '#d4af37', flexShrink: 0 }}>✓ SUBSCRIBED TO THE JOURNAL</div>
-              ) : (
-                <form onSubmit={e => { e.preventDefault(); if (email) setSubscribed(true) }} className="flex flex-col sm:flex-row gap-2 md:min-w-[360px]">
-                  <input
-                    type="email"
-                    value={email}
-                    onChange={e => setEmail(e.target.value)}
-                    placeholder="Enter your email"
-                    required
-                    className="flex-1 px-4 py-3"
-                    style={{ background: 'transparent', border: '1px solid #2a2a3e', color: '#e8e8e8', fontSize: '12px', fontFamily: "'Inter', sans-serif", outline: 'none', transition: 'border-color 0.3s' }}
-                    onFocus={e => { e.target.style.borderColor = '#d4af37' }}
-                    onBlur={e => { e.target.style.borderColor = '#2a2a3e' }}
-                  />
-                  <button
-                    type="submit"
-                    className="px-6 py-3 transition-opacity duration-200 hover:opacity-80"
-                    style={{ background: '#d4af37', color: '#070a1a', fontSize: '10px', letterSpacing: '2px', fontWeight: 700, border: 'none', cursor: 'pointer', fontFamily: "'Inter', sans-serif", whiteSpace: 'nowrap' }}
+            </div>
+
+            {/* Right: Features */}
+            <div className="grid grid-cols-2 md:grid-cols-4">
+              {FEATURES.map((f, i) => (
+                <motion.div
+                  key={f.label}
+                  initial={{ opacity: 0, y: 8 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: i * 0.08, ease }}
+                  className="flex flex-col items-center justify-center gap-2.5 py-8 px-4 text-center group cursor-default"
+                  style={{ borderLeft: i > 0 ? '1px solid #1a1d2e' : 'none' }}
+                >
+                  <span
+                    className="transition-transform duration-300 group-hover:scale-110"
+                    style={{ fontSize: '20px', color: '#d4af37' }}
                   >
-                    SUBSCRIBE →
-                  </button>
-                </form>
-              )}
-            </motion.div>
-          </section>
+                    {f.icon}
+                  </span>
+                  <span style={{ fontSize: '8px', letterSpacing: '2px', color: '#d4af37', textTransform: 'uppercase', lineHeight: 1.4, textAlign: 'center' }}>
+                    {f.label}
+                  </span>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
 
         </main>
       </div>
 
-      {/* ── Google Fonts ── */}
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Inter:wght@300;400;500&display=swap');
         * { box-sizing: border-box; }
-        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar { width: 3px; }
         ::-webkit-scrollbar-track { background: #070a1a; }
-        ::-webkit-scrollbar-thumb { background: #d4af3740; border-radius: 2px; }
+        ::-webkit-scrollbar-thumb { background: #d4af3750; border-radius: 2px; }
       `}</style>
     </div>
   )
