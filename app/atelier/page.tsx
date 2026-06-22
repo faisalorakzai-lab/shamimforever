@@ -78,7 +78,7 @@ const RAW_MATERIALS = [
     name: 'THE OUD',
     origin: 'Assam, India',
     desc: 'Agarwood resin aged for no less than twelve years. The rarest organic fragrance material on earth.',
-    img: 'https://images.unsplash.com/photo-1547050605-3f66b44fe0f2?w=700&auto=format&fit=crop&q=80',
+    img: '/materials/oud-assam.png',
   },
   {
     name: 'THE GOLD',
@@ -90,7 +90,7 @@ const RAW_MATERIALS = [
     name: 'THE DIAMOND',
     origin: 'Conflict-Free Certified',
     desc: 'Natural diamonds. Conflict-free certified. Set by hand in Lahore\'s oldest jeweller workshop.',
-    img: 'https://images.unsplash.com/photo-1515377905703-c4788e51af15?w=700&auto=format&fit=crop&q=80',
+    img: '/materials/diamond-certified.png',
   },
 ]
 
