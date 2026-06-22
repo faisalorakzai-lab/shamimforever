@@ -374,6 +374,49 @@ function OkbondGlitch() {
 /* ══════════════════════════════════════
    PAGE
 ══════════════════════════════════════ */
+
+function PillarCard({ roman, title, subtitle, icon, desc, hover, delay }: {
+  roman: string; title: string; subtitle: string; icon: string;
+  desc: string; hover: string; delay: number;
+}) {
+  const [hovered, setHovered] = useState(false)
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
+      transition={{ duration: 0.8, delay, ease: [0.16, 1, 0.3, 1] }}
+      onMouseEnter={() => setHovered(true)} onMouseLeave={() => setHovered(false)}
+      style={{
+        position: 'relative', padding: 'clamp(2.5rem,5vw,3.5rem)',
+        background: hovered ? 'rgba(212,175,55,0.04)' : '#030303',
+        borderRight: '1px solid #111', transition: 'background 0.5s ease',
+        cursor: 'default', overflow: 'hidden',
+      }}
+    >
+      <motion.div
+        animate={{ scaleY: hovered ? 1 : 0 }} transition={{ duration: 0.4 }}
+        style={{ position: 'absolute', left: 0, top: 0, bottom: 0, width: 1,
+          background: 'linear-gradient(to bottom, transparent, #D4AF37, transparent)', transformOrigin: 'top' }}
+      />
+      <div style={{ fontFamily: 'Playfair Display, serif', fontSize: 'clamp(3rem,6vw,5rem)', fontWeight: 700,
+        fontStyle: 'italic', color: hovered ? 'rgba(212,175,55,0.15)' : 'rgba(212,175,55,0.07)',
+        lineHeight: 1, marginBottom: '1rem', transition: 'color 0.4s' }}>{roman}</div>
+      <div style={{ fontSize: 20, color: 'rgba(212,175,55,0.5)', marginBottom: '1.2rem' }}>{icon}</div>
+      <div style={{ fontFamily: 'Inter, sans-serif', fontSize: 7.5, letterSpacing: '0.45em',
+        textTransform: 'uppercase', color: 'rgba(212,175,55,0.65)', marginBottom: '0.7rem' }}>{title}</div>
+      <div style={{ fontFamily: 'Playfair Display, serif', fontSize: 'clamp(1.1rem,2vw,1.5rem)',
+        fontStyle: 'italic', color: 'rgba(248,248,248,0.7)', marginBottom: '1.2rem', lineHeight: 1.2 }}>{subtitle}</div>
+      <div style={{ width: 24, height: 1, background: 'rgba(212,175,55,0.35)', marginBottom: '1.5rem' }} />
+      <p style={{ fontFamily: 'Inter, sans-serif', fontSize: 'clamp(0.78rem,1.4vw,0.86rem)', lineHeight: 1.9,
+        color: 'rgba(248,248,248,0.36)', fontWeight: 300, letterSpacing: '0.02em', marginBottom: '1.5rem' }}>{desc}</p>
+      <motion.div
+        animate={{ opacity: hovered ? 1 : 0, y: hovered ? 0 : 8 }} transition={{ duration: 0.35 }}
+        style={{ fontFamily: 'Playfair Display, serif', fontSize: 'clamp(0.85rem,1.5vw,1rem)',
+          fontStyle: 'italic', color: 'rgba(212,175,55,0.6)' }}
+      >{hover}</motion.div>
+    </motion.div>
+  )
+}
+
 export default function OurStoryPage() {
 
   /* Hero scroll */
@@ -779,6 +822,87 @@ export default function OurStoryPage() {
           </div>
         </section>
 
+
+        {/* ══════════════════════════════════════
+            MATERIALS INTERLUDE — Raw Luxury
+        ══════════════════════════════════════ */}
+        <section style={{ position: 'relative', overflow: 'hidden', borderBottom: '1px solid #0f0f0f', background: '#030303' }}>
+          <div style={{ height: 1, background: 'linear-gradient(to right, transparent, rgba(212,175,55,0.35), transparent)' }} />
+          <div style={{ display: 'flex', flexDirection: 'column' }}>
+            {([
+              {
+                label: 'THE OUD', sub: 'Ancient Resin, Timeless Spirit',
+                desc: 'Harvested from the heartwood of Aquilaria trees over decades — raw oud is worth more than gold by weight. We source exclusively from estates where the tree has wept for no less than thirty years.',
+                img: 'https://images.unsplash.com/photo-1619451334792-150fd785ee74?w=1400&q=90&fit=crop',
+                align: 'left', num: 'I',
+              },
+              {
+                label: 'THE GOLD', sub: '22-Karat, Hand-Refined',
+                desc: 'Each gram of gold used by Shamim Forever passes through the hands of a master refiner before it meets flame. No shortcuts. No compromise. Only the purity that civilisations have venerated for millennia.',
+                img: 'https://images.unsplash.com/photo-1610375461246-83df859d849d?w=1400&q=90&fit=crop',
+                align: 'right', num: 'II',
+              },
+              {
+                label: 'THE DIAMOND', sub: 'Conflict-Free, Laboratory-Certified',
+                desc: 'Every stone is traced to its origin, certified beyond industry standards, and chosen not for size alone — but for the way light moves within it. A Shamim diamond carries a provenance as immutable as the stone itself.',
+                img: 'https://images.unsplash.com/photo-1573408301185-9146fe634ad0?w=1400&q=90&fit=crop',
+                align: 'left', num: 'III',
+              },
+            ] as Array<{ label: string; sub: string; desc: string; img: string; align: string; num: string }>).map(({ label, sub, desc, img, align, num }, i) => (
+              <motion.div
+                key={label}
+                initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true, amount: 0.2 }}
+                transition={{ duration: 1, delay: i * 0.1 }}
+                style={{
+                  display: 'flex', flexDirection: align === 'right' ? 'row-reverse' : 'row',
+                  minHeight: '52vh', position: 'relative',
+                  borderBottom: i < 2 ? '1px solid #0c0c0c' : 'none',
+                }}
+                className="flex-col lg:flex-row"
+              >
+                {/* Image panel */}
+                <div style={{ flex: '0 0 50%', position: 'relative', overflow: 'hidden', minHeight: 280 }} className="w-full lg:w-1/2">
+                  <motion.div
+                    initial={{ scaleX: 1 }} whileInView={{ scaleX: 0 }} viewport={{ once: true }}
+                    transition={{ duration: 0.8, delay: 0.2 + i * 0.1, ease: [0.76, 0, 0.24, 1] }}
+                    style={{ position: 'absolute', inset: 0, background: '#D4AF37', zIndex: 3,
+                      transformOrigin: align === 'right' ? 'left' : 'right' }}
+                  />
+                  <motion.img
+                    src={img} alt={label}
+                    initial={{ scale: 1.1 }} whileInView={{ scale: 1 }} viewport={{ once: true }}
+                    transition={{ duration: 1.6, ease: [0.16, 1, 0.3, 1] }}
+                    style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center',
+                      filter: 'brightness(0.45) contrast(1.2) saturate(0.5)', display: 'block', minHeight: 280 }}
+                  />
+                  <div style={{ position: 'absolute', bottom: '1.5rem', right: align === 'right' ? 'auto' : '1.5rem',
+                    left: align === 'right' ? '1.5rem' : 'auto', fontFamily: 'Playfair Display, serif',
+                    fontSize: 'clamp(3rem,8vw,6rem)', fontWeight: 700, fontStyle: 'italic',
+                    color: 'rgba(212,175,55,0.1)', lineHeight: 1, zIndex: 2, userSelect: 'none' }}>{num}</div>
+                </div>
+                {/* Text panel */}
+                <div style={{ flex: '0 0 50%', display: 'flex', flexDirection: 'column', justifyContent: 'center',
+                  padding: 'clamp(3rem,6vw,5rem) clamp(2.5rem,5vw,4rem)', position: 'relative' }}>
+                  <motion.div
+                    initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
+                    transition={{ duration: 0.9, delay: 0.4 + i * 0.1, ease: [0.16, 1, 0.3, 1] }}
+                  >
+                    <div style={{ fontFamily: 'Inter, sans-serif', fontSize: 8, letterSpacing: '0.55em',
+                      textTransform: 'uppercase', color: '#D4AF37', marginBottom: '0.9rem' }}>{label}</div>
+                    <div style={{ fontFamily: 'Playfair Display, serif', fontSize: 'clamp(1.6rem,3.5vw,2.4rem)',
+                      fontWeight: 400, fontStyle: 'italic', color: 'rgba(248,248,248,0.9)',
+                      lineHeight: 1.2, marginBottom: '1.5rem' }}>{sub}</div>
+                    <div style={{ width: 28, height: 1, background: 'rgba(212,175,55,0.5)', marginBottom: '1.5rem' }} />
+                    <p style={{ fontFamily: 'Inter, sans-serif', fontSize: 'clamp(0.8rem,1.5vw,0.92rem)',
+                      lineHeight: 1.85, color: 'rgba(248,248,248,0.42)', maxWidth: 420,
+                      fontWeight: 300, letterSpacing: '0.02em' }}>{desc}</p>
+                  </motion.div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </section>
+
         {/* ══════════════════════════════════════
             CHAPTER III — Craft / zoom on hover
         ══════════════════════════════════════ */}
@@ -1026,6 +1150,91 @@ export default function OurStoryPage() {
         {/* ══════════════════════════════════════
             PHILOSOPHY / VALUES
         ══════════════════════════════════════ */}
+
+        {/* ══════════════════════════════════════
+            FOUNDER'S VISION — Faisal Orakzai
+        ══════════════════════════════════════ */}
+        <section style={{ position: 'relative', borderBottom: '1px solid #0f0f0f', overflow: 'hidden',
+          minHeight: '90vh', display: 'flex', alignItems: 'stretch' }}>
+          <div style={{ display: 'flex', width: '100%' }} className="flex-col lg:flex-row">
+            {/* Left: Portrait */}
+            <motion.div
+              style={{ flex: '0 0 45%', position: 'relative', overflow: 'hidden', minHeight: 420 }}
+              className="w-full lg:w-2/5"
+            >
+              <motion.div
+                initial={{ scaleY: 1 }} whileInView={{ scaleY: 0 }} viewport={{ once: true }}
+                transition={{ duration: 0.9, ease: [0.76, 0, 0.24, 1] }}
+                style={{ position: 'absolute', inset: 0, background: '#D4AF37', zIndex: 3, transformOrigin: 'top' }}
+              />
+              <motion.img
+                src="/products/founders-eternal-archive/founder-hero.png"
+                alt="Faisal Orakzai — Founder, Shamim Forever"
+                initial={{ scale: 1.08 }} whileInView={{ scale: 1 }} viewport={{ once: true }}
+                transition={{ duration: 1.8, ease: [0.16, 1, 0.3, 1] }}
+                style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center top',
+                  filter: 'grayscale(100%) brightness(0.55) contrast(1.15)', display: 'block', minHeight: 420 }}
+              />
+              <div style={{ position: 'absolute', inset: 0,
+                background: 'linear-gradient(to right, transparent 60%, #030303 100%)', zIndex: 2 }} />
+              <div style={{ position: 'absolute', inset: 0,
+                background: 'linear-gradient(to top, #030303 0%, transparent 40%)', zIndex: 2 }} />
+              <motion.div
+                initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
+                transition={{ duration: 0.8, delay: 0.5 }}
+                style={{ position: 'absolute', bottom: '2rem', left: '2rem', zIndex: 4 }}
+              >
+                <div style={{ fontFamily: 'Inter, sans-serif', fontSize: 7.5, letterSpacing: '0.5em',
+                  textTransform: 'uppercase', color: 'rgba(212,175,55,0.7)', marginBottom: '0.4rem' }}>Founder &amp; Visionary</div>
+                <div style={{ fontFamily: 'Playfair Display, serif', fontSize: 'clamp(1.2rem,2.5vw,1.8rem)',
+                  fontWeight: 400, color: 'rgba(248,248,248,0.9)' }}>Faisal Orakzai</div>
+              </motion.div>
+            </motion.div>
+
+            {/* Right: Quote & Vision */}
+            <div style={{ flex: '0 0 55%', display: 'flex', flexDirection: 'column', justifyContent: 'center',
+              padding: 'clamp(4rem,8vw,7rem) clamp(2.5rem,6vw,5rem)', position: 'relative' }}
+              className="w-full lg:w-3/5">
+              <div style={{ fontFamily: 'Playfair Display, serif', fontSize: 'clamp(5rem,10vw,8rem)',
+                color: 'rgba(212,175,55,0.08)', lineHeight: 0.7, marginBottom: '1rem',
+                fontStyle: 'italic', userSelect: 'none' }}>{String.fromCharCode(8220)}</div>
+              <motion.div
+                initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
+                transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
+              >
+                <blockquote style={{ fontFamily: 'Playfair Display, serif', fontSize: 'clamp(1.5rem,3.2vw,2.4rem)',
+                  fontWeight: 400, fontStyle: 'italic', lineHeight: 1.45, color: 'rgba(248,248,248,0.92)',
+                  marginBottom: '2.5rem', letterSpacing: '0.01em' }}>
+                  Luxury without permanence is merely performance.<br />
+                  <span style={{ color: 'rgba(248,248,248,0.45)' }}>What I sought to build was not a brand — but an heirloom. A house whose every creation outlives its creator.</span>
+                </blockquote>
+              </motion.div>
+              <motion.div
+                initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}
+                transition={{ duration: 0.8, delay: 0.5 }}
+                style={{ display: 'flex', alignItems: 'center', gap: '1.2rem', marginBottom: '3rem' }}
+              >
+                <div style={{ width: 32, height: 1, background: 'rgba(212,175,55,0.6)' }} />
+                <div style={{ fontFamily: 'Inter, sans-serif', fontSize: 7.5, letterSpacing: '0.45em',
+                  textTransform: 'uppercase', color: 'rgba(212,175,55,0.7)' }}>On Technological Immutability</div>
+              </motion.div>
+              <motion.div
+                initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
+                transition={{ duration: 0.9, delay: 0.6, ease: [0.16, 1, 0.3, 1] }}
+              >
+                <p style={{ fontFamily: 'Inter, sans-serif', fontSize: 'clamp(0.82rem,1.6vw,0.95rem)', lineHeight: 1.9,
+                  color: 'rgba(248,248,248,0.4)', maxWidth: 480, fontWeight: 300, marginBottom: '1.5rem', letterSpacing: '0.025em' }}>
+                  When blockchain technology emerged, most luxury houses saw a gimmick. I saw a mirror — a way to give our creations the one thing even platinum cannot provide: a verifiable, unalterable record of its origin, its journey, and its soul.
+                </p>
+                <p style={{ fontFamily: 'Inter, sans-serif', fontSize: 'clamp(0.82rem,1.6vw,0.95rem)', lineHeight: 1.9,
+                  color: 'rgba(248,248,248,0.4)', maxWidth: 480, fontWeight: 300, letterSpacing: '0.025em' }}>
+                  Shamim Forever is the first house to encode provenance not as a certificate — but as an eternal truth written into the immutable ledger of time.
+                </p>
+              </motion.div>
+            </div>
+          </div>
+        </section>
+
         <section ref={philRef} style={{ position:'relative', padding:'clamp(6rem,14vw,12rem) clamp(2rem,8vw,5rem)', borderBottom:'1px solid #0f0f0f', textAlign:'center', overflow:'hidden' }}>
           <Watermark text="LEGACY" progress={philP} />
           <div style={{ position:'absolute', inset:0, background:'radial-gradient(ellipse at center, rgba(212,175,55,0.03) 0%, transparent 65%)', pointerEvents:'none' }} />
@@ -1082,6 +1291,39 @@ export default function OurStoryPage() {
         {/* ══════════════════════════════════════
             FINAL — "Forever."
         ══════════════════════════════════════ */}
+
+        {/* ══════════════════════════════════════
+            THE THREE PILLARS — Interactive Grid
+        ══════════════════════════════════════ */}
+        <section style={{ position: 'relative', padding: 'clamp(6rem,12vw,10rem) clamp(2rem,8vw,6rem)',
+          borderBottom: '1px solid #0f0f0f', overflow: 'hidden', background: '#020202' }}>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+            style={{ textAlign: 'center', marginBottom: 'clamp(3rem,7vw,5rem)' }}
+          >
+            <div style={{ fontFamily: 'Inter, sans-serif', fontSize: 7.5, letterSpacing: '0.55em',
+              textTransform: 'uppercase', color: 'rgba(212,175,55,0.6)', marginBottom: '1.2rem' }}>The Three Pillars</div>
+            <h2 style={{ fontFamily: 'Playfair Display, serif', fontSize: 'clamp(2.2rem,5vw,4rem)',
+              fontWeight: 400, fontStyle: 'italic', color: 'rgba(248,248,248,0.9)', lineHeight: 1.1 }}>
+              The Architecture of{' '}
+              <em style={{ color: 'rgba(212,175,55,0.85)' }}>Permanence</em>
+            </h2>
+          </motion.div>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 280px), 1fr))',
+            gap: '1px', background: '#111', maxWidth: 1100, margin: '0 auto' }}>
+            <PillarCard roman="I" title="Aesthetic Superlative" subtitle="Beauty Beyond Comparison" icon="◈"
+              desc="Every Shamim Forever creation is measured not against its contemporaries, but against the masterworks of history. Our standard is not the market — it is eternity. Each design passes through no fewer than forty review cycles before a single gram of material is committed."
+              hover="Where others iterate, we perfect." delay={0} />
+            <PillarCard roman="II" title="Technological Immutable" subtitle="Provenance as Permanence" icon="⬡"
+              desc="Each creation carries a Digital Passport — a blockchain-encoded record as permanent as the piece itself. The stone's origin. The artisan's hand. The moment of completion. Written once. Unchangeable forever."
+              hover="The ledger of luxury, written in code." delay={0.15} />
+            <PillarCard roman="III" title="Sovereign Ownership" subtitle="Truly, Completely Yours" icon="◉"
+              desc="A Shamim Forever piece does not merely belong to you — it is governed by you. Through blockchain title, your ownership is absolute, portable, and provable across generations. You are not a customer. You are a custodian."
+              hover="Ownership that time cannot erode." delay={0.3} />
+          </div>
+        </section>
+
         <section style={{ position:'relative', minHeight:'100vh', display:'flex', alignItems:'center', justifyContent:'center', overflow:'hidden' }}>
           <div style={{ position:'absolute', inset:0 }}>
             <img src="/founder-5.png" alt="" style={{ width:'100%', height:'100%', objectFit:'cover', objectPosition:'top center', filter:'brightness(0.15) contrast(1.2) saturate(0.45)' }} />
@@ -1127,6 +1369,129 @@ export default function OurStoryPage() {
         {/* ══════════════════════════════════════
             CONCIERGE FOOTER
         ══════════════════════════════════════ */}
+
+        {/* ══════════════════════════════════════
+            THE BRIDGE TO PERMANENCE — Timeline
+        ══════════════════════════════════════ */}
+        <section style={{ position: 'relative', padding: 'clamp(6rem,12vw,10rem) clamp(2rem,8vw,5rem)',
+          borderBottom: '1px solid #0f0f0f', overflow: 'hidden', background: '#020202' }}>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
+            transition={{ duration: 0.9 }}
+            style={{ textAlign: 'center', marginBottom: 'clamp(4rem,8vw,6rem)' }}
+          >
+            <div style={{ fontFamily: 'Inter, sans-serif', fontSize: 7.5, letterSpacing: '0.55em',
+              textTransform: 'uppercase', color: 'rgba(212,175,55,0.6)', marginBottom: '1.2rem' }}>Est. 2023 — Forever</div>
+            <h2 style={{ fontFamily: 'Playfair Display, serif', fontSize: 'clamp(2.2rem,5vw,4rem)',
+              fontWeight: 400, fontStyle: 'italic', color: 'rgba(248,248,248,0.9)', lineHeight: 1.1, marginBottom: '1.2rem' }}>
+              The Bridge to{' '}<em style={{ color: 'rgba(212,175,55,0.85)' }}>Permanence</em>
+            </h2>
+            <p style={{ fontFamily: 'Inter, sans-serif', fontSize: 'clamp(0.82rem,1.6vw,0.9rem)', lineHeight: 1.85,
+              color: 'rgba(248,248,248,0.35)', maxWidth: 540, margin: '0 auto', letterSpacing: '0.025em' }}>
+              Where artisanal heritage meets blockchain immutability — a house built not for a decade, but for all decades.
+            </p>
+          </motion.div>
+          <div style={{ maxWidth: 900, margin: '0 auto', position: 'relative' }}>
+            {/* Vertical timeline line */}
+            <motion.div
+              initial={{ scaleY: 0 }} whileInView={{ scaleY: 1 }} viewport={{ once: true }}
+              transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
+              style={{ position: 'absolute', left: '50%', top: 0, bottom: 0, width: 1,
+                background: 'linear-gradient(to bottom, transparent, rgba(212,175,55,0.3) 20%, rgba(212,175,55,0.3) 80%, transparent)',
+                transformOrigin: 'top' }}
+            />
+            {([
+              { year: '2023', label: 'The Founding', side: 'left', future: false,
+                desc: 'Shamim Forever is established in Peshawar — born from a vision to create a luxury house that fuses centuries-old artisanal mastery with immutable digital provenance.' },
+              { year: '2024', label: 'The First Collection', side: 'right', future: false,
+                desc: 'The inaugural collection of sovereign pieces — each carrying a blockchain Digital Passport — is unveiled to an exclusive circle of collectors across Dubai and London.' },
+              { year: '2025', label: 'The Digital Archive', side: 'left', future: false,
+                desc: 'Launch of the Shamim Digital Heritage Archive: every piece ever created is inscribed onto a public ledger, verifiable by anyone, owned absolutely by the holder.' },
+              { year: '2030', label: 'The Vision', side: 'right', future: true,
+                desc: 'A Shamim Forever atelier in every major cultural capital. 10,000 Digital Passports issued. A legacy that has already begun to outlive those who started it.' },
+              { year: 'Forever', label: 'The Promise', side: 'left', future: true,
+                desc: 'When the last human memory of our founders has faded, the blockchain will still remember every stone, every gram, every breath of artisanal intention — unchanged, unchangeable.' },
+            ] as Array<{ year: string; label: string; side: string; future: boolean; desc: string }>).map(({ year, label, desc, side, future }, i) => (
+              <motion.div key={year}
+                initial={{ opacity: 0, x: side === 'left' ? -30 : 30 }} whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }} transition={{ duration: 0.9, delay: i * 0.12, ease: [0.16, 1, 0.3, 1] }}
+                style={{ display: 'flex', justifyContent: side === 'left' ? 'flex-start' : 'flex-end',
+                  marginBottom: 'clamp(3rem,5vw,4rem)', position: 'relative',
+                  paddingLeft: side === 'left' ? 0 : '50%', paddingRight: side === 'right' ? 0 : '50%' }}
+              >
+                <motion.div initial={{ scale: 0 }} whileInView={{ scale: 1 }} viewport={{ once: true }}
+                  transition={{ duration: 0.4, delay: i * 0.12 + 0.3 }}
+                  style={{ position: 'absolute', left: 'calc(50% - 6px)', top: 14, width: 12, height: 12,
+                    borderRadius: '50%', background: future ? 'transparent' : '#D4AF37',
+                    border: future ? '1px solid rgba(212,175,55,0.35)' : 'none',
+                    boxShadow: future ? 'none' : '0 0 10px rgba(212,175,55,0.5)' }}
+                />
+                <div style={{ maxWidth: 360, textAlign: side === 'left' ? 'right' : 'left',
+                  padding: side === 'left' ? '0 clamp(1.5rem,3vw,2.5rem) 0 0' : '0 0 0 clamp(1.5rem,3vw,2.5rem)' }}>
+                  <div style={{ fontFamily: 'Playfair Display, serif', fontSize: 'clamp(1.8rem,4vw,3rem)',
+                    fontWeight: 700, fontStyle: 'italic', lineHeight: 1, marginBottom: '0.3rem',
+                    color: future ? 'rgba(212,175,55,0.28)' : 'rgba(212,175,55,0.85)' }}>{year}</div>
+                  <div style={{ fontFamily: 'Inter, sans-serif', fontSize: 7.5, letterSpacing: '0.4em',
+                    textTransform: 'uppercase', marginBottom: '0.7rem',
+                    color: future ? 'rgba(248,248,248,0.2)' : 'rgba(248,248,248,0.55)' }}>{label}</div>
+                  <p style={{ fontFamily: 'Inter, sans-serif', fontSize: 'clamp(0.78rem,1.4vw,0.85rem)',
+                    lineHeight: 1.85, fontWeight: 300, letterSpacing: '0.02em',
+                    color: future ? 'rgba(248,248,248,0.18)' : 'rgba(248,248,248,0.38)' }}>{desc}</p>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </section>
+
+
+        {/* ══════════════════════════════════════
+            FINAL CTA — Enter The Collection
+        ══════════════════════════════════════ */}
+        <section style={{ position: 'relative', minHeight: '55vh', display: 'flex', flexDirection: 'column',
+          alignItems: 'center', justifyContent: 'center', overflow: 'hidden',
+          padding: 'clamp(5rem,10vw,8rem) 2rem', borderBottom: '1px solid #0f0f0f' }}>
+          <motion.div
+            animate={{ scale: [1, 1.5, 1], opacity: [0.05, 0.18, 0.05] }}
+            transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
+            style={{ position: 'absolute', inset: 0,
+              background: 'radial-gradient(ellipse at 50% 60%, rgba(212,175,55,0.28) 0%, transparent 60%)',
+              pointerEvents: 'none' }}
+          />
+          <motion.div
+            initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
+            transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+            style={{ textAlign: 'center', position: 'relative', zIndex: 1 }}
+          >
+            <div style={{ fontFamily: 'Inter, sans-serif', fontSize: 7.5, letterSpacing: '0.55em',
+              textTransform: 'uppercase', color: 'rgba(212,175,55,0.6)', marginBottom: '1.5rem' }}>The Journey Begins</div>
+            <h2 style={{ fontFamily: 'Playfair Display, serif', fontSize: 'clamp(2.5rem,6vw,5rem)',
+              fontWeight: 400, fontStyle: 'italic', color: 'rgba(248,248,248,0.92)', lineHeight: 1.1, marginBottom: '1rem' }}>
+              Enter{' '}<em style={{ color: '#D4AF37' }}>The Collection</em>
+            </h2>
+            <div style={{ width: 40, height: 1, background: 'rgba(212,175,55,0.5)', margin: '1.5rem auto 2.5rem' }} />
+            <p style={{ fontFamily: 'Inter, sans-serif', fontSize: 'clamp(0.82rem,1.6vw,0.92rem)', lineHeight: 1.85,
+              color: 'rgba(248,248,248,0.35)', maxWidth: 460, margin: '0 auto 3rem', letterSpacing: '0.02em' }}>
+              Each piece is a chapter. Each chapter, a legacy. The collection awaits those who understand that true luxury is not acquired — it is inherited.
+            </p>
+            <div style={{ display: 'flex', gap: '1.2rem', justifyContent: 'center', flexWrap: 'wrap' }}>
+              <motion.a href="/products" whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}
+                style={{ display: 'inline-block', padding: '1rem 2.8rem',
+                  border: '1px solid rgba(212,175,55,0.7)', color: '#D4AF37',
+                  fontFamily: 'Inter, sans-serif', fontSize: 8.5, letterSpacing: '0.4em',
+                  textTransform: 'uppercase', textDecoration: 'none', background: 'transparent' }}>
+                The Collection
+              </motion.a>
+              <motion.a href="/membership" whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}
+                style={{ display: 'inline-block', padding: '1rem 2.8rem',
+                  background: 'rgba(212,175,55,0.06)', border: '1px solid rgba(212,175,55,0.18)',
+                  color: 'rgba(248,248,248,0.45)', fontFamily: 'Inter, sans-serif',
+                  fontSize: 8.5, letterSpacing: '0.4em', textTransform: 'uppercase', textDecoration: 'none' }}>
+                The Inner Circle
+              </motion.a>
+            </div>
+          </motion.div>
+        </section>
+
         <section style={{ borderTop:'1px solid #111', padding:'clamp(3rem,7vw,5rem) clamp(2rem,8vw,5rem)' }}>
           <div style={{ display:'flex', flexDirection:'column', alignItems:'center', gap:'2.5rem', textAlign:'center' }} className="sm:flex-row sm:justify-between sm:text-left">
             <div>
