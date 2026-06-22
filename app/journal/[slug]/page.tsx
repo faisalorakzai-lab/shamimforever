@@ -221,7 +221,7 @@ export default function ArticlePage({ params }: { params: { slug: string } }) {
   const { scrollYProgress } = useScroll()
   const heroRef = useRef<HTMLDivElement>(null)
   const { scrollYProgress: heroScroll } = useScroll({ target: heroRef, offset: ['start start', 'end start'] })
-  const heroY = useTransform(heroScroll, [0, 1], ['0%', '22%'])
+  const heroY = useTransform(heroScroll, [0, 1], ['0%', '-18%'])
 
   useEffect(() => {
     if (STATIC[params.slug]) return
@@ -266,15 +266,24 @@ export default function ArticlePage({ params }: { params: { slug: string } }) {
 
       {/* ── HERO — full-bleed image with parallax ── */}
       <section ref={heroRef} style={{ position: 'relative', height: 'clamp(480px, 70vh, 780px)', overflow: 'hidden' }}>
-        <motion.div style={{ y: heroY, position: 'absolute', inset: '-10% 0', height: '120%' }}>
-          <img
-            src={post.cover_image ?? ''}
-            alt={post.title}
-            style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center top' }}
-          />
-          <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to bottom, rgba(6,7,15,0.15) 0%, rgba(6,7,15,0.3) 50%, rgba(6,7,15,0.92) 85%, #06070f 100%)' }} />
-          <div style={{ position: 'absolute', inset: 0, background: 'rgba(6,7,15,0.25)' }} />
-        </motion.div>
+        {/* Parallax image — extends below container so it has room to slide */}
+        <motion.img
+          src={post.cover_image ?? ''}
+          alt={post.title}
+          style={{
+            y: heroY,
+            position: 'absolute',
+            inset: 0,
+            width: '100%',
+            height: '115%',
+            objectFit: 'cover',
+            /* 65% horizontal focuses on center-right where the person stands,
+               20% vertical shows the face / upper body prominently */
+            objectPosition: post.slug === 'founders-vision' ? '65% 20%' : 'center 20%',
+          }}
+        />
+        <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to bottom, rgba(6,7,15,0.0) 0%, rgba(6,7,15,0.15) 35%, rgba(6,7,15,0.85) 75%, #06070f 100%)' }} />
+        <div style={{ position: 'absolute', inset: 0, background: 'rgba(6,7,15,0.18)' }} />
 
         {/* Hero text — vertically centered bottom-third */}
         <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, padding: 'clamp(32px,6vw,72px)' }}>
