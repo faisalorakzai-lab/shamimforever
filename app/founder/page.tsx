@@ -15,14 +15,14 @@ export const metadata: Metadata = {
     title: 'Faisal Orakzai — Founder & Chairman | Shamim Forever',
     description: 'Entrepreneur specializing in blockchain architecture, luxury commerce, and decentralized finance.',
     type: 'profile',
-    url: 'https://shamimforever.com/founder',
-    images: [{ url: '/founder-3.png', width: 512, height: 512, alt: 'Faisal Orakzai' }],
+    url: 'https://www.shamimforever.com/founder',
+    images: [{ url: 'https://www.shamimforever.com/founder-3.png', width: 800, height: 800, alt: 'Faisal Orakzai — Founder & Chairman, Shamim Forever' }],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Faisal Orakzai — Founder & Chairman',
     description: 'Entrepreneur & Visionary. Blockchain • Luxury Commerce • DeFi',
-    images: ['/founder-3.png'],
+    images: ['https://www.shamimforever.com/founder-3.png'],
   },
 }
 

@@ -9,7 +9,7 @@ import type { Metadata } from 'next'
 import { CartProvider } from '@/lib/cart-context'
 
   export const metadata: Metadata = {
-    metadataBase: new URL('https://shamimforever.com'),
+    metadataBase: new URL('https://www.shamimforever.com'),
     title: {
       default: 'Shamim Forever — Sovereign Luxury Fragrances & Couture',
       template: '%s | Shamim Forever',
@@ -30,7 +30,7 @@ import { CartProvider } from '@/lib/cart-context'
       title: 'Shamim Forever — Sovereign Luxury Fragrances',
       description: 'A global luxury house. Bespoke fragrances, sovereign jewellery, and rare couture collections. Blockchain-verified.',
       type: 'website',
-      url: 'https://shamimforever.com',
+      url: 'https://www.shamimforever.com',
       siteName: 'Shamim Forever',
       locale: 'en_US',
       images: [{ url: '/logo-sf.png', width: 512, height: 512, alt: 'Shamim Forever — Sovereign Luxury' }],
