@@ -5,6 +5,7 @@ import { motion, useScroll, useTransform } from 'framer-motion'
 import Link from 'next/link'
 
 const ease = [0.16, 1, 0.3, 1] as const
+const GOLD = '#D4AF37'
 
 const CHAPTERS = [
   {
@@ -21,18 +22,20 @@ const CHAPTERS = [
     label: 'The Materials',
     title: 'Nothing Synthetic. Nothing Cheap.',
     body: 'Every raw material is sourced from origin. Oud from Assam. Rose absolute from Bulgaria. Ambergris — aged and wild. Our cosmetic pigments are milled at EU-certified facilities. Our sterling silver is hallmarked 925. We do not negotiate on material.',
-    image: '/founder-2.png',
+    image: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=900&auto=format&fit=crop&q=80',
     stat: { value: '925', label: 'Sterling Silver Standard' },
     align: 'right' as const,
+    materialNote: 'Assam Oud · Bulgarian Rose · Wild Ambergris',
   },
   {
     num: '03',
     label: 'The Process',
     title: 'Sixty Days. Minimum.',
     body: 'A Shamim Forever fragrance takes no less than sixty days from first formula to final bottle. Each accord is tested against skin, air, time, and temperature before it is approved. Our atelier in Peshawar runs on silence and precision — never speed.',
-    image: '/founder-3.png',
+    image: 'https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?w=900&auto=format&fit=crop&q=80',
     stat: { value: '60+', label: 'Days Per Formula' },
     align: 'left' as const,
+    materialNote: 'Formula · Maceration · Evaluation · Approval',
   },
   {
     num: '04',
@@ -61,6 +64,36 @@ const PILLARS = [
   { icon: '◉', title: 'Generational Craft', desc: 'Our artisans carry methods passed through families — not courses.' },
 ]
 
+const JOURNEY_STEPS = [
+  { day: 'Day 01', phase: 'Raw Sourcing', desc: 'Materials arrive from four continents. Each batch is inspected at origin before shipment is accepted.' },
+  { day: 'Day 07', phase: 'First Formula', desc: 'The perfumer begins building the accord from memory, instinct, and raw material character.' },
+  { day: 'Day 21', phase: 'Maceration', desc: 'The formula rests. Molecules bond. No shortcuts. The atelier is silent.' },
+  { day: 'Day 35', phase: 'Skin Trials', desc: 'The accord is tested against twelve different skin profiles in varying temperature and humidity conditions.' },
+  { day: 'Day 50', phase: 'Reformulation', desc: 'If a single note fails, the entire formula is rebuilt. We do not patch. We restart.' },
+  { day: 'Day 60+', phase: 'Final Approval', desc: 'The founder personally signs off. Until he does, the fragrance does not exist.' },
+]
+
+const RAW_MATERIALS = [
+  {
+    name: 'THE OUD',
+    origin: 'Assam, India',
+    desc: 'Agarwood resin aged for no less than twelve years. The rarest organic fragrance material on earth.',
+    img: 'https://images.unsplash.com/photo-1547050605-3f66b44fe0f2?w=700&auto=format&fit=crop&q=80',
+  },
+  {
+    name: 'THE GOLD',
+    origin: 'Hallmarked 22K',
+    desc: 'Every gold detail is independently hallmarked and certified. Not plated. Not alloyed beyond standard.',
+    img: 'https://images.unsplash.com/photo-1610375461246-83df859d849d?w=700&auto=format&fit=crop&q=80',
+  },
+  {
+    name: 'THE DIAMOND',
+    origin: 'Conflict-Free Certified',
+    desc: 'Natural diamonds. Conflict-free certified. Set by hand in Lahore\'s oldest jeweller workshop.',
+    img: 'https://images.unsplash.com/photo-1515377905703-c4788e51af15?w=700&auto=format&fit=crop&q=80',
+  },
+]
+
 export default function AtelierPage() {
   const heroRef = useRef<HTMLDivElement>(null)
   const { scrollYProgress } = useScroll({ target: heroRef, offset: ['start start', 'end start'] })
@@ -69,6 +102,25 @@ export default function AtelierPage() {
 
   return (
     <div className="min-h-screen bg-[#050505] overflow-x-hidden">
+
+      <style>{`
+        @keyframes goldPulse {
+          0%, 100% { text-shadow: 0 0 4px rgba(212,175,55,0.4), 0 0 12px rgba(212,175,55,0.1); opacity: 1; }
+          50% { text-shadow: 0 0 10px rgba(212,175,55,0.9), 0 0 28px rgba(212,175,55,0.35), 0 0 50px rgba(212,175,55,0.1); opacity: 0.85; }
+        }
+        .pillar-icon { animation: goldPulse 3s ease-in-out infinite; }
+        .pillar-icon:nth-child(1) { animation-delay: 0s; }
+        .pillar-card:nth-child(2) .pillar-icon { animation-delay: 0.75s; }
+        .pillar-card:nth-child(3) .pillar-icon { animation-delay: 1.5s; }
+        .pillar-card:nth-child(4) .pillar-icon { animation-delay: 2.25s; }
+        .journey-track::-webkit-scrollbar { display: none; }
+        .journey-track { scrollbar-width: none; -ms-overflow-style: none; }
+        @keyframes breatheGold {
+          0%, 100% { box-shadow: 0 0 0 0 rgba(212,175,55,0); }
+          50% { box-shadow: 0 0 0 6px rgba(212,175,55,0.08), 0 0 30px rgba(212,175,55,0.04); }
+        }
+        .material-card { animation: breatheGold 4s ease-in-out infinite; }
+      `}</style>
 
       {/* ─── CINEMATIC HERO ─── */}
       <section ref={heroRef} className="relative h-[100svh] overflow-hidden">
@@ -148,7 +200,7 @@ export default function AtelierPage() {
         </div>
       </section>
 
-      {/* ─── FOUR PILLARS ─── */}
+      {/* ─── FOUR PILLARS (with pulse icons) ─── */}
       <section className="border-b border-[#111]">
         <div className="grid grid-cols-2 md:grid-cols-4 divide-x divide-y md:divide-y-0 divide-[#111]">
           {PILLARS.map((p, i) => (
@@ -158,15 +210,74 @@ export default function AtelierPage() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.9, ease, delay: i * 0.1 }}
-              className="px-5 md:px-8 py-10 md:py-14"
+              className="pillar-card px-5 md:px-8 py-10 md:py-14 group hover:bg-[#0a0900] transition-colors duration-700"
+              style={{ transitionDelay: `${i * 75}ms` }}
             >
-              <span className="text-xl md:text-2xl text-[#c9a054] block mb-4 md:mb-6">{p.icon}</span>
-              <h3 className="font-serif font-light text-base md:text-xl tracking-[0.1em] text-zinc-200 mb-3 md:mb-4 leading-tight">
+              <span
+                className="pillar-icon text-xl md:text-2xl text-[#D4AF37] block mb-4 md:mb-6"
+                style={{ animationDelay: `${i * 0.75}s` }}
+              >
+                {p.icon}
+              </span>
+              <h3 className="font-serif font-light text-base md:text-xl tracking-[0.1em] text-zinc-200 mb-3 md:mb-4 leading-tight group-hover:text-[#D4AF37] transition-colors duration-500">
                 {p.title}
               </h3>
-              <p className="text-zinc-600 text-xs font-light leading-relaxed">
+              <p className="text-zinc-600 text-xs font-light leading-relaxed group-hover:text-zinc-500 transition-colors duration-500">
                 {p.desc}
               </p>
+              <div className="mt-6 w-0 h-px bg-[#D4AF37]/40 group-hover:w-8 transition-all duration-700" />
+            </motion.div>
+          ))}
+        </div>
+      </section>
+
+      {/* ─── RAW MATERIALS INTERLUDE ─── */}
+      <section className="border-b border-[#111] py-20 md:py-32 px-5 md:px-12 lg:px-20 overflow-hidden">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 1, ease }}
+          className="mb-14 md:mb-20"
+        >
+          <p className="text-[8px] tracking-[0.6em] uppercase text-zinc-700 mb-4">The Source</p>
+          <h2 className="font-serif font-light text-3xl md:text-5xl tracking-[0.06em] text-zinc-100">
+            The Three Materials
+          </h2>
+        </motion.div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
+          {RAW_MATERIALS.map((m, i) => (
+            <motion.div
+              key={m.name}
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 1.1, ease, delay: i * 0.15 }}
+              className="material-card relative overflow-hidden border border-[#1a1800] group"
+              style={{ animationDelay: `${i * 1.3}s` }}
+            >
+              {/* Image */}
+              <div className="relative aspect-[3/4] overflow-hidden">
+                <img
+                  src={m.img}
+                  alt={m.name}
+                  className="w-full h-full object-cover object-center transition-transform duration-[2000ms] group-hover:scale-105"
+                  style={{ filter: 'brightness(0.45) contrast(1.2) saturate(0.6)' }}
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/30 to-transparent" />
+                {/* Gold reveal line on hover */}
+                <div className="absolute bottom-0 left-0 right-0 h-px bg-[#D4AF37]/0 group-hover:bg-[#D4AF37]/60 transition-all duration-700" />
+              </div>
+
+              {/* Text overlay at bottom */}
+              <div className="absolute bottom-0 left-0 right-0 p-6 md:p-8">
+                <p className="text-[7px] tracking-[0.6em] uppercase text-[#D4AF37]/70 mb-2">{m.origin}</p>
+                <h3 className="font-serif font-light text-xl md:text-2xl tracking-[0.15em] text-zinc-100 mb-3">
+                  {m.name}
+                </h3>
+                <p className="text-zinc-500 text-xs font-light leading-relaxed max-w-[220px]">{m.desc}</p>
+              </div>
             </motion.div>
           ))}
         </div>
@@ -192,7 +303,7 @@ export default function AtelierPage() {
                   <img
                     src={chapter.image}
                     alt={chapter.title}
-                    className="w-full h-full object-cover object-top"
+                    className="w-full h-full object-cover object-top transition-transform duration-[3000ms] hover:scale-105"
                     style={{ filter: 'brightness(0.5) contrast(1.1) saturate(0.75)' }}
                   />
                   <div className={`absolute inset-0 ${
@@ -206,6 +317,14 @@ export default function AtelierPage() {
                       {chapter.num}
                     </span>
                   </div>
+                  {/* Material note badge */}
+                  {'materialNote' in chapter && chapter.materialNote && (
+                    <div className="absolute top-5 left-5 md:top-7 md:left-7">
+                      <p className="text-[6px] tracking-[0.5em] uppercase text-[#D4AF37]/60 bg-[#050505]/70 px-3 py-1.5 border border-[#D4AF37]/15">
+                        {chapter.materialNote}
+                      </p>
+                    </div>
+                  )}
                 </div>
 
                 {/* Text */}
@@ -213,10 +332,10 @@ export default function AtelierPage() {
                   isRight ? 'md:order-1 md:border-r border-[#111]' : 'md:order-2 md:border-l border-[#111]'
                 }`}>
                   <div className="flex items-center gap-4 mb-6 md:mb-8">
-                    <span className="text-[8px] tracking-[0.5em] uppercase text-[#c9a054]">
+                    <span className="text-[8px] tracking-[0.5em] uppercase text-[#D4AF37]">
                       Chapter {chapter.num}
                     </span>
-                    <div className="w-4 h-px bg-[#c9a054]/30" />
+                    <div className="w-4 h-px bg-[#D4AF37]/30" />
                     <span className="text-[8px] tracking-[0.45em] uppercase text-zinc-700">
                       {chapter.label}
                     </span>
@@ -232,7 +351,7 @@ export default function AtelierPage() {
 
                   {/* Stat */}
                   <div className="flex items-end gap-4 pt-8 border-t border-[#111]">
-                    <span className="font-serif font-light text-4xl md:text-5xl text-[#c9a054] leading-none">
+                    <span className="font-serif font-light text-4xl md:text-5xl text-[#D4AF37] leading-none">
                       {chapter.stat.value}
                     </span>
                     <span className="text-[8px] tracking-[0.4em] uppercase text-zinc-700 mb-1">
@@ -245,6 +364,102 @@ export default function AtelierPage() {
             </motion.div>
           )
         })}
+      </section>
+
+      {/* ─── THE 60-DAY JOURNEY ─── */}
+      <section className="border-b border-[#111] py-20 md:py-32 overflow-hidden">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 1, ease }}
+          className="px-5 md:px-12 lg:px-20 mb-14 md:mb-20"
+        >
+          <p className="text-[8px] tracking-[0.6em] uppercase text-zinc-700 mb-4">The Art of Patience</p>
+          <h2 className="font-serif font-light text-3xl md:text-5xl tracking-[0.06em] text-zinc-100 mb-4">
+            The 60-Day Journey
+          </h2>
+          <p className="text-zinc-600 text-xs font-light tracking-[0.15em] max-w-md">
+            From raw material to final bottle — every step is irreplaceable.
+          </p>
+        </motion.div>
+
+        {/* Horizontal scroll track */}
+        <div className="journey-track overflow-x-auto px-5 md:px-12 lg:px-20 pb-4">
+          <div className="flex gap-0 w-max">
+            {JOURNEY_STEPS.map((step, i) => (
+              <motion.div
+                key={step.day}
+                initial={{ opacity: 0, x: 30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.9, ease, delay: i * 0.1 }}
+                className="relative flex-shrink-0 w-[240px] md:w-[280px] border-l border-[#1c1800] pl-6 pr-4 py-8 group"
+              >
+                {/* Gold dot on the line */}
+                <div className="absolute top-8 -left-[4.5px] w-2 h-2 rounded-full border border-[#D4AF37]/50 bg-[#050505] group-hover:bg-[#D4AF37]/30 transition-colors duration-500" />
+
+                <p className="text-[8px] tracking-[0.5em] uppercase text-[#D4AF37]/70 mb-3">{step.day}</p>
+                <h3 className="font-serif font-light text-base tracking-[0.08em] text-zinc-200 mb-4 leading-tight group-hover:text-[#D4AF37] transition-colors duration-500">
+                  {step.phase}
+                </h3>
+                <p className="text-zinc-600 text-xs font-light leading-relaxed">{step.desc}</p>
+
+                {/* Index number */}
+                <span className="absolute bottom-5 right-5 font-serif text-4xl text-white/3 leading-none select-none">
+                  {String(i + 1).padStart(2, '0')}
+                </span>
+              </motion.div>
+            ))}
+
+            {/* End cap */}
+            <div className="flex-shrink-0 w-[80px] border-l border-[#1c1800] flex items-center justify-center">
+              <span className="text-[#D4AF37]/30 text-lg">◈</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Scroll hint */}
+        <motion.p
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 1, delay: 0.6 }}
+          className="text-[7px] tracking-[0.5em] uppercase text-zinc-800 px-5 md:px-12 lg:px-20 mt-6 flex items-center gap-3"
+        >
+          <span className="inline-block w-4 h-px bg-zinc-800" />
+          Scroll to explore the process
+          <span className="inline-block w-4 h-px bg-zinc-800" />
+        </motion.p>
+      </section>
+
+      {/* ─── ARTISAN SPOTLIGHT ─── */}
+      <section className="border-b border-[#111] px-5 md:px-12 lg:px-20 py-20 md:py-32">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 1.3, ease }}
+          className="max-w-[900px] mx-auto text-center"
+        >
+          <div className="w-px h-14 bg-gradient-to-b from-transparent via-[#D4AF37]/40 to-transparent mx-auto mb-10" />
+
+          <p className="text-[8px] tracking-[0.6em] uppercase text-zinc-700 mb-8">The Artisan Voice</p>
+
+          <blockquote className="font-serif font-light text-2xl md:text-4xl lg:text-5xl tracking-[0.04em] text-zinc-200 leading-[1.25] mb-8 md:mb-10 italic">
+            "We don't count hours.<br />
+            <span className="text-[#D4AF37]">We count perfections.</span>"
+          </blockquote>
+
+          <div className="flex items-center justify-center gap-5 mb-4">
+            <div className="w-8 h-px bg-[#D4AF37]/30" />
+            <span className="text-[8px] tracking-[0.5em] uppercase text-[#D4AF37]/60">Master Perfumer</span>
+            <div className="w-8 h-px bg-[#D4AF37]/30" />
+          </div>
+          <p className="text-[8px] tracking-[0.4em] uppercase text-zinc-700">Shamim Forever Atelier · Peshawar</p>
+
+          <div className="w-px h-14 bg-gradient-to-b from-transparent via-[#D4AF37]/40 to-transparent mx-auto mt-10" />
+        </motion.div>
       </section>
 
       {/* ─── CLOSING STATEMENT ─── */}
@@ -268,18 +483,24 @@ export default function AtelierPage() {
             Not for a season. Not for a trend. Forever.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 sm:gap-6">
+            {/* Premium CTA — heavy gold border with slow fill */}
             <Link
               href="/shop"
-              className="group relative inline-flex items-center justify-center px-8 py-4 border border-[#c9a054]/60 text-[9px] tracking-[0.5em] uppercase text-[#c9a054] overflow-hidden transition-all duration-700"
+              className="group relative inline-flex items-center justify-center px-10 py-5 border border-[#D4AF37]/70 text-[9px] tracking-[0.6em] uppercase text-[#D4AF37] overflow-hidden transition-all duration-700"
+              style={{ letterSpacing: '0.5em' }}
             >
-              <span className="absolute inset-0 bg-[#c9a054] translate-y-full group-hover:translate-y-0 transition-transform duration-700" style={{ transitionTimingFunction: 'cubic-bezier(0.16,1,0.3,1)' }} />
-              <span className="relative z-10 group-hover:text-[#050505] transition-colors duration-300">
-                Enter the Shop
+              <span
+                className="absolute inset-0 bg-[#D4AF37] translate-y-full group-hover:translate-y-0 transition-transform duration-[900ms]"
+                style={{ transitionTimingFunction: 'cubic-bezier(0.16,1,0.3,1)' }}
+              />
+              <span className="relative z-10 group-hover:text-[#050505] transition-colors duration-300 delay-100 flex items-center gap-3">
+                Enter the Collection
+                <span className="w-4 h-px bg-current inline-block transition-all duration-500 group-hover:w-6" />
               </span>
             </Link>
             <Link
               href="/our-story"
-              className="inline-flex items-center justify-center text-[9px] tracking-[0.45em] uppercase text-zinc-700 hover:text-[#c9a054] transition-colors duration-500"
+              className="inline-flex items-center justify-center text-[9px] tracking-[0.45em] uppercase text-zinc-700 hover:text-[#D4AF37] transition-colors duration-500"
             >
               Our Story →
             </Link>
