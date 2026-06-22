@@ -147,7 +147,7 @@ function ShopPageInner({ initialProducts }: { initialProducts: Product[] }) {
     else if (sort === 'price_desc') query = query.order('price_pkr', { ascending: false })
     else query = query.order('is_featured', { ascending: false }).order('created_at', { ascending: false })
 
-    const { data } = await query.limit(48)
+    const { data } = await query.limit(500)
     setProducts(data || [])
     setLoading(false)
   }
