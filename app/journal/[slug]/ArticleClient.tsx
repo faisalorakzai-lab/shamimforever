@@ -13,14 +13,14 @@ interface JournalPost {
 
 const ease = [0.16, 1, 0.3, 1] as const
 
-type Block = { type: 'p' | 'h2' | 'quote'; text: string }
+type Block = { type: 'p' | 'h2' | 'subh2' | 'quote' | 'list'; text: string }
 type ArticleData = JournalPost & {
   heroImage?: string
   body: Block[]
   pullQuote: string
   secondImage: string
   secondImageCaption?: string
-  secondImageStyle?: 'ecosystem' | 'standard'
+  secondImageStyle?: 'ecosystem' | 'standard' | 'infographic'
   nextSlug: string; nextTitle: string; nextImage: string; nextCategory: string
 }
 
@@ -36,7 +36,7 @@ const STATIC: Record<string, ArticleData> = {
     secondImageStyle: 'ecosystem',
     category: 'VISION', created_at: '2025-06-01T00:00:00Z',
     pullQuote: 'True luxury is never rushed. It is patiently built, thoughtfully curated, and responsibly preserved for future generations.',
-    nextSlug: 'sovereign-materials', nextTitle: 'Sovereign Materials', nextImage: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=900&q=85&fit=crop', nextCategory: 'CRAFT',
+    nextSlug: 'blockchain-digital-passports', nextTitle: 'Blockchain Digital Passports', nextImage: '/blockchain-passport.png', nextCategory: 'INNOVATION',
     body: [
       { type: 'p', text: 'In every generation, a handful of brands emerge that aspire to do more than sell products — they seek to create a lasting legacy. Shamim Forever was founded with that ambition: to build a luxury house where craftsmanship, innovation, authenticity, and timeless design come together under one vision.' },
       { type: 'p', text: 'The inspiration behind the House was simple yet powerful. Luxury should not be measured only by price or exclusivity; it should represent meaning, permanence, and the ability to be appreciated across generations. Every fragrance, every jewelry piece, every curated object, and every digital innovation introduced by Shamim Forever reflects this philosophy.' },
@@ -48,123 +48,130 @@ const STATIC: Record<string, ArticleData> = {
       { type: 'h2', text: 'The Importance of Authenticity' },
       { type: 'p', text: 'Trust is one of the most valuable assets in luxury. Collectors increasingly expect transparent documentation and confidence in the origin of the products they acquire. For this reason, Shamim Forever embraces modern verification concepts through Digital Passports designed to strengthen authenticity and preserve provenance for eligible creations. Technology is used not to replace craftsmanship, but to reinforce it.' },
       { type: 'h2', text: 'A New Ownership Experience' },
-      { type: 'p', text: "The OKBOND Lifetime Loyalty Program was created to reward long-term engagement through meaningful benefits. Eligible participants enjoy lifetime advantages such as continued savings on qualifying purchases, priority access to selected releases, and opportunities to participate more deeply in the evolving Shamim Forever ecosystem." },
-      { type: 'h2', text: 'Fragrance as Wearable Identity' },
-      { type: 'p', text: "For centuries, fragrance has represented memory, emotion, and personal identity. Shamim Forever approaches perfumery with this understanding, seeking compositions that balance artistry with permanence. Every fragrance is intended to become part of the wearer's story rather than simply a seasonal accessory." },
-      { type: 'h2', text: 'Building a Global Community' },
-      { type: 'p', text: 'The founder envisioned Shamim Forever not merely as a company but as a community of discerning individuals who value excellence, authenticity, and thoughtful design. The House aspires to serve collectors across cultures and regions while maintaining consistent standards of quality and presentation.' },
+      { type: 'p', text: 'The OKBOND Lifetime Loyalty Program was created to reward long-term engagement through meaningful benefits. Eligible participants enjoy lifetime advantages such as continued savings on qualifying purchases, priority access to selected releases, and opportunities to participate more deeply in the evolving Shamim Forever ecosystem.' },
       { type: 'h2', text: 'A Legacy in Progress' },
       { type: 'p', text: 'For Shamim Forever, that vision is not limited to fragrances or jewelry. It is the pursuit of a modern luxury house where timeless craftsmanship, careful curation, verified authenticity, and meaningful relationships come together to create lasting value. Luxury may capture attention for a moment. Legacy earns its place forever.' },
     ],
   },
-  'architecture-of-scent': {
-    id: '1', slug: 'architecture-of-scent', published: true, content: null,
-    title: 'The Architecture of Scent: Why Structure Precedes Soul',
-    excerpt: 'Before fragrance can move emotion, it must first master restraint.',
-    cover_image: 'https://images.unsplash.com/photo-1541643600914-78b084683702?w=1800&q=90&fit=crop',
-    secondImage: 'https://images.unsplash.com/photo-1465146344425-f00d5f5c8f07?w=1800&q=90&fit=crop',
-    secondImageCaption: 'The atelier works in silence. The brief is always about what to remove.',
-    category: 'CRAFT', created_at: '2025-05-01T00:00:00Z',
-    pullQuote: 'Restraint is not the absence of ambition. It is ambition made sovereign.',
-    nextSlug: 'sovereign-materials', nextTitle: 'Sovereign Materials', nextImage: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=900&q=85&fit=crop', nextCategory: 'HERITAGE',
+
+  'blockchain-digital-passports': {
+    id: '1', slug: 'blockchain-digital-passports', published: true, content: null,
+    title: 'The Future of Luxury: How Blockchain Digital Passports Are Redefining Authenticity',
+    excerpt: 'How NFT-backed Digital Passports are transforming luxury ownership — providing bulletproof counterfeit protection, verified provenance, and lifelong collector confidence.',
+    cover_image: '/blockchain-passport.png',
+    heroImage: '/blockchain-passport.png',
+    secondImage: 'https://images.unsplash.com/photo-1639762681485-074b7f938ba0?w=1800&q=90',
+    secondImageCaption: 'Blockchain infrastructure enables a new standard of verified ownership for luxury collectors worldwide.',
+    secondImageStyle: 'standard',
+    category: 'INNOVATION', created_at: '2025-07-01T00:00:00Z',
+    pullQuote: 'Authenticity is no longer merely claimed — it is verifiable. Legacy is not just remembered — it is permanently documented.',
+    nextSlug: 'verified-digital-identity', nextTitle: 'Why Every Luxury Collector Needs a Verified Digital Identity', nextImage: 'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=900&q=85', nextCategory: 'INNOVATION',
     body: [
-      { type: 'p', text: 'Before fragrance can move emotion, it must first master restraint. At the House of Shamim Forever, composition begins not with excess — but with silence, structure, and absolute discipline.' },
-      { type: 'p', text: 'The atelier begins its work not with the addition of notes, but with the subtraction of the unnecessary. What remains after rigorous editing is not simplicity — it is clarity. And clarity, in the art of perfumery, is the highest form of luxury.' },
-      { type: 'h2', text: 'Foundation Before Soul' },
-      { type: 'p', text: 'Each accord is built like architecture: foundation first, then structure, then the finishing details that make the composition recognizable as belonging to the House. The base notes are chosen not for impact, but for permanence.' },
-      { type: 'quote', text: 'Restraint is not the absence of ambition. It is ambition made sovereign.' },
-      { type: 'p', text: 'The master perfumer works in silence. A great fragrance, like a great building, achieves its power through the tension between what is present and what is deliberately absent.' },
-    ],
-  },
-  'sovereign-materials': {
-    id: '2', slug: 'sovereign-materials', published: true, content: null,
-    title: 'Sovereign Materials: A Journey from Khyber to Grasse',
-    excerpt: 'Our master perfumer traces the ancient trade routes from Khyber to the flowering fields of Grasse.',
-    cover_image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1800&q=90&fit=crop',
-    secondImage: 'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1800&q=90&fit=crop',
-    secondImageCaption: 'Jasmine and rose centifolia harvested by hand at first light in the valleys of Grasse.',
-    category: 'HERITAGE', created_at: '2025-04-15T00:00:00Z',
-    pullQuote: 'The ingredient is not raw material. It is inherited intelligence, compressed into essence.',
-    nextSlug: 'okbond-digital-sovereignty', nextTitle: 'OKBOND: Redefining Luxury Currency', nextImage: 'https://images.unsplash.com/photo-1518770660439-4636190af475?w=900&q=85&fit=crop', nextCategory: 'INNOVATION',
-    body: [
-      { type: 'p', text: 'There are trade routes older than nations. Before borders were drawn across the mountains of the Khyber, merchants carried resins, spices, and rare woods along paths worn smooth by centuries of footsteps.' },
-      { type: 'p', text: 'Our master perfumer travels twice a year — once to the high altitude farms of South Asia, where oud trees grow under conditions that produce a distinctly smoky, resinous heart, and once to the valleys of Grasse, where jasmine and rose centifolia are harvested by hand at first light.' },
-      { type: 'h2', text: 'The Relational Standard' },
-      { type: 'p', text: 'The selection process is not merely technical. It is relational. The House has developed partnerships with specific families of growers — relationships measured not in contracts but in decades of mutual understanding.' },
-      { type: 'quote', text: 'The ingredient is not raw material. It is inherited intelligence, compressed into essence.' },
-      { type: 'p', text: "The journey from Khyber to Grasse is the House's declaration that the source of beauty matters as much as beauty itself. Sovereign materials produce sovereign compositions." },
-    ],
-  },
-  'okbond-digital-sovereignty': {
-    id: '3', slug: 'okbond-digital-sovereignty', published: true, content: null,
-    title: 'OKBOND: Redefining Luxury Currency in the Digital Age',
-    excerpt: 'When we created OKBOND, we were not building a loyalty program. We were building a new form of sovereignty.',
-    cover_image: 'https://images.unsplash.com/photo-1518770660439-4636190af475?w=1800&q=90&fit=crop',
-    secondImage: 'https://images.unsplash.com/photo-1639762681485-074b7f938ba0?w=1800&q=90&fit=crop',
-    secondImageCaption: 'Digital infrastructure built to meet the same standard as everything else the House creates.',
-    category: 'INNOVATION', created_at: '2025-04-01T00:00:00Z',
-    pullQuote: 'The future of luxury is not scarcity of product. It is scarcity of access.',
-    nextSlug: 'psychology-of-prestige', nextTitle: 'The Psychology of Prestige', nextImage: 'https://images.unsplash.com/photo-1511556820780-d912e42b4980?w=900&q=85&fit=crop', nextCategory: 'SOVEREIGNTY',
-    body: [
-      { type: 'p', text: 'When we created OKBOND, we were not building a loyalty program. We were building a new form of sovereignty — a digital infrastructure that allows the House of Shamim Forever to operate on its own terms.' },
-      { type: 'h2', text: 'A Luxury Currency, Not a Points System' },
-      { type: 'p', text: 'OKBOND is a luxury currency. Not a points system, not a rewards mechanism, not a gamified engagement loop. It is a unit of value that appreciates with relationship, deepens with time, and unlocks experiences that cannot be purchased by any other means.' },
-      { type: 'quote', text: 'The future of luxury is not scarcity of product. It is scarcity of access.' },
-      { type: 'p', text: 'OKBOND is pegged not to speculation, but to the verified luxury goods and experiences of the House. Its value is anchored in the real — in physical craftsmanship, rare materials, and curated access.' },
-    ],
-  },
-  'psychology-of-prestige': {
-    id: '4', slug: 'psychology-of-prestige', published: true, content: null,
-    title: 'The Psychology of Prestige',
-    excerpt: 'Prestige is not manufactured. It accumulates slowly, over decades of uncompromising decisions.',
-    cover_image: 'https://images.unsplash.com/photo-1511556820780-d912e42b4980?w=1800&q=90&fit=crop',
-    secondImage: 'https://images.unsplash.com/photo-1416169607655-0c2b3ce2e1cc?w=1800&q=90&fit=crop',
-    secondImageCaption: 'The compound interest of consistent excellence across decades.',
-    category: 'SOVEREIGNTY', created_at: '2025-03-15T00:00:00Z',
-    pullQuote: 'Prestige is the compound interest of consistent excellence over time.',
-    nextSlug: 'silence-new-luxury', nextTitle: 'Why Silence Is the New Luxury', nextImage: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=900&q=85&fit=crop', nextCategory: 'CULTURE',
-    body: [
-      { type: 'p', text: 'Prestige is not manufactured. It accumulates slowly, over decades of uncompromising decisions — each one invisible to the market, and yet collectively definitive.' },
-      { type: 'h2', text: 'The Compound Interest of Excellence' },
-      { type: 'p', text: 'The House understands prestige as a form of compound interest. Each decision — each material chosen, each collaboration declined, each compromise refused — deposits into an account that pays dividends across generations.' },
-      { type: 'quote', text: 'Prestige is the compound interest of consistent excellence over time.' },
-      { type: 'p', text: 'Prestige, ultimately, is the recognition that time is the only currency that cannot be counterfeited. The House of Shamim Forever makes nothing that is designed to depreciate.' },
-    ],
-  },
-  'silence-new-luxury': {
-    id: '5', slug: 'silence-new-luxury', published: true, content: null,
-    title: 'Why Silence Is the New Luxury',
-    excerpt: 'In a world of maximum noise, silence has become the ultimate status signal.',
-    cover_image: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1800&q=90&fit=crop',
-    secondImage: 'https://images.unsplash.com/photo-1419242902214-272b3f66ee7a?w=1800&q=90&fit=crop',
-    secondImageCaption: 'The most powerful statement a luxury house can make is often no statement at all.',
-    category: 'CULTURE', created_at: '2025-03-01T00:00:00Z',
-    pullQuote: 'The loudest statement a luxury house can make is to speak only when it has something worth saying.',
-    nextSlug: 'future-sovereign-commerce', nextTitle: 'The Future of Sovereign Commerce', nextImage: 'https://images.unsplash.com/photo-1639762681485-074b7f938ba0?w=900&q=85&fit=crop', nextCategory: 'DIGITAL LUXURY',
-    body: [
-      { type: 'p', text: 'In a world of maximum noise, silence has become the ultimate status signal. The House of Shamim Forever has always known this — and it shapes every decision about how, when, and through what channels we choose to communicate.' },
-      { type: 'h2', text: 'Visibility vs. Value' },
-      { type: 'p', text: 'The attention economy has trained brands to believe that visibility is equivalent to value. It is not. Value is accumulated through restraint, through the discipline to remain silent when the temptation to speak is greatest.' },
-      { type: 'quote', text: 'The loudest statement a luxury house can make is to speak only when it has something worth saying.' },
-      { type: 'p', text: 'The House does not post for engagement. We create work of such deliberate quality that those who are meant to find it will find it — drawn by the gravitational pull of genuine excellence.' },
-    ],
-  },
-  'future-sovereign-commerce': {
-    id: '6', slug: 'future-sovereign-commerce', published: true, content: null,
-    title: 'The Future of Sovereign Commerce',
-    excerpt: 'The next decade of luxury will be won by those with the deepest systems and the courage to build independently.',
-    cover_image: 'https://images.unsplash.com/photo-1639762681485-074b7f938ba0?w=1800&q=90&fit=crop',
-    secondImage: 'https://images.unsplash.com/photo-1518770660439-4636190af475?w=1800&q=90&fit=crop',
-    secondImageCaption: 'Sovereignty in commerce means owning not just the product, but the entire system.',
-    category: 'DIGITAL LUXURY', created_at: '2025-02-15T00:00:00Z',
-    pullQuote: 'Sovereignty in commerce means owning not just the product, but the entire system through which it reaches its patron.',
-    nextSlug: 'founders-vision', nextTitle: "The Founder's Vision", nextImage: '/founders-vision.png', nextCategory: 'VISION',
-    body: [
-      { type: 'p', text: 'The next decade of luxury will not be won by those with the largest catalogues. It will be won by those with the deepest systems — and the courage to build independently of the platforms that have come to mediate all commercial relationships.' },
-      { type: 'h2', text: 'The Platform Problem' },
-      { type: 'p', text: 'Sovereign commerce is not a rejection of technology. It is a refusal to cede control of the customer relationship to intermediaries who do not share the values of the House.' },
-      { type: 'quote', text: 'Sovereignty in commerce means owning not just the product, but the entire system through which it reaches its patron.' },
-      { type: 'p', text: 'The future of luxury commerce is not about who can reach the most people. It is about who has built the most trustworthy system for reaching exactly the right people.' },
+      { type: 'p', text: 'For centuries, luxury has been built on three foundations: craftsmanship, rarity, and trust. Whether purchasing a handcrafted watch, a fine fragrance, a high-jewelry creation, or a collectible artwork, buyers have always wanted certainty that what they own is genuine.' },
+      { type: 'p', text: 'Today, that certainty faces unprecedented challenges. Global counterfeiting has become a multi-billion-dollar industry, supply chains have grown increasingly complex, and secondary markets have expanded beyond traditional auction houses into digital platforms that operate around the clock. In this environment, authenticity is no longer a marketing advantage — it is a necessity.' },
+      { type: 'p', text: 'Blockchain-powered Digital Passports represent one of the most significant innovations in modern luxury. They provide a secure, verifiable, and transparent method of proving ownership, preserving provenance, and strengthening confidence between brands and collectors.' },
+      { type: 'p', text: 'At Shamim Forever, this philosophy aligns naturally with our vision of combining timeless craftsmanship with responsible digital innovation. Rather than replacing physical luxury, blockchain technology can enhance its credibility and long-term value.' },
+
+      { type: 'h2', text: 'The Traditional Problem of Authenticity' },
+      { type: 'p', text: 'Historically, luxury brands have relied on physical certificates, serial numbers, engraved markings, invoices, and paper documentation to verify authenticity. While effective in many cases, these systems have significant limitations:' },
+      { type: 'list', text: 'Paper certificates can be lost or forged.' },
+      { type: 'list', text: 'Receipts may disappear over time.' },
+      { type: 'list', text: 'Serial numbers can be copied by sophisticated counterfeiters.' },
+      { type: 'list', text: 'Ownership history is often fragmented across multiple handovers.' },
+      { type: 'list', text: 'Buyers in secondary markets may struggle to verify provenance.' },
+      { type: 'p', text: 'As resale markets continue to grow globally, collectors increasingly expect stronger verification systems before committing significant capital to a luxury acquisition.' },
+
+      { type: 'h2', text: 'What Is a Digital Passport?' },
+      { type: 'p', text: 'A Digital Passport is a secure digital identity linked to a specific luxury item. It acts as a permanent record containing important information about that product throughout its entire lifecycle. Depending on implementation, it may include:' },
+      { type: 'list', text: 'Product identification and unique reference codes' },
+      { type: 'list', text: 'Manufacturing details and artisan records' },
+      { type: 'list', text: 'Material specifications and certification' },
+      { type: 'list', text: 'Authentication records and verification events' },
+      { type: 'list', text: 'Ownership history and transfer documentation' },
+      { type: 'list', text: 'Service, repair, and maintenance logs' },
+      { type: 'list', text: 'Warranty information and after-sales records' },
+      { type: 'list', text: 'Limited edition status and collectible metadata' },
+      { type: 'p', text: 'When anchored to blockchain infrastructure, the information becomes significantly more resistant to unauthorized alteration, creating an immutable historical record that travels with the object for its lifetime.' },
+
+      { type: 'h2', text: 'Why Blockchain Matters' },
+      { type: 'p', text: 'Blockchain functions as a distributed ledger maintained across multiple participants rather than a single centralized database. Its core characteristics make it uniquely suited to luxury provenance.' },
+      { type: 'subh2', text: 'Immutability' },
+      { type: 'p', text: 'Once records are confirmed and stored, altering historical data becomes extremely difficult without consensus mechanisms. This helps preserve trustworthy provenance records that cannot be quietly edited by any single party.' },
+      { type: 'subh2', text: 'Transparency' },
+      { type: 'p', text: 'Authorized participants can verify key information without relying solely on private documentation held by any single entity. This creates verifiable truth accessible to all legitimate parties.' },
+      { type: 'subh2', text: 'Security' },
+      { type: 'p', text: 'Cryptographic methods protect the integrity of recorded information and reduce opportunities for tampering. The mathematics underlying blockchain make unauthorized modification computationally prohibitive.' },
+      { type: 'subh2', text: 'Traceability' },
+      { type: 'p', text: 'Ownership transfers and important lifecycle events can be documented in chronological order, creating a continuous historical timeline from creation through every subsequent owner.' },
+
+      { type: 'h2', text: 'Counterfeit Protection in Modern Luxury' },
+      { type: 'p', text: 'Counterfeit products affect nearly every premium sector — fragrances, jewelry, watches, designer fashion, handbags, cosmetics, sneakers, collectibles, and limited editions. Even experienced buyers can struggle to distinguish authentic products from sophisticated replicas.' },
+      { type: 'p', text: 'Digital Passports strengthen anti-counterfeit efforts by allowing purchasers to verify whether an item corresponds with official records maintained through secure authentication systems. Instead of relying solely on visual inspection, buyers gain access to structured provenance information that cannot be replicated by counterfeiters.' },
+
+      { type: 'quote', text: 'Authenticity is no longer merely claimed — it is verifiable. Legacy is not just remembered — it is permanently documented.' },
+
+      { type: 'h2', text: 'Creating Confidence for Collectors' },
+      { type: 'p', text: 'Luxury purchases are often emotional decisions, but they are increasingly influenced by confidence and transparency. A verified Digital Passport can reassure buyers by providing documented information about authenticity and product history. For collectors, this may offer several advantages:' },
+      { type: 'list', text: 'Increased confidence when purchasing from any marketplace.' },
+      { type: 'list', text: 'Better documentation for insurance purposes and valuation.' },
+      { type: 'list', text: 'Easier verification during resale or estate transfer.' },
+      { type: 'list', text: 'Enhanced recordkeeping for long-term collection management.' },
+      { type: 'list', text: 'Improved transparency across secondary market platforms.' },
+      { type: 'p', text: 'Trust becomes part of the product experience itself — not an afterthought, but a fundamental feature of the ownership journey.' },
+
+      { type: 'h2', text: 'Provenance as a Valuable Asset' },
+      { type: 'p', text: 'In the art world, provenance has long influenced desirability and valuation. A documented ownership history can significantly enhance confidence in a collectible\'s authenticity and increase its market value.' },
+      { type: 'p', text: 'Digital Passports extend similar principles to modern luxury categories by preserving structured records throughout an item\'s lifecycle. For future generations, a verifiable history may become as important as the object itself — the story of where something has been adding to the richness of what it is.' },
+
+      { type: 'h2', text: 'NFT-Backed Ownership: Separating Hype from Utility' },
+      { type: 'p', text: 'The term "NFT" gained widespread attention through digital art speculation, but its underlying technology has broader and more practical potential. When thoughtfully implemented, an NFT can function as a blockchain-based certificate associated with a physical luxury item rather than existing solely as a standalone digital collectible.' },
+      { type: 'p', text: 'Potential applications with genuine utility include:' },
+      { type: 'list', text: 'Proof of ownership with cryptographic verification' },
+      { type: 'list', text: 'Transfer documentation across ownership changes' },
+      { type: 'list', text: 'Authentication support for secondary market transactions' },
+      { type: 'list', text: 'Membership access to exclusive brand experiences' },
+      { type: 'list', text: 'Event eligibility and priority allocation rights' },
+      { type: 'list', text: 'Loyalty benefits tied to verified ownership history' },
+      { type: 'p', text: 'The long-term value lies less in speculation and more in trusted verification and interoperability — making the physical luxury object smarter and more connected to its collector.' },
+
+      { type: 'h2', text: 'Digital Passports for Fragrance Collectors' },
+      { type: 'p', text: 'Prestige fragrances increasingly attract enthusiasts who collect rare editions, discontinued releases, and limited allocations. A blockchain-backed passport could preserve original release information, batch identification, limited edition status, purchase chronology, collector transfers, and authentication events.' },
+      { type: 'p', text: 'Such records simplify future verification while helping collectors document the history of significant acquisitions — transforming a bottle of fragrance into a verifiable object of cultural and commercial importance.' },
+
+      { type: 'h2', text: 'High Jewelry and Immutable Records' },
+      { type: 'p', text: 'Jewelry combines artistic craftsmanship with intrinsic material value, making provenance especially important. Digital records can complement traditional certification by documenting metal composition, gemstone details, design references, manufacturing information, ownership transfers, and maintenance history.' },
+      { type: 'p', text: 'This approach strengthens confidence among collectors and institutions that prioritize documented authenticity — particularly for significant pieces intended to become family heirlooms.' },
+
+      { type: 'h2', text: 'Building Long-Term Collector Relationships' },
+      { type: 'p', text: 'Traditional loyalty programs often focus on short-term promotions. Blockchain infrastructure allows brands to explore more persistent forms of recognition tied to verified ownership. Within concepts such as the OKBOND Lifetime Loyalty Program, authenticated ownership may unlock ongoing benefits:' },
+      { type: 'list', text: 'Lifetime benefits on qualifying purchases.' },
+      { type: 'list', text: 'Priority access to selected new releases and limited editions.' },
+      { type: 'list', text: 'Recognition within collector communities.' },
+      { type: 'list', text: 'Access to exclusive experiences and invitation-only events.' },
+      { type: 'list', text: 'Enhanced digital records linked to ownership history.' },
+      { type: 'p', text: 'Such systems reward sustained engagement rather than isolated transactions — building genuine long-term relationships between the House and its collectors.' },
+
+      { type: 'h2', text: 'Sustainability Through Product Longevity' },
+      { type: 'p', text: 'Verified documentation may encourage repair, restoration, and long-term preservation instead of replacement. As products maintain documented histories across decades, consumers may be more inclined to preserve significant items, supporting circular ownership models and extending product lifecycles.' },
+      { type: 'p', text: 'In this sense, Digital Passports serve sustainability goals without requiring compromise on quality or desirability — the luxury object becomes more valuable, not less, with the passage of time.' },
+
+      { type: 'h2', text: 'Institutional Interest in Verified Assets' },
+      { type: 'p', text: 'Family offices, wealth advisors, and sophisticated collectors increasingly recognize certain luxury categories as alternative assets. Reliable documentation and provenance can contribute to portfolio recordkeeping, insurance documentation, estate planning, collection management, and due diligence processes.' },
+      { type: 'p', text: 'While future appreciation is never guaranteed, transparent records improve confidence in ownership documentation and provide a foundation for professional asset management.' },
+
+      { type: 'h2', text: 'Data Privacy Considerations' },
+      { type: 'p', text: 'Responsible Digital Passport systems must balance transparency with user privacy. Best practices include protecting personally identifiable information, allowing owners to control public visibility, limiting exposed transaction details where appropriate, using secure cryptographic verification methods, and following applicable data protection standards.' },
+      { type: 'p', text: 'Ownership verification should not require compromising personal privacy. The two objectives are complementary, not contradictory, when systems are designed with care.' },
+
+      { type: 'h2', text: 'The Vision for Shamim Forever' },
+      { type: 'p', text: 'Shamim Forever embraces a philosophy where exceptional physical creations are supported by modern digital verification. In this vision, signature fragrances may be accompanied by verifiable Digital Passports. Select collectible archive objects can include blockchain-backed provenance. Eligible high-jewelry creations may benefit from enhanced authentication records.' },
+      { type: 'p', text: 'Verified collectors can participate in loyalty initiatives such as the OKBOND ecosystem, including lifetime benefits and curated experiences. Technology serves craftsmanship rather than replacing it. The objective is simple: increase trust, preserve authenticity, and strengthen long-term relationships between the House and its collectors.' },
+
+      { type: 'h2', text: 'Looking Ahead' },
+      { type: 'p', text: 'Luxury is evolving from ownership alone toward verified ownership. As global commerce becomes increasingly digital and resale markets continue to expand, confidence in provenance will likely become one of the defining characteristics of premium brands.' },
+      { type: 'p', text: 'Blockchain Digital Passports offer a practical framework for documenting authenticity, supporting transparency, and preserving the history of exceptional creations. They are not a substitute for craftsmanship, artistry, or heritage, but a tool that can reinforce those qualities in a connected world.' },
+      { type: 'p', text: 'For collectors, this means greater confidence. For brands, it offers new ways to engage loyal communities. And for the future of luxury, it signals a shift toward an ecosystem where every remarkable object carries a trusted digital identity alongside its physical presence.' },
+      { type: 'p', text: 'In that future, authenticity is no longer just claimed — it is verifiable. Legacy is not merely remembered — it is documented. And ownership extends beyond possession into a transparent record that can endure for generations.' },
     ],
   },
 }
@@ -172,41 +179,20 @@ const STATIC: Record<string, ArticleData> = {
 function ShareButtons({ title }: { title: string }) {
   const [copied, setCopied] = useState(false)
   const [url, setUrl] = useState('')
-
   useEffect(() => { setUrl(window.location.href) }, [])
-
-  const copyLink = () => {
-    navigator.clipboard.writeText(url).then(() => {
-      setCopied(true)
-      setTimeout(() => setCopied(false), 2000)
-    })
-  }
-
+  const copyLink = () => { navigator.clipboard.writeText(url).then(() => { setCopied(true); setTimeout(() => setCopied(false), 2000) }) }
   const shareX = () => window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(title)}&url=${encodeURIComponent(url)}`, '_blank')
   const shareWA = () => window.open(`https://wa.me/?text=${encodeURIComponent(title + ' — ' + url)}`, '_blank')
-
   return (
     <div style={{ borderTop: '1px solid #1a1d2e', borderBottom: '1px solid #1a1d2e', padding: '24px 0', margin: '48px 0', display: 'flex', alignItems: 'center', gap: '12px', flexWrap: 'wrap' }}>
       <span style={{ fontSize: '8px', letterSpacing: '3px', color: '#555', marginRight: '8px' }}>SHARE</span>
-
-      <button onClick={copyLink}
-        style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '9px 16px', background: 'transparent', border: '1px solid #1a1d2e', color: copied ? '#d4af37' : '#666', fontSize: '9px', letterSpacing: '2px', cursor: 'pointer', fontFamily: "'Inter', sans-serif", transition: 'all 0.3s' }}
-        onMouseEnter={e => { e.currentTarget.style.borderColor = '#d4af37'; e.currentTarget.style.color = '#d4af37' }}
-        onMouseLeave={e => { if (!copied) { e.currentTarget.style.borderColor = '#1a1d2e'; e.currentTarget.style.color = '#666' } }}>
+      <button onClick={copyLink} style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '9px 16px', background: 'transparent', border: '1px solid #1a1d2e', color: copied ? '#d4af37' : '#666', fontSize: '9px', letterSpacing: '2px', cursor: 'pointer', fontFamily: "'Inter', sans-serif", transition: 'all 0.3s' }} onMouseEnter={e => { e.currentTarget.style.borderColor = '#d4af37'; e.currentTarget.style.color = '#d4af37' }} onMouseLeave={e => { if (!copied) { e.currentTarget.style.borderColor = '#1a1d2e'; e.currentTarget.style.color = '#666' } }}>
         {copied ? '✓ COPIED' : '⎘ COPY LINK'}
       </button>
-
-      <button onClick={shareX}
-        style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '9px 16px', background: 'transparent', border: '1px solid #1a1d2e', color: '#666', fontSize: '9px', letterSpacing: '2px', cursor: 'pointer', fontFamily: "'Inter', sans-serif", transition: 'all 0.3s' }}
-        onMouseEnter={e => { e.currentTarget.style.borderColor = '#d4af37'; e.currentTarget.style.color = '#d4af37' }}
-        onMouseLeave={e => { e.currentTarget.style.borderColor = '#1a1d2e'; e.currentTarget.style.color = '#666' }}>
+      <button onClick={shareX} style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '9px 16px', background: 'transparent', border: '1px solid #1a1d2e', color: '#666', fontSize: '9px', letterSpacing: '2px', cursor: 'pointer', fontFamily: "'Inter', sans-serif", transition: 'all 0.3s' }} onMouseEnter={e => { e.currentTarget.style.borderColor = '#d4af37'; e.currentTarget.style.color = '#d4af37' }} onMouseLeave={e => { e.currentTarget.style.borderColor = '#1a1d2e'; e.currentTarget.style.color = '#666' }}>
         𝕏 &nbsp;POST
       </button>
-
-      <button onClick={shareWA}
-        style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '9px 16px', background: 'transparent', border: '1px solid #1a1d2e', color: '#666', fontSize: '9px', letterSpacing: '2px', cursor: 'pointer', fontFamily: "'Inter', sans-serif", transition: 'all 0.3s' }}
-        onMouseEnter={e => { e.currentTarget.style.borderColor = '#d4af37'; e.currentTarget.style.color = '#d4af37' }}
-        onMouseLeave={e => { e.currentTarget.style.borderColor = '#1a1d2e'; e.currentTarget.style.color = '#666' }}>
+      <button onClick={shareWA} style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '9px 16px', background: 'transparent', border: '1px solid #1a1d2e', color: '#666', fontSize: '9px', letterSpacing: '2px', cursor: 'pointer', fontFamily: "'Inter', sans-serif", transition: 'all 0.3s' }} onMouseEnter={e => { e.currentTarget.style.borderColor = '#d4af37'; e.currentTarget.style.color = '#d4af37' }} onMouseLeave={e => { e.currentTarget.style.borderColor = '#1a1d2e'; e.currentTarget.style.color = '#666' }}>
         ✉ WHATSAPP
       </button>
     </div>
@@ -242,20 +228,19 @@ export default function ArticleClient({ slug }: { slug: string }) {
     </div>
   )
 
-  const readTime = Math.ceil(post.body.filter(b => b.type === 'p').length * 1.5)
+  const readTime = Math.max(5, Math.ceil(post.body.filter(b => b.type === 'p').length * 1.4))
   const heroSrc = post.heroImage ?? post.cover_image ?? ''
-  const isPortrait = !!post.heroImage
+  const isPortrait = post.heroImage === '/founders-portrait.jpg'
+  const isInfograhic = heroSrc.includes('blockchain-passport')
 
   return (
     <div style={{ background: '#06070f', color: '#e0e0e8', fontFamily: "'Inter', sans-serif", minHeight: '100vh' }}>
-
-      {/* Reading progress */}
       <motion.div className="fixed top-0 left-0 h-[2px] z-[100] origin-left" style={{ scaleX: scrollYProgress, background: '#d4af37' }} />
 
-      {/* ── NAV BAR ── */}
+      {/* NAV */}
       <div className="sticky top-0 z-50 border-b" style={{ background: 'rgba(6,7,15,0.97)', backdropFilter: 'blur(16px)', borderColor: '#1a1d2e' }}>
         <div className="max-w-[1200px] mx-auto px-6 md:px-10 py-3 flex items-center justify-between">
-          <Link href="/journal" className="flex items-center gap-3 group">
+          <Link href="/journal" className="flex items-center gap-3">
             <span style={{ color: '#d4af37', fontSize: '14px' }}>←</span>
             <span style={{ fontSize: '9px', letterSpacing: '3px', color: '#666' }}>JOURNAL</span>
           </Link>
@@ -264,26 +249,21 @@ export default function ArticleClient({ slug }: { slug: string }) {
         </div>
       </div>
 
-      {/* ── HERO ── */}
-      <section ref={heroRef} style={{ position: 'relative', height: 'clamp(520px, 80vh, 860px)', overflow: 'hidden' }}>
+      {/* HERO */}
+      <section ref={heroRef} style={{ position: 'relative', height: isInfograhic ? 'clamp(380px, 60vw, 700px)' : 'clamp(520px, 80vh, 860px)', overflow: 'hidden' }}>
         <motion.img
-          src={heroSrc}
-          alt={post.title}
+          src={heroSrc} alt={post.title}
           style={{
-            y: heroY,
-            position: 'absolute',
-            top: 0, left: 0, right: 0,
-            width: '100%',
-            height: '115%',
-            objectFit: 'cover',
-            objectPosition: isPortrait ? '50% 12%' : 'center 20%',
+            y: heroY, position: 'absolute', top: 0, left: 0, right: 0,
+            width: '100%', height: '115%',
+            objectFit: isInfograhic ? 'contain' : 'cover',
+            objectPosition: isPortrait ? '50% 12%' : isInfograhic ? 'center center' : 'center 20%',
+            background: isInfograhic ? '#06070f' : undefined,
           }}
         />
-        {/* Gradient — lighter overlay so face shows more */}
-        <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to bottom, rgba(6,7,15,0.05) 0%, rgba(6,7,15,0.1) 30%, rgba(6,7,15,0.75) 68%, #06070f 100%)' }} />
-        <div style={{ position: 'absolute', inset: 0, background: 'rgba(6,7,15,0.12)' }} />
+        <div style={{ position: 'absolute', inset: 0, background: isInfograhic ? 'linear-gradient(to bottom, rgba(6,7,15,0) 0%, rgba(6,7,15,0) 55%, rgba(6,7,15,0.85) 80%, #06070f 100%)' : 'linear-gradient(to bottom, rgba(6,7,15,0.05) 0%, rgba(6,7,15,0.1) 30%, rgba(6,7,15,0.75) 68%, #06070f 100%)' }} />
+        {!isInfograhic && <div style={{ position: 'absolute', inset: 0, background: 'rgba(6,7,15,0.12)' }} />}
 
-        {/* Hero text block */}
         <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, padding: 'clamp(28px,6vw,68px)' }}>
           <motion.div initial={{ opacity: 0, y: 28 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, ease }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '18px', flexWrap: 'wrap' }}>
@@ -305,7 +285,7 @@ export default function ArticleClient({ slug }: { slug: string }) {
         </div>
       </section>
 
-      {/* ── ARTICLE BODY ── */}
+      {/* ARTICLE BODY */}
       <article style={{ maxWidth: '700px', margin: '0 auto', padding: 'clamp(36px,6vw,72px) clamp(20px,5vw,40px)' }}>
         <motion.div initial={{ scaleX: 0 }} animate={{ scaleX: 1 }} transition={{ duration: 1, ease }}
           style={{ width: '48px', height: '2px', background: '#d4af37', marginBottom: '44px', transformOrigin: 'left' }} />
@@ -319,6 +299,14 @@ export default function ArticleClient({ slug }: { slug: string }) {
               {block.text}
             </motion.h2>
           )
+          if (block.type === 'subh2') return (
+            <motion.h3 key={i}
+              initial={{ opacity: 0, x: -12 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}
+              transition={{ duration: 0.6, ease }}
+              style={{ fontSize: 'clamp(13px, 1.5vw, 17px)', fontWeight: 600, color: '#d4af37', lineHeight: 1.3, marginTop: '28px', marginBottom: '10px', letterSpacing: '0.05em', textTransform: 'uppercase', fontFamily: "'Inter', sans-serif" }}>
+              {block.text}
+            </motion.h3>
+          )
           if (block.type === 'quote') return (
             <motion.div key={i}
               initial={{ opacity: 0, x: -16 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}
@@ -327,6 +315,17 @@ export default function ArticleClient({ slug }: { slug: string }) {
               <blockquote style={{ fontFamily: "'Playfair Display', serif", fontSize: 'clamp(16px, 1.9vw, 22px)', fontStyle: 'italic', color: '#d4c87a', lineHeight: 1.6 }}>
                 "{block.text}"
               </blockquote>
+            </motion.div>
+          )
+          if (block.type === 'list') return (
+            <motion.div key={i}
+              initial={{ opacity: 0, x: -10 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}
+              transition={{ duration: 0.5, ease }}
+              style={{ display: 'flex', alignItems: 'flex-start', gap: '14px', marginBottom: '10px', paddingLeft: '8px' }}>
+              <div style={{ width: '5px', height: '5px', borderRadius: '50%', background: '#d4af37', flexShrink: 0, marginTop: '8px' }} />
+              <p style={{ fontSize: 'clamp(13px, 1.25vw, 16px)', fontWeight: 300, color: '#8a8aa8', lineHeight: 1.75, margin: 0 }}>
+                {block.text}
+              </p>
             </motion.div>
           )
           return (
@@ -339,15 +338,10 @@ export default function ArticleClient({ slug }: { slug: string }) {
           )
         })}
 
-        {/* ── SECOND IMAGE ── ecosystem or standard */}
+        {/* SECOND IMAGE */}
         {post.secondImage && (
           post.secondImageStyle === 'ecosystem' ? (
-            /* ── LUXURY ECOSYSTEM TREATMENT ── */
-            <motion.div
-              initial={{ opacity: 0, y: 32 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
-              transition={{ duration: 1.1, ease }}
-              style={{ margin: '60px -20px' }}>
-              {/* Gold heading */}
+            <motion.div initial={{ opacity: 0, y: 32 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 1.1, ease }} style={{ margin: '60px -20px' }}>
               <div style={{ textAlign: 'center', marginBottom: '24px' }}>
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '16px' }}>
                   <div style={{ flex: 1, height: '1px', background: 'linear-gradient(to right, transparent, #d4af3770)' }} />
@@ -355,53 +349,24 @@ export default function ArticleClient({ slug }: { slug: string }) {
                   <div style={{ flex: 1, height: '1px', background: 'linear-gradient(to left, transparent, #d4af3770)' }} />
                 </div>
               </div>
-
-              {/* Image with luxury frame */}
               <div style={{ position: 'relative', padding: '2px', background: 'linear-gradient(135deg, #d4af37 0%, #8a6914 35%, #d4af37 65%, #5a4008 100%)' }}>
                 <div style={{ position: 'relative', background: '#06070f' }}>
-                  <img
-                    src={post.secondImage} alt="Orakzai Ecosystem"
-                    style={{ width: '100%', display: 'block', aspectRatio: '1 / 1', objectFit: 'cover', opacity: 0.95 }}
-                  />
-                  {/* Corner overlays for luxury depth */}
+                  <img src={post.secondImage} alt="Orakzai Ecosystem" style={{ width: '100%', display: 'block', aspectRatio: '1 / 1', objectFit: 'cover', opacity: 0.95 }} />
                   <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse at center, transparent 55%, rgba(6,7,15,0.55) 100%)' }} />
-                  {/* Gold corner marks */}
-                  {[['top:0;left:0', 'border-top:1px solid #d4af37;border-left:1px solid #d4af37'],
-                    ['top:0;right:0', 'border-top:1px solid #d4af37;border-right:1px solid #d4af37'],
-                    ['bottom:0;left:0', 'border-bottom:1px solid #d4af37;border-left:1px solid #d4af37'],
-                    ['bottom:0;right:0', 'border-bottom:1px solid #d4af37;border-right:1px solid #d4af37']].map(([pos, border], ci) => (
-                    <div key={ci} style={{ position: 'absolute', width: '20px', height: '20px', ...Object.fromEntries(pos.split(';').map(p => { const [k,v]=p.split(':'); return [k,v]; })), ...Object.fromEntries(border.split(';').map(p => { const [k,...v]=p.split(':'); return [k.replace(/-([a-z])/g,(_,c)=>c.toUpperCase()),v.join(':')]; })) }} />
-                  ))}
                 </div>
               </div>
-
-              {/* Caption */}
-              {post.secondImageCaption && (
-                <p style={{ textAlign: 'center', padding: '14px 16px', fontSize: '10px', color: '#666', letterSpacing: '0.05em', lineHeight: 1.6, fontStyle: 'italic' }}>
-                  {post.secondImageCaption}
-                </p>
-              )}
+              {post.secondImageCaption && <p style={{ textAlign: 'center', padding: '14px 16px', fontSize: '10px', color: '#666', letterSpacing: '0.05em', lineHeight: 1.6, fontStyle: 'italic' }}>{post.secondImageCaption}</p>}
             </motion.div>
           ) : (
-            /* ── STANDARD IMAGE ── */
-            <motion.figure
-              initial={{ opacity: 0, y: 28 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
-              transition={{ duration: 1, ease }}
-              style={{ margin: '52px -20px' }}>
+            <motion.figure initial={{ opacity: 0, y: 28 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 1, ease }} style={{ margin: '52px -20px' }}>
               <img src={post.secondImage} alt="" style={{ width: '100%', aspectRatio: '16/7', objectFit: 'cover', display: 'block' }} />
-              {post.secondImageCaption && (
-                <figcaption style={{ padding: '10px 4px 14px', fontSize: '10px', color: '#555', letterSpacing: '0.05em', lineHeight: 1.5, borderBottom: '1px solid #1a1d2e' }}>
-                  {post.secondImageCaption}
-                </figcaption>
-              )}
+              {post.secondImageCaption && <figcaption style={{ padding: '10px 4px 14px', fontSize: '10px', color: '#555', letterSpacing: '0.05em', lineHeight: 1.5, borderBottom: '1px solid #1a1d2e' }}>{post.secondImageCaption}</figcaption>}
             </motion.figure>
           )
         )}
 
-        {/* ── SHARE BUTTONS ── */}
         <ShareButtons title={post.title} />
 
-        {/* Article footer */}
         <div style={{ paddingTop: '24px', borderTop: '1px solid #1a1d2e', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
           <span style={{ fontSize: '9px', letterSpacing: '3px', color: '#d4af37' }}>{post.category}</span>
           <span style={{ fontSize: '9px', letterSpacing: '2px', color: '#444' }}>
@@ -410,12 +375,9 @@ export default function ArticleClient({ slug }: { slug: string }) {
         </div>
       </article>
 
-      {/* ── NEXT ARTICLE ── */}
+      {/* NEXT ARTICLE */}
       {post.nextSlug && (
-        <motion.section
-          initial={{ opacity: 0, y: 28 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
-          transition={{ duration: 0.9, ease }}
-          style={{ borderTop: '1px solid #1a1d2e' }}>
+        <motion.section initial={{ opacity: 0, y: 28 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.9, ease }} style={{ borderTop: '1px solid #1a1d2e' }}>
           <Link href={`/journal/${post.nextSlug}`} className="grid grid-cols-1 md:grid-cols-2 group">
             <div style={{ padding: 'clamp(36px,5vw,64px)', display: 'flex', flexDirection: 'column', justifyContent: 'center', borderBottom: '1px solid #1a1d2e' }} className="md:border-b-0 md:border-r border-[#1a1d2e]">
               <span style={{ fontSize: '8px', letterSpacing: '3px', color: '#555', marginBottom: '10px', display: 'block' }}>NEXT DISPATCH</span>
@@ -429,16 +391,14 @@ export default function ArticleClient({ slug }: { slug: string }) {
               </div>
             </div>
             <div style={{ position: 'relative', overflow: 'hidden', minHeight: '240px' }}>
-              <img src={post.nextImage} alt={post.nextTitle}
-                className="w-full h-full group-hover:scale-[1.05] transition-transform duration-[2000ms]"
-                style={{ objectFit: 'cover', transitionTimingFunction: 'cubic-bezier(0.16,1,0.3,1)' }} />
+              <img src={post.nextImage} alt={post.nextTitle} className="w-full h-full group-hover:scale-[1.05] transition-transform duration-[2000ms]" style={{ objectFit: 'cover', transitionTimingFunction: 'cubic-bezier(0.16,1,0.3,1)' }} />
               <div style={{ position: 'absolute', inset: 0, background: 'rgba(6,7,15,0.3)' }} />
             </div>
           </Link>
         </motion.section>
       )}
 
-      {/* ── FOOTER ── */}
+      {/* FOOTER */}
       <div style={{ borderTop: '1px solid #1a1d2e', padding: '24px clamp(20px,5vw,48px)', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
         <Link href="/journal" style={{ fontSize: '9px', letterSpacing: '3px', color: '#555', display: 'flex', alignItems: 'center', gap: '10px' }} className="hover:text-[#d4af37] transition-colors">
           <span style={{ color: '#d4af37' }}>←</span> JOURNAL
