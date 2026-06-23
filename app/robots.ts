@@ -3,14 +3,18 @@ import { MetadataRoute } from 'next'
   export default function robots(): MetadataRoute.Robots {
     return {
       rules: [
-        // Google & Bing — full access, full trust
-        { userAgent: 'Googlebot', allow: '/' },
-        { userAgent: 'Googlebot-Image', allow: '/' },
-        { userAgent: 'Bingbot', allow: '/' },
+        // Google — full access + image crawler
+        { userAgent: 'Googlebot',         allow: '/' },
+        { userAgent: 'Googlebot-Image',   allow: '/' },
+        { userAgent: 'Googlebot-News',    allow: '/' },
+        // Bing
+        { userAgent: 'Bingbot',           allow: '/' },
         // Apple & Social crawlers
-        { userAgent: 'Applebot', allow: '/' },
+        { userAgent: 'Applebot',          allow: '/' },
         { userAgent: 'facebookexternalhit', allow: '/' },
-        { userAgent: 'Twitterbot', allow: '/' },
+        { userAgent: 'Twitterbot',        allow: '/' },
+        { userAgent: 'LinkedInBot',       allow: '/' },
+        { userAgent: 'WhatsApp',          allow: '/' },
         // Block AI content harvesters & scrapers
         {
           userAgent: [
@@ -28,8 +32,11 @@ import { MetadataRoute } from 'next'
           disallow: ['/api/', '/admin/', '/_next/'],
         },
       ],
-      sitemap: 'https://shamimforever.com/sitemap.xml',
-      host: 'https://shamimforever.com',
+      sitemap: [
+        'https://www.shamimforever.com/sitemap.xml',
+        'https://www.shamimforever.com/news-sitemap.xml',
+      ],
+      host: 'https://www.shamimforever.com',
     }
   }
   
