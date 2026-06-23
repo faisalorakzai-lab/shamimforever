@@ -4,13 +4,15 @@ import { MetadataRoute } from 'next'
   const BASE_URL = 'https://www.shamimforever.com'
 
   const STATIC_PAGES = [
-    // ── Core brand pages (highest priority)
+    // ── Brand & founder pages (highest priority) ──
     { path: '/faisal-orakzai', priority: 1.0,  changeFrequency: 'monthly'  as const },
     { path: '/',                priority: 1.0,  changeFrequency: 'weekly'   as const },
     { path: '/shop',            priority: 0.95, changeFrequency: 'daily'    as const },
     { path: '/founder',         priority: 0.95, changeFrequency: 'monthly'  as const },
+    { path: '/press',           priority: 0.92, changeFrequency: 'monthly'  as const },
+    { path: '/team',            priority: 0.92, changeFrequency: 'monthly'  as const },
     { path: '/collections',     priority: 0.90, changeFrequency: 'weekly'   as const },
-    // ── Content pages
+    // ── Content pages ──
     { path: '/journal',         priority: 0.88, changeFrequency: 'weekly'   as const },
     { path: '/our-story',       priority: 0.85, changeFrequency: 'monthly'  as const },
     { path: '/about',           priority: 0.82, changeFrequency: 'monthly'  as const },
@@ -22,13 +24,13 @@ import { MetadataRoute } from 'next'
     { path: '/heirloom-vault',  priority: 0.70, changeFrequency: 'monthly'  as const },
     { path: '/inner-circle',    priority: 0.70, changeFrequency: 'monthly'  as const },
     { path: '/boutiques',       priority: 0.68, changeFrequency: 'monthly'  as const },
+    { path: '/bespoke',         priority: 0.75, changeFrequency: 'monthly'  as const },
+    { path: '/wallet',          priority: 0.65, changeFrequency: 'weekly'   as const },
+    { path: '/vault',           priority: 0.65, changeFrequency: 'weekly'   as const },
     { path: '/time-archive',    priority: 0.65, changeFrequency: 'monthly'  as const },
     { path: '/care',            priority: 0.60, changeFrequency: 'monthly'  as const },
     { path: '/delivery',        priority: 0.58, changeFrequency: 'monthly'  as const },
     { path: '/concierge',       priority: 0.55, changeFrequency: 'monthly'  as const },
-    { path: '/bespoke',         priority: 0.75, changeFrequency: 'monthly'  as const },
-    { path: '/wallet',          priority: 0.65, changeFrequency: 'weekly'   as const },
-    { path: '/vault',           priority: 0.65, changeFrequency: 'weekly'   as const },
   ]
 
   export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
