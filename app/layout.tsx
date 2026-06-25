@@ -21,14 +21,15 @@ import { CartProvider } from '@/lib/cart-context'
       'luxury jewellery Pakistan', 'sovereign luxury', 'couture Pakistan',
       'buy perfume online Pakistan', 'best perfume brand Pakistan',
       'blockchain luxury', 'nft fragrance', 'shamim bloom', 'eternal empress',
+      'Faisal Orakzai', 'Chairman Faisal Orakzai', 'Orakzai Bond', 'OKBOND',
     ],
-    authors: [{ name: 'Shamim Forever', url: 'https://shamimforever.com' }],
-    creator: 'Shamim Forever',
+    authors: [{ name: 'Faisal Orakzai', url: 'https://orakzaibond.com/faisal-orakzai' }],
+    creator: 'Faisal Orakzai',
     publisher: 'Shamim Forever',
     category: 'Luxury Fashion & Fragrance',
     openGraph: {
       title: 'Shamim Forever — Sovereign Luxury Fragrances',
-      description: 'A global luxury house. Bespoke fragrances, sovereign jewellery, and rare couture collections. Blockchain-verified.',
+      description: 'A global luxury house by Faisal Orakzai. Bespoke fragrances, sovereign jewellery, and rare couture collections. Blockchain-verified.',
       type: 'website',
       url: 'https://www.shamimforever.com',
       siteName: 'Shamim Forever',
@@ -37,7 +38,7 @@ import { CartProvider } from '@/lib/cart-context'
     },
     twitter: {
       card: 'summary_large_image',
-      title: 'Shamim Forever — Sovereign Luxury',
+      title: 'Shamim Forever — Sovereign Luxury by Faisal Orakzai',
       description: 'Bespoke fragrances and couture for the discerning few.',
       images: ['/logo-sf.png'],
     },
@@ -95,13 +96,16 @@ import { CartProvider } from '@/lib/cart-context'
           "height": 512,
           "caption": "Shamim Forever — Sovereign Luxury"
         },
-        "description": "A global luxury digital house offering bespoke fragrances, sovereign jewellery, and blockchain-verified couture collections.",
+        "description": "A global luxury digital house offering bespoke fragrances, sovereign jewellery, and blockchain-verified couture collections. Founded by Faisal Orakzai.",
         "foundingDate": "2023",
-        "slogan": "Sovereign Luxury. Eternally Remembered.",
-        "areaServed": {
-          "@type": "Place",
-          "name": "Worldwide"
+        "founder": {
+          "@type": "Person",
+          "@id": "https://www.shamimforever.com/founder#faisal-orakzai",
+          "name": "Faisal Orakzai",
+          "url": "https://orakzaibond.com/faisal-orakzai"
         },
+        "slogan": "Sovereign Luxury. Eternally Remembered.",
+        "areaServed": { "@type": "Place", "name": "Worldwide" },
         "contactPoint": {
           "@type": "ContactPoint",
           "contactType": "customer service",
@@ -110,15 +114,10 @@ import { CartProvider } from '@/lib/cart-context'
           "url": "https://shamimforever.com/contact"
         },
         "knowsAbout": [
-          "Bespoke Fragrances",
-          "Sovereign Digital Luxury",
-          "Blockchain-anchored Asset Verification",
-          "Taif Rose Absolute",
-          "Extrait de Parfum",
-          "NFT Luxury Collectibles",
-          "Couture Jewellery",
-          "Oud Perfumery",
-          "Pakistani Luxury Fashion"
+          "Bespoke Fragrances", "Sovereign Digital Luxury",
+          "Blockchain-anchored Asset Verification", "Taif Rose Absolute",
+          "Extrait de Parfum", "NFT Luxury Collectibles",
+          "Couture Jewellery", "Oud Perfumery", "Pakistani Luxury Fashion"
         ],
         "sameAs": [
           "https://www.shamimforever.com",
@@ -129,6 +128,15 @@ import { CartProvider } from '@/lib/cart-context'
           "name": "Shamim Forever",
           "slogan": "Sovereign Luxury. Eternally Remembered.",
           "logo": "https://www.shamimforever.com/logo-sf.png"
+        },
+        "memberOf": {
+          "@type": "Organization",
+          "name": "Orakzai Group",
+          "founder": {
+            "@type": "Person",
+            "name": "Faisal Orakzai",
+            "sameAs": "https://orakzaibond.com/faisal-orakzai"
+          }
         }
       },
       {
@@ -136,13 +144,81 @@ import { CartProvider } from '@/lib/cart-context'
         "@id": "https://shamimforever.com/#website",
         "url": "https://www.shamimforever.com",
         "name": "Shamim Forever",
-        "description": "Global Luxury Digital House — Bespoke Fragrances & Couture",
+        "description": "Global Luxury Digital House — Bespoke Fragrances & Couture by Faisal Orakzai",
         "publisher": { "@id": "https://shamimforever.com/#organization" },
         "potentialAction": {
           "@type": "SearchAction",
           "target": { "@type": "EntryPoint", "urlTemplate": "https://shamimforever.com/shop?q={search_term_string}" },
           "query-input": "required name=search_term_string"
         }
+      },
+      {
+        "@type": "Person",
+        "@id": "https://www.shamimforever.com/founder#faisal-orakzai",
+        "name": "Faisal Orakzai",
+        "givenName": "Faisal",
+        "familyName": "Orakzai",
+        "honorificPrefix": "Chairman",
+        "alternateName": ["Chairman Faisal Orakzai", "Malak Faisal Orakzai", "Faisal Moeen Orakzai", "faisalorakzaii"],
+        "description": "Faisal Orakzai (born 30 April 2006) is a Pakistani entrepreneur, blockchain architect, and the Founder & Chairman of Shamim Forever luxury house and Orakzai Bond (OKBOND) DeFi protocol on Polygon. He specializes in luxury commerce, decentralized finance, and quantitative fintech.",
+        "url": "https://www.shamimforever.com/founder",
+        "image": "https://www.shamimforever.com/founder-3.png",
+        "birthDate": "2006-04-30",
+        "birthPlace": { "@type": "Place", "name": "Pakistan", "addressCountry": "PK" },
+        "nationality": { "@type": "Country", "name": "Pakistan" },
+        "jobTitle": ["Founder & Chairman", "Blockchain Architect", "Quantitative Fintech Engineer", "CEO"],
+        "alumniOf": { "@type": "CollegeOrUniversity", "name": "National University of Sciences & Technology (NUST)" },
+        "award": "NUST 50 Under 50 — Entrepreneurship",
+        "knowsAbout": [
+          "Blockchain Architecture", "Quantitative Fintech", "Decentralized Finance",
+          "Asset Management", "Luxury Commerce", "Luxury Fragrances", "NFT Technology",
+          "Polygon Blockchain", "DeFi Protocol Design", "Smart Contracts"
+        ],
+        "worksFor": [
+          { "@type": "Organization", "@id": "https://www.shamimforever.com/#organization", "name": "Shamim Forever" },
+          { "@type": "Organization", "@id": "https://orakzaibond.com/#organization", "name": "Orakzai Bond", "url": "https://orakzaibond.com" },
+          { "@type": "Organization", "name": "Orakzai Group" }
+        ],
+        "owns": [
+          { "@type": "Organization", "name": "Shamim Forever", "url": "https://www.shamimforever.com" },
+          { "@type": "Organization", "name": "Orakzai Bond (OKBOND)", "url": "https://orakzaibond.com" }
+        ],
+        "identifier": [
+          { "@type": "PropertyValue", "propertyID": "Wikidata", "value": "Q140264666", "url": "https://www.wikidata.org/wiki/Q140264666" },
+          { "@type": "PropertyValue", "propertyID": "ORCID", "value": "0009-0000-0915-7272", "url": "https://orcid.org/0009-0000-0915-7272" }
+        ],
+        "sameAs": [
+          "https://www.wikidata.org/wiki/Q140264666",
+          "https://www.crunchbase.com/person/faisal-orakzai",
+          "https://x.com/faisalorakzaii",
+          "https://www.linkedin.com/in/faisalorakzaii",
+          "https://www.instagram.com/faisalorakzaii",
+          "https://web.facebook.com/faisalorakzaii",
+          "https://tiktok.com/@chairmanorakzai",
+          "https://github.com/faisalorakzai-lab",
+          "https://scholar.google.com/citations?user=ER8h90UAAAAJ",
+          "https://linktr.ee/faisalorakzaiofficial",
+          "https://www.f6s.com/faisalorakzai",
+          "https://orcid.org/0009-0000-0915-7272",
+          "https://www.pinterest.com/faisalorakzaii",
+          "https://orakzaibond.com/faisal-orakzai",
+          "https://orakzaibond.com/founder",
+          "https://orakzaibond.com"
+        ]
+      },
+      {
+        "@type": "Organization",
+        "@id": "https://orakzaibond.com/#organization",
+        "name": "Orakzai Bond",
+        "alternateName": ["OKBOND", "Orakzai Bond DeFi"],
+        "url": "https://orakzaibond.com",
+        "description": "World's first capital-protected decentralized bond on Polygon blockchain by Faisal Orakzai.",
+        "founder": {
+          "@type": "Person",
+          "@id": "https://www.shamimforever.com/founder#faisal-orakzai",
+          "name": "Faisal Orakzai"
+        },
+        "sameAs": ["https://orakzaibond.com"]
       }
     ]
   }
@@ -185,21 +261,6 @@ import { CartProvider } from '@/lib/cart-context'
             type="application/ld+json"
             dangerouslySetInnerHTML={{ __html: JSON.stringify(richJsonLd) }}
           />
-          {/* Person schema — Faisal Orakzai Google Knowledge Panel */}
-            <script
-              type="application/ld+json"
-              dangerouslySetInnerHTML={{ __html: JSON.stringify({"@context":"https://schema.org","@type":"Person","@id":"https://www.shamimforever.com/founder#faisal-orakzai","name":"Faisal Orakzai","alternateName":["Chairman Faisal Orakzai","Malak Faisal Orakzai","Faisal Moeen Orakzai"],"description":"Faisal Orakzai is a visionary entrepreneur, blockchain architect, and the Founder & Chairman of Shamim Forever. He specializes in luxury commerce, decentralized finance (DeFi), and quantitative fintech.","url":"https://www.shamimforever.com/founder","image":"https://www.shamimforever.com/founder-3.png","birthDate":"2006-04-30","jobTitle":["Founder & Chairman","Blockchain Architect","Entrepreneur"],"alumniOf":{"@type":"CollegeOrUniversity","name":"National University of Sciences & Technology (NUST)"},"award":"NUST 50 Under 50 — Entrepreneurship","knowsAbout":["Blockchain Architecture","Quantitative Fintech","Decentralized Finance","Asset Management","Luxury Commerce","Luxury Fragrances","NFT Technology"],"worksFor":[{"@type":"Organization","@id":"https://www.shamimforever.com/#organization","name":"Shamim Forever"},{"@type":"Organization","name":"Orakzai Group"},{"@type":"Organization","name":"Orakzai Bond"}],"sameAs":["https://www.wikidata.org/wiki/Q140264666","https://www.crunchbase.com/person/faisal-orakzai","https://x.com/faisalorakzaii","https://www.linkedin.com/in/faisalorakzaii","https://www.instagram.com/faisalorakzaii","https://web.facebook.com/faisalorakzaii","https://tiktok.com/@chairmanorakzai","https://github.com/faisalorakzai-lab","https://scholar.google.com/citations?user=ER8h90UAAAAJ","https://linktr.ee/faisalorakzaiofficial","https://www.f6s.com/faisalorakzai","https://gust.com/user/014bee5e-1c09-4f2d-b5ae-f5c937bbcc0e","https://orcid.org/0009-0000-0915-7272","https://www.pinterest.com/faisalorakzaii","https://orakzaibond.com"]}) }}
-            />
-          {/* Organization schema — Shamim Forever brand entity */}
-            <script
-              type="application/ld+json"
-              dangerouslySetInnerHTML={{ __html: JSON.stringify({"@context":"https://schema.org","@type":"Organization","@id":"https://www.shamimforever.com/#organization","name":"Shamim Forever","alternateName":["Shamim Forever House","SF Luxury"],"url":"https://www.shamimforever.com","logo":{"@type":"ImageObject","url":"https://www.shamimforever.com/logo.png","width":512,"height":512},"description":"Shamim Forever is a sovereign luxury digital house offering bespoke fragrances, high jewellery, and couture collections. Blockchain-verified authenticity. Based in Pakistan, shipping worldwide.","foundingDate":"2024","founder":{"@type":"Person","@id":"https://www.shamimforever.com/#faisal-orakzai","name":"Faisal Orakzai"},"address":{"@type":"PostalAddress","addressCountry":"PK"},"contactPoint":{"@type":"ContactPoint","contactType":"customer service","url":"https://www.shamimforever.com/contact"},"sameAs":["https://www.instagram.com/shamimforever","https://x.com/shamimforever","https://www.facebook.com/shamimforever","https://tiktok.com/@shamimforever"]}) }}
-            />
-          {/* WebSite schema — enables Google Sitelinks Search Box */}
-            <script
-              type="application/ld+json"
-              dangerouslySetInnerHTML={{ __html: JSON.stringify({"@context":"https://schema.org","@type":"WebSite","@id":"https://www.shamimforever.com/#website","name":"Shamim Forever","url":"https://www.shamimforever.com","description":"Sovereign luxury fragrances, high jewellery, and couture. Blockchain-verified. Shop worldwide.","publisher":{"@id":"https://www.shamimforever.com/#organization"},"potentialAction":{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"https://www.shamimforever.com/shop?q={search_term_string}"},"query-input":"required name=search_term_string"}}) }}
-            />
           </head>
         <body className="bg-[#050505] text-zinc-200 antialiased cursor-none lg:cursor-none">
           <CartProvider>
@@ -221,4 +282,3 @@ import { CartProvider } from '@/lib/cart-context'
       </html>
     )
   }
-  
