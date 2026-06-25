@@ -372,10 +372,86 @@ import { CartProvider } from '@/lib/cart-context'
 
           {/* Rich JSON-LD — Google Knowledge Graph */}
           <script
-            type="application/ld+json"
-            dangerouslySetInnerHTML={{ __html: JSON.stringify(richJsonLd) }}
-          />
-          </head>
+              type="application/ld+json"
+              dangerouslySetInnerHTML={{ __html: JSON.stringify(richJsonLd) }}
+            />
+            {/* Organization Schema — Shamim Forever */}
+            <script
+              type="application/ld+json"
+              dangerouslySetInnerHTML={{ __html: JSON.stringify({
+                "@context": "https://schema.org",
+                "@type": "Organization",
+                "name": "Shamim Forever",
+                "url": "https://shamimforever.com",
+                "logo": "https://shamimforever.com/logo.png",
+                "foundingDate": "2026",
+                "founder": {
+                  "@type": "Person",
+                  "name": "Muhammad Faisal Orakzai",
+                  "jobTitle": "Founder & Owner"
+                },
+                "award": "International Business Awards 2026 Nomination for Pioneering Financial Infrastructure & Luxury Ecosystems",
+                "sameAs": [
+                  "https://x.com/shamimforeversf",
+                  "https://www.linkedin.com/company/orakzaigroup",
+                  "https://www.instagram.com/shamimforeversf",
+                  "https://www.facebook.com/shamimforever",
+                  "https://www.prlog.org/13154317-young-pakistani-entrepreneur-expands-global-vision-through-okbond-and-shamim-forever.html"
+                ],
+                "knowsAbout": [
+                  "Bespoke Luxury Jewelry",
+                  "Premium Cosmetics",
+                  "High-End Perfumes",
+                  "Cryptographic Provenance",
+                  "Blockchain Luxury Assets",
+                  "Real-World Asset Tokenization",
+                  "Decentralized Luxury Commerce"
+                ]
+              }) }}
+            />
+            {/* WebSite + SearchAction Schema */}
+            <script
+              type="application/ld+json"
+              dangerouslySetInnerHTML={{ __html: JSON.stringify({
+                "@context": "https://schema.org",
+                "@type": "WebSite",
+                "url": "https://shamimforever.com/",
+                "name": "Shamim Forever",
+                "potentialAction": {
+                  "@type": "SearchAction",
+                  "target": {
+                    "@type": "EntryPoint",
+                    "urlTemplate": "https://shamimforever.com/search?q={search_term_string}"
+                  },
+                  "query-input": "required name=search_term_string"
+                }
+              }) }}
+            />
+            {/* Product Schema — Shamim Forever Royal Blue Sapphire Set */}
+            <script
+              type="application/ld+json"
+              dangerouslySetInnerHTML={{ __html: JSON.stringify({
+                "@context": "https://schema.org",
+                "@type": "Product",
+                "name": "Shamim Forever Royal Blue Sapphire Set",
+                "image": ["https://shamimforever.com/images/sapphire-set.jpg"],
+                "description": "Museum-grade bespoke sapphire jewelry structured with automated Polygon smart contracts for immutable ownership verification and high-end cryptographic provenance.",
+                "sku": "SF-SAPPHIRE-001",
+                "mpn": "981245",
+                "brand": { "@type": "Brand", "name": "Shamim Forever" },
+                "offers": {
+                  "@type": "Offer",
+                  "url": "https://shamimforever.com/products/sapphire-set",
+                  "priceCurrency": "USD",
+                  "price": "15000.00",
+                  "priceValidUntil": "2028-12-31",
+                  "itemCondition": "https://schema.org/NewCondition",
+                  "availability": "https://schema.org/InStock",
+                  "seller": { "@type": "Organization", "name": "Shamim Forever" }
+                }
+              }) }}
+            />
+            </head>
         <body className="bg-[#050505] text-zinc-200 antialiased cursor-none lg:cursor-none">
           <CartProvider>
           <Web3Provider>
