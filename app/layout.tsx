@@ -100,8 +100,7 @@ import { CartProvider } from '@/lib/cart-context'
           "@type": "ImageObject",
           "url": "https://www.shamimforever.com/founders-portrait.jpg",
           "width": 1200,
-          "height": 800,
-          "caption": "Shamim Forever — Luxury Digital House"
+          "height": 800
         },
         "description": "A global luxury digital house offering bespoke fragrances, sovereign jewellery, and blockchain-verified couture collections. Founded by Faisal Orakzai.",
         "foundingDate": "2023",
@@ -142,8 +141,6 @@ import { CartProvider } from '@/lib/cart-context'
           "https://x.com/shamimforever",
           "https://www.facebook.com/shamimforever",
           "https://tiktok.com/@shamimforever",
-          "https://www.youtube.com/@shamimforever",
-          "https://www.pinterest.com/shamimforever",
           "https://www.linkedin.com/company/shamimforever"
         ],
         "brand": {
@@ -154,7 +151,7 @@ import { CartProvider } from '@/lib/cart-context'
         },
         "memberOf": {
           "@type": "Organization",
-          "name": "Orakzai Group",
+          "name": "Orakzai Group SMC",
           "founder": {
             "@type": "Person",
             "@id": "https://www.wikidata.org/wiki/Q140264666"
@@ -189,10 +186,11 @@ import { CartProvider } from '@/lib/cart-context'
         "alternateName": [
           "Chairman Faisal Orakzai",
           "Malak Faisal Orakzai",
-          "Faisal Moeen Orakzai",
-          "faisalorakzaii"
+          "faisalorakzaii",
+          "Faisal Orakzai OKBOND"
         ],
-        "description": "Faisal Orakzai (born 30 April 2006) is a Pakistani entrepreneur, blockchain architect, and the Founder & Chairman of Shamim Forever luxury house and Orakzai Bond (OKBOND) DeFi protocol on Polygon. He specialises in luxury commerce, decentralised finance, and quantitative fintech.",
+        "disambiguatingDescription": "Pakistani entrepreneur and blockchain architect (born 30 April 2006, Tirah, Orakzai). Founder of Shamim Forever and Orakzai Bond (OKBOND). Not to be confused with Dr. Faisal Moeen Orakzai, who is a separate individual.",
+        "description": "Faisal Orakzai (born 30 April 2006, Tirah, Orakzai, Pakistan) is a Pakistani entrepreneur and blockchain architect. He is the Founder & Chairman of Shamim Forever luxury house and Orakzai Bond (OKBOND) DeFi protocol. He studied at Ziauddin University, Karachi.",
         "url": "https://www.shamimforever.com/faisal-orakzai",
         "mainEntityOfPage": "https://www.shamimforever.com/faisal-orakzai",
         "image": {
@@ -205,8 +203,14 @@ import { CartProvider } from '@/lib/cart-context'
         "birthDate": "2006-04-30",
         "birthPlace": {
           "@type": "Place",
-          "name": "Pakistan",
-          "addressCountry": "PK"
+          "name": "Tirah, Orakzai",
+          "addressRegion": "Khyber Pakhtunkhwa",
+          "addressCountry": "PK",
+          "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": 33.6,
+            "longitude": 70.2
+          }
         },
         "nationality": {
           "@type": "Country",
@@ -220,10 +224,19 @@ import { CartProvider } from '@/lib/cart-context'
         ],
         "alumniOf": {
           "@type": "CollegeOrUniversity",
-          "name": "National University of Sciences and Technology (NUST)",
-          "url": "https://nust.edu.pk"
+          "name": "Ziauddin University",
+          "url": "https://zu.edu.pk",
+          "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Karachi",
+            "addressRegion": "Sindh",
+            "addressCountry": "PK"
+          }
         },
-        "award": "NUST 50 Under 50 — Entrepreneurship",
+        "award": [
+          "Stevie® Gold Award — Best Young Entrepreneur, 2026 International Business Awards (Orakzai Group SMC)",
+          "NUST 50 Under 50 — Entrepreneurship"
+        ],
         "knowsAbout": [
           "Blockchain Architecture",
           "Quantitative Fintech",
@@ -245,8 +258,7 @@ import { CartProvider } from '@/lib/cart-context'
           {
             "@type": "Organization",
             "@id": "https://orakzaibond.com/#organization",
-            "name": "Orakzai Bond",
-            "url": "https://orakzaibond.com"
+            "name": "Orakzai Bond"
           }
         ],
         "owns": [
@@ -259,6 +271,10 @@ import { CartProvider } from '@/lib/cart-context'
             "@type": "Organization",
             "name": "Orakzai Bond (OKBOND)",
             "url": "https://orakzaibond.com"
+          },
+          {
+            "@type": "Organization",
+            "name": "Orakzai Group SMC"
           }
         ],
         "identifier": [
@@ -292,7 +308,6 @@ import { CartProvider } from '@/lib/cart-context'
           "https://hackernoon.com/u/faisalorakzai",
           "https://www.pinterest.com/faisalorakzaii",
           "https://orakzaibond.com/faisal-orakzai",
-          "https://orakzaibond.com/founder",
           "https://www.shamimforever.com/faisal-orakzai",
           "https://www.shamimforever.com/founder"
         ]
