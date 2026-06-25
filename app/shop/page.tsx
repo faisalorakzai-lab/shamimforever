@@ -75,7 +75,7 @@ import { supabaseAdmin } from '@/lib/supabase-server'
             dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
           />
         ))}
-        <ShopClient products={products} />
+        <ShopClient initialProducts={products} />
       </>
     )
   }
