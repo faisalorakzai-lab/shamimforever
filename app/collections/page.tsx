@@ -54,11 +54,7 @@ import type { Metadata } from 'next'
     return (
       <>
         {collectionsSchemas.map((schema, i) => (
-          <script
-            key={i}
-            type="application/ld+json"
-            dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
-          />
+          <script key={i} type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
         ))}
         <CollectionsClient />
       </>
