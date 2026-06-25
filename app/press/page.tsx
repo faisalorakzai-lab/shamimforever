@@ -11,8 +11,27 @@ export const metadata: Metadata = {
     url: 'https://www.shamimforever.com/press',
     type: 'website',
   },
-  robots: { index: true, follow: true },
-}
+  keywords: [
+      'Shamim Forever press', 'Faisal Orakzai media coverage', 'luxury brand Pakistan press',
+      'Shamim Forever recognition', 'Faisal Orakzai awards', 'Orakzai Group press',
+      'luxury brand news Pakistan', 'blockchain luxury press', 'shamimforever media',
+    ],
+    openGraph: {
+      title: 'Shamim Forever Press & Media Coverage | Faisal Orakzai',
+      description: 'Press coverage, media recognition, and platform features for Shamim Forever and founder Faisal Orakzai across 24+ global platforms.',
+      type: 'website',
+      url: 'https://www.shamimforever.com/press',
+      siteName: 'Shamim Forever',
+      images: [{ url: 'https://www.shamimforever.com/og-press.jpg', width: 1200, height: 630, alt: 'Shamim Forever Press Coverage' }],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: 'Shamim Forever Press & Media Coverage',
+      description: 'Media coverage and recognition for Shamim Forever — 24+ global platforms.',
+      images: ['https://www.shamimforever.com/og-press.jpg'],
+    },
+    robots: { index: true, follow: true, googleBot: { index: true, follow: true, 'max-image-preview': 'large', 'max-snippet': -1 } },
+  }
 
 const jsonLd = {
   "@context": "https://schema.org",
