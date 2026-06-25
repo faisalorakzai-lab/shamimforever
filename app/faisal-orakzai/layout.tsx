@@ -8,7 +8,7 @@ import type { ReactNode } from 'react'
       "@id": "https://www.shamimforever.com/faisal-orakzai#profilepage",
       "url": "https://www.shamimforever.com/faisal-orakzai",
       "name": "Faisal Orakzai — Founder & Chairman, Shamim Forever",
-      "description": "Official profile of Faisal Orakzai, Founder & Chairman of Shamim Forever and Orakzai Bond (OKBOND). Pakistani blockchain entrepreneur born 30 April 2006.",
+      "description": "Official profile of Faisal Orakzai (born 30 April 2006, Tirah, Orakzai). Founder & Chairman of Shamim Forever and Orakzai Bond (OKBOND). Stevie® Gold Award winner 2026.",
       "isPartOf": {
         "@type": "WebSite",
         "@id": "https://shamimforever.com/#website"
@@ -26,8 +26,8 @@ import type { ReactNode } from 'react'
         "height": 800,
         "caption": "Faisal Orakzai — Founder, Shamim Forever"
       },
-      "datePublished": "2024-01-01",
-      "dateModified": "2026-06-25",
+      "datePublished": "2024-01-01T00:00:00Z",
+      "dateModified": "2026-06-25T00:00:00Z",
       "inLanguage": "en",
       "breadcrumb": {
         "@type": "BreadcrumbList",
@@ -36,7 +36,7 @@ import type { ReactNode } from 'react'
             "@type": "ListItem",
             "position": 1,
             "name": "Home",
-            "item": "https://www.shamimforever.com"
+            "item": "https://www.shamimforever.com/"
           },
           {
             "@type": "ListItem",
@@ -57,10 +57,11 @@ import type { ReactNode } from 'react'
       "alternateName": [
         "Chairman Faisal Orakzai",
         "Malak Faisal Orakzai",
-        "Faisal Moeen Orakzai",
-        "faisalorakzaii"
+        "faisalorakzaii",
+        "Faisal Orakzai OKBOND"
       ],
-      "description": "Faisal Orakzai (born 30 April 2006) is a Pakistani entrepreneur, blockchain architect, and the Founder & Chairman of Shamim Forever luxury house and Orakzai Bond (OKBOND) DeFi protocol. He specialises in luxury commerce, decentralised finance, and quantitative fintech.",
+      "disambiguatingDescription": "Pakistani entrepreneur and blockchain architect (born 30 April 2006, Tirah, Orakzai). Founder of Shamim Forever and Orakzai Bond (OKBOND). Not to be confused with Dr. Faisal Moeen Orakzai, who is a separate individual.",
+      "description": "Faisal Orakzai (born 30 April 2006, Tirah, Orakzai, Pakistan) is a Pakistani entrepreneur and blockchain architect. He is the Founder & Chairman of Shamim Forever luxury house and Orakzai Bond (OKBOND) DeFi protocol. He studied at Ziauddin University, Karachi.",
       "url": "https://www.shamimforever.com/faisal-orakzai",
       "mainEntityOfPage": "https://www.shamimforever.com/faisal-orakzai",
       "image": {
@@ -73,8 +74,14 @@ import type { ReactNode } from 'react'
       "birthDate": "2006-04-30",
       "birthPlace": {
         "@type": "Place",
-        "name": "Pakistan",
-        "addressCountry": "PK"
+        "name": "Tirah, Orakzai",
+        "addressRegion": "Khyber Pakhtunkhwa",
+        "addressCountry": "PK",
+        "geo": {
+          "@type": "GeoCoordinates",
+          "latitude": 33.6,
+          "longitude": 70.2
+        }
       },
       "nationality": {
         "@type": "Country",
@@ -88,15 +95,26 @@ import type { ReactNode } from 'react'
       ],
       "alumniOf": {
         "@type": "CollegeOrUniversity",
-        "name": "National University of Sciences and Technology (NUST)",
-        "url": "https://nust.edu.pk"
+        "name": "Ziauddin University",
+        "url": "https://zu.edu.pk",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Karachi",
+          "addressRegion": "Sindh",
+          "addressCountry": "PK"
+        }
       },
-      "award": "NUST 50 Under 50 — Entrepreneurship",
+      "award": [
+        "Stevie® Gold Award — Best Young Entrepreneur, 2026 International Business Awards (Orakzai Group SMC)",
+        "NUST 50 Under 50 — Entrepreneurship"
+      ],
       "knowsAbout": [
         "Blockchain Architecture",
         "Quantitative Fintech",
         "Decentralized Finance",
+        "Asset Management",
         "Luxury Commerce",
+        "Luxury Fragrances",
         "NFT Technology",
         "Polygon Blockchain",
         "DeFi Protocol Design",
@@ -124,6 +142,10 @@ import type { ReactNode } from 'react'
           "@type": "Organization",
           "name": "Orakzai Bond (OKBOND)",
           "url": "https://orakzaibond.com"
+        },
+        {
+          "@type": "Organization",
+          "name": "Orakzai Group SMC"
         }
       ],
       "identifier": [
@@ -157,7 +179,6 @@ import type { ReactNode } from 'react'
         "https://hackernoon.com/u/faisalorakzai",
         "https://www.pinterest.com/faisalorakzaii",
         "https://orakzaibond.com/faisal-orakzai",
-        "https://orakzaibond.com/founder",
         "https://www.shamimforever.com/faisal-orakzai",
         "https://www.shamimforever.com/founder"
       ]
