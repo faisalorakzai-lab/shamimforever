@@ -48,13 +48,6 @@ import { supabaseAdmin } from '@/lib/supabase-server'
       "name": "Shamim Forever — Luxury Shop",
       "description": "Blockchain-verified luxury perfumes, bespoke jewellery, and premium cosmetics from Shamim Forever.",
       "url": "https://www.shamimforever.com/shop",
-      "breadcrumb": {
-        "@type": "BreadcrumbList",
-        "itemListElement": [
-          { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.shamimforever.com/" },
-          { "@type": "ListItem", "position": 2, "name": "Shop", "item": "https://www.shamimforever.com/shop" }
-        ]
-      },
       "isPartOf": { "@type": "WebSite", "@id": "https://www.shamimforever.com/#website" },
       "publisher": { "@type": "Organization", "@id": "https://www.shamimforever.com/#organization", "name": "Shamim Forever" }
     }
