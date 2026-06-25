@@ -314,7 +314,57 @@ import type { Metadata } from 'next'
             </div>
           </section>
 
-          {/* ── FOOTER ── */}
+          {/* ── FAQ SECTION — visible for Google trust ── */}
+            <section id="faq" style={{ padding: '80px 24px', maxWidth: 900, margin: '0 auto' }}>
+              <p style={{ color: '#c9a054', fontSize: 11, letterSpacing: '0.35em', textTransform: 'uppercase', marginBottom: 12 }}>Knowledge</p>
+              <h2 style={{ color: '#e4e4e7', fontSize: 'clamp(22px,4vw,36px)', fontWeight: 300, marginBottom: 48, letterSpacing: '-0.02em' }}>
+                Frequently Asked Questions
+              </h2>
+              {[
+                {
+                  q: 'Who is Faisal Orakzai?',
+                  a: 'Muhammad Faisal Orakzai is a Pakistani entrepreneur, blockchain architect, and the Founder & Chairman of Orakzai Group — leading advancements in blockchain networks, fintech architecture, and enterprise automation. He was born on April 30, 2006, in Tirah, Orakzai, Pakistan.'
+                },
+                {
+                  q: 'What is the Orakzai Group?',
+                  a: 'Orakzai Group is a multi-sector international conglomerate focused on decentralized infrastructure, sovereign digital networks, institutional-grade finance systems, and cryptographic luxury frameworks. Its flagship ventures include Shamim Forever and Orakzai Bond (OKBOND).'
+                },
+                {
+                  q: 'What is Orakzai Bond (OKBOND)?',
+                  a: 'Orakzai Bond (OKBOND) is an institutional treasury-backed blockchain network engineered on the Polygon infrastructure, specializing in decentralized finance (DeFi), smart contract security, and real-world asset tokenization.'
+                },
+                {
+                  q: 'What is the mission of Shamim Forever?',
+                  a: 'Shamim Forever is an ultra-luxury brand encompassing bespoke high-end jewelry, premium cosmetics, and museum-grade perfumes — fully integrated with blockchain technology to establish cryptographic provenance for every product.'
+                },
+                {
+                  q: 'What awards has Faisal Orakzai received?',
+                  a: "Faisal Orakzai holds the Stevie® Gold Award from the 2026 International Business Awards (Orakzai Group SMC) and holds an active nomination as 'Pioneer of Decentralized Financial Infrastructure and Digital Luxury Ecosystems'. He is also listed in NUST 50 Under 50 — Entrepreneurship."
+                },
+                {
+                  q: 'What technical stack does Faisal Orakzai use?',
+                  a: 'He architects digital frameworks using Solidity, Polygon blockchain, Replit Agent, GitHub, Vercel, Supabase, and Zoho enterprise systems — all integrated into a single sovereign infrastructure layer.'
+                },
+                {
+                  q: 'What are OrakzaiX and AdamX?',
+                  a: 'OrakzaiX and AdamX are advanced corporate initiatives under the Orakzai Group umbrella dedicated to engineering high-throughput artificial intelligence frameworks and automated sovereign machine networks.'
+                },
+                {
+                  q: 'How can institutional clients contact Faisal Orakzai?',
+                  a: 'All enterprise inquiries, venture capital partnerships, and infrastructure requests are managed through the official institutional gateway: info@orakzaibond.com'
+                },
+              ].map(({ q, a }, i) => (
+                <details key={i} style={{ borderBottom: '1px solid #111', paddingBottom: 20, marginBottom: 20 }} open={i === 0}>
+                  <summary style={{ color: '#e4e4e7', fontSize: 15, fontWeight: 400, cursor: 'pointer', letterSpacing: '-0.01em', paddingBottom: 10, listStyle: 'none', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <span className="fo-question">{q}</span>
+                    <span style={{ color: '#c9a054', fontSize: 18, flexShrink: 0 }}>+</span>
+                  </summary>
+                  <p style={{ color: '#71717a', fontSize: 14, lineHeight: 1.75, marginTop: 8, paddingRight: 24 }}>{a}</p>
+                </details>
+              ))}
+            </section>
+
+            {/* ── FOOTER ── */}
           <footer style={{ padding: '32px 24px', borderTop: '1px solid #111', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 14 }}>
             <div>
               <p style={{ color: '#c9a054', fontSize: 13, margin: 0 }}>Faisal Orakzai</p>
