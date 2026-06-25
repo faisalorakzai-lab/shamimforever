@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react'
 
-    const profileSchema = {
+  const profileSchema = {
     "@context": "https://schema.org",
     "@graph": [
       {
@@ -16,11 +16,15 @@ import type { ReactNode } from 'react'
           "@type": "ImageObject",
           "url": "https://www.shamimforever.com/founder-faisal-orakzai.jpg",
           "width": 800, "height": 800,
-          "caption": "Faisal Orakzai — Founder, Shamim Forever"
+          "caption": "Faisal Orakzai — Founder & Chairman, Shamim Forever"
         },
         "datePublished": "2024-01-01T00:00:00Z",
         "dateModified": "2026-06-25T00:00:00Z",
         "inLanguage": "en",
+        "speakable": {
+          "@type": "SpeakableSpecification",
+          "cssSelector": ["h1", "h2", ".fo-description", ".fo-bio"]
+        },
         "breadcrumb": {
           "@type": "BreadcrumbList",
           "itemListElement": [
@@ -33,52 +37,195 @@ import type { ReactNode } from 'react'
         "@type": "Person",
         "@id": "https://www.wikidata.org/wiki/Q140264666",
         "name": "Faisal Orakzai",
-        "givenName": "Faisal", "familyName": "Orakzai",
+        "givenName": "Faisal",
+        "familyName": "Orakzai",
         "honorificPrefix": "Chairman",
-        "alternateName": ["Chairman Faisal Orakzai", "Malak Faisal Orakzai", "faisalorakzaii", "Faisal Orakzai OKBOND"],
-        "disambiguatingDescription": "Pakistani entrepreneur and blockchain architect (born 30 April 2006, Tirah, Orakzai). Founder of Shamim Forever and Orakzai Bond (OKBOND). Not to be confused with Dr. Faisal Moeen Orakzai, who is a separate individual.",
-        "description": "Faisal Orakzai (born 30 April 2006, Tirah, Orakzai, Pakistan) is a Pakistani entrepreneur and blockchain architect. He is the Founder & Chairman of Shamim Forever luxury house and Orakzai Bond (OKBOND) DeFi protocol. He studied at Ziauddin University, Karachi.",
+        "alternateName": [
+          "Chairman Faisal Orakzai",
+          "Malak Faisal Orakzai",
+          "faisalorakzaii",
+          "Faisal Orakzai OKBOND",
+          "Muhammad Faisal Orakzai"
+        ],
+        "disambiguatingDescription": "Pakistani entrepreneur and blockchain architect (born 30 April 2006, Tirah, Orakzai). Founder of Shamim Forever luxury house and Orakzai Bond (OKBOND). Not to be confused with Dr. Faisal Moeen Orakzai.",
+        "description": "Faisal Orakzai (born 30 April 2006, Tirah, Orakzai, Pakistan) is a Pakistani entrepreneur, blockchain architect, and sovereign systems builder. He is the Founder & Chairman of Shamim Forever luxury house and Orakzai Bond (OKBOND) DeFi protocol, and CEO of Orakzai Group SMC. He studied at Ziauddin University, Karachi.",
         "url": "https://www.shamimforever.com/faisal-orakzai",
         "mainEntityOfPage": "https://www.shamimforever.com/faisal-orakzai",
-        "image": {
-          "@type": "ImageObject",
-          "url": "https://www.shamimforever.com/founder-faisal-orakzai.jpg",
-          "width": 800, "height": 800,
-          "caption": "Faisal Orakzai — Founder & Chairman, Shamim Forever & Orakzai Bond"
-        },
+        "image": [
+          {
+            "@type": "ImageObject",
+            "contentUrl": "https://www.shamimforever.com/founder-faisal-orakzai.jpg",
+            "url": "https://www.shamimforever.com/founder-faisal-orakzai.jpg",
+            "width": 800, "height": 800,
+            "caption": "Faisal Orakzai — Founder & Chairman, Shamim Forever & Orakzai Bond",
+            "name": "Faisal Orakzai official portrait"
+          },
+          {
+            "@type": "ImageObject",
+            "contentUrl": "https://www.shamimforever.com/faisal-orakzai-hero.jpg",
+            "url": "https://www.shamimforever.com/faisal-orakzai-hero.jpg",
+            "width": 1080, "height": 1080,
+            "caption": "Faisal Orakzai — Blockchain Architect & Entrepreneur",
+            "name": "Faisal Orakzai hero image"
+          },
+          {
+            "@type": "ImageObject",
+            "contentUrl": "https://www.shamimforever.com/founders-portrait.jpg",
+            "url": "https://www.shamimforever.com/founders-portrait.jpg",
+            "width": 1200, "height": 800,
+            "caption": "Faisal Orakzai — Founder of Shamim Forever",
+            "name": "Faisal Orakzai founders portrait"
+          }
+        ],
         "birthDate": "2006-04-30",
         "birthPlace": {
-          "@type": "Place", "name": "Tirah, Orakzai",
-          "addressRegion": "Khyber Pakhtunkhwa", "addressCountry": "PK",
+          "@type": "Place",
+          "name": "Tirah, Orakzai",
+          "addressRegion": "Khyber Pakhtunkhwa",
+          "addressCountry": "PK",
           "geo": { "@type": "GeoCoordinates", "latitude": 33.6, "longitude": 70.2 }
         },
         "nationality": { "@type": "Country", "name": "Pakistan" },
-        "jobTitle": ["Founder & Chairman", "Blockchain Architect", "Quantitative Fintech Engineer", "CEO"],
+        "gender": "Male",
+        "knowsLanguage": [
+          { "@type": "Language", "name": "English", "alternateName": "en" },
+          { "@type": "Language", "name": "Urdu", "alternateName": "ur" },
+          { "@type": "Language", "name": "Pashto", "alternateName": "ps" }
+        ],
+        "jobTitle": [
+          "Founder & Chairman",
+          "Blockchain Architect",
+          "Quantitative Fintech Engineer",
+          "CEO",
+          "Entrepreneur"
+        ],
+        "hasOccupation": [
+          {
+            "@type": "Occupation",
+            "name": "Entrepreneur",
+            "occupationLocation": { "@type": "Country", "name": "Pakistan" },
+            "description": "Founder and builder of sovereign luxury and blockchain enterprises"
+          },
+          {
+            "@type": "Occupation",
+            "name": "Blockchain Architect",
+            "occupationLocation": { "@type": "Country", "name": "Pakistan" },
+            "description": "Designs and deploys Polygon-based DeFi protocols and smart contract systems"
+          },
+          {
+            "@type": "Occupation",
+            "name": "Systems Architect",
+            "occupationLocation": { "@type": "Country", "name": "Pakistan" },
+            "description": "Builds institutional-grade fintech and enterprise automation infrastructure"
+          }
+        ],
+        "affiliation": [
+          {
+            "@type": "Organization",
+            "name": "Shamim Forever",
+            "url": "https://www.shamimforever.com"
+          },
+          {
+            "@type": "Organization",
+            "name": "Orakzai Bond",
+            "url": "https://orakzaibond.com"
+          },
+          {
+            "@type": "Organization",
+            "name": "Orakzai Group SMC"
+          }
+        ],
+        "memberOf": [
+          {
+            "@type": "Organization",
+            "name": "Orakzai Group SMC",
+            "description": "Multi-sector international conglomerate founded by Faisal Orakzai"
+          }
+        ],
         "alumniOf": {
-          "@type": "CollegeOrUniversity", "name": "Ziauddin University", "url": "https://zu.edu.pk",
-          "address": { "@type": "PostalAddress", "addressLocality": "Karachi", "addressRegion": "Sindh", "addressCountry": "PK" }
+          "@type": "CollegeOrUniversity",
+          "name": "Ziauddin University",
+          "url": "https://zu.edu.pk",
+          "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Karachi",
+            "addressRegion": "Sindh",
+            "addressCountry": "PK"
+          }
         },
         "award": [
           "Stevie® Gold Award — Best Young Entrepreneur, 2026 International Business Awards (Orakzai Group SMC)",
-          "NUST 50 Under 50 — Entrepreneurship"
+          "NUST 50 Under 50 — Entrepreneurship",
+          "2026 International Business Awards Nominee — Pioneering Decentralized Financial Infrastructure and Digital Luxury Ecosystems"
         ],
         "knowsAbout": [
-          "Blockchain Architecture", "Quantitative Fintech", "Decentralized Finance",
-          "Asset Management", "Luxury Commerce", "Luxury Fragrances",
-          "NFT Technology", "Polygon Blockchain", "DeFi Protocol Design", "Smart Contracts"
+          "Blockchain Architecture",
+          "Quantitative Fintech",
+          "Decentralized Finance",
+          "Asset Management",
+          "Luxury Commerce",
+          "Luxury Fragrances",
+          "NFT Technology",
+          "Polygon Blockchain",
+          "DeFi Protocol Design",
+          "Smart Contracts",
+          "Tokenomics",
+          "Enterprise Automation",
+          "Real-World Asset Tokenization",
+          "Cryptographic Provenance",
+          "Sovereign Digital Networks"
         ],
         "worksFor": [
-          { "@type": "Organization", "@id": "https://www.shamimforever.com/#organization", "name": "Shamim Forever" },
-          { "@type": "Organization", "@id": "https://orakzaibond.com/#organization", "name": "Orakzai Bond" }
+          {
+            "@type": "Organization",
+            "@id": "https://www.shamimforever.com/#organization",
+            "name": "Shamim Forever",
+            "url": "https://www.shamimforever.com"
+          },
+          {
+            "@type": "Organization",
+            "@id": "https://orakzaibond.com/#organization",
+            "name": "Orakzai Bond",
+            "url": "https://orakzaibond.com"
+          }
         ],
         "owns": [
-          { "@type": "Organization", "name": "Shamim Forever", "url": "https://www.shamimforever.com" },
-          { "@type": "Organization", "name": "Orakzai Bond (OKBOND)", "url": "https://orakzaibond.com" },
-          { "@type": "Organization", "name": "Orakzai Group SMC" }
+          {
+            "@type": "Organization",
+            "name": "Shamim Forever",
+            "url": "https://www.shamimforever.com",
+            "foundingDate": "2023"
+          },
+          {
+            "@type": "Organization",
+            "name": "Orakzai Bond (OKBOND)",
+            "url": "https://orakzaibond.com",
+            "foundingDate": "2026"
+          },
+          {
+            "@type": "Organization",
+            "name": "Orakzai Group SMC"
+          }
         ],
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "contactType": "corporate",
+          "email": "info@orakzaibond.com",
+          "availableLanguage": ["English", "Urdu"]
+        },
         "identifier": [
-          { "@type": "PropertyValue", "propertyID": "Wikidata", "value": "Q140264666", "url": "https://www.wikidata.org/wiki/Q140264666" },
-          { "@type": "PropertyValue", "propertyID": "ORCID", "value": "0009-0000-0915-7272", "url": "https://orcid.org/0009-0000-0915-7272" }
+          {
+            "@type": "PropertyValue",
+            "propertyID": "Wikidata",
+            "value": "Q140264666",
+            "url": "https://www.wikidata.org/wiki/Q140264666"
+          },
+          {
+            "@type": "PropertyValue",
+            "propertyID": "ORCID",
+            "value": "0009-0000-0915-7272",
+            "url": "https://orcid.org/0009-0000-0915-7272"
+          }
         ],
         "sameAs": [
           "https://www.wikidata.org/wiki/Q140264666",
@@ -98,7 +245,8 @@ import type { ReactNode } from 'react'
           "https://www.pinterest.com/faisalorakzaii",
           "https://orakzaibond.com/faisal-orakzai",
           "https://www.shamimforever.com/faisal-orakzai",
-          "https://www.shamimforever.com/founder"
+          "https://www.shamimforever.com/founder",
+          "https://www.prlog.org/13154317-young-pakistani-entrepreneur-expands-global-vision-through-okbond-and-shamim-forever.html"
         ]
       }
     ]
@@ -146,7 +294,7 @@ import type { ReactNode } from 'react'
       {
         "@type": "Question",
         "name": "What international award nominations does Faisal Orakzai hold?",
-        "acceptedAnswer": { "@type": "Answer", "text": "He holds an active professional nomination at the prestigious 2026 International Business Awards (The Stevie Awards) under the flagship title: 'Faisal Orakzai: Pioneering Decentralized Financial Infrastructure and Digital Luxury Ecosystems'." }
+        "acceptedAnswer": { "@type": "Answer", "text": "He holds a Stevie® Gold Award from the 2026 International Business Awards and an active professional nomination under the title: 'Faisal Orakzai: Pioneering Decentralized Financial Infrastructure and Digital Luxury Ecosystems'." }
       },
       {
         "@type": "Question",
@@ -186,19 +334,19 @@ import type { ReactNode } from 'react'
     ]
   }
 
-    export default function FaisalLayout({ children }: { children: ReactNode }) {
-      return (
-        <>
-          <script
-            type="application/ld+json"
-            dangerouslySetInnerHTML={{ __html: JSON.stringify(profileSchema) }}
-          />
-          <script
-            type="application/ld+json"
-            dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
-          />
-          {children}
-        </>
-      )
-    }
+  export default function FaisalLayout({ children }: { children: ReactNode }) {
+    return (
+      <>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(profileSchema) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+        />
+        {children}
+      </>
+    )
+  }
   
