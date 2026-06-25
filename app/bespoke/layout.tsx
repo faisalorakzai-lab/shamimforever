@@ -1,4 +1,5 @@
-import type { Metadata, ReactNode } from 'next'
+import type { Metadata } from 'next'
+  import type { ReactNode } from 'react'
 
   export const metadata: Metadata = {
     title: 'Bespoke — Commission Your Sovereign Piece | Shamim Forever',
@@ -39,12 +40,7 @@ import type { Metadata, ReactNode } from 'next'
       "url": "https://www.shamimforever.com/bespoke",
       "provider": { "@type": "Organization", "@id": "https://www.shamimforever.com/#organization", "name": "Shamim Forever" },
       "serviceType": ["Bespoke Fragrance", "Custom Jewellery", "Luxury Commission"],
-      "areaServed": { "@type": "Country", "name": "Pakistan" },
-      "availableChannel": {
-        "@type": "ServiceChannel",
-        "serviceUrl": "https://www.shamimforever.com/bespoke",
-        "availableLanguage": ["en", "ur"]
-      }
+      "areaServed": { "@type": "Country", "name": "Pakistan" }
     }
   ]
 
