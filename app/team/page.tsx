@@ -11,8 +11,27 @@ export const metadata: Metadata = {
     url: 'https://www.shamimforever.com/team',
     type: 'website',
   },
-  robots: { index: true, follow: true },
-}
+  keywords: [
+      'Shamim Forever team', 'Shamim Forever leadership', 'Faisal Orakzai founder chairman',
+      'luxury brand team Pakistan', 'Orakzai Group team', 'sovereign luxury leadership',
+      'shamim forever management', 'Shamim Forever org chart', 'blockchain luxury team Pakistan',
+    ],
+    openGraph: {
+      title: 'Shamim Forever Team & Leadership | Faisal Orakzai',
+      description: 'Meet the leadership and creative team behind Shamim Forever — founded by Faisal Orakzai, spanning creative, digital, brand, and client experience divisions.',
+      type: 'website',
+      url: 'https://www.shamimforever.com/team',
+      siteName: 'Shamim Forever',
+      images: [{ url: 'https://www.shamimforever.com/og-team.jpg', width: 1200, height: 630, alt: 'Shamim Forever Team & Leadership' }],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: 'Shamim Forever Team & Leadership',
+      description: 'Founded by Faisal Orakzai — creative, digital, brand, and client experience.',
+      images: ['https://www.shamimforever.com/og-team.jpg'],
+    },
+    robots: { index: true, follow: true, googleBot: { index: true, follow: true, 'max-image-preview': 'large', 'max-snippet': -1 } },
+  }
 
 const jsonLd = {
   "@context": "https://schema.org",
