@@ -1,9 +1,9 @@
 import type { Metadata } from 'next'
-  import Script from 'next/script'
-  import Link from 'next/link'
-  import Image from 'next/image'
+import Script from 'next/script'
+import Link from 'next/link'
+import Image from 'next/image'
 
-  export const metadata: Metadata = {
+export const metadata: Metadata = {
     title: 'Faisal Orakzai — Founder & Chairman | Shamim Forever',
     description: 'Faisal Orakzai, Founder & Chairman of Shamim Forever, Orakzai Group, and Orakzai Bond. Pakistani entrepreneur specializing in blockchain architecture, luxury commerce, and decentralized finance. Born 2006, Pakistan.',
     keywords: [
@@ -39,9 +39,9 @@ import type { Metadata } from 'next'
       creator: '@faisalorakzaii',
       site: '@faisalorakzaii',
     },
-  }
+}
 
-  const founderJsonLd = {
+const founderJsonLd = {
     '@context': 'https://schema.org',
     '@graph': [
       {
@@ -159,9 +159,9 @@ import type { Metadata } from 'next'
         isPartOf: { '@id': 'https://www.shamimforever.com/#website' },
       },
     ],
-  }
+}
 
-  const SOCIAL_LINKS = [
+const SOCIAL_LINKS = [
     { label: 'LinkedIn',    url: 'https://www.linkedin.com/in/faisalorakzaii',     icon: 'Li' },
     { label: 'X / Twitter', url: 'https://x.com/faisalorakzaii',                   icon: '𝕏'  },
     { label: 'Instagram',   url: 'https://www.instagram.com/faisalorakzaii',        icon: 'In' },
@@ -180,9 +180,9 @@ import type { Metadata } from 'next'
     { label: 'Wikidata',    url: 'https://www.wikidata.org/wiki/Q140264666',        icon: 'Wd' },
     { label: 'LeetCode',    url: 'https://leetcode.com/u/faisalorakzai/',           icon: 'Lc' },
     { label: 'Orakzai Bond', url: 'http://orakzaibond.com',                         icon: 'OB' },
-  ]
+]
 
-  export default function FounderPage() {
+export default function FounderPage() {
     return (
       <>
         <Script
@@ -496,5 +496,4 @@ import type { Metadata } from 'next'
         </main>
       </>
     )
-  }
-  
+}
