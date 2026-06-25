@@ -5,66 +5,85 @@ import { supabaseAdmin } from '@/lib/supabase-server'
 
   export const dynamic = 'force-dynamic'
 
-  const BASE_URL = 'https://www.shamimforever.com'
-
   export const metadata: Metadata = {
-    title: 'Shop Luxury Fragrances & Collections — Shamim Forever',
-    description:
-      'Browse Shamim Forever\'s full collection — luxury perfumes, sovereign jewellery, and cosmetics. Buy online in Pakistan & worldwide. Dior, Chanel, Xerjoff, Initio & more.',
+    title: 'Shop Luxury Fragrances, Jewellery & Cosmetics — Shamim Forever',
+    description: "Buy luxury perfumes, bespoke jewellery, and premium cosmetics online from Shamim Forever. Blockchain-verified authenticity. Ship worldwide from Pakistan. Oud, rose, sapphire collections.",
     keywords: [
-      'buy perfume online Pakistan',
-      'luxury perfume Pakistan',
-      'Shamim Forever shop',
-      'best perfume brand Pakistan',
-      'Dior perfume Pakistan',
-      'Chanel perfume Pakistan',
-      'oud perfume Pakistan',
-      'luxury fragrance online',
-      'buy Xerjoff Pakistan',
-      'initio atomic rose Pakistan',
-      'luxury jewellery Pakistan',
-      'shamimforever.com',
+      'buy perfume online Pakistan', 'luxury perfume Pakistan', 'Shamim Forever shop',
+      'best perfume brand Pakistan', 'oud perfume buy online', 'bespoke jewellery Pakistan',
+      'luxury cosmetics Pakistan', 'blockchain verified luxury', 'shamimforever shop',
+      'buy luxury gifts Pakistan', 'museum grade perfume Pakistan',
     ],
-    alternates: { canonical: `${BASE_URL}/shop` },
+    alternates: { canonical: 'https://www.shamimforever.com/shop' },
     openGraph: {
-      title: 'Shop Luxury Fragrances & Collections — Shamim Forever',
-      description:
-        'Browse luxury perfumes, sovereign jewellery, and cosmetics by Shamim Forever. Shop Dior, Chanel, Xerjoff, Initio & exclusive house creations online.',
-      url: `${BASE_URL}/shop`,
-      siteName: 'Shamim Forever',
+      title: 'Shop — Shamim Forever Luxury Collections',
+      description: "Blockchain-verified luxury perfumes, jewellery, and cosmetics. Shop worldwide from Pakistan's most sovereign luxury house.",
       type: 'website',
-      images: [
-        {
-          url: `${BASE_URL}/logo-sf.png`,
-          width: 512,
-          height: 512,
-          alt: 'Shamim Forever — Sovereign Luxury Shop',
-        },
-      ],
+      url: 'https://www.shamimforever.com/shop',
+      siteName: 'Shamim Forever',
+      images: [{ url: 'https://www.shamimforever.com/og-shop.jpg', width: 1200, height: 630, alt: 'Shamim Forever — Shop Luxury Collections' }],
     },
     twitter: {
       card: 'summary_large_image',
-      title: 'Shop Luxury Fragrances — Shamim Forever',
-      description:
-        'Luxury perfumes, jewellery & cosmetics. Shop online in Pakistan & worldwide.',
-      images: [`${BASE_URL}/logo-sf.png`],
+      title: 'Shop — Shamim Forever Luxury Collections',
+      description: 'Blockchain-verified luxury perfumes, jewellery, and cosmetics.',
+      images: ['https://www.shamimforever.com/og-shop.jpg'],
     },
+    robots: { index: true, follow: true, googleBot: { index: true, follow: true, 'max-image-preview': 'large', 'max-snippet': -1 } },
   }
 
-  async function getInitialProducts(): Promise<Product[]> {
-    const { data } = await supabaseAdmin
-      .from('products')
-      .select('*, main_category:main_categories(id, name, slug)')
-      .eq('is_active', true)
-      .order('is_featured', { ascending: false })
-      .order('created_at', { ascending: false })
-      .limit(48)
-
-    return data || []
-  }
+  const shopSchemas = [
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.shamimforever.com/" },
+        { "@type": "ListItem", "position": 2, "name": "Shop", "item": "https://www.shamimforever.com/shop" }
+      ]
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "CollectionPage",
+      "@id": "https://www.shamimforever.com/shop#collectionpage",
+      "name": "Shamim Forever — Luxury Shop",
+      "description": "Blockchain-verified luxury perfumes, bespoke jewellery, and premium cosmetics from Shamim Forever.",
+      "url": "https://www.shamimforever.com/shop",
+      "breadcrumb": {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.shamimforever.com/" },
+          { "@type": "ListItem", "position": 2, "name": "Shop", "item": "https://www.shamimforever.com/shop" }
+        ]
+      },
+      "isPartOf": { "@type": "WebSite", "@id": "https://www.shamimforever.com/#website" },
+      "publisher": { "@type": "Organization", "@id": "https://www.shamimforever.com/#organization", "name": "Shamim Forever" }
+    }
+  ]
 
   export default async function ShopPage() {
-    const initialProducts = await getInitialProducts()
-    return <ShopClient initialProducts={initialProducts} />
+    let products: Product[] = []
+    try {
+      const { data } = await supabaseAdmin
+        .from('products')
+        .select('*')
+        .eq('active', true)
+        .order('created_at', { ascending: false })
+      products = data || []
+    } catch {
+      products = []
+    }
+
+    return (
+      <>
+        {shopSchemas.map((schema, i) => (
+          <script
+            key={i}
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+          />
+        ))}
+        <ShopClient products={products} />
+      </>
+    )
   }
   
