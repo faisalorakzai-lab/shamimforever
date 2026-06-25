@@ -1,4 +1,5 @@
-import type { Metadata, ReactNode } from 'next'
+import type { Metadata } from 'next'
+  import type { ReactNode } from 'react'
 
   export const metadata: Metadata = {
     title: 'Shamim Forever Boutiques — Karachi, Lahore, Dubai | Luxury Flagship Stores',
@@ -37,10 +38,7 @@ import type { Metadata, ReactNode } from 'next'
       "name": "Shamim Forever — Karachi Flagship Boutique",
       "description": "Luxury fragrances, bespoke jewellery, and premium cosmetics — flagship boutique in Karachi, Pakistan.",
       "url": "https://www.shamimforever.com/boutiques",
-      "telephone": "+92-300-0000000",
       "priceRange": "$$$",
-      "currenciesAccepted": "PKR, USD",
-      "paymentAccepted": "Cash, Credit Card, Bank Transfer",
       "openingHours": "Mo-Sa 10:00-21:00",
       "address": {
         "@type": "PostalAddress",
@@ -48,11 +46,9 @@ import type { Metadata, ReactNode } from 'next'
         "addressRegion": "Sindh",
         "addressCountry": "PK"
       },
-      "geo": { "@type": "GeoCoordinates", "latitude": 24.8607, "longitude": 67.0011 },
       "image": "https://www.shamimforever.com/og-boutiques.jpg",
       "logo": "https://www.shamimforever.com/logo-sf.png",
       "parentOrganization": { "@type": "Organization", "@id": "https://www.shamimforever.com/#organization", "name": "Shamim Forever" },
-      "servesCuisine": [],
       "hasOfferCatalog": {
         "@type": "OfferCatalog",
         "name": "Shamim Forever Luxury Collections",
