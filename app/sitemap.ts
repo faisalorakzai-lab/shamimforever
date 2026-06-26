@@ -5,6 +5,7 @@ import { MetadataRoute } from 'next'
 
   const STATIC_PAGES = [
     { path: '/faisal-orakzai', priority: 1.0,  changeFrequency: 'weekly'   as const },
+    { path: '/news',            priority: 0.99, changeFrequency: 'daily'    as const },
     { path: '/',                priority: 1.0,  changeFrequency: 'daily'    as const },
     { path: '/shop',            priority: 0.98, changeFrequency: 'daily'    as const },
     { path: '/founder',         priority: 0.97, changeFrequency: 'weekly'   as const },
