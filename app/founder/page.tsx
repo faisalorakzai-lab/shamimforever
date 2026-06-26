@@ -5,9 +5,9 @@ import Image from 'next/image'
 
 export const metadata: Metadata = {
     title: 'Faisal Orakzai — Founder & Chairman | Shamim Forever',
-    description: 'Faisal Orakzai, Founder & Chairman of Shamim Forever, Orakzai Group, and Orakzai Bond. Pakistani entrepreneur specializing in blockchain architecture, luxury commerce, and decentralized finance. Born 2006, Pakistan.',
+    description: 'Muhammad Faisal Orakzai (فیصل اورکزئی) — Born 30 April 2006, Orakzai Agency, Tirah, KPK, Pakistan. Founder & Chairman of Shamim Forever, Orakzai Group & Orakzai Bond (OKBOND) on Polygon blockchain. Pakistan youngest blockchain architect and luxury brand founder.',
     keywords: [
-      'Faisal Orakzai', 'Faisal Orakzai founder', 'Faisal Orakzai blockchain',
+      'Faisal Orakzai', 'Muhammad Faisal Orakzai', 'فیصل اورکزئی', 'Faisal Orakzai founder', 'Faisal Orakzai blockchain', 'OKBOND', 'Orakzai Bond founder', 'Faisal Orakzai born 2006',
       'Faisal Orakzai Pakistan', 'Malak Faisal Orakzai', 'Chairman Faisal Orakzai',
       'Shamim Forever founder', 'Orakzai Group', 'Orakzai Bond',
       'Pakistani entrepreneur', 'blockchain architect Pakistan', 'luxury brand founder Pakistan',
@@ -47,7 +47,7 @@ const founderJsonLd = {
       {
         '@type': 'Person',
         '@id': 'https://www.shamimforever.com/founder#faisal-orakzai',
-        name: 'Faisal Orakzai',
+        name: 'Muhammad Faisal Orakzai',
         givenName: 'Faisal',
         familyName: 'Orakzai',
         alternateName: [
@@ -67,7 +67,7 @@ const founderJsonLd = {
           caption: 'Faisal Orakzai — Founder & Chairman, Shamim Forever',
         },
         birthDate: '2006-04-30',
-        birthPlace: { '@type': 'Place', name: 'Pakistan', addressCountry: 'PK' },
+        birthPlace: { '@type': 'Place', name: 'Orakzai Agency, Tirah, Khyber Pakhtunkhwa, Pakistan', addressCountry: 'PK' },
         nationality: { '@type': 'Country', name: 'Pakistan' },
         jobTitle: ['Founder & Chairman', 'Entrepreneur', 'Blockchain Architect', 'CEO'],
         worksFor: [
