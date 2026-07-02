@@ -1169,7 +1169,7 @@ export default function OurStoryPage() {
                 style={{ position: 'absolute', inset: 0, background: '#D4AF37', zIndex: 3, transformOrigin: 'top' }}
               />
               <motion.img
-                src="/founder-portrait.jpg"
+                src="/faisal-orakzai-smiling.jpg"
                 alt="Faisal Orakzai — Founder, Shamim Forever"
                 initial={{ scale: 1.08 }} whileInView={{ scale: 1 }} viewport={{ once: true }}
                 transition={{ duration: 1.8, ease: [0.16, 1, 0.3, 1] }}

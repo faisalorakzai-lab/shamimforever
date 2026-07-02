@@ -13,7 +13,7 @@ const ARTICLE_META: Record<string, ArticleMeta> = {
   'founders-vision': {
     title: "The Founder's Vision: Why Shamim Forever Was Created",
     description: "Discover the story behind Shamim Forever — a luxury house built on timeless craftsmanship, authentic curation, and a founder's vision to create a lasting legacy beyond products.",
-    image: `${BASE}/founders-portrait.jpg`,
+    image: `${BASE}/faisal-orakzai-smiling.jpg`,
     category: 'Vision', date: '2025-06-01',
     keywords: ['Shamim Forever founder', 'Shamim Forever vision', 'Orakzai founder', 'OKBOND loyalty', 'luxury house legacy', 'Shamim Forever story', 'luxury brand Pakistan'],
     faq: [

@@ -98,7 +98,7 @@ import { CartProvider } from '@/lib/cart-context'
         },
         "image": {
           "@type": "ImageObject",
-          "url": "https://www.shamimforever.com/founders-portrait.jpg",
+          "url": "https://www.shamimforever.com/faisal-orakzai-smiling.jpg",
           "width": 1200,
           "height": 800
         },

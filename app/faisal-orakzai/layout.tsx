@@ -70,8 +70,8 @@ import type { ReactNode } from 'react'
           },
           {
             "@type": "ImageObject",
-            "contentUrl": "https://www.shamimforever.com/founders-portrait.jpg",
-            "url": "https://www.shamimforever.com/founders-portrait.jpg",
+            "contentUrl": "https://www.shamimforever.com/faisal-orakzai-smiling.jpg",
+            "url": "https://www.shamimforever.com/faisal-orakzai-smiling.jpg",
             "width": 1200, "height": 800,
             "caption": "Faisal Orakzai — Founder of Shamim Forever",
             "name": "Faisal Orakzai founders portrait"

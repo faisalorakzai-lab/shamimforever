@@ -17,13 +17,13 @@ import type { Metadata } from 'next'
       type: 'profile',
       url: 'https://www.shamimforever.com/faisal-orakzai',
       siteName: 'Shamim Forever',
-      images: [{ url: 'https://www.shamimforever.com/og-faisal-orakzai.jpg', width: 1200, height: 630, alt: 'Faisal Orakzai — Founder, Shamim Forever' }],
+      images: [{ url: 'https://www.shamimforever.com/faisal-orakzai-smiling.jpg', width: 800, height: 800, alt: 'Faisal Orakzai — Founder & Chairman, Shamim Forever, smiling portrait' }],
     },
     twitter: {
       card: 'summary_large_image',
       title: 'Faisal Orakzai — Founder & Chairman, Shamim Forever',
       description: 'Blockchain architect, luxury pioneer, Wikidata Q140264666. Founder of Shamim Forever & Orakzai Group.',
-      images: ['https://www.shamimforever.com/og-faisal-orakzai.jpg'],
+      images: ['https://www.shamimforever.com/faisal-orakzai-smiling.jpg'],
     },
     robots: { index: true, follow: true, googleBot: { index: true, follow: true, 'max-image-preview': 'large', 'max-snippet': -1, 'max-video-preview': -1 } },
     other: {
@@ -39,7 +39,7 @@ import type { Metadata } from 'next'
       "url": "https://www.shamimforever.com/faisal-orakzai",
       "name": "Faisal Orakzai — Founder, Shamim Forever",
       "dateCreated": "2023-01-01",
-      "dateModified": "2026-06-26",
+      "dateModified": "2026-07-02",
       "mainEntity": {
         "@type": "Person",
         "@id": "https://www.shamimforever.com/faisal-orakzai#person",
@@ -47,11 +47,12 @@ import type { Metadata } from 'next'
         "givenName": "Faisal",
         "familyName": "Orakzai",
         "url": "https://www.shamimforever.com/faisal-orakzai",
-        "image": {
-          "@type": "ImageObject",
-          "url": "https://www.shamimforever.com/og-faisal-orakzai.jpg",
-          "caption": "Faisal Orakzai — Founder & Chairman, Shamim Forever"
-        },
+        "image": [
+          { "@type": "ImageObject", "url": "https://www.shamimforever.com/faisal-orakzai-smiling.jpg", "width": 800, "height": 800, "caption": "Faisal Orakzai — Founder & Chairman, Shamim Forever, smiling portrait", "representativeOfPage": true },
+          { "@type": "ImageObject", "url": "https://www.shamimforever.com/faisal-orakzai-kurta.jpg", "width": 800, "height": 1000, "caption": "Faisal Orakzai — Chairman Orakzai Group, shalwar qameez" },
+          { "@type": "ImageObject", "url": "https://www.shamimforever.com/faisal-orakzai-formal.png", "width": 800, "height": 1000, "caption": "Faisal Orakzai — Chairman Orakzai Group, formal black suit" },
+          { "@type": "ImageObject", "url": "https://www.shamimforever.com/og-faisal-orakzai.jpg", "width": 1200, "height": 630, "caption": "Faisal Orakzai — Founder, Shamim Forever official portrait" }
+        ],
         "description": "Faisal Orakzai is the Founder & Chairman of Shamim Forever — Pakistan's first global luxury digital house — and founder of Orakzai Group and Orakzai Bond. A blockchain architect and luxury brand pioneer, he is Wikidata-verified (Q140264666) and a recipient of the NUST Pakistan 50 Under 50 Entrepreneurship Award.",
         "jobTitle": "Founder & Chairman",
         "worksFor": { "@type": "Organization", "@id": "https://www.shamimforever.com/#organization", "name": "Shamim Forever" },

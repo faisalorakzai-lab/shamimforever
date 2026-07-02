@@ -30,7 +30,7 @@ const STATIC: Record<string, ArticleData> = {
     title: "The Founder\'s Vision: Why Shamim Forever Was Created",
     excerpt: 'In every generation, a handful of brands emerge that aspire to do more than sell products — they seek to create a lasting legacy.',
     cover_image: '/founders-vision.png',
-    heroImage: '/founders-portrait.jpg',
+    heroImage: '/faisal-orakzai-smiling.jpg',
     secondImage: '/founders-ecosystem.jpg',
     secondImageCaption: 'The Orakzai Ecosystem — a sovereign network of brands built for the future.',
     secondImageStyle: 'ecosystem',
@@ -433,7 +433,7 @@ export default function ArticleClient({ slug }: { slug: string }) {
 
   const readTime = Math.max(5, Math.ceil(post.body.filter(b => b.type === 'p').length * 1.4))
   const heroSrc = post.heroImage ?? post.cover_image ?? ''
-  const isPortrait = post.heroImage === '/founders-portrait.jpg'
+  const isPortrait = post.heroImage === '/faisal-orakzai-smiling.jpg'
   const isInfograhic = heroSrc.includes('blockchain-passport')
 
   return (

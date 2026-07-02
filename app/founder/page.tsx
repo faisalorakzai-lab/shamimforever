@@ -24,10 +24,10 @@ export const metadata: Metadata = {
       siteName: 'Shamim Forever',
       images: [
         {
-          url: 'https://www.shamimforever.com/founder-faisal-orakzai.jpg',
-          width: 650,
-          height: 1024,
-          alt: 'Faisal Orakzai — Founder & Chairman of Shamim Forever',
+          url: 'https://www.shamimforever.com/faisal-orakzai-smiling.jpg',
+          width: 800,
+          height: 800,
+          alt: 'Faisal Orakzai — Founder & Chairman of Shamim Forever, smiling portrait',
         },
       ],
     },
@@ -35,7 +35,7 @@ export const metadata: Metadata = {
       card: 'summary_large_image',
       title: 'Faisal Orakzai — Founder & Chairman',
       description: 'Pakistani entrepreneur. Blockchain • Luxury Commerce • DeFi. Founder of Shamim Forever.',
-      images: ['https://www.shamimforever.com/founder-faisal-orakzai.jpg'],
+      images: ['https://www.shamimforever.com/faisal-orakzai-smiling.jpg'],
       creator: '@faisalorakzaii',
       site: '@faisalorakzaii',
     },
@@ -59,13 +59,12 @@ const founderJsonLd = {
         description: 'Founder & Chairman of Shamim Forever, Orakzai Group, and Orakzai Bond. Pakistani entrepreneur specializing in blockchain architecture, luxury commerce, and decentralized finance.',
         url: 'https://www.shamimforever.com/founder',
         mainEntityOfPage: 'https://www.shamimforever.com/founder',
-        image: {
-          '@type': 'ImageObject',
-          url: 'https://www.shamimforever.com/founder-faisal-orakzai.jpg',
-          width: 650,
-          height: 1024,
-          caption: 'Faisal Orakzai — Founder & Chairman, Shamim Forever',
-        },
+        image: [
+          { '@type': 'ImageObject', url: 'https://www.shamimforever.com/faisal-orakzai-smiling.jpg', width: 800, height: 800, caption: 'Faisal Orakzai — Founder & Chairman, Shamim Forever, smiling portrait', representativeOfPage: true },
+          { '@type': 'ImageObject', url: 'https://www.shamimforever.com/faisal-orakzai-kurta.jpg', width: 800, height: 1000, caption: 'Faisal Orakzai — Chairman Orakzai Group, shalwar qameez' },
+          { '@type': 'ImageObject', url: 'https://www.shamimforever.com/faisal-orakzai-formal.png', width: 800, height: 1000, caption: 'Faisal Orakzai — Chairman Orakzai Group, formal black suit' },
+          { '@type': 'ImageObject', url: 'https://www.shamimforever.com/founder-faisal-orakzai.jpg', width: 650, height: 1024, caption: 'Faisal Orakzai — Founder & Chairman, Shamim Forever official portrait' },
+        ],
         birthDate: '2006-04-30',
         birthPlace: { '@type': 'Place', name: 'Orakzai Agency, Tirah, Khyber Pakhtunkhwa, Pakistan', addressCountry: 'PK' },
         nationality: { '@type': 'Country', name: 'Pakistan' },
@@ -221,7 +220,7 @@ export default function FounderPage() {
                   {/* Portrait */}
                   <div className="relative w-[240px] h-[240px] md:w-[300px] md:h-[300px] rounded-full overflow-hidden m-[11px]">
                     <Image
-                      src="/founder-faisal-orakzai.jpg"
+                      src="/faisal-orakzai-smiling.jpg"
                       alt="Faisal Orakzai — Founder & Chairman, Shamim Forever"
                       fill
                       className="object-cover object-top"

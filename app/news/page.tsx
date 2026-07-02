@@ -61,7 +61,7 @@ import type { Metadata } from 'next'
       datePublished: "2025-12-01",
       dateModified: "2026-06-26",
       author: "Faisal Orakzai",
-      image: "https://www.shamimforever.com/og-faisal-orakzai.jpg",
+      image: "https://www.shamimforever.com/faisal-orakzai-smiling.jpg",
       url: "https://www.wikidata.org/wiki/Q140264666",
       category: "Verification",
       keywords: ["Faisal Orakzai Wikidata", "Q140264666", "Shamim Forever Wikidata", "luxury brand verification Pakistan"]
