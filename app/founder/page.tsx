@@ -46,11 +46,12 @@ const founderJsonLd = {
     '@graph': [
       {
         '@type': 'Person',
-        '@id': 'https://www.shamimforever.com/founder#faisal-orakzai',
-        name: 'Muhammad Faisal Orakzai',
+        '@id': 'https://faisalorakzai.com/#person',
+        name: 'Faisal Orakzai',
         givenName: 'Faisal',
         familyName: 'Orakzai',
         alternateName: [
+          'Muhammad Faisal Orakzai',
           'Chairman Faisal Orakzai',
           'Malak Faisal Orakzai',
           'Faisal Moeen Orakzai',
@@ -119,6 +120,7 @@ const founderJsonLd = {
           { '@type': 'PropertyValue', propertyID: 'Crunchbase', value: 'faisal-orakzai', url: 'https://www.crunchbase.com/person/faisal-orakzai' },
         ],
         sameAs: [
+          'https://faisalorakzai.com',
           'https://www.wikidata.org/wiki/Q140264666',
           'https://orcid.org/0009-0000-0915-7272',
           'https://www.crunchbase.com/person/faisal-orakzai',
