@@ -526,6 +526,64 @@ import { CartProvider } from '@/lib/cart-context'
                 "additionalType": "https://schema.org/Brand"
               }) }}
             />
+              {/* BreadcrumbList — Site Structure for Google Sitelinks */}
+              <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify({
+                  "@context": "https://schema.org",
+                  "@graph": [
+                    {
+                      "@type": "BreadcrumbList",
+                      "@id": "https://www.shamimforever.com/#sitebreadcrumb",
+                      "name": "Shamim Forever Site Navigation",
+                      "itemListElement": [
+                        { "@type": "ListItem", "position": 1, "name": "Home",          "item": "https://www.shamimforever.com/" },
+                        { "@type": "ListItem", "position": 2, "name": "Collections",   "item": "https://www.shamimforever.com/collections" },
+                        { "@type": "ListItem", "position": 3, "name": "Atelier",       "item": "https://www.shamimforever.com/atelier" },
+                        { "@type": "ListItem", "position": 4, "name": "Bespoke",       "item": "https://www.shamimforever.com/bespoke" },
+                        { "@type": "ListItem", "position": 5, "name": "Boutiques",     "item": "https://www.shamimforever.com/boutiques" },
+                        { "@type": "ListItem", "position": 6, "name": "Founder",       "item": "https://www.shamimforever.com/founder" },
+                        { "@type": "ListItem", "position": 7, "name": "Gallery",       "item": "https://www.shamimforever.com/gallery" },
+                        { "@type": "ListItem", "position": 8, "name": "Concierge",     "item": "https://www.shamimforever.com/concierge" },
+                        { "@type": "ListItem", "position": 9, "name": "Heirloom Vault","item": "https://www.shamimforever.com/heirloom-vault" },
+                        { "@type": "ListItem", "position": 10, "name": "About",        "item": "https://www.shamimforever.com/about" }
+                      ]
+                    },
+                    {
+                      "@type": "ItemList",
+                      "@id": "https://www.shamimforever.com/#navigation",
+                      "name": "Shamim Forever Main Navigation",
+                      "itemListElement": [
+                        { "@type": "SiteNavigationElement", "position": 1, "name": "Collections",   "url": "https://www.shamimforever.com/collections" },
+                        { "@type": "SiteNavigationElement", "position": 2, "name": "Atelier",       "url": "https://www.shamimforever.com/atelier" },
+                        { "@type": "SiteNavigationElement", "position": 3, "name": "Bespoke",       "url": "https://www.shamimforever.com/bespoke" },
+                        { "@type": "SiteNavigationElement", "position": 4, "name": "Boutiques",     "url": "https://www.shamimforever.com/boutiques" },
+                        { "@type": "SiteNavigationElement", "position": 5, "name": "Founder",       "url": "https://www.shamimforever.com/founder" },
+                        { "@type": "SiteNavigationElement", "position": 6, "name": "Faisal Orakzai","url": "https://www.shamimforever.com/faisal-orakzai" },
+                        { "@type": "SiteNavigationElement", "position": 7, "name": "Gallery",       "url": "https://www.shamimforever.com/gallery" },
+                        { "@type": "SiteNavigationElement", "position": 8, "name": "Concierge",     "url": "https://www.shamimforever.com/concierge" },
+                        { "@type": "SiteNavigationElement", "position": 9, "name": "Heirloom Vault","url": "https://www.shamimforever.com/heirloom-vault" }
+                      ]
+                    },
+                    {
+                      "@type": "WebPage",
+                      "@id": "https://www.shamimforever.com/#homepage",
+                      "url": "https://www.shamimforever.com/",
+                      "name": "Shamim Forever — Sovereign Luxury Digital House",
+                      "description": "Shamim Forever — global ultra-luxury brand by Faisal Orakzai. Bespoke fragrances, blockchain-verified couture, and sovereign jewellery.",
+                      "inLanguage": ["en", "ur"],
+                      "isPartOf": { "@id": "https://shamimforever.com/#website" },
+                      "about": { "@id": "https://www.shamimforever.com/#organization" },
+                      "breadcrumb": {
+                        "@type": "BreadcrumbList",
+                        "itemListElement": [
+                          { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.shamimforever.com/" }
+                        ]
+                      }
+                    }
+                  ]
+                }) }}
+              />
             </head>
         <body className="bg-[#050505] text-zinc-200 antialiased cursor-none lg:cursor-none">
           <CartProvider>
