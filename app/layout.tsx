@@ -105,10 +105,11 @@ import { CartProvider } from '@/lib/cart-context'
         "description": "A global luxury digital house offering bespoke fragrances, sovereign jewellery, and blockchain-verified couture collections. Founded by Faisal Orakzai.",
         "foundingDate": "2023",
         "founder": {
-          "@type": "Person",
-          "@id": "https://www.wikidata.org/wiki/Q140264666",
-          "name": "Faisal Orakzai"
-        },
+            "@type": "Person",
+            "@id": "https://faisalorakzai.com/#person",
+            "name": "Faisal Orakzai",
+            "url": "https://faisalorakzai.com"
+          },
         "slogan": "Sovereign Luxury. Eternally Remembered.",
         "areaServed": {
           "@type": "Place",
@@ -153,9 +154,10 @@ import { CartProvider } from '@/lib/cart-context'
           "@type": "Organization",
           "name": "Orakzai Group SMC",
           "founder": {
-            "@type": "Person",
-            "@id": "https://www.wikidata.org/wiki/Q140264666"
-          }
+              "@type": "Person",
+              "@id": "https://faisalorakzai.com/#person",
+              "url": "https://faisalorakzai.com"
+            }
         }
       },
       {
@@ -178,9 +180,10 @@ import { CartProvider } from '@/lib/cart-context'
       },
       {
         "@type": "Person",
-        "@id": "https://www.wikidata.org/wiki/Q140264666",
-        "name": "Faisal Orakzai",
-        "givenName": "Faisal",
+          "@id": "https://faisalorakzai.com/#person",
+          "url": "https://faisalorakzai.com",
+          "name": "Faisal Orakzai",
+          "givenName": "Faisal",
         "familyName": "Orakzai",
         "honorificPrefix": "Chairman",
         "alternateName": [
@@ -323,10 +326,11 @@ import { CartProvider } from '@/lib/cart-context'
         "url": "https://orakzaibond.com",
         "description": "World's first capital-protected decentralized bond on Polygon blockchain by Faisal Orakzai.",
         "founder": {
-          "@type": "Person",
-          "@id": "https://www.wikidata.org/wiki/Q140264666",
-          "name": "Faisal Orakzai"
-        },
+            "@type": "Person",
+            "@id": "https://faisalorakzai.com/#person",
+            "name": "Faisal Orakzai",
+            "url": "https://faisalorakzai.com"
+          },
         "sameAs": [
           "https://orakzaibond.com",
           "https://x.com/orakzaibond",
