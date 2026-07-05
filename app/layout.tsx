@@ -391,7 +391,9 @@ import { CartProvider } from '@/lib/cart-context'
                 "foundingDate": "2026",
                 "founder": {
                   "@type": "Person",
+                  "@id": "https://faisalorakzai.com/#person",
                   "name": "Muhammad Faisal Orakzai",
+                  "url": "https://faisalorakzai.com",
                   "jobTitle": "Founder & Owner"
                 },
                 "award": "International Business Awards 2026 Nomination for Pioneering Financial Infrastructure & Luxury Ecosystems",
