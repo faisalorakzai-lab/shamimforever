@@ -194,7 +194,6 @@ import { CartProvider } from '@/lib/cart-context'
         ],
         "disambiguatingDescription": "Pakistani entrepreneur and blockchain architect (born 30 April 2006, Tirah, Orakzai). Founder of Shamim Forever and Orakzai Bond (OKBOND). Not to be confused with Dr. Faisal Moeen Orakzai, who is a separate individual.",
         "description": "Faisal Orakzai (born 30 April 2006, Tirah, Orakzai, Pakistan) is a Pakistani entrepreneur and blockchain architect. He is the Founder & Chairman of Shamim Forever luxury house and Orakzai Bond (OKBOND) DeFi protocol. He studied at Ziauddin University, Karachi.",
-        "url": "https://www.shamimforever.com/faisal-orakzai",
         "mainEntityOfPage": "https://www.shamimforever.com/faisal-orakzai",
         "image": {
           "@type": "ImageObject",
