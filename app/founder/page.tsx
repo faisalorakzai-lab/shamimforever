@@ -114,6 +114,14 @@ const founderJsonLd = {
           { '@type': 'Organization', name: 'GEN Global Entrepreneurship Network', url: 'https://www.genglobal.org/user/faisal1' },
           { '@type': 'Organization', name: 'Y Combinator Startup School', url: 'https://www.startupschool.org/cofounder-matching/candidate/Hm8t79WI2' },
         ],
+        alumniOf: [
+          { '@type': 'CollegeOrUniversity', name: 'Ziauddin University', url: 'https://www.zu.edu.pk', description: 'Matriculation in Sciences — Islamiat, Pakistan Studies, Education Civics (Board of Secondary Education, Karachi)', address: { '@type': 'PostalAddress', addressLocality: 'Karachi', addressCountry: 'PK' }, startDate: '2024-04', endDate: '2026-04' },
+          { '@type': 'EducationalOrganization', name: 'Founder Institute', url: 'https://fi.co', description: 'Founder Program — Karachi, South Asia 2026 (Entrepreneurship & Venture Building)', address: { '@type': 'PostalAddress', addressLocality: 'Karachi', addressCountry: 'PK' }, startDate: '2025-04', endDate: '2026-09' },
+          { '@type': 'EducationalOrganization', name: 'Y Combinator', url: 'https://www.ycombinator.com', description: 'Startup Accelerator Program — Entrepreneurship / Entrepreneurial Studies', address: { '@type': 'PostalAddress', addressLocality: 'San Francisco', addressRegion: 'CA', addressCountry: 'US' }, startDate: '2026-06' },
+          { '@type': 'EducationalOrganization', name: 'Global Self-Education Platform (GSEP)', description: 'Silent Empire Building — self-directed learning from books, mentors, and real-world experience. Skills: Business Analysis, Advertising', startDate: '2019-01' },
+          { '@type': 'EducationalOrganization', name: 'Yahya Public School', address: { '@type': 'PostalAddress', addressLocality: 'Kohat', addressRegion: 'Khyber Pakhtunkhwa', addressCountry: 'PK' } },
+          { '@type': 'EducationalOrganization', name: 'Madrassa Mahad-ul-Uleman', address: { '@type': 'PostalAddress', addressLocality: 'Kohat', addressRegion: 'Khyber Pakhtunkhwa', addressCountry: 'PK' } },
+        ],
         identifier: [
           { '@type': 'PropertyValue', propertyID: 'ORCID', value: '0009-0000-0915-7272', url: 'https://orcid.org/0009-0000-0915-7272' },
           { '@type': 'PropertyValue', propertyID: 'Wikidata', value: 'Q140264666', url: 'https://www.wikidata.org/wiki/Q140264666' },
@@ -396,6 +404,32 @@ export default function FounderPage() {
                   >
                     <p className="text-[#c9a054] text-xl mb-2 group-hover:scale-110 transition-transform inline-block">{e.icon}</p>
                     <p className="text-zinc-400 text-sm leading-snug">{e.title}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
+
+          {/* ── EDUCATION ── */}
+          <section className="py-20 px-5 md:px-12 lg:px-20 bg-[#080808]">
+            <div className="max-w-[860px] mx-auto">
+              <p className="text-[#c9a054] text-xs tracking-[0.4em] uppercase mb-4">Education</p>
+              <h2 className="text-3xl font-light tracking-tight mb-10">Foundations of Learning</h2>
+              <div className="space-y-4">
+                {[
+                  { org: 'Y Combinator', detail: 'Startup Accelerator — Entrepreneurship / Entrepreneurial Studies', period: 'Jun 2026 – Present' },
+                  { org: 'Founder Institute', detail: 'Founder Program, Karachi (South Asia 2026) — Venture Building', period: 'Apr 2025 – Sep 2026' },
+                  { org: 'Ziauddin University', detail: 'Matriculation in Sciences — Islamiat, Pakistan Studies, Civics (Board of Secondary Education)', period: 'Apr 2024 – Apr 2026' },
+                  { org: 'Global Self-Education Platform (GSEP)', detail: 'Silent Empire Building — Business Analysis, Advertising', period: 'Jan 2019 – Present' },
+                  { org: 'Yahya Public School, Kohat', detail: 'Early education', period: '' },
+                  { org: 'Madrassa Mahad-ul-Uleman, Kohat', detail: 'Early education', period: '' },
+                ].map(e => (
+                  <div key={e.org} className="flex items-start justify-between gap-4 p-4 border border-[#1a1a1a] hover:border-[#c9a054]/20 transition-colors flex-wrap">
+                    <div>
+                      <p className="text-zinc-200 text-sm font-medium">{e.org}</p>
+                      <p className="text-zinc-500 text-xs mt-0.5">{e.detail}</p>
+                    </div>
+                    {e.period && <span className="text-[#c9a054]/70 text-xs whitespace-nowrap">{e.period}</span>}
                   </div>
                 ))}
               </div>
