@@ -142,17 +142,14 @@ import type { ReactNode } from 'react'
             "description": "Multi-sector international conglomerate founded by Faisal Orakzai"
           }
         ],
-        "alumniOf": {
-          "@type": "CollegeOrUniversity",
-          "name": "Ziauddin University",
-          "url": "https://zu.edu.pk",
-          "address": {
-            "@type": "PostalAddress",
-            "addressLocality": "Karachi",
-            "addressRegion": "Sindh",
-            "addressCountry": "PK"
-          }
-        },
+        "alumniOf": [
+          { "@type": "CollegeOrUniversity", "name": "Ziauddin University", "url": "https://www.zu.edu.pk", "description": "Matriculation in Sciences — Islamiat, Pakistan Studies, Education Civics (Board of Secondary Education, Karachi)", "address": { "@type": "PostalAddress", "addressLocality": "Karachi", "addressCountry": "PK" }, "startDate": "2024-04", "endDate": "2026-04" },
+          { "@type": "EducationalOrganization", "name": "Founder Institute", "url": "https://fi.co", "description": "Founder Program — Karachi, South Asia 2026 (Entrepreneurship & Venture Building)", "address": { "@type": "PostalAddress", "addressLocality": "Karachi", "addressCountry": "PK" }, "startDate": "2025-04", "endDate": "2026-09" },
+          { "@type": "EducationalOrganization", "name": "Y Combinator", "url": "https://www.ycombinator.com", "description": "Startup Accelerator Program — Entrepreneurship / Entrepreneurial Studies", "address": { "@type": "PostalAddress", "addressLocality": "San Francisco", "addressRegion": "CA", "addressCountry": "US" }, "startDate": "2026-06" },
+          { "@type": "EducationalOrganization", "name": "Global Self-Education Platform (GSEP)", "description": "Silent Empire Building — self-directed learning from books, mentors, and real-world experience. Skills: Business Analysis, Advertising", "startDate": "2019-01" },
+          { "@type": "EducationalOrganization", "name": "Yahya Public School", "address": { "@type": "PostalAddress", "addressLocality": "Kohat", "addressRegion": "Khyber Pakhtunkhwa", "addressCountry": "PK" } },
+          { "@type": "EducationalOrganization", "name": "Madrassa Mahad-ul-Uleman", "address": { "@type": "PostalAddress", "addressLocality": "Kohat", "addressRegion": "Khyber Pakhtunkhwa", "addressCountry": "PK" } }
+        ],
         "award": [
           "Stevie® Gold Award — Best Young Entrepreneur, 2026 International Business Awards (Orakzai Group SMC)",
           "NUST 50 Under 50 — Entrepreneurship",
