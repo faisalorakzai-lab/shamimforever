@@ -224,18 +224,58 @@ import { CartProvider } from '@/lib/cart-context'
           "Quantitative Fintech Engineer",
           "CEO"
         ],
-        "alumniOf": {
-          "@type": "CollegeOrUniversity",
-          "name": "Ziauddin University",
-          "url": "https://zu.edu.pk",
-          "address": {
-            "@type": "PostalAddress",
-            "addressLocality": "Karachi",
-            "addressRegion": "Sindh",
-            "addressCountry": "PK"
-          }
-        },
-        "award": [
+        "alumniOf": [
+            {
+              "@type": "CollegeOrUniversity",
+              "@id": "https://www.zu.edu.pk/#organization",
+              "name": "Ziauddin University",
+              "url": "https://zu.edu.pk",
+              "description": "Matriculation in Sciences — Islamiat, Pakistan Studies, Education Civics (Board of Secondary Education, Karachi)",
+              "address": { "@type": "PostalAddress", "addressLocality": "Karachi", "addressRegion": "Sindh", "addressCountry": "PK" },
+              "startDate": "2024-04",
+              "endDate": "2026-04"
+            },
+            {
+              "@type": "EducationalOrganization",
+              "@id": "https://fi.co/#organization",
+              "name": "Founder Institute",
+              "url": "https://fi.co",
+              "description": "Founder Program — Karachi, South Asia 2026 (Entrepreneurship & Venture Building)",
+              "address": { "@type": "PostalAddress", "addressLocality": "Karachi", "addressCountry": "PK" },
+              "startDate": "2025-04",
+              "endDate": "2026-09"
+            },
+            {
+              "@type": "EducationalOrganization",
+              "@id": "https://www.ycombinator.com/#organization",
+              "name": "Y Combinator",
+              "url": "https://www.ycombinator.com",
+              "description": "Startup Accelerator Program — Entrepreneurship / Entrepreneurial Studies",
+              "startDate": "2026-06"
+            },
+            {
+              "@type": "EducationalOrganization",
+              "name": "Global Self-Education Platform (GSEP)",
+              "description": "Silent Empire Building — self-directed learning. Skills: Business Analysis, Advertising",
+              "startDate": "2019-01"
+            },
+            {
+              "@type": "EducationalOrganization",
+              "name": "Yahya Public School",
+              "address": { "@type": "PostalAddress", "addressLocality": "Kohat", "addressRegion": "Khyber Pakhtunkhwa", "addressCountry": "PK" }
+            },
+            {
+              "@type": "EducationalOrganization",
+              "name": "Madrassa Mahad-ul-Uleman",
+              "address": { "@type": "PostalAddress", "addressLocality": "Kohat", "addressRegion": "Khyber Pakhtunkhwa", "addressCountry": "PK" }
+            }
+          ],
+          "hasCredential": [
+            { "@type": "EducationalOccupationalCredential", "name": "Startup Accelerator Certificate", "credentialCategory": "certificate", "recognizedBy": { "@type": "Organization", "name": "Y Combinator" }, "dateCreated": "2026-06" },
+            { "@type": "EducationalOccupationalCredential", "name": "Founder Program — Karachi South Asia 2026", "credentialCategory": "certificate", "recognizedBy": { "@type": "Organization", "name": "Founder Institute" }, "dateCreated": "2025-04" },
+            { "@type": "EducationalOccupationalCredential", "name": "Matriculation in Sciences", "credentialCategory": "degree", "recognizedBy": { "@type": "Organization", "name": "Board of Secondary Education Karachi" }, "dateCreated": "2026-04" }
+          ],
+          "award": [
           "Stevie® Gold Award — Best Young Entrepreneur, 2026 International Business Awards (Orakzai Group SMC)",
           "NUST 50 Under 50 — Entrepreneurship"
         ],
