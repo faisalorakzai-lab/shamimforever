@@ -139,15 +139,6 @@ import type { Metadata } from 'next'
       tag: "Academic"
     },
     {
-      outlet: "NUST Pakistan",
-      type: "National Award",
-      headline: "50 Under 50 — NUST Pakistan Entrepreneurship Award (Faisal Orakzai)",
-      excerpt: "Faisal Orakzai was recognized in ",
-      url: null,
-      date: "2026",
-      tag: "Award"
-    },
-    {
       outlet: "The Org",
       type: "Organization Chart",
       headline: "Shamim Forever Leadership — Publicly Documented on The Org",
