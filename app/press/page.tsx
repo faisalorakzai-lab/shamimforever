@@ -7,7 +7,7 @@ import type { Metadata } from 'next'
     keywords: [
       'Shamim Forever press', 'Faisal Orakzai media coverage', 'luxury brand Pakistan press',
       'Shamim Forever recognition', 'Faisal Orakzai awards', 'Orakzai Group press',
-      'luxury brand news Pakistan', 'blockchain luxury press', 'shamimforever media',
+      'luxury brand news Pakistan', 'blockchain luxury press', 'shamimforever media'
     ],
     alternates: { canonical: 'https://www.shamimforever.com/press' },
     openGraph: {
@@ -16,15 +16,15 @@ import type { Metadata } from 'next'
       type: 'website',
       url: 'https://www.shamimforever.com/press',
       siteName: 'Shamim Forever',
-      images: [{ url: 'https://www.shamimforever.com/og-press.jpg', width: 1200, height: 630, alt: 'Shamim Forever Press Coverage' }],
+      images: [{ url: 'https://www.shamimforever.com/og-press.jpg', width: 1200, height: 630, alt: 'Shamim Forever Press Coverage' }]
     },
     twitter: {
       card: 'summary_large_image',
       title: 'Shamim Forever Press & Media Coverage',
       description: 'Media coverage and recognition for Shamim Forever — 24+ global platforms.',
-      images: ['https://www.shamimforever.com/og-press.jpg'],
+      images: ['https://www.shamimforever.com/og-press.jpg']
     },
-    robots: { index: true, follow: true, googleBot: { index: true, follow: true, 'max-image-preview': 'large', 'max-snippet': -1 } },
+    robots: { index: true, follow: true, googleBot: { index: true, follow: true, 'max-image-preview': 'large', 'max-snippet': -1 } }
   }
 
   const jsonLd = {
@@ -52,13 +52,7 @@ import type { Metadata } from 'next'
         "url": "https://www.shamimforever.com",
         "foundingDate": "2023",
         "founder": { "@type": "Person", "name": "Faisal Orakzai" },
-        "award": [
-          "NUST Pakistan 50 Under 50 Entrepreneurship Award (Founder Faisal Orakzai)",
-          "GEN Global Entrepreneurship Network — Featured Founder",
-          "Wikidata Verified Public Figure (Q140264666)",
-          "Y Combinator Startup School",
-          "Crunchbase Verified Startup Profile"
-        ],
+        
         "sameAs": [
           "https://www.wikidata.org/wiki/Q140264666",
           "https://www.crunchbase.com/organization/shamim-forever",
@@ -97,7 +91,7 @@ import type { Metadata } from 'next'
       excerpt: "Faisal Orakzai writes on the intersection of luxury commerce, blockchain authentication, and brand sovereignty — published and indexed on HackerNoon, one of the world's largest technology publishing platforms.",
       url: "https://hackernoon.com/u/faisalorakzai",
       date: "2026",
-      tag: "Luxury / Blockchain",
+      tag: "Luxury / Blockchain"
     },
     {
       outlet: "GEN Global",
@@ -106,7 +100,7 @@ import type { Metadata } from 'next'
       excerpt: "Shamim Forever founder Faisal Orakzai is recognized as a member of the Global Entrepreneurship Network (GEN), spanning 170+ countries and tens of thousands of entrepreneurs, investors, and institutions.",
       url: "https://www.genglobal.org/user/faisal1",
       date: "2026",
-      tag: "Entrepreneurship",
+      tag: "Entrepreneurship"
     },
     {
       outlet: "Y Combinator",
@@ -115,7 +109,7 @@ import type { Metadata } from 'next'
       excerpt: "Featured in Y Combinator Startup School — connecting Shamim Forever and Orakzai Bond with global technical co-founders and early-stage investors.",
       url: "https://www.startupschool.org/cofounder-matching/candidate/Hm8t79WI2",
       date: "2026",
-      tag: "Startup / VC",
+      tag: "Startup / VC"
     },
     {
       outlet: "Wikidata",
@@ -124,7 +118,7 @@ import type { Metadata } from 'next'
       excerpt: "Faisal Orakzai is documented in Wikidata (Q140264666) — the knowledge graph that powers Google Knowledge Panels, Bing entities, and Wikipedia info boxes.",
       url: "https://www.wikidata.org/wiki/Q140264666",
       date: "2025",
-      tag: "Verification",
+      tag: "Verification"
     },
     {
       outlet: "Crunchbase",
@@ -133,7 +127,7 @@ import type { Metadata } from 'next'
       excerpt: "Verified Crunchbase profile documenting Shamim Forever's founding, focus on blockchain-verified luxury goods, and Pakistan headquarters under founder Faisal Orakzai.",
       url: "https://www.crunchbase.com/person/faisal-orakzai",
       date: "2023",
-      tag: "Startup Data",
+      tag: "Startup Data"
     },
     {
       outlet: "ORCID",
@@ -142,16 +136,16 @@ import type { Metadata } from 'next'
       excerpt: "Shamim Forever founder maintains an ORCID academic profile with 67+ indexed citations — bridging blockchain research and luxury commerce innovation.",
       url: "https://orcid.org/0009-0000-0915-7272",
       date: "2024",
-      tag: "Academic",
+      tag: "Academic"
     },
     {
       outlet: "NUST Pakistan",
       type: "National Award",
       headline: "50 Under 50 — NUST Pakistan Entrepreneurship Award (Faisal Orakzai)",
-      excerpt: "Faisal Orakzai was recognized in NUST Pakistan 50 Under 50 programme — honouring Pakistan's most impactful young entrepreneurs and innovators.",
+      excerpt: "Faisal Orakzai was recognized in ",
       url: null,
       date: "2026",
-      tag: "Award",
+      tag: "Award"
     },
     {
       outlet: "The Org",
@@ -160,15 +154,15 @@ import type { Metadata } from 'next'
       excerpt: "Shamim Forever organizational structure — from Faisal Orakzai (Founder Chairman) through its creative, digital, brand, and client divisions — publicly documented on The Org.",
       url: "https://theorg.com/org/shamim-forever",
       date: "2026",
-      tag: "Organization",
-    },
+      tag: "Organization"
+    }
   ]
 
   const STATS = [
     { n: "8+",   l: "Media & Platform Features" },
     { n: "67+",  l: "Academic Citations (Founder)" },
     { n: "24+",  l: "Verified Online Profiles" },
-    { n: "2023", l: "Year Founded" },
+    { n: "2023", l: "Year Founded" }
   ]
 
   export default function SFPressPage() {
