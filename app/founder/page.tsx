@@ -445,7 +445,6 @@ export default function FounderPage() {
                   { org: 'GEN Global Entrepreneurship',     detail: 'Member — Global Entrepreneurship Network', url: 'https://www.genglobal.org/user/faisal1' },
                   { org: 'Y Combinator Startup School',     detail: 'Co-Founder Matching Candidate', url: 'https://www.startupschool.org/cofounder-matching/candidate/Hm8t79WI2' },
                   { org: 'Crunchbase',                      detail: 'Verified entrepreneur profile', url: 'https://www.crunchbase.com/person/faisal-orakzai' },
-                  { org: 'NUST Pakistan',                   detail: '50 Under 50 — Entrepreneurship Award', url: null },
                   { org: 'Ziauddin University Karachi',     detail: 'Blockchain Research Affiliation', url: null },
                   { org: 'Google Scholar',                  detail: 'Cited in 67+ Academic Publications', url: null }
                 ].map(r => (
