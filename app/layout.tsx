@@ -12,7 +12,7 @@ import { CartProvider } from '@/lib/cart-context'
     metadataBase: new URL('https://www.shamimforever.com'),
     title: {
       default: 'Shamim Forever — Sovereign Luxury Fragrances & Couture',
-      template: '%s | Shamim Forever',
+      template: '%s | Shamim Forever'
     },
     description: 'Shamim Forever — a global luxury digital house. Bespoke fragrances, sovereign jewellery, and rare couture collections. Blockchain-verified authenticity. Shop from Pakistan worldwide.',
     keywords: [
@@ -21,7 +21,7 @@ import { CartProvider } from '@/lib/cart-context'
       'luxury jewellery Pakistan', 'sovereign luxury', 'couture Pakistan',
       'buy perfume online Pakistan', 'best perfume brand Pakistan',
       'blockchain luxury', 'nft fragrance', 'shamim bloom', 'eternal empress',
-      'Faisal Orakzai', 'Chairman Faisal Orakzai', 'Orakzai Bond', 'OKBOND',
+      'Faisal Orakzai', 'Chairman Faisal Orakzai', 'Orakzai Bond', 'OKBOND'
     ],
     authors: [{ name: 'Faisal Orakzai', url: 'https://orakzaibond.com/faisal-orakzai' }],
     creator: 'Faisal Orakzai',
@@ -34,16 +34,16 @@ import { CartProvider } from '@/lib/cart-context'
       url: 'https://www.shamimforever.com',
       siteName: 'Shamim Forever',
       locale: 'en_US',
-      images: [{ url: '/logo-sf.png', width: 512, height: 512, alt: 'Shamim Forever — Sovereign Luxury' }],
+      images: [{ url: '/logo-sf.png', width: 512, height: 512, alt: 'Shamim Forever — Sovereign Luxury' }]
     },
     twitter: {
       card: 'summary_large_image',
       title: 'Shamim Forever — Sovereign Luxury by Faisal Orakzai',
       description: 'Bespoke fragrances and couture for the discerning few.',
-      images: ['/logo-sf.png'],
+      images: ['/logo-sf.png']
     },
     alternates: {
-      canonical: 'https://www.shamimforever.com',
+      canonical: 'https://www.shamimforever.com'
     },
     robots: {
       index: true,
@@ -55,29 +55,29 @@ import { CartProvider } from '@/lib/cart-context'
         noimageindex: false,
         'max-video-preview': -1,
         'max-image-preview': 'large',
-        'max-snippet': -1,
-      },
+        'max-snippet': -1
+      }
     },
     icons: {
       icon: [
         { url: '/favicon.png', sizes: '512x512', type: 'image/png' },
         { url: '/favicon.png', sizes: '192x192', type: 'image/png' },
-        { url: '/favicon.png', sizes: '32x32', type: 'image/png' },
+        { url: '/favicon.png', sizes: '32x32', type: 'image/png' }
       ],
       apple: [
-        { url: '/favicon.png', sizes: '180x180', type: 'image/png' },
+        { url: '/favicon.png', sizes: '180x180', type: 'image/png' }
       ],
       other: [
-        { rel: 'mask-icon', url: '/favicon.png', color: '#D4AF37' },
-      ],
+        { rel: 'mask-icon', url: '/favicon.png', color: '#D4AF37' }
+      ]
     },
     manifest: '/manifest.json',
     other: {
       'msapplication-TileColor': '#000000',
       'msapplication-TileImage': '/logo-sf.png',
       'msapplication-config': '/browserconfig.xml',
-      'theme-color': '#D4AF37',
-    },
+      'theme-color': '#D4AF37'
+    }
   }
 
   const richJsonLd =   {
@@ -275,10 +275,7 @@ import { CartProvider } from '@/lib/cart-context'
             { "@type": "EducationalOccupationalCredential", "name": "Founder Program — Karachi South Asia 2026", "credentialCategory": "certificate", "recognizedBy": { "@type": "Organization", "name": "Founder Institute" }, "dateCreated": "2025-04" },
             { "@type": "EducationalOccupationalCredential", "name": "Matriculation in Sciences", "credentialCategory": "degree", "recognizedBy": { "@type": "Organization", "name": "Board of Secondary Education Karachi" }, "dateCreated": "2026-04" }
           ],
-          "award": [
-          "Stevie® Gold Award — Best Young Entrepreneur, 2026 International Business Awards (Orakzai Group SMC)",
-          "NUST 50 Under 50 — Entrepreneurship"
-        ],
+          
         "knowsAbout": [
           "Blockchain Architecture",
           "Quantitative Fintech",
@@ -435,7 +432,7 @@ import { CartProvider } from '@/lib/cart-context'
                   "url": "https://faisalorakzai.com",
                   "jobTitle": "Founder & Owner"
                 },
-                "award": "International Business Awards 2026 Nomination for Pioneering Financial Infrastructure & Luxury Ecosystems",
+                
                 "sameAs": [
                   "https://x.com/shamimforeversf",
                   "https://www.linkedin.com/company/orakzaigroup",
@@ -542,7 +539,7 @@ import { CartProvider } from '@/lib/cart-context'
                   {
                     "@type": "Question",
                     "name": "What awards has Shamim Forever received?",
-                    "acceptedAnswer": { "@type": "Answer", "text": "Shamim Forever's parent group, Orakzai Group SMC, holds the Stevie® Gold Award from the 2026 International Business Awards, and an active nomination for 'Pioneering Decentralized Financial Infrastructure and Digital Luxury Ecosystems.'" }
+                    "acceptedAnswer": { "@type": "Answer", "text": "Shamim Forever's parent group, Orakzai Group SMC, holds the " }
                   },
                   {
                     "@type": "Question",
