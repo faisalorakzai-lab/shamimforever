@@ -8,7 +8,6 @@ import type { ReactNode } from 'react'
         "@id": "https://www.shamimforever.com/faisal-orakzai#profilepage",
         "url": "https://www.shamimforever.com/faisal-orakzai",
         "name": "Faisal Orakzai — Founder & Chairman, Shamim Forever",
-        "description": "Official profile of Faisal Orakzai (born 30 April 2006, Tirah, Orakzai). Founder & Chairman of Shamim Forever and Orakzai Bond (OKBOND). Stevie® Gold Award winner 2026.",
         "isPartOf": { "@type": "WebSite", "@id": "https://shamimforever.com/#website" },
         "about": { "@id": "https://www.wikidata.org/wiki/Q140264666" },
         "mainEntity": { "@id": "https://www.wikidata.org/wiki/Q140264666" },
@@ -150,11 +149,6 @@ import type { ReactNode } from 'react'
           { "@type": "EducationalOrganization", "name": "Yahya Public School", "address": { "@type": "PostalAddress", "addressLocality": "Kohat", "addressRegion": "Khyber Pakhtunkhwa", "addressCountry": "PK" } },
           { "@type": "EducationalOrganization", "name": "Madrassa Mahad-ul-Uleman", "address": { "@type": "PostalAddress", "addressLocality": "Kohat", "addressRegion": "Khyber Pakhtunkhwa", "addressCountry": "PK" } }
         ],
-        "award": [
-          "Stevie® Gold Award — Best Young Entrepreneur, 2026 International Business Awards (Orakzai Group SMC)",
-          "NUST 50 Under 50 — Entrepreneurship",
-          "2026 International Business Awards Nominee — Pioneering Decentralized Financial Infrastructure and Digital Luxury Ecosystems"
-        ],
         "knowsAbout": [
           "Blockchain Architecture",
           "Quantitative Fintech",
@@ -289,7 +283,7 @@ import type { ReactNode } from 'react'
       {
         "@type": "Question",
         "name": "What international award nominations does Faisal Orakzai hold?",
-        "acceptedAnswer": { "@type": "Answer", "text": "He holds a Stevie® Gold Award from the 2026 International Business Awards and an active professional nomination under the title: 'Faisal Orakzai: Pioneering Decentralized Financial Infrastructure and Digital Luxury Ecosystems'." }
+        "acceptedAnswer": { "@type": "Answer", "text": "He holds a " }
       },
       {
         "@type": "Question",
