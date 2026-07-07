@@ -224,8 +224,7 @@ import type { ReactNode } from 'react'
             "url": "https://orcid.org/0009-0000-0915-7272"
           }
         ],
-        "sameAs": [
-          "https://www.wikidata.org/wiki/Q140264666",
+        "sameAs":["https://imdb.me/faisalorakzai","https://www.wikidata.org/wiki/Q140264666",
           "https://orcid.org/0009-0000-0915-7272",
           "https://www.crunchbase.com/person/faisal-orakzai",
           "https://x.com/faisalorakzaii",
@@ -243,8 +242,7 @@ import type { ReactNode } from 'react'
           "https://orakzaibond.com/faisal-orakzai",
           "https://www.shamimforever.com/faisal-orakzai",
           "https://www.shamimforever.com/founder",
-          "https://www.prlog.org/13154317-young-pakistani-entrepreneur-expands-global-vision-through-okbond-and-shamim-forever.html"
-        ]
+          "https://www.prlog.org/13154317-young-pakistani-entrepreneur-expands-global-vision-through-okbond-and-shamim-forever.html"]
       }
     ]
   }
