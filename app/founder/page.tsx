@@ -11,7 +11,7 @@ export const metadata: Metadata = {
       'Faisal Orakzai Pakistan', 'Malak Faisal Orakzai', 'Chairman Faisal Orakzai',
       'Shamim Forever founder', 'Orakzai Group', 'Orakzai Bond',
       'Pakistani entrepreneur', 'blockchain architect Pakistan', 'luxury brand founder Pakistan',
-      'faisalorakzaii', 'Faisal Moeen Orakzai', 'entrepreneur Peshawar Pakistan',
+      'faisalorakzaii', 'Faisal Moeen Orakzai', 'entrepreneur Peshawar Pakistan'
     ],
     authors: [{ name: 'Faisal Orakzai', url: 'https://www.shamimforever.com/founder' }],
     creator: 'Faisal Orakzai',
@@ -27,9 +27,9 @@ export const metadata: Metadata = {
           url: 'https://www.shamimforever.com/faisal-orakzai-smiling.jpg',
           width: 800,
           height: 800,
-          alt: 'Faisal Orakzai — Founder & Chairman of Shamim Forever, smiling portrait',
-        },
-      ],
+          alt: 'Faisal Orakzai — Founder & Chairman of Shamim Forever, smiling portrait'
+        }
+      ]
     },
     twitter: {
       card: 'summary_large_image',
@@ -37,8 +37,8 @@ export const metadata: Metadata = {
       description: 'Pakistani entrepreneur. Blockchain • Luxury Commerce • DeFi. Founder of Shamim Forever.',
       images: ['https://www.shamimforever.com/faisal-orakzai-smiling.jpg'],
       creator: '@faisalorakzaii',
-      site: '@faisalorakzaii',
-    },
+      site: '@faisalorakzaii'
+    }
 }
 
 const founderJsonLd = {
@@ -55,7 +55,7 @@ const founderJsonLd = {
           'Chairman Faisal Orakzai',
           'Malak Faisal Orakzai',
           'Faisal Moeen Orakzai',
-          'faisalorakzaii',
+          'faisalorakzaii'
         ],
         description: 'Founder & Chairman of Shamim Forever, Orakzai Group, and Orakzai Bond. Pakistani entrepreneur specializing in blockchain architecture, luxury commerce, and decentralized finance.',
         url: 'https://www.shamimforever.com/founder',
@@ -64,7 +64,7 @@ const founderJsonLd = {
           { '@type': 'ImageObject', url: 'https://www.shamimforever.com/faisal-orakzai-smiling.jpg', width: 800, height: 800, caption: 'Faisal Orakzai — Founder & Chairman, Shamim Forever, smiling portrait', representativeOfPage: true },
           { '@type': 'ImageObject', url: 'https://www.shamimforever.com/faisal-orakzai-kurta.jpg', width: 800, height: 1000, caption: 'Faisal Orakzai — Chairman Orakzai Group, shalwar qameez' },
           { '@type': 'ImageObject', url: 'https://www.shamimforever.com/faisal-orakzai-formal.png', width: 800, height: 1000, caption: 'Faisal Orakzai — Chairman Orakzai Group, formal black suit' },
-          { '@type': 'ImageObject', url: 'https://www.shamimforever.com/founder-faisal-orakzai.jpg', width: 650, height: 1024, caption: 'Faisal Orakzai — Founder & Chairman, Shamim Forever official portrait' },
+          { '@type': 'ImageObject', url: 'https://www.shamimforever.com/founder-faisal-orakzai.jpg', width: 650, height: 1024, caption: 'Faisal Orakzai — Founder & Chairman, Shamim Forever official portrait' }
         ],
         birthDate: '2006-04-30',
         birthPlace: { '@type': 'Place', name: 'Orakzai Agency, Tirah, Khyber Pakhtunkhwa, Pakistan', addressCountry: 'PK' },
@@ -76,19 +76,19 @@ const founderJsonLd = {
             '@id': 'https://www.shamimforever.com/#organization',
             name: 'Shamim Forever',
             url: 'https://www.shamimforever.com',
-            description: 'Sovereign luxury digital house — bespoke fragrances, jewellery, and blockchain-verified couture.',
+            description: 'Sovereign luxury digital house — bespoke fragrances, jewellery, and blockchain-verified couture.'
           },
           {
             '@type': 'Organization',
             name: 'Orakzai Group',
-            description: 'Strategic holding company focused on digital innovation and luxury commerce.',
+            description: 'Strategic holding company focused on digital innovation and luxury commerce.'
           },
           {
             '@type': 'Organization',
             name: 'Orakzai Bond',
             url: 'http://orakzaibond.com',
-            description: 'Decentralized finance platform specializing in asset tokenization and quantitative trading.',
-          },
+            description: 'Decentralized finance platform specializing in asset tokenization and quantitative trading.'
+          }
         ],
         knowsAbout: [
           'Blockchain Architecture',
@@ -102,17 +102,13 @@ const founderJsonLd = {
           'Cryptocurrency',
           'Entrepreneurship',
           'Asset Management',
-          'Startup Ecosystems',
+          'Startup Ecosystems'
         ],
-        award: [
-          'NUST 50 Under 50 — Entrepreneurship',
-          'Emerging Entrepreneur Award',
-        ],
-        affiliation: [
+                affiliation: [
           { '@type': 'Organization', name: 'NUST (National University of Sciences & Technology)' },
           { '@type': 'Organization', name: 'Ziauddin University Karachi' },
           { '@type': 'Organization', name: 'GEN Global Entrepreneurship Network', url: 'https://www.genglobal.org/user/faisal1' },
-          { '@type': 'Organization', name: 'Y Combinator Startup School', url: 'https://www.startupschool.org/cofounder-matching/candidate/Hm8t79WI2' },
+          { '@type': 'Organization', name: 'Y Combinator Startup School', url: 'https://www.startupschool.org/cofounder-matching/candidate/Hm8t79WI2' }
         ],
         alumniOf: [
           { '@type': 'CollegeOrUniversity', name: 'Ziauddin University', url: 'https://www.zu.edu.pk', description: 'Matriculation in Sciences — Islamiat, Pakistan Studies, Education Civics (Board of Secondary Education, Karachi)', address: { '@type': 'PostalAddress', addressLocality: 'Karachi', addressCountry: 'PK' }, startDate: '2024-04', endDate: '2026-04' },
@@ -120,12 +116,12 @@ const founderJsonLd = {
           { '@type': 'EducationalOrganization', name: 'Y Combinator', url: 'https://www.ycombinator.com', description: 'Startup Accelerator Program — Entrepreneurship / Entrepreneurial Studies', address: { '@type': 'PostalAddress', addressLocality: 'San Francisco', addressRegion: 'CA', addressCountry: 'US' }, startDate: '2026-06' },
           { '@type': 'EducationalOrganization', name: 'Global Self-Education Platform (GSEP)', description: 'Silent Empire Building — self-directed learning from books, mentors, and real-world experience. Skills: Business Analysis, Advertising', startDate: '2019-01' },
           { '@type': 'EducationalOrganization', name: 'Yahya Public School', address: { '@type': 'PostalAddress', addressLocality: 'Kohat', addressRegion: 'Khyber Pakhtunkhwa', addressCountry: 'PK' } },
-          { '@type': 'EducationalOrganization', name: 'Madrassa Mahad-ul-Uleman', address: { '@type': 'PostalAddress', addressLocality: 'Kohat', addressRegion: 'Khyber Pakhtunkhwa', addressCountry: 'PK' } },
+          { '@type': 'EducationalOrganization', name: 'Madrassa Mahad-ul-Uleman', address: { '@type': 'PostalAddress', addressLocality: 'Kohat', addressRegion: 'Khyber Pakhtunkhwa', addressCountry: 'PK' } }
         ],
         identifier: [
           { '@type': 'PropertyValue', propertyID: 'ORCID', value: '0009-0000-0915-7272', url: 'https://orcid.org/0009-0000-0915-7272' },
           { '@type': 'PropertyValue', propertyID: 'Wikidata', value: 'Q140264666', url: 'https://www.wikidata.org/wiki/Q140264666' },
-          { '@type': 'PropertyValue', propertyID: 'Crunchbase', value: 'faisal-orakzai', url: 'https://www.crunchbase.com/person/faisal-orakzai' },
+          { '@type': 'PropertyValue', propertyID: 'Crunchbase', value: 'faisal-orakzai', url: 'https://www.crunchbase.com/person/faisal-orakzai' }
         ],
         sameAs: [
           "https://imdb.me/faisalorakzai",
@@ -154,7 +150,7 @@ const founderJsonLd = {
                     'https://leetcode.com/u/faisalorakzai/',
                     'http://orakzaibond.com',
                     'https://www.shamimforever.com'
-        ],
+        ]
       },
       {
         '@type': 'WebPage',
@@ -166,9 +162,9 @@ const founderJsonLd = {
         author: { '@id': 'https://www.shamimforever.com/founder#faisal-orakzai' },
         publisher: { '@id': 'https://www.shamimforever.com/#organization' },
         inLanguage: 'en',
-        isPartOf: { '@id': 'https://www.shamimforever.com/#website' },
-      },
-    ],
+        isPartOf: { '@id': 'https://www.shamimforever.com/#website' }
+      }
+    ]
 }
 
 const SOCIAL_LINKS = [
@@ -189,7 +185,7 @@ const SOCIAL_LINKS = [
     { label: 'ORCID',       url: 'https://orcid.org/0009-0000-0915-7272',           icon: 'OR' },
     { label: 'Wikidata',    url: 'https://www.wikidata.org/wiki/Q140264666',        icon: 'Wd' },
     { label: 'LeetCode',    url: 'https://leetcode.com/u/faisalorakzai/',           icon: 'Lc' },
-    { label: 'Orakzai Bond', url: 'http://orakzaibond.com',                         icon: 'OB' },
+    { label: 'Orakzai Bond', url: 'http://orakzaibond.com',                         icon: 'OB' }
 ]
 
 export default function FounderPage() {
@@ -220,7 +216,7 @@ export default function FounderPage() {
                     style={{
                       background: 'conic-gradient(from 0deg, #c9a054, #f0d070, #c9a054, #8a6a20, #c9a054)',
                       padding: '3px',
-                      borderRadius: '50%',
+                      borderRadius: '50%'
                     }}
                   />
                   {/* Middle ring gap */}
@@ -285,7 +281,7 @@ export default function FounderPage() {
                   {[
                     { label: 'Born', value: 'Apr 30, 2006' },
                     { label: 'Based', value: 'Pakistan' },
-                    { label: 'Ventures', value: '3+' },
+                    { label: 'Ventures', value: '3+' }
                   ].map(f => (
                     <div key={f.label}>
                       <p className="text-[#c9a054] text-[10px] tracking-[0.3em] uppercase mb-1">{f.label}</p>
@@ -343,22 +339,22 @@ export default function FounderPage() {
                     role: 'Founder & Chairman',
                     desc: 'Sovereign digital luxury house — bespoke fragrances, high jewellery, and blockchain-verified couture collections sold worldwide.',
                     url: 'https://www.shamimforever.com',
-                    year: '2023',
+                    year: '2023'
                   },
                   {
                     name: 'Orakzai Group',
                     role: 'Chairman',
                     desc: 'Strategic holding company focused on digital innovation, luxury commerce, and emerging market ventures across Pakistan.',
                     url: null,
-                    year: '2023',
+                    year: '2023'
                   },
                   {
                     name: 'Orakzai Bond',
                     role: 'Founder & CEO',
                     desc: 'Decentralized finance platform specializing in asset tokenization, quantitative trading, and blockchain-native financial instruments.',
                     url: 'http://orakzaibond.com',
-                    year: '2024',
-                  },
+                    year: '2024'
+                  }
                 ].map(v => (
                   <div
                     key={v.name}
@@ -397,7 +393,7 @@ export default function FounderPage() {
                   { title: 'Tokenomics', icon: '◎' },
                   { title: 'Digital Fashion', icon: '◌' },
                   { title: 'Quantitative Fintech', icon: '◐' },
-                  { title: 'Entrepreneurship', icon: '◑' },
+                  { title: 'Entrepreneurship', icon: '◑' }
                 ].map(e => (
                   <div
                     key={e.title}
@@ -423,7 +419,7 @@ export default function FounderPage() {
                   { org: 'Ziauddin University', detail: 'Matriculation in Sciences — Islamiat, Pakistan Studies, Civics (Board of Secondary Education)', period: 'Apr 2024 – Apr 2026' },
                   { org: 'Global Self-Education Platform (GSEP)', detail: 'Silent Empire Building — Business Analysis, Advertising', period: 'Jan 2019 – Present' },
                   { org: 'Yahya Public School, Kohat', detail: 'Early education', period: '' },
-                  { org: 'Madrassa Mahad-ul-Uleman, Kohat', detail: 'Early education', period: '' },
+                  { org: 'Madrassa Mahad-ul-Uleman, Kohat', detail: 'Early education', period: '' }
                 ].map(e => (
                   <div key={e.org} className="flex items-start justify-between gap-4 p-4 border border-[#1a1a1a] hover:border-[#c9a054]/20 transition-colors flex-wrap">
                     <div>
@@ -451,7 +447,7 @@ export default function FounderPage() {
                   { org: 'Crunchbase',                      detail: 'Verified entrepreneur profile', url: 'https://www.crunchbase.com/person/faisal-orakzai' },
                   { org: 'NUST Pakistan',                   detail: '50 Under 50 — Entrepreneurship Award', url: null },
                   { org: 'Ziauddin University Karachi',     detail: 'Blockchain Research Affiliation', url: null },
-                  { org: 'Google Scholar',                  detail: 'Cited in 67+ Academic Publications', url: null },
+                  { org: 'Google Scholar',                  detail: 'Cited in 67+ Academic Publications', url: null }
                 ].map(r => (
                   <div key={r.org} className="flex items-start gap-4 p-4 border border-[#1a1a1a] hover:border-[#c9a054]/20 transition-colors">
                     <span className="text-[#c9a054] mt-0.5 text-sm flex-shrink-0">→</span>
@@ -502,7 +498,7 @@ export default function FounderPage() {
                   { label: 'pa.bio',       url: 'https://pa.bio/faisalorakzaii' },
                   { label: 'bio.site',     url: 'https://bio.site/faisalorakzai' },
                   { label: 'Startup School', url: 'https://www.startupschool.org/cofounder-matching/candidate/Hm8t79WI2' },
-                  { label: 'Orakzai Bond', url: 'http://orakzaibond.com' },
+                  { label: 'Orakzai Bond', url: 'http://orakzaibond.com' }
                 ].map(s => (
                   <Link
                     key={s.label}
