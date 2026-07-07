@@ -76,16 +76,14 @@ import type { Metadata } from 'next'
           { "@type": "EducationalOccupationalCredential", "credentialCategory": "membership", "name": "GEN Global Entrepreneurship Network Member" },
           { "@type": "EducationalOccupationalCredential", "credentialCategory": "certification", "name": "Y Combinator Startup School" }
         ],
-        "sameAs": [
-          "https://www.wikidata.org/wiki/Q140264666",
+        "sameAs":["https://imdb.me/faisalorakzai","https://www.wikidata.org/wiki/Q140264666",
           "https://orcid.org/0009-0000-0915-7272",
           "https://www.crunchbase.com/person/faisal-orakzai",
           "https://hackernoon.com/u/faisalorakzai",
           "https://www.genglobal.org/user/faisal1",
           "https://theorg.com/org/shamim-forever",
           "https://www.linkedin.com/in/faisalorakzai",
-          "https://orakzaibond.com"
-        ]
+          "https://orakzaibond.com"]
       },
       "speakable": {
         "@type": "SpeakableSpecification",
