@@ -3,7 +3,7 @@ import type { Metadata } from 'next'
 
   export const metadata: Metadata = {
     title: 'Faisal Orakzai — Founder, Blockchain Architect & Luxury Brand Pioneer | Shamim Forever',
-    description: 'Faisal Orakzai is the Founder & Chairman of Shamim Forever — Pakistan first global luxury digital house. Blockchain architect, entrepreneur, and Wikidata-verified public figure (Q140264666). ,
+    description: 'Faisal Orakzai is the Founder & Chairman of Shamim Forever — Pakistan first global luxury digital house. Blockchain architect, entrepreneur, and Wikidata-verified public figure (Q140264666).',
     keywords: [
       'Faisal Orakzai', 'Faisal Orakzai founder', 'Faisal Orakzai Shamim Forever',
       'Faisal Orakzai Pakistan entrepreneur', 'Faisal Orakzai blockchain', 'Faisal Orakzai Wikidata',
