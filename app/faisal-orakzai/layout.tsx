@@ -9,8 +9,8 @@ import type { ReactNode } from 'react'
         "url": "https://www.shamimforever.com/faisal-orakzai",
         "name": "Faisal Orakzai — Founder & Chairman, Shamim Forever",
         "isPartOf": { "@type": "WebSite", "@id": "https://shamimforever.com/#website" },
-        "about": { "@id": "https://www.wikidata.org/wiki/Q140264666" },
-        "mainEntity": { "@id": "https://www.wikidata.org/wiki/Q140264666" },
+        "about": { "@id": "https://www.wikidata.org/wiki/Q140588912" },
+        "mainEntity": { "@id": "https://www.wikidata.org/wiki/Q140588912" },
         "primaryImageOfPage": {
           "@type": "ImageObject",
           "url": "https://www.shamimforever.com/founder-faisal-orakzai.jpg",
@@ -34,7 +34,7 @@ import type { ReactNode } from 'react'
       },
       {
         "@type": "Person",
-        "@id": "https://www.wikidata.org/wiki/Q140264666",
+        "@id": "https://www.wikidata.org/wiki/Q140588912",
         "name": "Faisal Orakzai",
         "givenName": "Faisal",
         "familyName": "Orakzai",
@@ -92,30 +92,35 @@ import type { ReactNode } from 'react'
           { "@type": "Language", "name": "Pashto", "alternateName": "ps" }
         ],
         "jobTitle": [
-          "Founder & Chairman",
+          "Technology Entrepreneur & Computer Scientist",
+          "Founder & Chairman — Orakzai Group",
           "Blockchain Architect",
-          "Quantitative Fintech Engineer",
-          "CEO",
-          "Entrepreneur"
+          "AI Researcher & Entrepreneur"
         ],
         "hasOccupation": [
           {
             "@type": "Occupation",
-            "name": "Entrepreneur",
+            "name": "Technology Entrepreneur",
             "occupationLocation": { "@type": "Country", "name": "Pakistan" },
-            "description": "Founder and builder of sovereign luxury and blockchain enterprises"
+            "description": "Founder and Chairman of Orakzai Group — sovereign technology holding company spanning blockchain, AI, fintech, and digital infrastructure."
+          },
+          {
+            "@type": "Occupation",
+            "name": "Computer Scientist",
+            "occupationLocation": { "@type": "Country", "name": "Pakistan" },
+            "description": "Researcher and practitioner in blockchain architecture, cryptographic systems, distributed computing, and decentralized protocol design."
           },
           {
             "@type": "Occupation",
             "name": "Blockchain Architect",
             "occupationLocation": { "@type": "Country", "name": "Pakistan" },
-            "description": "Designs and deploys Polygon-based DeFi protocols and smart contract systems"
+            "description": "Designs and deploys Polygon-based DeFi protocols and smart contract systems including Orakzai Bond (OKBOND) and Shamim Forever NFT layer."
           },
           {
             "@type": "Occupation",
-            "name": "Systems Architect",
+            "name": "Luxury Brand Founder",
             "occupationLocation": { "@type": "Country", "name": "Pakistan" },
-            "description": "Builds institutional-grade fintech and enterprise automation infrastructure"
+            "description": "Founder of Shamim Forever — Pakistan's first global luxury digital house — offering sovereign fragrances, jewellery, and blockchain-verified couture."
           }
         ],
         "affiliation": [
@@ -208,8 +213,8 @@ import type { ReactNode } from 'react'
           {
             "@type": "PropertyValue",
             "propertyID": "Wikidata",
-            "value": "Q140264666",
-            "url": "https://www.wikidata.org/wiki/Q140264666"
+            "value": "Q140588912",
+            "url": "https://www.wikidata.org/wiki/Q140588912"
           },
           {
             "@type": "PropertyValue",
@@ -218,7 +223,7 @@ import type { ReactNode } from 'react'
             "url": "https://orcid.org/0009-0000-0915-7272"
           }
         ],
-        "sameAs":["https://imdb.me/faisalorakzai","https://www.wikidata.org/wiki/Q140264666",
+        "sameAs":["https://imdb.me/faisalorakzai","https://www.wikidata.org/wiki/Q140588912",
           "https://orcid.org/0009-0000-0915-7272",
           "https://www.crunchbase.com/person/faisal-orakzai",
           "https://x.com/faisalorakzaii",

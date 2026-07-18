@@ -56,15 +56,15 @@ import type { Metadata } from 'next'
       keywords: ["Shamim Forever Lahore", "luxury boutique Lahore", "Shamim Forever expansion", "Pakistan luxury store"]
     },
     {
-      headline: "Shamim Forever Listed on Wikidata — Founder Faisal Orakzai Verified as Public Figure (Q140264666)",
-      description: "Shamim Forever founder Faisal Orakzai is now documented in Wikidata (Q140264666) — the knowledge graph powering Google Knowledge Panels and Wikipedia. This marks a milestone in the brand global credibility.",
+      headline: "Shamim Forever Listed on Wikidata — Founder Faisal Orakzai Verified as Public Figure (Q140588912)",
+      description: "Shamim Forever founder Faisal Orakzai is now documented in Wikidata (Q140588912) — the knowledge graph powering Google Knowledge Panels and Wikipedia. This marks a milestone in the brand global credibility.",
       datePublished: "2025-12-01",
       dateModified: "2026-06-26",
       author: "Faisal Orakzai",
       image: "https://www.shamimforever.com/faisal-orakzai-smiling.jpg",
-      url: "https://www.wikidata.org/wiki/Q140264666",
+      url: "https://www.wikidata.org/wiki/Q140588912",
       category: "Verification",
-      keywords: ["Faisal Orakzai Wikidata", "Q140264666", "Shamim Forever Wikidata", "luxury brand verification Pakistan"]
+      keywords: ["Faisal Orakzai Wikidata", "Q140588912", "Shamim Forever Wikidata", "luxury brand verification Pakistan"]
     },
     {
       headline: "Shamim Forever Featured on GEN Global — Luxury Brand Gains International Recognition",

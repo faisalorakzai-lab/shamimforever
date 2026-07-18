@@ -46,7 +46,7 @@ import type { Metadata } from 'next'
       "url": "https://www.shamimforever.com/atelier",
       "isPartOf": { "@type": "WebSite", "@id": "https://www.shamimforever.com/#website" },
       "about": { "@type": "Organization", "@id": "https://www.shamimforever.com/#organization", "name": "Shamim Forever" },
-      "author": { "@type": "Person", "@id": "https://www.wikidata.org/wiki/Q140264666", "name": "Faisal Orakzai" }
+      "author": { "@type": "Person", "@id": "https://www.wikidata.org/wiki/Q140588912", "name": "Faisal Orakzai" }
     }
   ]
 

@@ -54,7 +54,7 @@ import type { Metadata } from 'next'
         "founder": { "@type": "Person", "name": "Faisal Orakzai" },
         
         "sameAs": [
-          "https://www.wikidata.org/wiki/Q140264666",
+          "https://www.wikidata.org/wiki/Q140588912",
           "https://www.crunchbase.com/organization/shamim-forever",
           "https://hackernoon.com/u/faisalorakzai",
           "https://theorg.com/org/shamim-forever",
@@ -114,9 +114,9 @@ import type { Metadata } from 'next'
     {
       outlet: "Wikidata",
       type: "Verified Encyclopedia",
-      headline: "Faisal Orakzai (Founder, Shamim Forever) — Wikidata Q140264666",
-      excerpt: "Faisal Orakzai is documented in Wikidata (Q140264666) — the knowledge graph that powers Google Knowledge Panels, Bing entities, and Wikipedia info boxes.",
-      url: "https://www.wikidata.org/wiki/Q140264666",
+      headline: "Faisal Orakzai (Founder, Shamim Forever) — Wikidata Q140588912",
+      excerpt: "Faisal Orakzai is documented in Wikidata (Q140588912) — the knowledge graph that powers Google Knowledge Panels, Bing entities, and Wikipedia info boxes.",
+      url: "https://www.wikidata.org/wiki/Q140588912",
       date: "2025",
       tag: "Verification"
     },

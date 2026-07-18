@@ -120,13 +120,13 @@ const founderJsonLd = {
         ],
         identifier: [
           { '@type': 'PropertyValue', propertyID: 'ORCID', value: '0009-0000-0915-7272', url: 'https://orcid.org/0009-0000-0915-7272' },
-          { '@type': 'PropertyValue', propertyID: 'Wikidata', value: 'Q140264666', url: 'https://www.wikidata.org/wiki/Q140264666' },
+          { '@type': 'PropertyValue', propertyID: 'Wikidata', value: 'Q140588912', url: 'https://www.wikidata.org/wiki/Q140588912' },
           { '@type': 'PropertyValue', propertyID: 'Crunchbase', value: 'faisal-orakzai', url: 'https://www.crunchbase.com/person/faisal-orakzai' }
         ],
         sameAs: [
           "https://imdb.me/faisalorakzai",
           'https://faisalorakzai.com',
-                    'https://www.wikidata.org/wiki/Q140264666',
+                    'https://www.wikidata.org/wiki/Q140588912',
                     'https://orcid.org/0009-0000-0915-7272',
                     'https://www.crunchbase.com/person/faisal-orakzai',
                     'https://www.linkedin.com/in/faisalorakzaii',
@@ -183,7 +183,7 @@ const SOCIAL_LINKS = [
     { label: 'Gust',        url: 'https://gust.com/user/014bee5e-1c09-4f2d-b5ae-f5c937bbcc0e', icon: 'Gu' },
     { label: 'GEN Global',  url: 'https://www.genglobal.org/user/faisal1',          icon: 'GE' },
     { label: 'ORCID',       url: 'https://orcid.org/0009-0000-0915-7272',           icon: 'OR' },
-    { label: 'Wikidata',    url: 'https://www.wikidata.org/wiki/Q140264666',        icon: 'Wd' },
+    { label: 'Wikidata',    url: 'https://www.wikidata.org/wiki/Q140588912',        icon: 'Wd' },
     { label: 'LeetCode',    url: 'https://leetcode.com/u/faisalorakzai/',           icon: 'Lc' },
     { label: 'Orakzai Bond', url: 'http://orakzaibond.com',                         icon: 'OB' }
 ]
@@ -440,7 +440,7 @@ export default function FounderPage() {
               <h2 className="text-3xl font-light tracking-tight mb-10">Awards &amp; Affiliations</h2>
               <div className="space-y-4">
                 {[
-                  { org: 'Wikidata',                        detail: 'Q140264666 — Verified public profile', url: 'https://www.wikidata.org/wiki/Q140264666' },
+                  { org: 'Wikidata',                        detail: 'Q140588912 — Verified public profile', url: 'https://www.wikidata.org/wiki/Q140588912' },
                   { org: 'ORCID',                           detail: '0009-0000-0915-7272 — Academic researcher identifier', url: 'https://orcid.org/0009-0000-0915-7272' },
                   { org: 'GEN Global Entrepreneurship',     detail: 'Member — Global Entrepreneurship Network', url: 'https://www.genglobal.org/user/faisal1' },
                   { org: 'Y Combinator Startup School',     detail: 'Co-Founder Matching Candidate', url: 'https://www.startupschool.org/cofounder-matching/candidate/Hm8t79WI2' },
@@ -492,7 +492,7 @@ export default function FounderPage() {
                   { label: 'BeBee',        url: 'https://bebee.com/pk/people/faisalorakzai' },
                   { label: 'GEN Global',   url: 'https://www.genglobal.org/user/faisal1' },
                   { label: 'ORCID',        url: 'https://orcid.org/0009-0000-0915-7272' },
-                  { label: 'Wikidata',     url: 'https://www.wikidata.org/wiki/Q140264666' },
+                  { label: 'Wikidata',     url: 'https://www.wikidata.org/wiki/Q140588912' },
                   { label: 'LeetCode',     url: 'https://leetcode.com/u/faisalorakzai/' },
                   { label: 'pa.bio',       url: 'https://pa.bio/faisalorakzaii' },
                   { label: 'bio.site',     url: 'https://bio.site/faisalorakzai' },

@@ -52,7 +52,7 @@ import type { Metadata } from 'next'
       },
       "author": {
         "@type": "Person",
-        "@id": "https://www.wikidata.org/wiki/Q140264666",
+        "@id": "https://www.wikidata.org/wiki/Q140588912",
         "name": "Faisal Orakzai"
       },
       "inLanguage": "en"

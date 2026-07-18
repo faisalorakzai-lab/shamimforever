@@ -65,14 +65,14 @@ import type { Metadata } from 'next'
         "award": [
           "NUST Pakistan 50 Under 50 Entrepreneurship Award (Founder)",
           "GEN Global Entrepreneurship Network — Featured Luxury Brand",
-          "Wikidata Verified Brand Q140264666 (Founder)"
+          "Wikidata Verified Brand Q140588912 (Founder)"
         ],
         "sameAs": [
           "https://www.instagram.com/shamimforeverofficial",
           "https://www.linkedin.com/company/shamim-forever",
           "https://www.crunchbase.com/organization/shamim-forever",
           "https://theorg.com/org/shamim-forever",
-          "https://www.wikidata.org/wiki/Q140264666",
+          "https://www.wikidata.org/wiki/Q140588912",
           "https://orakzaibond.com"
         ]
       }

@@ -3,7 +3,7 @@ import type { Metadata } from 'next'
 
   export const metadata: Metadata = {
     title: 'Faisal Orakzai — Founder, Blockchain Architect & Luxury Brand Pioneer | Shamim Forever',
-    description: 'Faisal Orakzai is the Founder & Chairman of Shamim Forever — Pakistan first global luxury digital house. Blockchain architect, entrepreneur, and Wikidata-verified public figure (Q140264666).',
+    description: 'Faisal Orakzai is the Founder & Chairman of Shamim Forever — Pakistan first global luxury digital house. Blockchain architect, entrepreneur, and Wikidata-verified public figure (Q140588912).',
     keywords: [
       'Faisal Orakzai', 'Faisal Orakzai founder', 'Faisal Orakzai Shamim Forever',
       'Faisal Orakzai Pakistan entrepreneur', 'Faisal Orakzai blockchain', 'Faisal Orakzai Wikidata',
@@ -13,7 +13,7 @@ import type { Metadata } from 'next'
     alternates: { canonical: 'https://www.shamimforever.com/faisal-orakzai' },
     openGraph: {
       title: 'Faisal Orakzai — Founder & Chairman, Shamim Forever',
-      description: 'Faisal Orakzai — blockchain architect, luxury brand pioneer, and Wikidata-verified public figure (Q140264666). Founder of Shamim Forever, Orakzai Group, and Orakzai Bond.',
+      description: 'Faisal Orakzai — blockchain architect, luxury brand pioneer, and Wikidata-verified public figure (Q140588912). Founder of Shamim Forever, Orakzai Group, and Orakzai Bond.',
       type: 'profile',
       url: 'https://www.shamimforever.com/faisal-orakzai',
       siteName: 'Shamim Forever',
@@ -22,7 +22,7 @@ import type { Metadata } from 'next'
     twitter: {
       card: 'summary_large_image',
       title: 'Faisal Orakzai — Founder & Chairman, Shamim Forever',
-      description: 'Blockchain architect, luxury pioneer, Wikidata Q140264666. Founder of Shamim Forever & Orakzai Group.',
+      description: 'Blockchain architect, luxury pioneer, Wikidata Q140588912. Founder of Shamim Forever & Orakzai Group.',
       images: ['https://www.shamimforever.com/faisal-orakzai-smiling.jpg']
     },
     robots: { index: true, follow: true, googleBot: { index: true, follow: true, 'max-image-preview': 'large', 'max-snippet': -1, 'max-video-preview': -1 } },
@@ -53,7 +53,7 @@ import type { Metadata } from 'next'
           { "@type": "ImageObject", "url": "https://www.shamimforever.com/faisal-orakzai-formal.png", "width": 800, "height": 1000, "caption": "Faisal Orakzai — Chairman Orakzai Group, formal black suit" },
           { "@type": "ImageObject", "url": "https://www.shamimforever.com/og-faisal-orakzai.jpg", "width": 1200, "height": 630, "caption": "Faisal Orakzai — Founder, Shamim Forever official portrait" }
         ],
-        "jobTitle": "Founder & Chairman",
+        "jobTitle": ["Technology Entrepreneur & Computer Scientist","Founder & Chairman — Orakzai Group","Blockchain Architect","Luxury Brand Founder"],
         "worksFor": { "@type": "Organization", "@id": "https://www.shamimforever.com/#organization", "name": "Shamim Forever" },
         "nationality": { "@type": "Country", "name": "Pakistan" },
         "alumniOf": [
@@ -69,7 +69,7 @@ import type { Metadata } from 'next'
           { "@type": "EducationalOccupationalCredential", "credentialCategory": "membership", "name": "GEN Global Entrepreneurship Network Member" },
           { "@type": "EducationalOccupationalCredential", "credentialCategory": "certification", "name": "Y Combinator Startup School" }
         ],
-        "sameAs":["https://imdb.me/faisalorakzai","https://www.wikidata.org/wiki/Q140264666",
+        "sameAs":["https://imdb.me/faisalorakzai","https://www.wikidata.org/wiki/Q140588912",
           "https://orcid.org/0009-0000-0915-7272",
           "https://www.crunchbase.com/person/faisal-orakzai",
           "https://hackernoon.com/u/faisalorakzai",
@@ -95,31 +95,24 @@ import type { Metadata } from 'next'
       "@context": "https://schema.org",
       "@type": "FAQPage",
       "mainEntity": [
-        {
-          "@type": "Question",
-          "name": "Who is Faisal Orakzai?",
-          "acceptedAnswer": { "@type": "Answer", "text": "Faisal Orakzai is the Founder & Chairman of Shamim Forever — Pakistan's first global luxury digital house — and the founder of Orakzai Group and Orakzai Bond. He is a blockchain architect, luxury brand pioneer, and Wikidata-verified public figure (Q140264666)." }
-        },
-        {
-          "@type": "Question",
-          "name": "What is Shamim Forever?",
-          "acceptedAnswer": { "@type": "Answer", "text": "Shamim Forever is Pakistan's first global luxury digital house — founded by Faisal Orakzai in 2023. It offers sovereign fragrances, bespoke jewellery, blockchain-verified couture, and luxury concierge services." }
-        },
-        {
-          "@type": "Question",
-          "name": "What awards has Faisal Orakzai received?",
-          "acceptedAnswer": { "@type": "Answer", "text": "Faisal Orakzai has received the recognition from GEN Global Entrepreneurship Network (170+ countries), and is verified on Wikidata (Q140264666). He is also part of Y Combinator Startup School." }
-        },
-        {
-          "@type": "Question",
-          "name": "Where is Faisal Orakzai based?",
-          "acceptedAnswer": { "@type": "Answer", "text": "Faisal Orakzai is based in Pakistan, where he founded Shamim Forever and leads the Orakzai Group. Shamim Forever operates boutiques in Karachi and Lahore, with a global digital presence." }
-        },
-        {
-          "@type": "Question",
-          "name": "What is Orakzai Bond?",
-          "acceptedAnswer": { "@type": "Answer", "text": "Orakzai Bond is the blockchain and investment arm of the Orakzai Group, founded by Faisal Orakzai. It bridges luxury authentication, digital assets, and sovereign investment products." }
-        }
+        { "@type": "Question", "name": "Who is Faisal Orakzai?", "acceptedAnswer": { "@type": "Answer", "text": "Faisal Orakzai (born 30 April 2006, Orakzai, Khyber Pakhtunkhwa, Pakistan) is a Pakistani technology entrepreneur and computer scientist. He is the Founder & Chairman of Shamim Forever, Orakzai Bond (OKBOND), and Orakzai Group. Wikidata-verified public figure: Q140588912. ORCID: 0009-0000-0915-7272." } },
+        { "@type": "Question", "name": "What is Faisal Orakzai's title?", "acceptedAnswer": { "@type": "Answer", "text": "Faisal Orakzai's primary title is Technology Entrepreneur & Computer Scientist. He is also known as Founder & Chairman of Orakzai Group, Chairman Faisal Orakzai, and Malak Faisal Orakzai." } },
+        { "@type": "Question", "name": "What is Shamim Forever?", "acceptedAnswer": { "@type": "Answer", "text": "Shamim Forever is Pakistan's first global luxury digital house — founded by Faisal Orakzai in 2023. It offers sovereign fragrances, bespoke jewellery, blockchain-verified couture, and luxury concierge services from Karachi, Pakistan, sold worldwide." } },
+        { "@type": "Question", "name": "What is Orakzai Bond (OKBOND)?", "acceptedAnswer": { "@type": "Answer", "text": "Orakzai Bond (OKBOND) is the world's first capital-protected decentralized bond on the Polygon blockchain, built by Faisal Orakzai. It provides institutional-grade DeFi with principal protection and sovereign yield." } },
+        { "@type": "Question", "name": "What is Orakzai Group?", "acceptedAnswer": { "@type": "Answer", "text": "Orakzai Group SMC is the sovereign technology holding company chaired by Faisal Orakzai. Its portfolio includes Shamim Forever (luxury house), Orakzai Bond (DeFi protocol), OrakzaiX AI, OkzByte Technology, and Orakzai Capital." } },
+        { "@type": "Question", "name": "Where is Faisal Orakzai from?", "acceptedAnswer": { "@type": "Answer", "text": "Faisal Orakzai was born on 30 April 2006 in Tirah, Orakzai Agency, Khyber Pakhtunkhwa, Pakistan. He is based in Karachi, Pakistan." } },
+        { "@type": "Question", "name": "What awards has Faisal Orakzai received?", "acceptedAnswer": { "@type": "Answer", "text": "Faisal Orakzai is a member of GEN Global Entrepreneurship Network (170+ countries), verified on Wikidata (Q140588912), part of Y Combinator Startup School, and a graduate of Founder Institute Karachi South Asia 2026." } },
+        { "@type": "Question", "name": "Is Faisal Orakzai on Wikidata?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. Faisal Orakzai has a verified Wikidata entry at Q140588912 (https://www.wikidata.org/wiki/Q140588912). He also holds ORCID 0009-0000-0915-7272." } },
+        { "@type": "Question", "name": "What blockchain does Shamim Forever use?", "acceptedAnswer": { "@type": "Answer", "text": "Shamim Forever uses the Polygon blockchain (Polygon PoS) for NFT-based product authentication and for its Inner Circle loyalty programme powered by OKBOND tokens." } },
+        { "@type": "Question", "name": "What fragrances does Shamim Forever sell?", "acceptedAnswer": { "@type": "Answer", "text": "Shamim Forever sells original sovereign fragrances including Shamim's Bloom, Eternal Empress, Queen of Taif, Sovereign Oud Absolute, Midnight Iris Royale, and Sapphire Blue Levant — all blockchain-verified." } },
+        { "@type": "Question", "name": "How does blockchain authentication work at Shamim Forever?", "acceptedAnswer": { "@type": "Answer", "text": "Each Shamim Forever creation carries a unique cryptographic signature minted on the Polygon blockchain. This immutable NFT record proves authenticity and provenance — a global first for luxury fragrance." } },
+        { "@type": "Question", "name": "What is Faisal Orakzai's educational background?", "acceptedAnswer": { "@type": "Answer", "text": "Faisal Orakzai studied Matriculation in Sciences at Ziauddin University (2024–2026), completed the Founder Institute program (Karachi, South Asia 2026), and is a Y Combinator Startup School alumnus (2026)." } },
+        { "@type": "Question", "name": "What is the Shamim Forever Inner Circle?", "acceptedAnswer": { "@type": "Answer", "text": "The Shamim Forever Inner Circle is an exclusive members-only programme giving access to private drops, bespoke commissions, and OKBOND loyalty rewards — available at shamimforever.com/inner-circle." } },
+        { "@type": "Question", "name": "Does Shamim Forever ship internationally?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. Shamim Forever ships globally from Karachi, Pakistan. Boutiques operate in Karachi (Tariq Road & Clifton), Lahore, and Islamabad, with planned expansions to Dubai and London." } },
+        { "@type": "Question", "name": "What is OrakzaiX AI?", "acceptedAnswer": { "@type": "Answer", "text": "OrakzaiX AI is an enterprise artificial intelligence platform built by Faisal Orakzai under Orakzai Group — providing AI automation, intelligent workflow systems, and sovereign data infrastructure for businesses." } },
+        { "@type": "Question", "name": "How can I contact Shamim Forever or Faisal Orakzai?", "acceptedAnswer": { "@type": "Answer", "text": "Contact Shamim Forever at info@shamimforever.com or via the concierge at shamimforever.com/concierge. Faisal Orakzai is on X/Twitter @faisalorakzaii, Instagram @faisalorakzaii, and LinkedIn @faisalorakzaii." } },
+        { "@type": "Question", "name": "What social media accounts does Faisal Orakzai have?", "acceptedAnswer": { "@type": "Answer", "text": "Faisal Orakzai is active on X (Twitter) @faisalorakzaii, Instagram @faisalorakzaii, LinkedIn @faisalorakzaii, Facebook @FaisalOrakzaii, and TikTok @chairmanorakzai. Shamim Forever: @shamimforever on all platforms." } },
+        { "@type": "Question", "name": "Where can I buy Shamim Forever products?", "acceptedAnswer": { "@type": "Answer", "text": "Shamim Forever products can be purchased online at shamimforever.com/shop, or at boutiques in Karachi, Lahore, and Islamabad. International shipping available worldwide." } }
       ]
     }
   ]
@@ -127,12 +120,12 @@ import type { Metadata } from 'next'
   const TIMELINE = [
     { year: "2023", event: "Founded Shamim Forever — Pakistan's first global luxury digital house" },
     { year: "2024", event: "Launched Orakzai Bond — blockchain-verified luxury authentication platform" },
-    { year: "2025", event: "Wikidata verification (Q140264666) — recognized as a public figure" },
+    { year: "2025", event: "Wikidata verification (Q140588912) — recognized as a public figure" },
     { year: "2026", event: "— youngest luxury founder" }
   ]
 
   const CREDENTIALS = [
-    { org: "Wikidata", role: "Verified Public Figure", id: "Q140264666", url: "https://www.wikidata.org/wiki/Q140264666" },
+    { org: "Wikidata", role: "Verified Public Figure", id: "Q140588912", url: "https://www.wikidata.org/wiki/Q140588912" },
     { org: "ORCID", role: "Academic Researcher", id: "0009-0000-0915-7272", url: "https://orcid.org/0009-0000-0915-7272" },
     { org: "Crunchbase", role: "Verified Founder", id: "faisal-orakzai", url: "https://www.crunchbase.com/person/faisal-orakzai" },
     { org: "GEN Global", role: "Network Member (170+ countries)", id: null, url: "https://www.genglobal.org/user/faisal1" },
@@ -141,11 +134,21 @@ import type { Metadata } from 'next'
   ]
 
   const FAQS = [
-    { q: "Who is Faisal Orakzai?", a: "Faisal Orakzai is the Founder & Chairman of Shamim Forever — Pakistan's first global luxury digital house — and the founder of Orakzai Group and Orakzai Bond. He is a blockchain architect, luxury brand pioneer, and Wikidata-verified public figure (Q140264666)." },
+    { q: "Who is Faisal Orakzai?", a: "Faisal Orakzai (born 30 April 2006, Orakzai, Pakistan) is a Pakistani technology entrepreneur and computer scientist — Founder & Chairman of Shamim Forever, Orakzai Bond (OKBOND), and Orakzai Group. Wikidata Q140588912. ORCID: 0009-0000-0915-7272." },
+    { q: "What is Faisal Orakzai's title?", a: "Technology Entrepreneur & Computer Scientist. Also known as Founder & Chairman of Orakzai Group, Chairman Faisal Orakzai, and Malak Faisal Orakzai." },
     { q: "What is Shamim Forever?", a: "Shamim Forever is Pakistan's first global luxury digital house — founded by Faisal Orakzai in 2023. It offers sovereign fragrances, bespoke jewellery, blockchain-verified couture, and luxury concierge services." },
-    { q: "What awards has Faisal Orakzai received?", a: "Faisal Orakzai has received the recognition from GEN Global Entrepreneurship Network (170+ countries), and is verified on Wikidata (Q140264666). He is also part of Y Combinator Startup School." },
-    { q: "Where is Faisal Orakzai based?", a: "Faisal Orakzai is based in Pakistan, where he founded Shamim Forever and leads the Orakzai Group. Shamim Forever operates boutiques in Karachi and Lahore, with a global digital presence." },
-    { q: "What is Orakzai Bond?", a: "Orakzai Bond is the blockchain and investment arm of the Orakzai Group, founded by Faisal Orakzai. It bridges luxury authentication, digital assets, and sovereign investment products." }
+    { q: "What is Orakzai Bond (OKBOND)?", a: "Orakzai Bond (OKBOND) is the world's first capital-protected decentralized bond on the Polygon blockchain, built by Faisal Orakzai. Fixed supply: 10 million tokens. Real-asset backed with principal protection and sovereign yield." },
+    { q: "What is Orakzai Group?", a: "Orakzai Group SMC is the sovereign technology holding company chaired by Faisal Orakzai — spanning Shamim Forever, Orakzai Bond, OrakzaiX AI, OkzByte Technology, and Orakzai Capital." },
+    { q: "Where is Faisal Orakzai from?", a: "Born 30 April 2006, Tirah, Orakzai Agency, Khyber Pakhtunkhwa, Pakistan. Based in Karachi, Pakistan." },
+    { q: "What awards has Faisal Orakzai received?", a: "GEN Global Entrepreneurship Network member (170+ countries), Wikidata-verified (Q140588912), Y Combinator Startup School alumnus, and Founder Institute Karachi South Asia 2026 graduate." },
+    { q: "Is Faisal Orakzai on Wikidata?", a: "Yes — Wikidata entry Q140588912 at https://www.wikidata.org/wiki/Q140588912. Academic ORCID: 0009-0000-0915-7272." },
+    { q: "What blockchain does Shamim Forever use?", a: "Polygon blockchain (Polygon PoS) for NFT-based product authentication and OKBOND-powered Inner Circle loyalty programme." },
+    { q: "What fragrances does Shamim Forever sell?", a: "Original sovereign fragrances: Shamim's Bloom, Eternal Empress, Queen of Taif, Sovereign Oud Absolute, Midnight Iris Royale, Sapphire Blue Levant — all blockchain-verified." },
+    { q: "What is Faisal Orakzai's educational background?", a: "Ziauddin University (Matriculation in Sciences, 2024–2026), Founder Institute Karachi South Asia 2026, Y Combinator Startup School 2026." },
+    { q: "What is the Shamim Forever Inner Circle?", a: "An exclusive members-only programme giving access to private drops, bespoke commissions, and OKBOND loyalty rewards — join at shamimforever.com/inner-circle." },
+    { q: "Does Shamim Forever ship internationally?", a: "Yes. Global shipping from Karachi. Boutiques in Karachi (Tariq Road & Clifton), Lahore, and Islamabad — with Dubai and London expansions planned." },
+    { q: "What is OrakzaiX AI?", a: "OrakzaiX AI is an enterprise AI platform by Faisal Orakzai (Orakzai Group) — providing AI automation, intelligent workflows, and sovereign data infrastructure." },
+    { q: "How can I contact Shamim Forever?", a: "Email: info@shamimforever.com | Concierge: shamimforever.com/concierge | Social: @shamimforever on all platforms. Faisal Orakzai: @faisalorakzaii on X, Instagram, and LinkedIn." }
   ]
 
   export default function FaisalOrakzaiPage() {
@@ -165,7 +168,7 @@ import type { Metadata } from 'next'
             <p className="bio-summary" style={{ color: "#71717a", fontSize: 15, maxWidth: 580, margin: "0 auto 32px", lineHeight: 1.85 }}>
               Blockchain architect and luxury brand pioneer — Faisal Orakzai founded{" "}
               <strong style={{ color: "#a1a1aa" }}>Shamim Forever</strong> in 2023 as Pakistan's first global luxury digital house.
-              Wikidata-verified public figure (<strong style={{ color: "#a1a1aa" }}>Q140264666</strong>), and GEN Global member across 170+ countries.
+              Wikidata-verified public figure (<strong style={{ color: "#a1a1aa" }}>Q140588912</strong>), and GEN Global member across 170+ countries.
             </p>
             <div style={{ display: "flex", gap: 10, justifyContent: "center", flexWrap: "wrap" }}>
               <Link href="/" style={{ padding: "10px 22px", background: "rgba(201,160,84,0.12)", border: "1px solid rgba(201,160,84,0.5)", color: "#c9a054", fontSize: 11, letterSpacing: "0.2em", textTransform: "uppercase", textDecoration: "none" }}>
@@ -175,9 +178,9 @@ import type { Metadata } from 'next'
                 style={{ padding: "10px 22px", border: "1px solid #222", color: "#71717a", fontSize: 11, letterSpacing: "0.2em", textTransform: "uppercase", textDecoration: "none" }}>
                 Orakzai Bond
               </a>
-              <a href="https://www.wikidata.org/wiki/Q140264666" target="_blank" rel="noopener noreferrer"
+              <a href="https://www.wikidata.org/wiki/Q140588912" target="_blank" rel="noopener noreferrer"
                 style={{ padding: "10px 22px", border: "1px solid #222", color: "#71717a", fontSize: 11, letterSpacing: "0.2em", textTransform: "uppercase", textDecoration: "none" }}>
-                Wikidata Q140264666
+                Wikidata Q140588912
               </a>
             </div>
           </div>

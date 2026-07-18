@@ -21,7 +21,10 @@ import { CartProvider } from '@/lib/cart-context'
       'luxury jewellery Pakistan', 'sovereign luxury', 'couture Pakistan',
       'buy perfume online Pakistan', 'best perfume brand Pakistan',
       'blockchain luxury', 'nft fragrance', 'shamim bloom', 'eternal empress',
-      'Faisal Orakzai', 'Chairman Faisal Orakzai', 'Orakzai Bond', 'OKBOND'
+      'Faisal Orakzai', 'Chairman Faisal Orakzai', 'Malak Faisal Orakzai',
+      'Technology Entrepreneur Computer Scientist Pakistan',
+      'Faisal Orakzai Wikidata Q140588912', 'Orakzai Bond', 'OKBOND',
+      'Orakzai Group', 'OrakzaiX AI', 'faisalorakzaii'
     ],
     authors: [{ name: 'Faisal Orakzai', url: 'https://orakzaibond.com/faisal-orakzai' }],
     creator: 'Faisal Orakzai',
@@ -43,7 +46,13 @@ import { CartProvider } from '@/lib/cart-context'
       images: ['/logo-sf.png']
     },
     alternates: {
-      canonical: 'https://www.shamimforever.com'
+      canonical: 'https://www.shamimforever.com',
+      languages: {
+        'en': 'https://www.shamimforever.com',
+        'ur': 'https://www.shamimforever.com',
+        'ps': 'https://www.shamimforever.com',
+        'x-default': 'https://www.shamimforever.com',
+      }
     },
     robots: {
       index: true,
@@ -219,10 +228,10 @@ import { CartProvider } from '@/lib/cart-context'
           "name": "Pakistan"
         },
         "jobTitle": [
-          "Founder & Chairman",
+          "Technology Entrepreneur & Computer Scientist",
+          "Founder & Chairman — Orakzai Group",
           "Blockchain Architect",
-          "Quantitative Fintech Engineer",
-          "CEO"
+          "AI Researcher & Entrepreneur"
         ],
         "alumniOf": [
             {
@@ -320,8 +329,8 @@ import { CartProvider } from '@/lib/cart-context'
           {
             "@type": "PropertyValue",
             "propertyID": "Wikidata",
-            "value": "Q140264666",
-            "url": "https://www.wikidata.org/wiki/Q140264666"
+            "value": "Q140588912",
+            "url": "https://www.wikidata.org/wiki/Q140588912"
           },
           {
             "@type": "PropertyValue",
@@ -331,7 +340,7 @@ import { CartProvider } from '@/lib/cart-context'
           }
         ],
         "sameAs": [
-          "https://www.wikidata.org/wiki/Q140264666",
+          "https://www.wikidata.org/wiki/Q140588912",
           "https://orcid.org/0009-0000-0915-7272",
           "https://www.crunchbase.com/person/faisal-orakzai",
           "https://x.com/faisalorakzaii",
