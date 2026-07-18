@@ -69,14 +69,25 @@ import type { Metadata } from 'next'
           { "@type": "EducationalOccupationalCredential", "credentialCategory": "membership", "name": "GEN Global Entrepreneurship Network Member" },
           { "@type": "EducationalOccupationalCredential", "credentialCategory": "certification", "name": "Y Combinator Startup School" }
         ],
-        "sameAs":["https://imdb.me/faisalorakzai","https://www.wikidata.org/wiki/Q140588912",
+        "sameAs":["https://www.wikidata.org/wiki/Q140588912",
+          "https://faisalorakzai.com",
+          "https://faisalorakzai.com/founder",
+          "https://orakzaibond.com/faisal-orakzai",
+          "https://imdb.me/faisalorakzai",
           "https://orcid.org/0009-0000-0915-7272",
           "https://www.crunchbase.com/person/faisal-orakzai",
+          "https://x.com/faisalorakzaii",
+          "https://www.linkedin.com/in/faisalorakzaii",
+          "https://www.instagram.com/faisalorakzaii",
+          "https://web.facebook.com/faisalorakzaii",
+          "https://tiktok.com/@chairmanorakzai",
+          "https://github.com/faisalorakzai-lab",
+          "https://scholar.google.com/citations?user=ER8h90UAAAAJ",
           "https://hackernoon.com/u/faisalorakzai",
           "https://www.genglobal.org/user/faisal1",
           "https://theorg.com/org/shamim-forever",
-          "https://www.linkedin.com/in/faisalorakzai",
-          "https://orakzaibond.com"]
+          "https://linktr.ee/faisalorakzaiofficial",
+          "https://en.everybodywiki.com/Faisal_Orakzai"]
       },
       "speakable": {
         "@type": "SpeakableSpecification",
