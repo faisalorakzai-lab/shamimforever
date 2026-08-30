@@ -52,6 +52,7 @@ const organizationJsonLd = {
     'https://www.crunchbase.com/organization/shamim-forever',
     'https://www.f6s.com/company/shamimforever',
     'https://peerlist.io/faisalorakzai/project/shamim-forever',
+    'https://www.facebook.com/OfficialShamimForever',
   ],
   knowsAbout: [
     'Luxury Goods',
