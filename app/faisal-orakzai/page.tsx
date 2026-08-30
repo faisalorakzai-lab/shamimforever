@@ -3,7 +3,7 @@ import type { Metadata } from 'next'
 
   export const metadata: Metadata = {
     title: 'Faisal Orakzai — Founder, Blockchain Architect & Luxury Brand Pioneer | Shamim Forever',
-    description: 'Faisal Orakzai is the Founder & Chairman of Shamim Forever — Pakistan first global luxury digital house. Blockchain architect, entrepreneur, and Wikidata-verified public figure (Q140588912).',
+    description: 'Faisal Orakzai is the Founder & Chairman of Shamim Forever, a global luxury digital house offering sovereign fragrances, bespoke fine jewellery, blockchain-verified couture, and premium concierge services.',
     keywords: [
       'Faisal Orakzai', 'Faisal Orakzai founder', 'Faisal Orakzai Shamim Forever',
       'Faisal Orakzai Pakistan entrepreneur', 'Faisal Orakzai blockchain', 'Faisal Orakzai Wikidata',
@@ -13,7 +13,7 @@ import type { Metadata } from 'next'
     alternates: { canonical: 'https://www.shamimforever.com/faisal-orakzai' },
     openGraph: {
       title: 'Faisal Orakzai — Founder & Chairman, Shamim Forever',
-      description: 'Faisal Orakzai — blockchain architect, luxury brand pioneer, and Wikidata-verified public figure (Q140588912). Founder of Shamim Forever, Orakzai Group, and Orakzai Bond.',
+      description: 'Faisal Orakzai — Founder & Chairman of Shamim Forever. The official profile covers his role in building the global luxury digital house.',
       type: 'profile',
       url: 'https://www.shamimforever.com/faisal-orakzai',
       siteName: 'Shamim Forever',
@@ -42,7 +42,7 @@ import type { Metadata } from 'next'
       "dateModified": "2026-07-02",
       "mainEntity": {
         "@type": "Person",
-        "@id": "https://www.shamimforever.com/faisal-orakzai#person",
+        "@id": "https://faisalorakzai.com/#person",
         "name": "Faisal Orakzai",
         "givenName": "Faisal",
         "familyName": "Orakzai",

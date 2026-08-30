@@ -579,9 +579,9 @@ export default function HomePage() {
             "@context": "https://schema.org",
             "@type": "FAQPage",
             "mainEntity": [
-              { "@type": "Question", "name": "Who founded Shamim Forever?", "acceptedAnswer": { "@type": "Answer", "text": "Shamim Forever was founded by Faisal Orakzai (born 30 April 2006, Orakzai, Pakistan) — a Pakistani technology entrepreneur and computer scientist. Wikidata Q140588912. ORCID: 0009-0000-0915-7272." } },
+              { "@type": "Question", "name": "Who founded Shamim Forever?", "acceptedAnswer": { "@type": "Answer", "text": "Shamim Forever was founded by Faisal Orakzai, who serves as Founder & Chairman." } },
               { "@type": "Question", "name": "What is Shamim Forever?", "acceptedAnswer": { "@type": "Answer", "text": "Shamim Forever is Pakistan's first global luxury digital house, offering sovereign fragrances, bespoke jewellery, and blockchain-verified couture. Founded 2023 by Faisal Orakzai." } },
-              { "@type": "Question", "name": "What makes Shamim Forever unique?", "acceptedAnswer": { "@type": "Answer", "text": "Shamim Forever is the first luxury house in Pakistan to authenticate products on the Polygon blockchain. Every creation carries an immutable NFT record proving its authenticity and provenance." } },
+              { "@type": "Question", "name": "What makes Shamim Forever unique?", "acceptedAnswer": { "@type": "Answer", "text": "Shamim Forever brings together sovereign fragrances, bespoke fine jewellery, blockchain-verified couture, and premium concierge services under one luxury digital house." } },
               { "@type": "Question", "name": "What fragrances does Shamim Forever offer?", "acceptedAnswer": { "@type": "Answer", "text": "Signature collections include Shamim's Bloom, Eternal Empress, Queen of Taif, Sovereign Oud Absolute, Midnight Iris Royale, and Sapphire Blue Levant — all blockchain-verified originals." } },
               { "@type": "Question", "name": "Does Shamim Forever ship worldwide?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. Shamim Forever ships globally from Karachi, Pakistan. Boutiques operate in Karachi (Tariq Road & Clifton), Lahore, and Islamabad, with Dubai and London expansions planned." } },
               { "@type": "Question", "name": "What is the Shamim Forever Inner Circle?", "acceptedAnswer": { "@type": "Answer", "text": "The Inner Circle is an exclusive membership programme offering access to private drops, bespoke commissions, boutique opening invitations, and OKBOND loyalty rewards." } },
@@ -591,9 +591,9 @@ export default function HomePage() {
           }) }} />
           <dl itemScope itemType="https://schema.org/FAQPage" className="divide-y divide-[#0d0d0d]">
             {[
-              { q: "Who founded Shamim Forever?", a: "Shamim Forever was founded by Faisal Orakzai (born 30 April 2006, Orakzai, Khyber Pakhtunkhwa, Pakistan) — a Pakistani technology entrepreneur and computer scientist. Wikidata Q140588912. ORCID: 0009-0000-0915-7272." },
-              { q: "What is Shamim Forever?", a: "Shamim Forever is Pakistan's first global luxury digital house, offering sovereign fragrances, bespoke jewellery, and blockchain-verified couture. Founded in 2023 by Faisal Orakzai in Karachi, Pakistan." },
-              { q: "What makes Shamim Forever unique?", a: "Shamim Forever is the first luxury house in Pakistan to authenticate products on the Polygon blockchain. Every creation carries an immutable NFT record proving its authenticity and provenance globally." },
+               { q: "Who founded Shamim Forever?", a: "Shamim Forever was founded by Faisal Orakzai, who serves as Founder & Chairman." },
+               { q: "What is Shamim Forever?", a: "Shamim Forever is Pakistan's first global luxury digital house, offering sovereign fragrances, bespoke jewellery, and blockchain-verified couture. Founded in 2023 by Faisal Orakzai." },
+               { q: "What makes Shamim Forever unique?", a: "Shamim Forever brings together sovereign fragrances, bespoke fine jewellery, blockchain-verified couture, and premium concierge services under one luxury digital house." },
               { q: "What fragrances does Shamim Forever offer?", a: "Signature collections: Shamim's Bloom, Eternal Empress, Queen of Taif, Sovereign Oud Absolute, Midnight Iris Royale, Sapphire Blue Levant — all blockchain-verified originals crafted from the world's finest ingredients." },
               { q: "Does Shamim Forever ship worldwide?", a: "Yes. Global shipping from Karachi, Pakistan. Boutiques in Karachi (Tariq Road & Clifton), Lahore, and Islamabad. Dubai and London expansions planned." },
               { q: "What is the Shamim Forever Inner Circle?", a: "The Inner Circle is an exclusive membership programme offering private drops, bespoke commissions, boutique opening invitations, and OKBOND loyalty rewards." },
