@@ -1,7 +1,7 @@
 {
   "framework": "nextjs",
   "buildCommand": "next build",
-  "installCommand": "npm install --include=dev --legacy-peer-deps",
+  "installCommand": "pnpm install --frozen-lockfile",
   "outputDirectory": ".next",
   "headers": [
     {
@@ -64,5 +64,5 @@
       ]
     }
   ],
-  "nodeVersion": "22.x"
+  "nodeVersion": "20.x"
 }

@@ -48,4 +48,9 @@ Thumbs.db
 .cache/
 .local/
 .vercel
-.env*.local
+
+# Local environment files — never commit secrets
+.env
+.env.*
+!.env.example
+.next/
