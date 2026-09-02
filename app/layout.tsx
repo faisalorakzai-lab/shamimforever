@@ -372,7 +372,7 @@ import { CartProvider } from '@/lib/cart-context'
           "https://orakzaibond.com/faisal-orakzai",
           "https://www.shamimforever.com/faisal-orakzai",
           "https://www.shamimforever.com/founder"
-        ]        ]
+        ]
       },
       {
         "@type": "Organization",
