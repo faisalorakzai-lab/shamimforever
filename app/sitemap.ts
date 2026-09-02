@@ -46,24 +46,28 @@ import { MetadataRoute } from 'next'
     let collectionEntries: MetadataRoute.Sitemap = []
 
     try {
-      const { data: products } = await supabaseAdmin
+      const { data: products, error: productsError } = await supabaseAdmin
         .from('products')
-        .select('id, updated_at')
-        .eq('active', true)
+        .select('slug, updated_at')
+        .eq('is_active', true)
         .limit(500)
-      if (products) {
+      if (productsError) {
+        console.error('[sitemap] Product query failed; product URLs were omitted.', productsError)
+      } else if (products) {
         productEntries = products.map((p) => ({
-          url: `${BASE_URL}/products/${p.id}`,
+          url: `${BASE_URL}/products/${p.slug}`,
           lastModified: p.updated_at ?? now,
           changeFrequency: 'weekly' as const,
           priority: 0.85,
         }))
       }
-      const { data: collections } = await supabaseAdmin
+      const { data: collections, error: collectionsError } = await supabaseAdmin
         .from('collections')
         .select('id, updated_at')
         .limit(100)
-      if (collections) {
+      if (collectionsError) {
+        console.error('[sitemap] Collection query failed; collection URLs were omitted.', collectionsError)
+      } else if (collections) {
         collectionEntries = collections.map((c) => ({
           url: `${BASE_URL}/collections/${c.id}`,
           lastModified: c.updated_at ?? now,
@@ -71,8 +75,8 @@ import { MetadataRoute } from 'next'
           priority: 0.88,
         }))
       }
-    } catch {
-      // Supabase unavailable during build
+    } catch (error) {
+      console.error('[sitemap] Supabase unavailable; database-backed URLs were omitted.', error)
     }
 
     return [...staticEntries, ...productEntries, ...collectionEntries]
