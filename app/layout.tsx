@@ -159,7 +159,7 @@ import { CartProvider } from '@/lib/cart-context'
           "https://theorg.com/org/shamim-forever",
           "https://www.f6s.com/shamimforever",
           "https://hackernoon.com/u/shamimforever"
-        ],        ],
+        ],
         "employee": [
           { "@id": "https://www.shamimforever.com/#asma-orakzai" },
           { "@id": "https://www.shamimforever.com/#laiba-faisal-orakzai" }
@@ -244,7 +244,7 @@ import { CartProvider } from '@/lib/cart-context'
           "Founder & Chairman — Orakzai Group",
           "Blockchain Architect",
           "AI Researcher & Entrepreneur"
-        ],        ],
+        ],
         "alumniOf": [
             {
               "@type": "CollegeOrUniversity",
