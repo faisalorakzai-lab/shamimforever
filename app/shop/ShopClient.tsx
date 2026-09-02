@@ -331,7 +331,7 @@ function ShopPageInner({ initialProducts }: { initialProducts: Product[] }) {
                   const isSovereign = product.price_pkr >= SOVEREIGN_THRESHOLD
                   return (
                     <motion.div key={product.id} initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: Math.min(i * 0.05, 0.4), duration: 0.8, ease }}>
-                      <Link href={'/products/' + (product.slug || product.id)} className="block">
+                      <Link href={'/products/' + product.slug} className="block">
                         <Card3D>
                           <div className="relative aspect-[3/4] overflow-hidden bg-[#0a0a0a] mb-3 md:mb-5" style={{ transformStyle: 'preserve-3d' }}>
                             {_vidOvr ? (

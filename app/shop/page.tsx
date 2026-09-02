@@ -56,12 +56,16 @@ import { supabaseAdmin } from '@/lib/supabase-server'
   export default async function ShopPage() {
     let products: Product[] = []
     try {
-      const { data } = await supabaseAdmin
+      const { data, error } = await supabaseAdmin
         .from('products')
         .select('*')
         .eq('is_active', true)
         .order('created_at', { ascending: false })
-      products = data || []
+      if (error) {
+        console.error('[shop] Product query failed; product listings were omitted.', error)
+      } else {
+        products = data || []
+      }
     } catch {
       products = []
     }
