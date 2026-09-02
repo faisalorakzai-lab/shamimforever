@@ -1,5 +1,5 @@
 import { MetadataRoute } from 'next'
-  import { supabaseAdmin } from '@/lib/supabase-server'
+  import { supabase } from '@/lib/supabase'
 
   export const dynamic = 'force-dynamic'
 
@@ -48,7 +48,7 @@ const BASE_URL = 'https://www.shamimforever.com'
     let collectionEntries: MetadataRoute.Sitemap = []
 
     try {
-      const { data: products, error: productsError } = await supabaseAdmin
+      const { data: products, error: productsError } = await supabase
         .from('products')
         .select('slug, updated_at')
         .eq('is_active', true)
@@ -63,7 +63,7 @@ const BASE_URL = 'https://www.shamimforever.com'
           priority: 0.85,
         }))
       }
-      const { data: collections, error: collectionsError } = await supabaseAdmin
+      const { data: collections, error: collectionsError } = await supabase
         .from('collections')
         .select('id, updated_at')
         .limit(100)
