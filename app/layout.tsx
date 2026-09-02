@@ -375,6 +375,30 @@ import { CartProvider } from '@/lib/cart-context'
         ]
       },
       {
+        "@type": "Person",
+        "@id": "https://www.shamimforever.com/#asma-orakzai",
+        "name": "Dr Asma Orakzai",
+        "jobTitle": "CEO",
+        "worksFor": { "@id": "https://www.shamimforever.com/#organization" },
+        "sameAs": [
+          "https://www.crunchbase.com/person/dr-asma-orakzai",
+          "https://www.tiktok.com/@drasmaorakzai",
+          "https://www.facebook.com/drasmaorakzai1"
+        ]
+      },
+      {
+        "@type": "Person",
+        "@id": "https://www.shamimforever.com/#laiba-faisal-orakzai",
+        "name": "Laiba Faisal Orakzai",
+        "jobTitle": "Director",
+        "worksFor": { "@id": "https://www.shamimforever.com/#organization" },
+        "sameAs": [
+          "https://www.linkedin.com/in/laiba-faisal-orakzai-13853a430",
+          "https://www.f6s.com/laiba-faisal-orakzai",
+          "https://www.facebook.com/people/Laiba-Faisal-Orakzai/pfbid0Xf7cJNot9LEYrsNKeZ6Kc7eKuXqHb7tT3fDdk1kxgFA6NtKWrYycxJCSxDBQPTaUl"
+        ]
+      },
+      {
         "@type": "Organization",
         "@id": "https://orakzaibond.com/#organization",
         "name": "Orakzai Bond",
