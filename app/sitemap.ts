@@ -1,7 +1,9 @@
 import { MetadataRoute } from 'next'
   import { supabaseAdmin } from '@/lib/supabase-server'
 
-  const BASE_URL = 'https://www.shamimforever.com'
+  export const dynamic = 'force-dynamic'
+
+const BASE_URL = 'https://www.shamimforever.com'
 
   const STATIC_PAGES = [
     { path: '/faisal-orakzai', priority: 1.0,  changeFrequency: 'weekly'   as const },
