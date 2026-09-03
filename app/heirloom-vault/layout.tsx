@@ -4,6 +4,7 @@ import { absoluteUrl, breadcrumbSchema, metadataImage, organizationRef, pageSche
 
 const path = '/heirloom-vault'
 const title = 'Heirloom Vault — NFT Inheritance & Digital Succession'
+const socialTitle = `${title} | Shamim Forever`
 const description = 'Plan NFT inheritance with Shamim Forever’s Heirloom Vault: assign heirs, schedule time-locks, and preserve physical and digital provenance across generations.'
 const image = '/og-heirloom.jpg'
 
@@ -12,14 +13,14 @@ export const metadata: Metadata = {
   description,
   alternates: { canonical: absoluteUrl(path) },
   openGraph: {
-    title,
+    title: socialTitle,
     description,
     url: absoluteUrl(path),
     type: 'website',
     siteName: 'Shamim Forever',
     images: [metadataImage(image, 'Shamim Forever Heirloom Vault')],
   },
-  twitter: { card: 'summary_large_image', title, description, images: [absoluteUrl(image)] },
+  twitter: { card: 'summary_large_image', title: socialTitle, description, images: [absoluteUrl(image)] },
   robots: { index: true, follow: true },
 }
 

@@ -50,6 +50,7 @@ async function getEssentialProducts(): Promise<EssentialProduct[]> {
 
 export async function generateMetadata(): Promise<Metadata> {
   const title = 'For Him — Sovereign Fragrance Archive'
+  const socialTitle = `${title} | Shamim Forever`
   const description =
     'Shop the Shamim Forever For Him Sovereign Archive: rare oud, masculine fragrances, and blockchain-authenticated luxury allocations curated for collectors.'
   const url = `${BASE_URL}/collections/for-him`
@@ -68,7 +69,7 @@ export async function generateMetadata(): Promise<Metadata> {
     ],
     alternates: { canonical: url },
     openGraph: {
-      title: `${title} — Shamim Forever`,
+      title: socialTitle,
       description,
       url,
       siteName: 'Shamim Forever',
@@ -77,7 +78,7 @@ export async function generateMetadata(): Promise<Metadata> {
     },
     twitter: {
       card: 'summary_large_image',
-      title: `${title} — Shamim Forever`,
+      title: socialTitle,
       description,
       images: [image],
     },
