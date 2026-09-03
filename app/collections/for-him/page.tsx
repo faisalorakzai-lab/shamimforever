@@ -51,7 +51,7 @@ async function getEssentialProducts(): Promise<EssentialProduct[]> {
 export async function generateMetadata(): Promise<Metadata> {
   const title = 'For Him — Sovereign Fragrance Archive'
   const description =
-    'Discover the Shamim Forever For Him Sovereign Archive: rare oud, masculine fragrance standards, and blockchain-authenticated luxury allocations for collectors worldwide.'
+    'Shop the Shamim Forever For Him Sovereign Archive: rare oud, masculine fragrances, and blockchain-authenticated luxury allocations curated for collectors.'
   const url = `${BASE_URL}/collections/for-him`
   const image = `${BASE_URL}/ambassadors/srk-for-him-collection.png`
 
