@@ -5,6 +5,7 @@ import Link from 'next/link'
 export const metadata: Metadata = {
   title: 'About Shamim Forever — Sovereign Luxury House',
   description: 'Shamim Forever is a global luxury digital house offering bespoke fragrances, sovereign jewellery, and blockchain-verified couture collections. Founded in 2024 by Faisal Orakzai. Based in Pakistan, serving worldwide.',
+  alternates: { canonical: 'https://www.shamimforever.com/about' },
   keywords: [
     'about shamim forever', 'luxury brand', 'bespoke fragrances', 'luxury jewellery',
     'blockchain luxury', 'sovereign luxury', 'luxury house', 'couture',
