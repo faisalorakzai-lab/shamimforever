@@ -428,6 +428,7 @@ import { CartProvider } from '@/lib/cart-context'
     return (
       <html lang="en" dir="ltr">
         <head>
+          <meta charSet="UTF-8" />
           {/* Security — upgrade all HTTP to HTTPS */}
           <link rel="icon" type="image/png" href="/favicon.png" />
           <link rel="shortcut icon" type="image/png" href="/favicon.png" />
