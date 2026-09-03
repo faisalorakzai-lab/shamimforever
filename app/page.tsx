@@ -396,7 +396,12 @@ export default function HomePage() {
           </motion.div>
           <motion.div initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 1.2, ease, delay: 0.15 }}
             className="relative aspect-[3/4] md:aspect-[4/5] overflow-hidden">
-            <img src="/founder-2.png" alt="Shamim Forever Atelier" className="w-full h-full object-cover object-top"
+            <img
+              src="/shamim-bloom-velvet-taif-peony-luxury-perfume.webp"
+              alt="Shamim Bloom Velvet Taif and Peony luxury perfume by Shamim Forever"
+              loading="lazy"
+              decoding="async"
+              className="w-full h-full object-cover object-top"
               style={{ filter: 'brightness(0.55) contrast(1.1) saturate(0.8)' }} />
             <div className="absolute bottom-0 left-0 right-0 h-1/3 bg-gradient-to-t from-[#050505] to-transparent" />
             <div className="absolute bottom-5 left-5">
