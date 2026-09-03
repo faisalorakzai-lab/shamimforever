@@ -3,7 +3,8 @@ import SeoJsonLd from '@/components/SeoJsonLd'
 import { absoluteUrl, breadcrumbSchema, metadataImage, pageSchema, organizationRef } from '@/lib/seo'
 
 const path = '/care'
-const title = 'Lifetime Care & Restoration | Shamim Forever'
+const title = 'Lifetime Care & Restoration'
+const socialTitle = `${title} | Shamim Forever`
 const description = 'Protect every Shamim Forever creation with lifetime restoration, fragrance refills, jewelry polishing, climate-controlled vaulting, and NFT service tracking.'
 const image = '/og-heirloom.jpg'
 
@@ -12,7 +13,7 @@ export const metadata: Metadata = {
   description,
   alternates: { canonical: absoluteUrl(path) },
   openGraph: {
-    title,
+    title: socialTitle,
     description,
     url: absoluteUrl(path),
     type: 'website',
@@ -21,7 +22,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title,
+    title: socialTitle,
     description,
     images: [absoluteUrl(image)],
   },

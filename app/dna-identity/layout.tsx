@@ -3,7 +3,8 @@ import SeoJsonLd from '@/components/SeoJsonLd'
 import { absoluteUrl, breadcrumbSchema, metadataImage, organizationRef, pageSchema } from '@/lib/seo'
 
 const path = '/dna-identity'
-const title = 'Scent DNA & Biological Authentication | Shamim Forever'
+const title = 'Scent DNA & Biological Authentication'
+const socialTitle = `${title} | Shamim Forever`
 const description = 'Discover Shamim Forever scent DNA: nano-markers, skin chemistry, NFC verification, and a biometric-inspired profile for personalized fragrance commissions.'
 const image = '/blockchain-passport.png'
 
@@ -12,14 +13,14 @@ export const metadata: Metadata = {
   description,
   alternates: { canonical: absoluteUrl(path) },
   openGraph: {
-    title,
+    title: socialTitle,
     description,
     url: absoluteUrl(path),
     type: 'website',
     siteName: 'Shamim Forever',
     images: [metadataImage(image, 'Shamim Forever Scent DNA and Authentication')],
   },
-  twitter: { card: 'summary_large_image', title, description, images: [absoluteUrl(image)] },
+  twitter: { card: 'summary_large_image', title: socialTitle, description, images: [absoluteUrl(image)] },
   robots: { index: true, follow: true },
 }
 

@@ -3,7 +3,8 @@ import SeoJsonLd from '@/components/SeoJsonLd'
 import { absoluteUrl, breadcrumbSchema, metadataImage, pageSchema, organizationRef } from '@/lib/seo'
 
 const path = '/gallery'
-const title = 'Digital Heritage Gallery — Provenance Vault | Shamim Forever'
+const title = 'Digital Heritage Gallery — Provenance Vault'
+const socialTitle = `${title} | Shamim Forever`
 const description = 'Explore Shamim Forever’s Digital Heritage Vault, a living gallery of catalogued fragrance, jewelry, and couture creations with immutable NFT provenance records.'
 const image = '/og-heirloom.jpg'
 
@@ -12,14 +13,14 @@ export const metadata: Metadata = {
   description,
   alternates: { canonical: absoluteUrl(path) },
   openGraph: {
-    title,
+    title: socialTitle,
     description,
     url: absoluteUrl(path),
     type: 'website',
     siteName: 'Shamim Forever',
     images: [metadataImage(image, 'Shamim Forever Digital Heritage Gallery')],
   },
-  twitter: { card: 'summary_large_image', title, description, images: [absoluteUrl(image)] },
+  twitter: { card: 'summary_large_image', title: socialTitle, description, images: [absoluteUrl(image)] },
   robots: { index: true, follow: true },
 }
 

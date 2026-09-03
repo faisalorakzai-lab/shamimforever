@@ -3,7 +3,8 @@ import SeoJsonLd from '@/components/SeoJsonLd'
 import { absoluteUrl, breadcrumbSchema, metadataImage, organizationRef, pageSchema } from '@/lib/seo'
 
 const path = '/sovereign-aura'
-const title = 'Sovereign Aura — AR Product Authentication | Shamim Forever'
+const title = 'Sovereign Aura — AR Product Authentication'
+const socialTitle = `${title} | Shamim Forever`
 const description = 'Activate Shamim Forever’s digital aura to recognize creations, reveal blockchain provenance, and share authenticated ownership through augmented reality.'
 const image = '/blockchain-passport.png'
 
@@ -12,14 +13,14 @@ export const metadata: Metadata = {
   description,
   alternates: { canonical: absoluteUrl(path) },
   openGraph: {
-    title,
+    title: socialTitle,
     description,
     url: absoluteUrl(path),
     type: 'website',
     siteName: 'Shamim Forever',
     images: [metadataImage(image, 'Shamim Forever Sovereign Aura')],
   },
-  twitter: { card: 'summary_large_image', title, description, images: [absoluteUrl(image)] },
+  twitter: { card: 'summary_large_image', title: socialTitle, description, images: [absoluteUrl(image)] },
   robots: { index: true, follow: true },
 }
 

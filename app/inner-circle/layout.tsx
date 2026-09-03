@@ -3,7 +3,8 @@ import SeoJsonLd from '@/components/SeoJsonLd'
 import { absoluteUrl, breadcrumbSchema, metadataImage, organizationRef, pageSchema } from '@/lib/seo'
 
 const path = '/inner-circle'
-const title = 'Inner Circle Membership — Private Luxury Access | Shamim Forever'
+const title = 'Inner Circle Membership — Private Luxury Access'
+const socialTitle = `${title} | Shamim Forever`
 const description = 'Apply to Shamim Forever’s Inner Circle for early drops, private boutique previews, bespoke commissions, OKBOND privileges, concierge access, and archives.'
 const image = '/og-faisal-orakzai.jpg'
 
@@ -12,14 +13,14 @@ export const metadata: Metadata = {
   description,
   alternates: { canonical: absoluteUrl(path) },
   openGraph: {
-    title,
+    title: socialTitle,
     description,
     url: absoluteUrl(path),
     type: 'website',
     siteName: 'Shamim Forever',
     images: [metadataImage(image, 'Shamim Forever Inner Circle membership')],
   },
-  twitter: { card: 'summary_large_image', title, description, images: [absoluteUrl(image)] },
+  twitter: { card: 'summary_large_image', title: socialTitle, description, images: [absoluteUrl(image)] },
   robots: { index: true, follow: true },
 }
 

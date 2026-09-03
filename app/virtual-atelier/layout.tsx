@@ -3,7 +3,8 @@ import SeoJsonLd from '@/components/SeoJsonLd'
 import { absoluteUrl, breadcrumbSchema, metadataImage, organizationRef, pageSchema } from '@/lib/seo'
 
 const path = '/virtual-atelier'
-const title = 'Virtual Atelier — Private Digital Craft | Shamim Forever'
+const title = 'Virtual Atelier — Private Digital Craft'
+const socialTitle = `${title} | Shamim Forever`
 const description = 'Enter Shamim Forever’s Virtual Atelier to explore private consultations, digital craftsmanship, bespoke commissions, and a new dimension of sovereign luxury.'
 const image = '/og-atelier.jpg'
 
@@ -12,14 +13,14 @@ export const metadata: Metadata = {
   description,
   alternates: { canonical: absoluteUrl(path) },
   openGraph: {
-    title,
+    title: socialTitle,
     description,
     url: absoluteUrl(path),
     type: 'website',
     siteName: 'Shamim Forever',
     images: [metadataImage(image, 'Shamim Forever Virtual Atelier')],
   },
-  twitter: { card: 'summary_large_image', title, description, images: [absoluteUrl(image)] },
+  twitter: { card: 'summary_large_image', title: socialTitle, description, images: [absoluteUrl(image)] },
   robots: { index: true, follow: true },
 }
 
