@@ -94,6 +94,265 @@ body {
   color: #050505;
 }
 
+.edition-showcase {
+  background:
+    radial-gradient(ellipse 70% 35% at 50% 0%, rgba(201, 160, 84, 0.045), transparent 72%),
+    #050505;
+}
+
+.edition-section-kicker {
+  margin-bottom: 14px;
+  color: rgba(201, 160, 84, 0.72);
+  font-size: 9px;
+  letter-spacing: 0.55em;
+  text-transform: uppercase;
+}
+
+.edition-section-title {
+  color: #e4e4e7;
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: clamp(2.35rem, 5vw, 4.6rem);
+  font-weight: 300;
+  letter-spacing: 0.15em;
+  line-height: 0.95;
+  text-transform: uppercase;
+}
+
+.edition-section-intro {
+  max-width: 420px;
+  margin-top: 20px;
+  color: #71717a;
+  font-size: 12px;
+  font-weight: 300;
+  letter-spacing: 0.04em;
+  line-height: 1.8;
+}
+
+.edition-card {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  border: 1px solid rgba(212, 175, 55, 0.2);
+  background: linear-gradient(145deg, rgba(20, 18, 14, 0.72), rgba(7, 7, 7, 0.92));
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  transition: border-color 700ms cubic-bezier(0.16, 1, 0.3, 1), box-shadow 700ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.edition-card:hover {
+  border-color: rgba(212, 175, 55, 0.48);
+  box-shadow: 0 18px 60px rgba(0, 0, 0, 0.42), 0 0 28px rgba(201, 160, 84, 0.07);
+}
+
+.edition-card-media {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  background: linear-gradient(160deg, #10100f, #050505 72%);
+}
+
+.edition-card-media::after {
+  position: absolute;
+  z-index: 2;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 38%;
+  background: linear-gradient(to top, rgba(5, 5, 5, 0.82), transparent);
+  content: '';
+  pointer-events: none;
+}
+
+.edition-card-glow {
+  position: absolute;
+  z-index: 0;
+  top: 50%;
+  left: 50%;
+  width: 72%;
+  aspect-ratio: 1;
+  border-radius: 999px;
+  background: radial-gradient(circle, rgba(201, 160, 84, 0.18) 0%, rgba(100, 48, 30, 0.08) 34%, transparent 72%);
+  filter: blur(20px);
+  opacity: 0.72;
+  transform: translate(-50%, -50%);
+  transition: opacity 700ms ease, transform 900ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.edition-card:hover .edition-card-glow {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1.12);
+}
+
+.edition-card-image {
+  position: relative;
+  z-index: 1;
+  display: block;
+  width: 100%;
+  height: 100%;
+  padding: clamp(12px, 2vw, 24px);
+  object-fit: contain;
+  object-position: center;
+  transform: scale(1);
+  transition: transform 900ms cubic-bezier(0.16, 1, 0.3, 1), filter 900ms ease;
+}
+
+.edition-card-media video.edition-card-image {
+  padding: 0;
+  object-fit: cover;
+}
+
+.edition-card:hover .edition-card-image {
+  filter: saturate(1.06);
+  transform: scale(1.03);
+}
+
+.edition-card-sheen {
+  position: absolute;
+  z-index: 3;
+  top: -20%;
+  left: -70%;
+  width: 45%;
+  height: 150%;
+  background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+  transform: rotate(18deg);
+  transition: left 1000ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.edition-card:hover .edition-card-sheen {
+  left: 130%;
+}
+
+.edition-card-index {
+  position: absolute;
+  z-index: 4;
+  top: 14px;
+  left: 15px;
+  color: rgba(228, 228, 231, 0.5);
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 14px;
+  letter-spacing: 0.14em;
+}
+
+.edition-card-overlay-cta {
+  position: absolute;
+  z-index: 4;
+  right: 14px;
+  bottom: 14px;
+  padding: 9px 11px;
+  border: 1px solid rgba(212, 175, 55, 0.62);
+  background: rgba(5, 5, 5, 0.72);
+  color: #d4af37;
+  font-size: 7px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  transform: translateY(160%);
+  transition: transform 700ms cubic-bezier(0.16, 1, 0.3, 1), background 400ms ease, box-shadow 400ms ease;
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+}
+
+.edition-card:hover .edition-card-overlay-cta,
+.edition-card:focus-within .edition-card-overlay-cta {
+  background: rgba(201, 160, 84, 0.94);
+  box-shadow: 0 0 18px rgba(201, 160, 84, 0.2);
+  color: #050505;
+  transform: translateY(0);
+}
+
+.edition-card-info {
+  display: flex;
+  min-height: 148px;
+  flex: 1;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 18px 17px 20px;
+}
+
+.edition-card-kicker {
+  margin-bottom: 9px;
+  color: rgba(201, 160, 84, 0.72);
+  font-size: 7px;
+  letter-spacing: 0.38em;
+  line-height: 1.4;
+  text-transform: uppercase;
+}
+
+.edition-card-title {
+  color: #e4e4e7;
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: clamp(1rem, 1.7vw, 1.35rem);
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  line-height: 1.18;
+  transition: color 500ms ease;
+}
+
+.edition-card:hover .edition-card-title {
+  color: #d4af37;
+}
+
+.edition-card-price {
+  margin-top: 10px;
+  color: rgba(201, 160, 84, 0.78);
+  font-size: 10px;
+  font-weight: 300;
+  letter-spacing: 0.18em;
+}
+
+.edition-card-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  color: #71717a;
+  font-size: 7px;
+  letter-spacing: 0.25em;
+  line-height: 1.4;
+  text-transform: uppercase;
+  transition: color 500ms ease;
+}
+
+.edition-card-link span {
+  color: rgba(201, 160, 84, 0.7);
+  font-size: 12px;
+  letter-spacing: 0;
+  transition: transform 500ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.edition-card:hover .edition-card-link {
+  color: #d4d4d8;
+}
+
+.edition-card:hover .edition-card-link span {
+  transform: translate(3px, -3px);
+}
+
+@media (max-width: 640px) {
+  .edition-card-info {
+    min-height: 132px;
+    gap: 16px;
+    padding: 14px 12px 16px;
+  }
+
+  .edition-card-kicker {
+    margin-bottom: 7px;
+    font-size: 6px;
+    letter-spacing: 0.26em;
+  }
+
+  .edition-card-price {
+    margin-top: 8px;
+    font-size: 8px;
+    letter-spacing: 0.12em;
+  }
+
+  .edition-card-link {
+    gap: 6px;
+    font-size: 6px;
+    letter-spacing: 0.16em;
+  }
+}
+
 .luxury-input {
   background: transparent;
   border: none;

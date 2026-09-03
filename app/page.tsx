@@ -55,66 +55,81 @@ function ParticleField() {
 }
 
 function ProductCard({ product, index }: { product: Product; index: number }) {
-    const vidOvr = PRODUCT_VIDEO_OVERRIDES[product.slug] || null
-    const imgOvr = PRODUCT_IMAGE_OVERRIDES[product.slug]
-    const imgSrc = imgOvr ? (Array.isArray(imgOvr) ? imgOvr[0] : imgOvr) : product.images?.[0]
-    return (
-      <motion.div
-        initial={{ opacity: 0, y: 50 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: '-40px' }}
-        transition={{ delay: index * 0.12, duration: 1.2, ease }}
-      >
-        <Link href={`/products/${product.slug}`} className="block group">
-          <div className="relative aspect-[3/4] bg-[#0a0a0a] overflow-hidden mb-3 md:mb-5">
-            {vidOvr ? (
-              <video src={vidOvr} autoPlay muted loop playsInline
-                className="w-full h-full object-cover group-hover:scale-[1.05] transition-transform duration-[1400ms]"
-                style={{ transitionTimingFunction: 'cubic-bezier(0.16,1,0.3,1)' }}
-              />
-            ) : imgSrc ? (
-              <img src={imgSrc} alt={product.name} loading="lazy"
-                className="w-full h-full object-cover group-hover:scale-[1.05] transition-transform duration-[1400ms]"
-                style={{ transitionTimingFunction: 'cubic-bezier(0.16,1,0.3,1)' }}
-              />
-            ) : (
-              <div className="w-full h-full flex items-center justify-center">
-                <img src="/logo-icon.png" alt="SF" className="w-10 h-10 object-contain" style={{ opacity: 0.08 }} />
-              </div>
-            )}
-            <div className="absolute inset-0 bg-gradient-to-t from-[#050505]/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
-            <div className="absolute bottom-0 left-0 right-0 p-3 md:p-4 translate-y-full group-hover:translate-y-0 transition-transform duration-700" style={{ transitionTimingFunction: 'cubic-bezier(0.16,1,0.3,1)' }}>
-              <span className="block w-full text-center text-[7px] md:text-[8px] tracking-[0.35em] uppercase text-[#c9a054] border border-[#c9a054]/40 py-2 bg-[#050505]/80 backdrop-blur-sm">
-                View Creation
-              </span>
-            </div>
-            {(product as any).main_category?.name && (
-              <div className="absolute top-2 left-2">
-                <span className="text-[6px] tracking-[0.3em] uppercase text-[#c9a054] bg-[#050505]/80 px-2 py-1">
-                  {(product as any).main_category.name}
-                </span>
-              </div>
-            )}
+  const vidOvr = PRODUCT_VIDEO_OVERRIDES[product.slug] || null
+  const imgOvr = PRODUCT_IMAGE_OVERRIDES[product.slug]
+  const imgSrc = imgOvr ? (Array.isArray(imgOvr) ? imgOvr[0] : imgOvr) : product.images?.[0]
+  const category = (product as any).main_category?.name
+
+  return (
+    <motion.article
+      initial={{ opacity: 0, y: 50 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: '-40px' }}
+      transition={{ delay: index * 0.12, duration: 1.2, ease }}
+      className="edition-card group h-full"
+    >
+      <Link href={`/products/${product.slug}`} className="flex h-full flex-col">
+        <div className="edition-card-media">
+          <div className="edition-card-glow" aria-hidden="true" />
+          {vidOvr ? (
+            <video
+              src={vidOvr}
+              autoPlay
+              muted
+              loop
+              playsInline
+              className="edition-card-image"
+            />
+          ) : imgSrc ? (
+            <img
+              src={imgSrc}
+              alt={`${product.name} luxury fragrance by Shamim Forever`}
+              loading="lazy"
+              decoding="async"
+              className="edition-card-image"
+            />
+          ) : (
+            <img src="/logo-icon.png" alt="Shamim Forever" className="edition-card-image opacity-10" />
+          )}
+          <div className="edition-card-sheen" aria-hidden="true" />
+          <span className="edition-card-index" aria-hidden="true">
+            {String(index + 1).padStart(2, '0')}
+          </span>
+          <span className="edition-card-overlay-cta">View Edition <span aria-hidden="true">↗</span></span>
+        </div>
+        <div className="edition-card-info">
+          <div>
+            <p className="edition-card-kicker">{category || 'The House Collection'}</p>
+            <h3 className="edition-card-title">{product.name}</h3>
+            <p className="edition-card-price">$ {product.price_usd} USD</p>
           </div>
-          <h3 className="font-serif font-light text-sm md:text-base tracking-[0.12em] text-zinc-200 group-hover:text-[#c9a054] transition-colors duration-500 leading-tight mb-1 line-clamp-1">
-            {product.name}
-          </h3>
-          <p className="text-[#c9a054]/70 text-xs font-light tracking-widest">$ {product.price_usd} USD</p>
-        </Link>
-      </motion.div>
-    )
-  }
+          <span className="edition-card-link">Discover the composition <span aria-hidden="true">↗</span></span>
+        </div>
+      </Link>
+    </motion.article>
+  )
+}
   
 function ProductSkeleton({ index }: { index: number }) {
   return (
-    <motion.div initial={{ opacity: 0, y: 50 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: index * 0.12, duration: 1.2, ease }}>
-      <div className="relative aspect-[3/4] bg-[#0a0a0a] overflow-hidden mb-3 md:mb-5 border border-[#0d0d0d]">
-        <div className="w-full h-full flex items-center justify-center">
-          <img src="/logo-icon.png" alt="SF" className="w-10 h-10 object-contain" style={{ opacity: 0.06 }} />
+    <motion.div
+      initial={{ opacity: 0, y: 50 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ delay: index * 0.12, duration: 1.2, ease }}
+      className="edition-card h-full"
+    >
+      <div className="edition-card-media">
+        <div className="edition-card-glow" aria-hidden="true" />
+        <div className="h-full w-full animate-pulse bg-white/[0.02]" />
+      </div>
+      <div className="edition-card-info">
+        <div className="space-y-3">
+          <div className="h-2 w-20 animate-pulse bg-[#c9a054]/10" />
+          <div className="h-4 w-3/4 animate-pulse bg-white/[0.06]" />
+          <div className="h-3 w-1/3 animate-pulse bg-[#c9a054]/10" />
         </div>
       </div>
-      <div className="h-3 w-32 bg-[#111] mb-2 opacity-50" />
-      <div className="h-3 w-20 bg-[#0d0d0d] opacity-40" />
     </motion.div>
   )
 }
@@ -411,10 +426,30 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* PRODUCT SHOWCASE */}
-      <section className="border-t border-[#0d0d0d] pb-14 md:pb-24">
+      {/* OUR EDITIONS / PRODUCT SHOWCASE */}
+      <section className="edition-showcase border-t border-[#0d0d0d] pb-16 md:pb-28">
+        <div className="px-5 pt-16 md:px-10 md:pt-24 lg:px-20">
+          <div className="mx-auto flex max-w-[1400px] flex-col gap-6 md:flex-row md:items-end md:justify-between">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.9, ease }}
+            >
+              <p className="edition-section-kicker">The House Collection</p>
+              <h2 className="edition-section-title">Our Editions</h2>
+              <p className="edition-section-intro">
+                Fragrance as artifact. Discover the compositions that define Shamim Forever.
+              </p>
+            </motion.div>
+            <p className="hidden max-w-xs pb-1 text-right text-[10px] font-light leading-relaxed tracking-[0.08em] text-zinc-600 md:block">
+              Curated in small quantities.<br />Made to be remembered.
+            </p>
+          </div>
+        </div>
+
         {/* Category tabs */}
-        <div className="flex items-center justify-between border-b border-[#0d0d0d] overflow-x-auto scrollbar-none">
+        <div className="mt-12 flex items-center justify-between overflow-x-auto border-y border-[#0d0d0d] scrollbar-none md:mt-16">
           <div className="flex flex-shrink-0">
             {CATEGORY_TABS.map((cat, i) => (
               <button key={cat.id} onClick={() => handleCategory(cat.slug)}
@@ -434,11 +469,11 @@ export default function HomePage() {
         </div>
 
         {/* Product grid */}
-        <div className="px-4 md:px-10 lg:px-20 pt-8 md:pt-12">
+        <div className="px-4 pt-8 md:px-10 md:pt-12 lg:px-20">
           <AnimatePresence mode="wait">
             <motion.div key={activeCategory} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.35 }}>
               {loadingProducts ? (
-                <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-8">
+                <div className="grid grid-cols-2 items-stretch gap-3 md:grid-cols-3 md:gap-8">
                   {[0,1,2,3,4,5].map(i => <ProductSkeleton key={i} index={i} />)}
                 </div>
               ) : products.length === 0 ? (
@@ -447,7 +482,7 @@ export default function HomePage() {
                   <p className="text-[8px] tracking-[0.4em] uppercase text-zinc-800">The vault is being curated</p>
                 </div>
               ) : (
-                <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-8">
+                <div className="grid grid-cols-2 items-stretch gap-3 md:grid-cols-3 md:gap-8">
                   {products.map((p, i) => <ProductCard key={p.id} product={p} index={i} />)}
                 </div>
               )}
