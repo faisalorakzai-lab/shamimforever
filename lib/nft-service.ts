@@ -41,7 +41,7 @@ import { createWalletClient, createPublicClient, http, parseAbi, type Address } 
     archiveNumber: string,
     mintDate: string,
   ): NFTMetadata {
-    const APP_URL = process.env.NEXT_PUBLIC_APP_URL || 'https://shamimforever.com'
+    const APP_URL = process.env.NEXT_PUBLIC_APP_URL || 'https://www.shamimforever.com'
     const videoUrl = `${APP_URL}/products/shamims-bloom/shamim-bloom-hero.mp4`
     return {
       name: `Shamim Bloom — Founder Reserve #${String(tokenId).padStart(4, '0')}`,
@@ -98,7 +98,7 @@ import { createWalletClient, createPublicClient, http, parseAbi, type Address } 
 
     const pk = (pkRaw.startsWith('0x') ? pkRaw : `0x${pkRaw}`) as `0x${string}`
     const account = privateKeyToAccount(pk)
-    const APP_URL = process.env.NEXT_PUBLIC_APP_URL || 'https://shamimforever.com'
+    const APP_URL = process.env.NEXT_PUBLIC_APP_URL || 'https://www.shamimforever.com'
     const metadataUri = `${APP_URL}/api/nft/metadata/${tokenId}`
 
     const walletClient = createWalletClient({

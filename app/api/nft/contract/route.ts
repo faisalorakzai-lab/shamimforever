@@ -3,7 +3,7 @@ import { NextResponse } from 'next/server'
   export const runtime = 'nodejs'
 
   export async function GET() {
-    const APP_URL = process.env.NEXT_PUBLIC_APP_URL || 'https://shamimforever.com'
+    const APP_URL = process.env.NEXT_PUBLIC_APP_URL || 'https://www.shamimforever.com'
     return NextResponse.json({
       name: 'House of Shamim Forever — Sovereign Passport',
       description: 'The Shamim Bloom Sovereign Passport is a permanent, blockchain-verified proof of ownership for the Shamim Bloom Founder Reserve fragrance. Minted on Polygon Mainnet. Non-burnable. OpenSea compatible. Limited to 50 Founder pieces.',

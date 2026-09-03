@@ -10,7 +10,7 @@
    *   1. Compile with Solidity 0.8.20 + OpenZeppelin Contracts 5.x
    *   2. Deploy with constructor(owner, baseURI)
    *      owner   = your Polygon wallet (receives mint rights)
-   *      baseURI = https://shamimforever.com/api/nft/metadata/
+   *      baseURI = https://www.shamimforever.com/api/nft/metadata/
    *   3. Verify on Polygonscan for OpenSea compatibility
    */
 
@@ -41,7 +41,7 @@
       /**
        * @notice Mint a Sovereign Passport NFT to a buyer's wallet
        * @param  recipient  Buyer's Polygon wallet address
-       * @param  uri        Full metadata URI (https://shamimforever.com/api/nft/metadata/{id})
+       * @param  uri        Full metadata URI (https://www.shamimforever.com/api/nft/metadata/{id})
        */
       function safeMint(address recipient, string memory uri)
           external
@@ -85,7 +85,7 @@
        * @notice OpenSea storefront metadata
        */
       function contractURI() external pure returns (string memory) {
-          return "https://shamimforever.com/api/nft/contract";
+          return "https://www.shamimforever.com/api/nft/contract";
       }
   }
   

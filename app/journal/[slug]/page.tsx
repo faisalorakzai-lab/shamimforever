@@ -1,7 +1,7 @@
 import { Metadata } from 'next'
 import ArticleClient from './ArticleClient'
 
-const BASE = 'https://shamimforever.com'
+const BASE = 'https://www.shamimforever.com'
 
 type ArticleMeta = {
   title: string; description: string; image: string

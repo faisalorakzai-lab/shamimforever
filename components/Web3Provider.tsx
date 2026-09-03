@@ -15,7 +15,7 @@
   import '@rainbow-me/rainbowkit/styles.css'
 
   // ── Sovereign domain constants ───────────────────────────────────────────────
-  const APP_URL = 'https://shamimforever.com'
+  const APP_URL = 'https://www.shamimforever.com'
   const APP_NAME = 'Shamim Forever'
   const APP_DESCRIPTION = 'House of Shamim Forever — Sovereign Luxury · Blockchain-Verified Fragrances & Jewellery on Polygon'
   const APP_ICON = `${APP_URL}/logo-sf.png`
@@ -96,7 +96,7 @@
               disclaimer: ({ Text, Link }) => (
                 <Text>
                   You are connecting to{' '}
-                  <Link href="https://shamimforever.com">
+                  <Link href="https://www.shamimforever.com">
                     shamimforever.com
                   </Link>{' '}
                   — the only official sovereign domain. Never sign transactions on any other site.

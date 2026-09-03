@@ -69,7 +69,7 @@ Domain:      shamimforever.com        →  Custom SSL/TLS
 
 <div align="center">
 
-**[🌐 Visit shamimforever.com](https://shamimforever.com)** &nbsp;·&nbsp; **[📸 Instagram](#)** &nbsp;·&nbsp; **[💬 WhatsApp](#)**
+**[🌐 Visit shamimforever.com](https://www.shamimforever.com)** &nbsp;·&nbsp; **[📸 Instagram](#)** &nbsp;·&nbsp; **[💬 WhatsApp](#)**
 
 <br/>
 

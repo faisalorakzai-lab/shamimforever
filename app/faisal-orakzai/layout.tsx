@@ -8,7 +8,7 @@ import type { ReactNode } from 'react'
         "@id": "https://www.shamimforever.com/faisal-orakzai#profilepage",
         "url": "https://www.shamimforever.com/faisal-orakzai",
         "name": "Faisal Orakzai — Founder & Chairman, Shamim Forever",
-        "isPartOf": { "@type": "WebSite", "@id": "https://shamimforever.com/#website" },
+        "isPartOf": { "@type": "WebSite", "@id": "https://www.shamimforever.com/#website" },
         "about": { "@id": "https://www.wikidata.org/wiki/Q140588912" },
         "mainEntity": { "@id": "https://www.wikidata.org/wiki/Q140588912" },
         "primaryImageOfPage": {

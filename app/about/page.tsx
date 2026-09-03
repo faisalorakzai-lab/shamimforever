@@ -14,7 +14,7 @@ export const metadata: Metadata = {
     title: 'About Shamim Forever — Sovereign Luxury House',
     description: 'A global luxury digital house offering bespoke fragrances, sovereign jewellery, and blockchain-verified couture collections.',
     type: 'website',
-    url: 'https://shamimforever.com/about',
+    url: 'https://www.shamimforever.com/about',
     images: [{ url: '/logo-sf.png', width: 512, height: 512, alt: 'Shamim Forever' }],
   },
   twitter: {
