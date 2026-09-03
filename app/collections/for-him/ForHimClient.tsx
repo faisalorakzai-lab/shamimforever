@@ -1,6 +1,6 @@
 'use client'
 
-import { useRef, useState } from 'react'
+import { useRef } from 'react'
 import { motion, useScroll, useTransform } from 'framer-motion'
 import Link from 'next/link'
 
@@ -284,8 +284,11 @@ export default function ForHimCollectionPage({ essentialProducts = [] }: { essen
             House of Shamim Forever — Sovereign Archive
           </motion.p>
           <motion.div {...reveal(0.1)} style={{ marginBottom: 16 }}>
-            <p style={{ fontFamily: SERIF, fontSize: 'clamp(3rem,10vw,8rem)', fontWeight: 300, color: '#f0ece4', lineHeight: 0.9, fontStyle: 'italic', letterSpacing: '-0.01em' }}>The</p>
-            <p style={{ fontFamily: SERIF, fontSize: 'clamp(3rem,10vw,8rem)', fontWeight: 300, color: '#f0ece4', lineHeight: 0.9, letterSpacing: '0.15em' }}>SOVEREIGN</p>
+            <h1 style={{ fontFamily: SERIF, fontSize: 'clamp(3rem,10vw,8rem)', fontWeight: 300, color: '#f0ece4', lineHeight: 0.9, margin: 0 }}>
+              <span style={{ display: 'block', fontStyle: 'italic', letterSpacing: '-0.01em' }}>The</span>
+              <span style={{ display: 'block', letterSpacing: '0.15em' }}>SOVEREIGN</span>
+              <span className="sr-only"> For Him Luxury Fragrance Archive</span>
+            </h1>
           </motion.div>
           <motion.div {...reveal(0.2)} style={{ display: 'flex', alignItems: 'center', gap: 20, marginBottom: 28 }}>
             <div style={{ width: 60, height: 1, background: '#c9a054' }} />

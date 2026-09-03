@@ -1,117 +1,193 @@
-'use client'
-
-import { useState, useEffect } from 'react'
-import { motion } from 'framer-motion'
-import Link from 'next/link'
-import { supabase } from '@/lib/supabase'
+import type { Metadata } from 'next'
+import { notFound } from 'next/navigation'
+import { supabaseAdmin } from '@/lib/supabase-server'
 import type { Collection, Product } from '@/types'
-import { formatPKR } from '@/lib/utils'
+import CollectionDetailClient from './CollectionDetailClient'
 
-export default function CollectionDetailPage({ params }: { params: { id: string } }) {
-  const [collection, setCollection] = useState<Collection | null>(null)
-  const [products, setProducts] = useState<Product[]>([])
-  const [loading, setLoading] = useState(true)
+const BASE_URL = 'https://www.shamimforever.com'
+export const revalidate = 300
 
-  useEffect(() => {
-    async function fetchData() {
-      const [{ data: col }, { data: prods }] = await Promise.all([
-        supabase.from('collections').select('*').eq('id', params.id).single(),
-        supabase.from('products').select('*').eq('collection_id', params.id).eq('is_active', true),
-      ])
-      if (col) setCollection(col)
-      if (prods) setProducts(prods)
-      setLoading(false)
-    }
-    fetchData()
-  }, [params.id])
+async function getCollection(id: string): Promise<Collection | null> {
+  const { data: bySlug } = await supabaseAdmin
+    .from('collections')
+    .select('*')
+    .eq('slug', id)
+    .maybeSingle()
 
-  if (loading) {
-    return (
-      <div className="min-h-screen bg-[#050505] pt-20 flex items-center justify-center">
-        <p className="luxury-meta">Accessing Sovereign Vault...</p>
-      </div>
-    )
+  if (bySlug) return bySlug
+
+  const { data: byId } = await supabaseAdmin
+    .from('collections')
+    .select('*')
+    .eq('id', id)
+    .maybeSingle()
+
+  return byId ?? null
+}
+
+async function getCollectionProducts(collectionId: string): Promise<Product[]> {
+  const { data } = await supabaseAdmin
+    .from('products')
+    .select('*')
+    .eq('collection_id', collectionId)
+    .eq('is_active', true)
+    .order('is_featured', { ascending: false })
+    .order('created_at', { ascending: false })
+
+  return data ?? []
+}
+
+export async function generateStaticParams() {
+  try {
+    const { data } = await supabaseAdmin
+      .from('collections')
+      .select('slug')
+      .eq('is_active', true)
+
+    return (data ?? []).map((collection: Pick<Collection, 'slug'>) => ({ id: collection.slug }))
+  } catch {
+    return []
   }
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: { id: string }
+}): Promise<Metadata> {
+  const collection = await getCollection(params.id)
 
   if (!collection) {
-    return (
-      <div className="min-h-screen bg-[#050505] pt-20 flex flex-col items-center justify-center gap-8">
-        <p className="font-serif text-4xl font-light text-zinc-700">Collection Not Found</p>
-        <Link href="/collections" className="luxury-btn text-[9px]">All Collections</Link>
-      </div>
-    )
+    return {
+      title: 'Collection Not Found — Shamim Forever',
+      robots: { index: false, follow: false },
+    }
+  }
+
+  const collectionUrl = `${BASE_URL}/collections/${collection.slug}`
+  const description =
+    collection.description ||
+    `Explore the ${collection.name} collection by Shamim Forever — sovereign luxury fragrances, jewellery, and cosmetics crafted in Pakistan for collectors worldwide.`
+  const image = collection.cover_image
+    ? collection.cover_image.startsWith('http')
+      ? collection.cover_image
+      : `${BASE_URL}${collection.cover_image}`
+    : `${BASE_URL}/logo-sf.png`
+
+  return {
+    title: `${collection.name} — Luxury Collection`,
+    description: description.slice(0, 160),
+    keywords: [
+      collection.name,
+      `${collection.name} collection`,
+      'Shamim Forever',
+      'luxury collection Pakistan',
+      'sovereign luxury',
+      'shamimforever.com',
+    ],
+    alternates: { canonical: collectionUrl },
+    openGraph: {
+      title: `${collection.name} — Shamim Forever`,
+      description: description.slice(0, 160),
+      url: collectionUrl,
+      siteName: 'Shamim Forever',
+      type: 'website',
+      images: [{ url: image, width: 1200, height: 1200, alt: `${collection.name} — Shamim Forever` }],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: `${collection.name} — Shamim Forever`,
+      description: description.slice(0, 160),
+      images: [image],
+    },
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: { index: true, follow: true, 'max-image-preview': 'large', 'max-snippet': -1 },
+    },
+  }
+}
+
+function CollectionJsonLd({
+  collection,
+  products,
+}: {
+  collection: Collection
+  products: Product[]
+}) {
+  const collectionUrl = `${BASE_URL}/collections/${collection.slug}`
+  const image = collection.cover_image
+    ? collection.cover_image.startsWith('http')
+      ? collection.cover_image
+      : `${BASE_URL}${collection.cover_image}`
+    : `${BASE_URL}/logo-sf.png`
+
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'CollectionPage',
+        '@id': `${collectionUrl}#collectionpage`,
+        name: collection.name,
+        description:
+          collection.description ||
+          `Explore the ${collection.name} collection by Shamim Forever.`,
+        url: collectionUrl,
+        image,
+        isPartOf: { '@type': 'WebSite', '@id': `${BASE_URL}/#website` },
+        publisher: {
+          '@type': 'Organization',
+          '@id': `${BASE_URL}/#organization`,
+          name: 'Shamim Forever',
+        },
+        mainEntity: { '@id': `${collectionUrl}#products` },
+      },
+      {
+        '@type': 'ItemList',
+        '@id': `${collectionUrl}#products`,
+        name: `${collection.name} products`,
+        numberOfItems: products.length,
+        itemListElement: products.map((product, index) => ({
+          '@type': 'ListItem',
+          position: index + 1,
+          name: product.name,
+          url: `${BASE_URL}/products/${product.slug}`,
+        })),
+      },
+      {
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: 'Home', item: BASE_URL },
+          { '@type': 'ListItem', position: 2, name: 'Collections', item: `${BASE_URL}/collections` },
+          { '@type': 'ListItem', position: 3, name: collection.name, item: collectionUrl },
+        ],
+      },
+    ],
   }
 
   return (
-    <div className="min-h-screen bg-[#050505] pt-20">
-      <div className="border-b border-[#1a1a1a] py-24 px-6 md:px-12 lg:px-20 relative overflow-hidden">
-        {collection.cover_image && (
-          <div className="absolute inset-0">
-            <img src={collection.cover_image} alt="" className="w-full h-full object-cover opacity-10" />
-            <div className="absolute inset-0 bg-gradient-to-b from-[#050505]/80 to-[#050505]" />
-          </div>
-        )}
-        <div className="max-w-[1600px] mx-auto relative z-10">
-          <Link href="/collections" className="luxury-meta hover:text-[#c9a054] transition-colors mb-8 inline-block">
-            ← All Collections
-          </Link>
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-          >
-            <p className="luxury-meta mb-6">Collection</p>
-            <h1 className="font-serif text-6xl md:text-8xl font-light tracking-[0.2em] uppercase text-zinc-100 mb-8">
-              {collection.name}
-            </h1>
-            {collection.description && (
-              <p className="text-zinc-500 font-light max-w-lg leading-relaxed">{collection.description}</p>
-            )}
-          </motion.div>
-        </div>
-      </div>
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+    />
+  )
+}
 
-      <div className="max-w-[1600px] mx-auto px-6 md:px-12 lg:px-20 py-20">
-        {products.length === 0 ? (
-          <div className="text-center py-40">
-            <p className="luxury-meta">Establishing Secure Connection to Sovereign Vault...</p>
-          </div>
-        ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
-            {products.map((product, i) => (
-              <motion.div
-                key={product.id}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                whileHover={{ y: -8 }}
-              >
-                <Link href={`/products/${product.id}`} className="block group">
-                  <div className="aspect-[3/4] bg-[#0a0a0a] mb-6 overflow-hidden">
-                    {product.images?.[0] ? (
-                      <img
-                        src={product.images[0]}
-                        alt={product.name}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000"
-                      />
-                    ) : (
-                      <div className="w-full h-full flex items-center justify-center">
-                        <p className="font-serif text-6xl text-[#c9a054]/10">SF</p>
-                      </div>
-                    )}
-                  </div>
-                  <p className="luxury-meta mb-2">{collection.name}</p>
-                  <h3 className="font-serif text-xl font-light tracking-[0.2em] uppercase text-zinc-100 mb-2 group-hover:text-[#c9a054] transition-colors duration-500">
-                    {product.name}
-                  </h3>
-                  <p className="text-zinc-400 text-sm font-light">{formatPKR(product.price_pkr)}</p>
-                </Link>
-              </motion.div>
-            ))}
-          </div>
-        )}
-      </div>
-    </div>
+export default async function CollectionDetailPage({
+  params,
+}: {
+  params: { id: string }
+}) {
+  const collection = await getCollection(params.id)
+  if (!collection) notFound()
+  const resolvedCollection = collection as Collection
+
+  const products = await getCollectionProducts(resolvedCollection.id)
+
+  return (
+    <>
+      <CollectionJsonLd collection={resolvedCollection} products={products} />
+      <CollectionDetailClient collection={resolvedCollection} products={products} />
+    </>
   )
 }
