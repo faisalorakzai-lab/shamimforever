@@ -5,6 +5,14 @@ const nextConfig = {
     compress: true,
     poweredByHeader: false,
     trailingSlash: false,
+  async rewrites() {
+    return [
+      {
+        source: '/products/:id',
+        destination: '/product-detail?id=:id',
+      },
+    ]
+  },
   images: {
     domains: [
       'res.cloudinary.com',
