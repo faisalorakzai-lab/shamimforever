@@ -19,12 +19,8 @@ import { CartProvider } from '@/lib/cart-context'
       'luxury fragrances Pakistan', 'bespoke perfume Pakistan', 'shamim forever',
       'luxury perfume online', 'oud perfume', 'rose attar', 'taif rose',
       'luxury jewellery Pakistan', 'sovereign luxury', 'couture Pakistan',
-      'buy perfume online Pakistan', 'best perfume brand Pakistan',
       'blockchain luxury', 'nft fragrance', 'shamim bloom', 'eternal empress',
-      'Faisal Orakzai', 'Chairman Faisal Orakzai', 'Malak Faisal Orakzai',
-      'Technology Entrepreneur Computer Scientist Pakistan',
-      'Faisal Orakzai Wikidata Q140588912', 'Orakzai Bond', 'OKBOND',
-      'Orakzai Group', 'OrakzaiX AI', 'faisalorakzaii'
+      'Pakistan luxury brand', 'digital luxury house', 'Web3 luxury'
     ],
     authors: [{ name: 'Faisal Orakzai', url: 'https://orakzaibond.com/faisal-orakzai' }],
     creator: 'Faisal Orakzai',
@@ -47,12 +43,6 @@ import { CartProvider } from '@/lib/cart-context'
     },
     alternates: {
       canonical: 'https://www.shamimforever.com',
-      languages: {
-        'en': 'https://www.shamimforever.com',
-        'ur': 'https://www.shamimforever.com',
-        'ps': 'https://www.shamimforever.com',
-        'x-default': 'https://www.shamimforever.com',
-      }
     },
     robots: {
       index: true,
@@ -147,9 +137,9 @@ import { CartProvider } from '@/lib/cart-context'
           "Pakistani Luxury Fashion"
         ],
         "sameAs": [
-          "https://www.instagram.com/shamiimforever",
-          "https://x.com/shamiimforever",
-          "https://www.facebook.com/shamiimforever",
+          "https://www.instagram.com/shamimforever",
+          "https://x.com/shamimforever",
+          "https://www.facebook.com/shamimforever",
           "https://www.tiktok.com/@shamim.forever",
           "https://www.linkedin.com/company/shamimforever",
           "https://linktr.ee/shamimforever",
@@ -189,14 +179,6 @@ import { CartProvider } from '@/lib/cart-context'
         "publisher": {
           "@id": "https://www.shamimforever.com/#organization"
         },
-        "potentialAction": {
-          "@type": "SearchAction",
-          "target": {
-            "@type": "EntryPoint",
-            "urlTemplate": "https://www.shamimforever.com/shop?q={search_term_string}"
-          },
-          "query-input": "required name=search_term_string"
-        }
       },
       {
         "@type": "Person",
@@ -462,24 +444,6 @@ import { CartProvider } from '@/lib/cart-context'
           <script
               type="application/ld+json"
               dangerouslySetInnerHTML={{ __html: JSON.stringify(richJsonLd) }}
-            />
-            {/* WebSite + SearchAction Schema */}
-            <script
-              type="application/ld+json"
-              dangerouslySetInnerHTML={{ __html: JSON.stringify({
-                "@context": "https://schema.org",
-                "@type": "WebSite",
-                "url": "https://www.shamimforever.com/",
-                "name": "Shamim Forever",
-                "potentialAction": {
-                  "@type": "SearchAction",
-                  "target": {
-                    "@type": "EntryPoint",
-                    "urlTemplate": "https://www.shamimforever.com/search?q={search_term_string}"
-                  },
-                  "query-input": "required name=search_term_string"
-                }
-              }) }}
             />
             {/* Product Schema — Shamim Forever Royal Blue Sapphire Set */}
             <script

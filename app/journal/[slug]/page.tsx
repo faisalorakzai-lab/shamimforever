@@ -256,7 +256,7 @@ export default function ArticlePage({ params }: { params: { slug: string } }) {
         url: `${BASE}/journal/${params.slug}`,
         isPartOf: { '@type': 'Blog', '@id': `${BASE}/journal`, name: 'Shamim Forever Journal' },
         author: { '@type': 'Organization', name: 'Shamim Forever', url: BASE },
-        publisher: { '@type': 'Organization', name: 'Shamim Forever', url: BASE, logo: { '@type': 'ImageObject', url: `${BASE}/favicon.ico` } },
+        publisher: { '@type': 'Organization', name: 'Shamim Forever', url: BASE, logo: { '@type': 'ImageObject', url: `${BASE}/logo-sf.png` } },
         mainEntityOfPage: { '@type': 'WebPage', '@id': `${BASE}/journal/${params.slug}` },
       },
       {

@@ -30,7 +30,6 @@ const BASE_URL = 'https://www.shamimforever.com'
     { path: '/care',            priority: 0.80, changeFrequency: 'monthly'  as const },
     { path: '/delivery',        priority: 0.80, changeFrequency: 'monthly'  as const },
     { path: '/vault',           priority: 0.80, changeFrequency: 'monthly'  as const },
-    { path: '/wallet',          priority: 0.78, changeFrequency: 'monthly'  as const },
     { path: '/time-archive',    priority: 0.78, changeFrequency: 'monthly'  as const },
   ]
 

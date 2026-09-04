@@ -260,12 +260,12 @@ export default function HomePage() {
             className="text-[9px] tracking-[0.55em] uppercase text-[#c9a054] mb-5">
             Sovereign Luxury House
           </motion.p>
-          <motion.h1 initial={{ opacity: 0, y: 35 }} animate={{ opacity: 1, y: 0 }}
+          <motion.div initial={{ opacity: 0, y: 35 }} animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5, duration: 1.6, ease }}
             className="font-serif font-light tracking-[0.1em] leading-[0.9] text-zinc-100 mb-4"
             style={{ fontSize: 'clamp(3.4rem, 16vw, 5.5rem)' }}>
             Shamim<br />Forever
-          </motion.h1>
+          </motion.div>
           <motion.div initial={{ scaleX: 0 }} animate={{ scaleX: 1 }} transition={{ delay: 0.9, duration: 1.2 }}
             className="w-10 h-px bg-[#c9a054]/60 origin-left mb-5" />
           <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 1.0, duration: 1.2 }}

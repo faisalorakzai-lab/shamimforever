@@ -1,49 +1,15 @@
 import { NextResponse } from 'next/server'
 
-const BASE_URL = 'https://www.shamimforever.com'
-
-const NEWS_ARTICLES = [
-    {
-      url: `${BASE_URL}/faisal-orakzai`,
-      title: 'Faisal Orakzai — Founder & Chairman, Shamim Forever | Blockchain Entrepreneur',
-      publication: 'Shamim Forever',
-      lang: 'en',
-      publishedAt: '2026-06-01T00:00:00Z',
-      keywords: 'Faisal Orakzai, Shamim Forever founder, blockchain entrepreneur Pakistan, Orakzai Bond CEO',
-    },
-    {
-      url: `${BASE_URL}/founder`,
-      title: 'Faisal Orakzai — Founder Story | Building Shamim Forever from Pakistan',
-      publication: 'Shamim Forever',
-      lang: 'en',
-      publishedAt: '2026-06-01T00:00:00Z',
-      keywords: 'Faisal Orakzai, Shamim Forever, luxury brand Pakistan, blockchain luxury',
-    },
-    {
-      url: `${BASE_URL}/our-story`,
-      title: 'Shamim Forever — Sovereign Luxury Digital House Founded 2023',
-      publication: 'Shamim Forever',
-      lang: 'en',
-      publishedAt: '2026-06-01T00:00:00Z',
-      keywords: 'Shamim Forever story, luxury fragrance Pakistan, sovereign digital luxury, Faisal Orakzai',
-    },
-    {
-      url: `${BASE_URL}/dna-identity`,
-      title: 'Shamim Forever DNA Identity — Blockchain-Verified Luxury Authentication',
-      publication: 'Shamim Forever',
-      lang: 'en',
-      publishedAt: '2026-06-15T00:00:00Z',
-      keywords: 'blockchain luxury authentication, NFT fragrance, Shamim Forever DNA',
-    },
-    {
-      url: `${BASE_URL}/heirloom-vault`,
-      title: 'Shamim Forever Heirloom Vault — Heritage Luxury Archives',
-      publication: 'Shamim Forever',
-      lang: 'en',
-      publishedAt: '2026-06-15T00:00:00Z',
-      keywords: 'luxury heirloom, heritage fragrance, Shamim Forever vault',
-    },
-]
+// This sitemap intentionally contains no entries until the site has a dedicated
+// news article URL for each report. Evergreen pages are not Google News articles.
+const NEWS_ARTICLES: Array<{
+  url: string
+  title: string
+  publication: string
+  lang: string
+  publishedAt: string
+  keywords: string
+}> = []
 
 export async function GET() {
     const xml = `<?xml version="1.0" encoding="UTF-8"?>

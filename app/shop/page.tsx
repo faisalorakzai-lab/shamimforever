@@ -59,7 +59,7 @@ import { supabaseAdmin } from '@/lib/supabase-server'
       const { data } = await supabaseAdmin
         .from('products')
         .select('*')
-        .eq('active', true)
+        .eq('is_active', true)
         .order('created_at', { ascending: false })
       products = data || []
     } catch {

@@ -43,7 +43,7 @@ export default function JournalLayout({ children }: { children: ReactNode }) {
       '@type': 'Organization',
       name: 'Shamim Forever',
       url: 'https://www.shamimforever.com',
-      logo: { '@type': 'ImageObject', url: 'https://www.shamimforever.com/favicon.ico' },
+      logo: { '@type': 'ImageObject', url: 'https://www.shamimforever.com/logo-sf.png' },
     },
     breadcrumb: {
       '@type': 'BreadcrumbList',

@@ -21,7 +21,11 @@ export const metadata: Metadata = {
     images: [metadataImage(image, 'Shamim Forever secure checkout')],
   },
   twitter: { card: 'summary_large_image', title: socialTitle, description, images: [absoluteUrl(image)] },
-  robots: { index: true, follow: true },
+  robots: {
+    index: false,
+    follow: false,
+    googleBot: { index: false, follow: false },
+  },
 }
 
 const schemas = [
