@@ -5,6 +5,7 @@ const nextConfig = {
     compress: true,
     poweredByHeader: false,
     trailingSlash: false,
+  // Product catalogue routing is kept here so slug links resolve in production.
   async rewrites() {
     return [
       {
