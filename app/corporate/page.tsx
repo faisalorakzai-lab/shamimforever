@@ -5,14 +5,15 @@ export const metadata: Metadata = { title: 'Corporate | Shamim Forever', descrip
 
 const links = [
   ['/about', 'About Shamim Forever', 'House story, philosophy, history, and vision.'],
-  ['/team', 'Founder & Leadership', 'Faisal Orakzai, Dr Asma Orakzai, and Laiba Faisal Orakzai.'],
+  ['/founder-leadership', 'Founder & Leadership', 'Faisal Orakzai, Dr Asma Orakzai, and Laiba Faisal Orakzai.'],
+  ['/leadership-governance', 'Leadership & Governance', 'Leadership roles, management philosophy, and long-term stewardship principles.'],
   ['/press', 'Press & Media', 'Official description, coverage, assets, and enquiries.'],
   ['/brand-facts', 'Brand Facts', 'A concise factual reference for the house.'],
   ['/corporate-information', 'Corporate Information', 'Public information and governance principles.'],
   ['/sustainability', 'Sustainability', 'Responsible sourcing, longevity, care, and standards.'],
   ['/careers', 'Careers', 'Future opportunities and house culture.'],
   ['/investor-relations', 'Investor Relations', 'Partnership and expansion principles.'],
-  ['/news', 'Newsroom', 'Announcements, launches, and company news.'],
+  ['/newsroom', 'Newsroom', 'Announcements, launches, product launches, and company news.'],
   ['/authenticate', 'Authenticity & Digital Passport', 'Product identity, provenance, and verification.'],
 ]
 

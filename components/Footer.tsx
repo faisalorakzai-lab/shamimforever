@@ -37,10 +37,15 @@ const INFRA_LINKS = [
 
 const CORPORATE_LINKS = [
   { label: 'Corporate', href: '/corporate' },
-  { label: 'Press', href: '/press' },
+  { label: 'Founder & Leadership', href: '/founder-leadership' },
+  { label: 'Leadership & Governance', href: '/leadership-governance' },
+  { label: 'Press & Media', href: '/press' },
+  { label: 'Brand Facts', href: '/brand-facts' },
+  { label: 'Corporate Information', href: '/corporate-information' },
+  { label: 'Sustainability', href: '/sustainability' },
   { label: 'Careers', href: '/careers' },
   { label: 'Investor Relations', href: '/investor-relations' },
-  { label: 'Sustainability', href: '/sustainability' },
+  { label: 'Newsroom', href: '/newsroom' },
   { label: 'Policies & Legal', href: '/policies' },
 ]
 

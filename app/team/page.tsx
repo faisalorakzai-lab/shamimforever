@@ -21,7 +21,7 @@ import type { Metadata } from 'next'
     twitter: {
       card: 'summary_large_image',
       title: 'Shamim Forever Team & Leadership',
-      description: 'Founded and led by Faisal Orakzai, Dr Asma Orakzai, and Laiba Faisal Orakzai — creative, digital, brand, and client experience.'
+      description: 'Founded and led by Faisal Orakzai, Dr Asma Orakzai, and Laiba Faisal Orakzai — creative, digital, brand, and client experience.',
       images: ['https://www.shamimforever.com/og-team.jpg'],
     },
     robots: { index: true, follow: true, googleBot: { index: true, follow: true, 'max-image-preview': 'large', 'max-snippet': -1 } },
