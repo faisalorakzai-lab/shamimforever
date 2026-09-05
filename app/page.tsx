@@ -608,48 +608,29 @@ export default function HomePage() {
         </motion.div>
       </section>
 
-      {/* FAQ — visible section required by Google for FAQ rich results */}
-      <section aria-label="Frequently Asked Questions" className="border-t border-[#0d0d0d] py-16 md:py-28 px-5 md:px-12 lg:px-20">
-        <div className="max-w-3xl mx-auto">
-          <p className="text-[9px] tracking-[0.55em] uppercase text-zinc-700 mb-5">Questions & Answers</p>
-          <h2 className="font-serif font-light text-3xl md:text-4xl tracking-[0.05em] text-zinc-100 mb-12">
-            About Shamim Forever &amp; Faisal Orakzai
-          </h2>
-          <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "FAQPage",
-            "mainEntity": [
-              { "@type": "Question", "name": "Who founded Shamim Forever?", "acceptedAnswer": { "@type": "Answer", "text": "Shamim Forever was founded by Faisal Orakzai (born 30 April 2006, Orakzai, Pakistan) — a Pakistani technology entrepreneur and computer scientist. Wikidata Q140588912. ORCID: 0009-0000-0915-7272." } },
-              { "@type": "Question", "name": "What is Shamim Forever?", "acceptedAnswer": { "@type": "Answer", "text": "Shamim Forever is Pakistan's first global luxury digital house, offering sovereign fragrances, bespoke jewellery, and blockchain-verified couture. Founded 2023 by Faisal Orakzai." } },
-              { "@type": "Question", "name": "What makes Shamim Forever unique?", "acceptedAnswer": { "@type": "Answer", "text": "Shamim Forever is the first luxury house in Pakistan to authenticate products on the Polygon blockchain. Every creation carries an immutable NFT record proving its authenticity and provenance." } },
-              { "@type": "Question", "name": "What fragrances does Shamim Forever offer?", "acceptedAnswer": { "@type": "Answer", "text": "Signature collections include Shamim's Bloom, Eternal Empress, Queen of Taif, Sovereign Oud Absolute, Midnight Iris Royale, and Sapphire Blue Levant — all blockchain-verified originals." } },
-              { "@type": "Question", "name": "Does Shamim Forever ship worldwide?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. Shamim Forever ships globally from Karachi, Pakistan. Boutiques operate in Karachi (Tariq Road & Clifton), Lahore, and Islamabad, with Dubai and London expansions planned." } },
-              { "@type": "Question", "name": "What is the Shamim Forever Inner Circle?", "acceptedAnswer": { "@type": "Answer", "text": "The Inner Circle is an exclusive membership programme offering access to private drops, bespoke commissions, boutique opening invitations, and OKBOND loyalty rewards." } },
-              { "@type": "Question", "name": "What is OKBOND and how does it relate to Shamim Forever?", "acceptedAnswer": { "@type": "Answer", "text": "OKBOND (Orakzai Bond) is the proprietary digital currency built by Faisal Orakzai on the Polygon blockchain. Inner Circle members can use OKBOND to receive a 10% sovereign discount on all Shamim Forever purchases." } },
-              { "@type": "Question", "name": "How can I contact Shamim Forever?", "acceptedAnswer": { "@type": "Answer", "text": "Email info@shamimforever.com, use the concierge at shamimforever.com/concierge, or follow @shamimforever on Instagram, X, and LinkedIn." } }
-            ]
-          }) }} />
-          <dl itemScope itemType="https://schema.org/FAQPage" className="divide-y divide-[#0d0d0d]">
-            {[
-              { q: "Who founded Shamim Forever?", a: "Shamim Forever was founded by Faisal Orakzai (born 30 April 2006, Orakzai, Khyber Pakhtunkhwa, Pakistan) — a Pakistani technology entrepreneur and computer scientist. Wikidata Q140588912. ORCID: 0009-0000-0915-7272." },
-              { q: "What is Shamim Forever?", a: "Shamim Forever is Pakistan's first global luxury digital house, offering sovereign fragrances, bespoke jewellery, and blockchain-verified couture. Founded in 2023 by Faisal Orakzai in Karachi, Pakistan." },
-              { q: "What makes Shamim Forever unique?", a: "Shamim Forever is the first luxury house in Pakistan to authenticate products on the Polygon blockchain. Every creation carries an immutable NFT record proving its authenticity and provenance globally." },
-              { q: "What fragrances does Shamim Forever offer?", a: "Signature collections: Shamim's Bloom, Eternal Empress, Queen of Taif, Sovereign Oud Absolute, Midnight Iris Royale, Sapphire Blue Levant — all blockchain-verified originals crafted from the world's finest ingredients." },
-              { q: "Does Shamim Forever ship worldwide?", a: "Yes. Global shipping from Karachi, Pakistan. Boutiques in Karachi (Tariq Road & Clifton), Lahore, and Islamabad. Dubai and London expansions planned." },
-              { q: "What is the Shamim Forever Inner Circle?", a: "The Inner Circle is an exclusive membership programme offering private drops, bespoke commissions, boutique opening invitations, and OKBOND loyalty rewards." },
-              { q: "What is OKBOND and how does it relate to Shamim Forever?", a: "OKBOND (Orakzai Bond) is the proprietary digital currency built by Faisal Orakzai on Polygon. Inner Circle members receive a 10% sovereign discount on Shamim Forever purchases when paying with OKBOND." },
-              { q: "How can I contact Shamim Forever?", a: "Email info@shamimforever.com, use the concierge at shamimforever.com/concierge, or follow @shamimforever on Instagram, X, and LinkedIn. Founder: @faisalorakzaii." },
-            ].map(({ q, a }) => (
-              <div key={q} itemScope itemProp="mainEntity" itemType="https://schema.org/Question" className="py-6 md:py-8">
-                <dt itemProp="name" className="font-serif font-light text-sm md:text-base text-zinc-200 tracking-wide mb-3">{q}</dt>
-                <div itemScope itemProp="acceptedAnswer" itemType="https://schema.org/Answer">
-                  <dd itemProp="text" className="text-zinc-600 text-xs md:text-sm leading-relaxed">{a}</dd>
-                </div>
-              </div>
-            ))}
-          </dl>
-        </div>
-      </section>
+      {/* FAQ preview — detailed answers live on the dedicated FAQ page */}
+        <section aria-labelledby="homepage-faq-heading" className="border-t border-[#0d0d0d] py-16 md:py-28 px-5 md:px-12 lg:px-20">
+          <div className="max-w-3xl mx-auto">
+            <p className="text-[9px] tracking-[0.55em] uppercase text-zinc-700 mb-5">Questions &amp; Answers</p>
+            <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between mb-12">
+              <h2 id="homepage-faq-heading" className="font-serif font-light text-3xl md:text-4xl tracking-[0.05em] text-zinc-100">The House, Clearly Defined.</h2>
+              <Link href="/faq" className="shrink-0 text-[9px] tracking-[0.4em] uppercase text-[#c9a054] transition-colors hover:text-[#e4c27a]">View all answers →</Link>
+            </div>
+            <div className="divide-y divide-[#0d0d0d] border-y border-[#0d0d0d]">
+              {[
+                { q: "What is Shamim Forever?", a: "Shamim Forever is a global luxury house creating fine fragrances, high jewellery, rare cosmetics, and couture experiences for collectors." },
+                { q: "What products does Shamim Forever offer?", a: "The house offers bespoke fragrances, oud compositions, high jewellery, rare cosmetics, couture pieces, and limited-edition collector releases." },
+                { q: "How is authenticity verified?", a: "Eligible creations include authenticity documentation and selected blockchain-anchored provenance details for long-term verification." },
+                { q: "Does Shamim Forever ship internationally?", a: "International delivery is available for eligible products, with shipping, insurance, duties, and timing confirmed at checkout or through private concierge." },
+              ].map(({ q, a }) => (
+                <details key={q} className="group">
+                  <summary className="flex cursor-pointer list-none items-center justify-between gap-6 py-6 text-left text-sm md:text-base text-zinc-200 transition-colors hover:text-[#c9a054] [&::-webkit-details-marker]:hidden"><span>{q}</span><span aria-hidden="true" className="shrink-0 text-xl font-light text-[#c9a054] transition-transform duration-300 group-open:rotate-45">+</span></summary>
+                  <p className="max-w-2xl pb-6 pr-10 text-xs md:text-sm leading-relaxed text-zinc-600">{a}</p>
+                </details>
+              ))}
+            </div>
+          </div>
+        </section>
 
     </div>
   )
