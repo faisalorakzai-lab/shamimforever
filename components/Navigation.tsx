@@ -17,6 +17,7 @@ import { useCart } from '@/lib/cart-context'
     { label: 'Vault', href: '/vault' },
     { label: 'Authenticate', href: '/authenticate' },
     { label: 'Concierge', href: '/concierge' },
+    { label: 'Team', href: '/team' },
   ]
 
   function getBackLabel(pathname: string): string {
