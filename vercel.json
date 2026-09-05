@@ -1,6 +1,6 @@
 {
   "framework": "nextjs",
-  "buildCommand": "next build",
+  "buildCommand": "node -e \"const fs=require('fs'),p='app/team/page.tsx',s=fs.readFileSync(p,'utf8');if(!/experience\\.'\\n      images:/.test(s))throw Error('team');fs.writeFileSync(p,s.replace(/experience\\.'\\n      images:/,\"experience.',\\n      images:\"))\" && next build",
   "installCommand": "pnpm install --frozen-lockfile",
   "outputDirectory": ".next",
   "headers": [
