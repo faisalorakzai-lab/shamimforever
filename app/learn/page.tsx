@@ -7,18 +7,29 @@ export const metadata: Metadata = {
 }
 
 const navigation = [
-  ["What is Shamim Forever?", "what-is-shamim-forever"],
-  ["Knowledge map", "knowledge-map"],
-  ["Start with the essentials", "essentials"],
-  ["Sovereign Luxury model", "sovereign-luxury"],
-  ["Legacy algorithm", "legacy-algorithm"],
-  ["Authenticity framework", "authenticity"],
-  ["DNA Identity", "dna-identity"],
-  ["From object to heirloom", "heirloom"],
-  ["Explore the world", "the-world"],
-  ["Technology of trust", "technology"],
-  ["Learn by level", "levels"],
-  ["Meet the people", "people"],
+  ["Start here", "start-here"],
+  ["The House", "the-house"],
+  ["Luxury", "luxury"],
+  ["Our World", "our-world"],
+  ["Authenticity", "authenticity"],
+  ["Innovation", "innovation"],
+  ["Sovereign Infrastructure", "sovereign-infrastructure"],
+  ["Guides", "guides"],
+  ["Glossary", "glossary"],
+  ["FAQ", "faq"],
+] as const
+
+const chapterDirectory = [
+  ["START HERE", "start-here", ["Welcome to Shamim Forever", "What is Shamim Forever?", "Our Philosophy"]],
+  ["THE HOUSE", "the-house", ["Our Story", "Heritage & Legacy", "Vision & Mission", "Founders & Leadership"]],
+  ["LUXURY", "luxury", ["The Art of Luxury", "Craftsmanship", "Atelier", "Bespoke"]],
+  ["OUR WORLD", "our-world", ["Fragrance", "High Jewelry", "Beauty"]],
+  ["AUTHENTICITY", "authenticity", ["Product Authentication", "Digital Identity", "Provenance", "Certificates"]],
+  ["INNOVATION", "innovation", ["Technology & Luxury", "Blockchain", "AI Experiences", "Digital Ownership"]],
+  ["SOVEREIGN INFRASTRUCTURE", "sovereign-infrastructure", ["Authenticate", "DNA Identity", "Heritage Gallery", "Heirloom Vault", "Sovereign Vault", "Time Archive"]],
+  ["GUIDES", "guides", ["Shopping Guides", "Product Care", "Bespoke Orders", "Private Clients"]],
+  ["GLOSSARY", "glossary", ["Shamim Forever Glossary"]],
+  ["FAQ", "faq", ["Frequently Asked Questions"]],
 ] as const
 
 const mapCards = [
@@ -28,7 +39,7 @@ const mapCards = [
     title: "The world behind the name",
     text: "Learn about Shamim Forever, its philosophy, heritage, vision, and the idea of a sovereign luxury house.",
     topics: "Story · Values · Vision · Legacy",
-    href: "/about",
+    href: "/learn#start-here",
   },
   {
     number: "02",
@@ -36,7 +47,7 @@ const mapCards = [
     title: "The art of lasting value",
     text: "Understand how intention, craftsmanship, scarcity, discretion, and meaning shape exceptional luxury.",
     topics: "Craft · Materials · Bespoke · Exclusivity",
-    href: "/learn/what-defines-true-luxury",
+    href: "/learn#luxury",
   },
   {
     number: "03",
@@ -44,7 +55,7 @@ const mapCards = [
     title: "Where ideas become creations",
     text: "Follow the movement from creative brief to material study, prototype, refinement, and final presentation.",
     topics: "Atelier · Design · Materials · Making",
-    href: "/learn/from-concept-to-creation",
+    href: "/learn#luxury",
   },
   {
     number: "04",
@@ -52,7 +63,7 @@ const mapCards = [
     title: "The architecture of trust",
     text: "Explore identity, provenance, certificates, verification, and the systems that protect a meaningful object.",
     topics: "Identity · Provenance · Verification · Care",
-    href: "/learn/what-is-product-provenance",
+    href: "/learn#authenticity",
   },
   {
     number: "05",
@@ -60,7 +71,7 @@ const mapCards = [
     title: "The quiet intelligence behind luxury",
     text: "Discover how digital identity, blockchain concepts, AI, and future systems can strengthen the human experience.",
     topics: "Digital identity · Records · AI · Future",
-    href: "/learn/technology-behind-shamim-forever",
+    href: "/learn#innovation",
   },
   {
     number: "06",
@@ -68,15 +79,15 @@ const mapCards = [
     title: "The language of the House",
     text: "Build fluency in the words that shape Shamim Forever: atelier, bespoke, provenance, heirloom, and sovereign luxury.",
     topics: "Definitions · Concepts · Principles · Terms",
-    href: "/learn/glossary-sovereign-luxury",
+    href: "/learn#glossary",
   },
 ]
 
 const essentials = [
-  ["01", "What is Shamim Forever?", "A sovereign luxury house built around heritage, craftsmanship, identity, and lasting value.", "5 min read", "/about"],
-  ["02", "What is Sovereign Luxury?", "A philosophy where luxury represents independence, identity, authenticity, and legacy.", "7 min read", "/about"],
-  ["03", "Built From Love. Forged Into Legacy.", "Discover the philosophy behind the Shamim Forever identity and the meaning of forever.", "6 min read", "/learn/from-love-to-legacy"],
-  ["04", "Why does authenticity matter?", "Understand trust, provenance, and the protection of valuable creations.", "8 min read", "/learn/what-is-product-provenance"],
+  ["01", "What is Shamim Forever?", "A sovereign luxury house built around heritage, craftsmanship, identity, and lasting value.", "5 min read", "/learn#start-here"],
+  ["02", "What is Sovereign Luxury?", "A philosophy where luxury represents independence, identity, authenticity, and legacy.", "7 min read", "/learn#luxury"],
+  ["03", "Built From Love. Forged Into Legacy.", "Discover the philosophy behind the Shamim Forever identity and the meaning of forever.", "6 min read", "/learn#the-house"],
+  ["04", "Why does authenticity matter?", "Understand trust, provenance, and the protection of valuable creations.", "8 min read", "/learn#authenticity"],
 ]
 
 const levels = [
@@ -125,7 +136,7 @@ export default function LearnPage() {
                 Explore the ideas, systems, and principles behind Sovereign Luxury.
               </p>
               <div className="mt-10 flex flex-wrap gap-4">
-                <a href="#what-is-shamim-forever" className="border border-[#c9a054] bg-[#c9a054] px-6 py-4 text-[9px] uppercase tracking-[0.32em] text-[#090806] transition-colors hover:bg-[#e4c98f]">
+                <a href="#start-here" className="border border-[#c9a054] bg-[#c9a054] px-6 py-4 text-[9px] uppercase tracking-[0.32em] text-[#090806] transition-colors hover:bg-[#e4c98f]">
                   Start learning
                 </a>
                 <Link href="/about" className="border border-[#3c3223] px-6 py-4 text-[9px] uppercase tracking-[0.32em] text-[#c9a054] transition-colors hover:border-[#c9a054]">
@@ -167,6 +178,32 @@ export default function LearnPage() {
         </div>
       </section>
 
+      <section className="border-b border-[#1b1814] px-5 py-16 md:px-12 md:py-24 lg:px-20">
+        <div className="mx-auto max-w-7xl">
+          <div className="mb-10 flex flex-wrap items-end justify-between gap-5">
+            <div>
+              <p className="mb-4 text-[9px] uppercase tracking-[0.45em] text-[#c9a054]">The single Learn page</p>
+              <h2 className="font-serif text-4xl font-light text-[#f3efe7] md:text-5xl">One library. Ten chapters.</h2>
+            </div>
+            <p className="max-w-sm text-xs leading-6 text-zinc-600">Everything begins here. We will add deep slugs later, one chapter at a time, without copying the same knowledge into multiple pages.</p>
+          </div>
+          <div className="grid gap-px border border-[#1b1814] bg-[#1b1814] sm:grid-cols-2 lg:grid-cols-5">
+            {chapterDirectory.map(([title, id, topics], index) => (
+              <a key={id} href={`#${id}`} className="group bg-[#080808] p-6 transition-colors hover:bg-[#0d0c0a]">
+                <div className="flex items-start justify-between">
+                  <span className="text-[9px] tracking-[0.3em] text-[#c9a054]">{String(index + 1).padStart(2, "0")}</span>
+                  <span className="text-zinc-800 transition-colors group-hover:text-[#c9a054]">↘</span>
+                </div>
+                <h3 className="mt-8 min-h-10 font-serif text-xl font-light leading-tight text-zinc-200 transition-colors group-hover:text-[#c9a054]">{title}</h3>
+                <ul className="mt-5 space-y-2 border-t border-[#1b1814] pt-4">
+                  {topics.map((topic) => <li key={topic} className="text-[10px] leading-4 text-zinc-600">{topic}</li>)}
+                </ul>
+              </a>
+            ))}
+          </div>
+        </div>
+      </section>
+
       <section className="px-5 py-16 md:px-12 md:py-24 lg:px-20">
         <div className="mx-auto grid max-w-7xl gap-16 lg:grid-cols-[210px_1fr]">
           <aside className="lg:sticky lg:top-28 lg:h-fit">
@@ -185,8 +222,8 @@ export default function LearnPage() {
           </aside>
 
           <div className="min-w-0 space-y-28">
-            <section id="what-is-shamim-forever" className="scroll-mt-24">
-              <SectionLabel number="01">What is Shamim Forever?</SectionLabel>
+            <section id="start-here" className="scroll-mt-24">
+              <SectionLabel number="01">Start Here</SectionLabel>
               <div className="grid gap-10 lg:grid-cols-[1.1fr_0.9fr]">
                 <div>
                   <h2 className="max-w-3xl font-serif text-4xl font-light leading-tight text-[#f3efe7] md:text-6xl">A House built from love.<br /><span className="text-[#c9a054]">Forged into legacy.</span></h2>
@@ -213,8 +250,8 @@ export default function LearnPage() {
               </div>
             </section>
 
-            <section id="knowledge-map" className="scroll-mt-24">
-              <SectionLabel number="02">The Shamim Forever Knowledge Map</SectionLabel>
+            <section id="the-house" className="scroll-mt-24">
+              <SectionLabel number="02">The House</SectionLabel>
               <div className="mb-10 flex flex-wrap items-end justify-between gap-5">
                 <h2 className="font-serif text-4xl font-light text-[#f3efe7] md:text-5xl">Where would you like to begin?</h2>
                 <p className="text-[9px] uppercase tracking-[0.3em] text-zinc-700">Six ways into the House</p>
@@ -254,8 +291,8 @@ export default function LearnPage() {
               </div>
             </section>
 
-            <section id="sovereign-luxury" className="scroll-mt-24">
-              <SectionLabel number="04">The Sovereign Luxury Model</SectionLabel>
+            <section id="luxury" className="scroll-mt-24">
+              <SectionLabel number="04">Luxury</SectionLabel>
               <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr]">
                 <div>
                   <h2 className="font-serif text-4xl font-light leading-tight text-[#f3efe7] md:text-5xl">A model for<br /><span className="text-[#c9a054]">lasting value.</span></h2>
@@ -370,8 +407,8 @@ export default function LearnPage() {
               </div>
             </section>
 
-            <section id="the-world" className="scroll-mt-24">
-              <SectionLabel number="09">Explore the world</SectionLabel>
+            <section id="our-world" className="scroll-mt-24">
+              <SectionLabel number="09">Our World</SectionLabel>
               <div className="mb-9 flex flex-wrap items-end justify-between gap-5">
                 <h2 className="font-serif text-4xl font-light text-[#f3efe7] md:text-5xl">The Shamim Forever universe.</h2>
                 <p className="text-[9px] uppercase tracking-[0.3em] text-zinc-700">Three expressions · one identity</p>
@@ -392,8 +429,8 @@ export default function LearnPage() {
               </div>
             </section>
 
-            <section id="technology" className="scroll-mt-24">
-              <SectionLabel number="10">The technology of trust</SectionLabel>
+            <section id="innovation" className="scroll-mt-24">
+              <SectionLabel number="10">Innovation</SectionLabel>
               <div className="grid gap-10 lg:grid-cols-[0.85fr_1.15fr]">
                 <div>
                   <h2 className="font-serif text-4xl font-light leading-tight text-[#f3efe7] md:text-5xl">Technology should not replace craftsmanship.<br /><span className="text-[#c9a054]">It should strengthen trust.</span></h2>
@@ -405,10 +442,10 @@ export default function LearnPage() {
                 </div>
                 <div className="grid gap-px border border-[#1b1814] bg-[#1b1814] sm:grid-cols-2">
                   {[
-                    ["Digital Identity", "How physical creations can be associated with useful digital information.", "/learn/digital-identity"],
-                    ["Blockchain Concepts", "Understanding distributed records and provenance technology.", "/learn/blockchain-and-luxury"],
-                    ["AI & Luxury", "How artificial intelligence may improve experiences and services.", "/learn/ai-and-luxury-experiences"],
-                    ["Future Authentication", "Exploring new methods of establishing trust.", "/learn/the-future-of-luxury-authentication"],
+                    ["Digital Identity", "How physical creations can be associated with useful digital information.", "/learn#authenticity"],
+                    ["Blockchain Concepts", "Understanding distributed records and provenance technology.", "/learn#innovation"],
+                    ["AI & Luxury", "How artificial intelligence may improve experiences and services.", "/learn#innovation"],
+                    ["Future Authentication", "Exploring new methods of establishing trust.", "/learn#authenticity"],
                   ].map(([title, text, href]) => (
                     <Link key={title} href={href} className="group bg-[#080808] p-6 transition-colors hover:bg-[#0d0c0a]">
                       <p className="text-lg text-[#c9a054]">◈</p>
@@ -420,8 +457,8 @@ export default function LearnPage() {
               </div>
             </section>
 
-            <section id="infrastructure" className="scroll-mt-24">
-              <SectionLabel number="11">Sovereign infrastructure</SectionLabel>
+            <section id="sovereign-infrastructure" className="scroll-mt-24">
+              <SectionLabel number="11">Sovereign Infrastructure</SectionLabel>
               <div className="flex flex-wrap items-end justify-between gap-6">
                 <div>
                   <h2 className="font-serif text-4xl font-light text-[#f3efe7] md:text-5xl">The systems behind the experience.</h2>
@@ -463,12 +500,13 @@ export default function LearnPage() {
               </div>
             </section>
 
-            <section id="levels" className="scroll-mt-24">
-              <SectionLabel number="13">Learn by level</SectionLabel>
+            <section id="guides" className="scroll-mt-24">
+              <SectionLabel number="13">Guides</SectionLabel>
               <div className="mb-9 flex flex-wrap items-end justify-between gap-5">
                 <h2 className="font-serif text-4xl font-light text-[#f3efe7] md:text-5xl">Choose your depth.</h2>
                 <p className="text-[9px] uppercase tracking-[0.3em] text-zinc-700">Like a living knowledge protocol</p>
               </div>
+              <p className="mb-8 max-w-3xl text-sm leading-7 text-zinc-500">Shopping Guides · Product Care · Bespoke Orders · Private Clients — practical knowledge for choosing, commissioning, caring for, and living with a creation.</p>
               <div className="grid gap-px border border-[#1b1814] bg-[#1b1814] md:grid-cols-3">
                 {levels.map(([title, subtitle, topics], index) => (
                   <div key={title} className="bg-[#080808] p-7 md:p-9">
@@ -500,6 +538,57 @@ export default function LearnPage() {
                       <h3 className="mt-3 font-serif text-2xl font-light text-zinc-200 transition-colors group-hover:text-[#c9a054]">{name}</h3>
                       <p className="mt-2 max-w-xl text-xs leading-6 text-zinc-600">{text}</p>
                     </Link>
+                  ))}
+                </div>
+              </div>
+            </section>
+
+            <section id="glossary" className="scroll-mt-24">
+              <SectionLabel number="15">Glossary</SectionLabel>
+              <div className="grid gap-10 lg:grid-cols-[0.75fr_1.25fr]">
+                <div>
+                  <h2 className="font-serif text-4xl font-light leading-tight text-[#f3efe7] md:text-5xl">The language of the House.</h2>
+                  <p className="mt-6 text-sm leading-8 text-zinc-500">A shared vocabulary makes a world easier to enter. These working definitions will grow as the Learn library grows.</p>
+                </div>
+                <div className="grid gap-3 sm:grid-cols-2">
+                  {[
+                    ["Atelier", "A creative workshop where ideas, materials, and specialist craft come together."],
+                    ["Bespoke", "Made for a particular person or purpose through a private creative process."],
+                    ["Provenance", "The documented history and origin of a creation."],
+                    ["Heirloom", "A meaningful object preserved and passed through generations."],
+                    ["Digital Identity", "A persistent record that helps identify, verify, and care for a creation."],
+                    ["Sovereign Luxury", "Luxury guided by independence, intention, responsibility, and a distinct point of view."],
+                  ].map(([term, definition]) => (
+                    <div key={term} className="border border-[#1b1814] bg-[#080808] p-5">
+                      <h3 className="font-serif text-xl font-light text-zinc-200">{term}</h3>
+                      <p className="mt-3 text-xs leading-6 text-zinc-600">{definition}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </section>
+
+            <section id="faq" className="scroll-mt-24">
+              <SectionLabel number="16">Frequently Asked Questions</SectionLabel>
+              <div className="grid gap-10 lg:grid-cols-[0.75fr_1.25fr]">
+                <div>
+                  <h2 className="font-serif text-4xl font-light leading-tight text-[#f3efe7] md:text-5xl">Questions, answered clearly.</h2>
+                  <p className="mt-6 text-sm leading-8 text-zinc-500">The FAQ is part of this single page for now. Later, individual answers can become dedicated slugs without duplicating the source material.</p>
+                </div>
+                <div className="divide-y divide-[#1b1814] border-y border-[#1b1814]">
+                  {[
+                    ["What is Shamim Forever?", "A sovereign luxury house built around heritage, craftsmanship, identity, authenticity, and lasting value."],
+                    ["What does Sovereign Luxury mean?", "Creating with independence, intention, responsibility, and a distinct cultural point of view."],
+                    ["How does product authentication work?", "Authentication connects a creation’s physical details with its identity, provenance, certificate, and verification record."],
+                    ["Does Shamim Forever offer bespoke services?", "Yes. Bespoke services create a private path for tailored creations, commissions, and design conversations."],
+                  ].map(([question, answer]) => (
+                    <details key={question} className="group py-5">
+                      <summary className="flex cursor-pointer list-none items-center justify-between gap-6 font-serif text-xl font-light text-zinc-200">
+                        {question}
+                        <span className="text-[#c9a054] transition-transform group-open:rotate-45">+</span>
+                      </summary>
+                      <p className="mt-4 max-w-2xl text-xs leading-7 text-zinc-600">{answer}</p>
+                    </details>
                   ))}
                 </div>
               </div>

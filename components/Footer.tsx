@@ -17,19 +17,21 @@ const ACCESS_LINKS = [
   { label: 'Inner Circle', href: '/inner-circle' },
   { label: 'Concierge', href: '/concierge' },
   { label: 'Virtual Atelier', href: '/virtual-atelier' },
-  { label: 'Whitelist Access', href: '/learn/whitelist-access' },
+  { label: 'Whitelist Access', href: '/learn#sovereign-infrastructure' },
   { label: 'Sovereign Panel', href: '/admin' },
 ]
 
 const LEARN_LINKS = [
   { label: 'Start here', href: '/learn#start-here' },
   { label: 'The House', href: '/learn#the-house' },
-  { label: 'Founders & Leadership', href: '/learn#founders-leadership' },
-  { label: 'The Art of Luxury', href: '/learn#the-art-of-luxury' },
-  { label: 'Fragrance', href: '/learn#fragrance' },
-  { label: 'Authenticity & Trust', href: '/learn#authenticity-trust' },
-  { label: 'Brand Glossary', href: '/learn#brand-glossary' },
-  { label: 'Learn FAQ', href: '/learn#learn-faq' },
+  { label: 'Luxury', href: '/learn#luxury' },
+  { label: 'Our World', href: '/learn#our-world' },
+  { label: 'Authenticity', href: '/learn#authenticity' },
+  { label: 'Innovation', href: '/learn#innovation' },
+  { label: 'Sovereign Infrastructure', href: '/learn#sovereign-infrastructure' },
+  { label: 'Guides', href: '/learn#guides' },
+  { label: 'Glossary', href: '/learn#glossary' },
+  { label: 'FAQ', href: '/learn#faq' },
 ]
 
 const INFRA_LINKS = [
@@ -38,7 +40,7 @@ const INFRA_LINKS = [
   { label: 'Private Delivery', href: '/delivery' },
   { label: 'Bespoke Atelier', href: '/bespoke' },
   { label: 'Heritage Gallery', href: '/gallery' },
-  { label: 'Whitelist Access', href: '/learn/whitelist-access' },
+  { label: 'Whitelist Access', href: '/learn#sovereign-infrastructure' },
   { label: 'DNA Identity', href: '/dna-identity' },
   { label: 'Time Archive', href: '/time-archive' },
   { label: 'Heirloom Vault', href: '/heirloom-vault' },
