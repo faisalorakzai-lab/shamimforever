@@ -101,8 +101,10 @@ import { CartProvider } from '@/lib/cart-context'
           "width": 1200,
           "height": 800
         },
-        "description": "A global luxury digital house offering bespoke fragrances, sovereign jewellery, and blockchain-verified couture collections. Founded by Faisal Orakzai.",
-        "foundingDate": "2023",
+        "description": "A global luxury digital house offering bespoke fragrances, sovereign jewellery, and blockchain-verified couture collections.",
+        "identifier": { "@type": "PropertyValue", "propertyID": "Wikidata", "value": "Q141223771", "url": "https://www.wikidata.org/wiki/Q141223771" },
+         "address": { "@type": "PostalAddress", "streetAddress": "77 Espl. du Général de Gaulle", "postalCode": "92800", "addressLocality": "Puteaux", "addressCountry": "FR" },
+         "foundingDate": "2023",
         "founder": {
             "@type": "Person",
             "@id": "https://faisalorakzai.com/#person",
@@ -148,7 +150,8 @@ import { CartProvider } from '@/lib/cart-context'
           "https://tracxn.com/d/companies/shamim-forever/__PNT2Og9qkK331ForNeMW-dVBwUv0wRQTvKPjOyhrK7s",
           "https://theorg.com/org/shamim-forever",
           "https://www.f6s.com/shamimforever",
-          "https://hackernoon.com/u/shamimforever"
+          "https://hackernoon.com/u/shamimforever",
+           "https://www.wikidata.org/wiki/Q141223771"
         ],
         "employee": [
           { "@id": "https://www.shamimforever.com/#asma-orakzai" },
@@ -470,66 +473,6 @@ import { CartProvider } from '@/lib/cart-context'
               }) }}
             />
 
-            {/* Shamim Forever — FAQPage Schema for Brand Knowledge Panel */}
-            <script
-              type="application/ld+json"
-              dangerouslySetInnerHTML={{ __html: JSON.stringify({
-                "@context": "https://schema.org",
-                "@type": "FAQPage",
-                "mainEntity": [
-                  {
-                    "@type": "Question",
-                    "name": "What is Shamim Forever?",
-                    "acceptedAnswer": { "@type": "Answer", "text": "Shamim Forever is a global ultra-luxury brand founded by Faisal Orakzai, specializing in bespoke high-end jewelry, museum-grade perfumes, and premium cosmetics — all integrated with blockchain technology for cryptographic provenance verification." }
-                  },
-                  {
-                    "@type": "Question",
-                    "name": "Who founded Shamim Forever?",
-                    "acceptedAnswer": { "@type": "Answer", "text": "Shamim Forever was founded by Faisal Orakzai, a Pakistani blockchain architect and entrepreneur born on April 30, 2006, in Tirah, Orakzai, Pakistan. He is also the Founder & Chairman of Orakzai Bond (OKBOND) and Orakzai Group SMC." }
-                  },
-                  {
-                    "@type": "Question",
-                    "name": "What products does Shamim Forever sell?",
-                    "acceptedAnswer": { "@type": "Answer", "text": "Shamim Forever offers three flagship luxury verticals: bespoke high-end jewelry (including sapphire and diamond sets), museum-grade rare perfumes and ouds, and ultra-premium cosmetics — all blockchain-authenticated for guaranteed provenance." }
-                  },
-                  {
-                    "@type": "Question",
-                    "name": "How does Shamim Forever use blockchain technology?",
-                    "acceptedAnswer": { "@type": "Answer", "text": "Every Shamim Forever product is registered on the Polygon blockchain via smart contracts, generating a permanent on-chain provenance certificate. This ensures lifetime authenticity verification, anti-counterfeiting protection, and cryptographic ownership for global collectors." }
-                  },
-                  {
-                    "@type": "Question",
-                    "name": "Where is Shamim Forever based?",
-                    "acceptedAnswer": { "@type": "Answer", "text": "Shamim Forever operates as a global luxury house with boutique presence in Karachi (Tariq Road and Clifton), Lahore (DHA Phase 6), Islamabad (DHA Phase II), Peshawar, Dubai (The Dubai Mall), London (New Bond Street), and Paris (Place Vendôme)." }
-                  },
-                  {
-                    "@type": "Question",
-                    "name": "What is the Inner Circle at Shamim Forever?",
-                    "acceptedAnswer": { "@type": "Answer", "text": "The Shamim Forever Inner Circle is an exclusive private membership program granting access to limited-edition collections, early product drops, bespoke consultations, concierge services, and direct access to the brand's atelier — reserved for the most discerning global clients." }
-                  },
-                  {
-                    "@type": "Question",
-                    "name": "Does Shamim Forever ship internationally?",
-                    "acceptedAnswer": { "@type": "Answer", "text": "Yes. Shamim Forever ships globally with fully insured, white-glove delivery services to over 50 countries. All international orders include blockchain authenticity certificates and bespoke luxury packaging." }
-                  },
-                  {
-                    "@type": "Question",
-                    "name": "What awards has Shamim Forever received?",
-                    "acceptedAnswer": { "@type": "Answer", "text": "Shamim Forever's parent group, Orakzai Group SMC, holds the " }
-                  },
-                  {
-                    "@type": "Question",
-                    "name": "What is Orakzai Bond and how does it relate to Shamim Forever?",
-                    "acceptedAnswer": { "@type": "Answer", "text": "Orakzai Bond (OKBOND) is the blockchain infrastructure layer — a Polygon-based DeFi protocol — that powers the cryptographic provenance and digital ownership architecture behind Shamim Forever's luxury product authentication system." }
-                  },
-                  {
-                    "@type": "Question",
-                    "name": "How can I contact Shamim Forever for bespoke orders?",
-                    "acceptedAnswer": { "@type": "Answer", "text": "For bespoke commissions, institutional partnerships, and luxury concierge inquiries, contact Shamim Forever through the official corporate gateway at info@orakzaibond.com or through the concierge portal at shamimforever.com/concierge." }
-                  }
-                ]
-              }) }}
-            />
               {/* BreadcrumbList — Site Structure for Google Sitelinks */}
               <script
                 type="application/ld+json"
