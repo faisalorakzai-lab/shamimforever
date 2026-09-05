@@ -2,8 +2,8 @@ import type { Metadata } from "next"
 import Link from "next/link"
 
 export const metadata: Metadata = {
-  title: "Start Here | Learn",
-  description: "Enter the knowledge world behind Shamim Forever: heritage, craftsmanship, authenticity, technology, and lasting luxury.",
+  title: "Welcome to Shamim Forever | Learn",
+  description: "A deep introduction to Shamim Forever: a sovereign luxury house built around craftsmanship, identity, provenance, heritage, technology, and legacy.",
 }
 
 const navigation = [
@@ -123,28 +123,33 @@ export default function LearnPage() {
         <div className="relative mx-auto max-w-7xl">
           <div className="grid gap-16 lg:grid-cols-[1.15fr_0.85fr] lg:items-end">
             <div>
-              <p className="mb-7 text-[9px] uppercase tracking-[0.55em] text-[#c9a054]">Shamim Forever · Knowledge · Start here</p>
+              <p className="mb-7 text-[9px] uppercase tracking-[0.55em] text-[#c9a054]">Learn → Start Here → Welcome to Shamim Forever</p>
               <h1 className="max-w-5xl font-serif text-6xl font-light leading-[0.88] tracking-[0.035em] text-[#f3efe7] md:text-[8.5rem]">
-                Learn the
-                <span className="block text-[#c9a054]">world behind</span>
-                the House.
+                Welcome to
+                <span className="block text-[#c9a054]">Shamim Forever.</span>
               </h1>
+              <p className="mt-7 font-serif text-2xl font-light text-zinc-300 md:text-4xl">Where Legacy Becomes Luxury.</p>
               <p className="mt-10 max-w-2xl text-sm font-light leading-8 tracking-wide text-zinc-400 md:text-base">
-                Shamim Forever is more than a luxury house. It is a world built around heritage, craftsmanship, identity, authenticity, and the technologies shaping the future of luxury.
+                Shamim Forever is a sovereign luxury house built around the idea that meaningful objects should outlive trends.
               </p>
               <p className="mt-5 max-w-2xl text-sm font-light leading-8 tracking-wide text-zinc-600">
-                Explore the ideas, systems, and principles behind Sovereign Luxury.
+                We explore luxury through craftsmanship, identity, provenance, heritage, technology, and long-term cultural value.
               </p>
               <div className="mt-10 flex flex-wrap gap-4">
                 <a href="#start-here" className="border border-[#c9a054] bg-[#c9a054] px-6 py-4 text-[9px] uppercase tracking-[0.32em] text-[#090806] transition-colors hover:bg-[#e4c98f]">
-                  Start learning
+                  Begin learning
                 </a>
                 <Link href="/about" className="border border-[#3c3223] px-6 py-4 text-[9px] uppercase tracking-[0.32em] text-[#c9a054] transition-colors hover:border-[#c9a054]">
-                  Explore the House
+                  Explore the House →
                 </Link>
               </div>
             </div>
             <div className="relative lg:pb-3">
+              <div className="pointer-events-none absolute -right-10 -top-16 h-48 w-48 rounded-full opacity-80 [background:conic-gradient(from_180deg_at_50%_50%,#c9a05433,#7dd3fc22,#d946ef22,#c9a05433)] blur-[1px] [mask-image:radial-gradient(circle,black_35%,transparent_70%)]" />
+              <div className="pointer-events-none absolute right-8 top-5 h-28 w-28 rounded-full border border-[#c9a054]/30 shadow-[0_0_35px_rgba(201,160,84,0.18)]">
+                <span className="absolute inset-3 rounded-full border border-cyan-200/20" />
+                <span className="absolute inset-7 rounded-full border border-fuchsia-300/20" />
+              </div>
               <div className="absolute -right-5 -top-8 font-serif text-8xl font-light text-[#c9a054]/10 md:text-[11rem]">∑</div>
               <div className="relative border border-[#3a3022] bg-[#080807]/90 p-6 backdrop-blur-sm md:p-8">
                 <p className="text-[8px] uppercase tracking-[0.4em] text-[#c9a054]">The Shamim Forever Value Framework</p>
@@ -158,8 +163,13 @@ export default function LearnPage() {
                   <span><b className="mr-2 text-[#c9a054]">I</b> Identity</span>
                   <span><b className="mr-2 text-[#c9a054]">T</b> Trust</span>
                 </div>
+                <div className="mt-7 border-t border-[#292218] pt-5 font-mono text-[9px] leading-5 text-zinc-700">
+                  <p className="text-[#c9a054]">CONCEPTUAL CRYPTOGRAPHIC SEAL</p>
+                  <p>H = SHA-256(Creation ID | Origin | Time)</p>
+                  <p>Identity → Provenance → Verification</p>
+                </div>
               </div>
-              <p className="mt-4 text-right text-[8px] uppercase tracking-[0.28em] text-zinc-700">A conceptual brand framework · not a scientific or financial formula</p>
+              <p className="mt-4 text-right text-[8px] uppercase tracking-[0.28em] text-zinc-700">Conceptual model · not a live cryptographic certificate or financial formula</p>
             </div>
           </div>
           <div className="mt-20 grid gap-px border border-[#1b1814] bg-[#1b1814] sm:grid-cols-3">
@@ -217,7 +227,7 @@ export default function LearnPage() {
             </nav>
             <div className="mt-10 hidden border-t border-[#1b1814] pt-5 lg:block">
               <p className="text-[8px] uppercase tracking-[0.3em] text-zinc-700">The library</p>
-              <p className="mt-3 text-xs leading-6 text-zinc-600">16 chapters<br />100+ entries<br />One living point of view</p>
+              <p className="mt-3 text-xs leading-6 text-zinc-600">1 canonical page<br />20 knowledge sections<br />One living point of view</p>
             </div>
           </aside>
 
@@ -246,6 +256,30 @@ export default function LearnPage() {
                       </div>
                     ))}
                   </div>
+                </div>
+              </div>
+            </section>
+
+            <section id="why-shamim-forever-exists" className="scroll-mt-24">
+              <SectionLabel number="02">Why does Shamim Forever exist?</SectionLabel>
+              <div className="grid gap-10 lg:grid-cols-[0.85fr_1.15fr]">
+                <div>
+                  <h2 className="font-serif text-4xl font-light leading-tight text-[#f3efe7] md:text-5xl">Because luxury has become too temporary.</h2>
+                  <p className="mt-7 text-sm leading-8 text-zinc-500">The modern world produces more products, collections, advertising, and consumption than ever. When everything is constantly replaced, very little feels permanent.</p>
+                  <p className="mt-5 text-sm leading-8 text-zinc-600">Shamim Forever explores another model: continuity over disposability, memory over noise, identity over transaction, and legacy beyond the current moment.</p>
+                </div>
+                <div className="grid gap-px border border-[#1b1814] bg-[#1b1814] sm:grid-cols-2">
+                  {[
+                    ["The temporary cycle", "Launch → Trend → Purchase → Disappear → Replace", "text-zinc-600"],
+                    ["The continuity model", "Create → Identify → Preserve → Remember → Carry forward", "text-[#c9a054]"],
+                    ["Continuity", "Creating things designed to remain meaningful.", "text-zinc-400"],
+                    ["Provenance", "Understanding where something came from and how it came into existence.", "text-zinc-400"],
+                  ].map(([title, text, color]) => (
+                    <div key={title} className="bg-[#080808] p-6 md:p-7">
+                      <p className={`text-[8px] uppercase tracking-[0.35em] ${color}`}>{title}</p>
+                      <p className="mt-5 font-mono text-xs leading-7 text-zinc-500">{text}</p>
+                    </div>
+                  ))}
                 </div>
               </div>
             </section>
@@ -312,8 +346,52 @@ export default function LearnPage() {
               </div>
             </section>
 
+            <section id="legacy-vs-trend" className="scroll-mt-24">
+              <SectionLabel number="05">What makes something luxury?</SectionLabel>
+              <div className="grid gap-10 lg:grid-cols-[0.85fr_1.15fr]">
+                <div>
+                  <h2 className="font-serif text-4xl font-light leading-tight text-[#f3efe7] md:text-5xl">Luxury is not just price.</h2>
+                  <p className="mt-7 text-sm leading-8 text-zinc-500">Price may indicate material cost, labour, scarcity, or positioning. It cannot automatically create meaning. A more complete conceptual model considers quality, craftsmanship, scarcity, meaning, and heritage.</p>
+                  <Formula>
+                    <p>LV ≈ Q × C × S × M × H</p>
+                    <p className="mt-4 text-xs leading-7 text-zinc-600">LV = Luxury value · Q = Quality · C = Craftsmanship<br />S = Scarcity · M = Meaning · H = Heritage</p>
+                  </Formula>
+                </div>
+                <div className="grid gap-px border border-[#1b1814] bg-[#1b1814] sm:grid-cols-2">
+                  {[
+                    ["Quality", "Materials, construction, durability, finishing, and consistency."],
+                    ["Craftsmanship", "Human knowledge, patience, precision, and design intelligence."],
+                    ["Scarcity", "Meaningful limits created by materials, production, complexity, or time."],
+                    ["Meaning", "The memories, relationships, celebrations, and stories attached to an object."],
+                  ].map(([title, text]) => (
+                    <div key={title} className="bg-[#080808] p-6">
+                      <h3 className="font-serif text-2xl font-light text-zinc-200">{title}</h3>
+                      <p className="mt-3 text-xs leading-6 text-zinc-600">{text}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              <div className="mt-10 overflow-hidden border border-[#1b1814]">
+                <div className="grid grid-cols-2 bg-[#0b0a08] text-[9px] uppercase tracking-[0.35em] text-[#c9a054]">
+                  <span className="p-4">Trend</span><span className="border-l border-[#1b1814] p-4">Legacy</span>
+                </div>
+                {[
+                  ["Immediate", "Long-term"],
+                  ["Fast", "Patient"],
+                  ["Seasonal", "Continuous"],
+                  ["Attention", "Meaning"],
+                  ["Consumption", "Preservation"],
+                  ["Popularity", "Memory"],
+                ].map(([trend, legacy]) => (
+                  <div key={trend} className="grid grid-cols-2 border-t border-[#1b1814] text-xs text-zinc-600">
+                    <span className="p-4">{trend}</span><span className="border-l border-[#1b1814] p-4 text-zinc-300">{legacy}</span>
+                  </div>
+                ))}
+              </div>
+            </section>
+
             <section id="legacy-algorithm" className="scroll-mt-24">
-              <SectionLabel number="05">The Legacy Algorithm</SectionLabel>
+              <SectionLabel number="06">The Legacy Algorithm</SectionLabel>
               <div className="grid gap-10 lg:grid-cols-[0.8fr_1.2fr]">
                 <div>
                   <h2 className="font-serif text-4xl font-light leading-tight text-[#f3efe7] md:text-5xl">How does a legacy grow?</h2>
@@ -365,8 +443,33 @@ export default function LearnPage() {
               </div>
             </section>
 
+            <section id="provenance" className="scroll-mt-24">
+              <SectionLabel number="07">Provenance & cryptographic trust</SectionLabel>
+              <div className="grid gap-10 lg:grid-cols-[1fr_1fr]">
+                <div>
+                  <h2 className="font-serif text-4xl font-light leading-tight text-[#f3efe7] md:text-5xl">Understanding origin.</h2>
+                  <p className="mt-7 text-sm leading-8 text-zinc-500">Provenance describes the history and origin of an object. It can include creation date, collection, product identity, material information, ownership history, authentication data, and restoration history.</p>
+                  <Formula>
+                    <p>P = H(O, C, T, R)</p>
+                    <p className="mt-4 text-xs leading-7 text-zinc-600">P = Provenance record · O = Origin · C = Creation<br />T = Timeline · R = Historical record</p>
+                  </Formula>
+                </div>
+                <div className="relative overflow-hidden border border-[#3a3022] bg-[#080807] p-7">
+                  <div className="pointer-events-none absolute -right-12 -top-12 h-40 w-40 rounded-full [background:conic-gradient(#c9a05433,#67e8f933,#e879f933,#c9a05433)] blur-2xl" />
+                  <p className="relative text-[8px] uppercase tracking-[0.4em] text-[#c9a054]">Provenance record / conceptual</p>
+                  <div className="relative mt-8 space-y-4 font-mono text-xs text-zinc-500">
+                    {["ORIGIN / Karachi Sovereign Atelier", "CREATION / SF-COLLECTION-0001", "TIMELINE / 2026 → ∞", "STATUS / VERIFIED BY HOUSE"].map((line) => (
+                      <p key={line} className="border-b border-[#1b1814] pb-3">{line}</p>
+                    ))}
+                    <p className="pt-3 text-[#c9a054]">SHA-256(ORIGIN | CREATION | TIME)</p>
+                  </div>
+                  <p className="relative mt-8 text-[9px] leading-5 text-zinc-700">The visual seal is an educational representation. It is not a live certificate, blockchain proof, or claim that this page itself performs cryptographic verification.</p>
+                </div>
+              </div>
+            </section>
+
             <section id="dna-identity" className="scroll-mt-24">
-              <SectionLabel number="07">The DNA Identity Model</SectionLabel>
+              <SectionLabel number="08">The Digital DNA Identity Model</SectionLabel>
               <div className="border border-[#292218] bg-[#080807] p-7 md:p-10">
                 <div className="grid gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:items-center">
                   <div>
@@ -543,8 +646,69 @@ export default function LearnPage() {
               </div>
             </section>
 
+            <section id="house-standard" className="scroll-mt-24">
+              <SectionLabel number="15">The Shamim Forever standard</SectionLabel>
+              <div className="grid gap-px border border-[#1b1814] bg-[#1b1814] md:grid-cols-5">
+                {[
+                  ["01", "Create with purpose", "Meaningful creation begins with intention."],
+                  ["02", "Protect identity", "Visual, cultural, product, and historical identity matter."],
+                  ["03", "Respect time", "Build for more than immediate attention."],
+                  ["04", "Document history", "Archives preserve continuity."],
+                  ["05", "Build for the future", "Respect origins while remaining capable of evolution."],
+                ].map(([number, title, text]) => (
+                  <div key={number} className="bg-[#080808] p-6">
+                    <p className="text-[9px] tracking-[0.3em] text-[#c9a054]">{number}</p>
+                    <h3 className="mt-8 font-serif text-xl font-light text-zinc-200">{title}</h3>
+                    <p className="mt-4 text-xs leading-6 text-zinc-600">{text}</p>
+                  </div>
+                ))}
+              </div>
+            </section>
+
+            <section id="evolving-house" className="scroll-mt-24">
+              <SectionLabel number="16">A House built for generations</SectionLabel>
+              <div className="grid gap-10 lg:grid-cols-[1.1fr_0.9fr]">
+                <div>
+                  <h2 className="font-serif text-4xl font-light leading-tight text-[#f3efe7] md:text-5xl">Can this institution remain meaningful across generations?</h2>
+                  <p className="mt-7 text-sm leading-8 text-zinc-500">Shamim Forever is not intended to be a static project. It is an evolving ecosystem across collections, atelier, concierge, heritage archives, digital identity, authentication, and the Sovereign Vault.</p>
+                  <p className="mt-5 text-sm leading-8 text-zinc-600">Heritage does not necessarily require hundreds of years. Heritage begins when an institution takes responsibility for its history. Today becomes tomorrow’s archive.</p>
+                </div>
+                <div className="relative border border-[#292218] bg-[#080807] p-7">
+                  <div className="pointer-events-none absolute inset-0 opacity-50 [background-image:radial-gradient(circle_at_20%_20%,rgba(201,160,84,0.18),transparent_28%),linear-gradient(120deg,transparent_45%,rgba(103,232,249,0.08),transparent_58%)]" />
+                  <div className="relative space-y-5 font-mono text-xs leading-6 text-zinc-500">
+                    <p className="text-[#c9a054]">SHAMIM FOREVER / EVOLUTION MAP</p>
+                    <p>COLLECTIONS → ATELIER → CONCIERGE</p>
+                    <p>HERITAGE GALLERY → DIGITAL IDENTITY</p>
+                    <p>AUTHENTICATION → SOVEREIGN VAULT</p>
+                    <p className="border-t border-[#292218] pt-5 text-zinc-300">TIME + DOCUMENTATION = CONTINUITY</p>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <section id="what-shamim-forever-is-not" className="scroll-mt-24">
+              <SectionLabel number="17">What Shamim Forever is not</SectionLabel>
+              <div className="grid gap-8 lg:grid-cols-[0.8fr_1.2fr]">
+                <h2 className="font-serif text-4xl font-light leading-tight text-[#f3efe7] md:text-5xl">A coherent identity needs boundaries.</h2>
+                <div className="grid gap-3 sm:grid-cols-2">
+                  {[
+                    "A temporary trend project",
+                    "A generic luxury marketplace",
+                    "A technology company disguised as luxury",
+                    "A mass-consumption brand",
+                    "A collection of random expensive products",
+                    "A world without memory or responsibility",
+                  ].map((item) => (
+                    <div key={item} className="border border-[#1b1814] bg-[#080808] p-5 text-sm text-zinc-500">
+                      <span className="mr-3 text-[#c9a054]">×</span>{item}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </section>
+
             <section id="glossary" className="scroll-mt-24">
-              <SectionLabel number="15">Glossary</SectionLabel>
+              <SectionLabel number="18">Glossary</SectionLabel>
               <div className="grid gap-10 lg:grid-cols-[0.75fr_1.25fr]">
                 <div>
                   <h2 className="font-serif text-4xl font-light leading-tight text-[#f3efe7] md:text-5xl">The language of the House.</h2>
@@ -569,7 +733,7 @@ export default function LearnPage() {
             </section>
 
             <section id="faq" className="scroll-mt-24">
-              <SectionLabel number="16">Frequently Asked Questions</SectionLabel>
+              <SectionLabel number="19">Frequently Asked Questions</SectionLabel>
               <div className="grid gap-10 lg:grid-cols-[0.75fr_1.25fr]">
                 <div>
                   <h2 className="font-serif text-4xl font-light leading-tight text-[#f3efe7] md:text-5xl">Questions, answered clearly.</h2>
