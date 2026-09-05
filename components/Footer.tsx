@@ -35,6 +35,15 @@ const INFRA_LINKS = [
   { label: 'Sovereign Aura', href: '/sovereign-aura' },
 ]
 
+const CORPORATE_LINKS = [
+  { label: 'Corporate', href: '/corporate' },
+  { label: 'Press', href: '/press' },
+  { label: 'Careers', href: '/careers' },
+  { label: 'Investor Relations', href: '/investor-relations' },
+  { label: 'Sustainability', href: '/sustainability' },
+  { label: 'Policies & Legal', href: '/policies' },
+]
+
 const fadeUp = {
   initial: { opacity: 0, y: 20 },
   whileInView: { opacity: 1, y: 0 },
@@ -148,6 +157,19 @@ export default function Footer() {
             </div>
           </motion.div>
         </div>
+
+        {/* Corporate & legal */}
+        <motion.div {...fadeUp} transition={{ duration: 1, delay: 0.32, ease: [0.16, 1, 0.3, 1] as const }} className="mt-14 border-t border-[#0d0d0d] pt-10">
+          <p className="text-[8px] tracking-[0.5em] uppercase text-[#c9a054] mb-6">Corporate &amp; Legal</p>
+          <div className="grid grid-cols-2 gap-x-6 gap-y-3 sm:grid-cols-3 lg:grid-cols-6">
+            {CORPORATE_LINKS.map(l => (
+              <Link key={l.href} href={l.href}
+                className="text-[9px] tracking-[0.2em] uppercase text-zinc-700 hover:text-[#c9a054] transition-colors duration-500">
+                {l.label}
+              </Link>
+            ))}
+          </div>
+        </motion.div>
       </div>
 
       {/* Bottom bar */}
