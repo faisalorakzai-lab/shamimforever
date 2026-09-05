@@ -7,7 +7,6 @@
   import { ConnectButton } from '@rainbow-me/rainbowkit'
   import { useAccount } from 'wagmi'
   import { supabase } from '@/lib/supabase'
-  import Footer from '@/components/Footer'
 
   const ease = [0.16, 1, 0.3, 1] as const
 
@@ -511,7 +510,6 @@
           </div>
         </section>
 
-        <Footer />
       </div>
     )
   }

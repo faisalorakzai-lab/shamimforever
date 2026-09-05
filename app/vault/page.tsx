@@ -5,7 +5,6 @@
   import Link from 'next/link'
   import { ConnectButton } from '@rainbow-me/rainbowkit'
   import { useAccount } from 'wagmi'
-  import Footer from '@/components/Footer'
 
   const ease = [0.16, 1, 0.3, 1] as const
 
@@ -338,7 +337,6 @@
           })()}
         </AnimatePresence>
 
-        <Footer />
       </div>
     )
   }
