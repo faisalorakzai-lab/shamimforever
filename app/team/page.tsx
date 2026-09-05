@@ -2,16 +2,16 @@ import type { Metadata } from 'next'
   import Link from 'next/link'
 
   export const metadata: Metadata = {
-    title: 'Shamim Forever — Team & Leadership | Faisal Orakzai Founder Chairman',
-    description: 'Meet the leadership and creative team behind Shamim Forever — founded by Faisal Orakzai, spanning creative, digital, brand, and client experience divisions.',
+    title: 'Shamim Forever — Team & Leadership | Founders & Executive Team',
+    description: 'Meet the Shamim Forever leadership team: Founder & Chairman Faisal Orakzai, Founder & CEO Dr Asma Orakzai, and Founder & Director Laiba Faisal Orakzai, alongside the creative, digital, brand, and client experience divisions.',
     keywords: [
-      'Shamim Forever team', 'Shamim Forever leadership', 'Faisal Orakzai founder chairman',
+      'Shamim Forever team', 'Shamim Forever leadership', 'Faisal Orakzai founder chairman', 'Dr Asma Orakzai founder CEO', 'Laiba Faisal Orakzai founder director',
       'luxury brand team Pakistan', 'Orakzai Group team', 'sovereign luxury leadership',
       'shamim forever management', 'Shamim Forever org chart', 'blockchain luxury team Pakistan',
     ],
     alternates: { canonical: 'https://www.shamimforever.com/team' },
     openGraph: {
-      title: 'Shamim Forever Team & Leadership | Faisal Orakzai',
+      title: 'Shamim Forever Team & Leadership | Founders & Executive Team',
       description: 'Meet the leadership and creative team behind Shamim Forever — founded by Faisal Orakzai, spanning creative, digital, brand, and client experience divisions.',
       type: 'website',
       url: 'https://www.shamimforever.com/team',
@@ -21,7 +21,7 @@ import type { Metadata } from 'next'
     twitter: {
       card: 'summary_large_image',
       title: 'Shamim Forever Team & Leadership',
-      description: 'Founded by Faisal Orakzai — creative, digital, brand, and client experience.',
+      description: 'Founded and led by Faisal Orakzai, Dr Asma Orakzai, and Laiba Faisal Orakzai — creative, digital, brand, and client experience.'
       images: ['https://www.shamimforever.com/og-team.jpg'],
     },
     robots: { index: true, follow: true, googleBot: { index: true, follow: true, 'max-image-preview': 'large', 'max-snippet': -1 } },
@@ -46,14 +46,15 @@ import type { Metadata } from 'next'
         "logo": "https://www.shamimforever.com/logo.png",
         "foundingDate": "2023",
         "description": "Global luxury digital house — bespoke fragrances, sovereign jewellery, and blockchain-verified couture. Founded by Faisal Orakzai, Pakistan, 2023.",
-        "founder": {
-          "@type": "Person",
-          "@id": "https://www.shamimforever.com/faisal-orakzai#person",
-          "name": "Faisal Orakzai",
-          "jobTitle": "Founder & Chairman"
-        },
+        "founder": [
+          { "@type": "Person", "@id": "https://www.shamimforever.com/faisal-orakzai#person", "name": "Faisal Orakzai", "jobTitle": "Founder & Chairman" },
+          { "@type": "Person", "@id": "https://www.shamimforever.com/#asma-orakzai", "name": "Dr Asma Orakzai", "jobTitle": "Founder & CEO" },
+          { "@type": "Person", "@id": "https://www.shamimforever.com/#laiba-faisal-orakzai", "name": "Laiba Faisal Orakzai", "jobTitle": "Founder & Director" }
+        ],
         "employee": [
-          { "@type": "Person", "name": "Faisal Orakzai",       "jobTitle": "Founder & Chairman" },
+          { "@type": "Person", "@id": "https://www.shamimforever.com/faisal-orakzai#person", "name": "Faisal Orakzai",       "jobTitle": "Founder & Chairman" },
+          { "@type": "Person", "@id": "https://www.shamimforever.com/#asma-orakzai", "name": "Dr Asma Orakzai", "jobTitle": "Founder & CEO" },
+          { "@type": "Person", "@id": "https://www.shamimforever.com/#laiba-faisal-orakzai", "name": "Laiba Faisal Orakzai", "jobTitle": "Founder & Director" },
           { "@type": "Person", "name": "Creative Director",    "jobTitle": "Creative Director" },
           { "@type": "Person", "name": "Fragrance Director",   "jobTitle": "Master Perfumer & Fragrance Director" },
           { "@type": "Person", "name": "Digital Director",     "jobTitle": "Digital Commerce Director" },
@@ -115,6 +116,12 @@ import type { Metadata } from 'next'
     { name: "Global Operations",      n: "Operations" },
   ]
 
+  const LEADERSHIP_DATA = [
+    { name: "Faisal Orakzai", title: "Founder & Chairman", description: "Founder of Shamim Forever, Orakzai Group, and Orakzai Bond.", href: "/faisal-orakzai" },
+    { name: "Dr Asma Orakzai", title: "Founder & CEO", description: "Founder and executive leader of Shamim Forever.", href: "/team" },
+    { name: "Laiba Faisal Orakzai", title: "Founder & Director", description: "Founder Director supporting Shamim Forever's direction and growth.", href: "/team" },
+  ]
+
   export default function SFTeamPage() {
     return (
       <>
@@ -128,6 +135,8 @@ import type { Metadata } from 'next'
             ".sf-team-grid { display:grid; grid-template-columns:1fr; gap:18px; }",
             "@media(min-width:700px){ .sf-team-grid{ grid-template-columns:repeat(2,1fr); } }",
             ".sf-dept-card { padding:24px; border:1px solid #111; background:rgba(255,255,255,0.01); }",
+            ".sf-leadership-grid { display:grid; grid-template-columns:1fr; gap:14px; width:100%; max-width:1000px; }",
+            "@media(min-width:700px){ .sf-leadership-grid{ grid-template-columns:repeat(3,1fr); } }",
           ].join(" ") }} />
 
           <div style={{ padding: "80px 24px 52px", textAlign: "center", borderBottom: "1px solid #111" }}>
@@ -135,7 +144,9 @@ import type { Metadata } from 'next'
             <h1 style={{ fontSize: 34, fontWeight: 200, letterSpacing: "-0.02em", margin: "0 0 14px" }}>Team & Leadership</h1>
             <p style={{ color: "#71717a", fontSize: 14, maxWidth: 500, margin: "0 auto 28px", lineHeight: 1.8 }}>
               Shamim Forever is led by Founder &amp; Chairman{" "}
-              <strong style={{ color: "#a1a1aa" }}>Faisal Orakzai</strong> — built by a global team across creative, digital, brand, and client experience.
+              <strong style={{ color: "#a1a1aa" }}>Faisal Orakzai</strong>, Founder &amp; CEO{" "}
+              <strong style={{ color: "#a1a1aa" }}>Dr Asma Orakzai</strong>, and Founder &amp; Director{" "}
+              <strong style={{ color: "#a1a1aa" }}>Laiba Faisal Orakzai</strong> — built by a global team across creative, digital, brand, and client experience.
             </p>
             <div style={{ display: "flex", gap: 10, justifyContent: "center", flexWrap: "wrap" }}>
               <a href="https://theorg.com/org/shamim-forever" target="_blank" rel="noopener noreferrer"
@@ -149,13 +160,17 @@ import type { Metadata } from 'next'
           </div>
 
           <div style={{ padding: "52px 24px", display: "flex", justifyContent: "center", borderBottom: "1px solid #111" }}>
-            <div style={{ textAlign: "center", padding: "28px 36px", border: "1px solid rgba(201,160,84,0.5)", background: "rgba(201,160,84,0.06)", maxWidth: 320 }}>
-              <p style={{ color: "#c9a054", fontSize: 9, letterSpacing: "0.35em", textTransform: "uppercase", margin: "0 0 6px" }}>Founder & Chairman</p>
-              <h2 style={{ color: "#c9a054", fontSize: 20, fontWeight: 300, margin: "0 0 6px" }}>Faisal Orakzai</h2>
-              <p style={{ color: "#52525b", fontSize: 12, margin: 0 }}>Founder of Shamim Forever, Orakzai Group, and Orakzai Bond</p>
-              <Link href="/faisal-orakzai" style={{ display: "inline-block", marginTop: 14, padding: "6px 14px", border: "1px solid rgba(201,160,84,0.3)", color: "#c9a054", fontSize: 10, letterSpacing: "0.15em", textTransform: "uppercase", textDecoration: "none" }}>
-                Full Bio
-              </Link>
+            <div className="sf-leadership-grid">
+              {LEADERSHIP_DATA.map((person) => (
+                <div key={person.name} style={{ textAlign: "center", padding: "28px 22px", border: "1px solid rgba(201,160,84,0.5)", background: "rgba(201,160,84,0.06)" }}>
+                  <p style={{ color: "#c9a054", fontSize: 9, letterSpacing: "0.35em", textTransform: "uppercase", margin: "0 0 6px" }}>{person.title}</p>
+                  <h2 style={{ color: "#c9a054", fontSize: 20, fontWeight: 300, margin: "0 0 6px" }}>{person.name}</h2>
+                  <p style={{ color: "#52525b", fontSize: 12, margin: 0, lineHeight: 1.6 }}>{person.description}</p>
+                  <Link href={person.href} style={{ display: "inline-block", marginTop: 14, padding: "6px 14px", border: "1px solid rgba(201,160,84,0.3)", color: "#c9a054", fontSize: 10, letterSpacing: "0.15em", textTransform: "uppercase", textDecoration: "none" }}>
+                    {person.href === "/faisal-orakzai" ? "Full Bio" : "Team Profile"}
+                  </Link>
+                </div>
+              ))}
             </div>
           </div>
 
