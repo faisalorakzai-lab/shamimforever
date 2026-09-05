@@ -1,4 +1,33 @@
 export const PRODUCT_IMAGE_OVERRIDES: Record<string, string | string[]> = {
+        // Restored original catalogue media for the current Supabase catalogue.
+        'sf-oud-sovereign': 'https://uvgtgeauhjbdatrmmaob.supabase.co/storage/v1/object/public/products/perfumes/oud-sovereign-new.png',
+        'sf-himalayan-snow-musk': 'https://uvgtgeauhjbdatrmmaob.supabase.co/storage/v1/object/public/products/perfumes/himalayan-snow-musk.png',
+        'sf-midnight-iris-royale': 'https://uvgtgeauhjbdatrmmaob.supabase.co/storage/v1/object/public/products/perfumes/midnight-iris-royale.png',
+        'sf-sovereign-vanilla-absolute': 'https://uvgtgeauhjbdatrmmaob.supabase.co/storage/v1/object/public/products/perfumes/vanilla-absolute.png',
+        'heritage-noir': 'https://uvgtgeauhjbdatrmmaob.supabase.co/storage/v1/object/public/products/perfumes/heritage-noir.png',
+        'eternal-rose-de-taif': 'https://uvgtgeauhjbdatrmmaob.supabase.co/storage/v1/object/public/products/perfumes/eternal-rose-de-taif.png',
+        'imperial-musk': 'https://uvgtgeauhjbdatrmmaob.supabase.co/storage/v1/object/public/products/perfumes/imperial-musk.png',
+        'silk-road-amber': 'https://uvgtgeauhjbdatrmmaob.supabase.co/storage/v1/object/public/products/perfumes/silk-road-amber.png',
+        'sf-sapphire-blue-levant': [
+          '/products/sapphire-blue-levant/levant-bottle.png',
+          '/products/sapphire-blue-levant/levant-box.png',
+        ],
+        'shamim-bloom': [
+          '/products/shamims-bloom/bloom-hero.png',
+          '/products/shamims-bloom/bloom-1.png',
+          '/products/shamims-bloom/bloom-2.png',
+          '/products/shamims-bloom/bloom-3.png',
+        ],
+        'sf-sacred-incense-kyoto': [
+          '/products/sf-kyoto-sacred-incense/kyoto-hero.png',
+          '/products/sf-kyoto-sacred-incense/kyoto-box.png',
+        ],
+        'sf-imperial-black': '/products/imperial-black-throne/throne-bottle.png',
+        'dior-sauvage-inspired': '/images/products/dior-sauvage.png',
+        'creed-aventus-inspired': 'https://uvgtgeauhjbdatrmmaob.supabase.co/storage/v1/object/public/products/guest-curation/male/creed-aventus.png',
+        'velvet-orchid-noir': '/products/tom-ford-velvet-orchid/hero.png',
+        'santal-33-inspired': '/guest-curation/unisex/le-labo-santal-33.jpg',
+        'noir-rose-absolute': 'https://uvgtgeauhjbdatrmmaob.supabase.co/storage/v1/object/public/products/guest-curation/female/narciso-rodriguez-musc-noir-rose.jpg',
         'prada-candy': '/products/prada-candy/hero.png',
         'armani-si': '/products/armani-si/hero.png',
         'burberry-her': '/products/burberry-her/hero.png',
@@ -58,6 +87,7 @@ export const PRODUCT_IMAGE_OVERRIDES: Record<string, string | string[]> = {
       }
 
       export const PRODUCT_VIDEO_OVERRIDES: Record<string, string> = {
+        'shamim-bloom': '/products/shamims-bloom/shamim-bloom-hero.mp4',
         'messika-move-bracelet': '/products/messika-move-high-jewelry-bracelet/hero.mp4',
         'sovereign-amethyst': '/products/sovereign-amethyst/sovereign-amethyst-hero.mp4',
         'shamim-bloom-the-sovereign-grace': '/products/shamims-bloom/shamim-bloom-hero.mp4',
