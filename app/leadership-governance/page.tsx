@@ -15,7 +15,7 @@ export const metadata: Metadata = {
 
 const leaders = [
   { name: 'Faisal Orakzai', role: 'Founder & Chairman', text: 'Sets the house vision, protects the long-term identity of Shamim Forever, and guides its strategic direction.', href: '/faisal-orakzai' },
-  { name: 'Dr Asma Orakzai', role: 'CEO', text: 'Leads the operating vision of the house and the experience delivered to clients, partners, and the wider team.', href: '/founder-leadership' },
+  { name: 'Dr Asma Orakzai', role: 'Chief Executive Officer', text: 'Leads the operating vision of the house and the experience delivered to clients, partners, and the wider team.', href: '/founder-leadership' },
   { name: 'Dr Laiba Faisal Orakzai', role: 'Director', text: 'Supports the house direction, governance conversations, and the continued development of the brand.', href: '/founder-leadership' },
 ]
 
@@ -39,7 +39,7 @@ const governanceJsonLd = {
     foundingDate: '2023',
     founder: [
       { '@type': 'Person', name: 'Faisal Orakzai', jobTitle: 'Founder & Chairman' },
-      { '@type': 'Person', name: 'Dr Asma Orakzai', jobTitle: 'CEO' },
+      { '@type': 'Person', name: 'Dr Asma Orakzai', jobTitle: 'Chief Executive Officer' },
       { '@type': 'Person', name: 'Dr Laiba Faisal Orakzai', jobTitle: 'Director' },
     ],
   },
