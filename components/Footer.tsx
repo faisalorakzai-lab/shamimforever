@@ -17,8 +17,19 @@ const ACCESS_LINKS = [
   { label: 'Inner Circle', href: '/inner-circle' },
   { label: 'Concierge', href: '/concierge' },
   { label: 'Virtual Atelier', href: '/virtual-atelier' },
-  { label: 'Whitelist Access', href: '/whitelist' },
+  { label: 'Whitelist Access', href: '/learn/whitelist-access' },
   { label: 'Sovereign Panel', href: '/admin' },
+]
+
+const LEARN_LINKS = [
+  { label: 'Start here', href: '/learn#start-here' },
+  { label: 'The House', href: '/learn#the-house' },
+  { label: 'Founders & Leadership', href: '/learn#founders-leadership' },
+  { label: 'The Art of Luxury', href: '/learn#the-art-of-luxury' },
+  { label: 'Fragrance', href: '/learn#fragrance' },
+  { label: 'Authenticity & Trust', href: '/learn#authenticity-trust' },
+  { label: 'Brand Glossary', href: '/learn#brand-glossary' },
+  { label: 'Learn FAQ', href: '/learn#learn-faq' },
 ]
 
 const INFRA_LINKS = [
@@ -27,7 +38,7 @@ const INFRA_LINKS = [
   { label: 'Private Delivery', href: '/delivery' },
   { label: 'Bespoke Atelier', href: '/bespoke' },
   { label: 'Heritage Gallery', href: '/gallery' },
-  { label: 'Whitelist Access', href: '/whitelist' },
+  { label: 'Whitelist Access', href: '/learn/whitelist-access' },
   { label: 'DNA Identity', href: '/dna-identity' },
   { label: 'Time Archive', href: '/time-archive' },
   { label: 'Heirloom Vault', href: '/heirloom-vault' },
@@ -78,7 +89,7 @@ export default function Footer() {
 
       {/* Main grid */}
       <div className="px-5 md:px-12 lg:px-20 py-14 md:py-20">
-        <div className="grid grid-cols-2 md:grid-cols-[1fr_1fr_1fr_1fr_1.4fr] gap-10 md:gap-8">
+        <div className="grid grid-cols-2 md:grid-cols-[1fr_1fr_1fr_1fr_1.2fr_1.2fr] gap-10 md:gap-8">
 
           {/* Brand */}
           <motion.div {...fadeUp} className="col-span-2 md:col-span-1">
@@ -121,6 +132,19 @@ export default function Footer() {
               {ACCESS_LINKS.map(l => (
                 <Link key={l.href} href={l.href}
                   className="text-[10px] tracking-[0.25em] uppercase text-zinc-600 hover:text-zinc-200 transition-colors duration-500">
+                  {l.label}
+                </Link>
+              ))}
+            </div>
+          </motion.div>
+
+          {/* Learn */}
+          <motion.div {...fadeUp} transition={{ duration: 1, delay: 0.17, ease: [0.16, 1, 0.3, 1] as const }}>
+            <Link href="/learn" className="text-[8px] tracking-[0.5em] uppercase text-[#c9a054] mb-6 block hover:text-zinc-200 transition-colors">Learn</Link>
+            <div className="flex flex-col gap-3.5">
+              {LEARN_LINKS.map(l => (
+                <Link key={l.href} href={l.href}
+                  className="text-[9px] tracking-[0.18em] uppercase text-zinc-600 hover:text-zinc-200 transition-colors duration-500">
                   {l.label}
                 </Link>
               ))}
