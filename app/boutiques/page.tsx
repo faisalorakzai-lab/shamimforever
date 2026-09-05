@@ -14,17 +14,15 @@ type Boutique = {
 
 const BOUTIQUES: Boutique[] = [
   {
-    id: 'hq-karachi',
+    id: 'hq-puteaux',
     num: '00',
-    city: 'Karachi',
-    country: 'Pakistan',
-    flag: '🇵🇰',
-    region: 'Federal B Area — Yaseenabad',
-    title: 'Shamim Sky Tower — Global Headquarters',
-    address: '12/13/14, Shamim Sky Tower, Federal B Area, Block 9, Yaseenabad, Karachi 75900, Pakistan.',
+    city: 'Puteaux',
+    country: 'France',
+    flag: '🇫🇷',
+    region: 'La Défense — Puteaux',
+    title: 'Shamim Forever Global Headquarters',
+    address: '77 Espl. du Général de Gaulle, 92800 Puteaux, France',
     tier: 'hq',
-    phone: '+92 311 9447572',
-    whatsapp: '+923119447572',
   },
   {
     id: 'khi-tariq', num: '01', city: 'Karachi', country: 'Pakistan', flag: '🇵🇰',
@@ -156,14 +154,14 @@ export default function BoutiquesPage() {
         </div>
 
         {/* HQ banner strip */}
-        <a href="https://wa.me/923119447572" target="_blank" rel="noopener noreferrer"
+        <a href="/concierge" target="_blank" rel="noopener noreferrer"
           className="flex items-center gap-3 md:gap-5 px-5 md:px-12 lg:px-20 py-3 bg-[#c9a054]/5 border-y border-[#c9a054]/10 hover:bg-[#c9a054]/8 transition-colors duration-500 group">
           <div className="w-1.5 h-1.5 rounded-full bg-[#c9a054] animate-pulse" />
           <span className="text-[8px] tracking-[0.45em] uppercase text-[#c9a054]">Global HQ</span>
           <span className="text-zinc-700 text-xs">·</span>
-          <span className="text-[8px] tracking-[0.35em] uppercase text-zinc-500">Shamim Sky Tower, Karachi</span>
+          <span className="text-[8px] tracking-[0.35em] uppercase text-zinc-500">77 Espl. du Général de Gaulle, Puteaux, France</span>
           <span className="text-zinc-700 text-xs hidden md:inline">·</span>
-          <span className="text-[8px] tracking-[0.35em] uppercase text-zinc-600 hidden md:inline">WhatsApp: +92 311 9447572</span>
+          <span className="text-[8px] tracking-[0.35em] uppercase text-zinc-600 hidden md:inline">92800 Puteaux · France</span>
           <span className="ml-auto text-[8px] tracking-[0.35em] uppercase text-[#c9a054] group-hover:opacity-100 opacity-60 transition-opacity duration-400">Contact →</span>
         </a>
 
@@ -259,7 +257,7 @@ export default function BoutiquesPage() {
       <section className="border-t border-[#0d0d0d] px-5 md:px-12 lg:px-20 py-14 md:py-24">
         <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 1, ease }}>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-y-10 gap-x-4 mb-14 pb-14 border-b border-[#0d0d0d]">
-            {[{v:'11',l:'Sovereign Addresses'},{v:'5',l:'Countries'},{v:'4',l:'Continents'},{v:'2025',l:'Opening Year'}].map(s => (
+            {[{v:'11',l:'Sovereign Addresses'},{v:'6',l:'Countries'},{v:'4',l:'Continents'},{v:'2025',l:'Opening Year'}].map(s => (
               <div key={s.l} className="text-center md:text-left">
                 <p className="font-serif font-light text-4xl md:text-5xl text-[#c9a054] mb-2">{s.v}</p>
                 <p className="text-[8px] tracking-[0.4em] uppercase text-zinc-700">{s.l}</p>
