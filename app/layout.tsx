@@ -363,7 +363,7 @@ import { CartProvider } from '@/lib/cart-context'
         "@type": "Person",
         "@id": "https://www.shamimforever.com/#asma-orakzai",
         "name": "Dr Asma Orakzai",
-        "jobTitle": "CEO",
+        "jobTitle": "Founder & CEO",
         "worksFor": { "@id": "https://www.shamimforever.com/#organization" },
         "sameAs": [
           "https://www.crunchbase.com/person/dr-asma-orakzai",
@@ -375,7 +375,7 @@ import { CartProvider } from '@/lib/cart-context'
         "@type": "Person",
         "@id": "https://www.shamimforever.com/#laiba-faisal-orakzai",
         "name": "Laiba Faisal Orakzai",
-        "jobTitle": "Director",
+        "jobTitle": "Founder & Director",
         "worksFor": { "@id": "https://www.shamimforever.com/#organization" },
         "sameAs": [
           "https://www.linkedin.com/in/laiba-faisal-orakzai-13853a430",
