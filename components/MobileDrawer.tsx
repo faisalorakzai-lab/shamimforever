@@ -15,6 +15,7 @@ const navLinks = [
   { label: 'Boutiques', href: '/boutiques' },
   { label: 'Concierge', href: '/concierge' },
   { label: 'Team', href: '/team' },
+  { label: 'Corporate', href: '/corporate' },
   { label: 'FAQ', href: '/faq' },
   { label: 'AI Scanner', href: '/virtual-atelier' },
   { label: 'Inner Circle', href: '/inner-circle' },
