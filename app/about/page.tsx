@@ -4,7 +4,7 @@ import Link from 'next/link'
 
 export const metadata: Metadata = {
   title: 'About Shamim Forever — Sovereign Luxury House',
-  description: 'Shamim Forever is a global luxury digital house offering bespoke fragrances, sovereign jewellery, and blockchain-verified couture collections. Founded in 2024 by Faisal Orakzai. Based in Pakistan, serving worldwide.',
+  description: 'Shamim Forever is a global luxury digital house offering bespoke fragrances, sovereign jewellery, and blockchain-verified couture collections. Headquartered in Puteaux, France, serving worldwide.',
   alternates: { canonical: 'https://www.shamimforever.com/about' },
   keywords: [
     'about shamim forever', 'luxury brand', 'bespoke fragrances', 'luxury jewellery',
@@ -41,16 +41,12 @@ const organizationJsonLd = {
     '@type': 'Place',
     name: 'Karachi, Pakistan',
   },
-  founder: {
-    '@type': 'Person',
-    '@id': 'https://www.shamimforever.com/founder#faisal-orakzai',
-    name: 'Faisal Orakzai',
-    url: 'https://www.shamimforever.com/founder',
-  },
   address: {
     '@type': 'PostalAddress',
-    addressCountry: 'PK',
-    addressLocality: 'Karachi',
+    streetAddress: '77 Espl. du Général de Gaulle',
+    postalCode: '92800',
+    addressLocality: 'Puteaux',
+    addressCountry: 'FR',
   },
   contactPoint: {
     '@type': 'ContactPoint',
@@ -64,6 +60,7 @@ const organizationJsonLd = {
     'https://x.com/shamimforever',
     'https://www.facebook.com/shamimforever',
     'https://tiktok.com/@shamimforever',
+    'https://www.wikidata.org/wiki/Q141223771',
   ],
   knowsAbout: [
     'Bespoke Fragrances',
@@ -204,12 +201,13 @@ export default function AboutPage() {
                 Global Presence
               </h2>
               <p className="text-zinc-400 mb-8">
-                Based in Pakistan. Serving the world. With boutiques and concierge services across 10 global locations.
+                Headquartered at 77 Espl. du Général de Gaulle, 92800 Puteaux, France. Serving the world through boutiques and private concierge services across global locations.
               </p>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {[
-                  { city: 'Karachi', locations: ['Tariq Road', 'Clifton'] },
+                  { city: 'Puteaux', locations: ['77 Espl. du Général de Gaulle, 92800'] },
+                { city: 'Karachi', locations: ['Tariq Road', 'Clifton'] },
                   { city: 'Lahore', locations: ['DHA Phase 6'] },
                   { city: 'Islamabad', locations: ['DHA Phase II'] },
                   { city: 'Peshawar', locations: ['Ring Road'] },
