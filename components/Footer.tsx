@@ -10,6 +10,7 @@ const NAV_LINKS = [
   { label: 'Journal', href: '/journal' },
   { label: 'Boutiques', href: '/boutiques' },
   { label: 'Our Story', href: '/our-story' },
+  { label: 'FAQ', href: '/faq' },
 ]
 
 const ACCESS_LINKS = [
@@ -153,7 +154,7 @@ export default function Footer() {
       <div className="border-t border-[#0d0d0d] px-5 md:px-12 lg:px-20 py-6 flex flex-col md:flex-row items-center justify-between gap-3">
         <p className="text-[8px] tracking-[0.35em] uppercase text-zinc-800">© 2025 Shamim Forever. All Rights Reserved.</p>
         <div className="flex items-center gap-6">
-          <p className="text-[8px] tracking-[0.35em] uppercase text-zinc-800">Est. 2023 · Pakistan</p>
+          <p className="text-[8px] tracking-[0.35em] uppercase text-zinc-800">HQ · Puteaux, France</p>
           <div className="w-px h-3 bg-[#111]" />
           <p className="text-[8px] tracking-[0.35em] uppercase text-zinc-800">Sovereign Luxury</p>
         </div>
