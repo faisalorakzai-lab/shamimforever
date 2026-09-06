@@ -49,7 +49,7 @@ export default function ConciergePage() {
   const [selectedBoutique, setSelectedBoutique] = useState('')
   const [selectedService, setSelectedService] = useState('')
   const [formState, setFormState] = useState<FormState>('idle')
-  const [form, setForm] = useState({ name: '', email: '', phone: '', country: '', language: '', date: '', notes: '' })
+  const [form, setForm] = useState({ name: '', email: '', phone: '', country: '', language: '', date: '', time: '', notes: '' })
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
     setForm(prev => ({ ...prev, [e.target.name]: e.target.value }))
@@ -64,7 +64,7 @@ export default function ConciergePage() {
       .from('concierge_bookings')
       .insert([{
         name: form.name, email: form.email, phone: form.phone,
-        preferred_date: form.date || null, notes: 'Country / Region: ' + form.country + '\nPreferred Language: ' + (form.language || 'Not specified') + '\n' + form.notes,
+        preferred_date: form.date || null, notes: 'Country / Region: ' + form.country + '\nPreferred Language: ' + (form.language || 'Not specified') + '\nPreferred Time: ' + (form.time || 'Not specified') + '\n' + form.notes,
         boutique: selectedBoutique, service_type: selectedService,
       }])
       .then(({ error }) => {
@@ -92,7 +92,7 @@ export default function ConciergePage() {
             <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1.2, ease }}>
               <p className="text-[9px] tracking-[0.6em] uppercase text-[#c9a054] mb-5">Private Access · By Appointment</p>
               <h1 className="font-serif font-light text-5xl md:text-7xl lg:text-8xl tracking-[0.05em] text-zinc-100 leading-[0.92] mb-5">Private Luxury<br /><span className="italic text-zinc-500">Concierge</span></h1>
-              <p className="text-zinc-500 font-light text-sm leading-relaxed max-w-sm">Private access to Shamim Forever. Our Concierge provides a considered point of contact for bespoke services, client assistance, collection inquiries, and direct access to the House.</p>
+              <p className="text-zinc-500 font-light text-sm leading-relaxed max-w-sm">Private access to Shamim Forever. Our Concierge provides a considered point of contact for bespoke services, client assistance, collection inquiries, and direct access to the House.</p><div className="mt-8 flex flex-wrap gap-4"><a href="#appointment" className="border border-[#c9a054]/60 px-7 py-4 text-[9px] uppercase tracking-[0.4em] text-[#c9a054] transition hover:bg-[#c9a054] hover:text-[#050505]">Message Concierge →</a><a href="#appointment" className="px-7 py-4 text-[9px] uppercase tracking-[0.4em] text-zinc-600 transition hover:text-[#c9a054]">Book Private Appointment →</a></div>
             </motion.div>
           </div>
         </div>
@@ -148,6 +148,9 @@ export default function ConciergePage() {
         </div>
       </section>
 
+
+
+        <section className="border-b border-[#0d0d0d] bg-[#080808] px-5 py-16 md:px-12 md:py-24 lg:px-20" aria-labelledby="appointment-types"><div className="mx-auto max-w-[1200px]"><p className="mb-4 text-[9px] uppercase tracking-[0.55em] text-[#c9a054]">Ways to Connect</p><h2 id="appointment-types" className="font-serif text-4xl font-light text-zinc-100 md:text-6xl">An appointment shaped around you.</h2><div className="mt-10 grid gap-3 md:grid-cols-2 lg:grid-cols-5"><div className="border border-[#1a1a1a] p-6"><span className="font-serif text-2xl text-[#c9a054]">01</span><h3 className="mt-5 text-[10px] uppercase tracking-[0.25em] text-zinc-300">Collection Discovery</h3><p className="mt-4 text-xs leading-6 text-zinc-600">Explore selected Shamim Forever collections and House offerings.</p></div><div className="border border-[#1a1a1a] p-6"><span className="font-serif text-2xl text-[#c9a054]">02</span><h3 className="mt-5 text-[10px] uppercase tracking-[0.25em] text-zinc-300">Bespoke Consultation</h3><p className="mt-4 text-xs leading-6 text-zinc-600">Discuss personalized commissions and private creative requests.</p></div><div className="border border-[#1a1a1a] p-6"><span className="font-serif text-2xl text-[#c9a054]">03</span><h3 className="mt-5 text-[10px] uppercase tracking-[0.25em] text-zinc-300">Private Client Consultation</h3><p className="mt-4 text-xs leading-6 text-zinc-600">A dedicated consultation for selected client requirements.</p></div><div className="border border-[#1a1a1a] p-6"><span className="font-serif text-2xl text-[#c9a054]">04</span><h3 className="mt-5 text-[10px] uppercase tracking-[0.25em] text-zinc-300">Gifting Consultation</h3><p className="mt-4 text-xs leading-6 text-zinc-600">Personalized assistance for significant gifts and special occasions.</p></div><div className="border border-[#1a1a1a] p-6"><span className="font-serif text-2xl text-[#c9a054]">05</span><h3 className="mt-5 text-[10px] uppercase tracking-[0.25em] text-zinc-300">Virtual Consultation</h3><p className="mt-4 text-xs leading-6 text-zinc-600">For clients unable to visit a physical location.</p></div></div></div></section>
       {/* ─── APPOINTMENT BOOKING FORM ─── */}
       <section className="px-5 md:px-12 lg:px-20 py-14 md:py-24">
         <div className="max-w-2xl">
@@ -210,7 +213,7 @@ export default function ConciergePage() {
 
                 {/* Step 2: Service */}
                 <div className="mb-8 md:mb-10">
-                  <p className="text-[8px] tracking-[0.45em] uppercase text-zinc-700 mb-4">02 — Consultation Type</p>
+                  <p className="text-[8px] tracking-[0.45em] uppercase text-zinc-700 mb-4">02 — Inquiry Type</p>
                   <div className="grid grid-cols-1 gap-2">
                     {SERVICE_TYPES.map(s => (
                       <button key={s.id} type="button" onClick={() => setSelectedService(s.id)}
@@ -235,6 +238,7 @@ export default function ConciergePage() {
                        { name: 'country', label: 'Country / Region', type: 'text', required: true, placeholder: 'Country or region' },
                        { name: 'language', label: 'Preferred Language', type: 'text', required: false, placeholder: 'English, Urdu, or other' },
                       { name: 'date', label: 'Preferred Date', type: 'date', required: false, placeholder: '' },
+                      { name: 'time', label: 'Preferred Time', type: 'time', required: false, placeholder: '' },
                     ].map(f => (
                       <div key={f.name} className="group border-b border-[#0d0d0d] focus-within:border-[#c9a054]/30 transition-colors duration-500">
                         <label className="block pt-5 pb-1 text-[7px] tracking-[0.45em] uppercase text-zinc-700 group-focus-within:text-[#c9a054] transition-colors duration-400">
