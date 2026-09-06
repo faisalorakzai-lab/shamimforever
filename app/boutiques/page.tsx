@@ -59,10 +59,10 @@ const LOCATIONS: Location[] = [
     flag: '🇫🇷',
     region: 'Paris La Défense',
     title: 'Shamim Forever Global Headquarters',
-    description: "The administrative and strategic center of Shamim Forever. From Puteaux, the House coordinates its international vision, brand development, strategic direction, and future global expansion.",
+    description: "The administrative and strategic center of Shamim Forever. From Puteaux, the House coordinates its international vision, brand development, strategic direction, and future global expansion. This is the House's verified headquarters; no other boutique address is announced unless officially confirmed.",
     status: 'headquarters',
     accent: 'from-[#c9a054]/10',
-    address: ['Shamim Forever', '77 Esplanade du Général de Gaulle', 'Puteaux, Hauts-de-Seine', 'Paris La Défense, France'],
+    address: ['Shamim Forever', '77 Esplanade du Général de Gaulle', '92800 Puteaux, Hauts-de-Seine', 'Paris La Défense, France'],
     functions: ['Global Brand Strategy', 'Executive Leadership', 'International Development', 'Strategic Partnerships', 'Brand Governance', 'Digital Infrastructure', 'Future Boutique Planning'],
   },
   {
@@ -103,21 +103,21 @@ const REGIONS = [
     flag: '🇵🇰',
     title: 'Pakistan',
     kicker: 'A foundational market',
-    body: 'Pakistan represents an important part of the broader story and future development of Shamim Forever.',
+    body: 'Pakistan represents an important part of the broader story and future development of Shamim Forever. The House is exploring long-term opportunities across selected cities; no boutique address is currently announced.',
     cities: 'Karachi · Lahore · Islamabad · Peshawar',
   },
   {
     flag: '🇦🇪 🇸🇦',
     title: 'The Middle East',
     kicker: 'A region of cultural ambition',
-    body: 'The House is interested in the long-term potential of destinations including Dubai and Riyadh for luxury, hospitality, and private experiences.',
+    body: 'The Middle East represents an important future market for luxury, hospitality, and private experiences. The House is interested in the long-term potential of destinations including Dubai and Riyadh; no boutique location is currently announced unless officially confirmed.',
     cities: 'Dubai · Riyadh',
   },
   {
     flag: '🇫🇷',
     title: 'Europe',
     kicker: 'The House begins in France',
-    body: 'France is home to the Global Headquarters. Further European development will be considered according to strategic relevance, cultural alignment, operational readiness, and long-term sustainability.',
+    body: 'France is home to the Global Headquarters. From Puteaux and the Paris La Défense region, the House will develop its international vision gradually and deliberately according to strategic relevance, cultural alignment, operational readiness, and long-term sustainability.',
     cities: 'Puteaux · Paris La Défense',
   },
   {
@@ -134,6 +134,14 @@ const EXPERIENCE_FORMATS = [
   ['Ateliers', 'Creative environments dedicated to craftsmanship, bespoke development, and design.'],
   ['Private Salons', 'Appointment-based spaces for individual consultations.'],
   ['Experience Centers', 'Immersive environments connecting luxury, technology, and the world of the House.'],
+]
+
+const PRIVATE_VISITS = [
+  'Private consultations',
+  'Bespoke discussions',
+  'Collection previews',
+  'Client appointments',
+  'Private House experiences',
 ]
 
 export default function BoutiquesPage() {
@@ -156,7 +164,7 @@ export default function BoutiquesPage() {
                 Boutiques<br /><span className="italic text-zinc-500">&amp; Private Locations</span>
               </h1>
               <p className="mt-7 max-w-2xl text-sm font-light leading-8 text-zinc-500 md:text-base">
-                From Paris La Défense to the world. Shamim Forever is building a global luxury presence through private experiences, ateliers, and carefully considered locations.
+                From Paris La Défense to the world. Shamim Forever is building a global luxury presence through private experiences, boutiques, ateliers, and carefully considered locations. Our journey begins at the House's Global Headquarters in Puteaux, within the Paris La Défense region of France.
               </p>
               <div className="mt-8 flex flex-wrap items-center gap-4 text-[8px] uppercase tracking-[0.35em] text-zinc-600">
                 <span className="text-[#c9a054]">01 · Verified Global Headquarters</span>
@@ -272,7 +280,7 @@ export default function BoutiquesPage() {
       <section className="border-b border-[#0d0d0d] bg-[#080808] px-5 py-16 md:px-12 md:py-24 lg:px-20">
         <div className="mx-auto grid max-w-[1200px] gap-14 lg:grid-cols-2">
           <div>
-            <p className="mb-4 text-[9px] uppercase tracking-[0.55em] text-[#c9a054]">04 / How we choose a location</p>
+            <p className="mb-4 text-[9px] uppercase tracking-[0.55em] text-[#c9a054]">07 / How we choose a location</p>
             <h2 className="font-serif text-4xl font-light text-zinc-100 md:text-5xl">Location is part of the House.</h2>
             <p className="mt-6 text-sm leading-8 text-zinc-500">Shamim Forever does not view physical presence as a simple expansion metric. A city is not selected simply because it is famous; the location must have a meaningful relationship with the future of the House.</p>
           </div>
@@ -291,11 +299,23 @@ export default function BoutiquesPage() {
         </div>
       </section>
 
+      <section className="border-b border-[#0d0d0d] bg-[#080808] px-5 py-16 md:px-12 md:py-24 lg:px-20" aria-labelledby="private-visits">
+        <div className="mx-auto grid max-w-[1200px] gap-14 lg:grid-cols-[0.8fr_1.2fr] lg:items-start">
+          <div>
+            <p className="mb-4 text-[9px] uppercase tracking-[0.55em] text-[#c9a054]">08 / Private visits</p>
+            <h2 id="private-visits" className="font-serif text-4xl font-light text-zinc-100 md:text-6xl">The House, by appointment.</h2>
+            <p className="mt-6 text-sm leading-8 text-zinc-500">Certain Shamim Forever experiences may operate through private appointments and concierge coordination. Availability, format, and location are confirmed directly by the House.</p>
+            <Link href="/concierge" className="mt-8 inline-flex border border-[#c9a054]/60 px-7 py-4 text-[9px] uppercase tracking-[0.4em] text-[#c9a054] transition hover:bg-[#c9a054] hover:text-[#050505]">Contact the Concierge →</Link>
+          </div>
+          <div className="grid gap-3 sm:grid-cols-2">{PRIVATE_VISITS.map((item, index) => <div key={item} className="border border-[#1a1a1a] p-6"><span className="font-serif text-2xl text-[#c9a054]/70">0{index + 1}</span><p className="mt-5 text-[10px] uppercase tracking-[0.28em] text-zinc-400">{item}</p></div>)}</div>
+        </div>
+      </section>
+
       <section className="border-b border-[#0d0d0d] px-5 py-16 md:px-12 md:py-24 lg:px-20">
         <div className="mx-auto max-w-[1200px]">
           <div className="grid gap-12 lg:grid-cols-[0.85fr_1.15fr]">
             <div>
-              <p className="mb-4 text-[9px] uppercase tracking-[0.55em] text-[#c9a054]">05 / Expansion principle</p>
+              <p className="mb-4 text-[9px] uppercase tracking-[0.55em] text-[#c9a054]">09 / Global expansion principle</p>
               <h2 className="font-serif text-4xl font-light text-zinc-100 md:text-5xl">Growth without losing identity.</h2>
             </div>
             <div className="text-lg font-light leading-9 text-zinc-500 md:text-2xl">Expansion without identity is simply multiplication. The objective is not to appear everywhere. The objective is to belong wherever the House appears.</div>
@@ -306,7 +326,7 @@ export default function BoutiquesPage() {
 
       <section className="border-b border-[#0d0d0d] px-5 py-16 md:px-12 md:py-24 lg:px-20" aria-labelledby="location-status">
         <div className="mx-auto max-w-[1200px]">
-          <p className="mb-4 text-[9px] uppercase tracking-[0.55em] text-[#c9a054]">06 / Location status system</p>
+          <p className="mb-4 text-[9px] uppercase tracking-[0.55em] text-[#c9a054]">10 / Location status system</p>
           <h2 id="location-status" className="font-serif text-4xl font-light text-zinc-100 md:text-5xl">Clear status. No invented addresses.</h2>
           <div className="mt-10 grid gap-px border border-[#151515] bg-[#151515] sm:grid-cols-2 lg:grid-cols-4">{Object.entries(STATUS_META).map(([key, status]) => <div key={key} className="bg-[#050505] p-6"><span className={`text-xl ${status.className.split(' ')[0]}`}>{status.symbol}</span><h3 className="mt-5 text-[9px] uppercase tracking-[0.3em] text-zinc-300">{status.label}</h3><p className="mt-3 text-xs leading-6 text-zinc-600">{status.description}</p></div>)}</div>
         </div>
@@ -323,7 +343,7 @@ export default function BoutiquesPage() {
 
       <section className="border-t border-[#0d0d0d] px-5 py-14 md:px-12 lg:px-20">
         <div className="mx-auto grid max-w-[1200px] gap-8 text-sm text-zinc-500 md:grid-cols-3">
-          <div><p className="mb-4 text-[8px] uppercase tracking-[0.45em] text-[#c9a054]">Global Headquarters</p><p>Shamim Forever<br />77 Esplanade du Général de Gaulle<br />Puteaux, Hauts-de-Seine<br />Paris La Défense, France</p></div>
+          <div><p className="mb-4 text-[8px] uppercase tracking-[0.45em] text-[#c9a054]">Global Headquarters</p><p>Shamim Forever<br />77 Esplanade du Général de Gaulle<br />92800 Puteaux, Hauts-de-Seine<br />Paris La Défense, France</p></div>
           <div><p className="mb-4 text-[8px] uppercase tracking-[0.45em] text-[#c9a054]">Concierge</p><a href="mailto:concierge@shamimforever.com" className="transition hover:text-[#c9a054]">concierge@shamimforever.com</a></div>
           <div><p className="mb-4 text-[8px] uppercase tracking-[0.45em] text-[#c9a054]">Relations</p><a href="mailto:media@shamimforever.com" className="block transition hover:text-[#c9a054]">media@shamimforever.com</a><a href="mailto:relations@shamimforever.com" className="mt-2 block transition hover:text-[#c9a054]">relations@shamimforever.com</a></div>
         </div>
