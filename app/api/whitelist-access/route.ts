@@ -23,7 +23,7 @@ export async function POST(request: NextRequest) {
     const interest = clean(body.interest, 120)
     const note = clean(body.note, 500)
     const accessInterests = Array.isArray(body.accessInterests)
-      ? body.accessInterests.filter((item: unknown): item is string => typeof item === 'string').slice(0, 12).map(item => clean(item, 80))
+      ? body.accessInterests.filter((item: unknown): item is string => typeof item === 'string').slice(0, 12).map((item: string) => clean(item, 80))
       : []
 
     if (clean(body.website, 120)) {
