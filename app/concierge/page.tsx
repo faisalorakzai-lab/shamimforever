@@ -3,57 +3,53 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { supabase } from '@/lib/supabase'
+import { CONCIERGE_FAQS } from './content'
 
 const ease = [0.16, 1, 0.3, 1] as const
 
 const BOUTIQUE_OPTIONS = [
-  { id: 'hq', city: 'Karachi — Global HQ', location: 'Shamim Sky Tower, Federal B Area', flag: '🇵🇰' },
-  { id: 'khi-tariq', city: 'Karachi — Tariq Road', location: 'Dolmen Mall Tariq Road', flag: '🇵🇰' },
-  { id: 'khi-clifton', city: 'Karachi — Clifton', location: 'Dolmen Mall Clifton', flag: '🇵🇰' },
-  { id: 'lahore', city: 'Lahore — DHA Phase 6', location: 'Main Boulevard, DHA', flag: '🇵🇰' },
-  { id: 'islamabad', city: 'Islamabad — DHA Phase II', location: 'Giga Mall', flag: '🇵🇰' },
-  { id: 'peshawar', city: 'Peshawar — Ring Road', location: 'HBK Hyper Market', flag: '🇵🇰' },
-  { id: 'dubai', city: 'Dubai', location: 'The Dubai Mall, Fashion Avenue', flag: '🇦🇪' },
-  { id: 'riyadh', city: 'Riyadh', location: 'VIA Riyadh Luxury District', flag: '🇸🇦' },
-  { id: 'london', city: 'London — Mayfair', location: '158-160 New Bond Street', flag: '🇬🇧' },
-  { id: 'paris', city: 'Paris', location: '12 Place Vendôme', flag: '🇫🇷' },
-  { id: 'nyc', city: 'New York', location: '712 Fifth Avenue', flag: '🇺🇸' },
-]
+    { id: 'hq', city: 'Paris La Défense — Global Headquarters', location: 'Verified headquarters · France', flag: '🇫🇷' },
+    { id: 'karachi', city: 'Karachi — Client Experience / Future Boutique', location: 'Future exploration · No address announced', flag: '🇵🇰' },
+    { id: 'lahore', city: 'Lahore — Future Boutique', location: 'Future exploration · No address announced', flag: '🇵🇰' },
+    { id: 'islamabad', city: 'Islamabad — Future Boutique', location: 'Future exploration · No address announced', flag: '🇵🇰' },
+    { id: 'peshawar', city: 'Peshawar — Future Boutique', location: 'Future exploration · No address announced', flag: '🇵🇰' },
+    { id: 'dubai', city: 'Dubai — Future International Location', location: 'Future exploration · No address announced', flag: '🇦🇪' },
+    { id: 'riyadh', city: 'Riyadh — Future International Location', location: 'Future exploration · No address announced', flag: '🇸🇦' },
+    { id: 'virtual', city: 'Virtual Consultation', location: 'Digital access', flag: '◌' },
+    { id: 'other', city: 'Other / International Inquiry', location: 'Concierge review', flag: '◇' },
+    ]
 
-const SERVICE_TYPES = [
-  { id: 'fragrance', label: 'Private Fragrance Consultation', icon: '◈' },
-  { id: 'jewelry', label: 'Jewelry & Bridal Atelier Session', icon: '◆' },
-  { id: 'bespoke', label: 'Bespoke Commission Request', icon: '◇' },
-  { id: 'cosmetics', label: 'Beauty & Cosmetics Consultation', icon: '○' },
-  { id: 'vip', label: 'Full VIP Styling Session', icon: '◉' },
-]
+    const SERVICE_TYPES = [
+    { id: 'private-appointment', label: 'Private Appointment', icon: '◈' },
+    { id: 'collection-inquiry', label: 'Collection Inquiry', icon: '◆' },
+    { id: 'bespoke-commission', label: 'Bespoke Commission', icon: '◇' },
+    { id: 'product-assistance', label: 'Product Assistance', icon: '○' },
+    { id: 'client-relations', label: 'Client Relations', icon: '◉' },
+    { id: 'authentication-inquiry', label: 'Authentication Inquiry', icon: '◎' },
+    { id: 'media-inquiry', label: 'Media Inquiry', icon: '✦' },
+    { id: 'other', label: 'Other', icon: '◇' },
+    ]
 
-const CONTACT_CHANNELS = [
-  {
-    icon: '◈', label: 'WhatsApp Concierge', value: '+92 311 9447572', sub: 'VIP Clients & Private Appointments',
-    href: 'https://wa.me/923119447572', cta: 'Message Now', accent: true,
-  },
-  {
-    icon: '◇', label: 'Founder Direct', value: '+92 336 7970004', sub: 'Founding House Direct Line',
-    href: 'tel:+923367970004', cta: 'Call', accent: false,
-  },
-]
+    const CONTACT_CHANNELS = [
+    { icon: '◈', label: 'WhatsApp Concierge', value: '+92 311 9447572', sub: 'Private client inquiries and appointment coordination.', href: 'https://wa.me/923119447572', cta: 'Message Now', accent: true },
+    { icon: '◇', label: "Founder's Office", value: '+92 336 7970004', sub: 'Selected business, partnership, and strategic inquiries.', href: 'tel:+923367970004', cta: 'Call', accent: false },
+    ]
 
-const EMAILS = [
-  { addr: 'concierge@shamimforever.com', label: 'VIP Concierge', desc: 'Private appointment bookings · Global boutique reservations', icon: '◈' },
-  { addr: 'bespoke@shamimforever.com', label: 'Bespoke Commissions', desc: 'Custom fragrance blending · Custom jewelry · Couture sherwanis', icon: '◆' },
-  { addr: 'maisons@shamimforever.com', label: 'Boutique Operations', desc: 'Global store management · Retail & inventory operations', icon: '◇' },
-  { addr: 'relations@shamimforever.com', label: 'Client Relations', desc: 'Orders, tracking, and premium customer support', icon: '○' },
-  { addr: 'media@shamimforever.com', label: 'Press & Media', desc: 'Fashion shows · Editorial collaborations · Celebrity PR', icon: '◉' },
-]
+    const EMAILS = [
+    { addr: 'concierge@shamimforever.com', label: 'VIP Concierge', desc: 'Private appointments, boutique reservations, client assistance, and collection guidance.', icon: '◈' },
+    { addr: 'bespoke@shamimforever.com', label: 'Bespoke Commissions', desc: 'Custom fragrance concepts, personalized jewellery, bespoke gifts, and special commissions.', icon: '◆' },
+    { addr: 'maisons@shamimforever.com', label: 'Boutique Operations', desc: 'Boutique inquiries, store operations, retail coordination, and inventory-related communication.', icon: '◇' },
+    { addr: 'relations@shamimforever.com', label: 'Client Relations', desc: 'Order assistance, delivery inquiries, customer support, and selected after-sales guidance.', icon: '○' },
+    { addr: 'media@shamimforever.com', label: 'Press & Media', desc: 'Press inquiries, editorial opportunities, brand features, and media collaborations.', icon: '◉' },
+    ]
 
-type FormState = 'idle' | 'submitting' | 'success' | 'error'
+    type FormState = 'idle' | 'submitting' | 'success' | 'error'
 
 export default function ConciergePage() {
   const [selectedBoutique, setSelectedBoutique] = useState('')
   const [selectedService, setSelectedService] = useState('')
   const [formState, setFormState] = useState<FormState>('idle')
-  const [form, setForm] = useState({ name: '', email: '', phone: '', date: '', notes: '' })
+  const [form, setForm] = useState({ name: '', email: '', phone: '', country: '', language: '', date: '', notes: '' })
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
     setForm(prev => ({ ...prev, [e.target.name]: e.target.value }))
@@ -61,14 +57,14 @@ export default function ConciergePage() {
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
-    if (!form.name || !form.email || !selectedBoutique || !selectedService) return
+    if (!form.name || !form.email || !form.phone || !form.country || !selectedBoutique || !selectedService) return
     setFormState('submitting')
 
     supabase
       .from('concierge_bookings')
       .insert([{
         name: form.name, email: form.email, phone: form.phone,
-        preferred_date: form.date || null, notes: form.notes,
+        preferred_date: form.date || null, notes: 'Country / Region: ' + form.country + '\nPreferred Language: ' + (form.language || 'Not specified') + '\n' + form.notes,
         boutique: selectedBoutique, service_type: selectedService,
       }])
       .then(({ error }) => {
@@ -95,13 +91,8 @@ export default function ConciergePage() {
           <div className="relative z-10 flex flex-col justify-end h-full px-5 md:px-12 lg:px-20 py-12 md:py-20">
             <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1.2, ease }}>
               <p className="text-[9px] tracking-[0.6em] uppercase text-[#c9a054] mb-5">Private Access · By Appointment</p>
-              <h1 className="font-serif font-light text-5xl md:text-7xl lg:text-8xl tracking-[0.05em] text-zinc-100 leading-[0.92] mb-5">
-                Concierge
-              </h1>
-              <p className="text-zinc-500 font-light text-sm leading-relaxed max-w-sm">
-                Sovereign consultation across 11 global addresses. WhatsApp, phone, 
-                or private appointment — access the House directly.
-              </p>
+              <h1 className="font-serif font-light text-5xl md:text-7xl lg:text-8xl tracking-[0.05em] text-zinc-100 leading-[0.92] mb-5">Private Luxury<br /><span className="italic text-zinc-500">Concierge</span></h1>
+              <p className="text-zinc-500 font-light text-sm leading-relaxed max-w-sm">Private access to Shamim Forever. Our Concierge provides a considered point of contact for bespoke services, client assistance, collection inquiries, and direct access to the House.</p>
             </motion.div>
           </div>
         </div>
@@ -168,7 +159,7 @@ export default function ConciergePage() {
               <span className="italic text-zinc-500">Consultation</span>
             </h2>
             <p className="text-zinc-600 text-sm font-light mt-5 leading-relaxed">
-              Select your preferred location and service. Our concierge responds within 4 hours.
+              Select your preferred location and service. The House reviews each request and coordinates the appropriate next step.
             </p>
           </motion.div>
 
@@ -185,7 +176,7 @@ export default function ConciergePage() {
                   Your private consultation at <span className="text-[#c9a054]">{boutique?.city}</span> has been received.
                 </p>
                 <p className="text-zinc-700 text-xs font-light">
-                  Our concierge will contact you at <span className="text-zinc-500">{form.email}</span> within 4 hours.
+                  Our concierge will contact you at <span className="text-zinc-500">{form.email}</span> according to its nature, complexity, and location.
                 </p>
                 <div className="flex items-center justify-center gap-4 mt-10">
                   <div className="w-8 h-px bg-[#c9a054]/30" />
@@ -240,7 +231,9 @@ export default function ConciergePage() {
                     {[
                       { name: 'name', label: 'Full Name', type: 'text', required: true, placeholder: 'Your name' },
                       { name: 'email', label: 'Email Address', type: 'email', required: true, placeholder: 'your@email.com' },
-                      { name: 'phone', label: 'Phone / WhatsApp', type: 'tel', required: false, placeholder: '+92 3XX XXXXXXX' },
+                      { name: 'phone', label: 'Phone / WhatsApp', type: 'tel', required: true, placeholder: '+92 3XX XXXXXXX' },
+                       { name: 'country', label: 'Country / Region', type: 'text', required: true, placeholder: 'Country or region' },
+                       { name: 'language', label: 'Preferred Language', type: 'text', required: false, placeholder: 'English, Urdu, or other' },
                       { name: 'date', label: 'Preferred Date', type: 'date', required: false, placeholder: '' },
                     ].map(f => (
                       <div key={f.name} className="group border-b border-[#0d0d0d] focus-within:border-[#c9a054]/30 transition-colors duration-500">
@@ -282,7 +275,7 @@ export default function ConciergePage() {
                     className="group relative inline-flex items-center justify-center px-10 py-5 border border-[#c9a054]/60 text-[9px] tracking-[0.5em] uppercase text-[#c9a054] overflow-hidden disabled:opacity-40 disabled:cursor-not-allowed">
                     <span className="absolute inset-0 bg-[#c9a054] translate-y-full group-hover:translate-y-0 group-disabled:translate-y-full transition-transform duration-700" style={{ transitionTimingFunction: 'cubic-bezier(0.16,1,0.3,1)' }} />
                     <span className="relative z-10 group-hover:text-[#050505] transition-colors duration-300">
-                      {formState === 'submitting' ? 'Confirming...' : 'Request Appointment'}
+                      {formState === 'submitting' ? 'Confirming...' : 'Request Private Access'}
                     </span>
                   </button>
                   <a href="https://wa.me/923119447572" target="_blank" rel="noopener noreferrer"
@@ -290,7 +283,7 @@ export default function ConciergePage() {
                     Or WhatsApp Us →
                   </a>
                 </div>
-                <p className="text-[7px] tracking-[0.35em] uppercase text-zinc-800 mt-5">Concierge responds within 4 hours · All appointments are private</p>
+                <p className="text-[7px] tracking-[0.35em] uppercase text-zinc-800 mt-5">Response timing varies by request · All appointments are private</p>
               </motion.form>
             )}
           </AnimatePresence>
