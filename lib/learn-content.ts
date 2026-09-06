@@ -114,7 +114,7 @@ export const LEARN_ENTRIES: LearnEntry[] = [
   { slug: "time-archive", title: "Time Archive", category: "Sovereign Infrastructure", summary: "The Time Archive gives important moments, records, and milestones a place to remain connected to the House.", href: "/time-archive" },
   { slug: "concierge-and-care", title: "Concierge & Care", category: "Sovereign Infrastructure", summary: "Concierge and care extend the life of a creation through guidance, attention, and responsive service.", href: "/care" },
   { slug: "private-delivery", title: "Private Delivery", category: "Sovereign Infrastructure", summary: "Private delivery is a considered experience from dispatch to arrival, designed around discretion and the value of the object.", href: "/delivery" },
-  { slug: "whitelist-access", title: "Whitelist Access", category: "Sovereign Infrastructure", summary: "Whitelist access creates a deliberate path to private invitations, collections, and House experiences." },
+  { slug: "whitelist-access", title: "Whitelist Access", category: "Sovereign Infrastructure", summary: "Whitelist access creates a deliberate path to private invitations, collections, and House experiences.", href: "/whitelist-access" },
 
   // Heritage & Legacy
   { slug: "what-is-a-luxury-legacy", title: "What is a Luxury Legacy?", category: "Heritage & Legacy", summary: "A luxury legacy is what remains when an object carries values, memories, and meaning beyond its original moment." },

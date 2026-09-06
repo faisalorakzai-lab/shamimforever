@@ -17,7 +17,7 @@ const ACCESS_LINKS = [
   { label: 'Inner Circle', href: '/inner-circle' },
   { label: 'Concierge', href: '/concierge' },
   { label: 'Virtual Atelier', href: '/virtual-atelier' },
-  { label: 'Whitelist Access', href: '/learn#sovereign-infrastructure' },
+  { label: 'Whitelist Access', href: '/whitelist-access' },
   { label: 'Sovereign Panel', href: '/admin' },
 ]
 
@@ -40,7 +40,6 @@ const INFRA_LINKS = [
   { label: 'Private Delivery', href: '/delivery' },
   { label: 'Bespoke Atelier', href: '/bespoke' },
   { label: 'Heritage Gallery', href: '/gallery' },
-  { label: 'Whitelist Access', href: '/learn#sovereign-infrastructure' },
   { label: 'DNA Identity', href: '/dna-identity' },
   { label: 'Time Archive', href: '/time-archive' },
   { label: 'Heirloom Vault', href: '/heirloom-vault' },
