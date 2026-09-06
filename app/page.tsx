@@ -194,22 +194,18 @@ export default function HomePage() {
       .eq('is_active', true)
       .limit(6)
 
-    const FEATURED_SLUGS = [
-        'de-beers-enchanted-lotus-earrings',
-        'jacob-co-astronomia-diamond-cuff',
-        'de-beers-talisman-diamond-pendant',
-        'boucheron-quatre-black-edition-ring',
-        'shamim-bloom-the-sovereign-grace',
-        'sovereign-amethyst',
-      ]
-
       if (categorySlug === 'all') {
-        query = query.in('slug', FEATURED_SLUGS)
+        // Keep the homepage tied to the live catalogue instead of a stale
+        // hard-coded slug list. The seeded catalogue can change over time.
+        query = query.eq('is_featured', true)
       } else {
         const { data: cat } = await supabase.from('main_categories').select('id').eq('slug', categorySlug).single()
         if (cat) query = query.eq('main_category_id', cat.id)
       }
-    const { data } = await query.order('created_at', { ascending: false })
+    const { data, error } = await query
+      .order('sort_order', { ascending: true })
+      .order('created_at', { ascending: false })
+    if (error) console.error('Homepage catalogue request failed:', error.message)
     setProducts(data || [])
     setLoadingProducts(false)
   }
