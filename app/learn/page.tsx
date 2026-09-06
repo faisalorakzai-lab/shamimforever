@@ -4,6 +4,32 @@ import Link from "next/link"
 export const metadata: Metadata = {
   title: "Welcome to Shamim Forever | Learn",
   description: "A deep introduction to Shamim Forever: a sovereign luxury house built around craftsmanship, identity, provenance, heritage, technology, and legacy.",
+  keywords: [
+    "Shamim Forever",
+    "sovereign luxury",
+    "luxury house",
+    "luxury craftsmanship",
+    "product provenance",
+    "digital identity",
+    "luxury authentication",
+    "heritage and legacy",
+  ],
+  alternates: { canonical: "https://www.shamimforever.com/learn" },
+  openGraph: {
+    title: "Welcome to Shamim Forever | Learn",
+    description: "Understand the House, its philosophy, craftsmanship, provenance, digital identity, and approach to sovereign luxury.",
+    url: "https://www.shamimforever.com/learn",
+    type: "article",
+    siteName: "Shamim Forever",
+    images: [{ url: "/og-faisal-orakzai.jpg", width: 1200, height: 630, alt: "Shamim Forever knowledge library" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Welcome to Shamim Forever | Learn",
+    description: "The canonical knowledge page for Shamim Forever.",
+    images: ["/og-faisal-orakzai.jpg"],
+  },
+  robots: { index: true, follow: true },
 }
 
 const navigation = [
