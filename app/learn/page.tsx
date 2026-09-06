@@ -659,8 +659,8 @@ export default function LearnPage() {
                 <div className="divide-y divide-[#1b1814] border-y border-[#1b1814]">
                   {[
                     ["Faisal Orakzai", "Founder & Chairman", "Technology entrepreneur, computer scientist, systems architect, researcher, and author.", "/faisal-orakzai"],
-                    ["Dr Asma Orakzai", "Chief Executive Officer", "Leading the executive vision and development of Shamim Forever.", "/team"],
-                    ["Dr Laiba Faisal Orakzai", "Director", "Supporting the strategic direction and long-term development of the House.", "/team"],
+                    ["Dr Asma Orakzai", "Chief Executive Officer", "Leading the executive vision and development of Shamim Forever.", "/founder-leadership#asma-orakzai-profile"],
+                    ["Dr Laiba Faisal Orakzai", "Director", "Supporting the strategic direction and long-term development of the House.", "/founder-leadership#laiba-faisal-orakzai-profile"],
                   ].map(([name, role, text, href]) => (
                     <Link key={name} href={href} className="group block py-6">
                       <p className="text-[8px] uppercase tracking-[0.3em] text-[#c9a054]">{role}</p>
