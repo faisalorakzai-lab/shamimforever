@@ -2,287 +2,332 @@
 
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import Link from 'next/link'
 
 const ease = [0.16, 1, 0.3, 1] as const
 
-type Boutique = {
-  id: string; num: string; city: string; country: string; flag: string
-  region: string; title: string; address: string
-  tier: 'hq' | 'pakistan' | 'middle-east' | 'europe' | 'usa'
-  phone?: string; whatsapp?: string
+type LocationStatus = 'headquarters' | 'private-experience' | 'development' | 'future-exploration'
+
+type Location = {
+  id: string
+  num: string
+  city: string
+  country: string
+  flag: string
+  region: string
+  title: string
+  description: string
+  status: LocationStatus
+  accent: string
+  address?: string[]
+  functions?: string[]
 }
 
-const BOUTIQUES: Boutique[] = [
+const STATUS_META: Record<LocationStatus, { label: string; symbol: string; description: string; className: string }> = {
+  headquarters: {
+    label: 'Headquarters',
+    symbol: '●',
+    description: 'Official administrative center.',
+    className: 'text-[#c9a054] border-[#c9a054]/35',
+  },
+  'private-experience': {
+    label: 'Private Experience',
+    symbol: '◇',
+    description: 'Available through appointment or invitation.',
+    className: 'text-sky-300/70 border-sky-300/20',
+  },
+  development: {
+    label: 'Development',
+    symbol: '○',
+    description: 'A location under strategic development.',
+    className: 'text-amber-300/70 border-amber-300/20',
+  },
+  'future-exploration': {
+    label: 'Future Exploration',
+    symbol: '□',
+    description: 'A market being considered by the House.',
+    className: 'text-zinc-400 border-zinc-700',
+  },
+}
+
+const LOCATIONS: Location[] = [
   {
     id: 'hq-puteaux',
-    num: '00',
+    num: '01',
     city: 'Puteaux',
     country: 'France',
     flag: '🇫🇷',
-    region: 'La Défense — Puteaux',
+    region: 'Paris La Défense',
     title: 'Shamim Forever Global Headquarters',
-    address: '77 Espl. du Général de Gaulle, 92800 Puteaux, France',
-    tier: 'hq',
+    description: "The administrative and strategic center of Shamim Forever. From Puteaux, the House coordinates its international vision, brand development, strategic direction, and future global expansion.",
+    status: 'headquarters',
+    accent: 'from-[#c9a054]/10',
+    address: ['Shamim Forever', '77 Esplanade du Général de Gaulle', 'Puteaux, Hauts-de-Seine', 'Paris La Défense, France'],
+    functions: ['Global Brand Strategy', 'Executive Leadership', 'International Development', 'Strategic Partnerships', 'Brand Governance', 'Digital Infrastructure', 'Future Boutique Planning'],
   },
   {
-    id: 'khi-tariq', num: '01', city: 'Karachi', country: 'Pakistan', flag: '🇵🇰',
-    region: 'Tariq Road',
-    title: 'Sovereign Corporate HQ & Visual Experience Center',
-    address: 'Dolmen Mall Tariq Road, Store# TF-010, 3rd Floor, Plot 13, Block 3, P.E.C.H.S, Tariq Road, Karachi, Pakistan.',
-    tier: 'pakistan',
+    id: 'private-experiences',
+    num: '02',
+    city: 'By appointment',
+    country: 'Global',
+    flag: '🔒',
+    region: 'Private Experience Network',
+    title: 'The House, By Appointment',
+    description: 'Certain future Shamim Forever experiences may operate through private appointments and concierge coordination. Availability, format, and location are confirmed directly by the House.',
+    status: 'private-experience',
+    accent: 'from-sky-300/[0.04]',
   },
   {
-    id: 'khi-clifton', num: '02', city: 'Karachi', country: 'Pakistan', flag: '🇵🇰',
-    region: 'Clifton',
-    title: 'Clifton Main Executive Atrium & Haute Couture Suite',
-    address: 'Dolmen Mall Clifton, Store # G-14, Ground Floor, Dolmen City, Clifton Block 5, Marine Drive, Karachi, Pakistan.',
-    tier: 'pakistan',
-  },
-  {
-    id: 'lhr-dha', num: '03', city: 'Lahore', country: 'Pakistan', flag: '🇵🇰',
-    region: 'DHA Phase 6',
-    title: 'Royal Heritage Collection Hub & Bespoke Bridal Salon',
-    address: 'Main Boulevard, Phase 6, Defense Housing Authority (DHA), Lahore, Punjab, Pakistan.',
-    tier: 'pakistan',
-  },
-  {
-    id: 'isb-dha', num: '04', city: 'Islamabad', country: 'Pakistan', flag: '🇵🇰',
-    region: 'DHA Phase II',
-    title: 'Elite VIP Client Consultation Vault',
-    address: 'Giga Mall, Main Grand Trunk (GT) Road, Defense Housing Authority (DHA) Phase II, Islamabad, Pakistan.',
-    tier: 'pakistan',
-  },
-  {
-    id: 'psh-ring', num: '05', city: 'Peshawar', country: 'Pakistan', flag: '🇵🇰',
-    region: 'Ring Road',
-    title: 'Traditional Sovereign Crafting Hub',
-    address: 'HBK Hyper Market, Main Ring Road (near Hayatabad Intersection), Peshawar, Khyber Pakhtunkhwa, Pakistan.',
-    tier: 'pakistan',
-  },
-  {
-    id: 'dubai', num: '06', city: 'Dubai', country: 'United Arab Emirates', flag: '🇦🇪',
-    region: 'Downtown Dubai',
-    title: 'Shamim Forever Oasis Pavilion & Bespoke Royal Atrium',
-    address: 'Fashion Avenue Extension, Level 1, The Dubai Mall, Sheikh Mohammed bin Rashid Blvd, Downtown Dubai, Dubai, UAE.',
-    tier: 'middle-east',
-  },
-  {
-    id: 'riyadh', num: '07', city: 'Riyadh', country: 'Saudi Arabia', flag: '🇸🇦',
-    region: 'Al Hada District',
-    title: 'Najd Sovereign Estate & Private Crown Consultation Sanctuary',
-    address: 'VIA Riyadh Luxury District, 2941 Makkah Al Mukarramah Road, Al Hada District, Riyadh 12912, Saudi Arabia.',
-    tier: 'middle-east',
-  },
-  {
-    id: 'london', num: '08', city: 'London', country: 'United Kingdom', flag: '🇬🇧',
-    region: 'Mayfair',
-    title: 'Shamim Forever Commonwealth Heritage Townhouse & Atelier',
-    address: '158-160 New Bond Street, Mayfair, London W1S 2UB, United Kingdom.',
-    tier: 'europe',
-  },
-  {
-    id: 'paris', num: '09', city: 'Paris', country: 'France', flag: '🇫🇷',
-    region: 'Place Vendôme',
-    title: 'Maison de Haute Parfumerie & High Artistry Vault',
-    address: '12 Place Vendôme (Avenue Montaigne District), 75001 Paris, France.',
-    tier: 'europe',
-  },
-  {
-    id: 'nyc', num: '10', city: 'New York', country: 'United States', flag: '🇺🇸',
-    region: 'Fifth Avenue',
-    title: 'Fifth Ave Penthouse Exhibition & Global Runway Suite',
-    address: '712 Fifth Avenue (Manhattan Skyline District), New York, NY 10019, United States.',
-    tier: 'usa',
+    id: 'future-network',
+    num: '03',
+    city: 'International',
+    country: 'Global',
+    flag: '🌍',
+    region: 'Future House Network',
+    title: 'A Global Vision',
+    description: 'Shamim Forever is exploring a long-term international presence across carefully considered cultural, commercial, and luxury destinations. Future locations will be announced officially by the House.',
+    status: 'future-exploration',
+    accent: 'from-white/[0.03]',
   },
 ]
 
-const FILTERS = [
-  { id: 'all', label: 'All Locations' },
-  { id: 'hq', label: 'Headquarters' },
-  { id: 'pakistan', label: 'Pakistan' },
-  { id: 'middle-east', label: 'Middle East' },
-  { id: 'europe', label: 'Europe' },
-  { id: 'usa', label: 'Americas' },
+const FILTERS: Array<{ id: 'all' | LocationStatus; label: string }> = [
+  { id: 'all', label: 'All Presence' },
+  { id: 'headquarters', label: 'Headquarters' },
+  { id: 'private-experience', label: 'Private Experience' },
+  { id: 'future-exploration', label: 'Future Exploration' },
 ]
 
-const TIER_ACCENT: Record<string, string> = {
-  hq: 'text-[#c9a054]',
-  pakistan: 'text-emerald-500/60',
-  'middle-east': 'text-amber-500/60',
-  europe: 'text-blue-400/60',
-  usa: 'text-purple-400/60',
-}
+const REGIONS = [
+  {
+    flag: '🇵🇰',
+    title: 'Pakistan',
+    kicker: 'A foundational market',
+    body: 'Pakistan represents an important part of the broader story and future development of Shamim Forever.',
+    cities: 'Karachi · Lahore · Islamabad · Peshawar',
+  },
+  {
+    flag: '🇦🇪 🇸🇦',
+    title: 'The Middle East',
+    kicker: 'A region of cultural ambition',
+    body: 'The House is interested in the long-term potential of destinations including Dubai and Riyadh for luxury, hospitality, and private experiences.',
+    cities: 'Dubai · Riyadh',
+  },
+  {
+    flag: '🇫🇷',
+    title: 'Europe',
+    kicker: 'The House begins in France',
+    body: 'France is home to the Global Headquarters. Further European development will be considered according to strategic relevance, cultural alignment, operational readiness, and long-term sustainability.',
+    cities: 'Puteaux · Paris La Défense',
+  },
+  {
+    flag: '🇬🇧 🇺🇸',
+    title: 'International markets',
+    kicker: 'Presence with purpose',
+    body: 'Other destinations may be explored as the House develops its international infrastructure. No boutique location is announced unless officially confirmed by Shamim Forever.',
+    cities: 'United Kingdom · United States',
+  },
+]
 
-const TIER_BORDER: Record<string, string> = {
-  hq: 'border-l-2 border-l-[#c9a054]',
-  pakistan: 'border-l border-l-[#0d0d0d]',
-  'middle-east': 'border-l border-l-[#0d0d0d]',
-  europe: 'border-l border-l-[#0d0d0d]',
-  usa: 'border-l border-l-[#0d0d0d]',
-}
+const EXPERIENCE_FORMATS = [
+  ['Boutiques', 'Private spaces designed around collections and the House experience.'],
+  ['Ateliers', 'Creative environments dedicated to craftsmanship, bespoke development, and design.'],
+  ['Private Salons', 'Appointment-based spaces for individual consultations.'],
+  ['Experience Centers', 'Immersive environments connecting luxury, technology, and the world of the House.'],
+]
 
 export default function BoutiquesPage() {
-  const [activeFilter, setActiveFilter] = useState('all')
-  const [hoveredId, setHoveredId] = useState<string | null>(null)
-
-  const filtered = activeFilter === 'all' ? BOUTIQUES : BOUTIQUES.filter(b => b.tier === activeFilter)
+  const [activeFilter, setActiveFilter] = useState<'all' | LocationStatus>('all')
+  const filtered = activeFilter === 'all' ? LOCATIONS : LOCATIONS.filter(location => location.status === activeFilter)
 
   return (
-    <div className="min-h-screen bg-[#050505] overflow-x-hidden">
-
-      {/* ─── HERO ─── */}
-      <section className="pt-20 relative border-b border-[#0d0d0d]">
-        <div className="relative overflow-hidden" style={{ minHeight: '42vw', maxHeight: '520px' }}>
-          <div className="absolute inset-0 bg-[#050505]">
-            <div className="absolute inset-0" style={{ backgroundImage: 'radial-gradient(ellipse at 20% 50%, rgba(201,160,84,0.05) 0%, transparent 60%), radial-gradient(ellipse at 80% 20%, rgba(201,160,84,0.03) 0%, transparent 50%)' }} />
-            <svg className="absolute inset-0 w-full h-full opacity-[0.03]" xmlns="http://www.w3.org/2000/svg">
-              <defs><pattern id="grid" width="60" height="60" patternUnits="userSpaceOnUse"><path d="M 60 0 L 0 0 0 60" fill="none" stroke="#c9a054" strokeWidth="0.5"/></pattern></defs>
-              <rect width="100%" height="100%" fill="url(#grid)" />
-            </svg>
-          </div>
-          <div className="relative z-10 flex flex-col justify-end h-full px-5 md:px-12 lg:px-20 py-12 md:py-20">
+    <main className="min-h-screen overflow-x-hidden bg-[#050505] text-zinc-200">
+      <section className="relative border-b border-[#0d0d0d] pt-20">
+        <div className="relative min-h-[520px] overflow-hidden">
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_18%_50%,rgba(201,160,84,0.08),transparent_58%),radial-gradient(ellipse_at_82%_20%,rgba(201,160,84,0.04),transparent_48%)]" />
+          <svg className="absolute inset-0 h-full w-full opacity-[0.035]" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <defs><pattern id="boutique-grid" width="60" height="60" patternUnits="userSpaceOnUse"><path d="M60 0H0V60" fill="none" stroke="#c9a054" strokeWidth="0.5" /></pattern></defs>
+            <rect width="100%" height="100%" fill="url(#boutique-grid)" />
+          </svg>
+          <div className="relative z-10 flex min-h-[520px] flex-col justify-end px-5 py-16 md:px-12 md:py-24 lg:px-20">
             <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1.2, ease }}>
-              <p className="text-[9px] tracking-[0.6em] uppercase text-[#c9a054] mb-5 md:mb-7">Sovereign Locations</p>
-              <h1 className="font-serif font-light text-5xl md:text-7xl lg:text-8xl tracking-[0.06em] text-zinc-100 leading-[0.92] mb-5 md:mb-7">Boutiques</h1>
-              <div className="flex flex-wrap items-center gap-3 md:gap-6">
-                <span className="font-serif italic text-zinc-600 text-lg md:text-2xl">11 Sovereign Addresses</span>
-                <div className="w-4 h-px bg-[#c9a054]/30" />
-                <span className="text-[8px] tracking-[0.4em] uppercase text-zinc-700">5 Countries · 4 Continents · 1 HQ</span>
+              <p className="mb-5 text-[9px] uppercase tracking-[0.6em] text-[#c9a054]">Global Presence</p>
+              <h1 className="max-w-4xl font-serif text-5xl font-light leading-[0.92] tracking-[0.06em] text-zinc-100 md:text-7xl lg:text-8xl">
+                Boutiques<br /><span className="italic text-zinc-500">&amp; Private Locations</span>
+              </h1>
+              <p className="mt-7 max-w-2xl text-sm font-light leading-8 text-zinc-500 md:text-base">
+                From Paris La Défense to the world. Shamim Forever is building a global luxury presence through private experiences, ateliers, and carefully considered locations.
+              </p>
+              <div className="mt-8 flex flex-wrap items-center gap-4 text-[8px] uppercase tracking-[0.35em] text-zinc-600">
+                <span className="text-[#c9a054]">01 · Verified Global Headquarters</span>
+                <span className="hidden h-px w-8 bg-[#c9a054]/30 sm:block" />
+                <span>Global Vision</span>
+                <span className="hidden h-px w-8 bg-[#c9a054]/30 sm:block" />
+                <span>By Appointment &amp; Concierge</span>
               </div>
             </motion.div>
           </div>
         </div>
 
-        {/* HQ banner strip */}
-        <a href="/concierge" target="_blank" rel="noopener noreferrer"
-          className="flex items-center gap-3 md:gap-5 px-5 md:px-12 lg:px-20 py-3 bg-[#c9a054]/5 border-y border-[#c9a054]/10 hover:bg-[#c9a054]/8 transition-colors duration-500 group">
-          <div className="w-1.5 h-1.5 rounded-full bg-[#c9a054] animate-pulse" />
-          <span className="text-[8px] tracking-[0.45em] uppercase text-[#c9a054]">Global HQ</span>
-          <span className="text-zinc-700 text-xs">·</span>
-          <span className="text-[8px] tracking-[0.35em] uppercase text-zinc-500">77 Espl. du Général de Gaulle, Puteaux, France</span>
-          <span className="text-zinc-700 text-xs hidden md:inline">·</span>
-          <span className="text-[8px] tracking-[0.35em] uppercase text-zinc-600 hidden md:inline">92800 Puteaux · France</span>
-          <span className="ml-auto text-[8px] tracking-[0.35em] uppercase text-[#c9a054] group-hover:opacity-100 opacity-60 transition-opacity duration-400">Contact →</span>
-        </a>
+        <Link href="/concierge" className="group flex items-center gap-3 border-y border-[#c9a054]/10 bg-[#c9a054]/[0.04] px-5 py-4 transition-colors hover:bg-[#c9a054]/[0.08] md:gap-5 md:px-12 lg:px-20">
+          <span className="h-1.5 w-1.5 rounded-full bg-[#c9a054]" />
+          <span className="text-[8px] uppercase tracking-[0.45em] text-[#c9a054]">Global Headquarters</span>
+          <span className="hidden text-xs text-zinc-700 sm:inline">·</span>
+          <span className="hidden text-[8px] uppercase tracking-[0.3em] text-zinc-500 sm:inline">Puteaux · Paris La Défense · France</span>
+          <span className="ml-auto text-[8px] uppercase tracking-[0.35em] text-[#c9a054] opacity-70 transition-opacity group-hover:opacity-100">Contact the House →</span>
+        </Link>
 
-        {/* Filter tabs */}
-        <div className="flex overflow-x-auto scrollbar-none border-t border-[#0d0d0d]">
-          {FILTERS.map((f, i) => (
-            <button key={f.id} onClick={() => setActiveFilter(f.id)}
-              className={`flex-shrink-0 px-5 md:px-7 py-4 md:py-5 text-[9px] md:text-[10px] tracking-[0.4em] uppercase whitespace-nowrap transition-all duration-500 border-b-2 ${
-                activeFilter === f.id ? 'text-[#c9a054] border-[#c9a054]' : 'text-zinc-700 border-transparent hover:text-zinc-400'
-              } ${i < FILTERS.length - 1 ? 'border-r border-r-[#0a0a0a]' : ''}`}>
-              {f.label}
+        <div className="flex overflow-x-auto border-t border-[#0d0d0d] scrollbar-none">
+          {FILTERS.map((filter, index) => (
+            <button key={filter.id} onClick={() => setActiveFilter(filter.id)} className={`flex-shrink-0 whitespace-nowrap border-b-2 px-5 py-4 text-[9px] uppercase tracking-[0.35em] transition-all md:px-8 md:py-5 ${activeFilter === filter.id ? 'border-[#c9a054] text-[#c9a054]' : 'border-transparent text-zinc-700 hover:text-zinc-400'} ${index < FILTERS.length - 1 ? 'border-r border-r-[#0a0a0a]' : ''}`}>
+              {filter.label}
             </button>
           ))}
         </div>
       </section>
 
-      {/* ─── LOCATIONS ─── */}
-      <section>
-        <AnimatePresence mode="wait">
-          <motion.div key={activeFilter} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.35 }}>
-            {filtered.map((b, i) => (
-              <motion.div key={b.id}
-                initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
-                transition={{ duration: 0.7, ease, delay: i * 0.05 }}
-                onMouseEnter={() => setHoveredId(b.id)} onMouseLeave={() => setHoveredId(null)}
-                className={`border-b border-[#0d0d0d] group relative transition-colors duration-500 ${hoveredId === b.id ? 'bg-[#080808]' : ''} ${TIER_BORDER[b.tier]}`}>
+      <section aria-labelledby="presence-status" className="border-b border-[#0d0d0d]">
+        <div className="px-5 py-16 md:px-12 md:py-24 lg:px-20">
+          <div className="mb-12 max-w-2xl">
+            <p className="mb-4 text-[9px] uppercase tracking-[0.55em] text-[#c9a054]">01 / Verified center</p>
+            <h2 id="presence-status" className="font-serif text-4xl font-light tracking-[0.05em] text-zinc-100 md:text-6xl">The House begins with one center.</h2>
+            <p className="mt-6 text-sm font-light leading-8 text-zinc-500">The Global Headquarters represents the House&apos;s administrative and strategic center. Other markets remain clearly labelled according to their real status.</p>
+          </div>
 
-                {/* HQ gold glow */}
-                {b.tier === 'hq' && <div className="absolute inset-0 bg-gradient-to-r from-[#c9a054]/3 to-transparent pointer-events-none" />}
-
-                <div className="px-5 md:px-12 lg:px-20 py-7 md:py-9 relative z-10">
-                  <div className="grid grid-cols-1 md:grid-cols-[60px_1fr_auto] gap-3 md:gap-8 items-start md:items-center">
-
-                    {/* Num */}
-                    <span className={`hidden md:block font-serif font-light text-3xl ${b.tier === 'hq' ? 'text-[#c9a054]/30' : 'text-zinc-800'} group-hover:opacity-60 transition-opacity duration-500`}>
-                      {b.num}
-                    </span>
-
-                    {/* Info */}
-                    <div className="flex-1 min-w-0">
-                      <div className="flex flex-wrap items-center gap-2 md:gap-3 mb-2 md:mb-3">
-                        <span className="text-base">{b.flag}</span>
-                        <span className={`text-[8px] tracking-[0.45em] uppercase ${TIER_ACCENT[b.tier]}`}>{b.city}</span>
-                        {b.tier === 'hq' && (
-                          <span className="text-[6px] tracking-[0.4em] uppercase text-[#c9a054] border border-[#c9a054]/30 px-2 py-0.5">
-                            Global HQ
-                          </span>
+          <AnimatePresence mode="wait">
+            <motion.div key={activeFilter} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.35 }}>
+              {filtered.map((location, index) => {
+                const status = STATUS_META[location.status]
+                return (
+                  <motion.article key={location.id} initial={{ opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.7, ease, delay: index * 0.06 }} className={`relative mb-4 overflow-hidden border border-[#151515] bg-gradient-to-r ${location.accent} to-transparent p-6 md:p-10`}>
+                    <div className="relative z-10 grid gap-8 lg:grid-cols-[72px_1fr_auto] lg:items-start">
+                      <span className="hidden font-serif text-4xl font-light text-[#c9a054]/30 lg:block">{location.num}</span>
+                      <div>
+                        <div className="mb-4 flex flex-wrap items-center gap-3">
+                          <span className="text-lg">{location.flag}</span>
+                          <span className="text-[8px] uppercase tracking-[0.45em] text-[#c9a054]">{location.city}</span>
+                          <span className="text-[8px] uppercase tracking-[0.3em] text-zinc-700">{location.region}</span>
+                        </div>
+                        <h3 className="max-w-3xl font-serif text-2xl font-light tracking-[0.05em] text-zinc-100 md:text-3xl">{location.title}</h3>
+                        <p className="mt-4 max-w-3xl text-sm font-light leading-8 text-zinc-500">{location.description}</p>
+                        {location.address && (
+                          <address className="mt-7 border-l border-[#c9a054]/35 pl-5 text-sm not-italic leading-7 text-zinc-300">
+                            {location.address.map(line => <span key={line} className="block">{line}</span>)}
+                          </address>
                         )}
-                        <span className="md:hidden text-[7px] text-zinc-800">{b.num}</span>
+                        {location.functions && (
+                          <div className="mt-8">
+                            <p className="mb-4 text-[8px] uppercase tracking-[0.4em] text-[#c9a054]">House functions</p>
+                            <div className="flex flex-wrap gap-2">{location.functions.map(item => <span key={item} className="border border-[#24201a] px-3 py-2 text-[8px] uppercase tracking-[0.22em] text-zinc-600">{item}</span>)}</div>
+                          </div>
+                        )}
                       </div>
-                      <h2 className={`font-serif font-light text-base md:text-lg lg:text-xl tracking-[0.06em] mb-2 md:mb-3 leading-snug ${
-                        b.tier === 'hq' ? 'text-zinc-100' : 'text-zinc-300 group-hover:text-zinc-100'
-                      } transition-colors duration-500`}>
-                        {b.title}
-                      </h2>
-                      <p className="text-zinc-600 text-xs font-light leading-relaxed max-w-2xl">{b.address}</p>
-                      {b.phone && (
-                        <div className="flex flex-wrap gap-4 mt-3">
-                          <a href={`https://wa.me/${b.whatsapp}`} target="_blank" rel="noopener noreferrer"
-                            className="flex items-center gap-2 text-[8px] tracking-[0.35em] uppercase text-[#c9a054]/70 hover:text-[#c9a054] transition-colors duration-400">
-                            <span>◈</span> WhatsApp {b.phone}
-                          </a>
-                          <a href="tel:+923367970004"
-                            className="flex items-center gap-2 text-[8px] tracking-[0.35em] uppercase text-zinc-700 hover:text-zinc-400 transition-colors duration-400">
-                            <span>◇</span> Founder +92 336 7970004
-                          </a>
-                        </div>
-                      )}
-                    </div>
-
-                    {/* Badge */}
-                    <div className="flex flex-col items-start md:items-end gap-2">
-                      <div className="relative border border-[#c9a054]/20 px-4 py-2.5 text-center">
-                        <p className="text-[7px] tracking-[0.5em] uppercase text-[#c9a054] whitespace-nowrap">Coming Soon</p>
-                        <div className="absolute -top-1 -right-1">
-                          <div className="w-2 h-2 rounded-full bg-[#c9a054] animate-ping opacity-40" />
-                          <div className="absolute inset-0 w-2 h-2 rounded-full bg-[#c9a054]/60" />
-                        </div>
+                      <div className="flex flex-col items-start gap-5 lg:items-end">
+                        <span className={`inline-flex items-center gap-2 border px-4 py-3 text-[8px] uppercase tracking-[0.32em] ${status.className}`}><span>{status.symbol}</span>{status.label}</span>
+                        <p className="max-w-[190px] text-left text-[10px] leading-6 text-zinc-700 lg:text-right">{status.description}</p>
+                        {location.status === 'headquarters' && <Link href="/concierge" className="text-[8px] uppercase tracking-[0.35em] text-[#c9a054] transition hover:text-zinc-100">Contact the House →</Link>}
+                        {location.status === 'private-experience' && <Link href="/concierge" className="text-[8px] uppercase tracking-[0.35em] text-[#c9a054] transition hover:text-zinc-100">Contact the Concierge →</Link>}
                       </div>
-                      <a href="/concierge" className="text-[7px] tracking-[0.35em] uppercase text-zinc-800 hover:text-[#c9a054] transition-colors duration-400 whitespace-nowrap">
-                        Book Private Visit →
-                      </a>
                     </div>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </motion.div>
-        </AnimatePresence>
+                  </motion.article>
+                )
+              })}
+            </motion.div>
+          </AnimatePresence>
+        </div>
       </section>
 
-      {/* ─── STATS + CTA ─── */}
-      <section className="border-t border-[#0d0d0d] px-5 md:px-12 lg:px-20 py-14 md:py-24">
-        <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 1, ease }}>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-y-10 gap-x-4 mb-14 pb-14 border-b border-[#0d0d0d]">
-            {[{v:'11',l:'Sovereign Addresses'},{v:'6',l:'Countries'},{v:'4',l:'Continents'},{v:'2025',l:'Opening Year'}].map(s => (
-              <div key={s.l} className="text-center md:text-left">
-                <p className="font-serif font-light text-4xl md:text-5xl text-[#c9a054] mb-2">{s.v}</p>
-                <p className="text-[8px] tracking-[0.4em] uppercase text-zinc-700">{s.l}</p>
-              </div>
+      <section className="border-b border-[#0d0d0d] px-5 py-16 md:px-12 md:py-24 lg:px-20">
+        <div className="mx-auto max-w-[1200px]">
+          <div className="mb-12 max-w-2xl">
+            <p className="mb-4 text-[9px] uppercase tracking-[0.55em] text-[#c9a054]">02 / The House around the world</p>
+            <h2 className="font-serif text-4xl font-light tracking-[0.05em] text-zinc-100 md:text-6xl">A global vision.</h2>
+            <p className="mt-6 text-sm font-light leading-8 text-zinc-500">The House&apos;s international vision extends beyond a single location. These are regions of long-term interest — not announced boutique addresses.</p>
+          </div>
+          <div className="grid gap-px border border-[#151515] bg-[#151515] md:grid-cols-2">
+            {REGIONS.map(region => (
+              <article key={region.title} className="bg-[#050505] p-7 md:p-10">
+                <div className="flex items-start justify-between gap-4"><span className="text-2xl">{region.flag}</span><span className="text-[8px] uppercase tracking-[0.35em] text-zinc-700">Future exploration</span></div>
+                <p className="mt-10 text-[8px] uppercase tracking-[0.4em] text-[#c9a054]">{region.kicker}</p>
+                <h3 className="mt-3 font-serif text-3xl font-light text-zinc-100">{region.title}</h3>
+                <p className="mt-4 text-sm leading-7 text-zinc-500">{region.body}</p>
+                <p className="mt-6 border-t border-[#151515] pt-4 text-[8px] uppercase tracking-[0.3em] text-zinc-700">{region.cities}</p>
+              </article>
             ))}
           </div>
-          <div className="flex flex-col md:flex-row items-start md:items-end justify-between gap-8">
+        </div>
+      </section>
+
+      <section className="border-b border-[#0d0d0d] px-5 py-16 md:px-12 md:py-24 lg:px-20">
+        <div className="mx-auto grid max-w-[1200px] gap-14 lg:grid-cols-[0.8fr_1.2fr] lg:items-start">
+          <div>
+            <p className="mb-4 text-[9px] uppercase tracking-[0.55em] text-[#c9a054]">03 / Future locations</p>
+            <h2 className="font-serif text-4xl font-light tracking-[0.05em] text-zinc-100 md:text-6xl">The future House network.</h2>
+            <p className="mt-6 text-sm leading-8 text-zinc-500">Potential future formats are designed around meaning, service, craftsmanship, and the rhythm of each destination.</p>
+          </div>
+          <div className="grid gap-8 sm:grid-cols-2">{EXPERIENCE_FORMATS.map(([title, body]) => <div key={title} className="border-t border-[#c9a054]/25 pt-5"><h3 className="font-serif text-2xl font-light text-zinc-100">{title}</h3><p className="mt-3 text-sm leading-7 text-zinc-600">{body}</p></div>)}</div>
+        </div>
+      </section>
+
+      <section className="border-b border-[#0d0d0d] bg-[#080808] px-5 py-16 md:px-12 md:py-24 lg:px-20">
+        <div className="mx-auto grid max-w-[1200px] gap-14 lg:grid-cols-2">
+          <div>
+            <p className="mb-4 text-[9px] uppercase tracking-[0.55em] text-[#c9a054]">04 / How we choose a location</p>
+            <h2 className="font-serif text-4xl font-light text-zinc-100 md:text-5xl">Location is part of the House.</h2>
+            <p className="mt-6 text-sm leading-8 text-zinc-500">Shamim Forever does not view physical presence as a simple expansion metric. A city is not selected simply because it is famous; the location must have a meaningful relationship with the future of the House.</p>
+          </div>
+          <div className="border border-[#1a1a1a] p-7 md:p-10">
+            <p className="text-[9px] uppercase tracking-[0.45em] text-[#c9a054]">Location model</p>
+            <div className="mt-8 grid grid-cols-2 gap-6 text-sm text-zinc-400">
+              {[
+                ['L', 'Location Value'],
+                ['C', 'Cultural Relevance'],
+                ['H', 'House Alignment'],
+                ['A', 'Accessibility'],
+                ['S', 'Strategic Sustainability'],
+              ].map(([symbol, label]) => <div key={symbol} className="border-t border-[#1a1a1a] pt-4"><span className="font-serif text-3xl text-[#c9a054]">{symbol}</span><p className="mt-2 text-[9px] uppercase tracking-[0.25em] text-zinc-600">{label}</p></div>)}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="border-b border-[#0d0d0d] px-5 py-16 md:px-12 md:py-24 lg:px-20">
+        <div className="mx-auto max-w-[1200px]">
+          <div className="grid gap-12 lg:grid-cols-[0.85fr_1.15fr]">
             <div>
-              <p className="font-serif font-light italic text-xl md:text-3xl text-zinc-500 max-w-lg leading-snug">
-                "Be the first to enter."
-              </p>
+              <p className="mb-4 text-[9px] uppercase tracking-[0.55em] text-[#c9a054]">05 / Expansion principle</p>
+              <h2 className="font-serif text-4xl font-light text-zinc-100 md:text-5xl">Growth without losing identity.</h2>
             </div>
-            <div className="flex flex-col sm:flex-row gap-4">
-              <a href="/concierge"
-                className="group relative inline-flex items-center justify-center px-8 py-4 border border-[#c9a054]/60 text-[9px] tracking-[0.5em] uppercase text-[#c9a054] overflow-hidden">
-                <span className="absolute inset-0 bg-[#c9a054] translate-y-full group-hover:translate-y-0 transition-transform duration-700" style={{ transitionTimingFunction: 'cubic-bezier(0.16,1,0.3,1)' }} />
-                <span className="relative z-10 group-hover:text-[#050505] transition-colors duration-300">Book Private Visit</span>
-              </a>
-              <a href="/inner-circle" className="inline-flex items-center justify-center text-[9px] tracking-[0.45em] uppercase text-zinc-700 hover:text-[#c9a054] transition-colors duration-500">
-                Inner Circle →
-              </a>
-            </div>
+            <div className="text-lg font-light leading-9 text-zinc-500 md:text-2xl">Expansion without identity is simply multiplication. The objective is not to appear everywhere. The objective is to belong wherever the House appears.</div>
           </div>
-        </motion.div>
+          <div className="mt-12 grid gap-4 sm:grid-cols-3"><div className="border border-[#1a1a1a] p-6"><span className="font-serif text-4xl text-[#c9a054]">G</span><p className="mt-4 text-[9px] uppercase tracking-[0.3em] text-zinc-600">Sustainable Growth</p></div><div className="border border-[#1a1a1a] p-6"><span className="font-serif text-4xl text-[#c9a054]">Q</span><p className="mt-4 text-[9px] uppercase tracking-[0.3em] text-zinc-600">Quality of Presence</p></div><div className="border border-[#1a1a1a] p-6"><span className="font-serif text-4xl text-[#c9a054]">C</span><p className="mt-4 text-[9px] uppercase tracking-[0.3em] text-zinc-600">Consistency</p></div></div>
+        </div>
       </section>
-    </div>
+
+      <section className="border-b border-[#0d0d0d] px-5 py-16 md:px-12 md:py-24 lg:px-20" aria-labelledby="location-status">
+        <div className="mx-auto max-w-[1200px]">
+          <p className="mb-4 text-[9px] uppercase tracking-[0.55em] text-[#c9a054]">06 / Location status system</p>
+          <h2 id="location-status" className="font-serif text-4xl font-light text-zinc-100 md:text-5xl">Clear status. No invented addresses.</h2>
+          <div className="mt-10 grid gap-px border border-[#151515] bg-[#151515] sm:grid-cols-2 lg:grid-cols-4">{Object.entries(STATUS_META).map(([key, status]) => <div key={key} className="bg-[#050505] p-6"><span className={`text-xl ${status.className.split(' ')[0]}`}>{status.symbol}</span><h3 className="mt-5 text-[9px] uppercase tracking-[0.3em] text-zinc-300">{status.label}</h3><p className="mt-3 text-xs leading-6 text-zinc-600">{status.description}</p></div>)}</div>
+        </div>
+      </section>
+
+      <section className="px-5 py-20 md:px-12 md:py-28 lg:px-20">
+        <div className="mx-auto max-w-[900px] text-center">
+          <p className="text-[9px] uppercase tracking-[0.55em] text-[#c9a054]">A house without borders</p>
+          <h2 className="mt-6 font-serif text-4xl font-light tracking-[0.05em] text-zinc-100 md:text-6xl">One House.<br /><span className="italic text-zinc-500">Many Destinations.</span></h2>
+          <p className="mx-auto mt-7 max-w-2xl text-sm leading-8 text-zinc-500">Shamim Forever begins with a single center. Its vision extends further through carefully considered locations, private experiences, and long-term relationships designed to connect different places through a shared philosophy.</p>
+          <div className="mt-10 flex flex-wrap justify-center gap-4"><Link href="/concierge" className="border border-[#c9a054]/60 px-8 py-4 text-[9px] uppercase tracking-[0.45em] text-[#c9a054] transition hover:bg-[#c9a054] hover:text-[#050505]">Contact the Concierge →</Link><a href="mailto:media@shamimforever.com" className="px-8 py-4 text-[9px] uppercase tracking-[0.45em] text-zinc-600 transition hover:text-[#c9a054]">Media Relations →</a></div>
+        </div>
+      </section>
+
+      <section className="border-t border-[#0d0d0d] px-5 py-14 md:px-12 lg:px-20">
+        <div className="mx-auto grid max-w-[1200px] gap-8 text-sm text-zinc-500 md:grid-cols-3">
+          <div><p className="mb-4 text-[8px] uppercase tracking-[0.45em] text-[#c9a054]">Global Headquarters</p><p>Shamim Forever<br />77 Esplanade du Général de Gaulle<br />Puteaux, Hauts-de-Seine<br />Paris La Défense, France</p></div>
+          <div><p className="mb-4 text-[8px] uppercase tracking-[0.45em] text-[#c9a054]">Concierge</p><a href="mailto:concierge@shamimforever.com" className="transition hover:text-[#c9a054]">concierge@shamimforever.com</a></div>
+          <div><p className="mb-4 text-[8px] uppercase tracking-[0.45em] text-[#c9a054]">Relations</p><a href="mailto:media@shamimforever.com" className="block transition hover:text-[#c9a054]">media@shamimforever.com</a><a href="mailto:relations@shamimforever.com" className="mt-2 block transition hover:text-[#c9a054]">relations@shamimforever.com</a></div>
+        </div>
+      </section>
+    </main>
   )
 }

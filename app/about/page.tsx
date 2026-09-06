@@ -4,16 +4,16 @@ import Link from 'next/link'
 
 export const metadata: Metadata = {
   title: 'About Shamim Forever — Sovereign Luxury House',
-  description: 'Shamim Forever is a global luxury digital house offering bespoke fragrances, sovereign jewellery, and blockchain-verified couture collections. Headquartered in Puteaux, France, serving worldwide.',
+  description: 'Shamim Forever is a global luxury house offering bespoke fragrances, jewellery, couture, and private experiences. Its Global Headquarters is in Puteaux, within the Paris La Défense region of France.',
   alternates: { canonical: 'https://www.shamimforever.com/about' },
   keywords: [
     'about shamim forever', 'luxury brand', 'bespoke fragrances', 'luxury jewellery',
-    'blockchain luxury', 'sovereign luxury', 'luxury house', 'couture',
+    'sovereign luxury', 'luxury house', 'couture',
     'shamim forever story', 'luxury brand pakistan',
   ],
   openGraph: {
     title: 'About Shamim Forever — Sovereign Luxury House',
-    description: 'A global luxury digital house offering bespoke fragrances, sovereign jewellery, and blockchain-verified couture collections.',
+    description: 'A global luxury house offering bespoke fragrances, jewellery, couture, and private experiences.',
     type: 'website',
     url: 'https://www.shamimforever.com/about',
     images: [{ url: '/logo-sf.png', width: 512, height: 512, alt: 'Shamim Forever' }],
@@ -35,17 +35,13 @@ const organizationJsonLd = {
   url: 'https://www.shamimforever.com',
   logo: 'https://www.shamimforever.com/logo-sf.png',
   image: 'https://www.shamimforever.com/logo-sf.png',
-  description: 'Shamim Forever is a sovereign luxury digital house offering bespoke fragrances, high jewellery, and couture collections. Blockchain-verified authenticity. Based in Pakistan, shipping worldwide.',
-  foundingDate: '2024',
-  foundingLocation: {
-    '@type': 'Place',
-    name: 'Karachi, Pakistan',
-  },
+   description: 'Shamim Forever is a sovereign luxury house offering bespoke fragrances, high jewellery, couture collections, and private experiences.',
+   foundingDate: '2023',
   address: {
     '@type': 'PostalAddress',
-    streetAddress: '77 Espl. du Général de Gaulle',
-    postalCode: '92800',
+     streetAddress: '77 Esplanade du Général de Gaulle',
     addressLocality: 'Puteaux',
+     addressRegion: 'Hauts-de-Seine',
     addressCountry: 'FR',
   },
   contactPoint: {
@@ -201,24 +197,19 @@ export default function AboutPage() {
                 Global Presence
               </h2>
               <p className="text-zinc-400 mb-8">
-                Headquartered at 77 Espl. du Général de Gaulle, 92800 Puteaux, France. Serving the world through boutiques and private concierge services across global locations.
+                The Global Headquarters is at 77 Esplanade du Général de Gaulle, Puteaux, Hauts-de-Seine, Paris La Défense, France. The House is developing its international presence through carefully considered future locations and private concierge experiences.
               </p>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {[
-                  { city: 'Puteaux', locations: ['77 Espl. du Général de Gaulle, 92800'] },
-                { city: 'Karachi', locations: ['Tariq Road', 'Clifton'] },
-                  { city: 'Lahore', locations: ['DHA Phase 6'] },
-                  { city: 'Islamabad', locations: ['DHA Phase II'] },
-                  { city: 'Peshawar', locations: ['Ring Road'] },
-                  { city: 'Dubai', locations: ['The Dubai Mall'] },
-                  { city: 'London', locations: ['New Bond Street'] },
-                  { city: 'Paris', locations: ['Place Vendôme'] },
-                  { city: 'New York', locations: ['Fifth Avenue'] },
-                  { city: 'Riyadh', locations: ['VIA District'] },
+                  { city: 'Puteaux, France', status: 'Global Headquarters', locations: ['77 Esplanade du Général de Gaulle', 'Puteaux, Hauts-de-Seine', 'Paris La Défense'] },
+                  { city: 'Pakistan', status: 'Future market exploration', locations: ['Karachi', 'Lahore', 'Islamabad', 'Peshawar'] },
+                  { city: 'Middle East', status: 'Future market exploration', locations: ['Dubai', 'Riyadh'] },
+                  { city: 'Europe & international markets', status: 'Future exploration', locations: ['Further destinations will be announced officially'] },
                 ].map(location => (
                   <div key={location.city} className="p-4 border border-[#1a1a1a] rounded">
                     <p className="font-medium text-zinc-100 mb-2">{location.city}</p>
+                    <p className="mb-2 text-[9px] uppercase tracking-[0.25em] text-[#c9a054]">{location.status}</p>
                     <ul className="space-y-1 text-sm text-zinc-400">
                       {location.locations.map(loc => (
                         <li key={loc}>• {loc}</li>

@@ -1,85 +1,137 @@
 import type { Metadata } from 'next'
-  import type { ReactNode } from 'react'
+import type { ReactNode } from 'react'
 
-  export const metadata: Metadata = {
-    title: 'Shamim Forever Boutiques — Karachi, Lahore, Dubai | Luxury Flagship Stores',
-    description: "Visit Shamim Forever boutiques in Karachi, Lahore, and Dubai. Experience luxury fragrances, bespoke jewellery, and premium cosmetics in person. Book a private consultation.",
-    keywords: [
-      'Shamim Forever boutique', 'luxury store Karachi', 'luxury store Lahore',
-      'luxury perfume store Pakistan', 'luxury boutique Dubai', 'bespoke jewellery store Karachi',
-      'Shamim Forever store locations', 'luxury store near me Pakistan',
-      'flagship store Shamim Forever', 'luxury shopping Pakistan',
-    ],
-    alternates: { canonical: 'https://www.shamimforever.com/boutiques' },
-    openGraph: {
-      title: 'Shamim Forever Boutiques — Flagship Luxury Stores',
-      description: 'Visit our boutiques in Karachi, Lahore, and Dubai for a personal luxury experience.',
-      type: 'website',
+const HQ_ADDRESS = {
+  '@type': 'PostalAddress',
+  streetAddress: '77 Esplanade du Général de Gaulle',
+  addressLocality: 'Puteaux',
+  addressRegion: 'Hauts-de-Seine',
+  addressCountry: 'FR',
+}
+
+export const metadata: Metadata = {
+  title: 'Shamim Forever Boutiques & Global Headquarters | Paris La Défense',
+  description: "Explore Shamim Forever's global presence, including its Global Headquarters in Puteaux, Paris La Défense, France, and the House's long-term international vision.",
+  keywords: [
+    'Shamim Forever boutiques',
+    'Shamim Forever global headquarters',
+    'Shamim Forever Puteaux',
+    'Paris La Défense luxury house',
+    'Shamim Forever locations',
+    'luxury concierge',
+    'private luxury experiences',
+  ],
+  alternates: { canonical: 'https://www.shamimforever.com/boutiques' },
+  openGraph: {
+    title: 'Shamim Forever Boutiques & Global Headquarters | Paris La Défense',
+    description: "Discover Shamim Forever's verified global headquarters and long-term international presence.",
+    type: 'website',
+    url: 'https://www.shamimforever.com/boutiques',
+    siteName: 'Shamim Forever',
+    images: [{ url: 'https://www.shamimforever.com/og-boutiques.jpg', width: 1200, height: 630, alt: 'Shamim Forever Boutiques and Global Presence' }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Shamim Forever Boutiques & Global Headquarters',
+    description: "Explore Shamim Forever's headquarters in Puteaux and future global presence.",
+    images: ['https://www.shamimforever.com/og-boutiques.jpg'],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: { index: true, follow: true, 'max-image-preview': 'large', 'max-snippet': -1 },
+  },
+}
+
+const boutiquesJsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'WebPage',
+      '@id': 'https://www.shamimforever.com/boutiques#webpage',
       url: 'https://www.shamimforever.com/boutiques',
-      siteName: 'Shamim Forever',
-      images: [{ url: 'https://www.shamimforever.com/og-boutiques.jpg', width: 1200, height: 630, alt: 'Shamim Forever Boutique' }],
-    },
-    robots: { index: true, follow: true, googleBot: { index: true, follow: true, 'max-image-preview': 'large', 'max-snippet': -1 } },
-  }
-
-  const boutiquesSchemas = [
-    {
-      "@context": "https://schema.org",
-      "@type": "BreadcrumbList",
-      "itemListElement": [
-        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.shamimforever.com/" },
-        { "@type": "ListItem", "position": 2, "name": "Boutiques", "item": "https://www.shamimforever.com/boutiques" }
-      ]
+      name: 'Shamim Forever Boutiques & Global Headquarters',
+      description: "Explore Shamim Forever's global presence, including its Global Headquarters in Puteaux, Paris La Défense, France, and the House's long-term international vision.",
+      isPartOf: { '@id': 'https://www.shamimforever.com/#website' },
+      about: { '@id': 'https://www.shamimforever.com/#organization' },
+      breadcrumb: { '@id': 'https://www.shamimforever.com/boutiques#breadcrumb' },
+      mainEntity: { '@id': 'https://www.shamimforever.com/boutiques#headquarters' },
     },
     {
-      "@context": "https://schema.org",
-      "@type": "LocalBusiness",
-      "@id": "https://www.shamimforever.com/boutiques#karachi",
-      "name": "Shamim Forever — Karachi Flagship Boutique",
-      "description": "Luxury fragrances, bespoke jewellery, and premium cosmetics — flagship boutique in Karachi, Pakistan.",
-      "url": "https://www.shamimforever.com/boutiques",
-      "priceRange": "$$$",
-      "openingHours": "Mo-Sa 10:00-21:00",
-      "address": {
-        "@type": "PostalAddress",
-        "addressLocality": "Karachi",
-        "addressRegion": "Sindh",
-        "addressCountry": "PK"
+      '@type': 'Organization',
+      '@id': 'https://www.shamimforever.com/#organization',
+      name: 'Shamim Forever',
+      url: 'https://www.shamimforever.com',
+      logo: 'https://www.shamimforever.com/logo-sf.png',
+      foundingDate: '2023',
+      address: HQ_ADDRESS,
+      location: { '@id': 'https://www.shamimforever.com/boutiques#headquarters' },
+      sameAs: [
+        'https://www.instagram.com/shamimforever',
+        'https://x.com/shamimforever',
+        'https://www.facebook.com/shamimforever',
+        'https://www.linkedin.com/company/shamimforever',
+        'https://www.wikidata.org/wiki/Q141223771',
+      ],
+    },
+    {
+      '@type': 'Place',
+      '@id': 'https://www.shamimforever.com/boutiques#headquarters',
+      name: 'Shamim Forever Global Headquarters',
+      description: 'The administrative and strategic center of Shamim Forever in Puteaux, within the Paris La Défense region of France.',
+      address: HQ_ADDRESS,
+      containedInPlace: {
+        '@type': 'Place',
+        name: 'Paris La Défense',
+        address: { '@type': 'PostalAddress', addressLocality: 'Puteaux', addressRegion: 'Hauts-de-Seine', addressCountry: 'FR' },
       },
-      "image": "https://www.shamimforever.com/og-boutiques.jpg",
-      "logo": "https://www.shamimforever.com/logo-sf.png",
-      "parentOrganization": { "@type": "Organization", "@id": "https://www.shamimforever.com/#organization", "name": "Shamim Forever" },
-      "hasOfferCatalog": {
-        "@type": "OfferCatalog",
-        "name": "Shamim Forever Luxury Collections",
-        "itemListElement": [
-          { "@type": "Offer", "itemOffered": { "@type": "Product", "name": "Luxury Fragrances" } },
-          { "@type": "Offer", "itemOffered": { "@type": "Product", "name": "Bespoke Jewellery" } },
-          { "@type": "Offer", "itemOffered": { "@type": "Product", "name": "Premium Cosmetics" } }
-        ]
-      },
-      "sameAs": ["https://www.shamimforever.com"]
     },
     {
-      "@context": "https://schema.org",
-      "@type": "LocalBusiness",
-      "@id": "https://www.shamimforever.com/boutiques#lahore",
-      "name": "Shamim Forever — Lahore Boutique",
-      "description": "Luxury fragrances, bespoke jewellery, and premium cosmetics — boutique in Lahore, Pakistan.",
-      "url": "https://www.shamimforever.com/boutiques",
-      "address": { "@type": "PostalAddress", "addressLocality": "Lahore", "addressRegion": "Punjab", "addressCountry": "PK" },
-      "parentOrganization": { "@type": "Organization", "@id": "https://www.shamimforever.com/#organization", "name": "Shamim Forever" }
-    }
-  ]
+      '@type': 'BreadcrumbList',
+      '@id': 'https://www.shamimforever.com/boutiques#breadcrumb',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.shamimforever.com/' },
+        { '@type': 'ListItem', position: 2, name: 'Boutiques & Global Presence', item: 'https://www.shamimforever.com/boutiques' },
+      ],
+    },
+    {
+      '@type': 'FAQPage',
+      '@id': 'https://www.shamimforever.com/boutiques#faq',
+      mainEntity: [
+        {
+          '@type': 'Question',
+          name: 'Where is Shamim Forever headquartered?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: 'Shamim Forever Global Headquarters is at 77 Esplanade du Général de Gaulle, Puteaux, Hauts-de-Seine, Paris La Défense, France.',
+          },
+        },
+        {
+          '@type': 'Question',
+          name: 'Does Shamim Forever currently have boutiques in other cities?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: 'The House is developing a long-term international presence. Future locations will be announced officially when they are operational or formally secured.',
+          },
+        },
+        {
+          '@type': 'Question',
+          name: 'Can I arrange a private visit?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: 'Certain Shamim Forever experiences may be available by appointment or invitation. Contact the concierge for current guidance.',
+          },
+        },
+      ],
+    },
+  ],
+}
 
-  export default function BoutiquesLayout({ children }: { children: ReactNode }) {
-    return (
-      <>
-        {boutiquesSchemas.map((schema, i) => (
-          <script key={i} type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
-        ))}
-        {children}
-      </>
-    )
-  }
-  
+export default function BoutiquesLayout({ children }: { children: ReactNode }) {
+  return (
+    <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(boutiquesJsonLd) }} />
+      {children}
+    </>
+  )
+}

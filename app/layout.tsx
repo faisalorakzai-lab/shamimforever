@@ -103,7 +103,7 @@ import { CartProvider } from '@/lib/cart-context'
         },
         "description": "A global luxury digital house offering bespoke fragrances, sovereign jewellery, and blockchain-verified couture collections.",
         "identifier": { "@type": "PropertyValue", "propertyID": "Wikidata", "value": "Q141223771", "url": "https://www.wikidata.org/wiki/Q141223771" },
-         "address": { "@type": "PostalAddress", "streetAddress": "77 Espl. du Général de Gaulle", "postalCode": "92800", "addressLocality": "Puteaux", "addressCountry": "FR" },
+          "address": { "@type": "PostalAddress", "streetAddress": "77 Esplanade du Général de Gaulle", "addressLocality": "Puteaux", "addressRegion": "Hauts-de-Seine", "addressCountry": "FR" },
          "foundingDate": "2023",
         "founder": {
             "@type": "Person",
