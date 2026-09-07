@@ -77,6 +77,14 @@ const mapCards = [
   },
   {
     number: "03",
+    mark: "Our World",
+    title: "The global universe of the House",
+    text: "Explore the places, people, culture, heritage, private experiences, and future systems that shape Shamim Forever.",
+    topics: "Places · People · Culture · Future",
+    href: "/learn/our-world",
+  },
+  {
+    number: "04",
     mark: "Craft & Atelier",
     title: "Where ideas become creations",
     text: "Follow the movement from creative brief to material study, prototype, refinement, and final presentation.",
@@ -84,7 +92,7 @@ const mapCards = [
     href: "/learn/luxury#craftsmanship",
   },
   {
-    number: "04",
+    number: "05",
     mark: "Authenticity",
     title: "The architecture of trust",
     text: "Explore identity, provenance, certificates, verification, and the systems that protect a meaningful object.",
@@ -92,7 +100,7 @@ const mapCards = [
     href: "/learn#authenticity",
   },
   {
-    number: "05",
+    number: "06",
     mark: "Technology",
     title: "The quiet intelligence behind luxury",
     text: "Discover how digital identity, blockchain concepts, AI, and future systems can strengthen the human experience.",
@@ -100,7 +108,7 @@ const mapCards = [
     href: "/learn#innovation",
   },
   {
-    number: "06",
+    number: "07",
     mark: "Glossary",
     title: "The language of the House",
     text: "Build fluency in the words that shape Shamim Forever: atelier, bespoke, provenance, heirloom, and sovereign luxury.",
@@ -113,7 +121,8 @@ const essentials = [
   ["01", "What is Shamim Forever?", "A sovereign luxury house built around heritage, craftsmanship, identity, and lasting value.", "5 min read", "/learn#start-here"],
   ["02", "What is Sovereign Luxury?", "A philosophy where luxury represents independence, identity, authenticity, and legacy.", "7 min read", "/learn/luxury#sovereign-luxury-philosophy"],
   ["03", "Built From Love. Forged Into Legacy.", "Discover the philosophy behind the Shamim Forever identity and the meaning of forever.", "6 min read", "/learn/the-house"],
-  ["04", "Why does authenticity matter?", "Understand trust, provenance, and the protection of valuable creations.", "8 min read", "/learn#authenticity"],
+  ["04", "What is Our World?", "Explore the global universe of places, people, culture, heritage, and future possibility.", "9 min read", "/learn/our-world"],
+  ["05", "Why does authenticity matter?", "Understand trust, provenance, and the protection of valuable creations.", "8 min read", "/learn#authenticity"],
 ]
 
 const levels = [
