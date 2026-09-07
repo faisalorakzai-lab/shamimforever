@@ -23,7 +23,7 @@ const ACCESS_LINKS = [
 
 const LEARN_LINKS = [
   { label: 'Start here', href: '/learn#start-here' },
-  { label: 'The House', href: '/learn#the-house' },
+  { label: 'The House', href: '/learn/the-house' },
   { label: 'Luxury', href: '/learn#luxury' },
   { label: 'Our World', href: '/learn#our-world' },
   { label: 'Authenticity', href: '/learn#authenticity' },
