@@ -65,7 +65,7 @@ const mapCards = [
     title: "The world behind the name",
     text: "Learn about Shamim Forever, its philosophy, heritage, vision, and the idea of a sovereign luxury house.",
     topics: "Story · Values · Vision · Legacy",
-    href: "/learn#start-here",
+    href: "/learn/the-house",
   },
   {
     number: "02",
@@ -112,7 +112,7 @@ const mapCards = [
 const essentials = [
   ["01", "What is Shamim Forever?", "A sovereign luxury house built around heritage, craftsmanship, identity, and lasting value.", "5 min read", "/learn#start-here"],
   ["02", "What is Sovereign Luxury?", "A philosophy where luxury represents independence, identity, authenticity, and legacy.", "7 min read", "/learn#luxury"],
-  ["03", "Built From Love. Forged Into Legacy.", "Discover the philosophy behind the Shamim Forever identity and the meaning of forever.", "6 min read", "/learn#the-house"],
+  ["03", "Built From Love. Forged Into Legacy.", "Discover the philosophy behind the Shamim Forever identity and the meaning of forever.", "6 min read", "/learn/the-house"],
   ["04", "Why does authenticity matter?", "Understand trust, provenance, and the protection of valuable creations.", "8 min read", "/learn#authenticity"],
 ]
 
