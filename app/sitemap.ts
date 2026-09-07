@@ -24,6 +24,7 @@ const BASE_URL = 'https://www.shamimforever.com'
      { path: '/learn',            priority: 0.89, changeFrequency: 'monthly'  as const },
      { path: '/learn/the-house',    priority: 0.89, changeFrequency: 'monthly'  as const },
      { path: '/learn/luxury',        priority: 0.89, changeFrequency: 'monthly'  as const },
+     { path: '/learn/our-world',   priority: 0.89, changeFrequency: 'monthly'  as const },
     { path: '/collections/for-him', priority: 0.89, changeFrequency: 'weekly' as const },
     { path: '/bespoke',         priority: 0.88, changeFrequency: 'monthly'  as const },
     { path: '/concierge',       priority: 0.87, changeFrequency: 'monthly'  as const },
