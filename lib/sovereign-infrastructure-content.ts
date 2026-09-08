@@ -1,0 +1,60 @@
+export const sovereignLayers = [
+ ['01','Experience Layer','Boutiques, concierge, atelier, private clients, and digital experiences.'],
+ ['02','Operations Layer','Orders, appointments, inventory, commissions, and relationship continuity.'],
+ ['03','Trust Layer','Authenticity, verification, documentation, and provenance.'],
+ ['04','Identity Layer','House identity, product identity, client identity, and digital identity.'],
+ ['05','Data Layer','Archives, records, metadata, permissions, and meaningful context.'],
+ ['06','Security Layer','Access control, encryption, monitoring, recovery, and resilience.'],
+ ['07','Governance Layer','Policies, standards, authority, accountability, and human responsibility.'],
+] as const
+export const sovereignPrinciples = [
+ ['Identity before expansion','Know what the House is before expanding where it operates.'],
+ ['Integrity before scale','Growth without reliable systems creates fragility.'],
+ ['Privacy before convenience','Convenience should not automatically override discretion.'],
+ ['Continuity before novelty','New technology should not destroy historical context.'],
+ ['Resilience before dependency','Critical systems should not unnecessarily depend on one point of failure.'],
+ ['Knowledge before automation','Automation should understand the process it supports.'],
+ ['Human authority','Technology may assist institutional decisions; accountability remains human.'],
+ ['Heritage is infrastructure','Memory is not decoration. Institutional memory supports continuity.'],
+] as const
+export const sovereignDomains = [
+ ['identity','Identity Infrastructure','The signals that distinguish the House, its objects, its ateliers, its boutiques, and its relationships.'],
+ ['authenticity-infrastructure','Authenticity Infrastructure','The physical, documentary, historical, and digital layers that support verification over time.'],
+ ['private-client-infrastructure','Private Client Infrastructure','A discreet architecture for appointments, preferences, commissions, communication, and care.'],
+ ['boutique-infrastructure','Boutique Infrastructure','How global standards and local character can coexist across physical House nodes.'],
+ ['atelier-infrastructure','Bespoke Atelier Infrastructure','A controlled continuity from consultation and material selection to craft, delivery, and care.'],
+ ['digital-sovereignty','Digital Sovereignty','Strategic awareness of providers, critical records, migration, backups, and institutional control.'],
+ ['privacy','Privacy by Architecture','Minimum necessary information, controlled access, retention boundaries, and responsible design.'],
+ ['security','Security Infrastructure','Identity, authentication, authorization, monitoring, recovery, and layered protection.'],
+ ['data-architecture','Data and Metadata Architecture','Structured and unstructured information organised so context survives technological change.'],
+ ['heritage-architecture','Heritage Architecture','The institutional memory of collections, designs, commissions, milestones, and cultural references.'],
+ ['time-archive','The Time Archive','An evolving record environment designed for migration, context, and long-term access.'],
+ ['sovereign-vault','The Sovereign Vault','A controlled infrastructure concept for sensitive institutional records and materials.'],
+ ['heirloom-vault','The Heirloom Vault','Object identity, care documentation, restoration history, and continuity beyond acquisition.'],
+ ['heritage-gallery','Heritage Gallery Infrastructure','A curated environment that contextualizes cultural significance beyond shop or archive.'],
+ ['private-delivery','Private Delivery Infrastructure','Controlled continuity from House to recipient, with discretion at every handoff.'],
+ ['concierge-care','Concierge and Care','Appointments, guidance, aftercare, restoration, communication, and relationship continuity.'],
+ ['governance','Governance Infrastructure','Authority, responsibilities, standards, review, documentation, and accountability.'],
+ ['resilience','Resilience Architecture','Designing for disruption, recovery, redundancy, and a future that does not assume perfection.'],
+ ['interoperability','Interoperability','The ability to move or exchange information without sacrificing privacy, security, context, or integrity.'],
+ ['future-infrastructure','Future Infrastructure','Principle-led exploration of privacy-preserving, intelligent, distributed, and archival systems.'],
+ ['ai-infrastructure','Artificial Intelligence Infrastructure','AI-assisted discovery and organisation with human review and authorised decision-making.'],
+] as const
+export const experiencePath = ['Discover','Consult','Create','Authenticate','Preserve','Care','Continue']
+export const sovereignFaqs = [
+ ['What is Sovereign Infrastructure?','Sovereign Infrastructure is the integrated physical, operational, digital, and institutional architecture designed to support the continuity, identity, privacy, authenticity, heritage, security, and long-term operation of the Shamim Forever ecosystem.'],
+ ['Is Sovereign Infrastructure a technology platform?','No. It is a broader architectural concept that may include physical, operational, digital, institutional, archival, and security systems.'],
+ ['How is it different from Innovation?','Innovation explores future possibilities. Sovereign Infrastructure focuses on the systems required for those possibilities to endure with continuity, privacy, governance, and resilience.'],
+ ['How does it relate to Authenticity?','Authenticity focuses on trust and verification. Sovereign Infrastructure provides the broader systems that can support identity, documentation, security, archival continuity, and verification.'],
+ ['Does Sovereign Infrastructure collect client information?','Any handling of personal information should follow applicable privacy requirements and relevant policies. The guiding principle is minimum necessary information with controlled access.'],
+ ['What is the Sovereign Vault?','The Sovereign Vault represents a protected infrastructure concept for sensitive institutional records and materials requiring greater levels of controlled access.'],
+ ['What is the Heirloom Vault?','The Heirloom Vault is a long-term continuity concept focused on preserving relevant historical and care information associated with significant objects.'],
+ ['Why does luxury require infrastructure?','Enduring luxury requires more than appearance. It requires continuity, trust, documentation, care, institutional knowledge, and the ability to adapt through time.'],
+] as const
+export const sovereignGlossary = [
+ ['Continuity','The ability of a House, record, relationship, or process to retain meaning through change.'],
+ ['Institutional memory','Knowledge preserved beyond a single person, platform, or moment.'],
+ ['Sovereignty','Strategic control over critical identity, records, dependencies, and decisions.'],
+ ['Resilience','The ability to continue, recover, and learn when conditions change or systems fail.'],
+ ['Provenance','A documented relationship between an object, its origin, its history, and its records.'],
+] as const
