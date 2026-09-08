@@ -644,7 +644,8 @@ export default function LearnPage() {
                 <h2 className="font-serif text-4xl font-light text-[#f3efe7] md:text-5xl">Choose your depth.</h2>
                 <p className="text-[9px] uppercase tracking-[0.3em] text-zinc-700">Like a living knowledge protocol</p>
               </div>
-              <p className="mb-8 max-w-3xl text-sm leading-7 text-zinc-500">Shopping Guides · Product Care · Bespoke Orders · Private Clients — practical knowledge for choosing, commissioning, caring for, and living with a creation.</p>
+              <p className="mb-8 max-w-3xl text-sm leading-7 text-zinc-500">The complete Shamim Forever Knowledge Library now lives at /guides: an institutional archive covering luxury, craftsmanship, authenticity, heritage, technology, provenance, and lasting value.</p>
+              <Link href="/guides" className="mb-8 inline-flex text-[9px] uppercase tracking-[0.3em] text-[#c9a054]">Enter the Knowledge Library →</Link>
               <div className="grid gap-px border border-[#1b1814] bg-[#1b1814] md:grid-cols-3">
                 {levels.map(([title, subtitle, topics], index) => (
                   <div key={title} className="bg-[#080808] p-7 md:p-9">

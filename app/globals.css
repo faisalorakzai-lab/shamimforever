@@ -377,6 +377,30 @@ body {
   border-bottom-color: #e4e4e7;
 }
 
+.sf-kicker {
+  color: #c9a054;
+  font-size: 9px;
+  letter-spacing: 0.5em;
+  line-height: 1.6;
+  text-transform: uppercase;
+}
+
+.sf-heading {
+  color: #f3efe7;
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-weight: 300;
+  letter-spacing: 0.02em;
+  line-height: 0.98;
+}
+
+.sf-display {
+  color: #f3efe7;
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-weight: 300;
+  letter-spacing: 0.035em;
+  line-height: 0.86;
+}
+
 @layer utilities {
   .text-balance {
     text-wrap: balance;

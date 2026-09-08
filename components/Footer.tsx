@@ -29,8 +29,9 @@ const LEARN_LINKS = [
   { label: 'Authenticity', href: '/learn/authenticity' },
   { label: 'Innovation', href: '/learn/innovation' },
   { label: 'Sovereign Infrastructure', href: '/learn/sovereign-infrastructure' },
-  { label: 'Guides', href: '/learn#guides' },
-  { label: 'Glossary', href: '/learn#glossary' },
+  { label: 'Guides', href: '/guides' },
+  { label: 'White Papers', href: '/whitepapers' },
+  { label: 'Glossary', href: '/glossary' },
   { label: 'FAQ', href: '/learn#faq' },
 ]
 
