@@ -27,7 +27,7 @@ const LEARN_LINKS = [
   { label: 'Luxury', href: '/learn/luxury' },
   { label: 'Our World', href: '/learn/our-world' },
   { label: 'Authenticity', href: '/learn/authenticity' },
-  { label: 'Innovation', href: '/learn#innovation' },
+  { label: 'Innovation', href: '/learn/innovation' },
   { label: 'Sovereign Infrastructure', href: '/learn#sovereign-infrastructure' },
   { label: 'Guides', href: '/learn#guides' },
   { label: 'Glossary', href: '/learn#glossary' },
