@@ -91,7 +91,7 @@ const BASE_URL = 'https://www.shamimforever.com'
     { path: '/careers', priority: 0.80, changeFrequency: 'monthly' as const },
     { path: '/investor-relations', priority: 0.80, changeFrequency: 'monthly' as const },
     { path: '/newsroom', priority: 0.88, changeFrequency: 'weekly' as const },
-     { path: '/policies', priority: 0.78, changeFrequency: 'monthly' as const },
+     { path: '/policies', priority: 0.96, changeFrequency: 'monthly' as const },
   ]
 
   export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
