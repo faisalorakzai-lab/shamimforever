@@ -1,5 +1,6 @@
 import { MetadataRoute } from 'next'
   import { supabase } from '@/lib/supabase'
+  import { glossaryTerms } from '@/lib/glossary-content'
 
   export const dynamic = 'force-dynamic'
 
@@ -140,6 +141,13 @@ const BASE_URL = 'https://www.shamimforever.com'
       console.error('[sitemap] Supabase unavailable; database-backed URLs were omitted.', error)
     }
 
-    return [...staticEntries, ...productEntries, ...collectionEntries]
+    const glossaryEntries: MetadataRoute.Sitemap = glossaryTerms.map((entry) => ({
+      url: `${BASE_URL}/glossary/${entry.slug}`,
+      lastModified: now,
+      changeFrequency: 'monthly' as const,
+      priority: 0.78,
+    }))
+
+    return [...staticEntries, ...glossaryEntries, ...productEntries, ...collectionEntries]
   }
   
