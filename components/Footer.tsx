@@ -52,7 +52,7 @@ const CORPORATE_LINKS = [
   { label: 'Corporate', href: '/corporate' },
   { label: 'Founder & Leadership', href: '/founder-leadership' },
   { label: 'Leadership & Governance', href: '/corporate/leadership-governance' },
-  { label: 'Press & Media', href: '/press' },
+  { label: 'Press & Media', href: '/press-media' },
   { label: 'Brand Facts', href: '/brand-facts' },
   { label: 'Corporate Information', href: '/corporate-information' },
   { label: 'Sustainability', href: '/sustainability' },
