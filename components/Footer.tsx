@@ -51,7 +51,7 @@ const INFRA_LINKS = [
 const CORPORATE_LINKS = [
   { label: 'Corporate', href: '/corporate' },
   { label: 'Founder & Leadership', href: '/founder-leadership' },
-  { label: 'Leadership & Governance', href: '/leadership-governance' },
+  { label: 'Leadership & Governance', href: '/corporate/leadership-governance' },
   { label: 'Press & Media', href: '/press' },
   { label: 'Brand Facts', href: '/brand-facts' },
   { label: 'Corporate Information', href: '/corporate-information' },
