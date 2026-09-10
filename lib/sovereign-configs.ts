@@ -6357,7 +6357,59 @@
     category: 'For Him',
   }
 
+
+
+    // ── SIGNATURE VANILLA — HERITAGE ARCHIVE ─────────────────────────────────────
+    const SOVEREIGN_VANILLA_ABSOLUTE_CONFIG: SovereignConfig = {
+      heroTitle: 'SF SOVEREIGN VANILLA ABSOLUTE',
+      heroSubtitle: 'Absolute Femininity',
+      heroTagline: 'Heritage Archive Allocation · House of Shamim',
+      legacyStatement: 'Love does not fade — it blooms into eternity.',
+      legacyVoice: 'SF Sovereign Vanilla Absolute is a warm, intimate expression of vanilla created within the House of Shamim fragrance world. Built around Madagascar Bourbon vanilla with benzoin, tonka bean and white sandalwood, it is designed to become personal, memorable and unmistakably yours.',
+      topNotes: ['Vanilla Warmth'],
+      heartNotes: ['Benzoin', 'Tonka Bean'],
+      baseNotes: ['White Sandalwood'],
+      specs: [
+        { label: 'Product', value: 'SF Sovereign Vanilla Absolute' },
+        { label: 'Category', value: 'Perfume · Heritage Archive' },
+        { label: 'Core Material', value: 'Madagascar Bourbon Vanilla' },
+        { label: 'Supporting Materials', value: 'Benzoin · Tonka Bean · White Sandalwood' },
+        { label: 'Allocation Price', value: '$198 USD' },
+        { label: 'Pakistan Reference Price', value: 'Rs 55,000' },
+        { label: 'Digital Passport', value: 'Blockchain-linked Sovereign Passport' },
+        { label: 'Network', value: 'Polygon Mainnet' },
+        { label: 'Token Standard', value: 'ERC-721' },
+        { label: 'Edition', value: 'House Allocation Reserve' },
+        { label: 'Rarity', value: 'Heritage Archive' },
+        { label: 'Serial Reference', value: 'SF-FC57502B' },
+        { label: 'Availability', value: 'Limited House allocation · subject to current inventory' },
+      ],
+      nftTitle: 'SF Sovereign Vanilla Absolute',
+      nftEdition: 'House Allocation Reserve',
+      nftRarity: 'HERITAGE ARCHIVE',
+      nftTraits: [
+        { trait: 'Category', value: 'Perfume' }, { trait: 'Archive Class', value: 'Heritage Archive' },
+        { trait: 'Core Material', value: 'Madagascar Bourbon Vanilla' }, { trait: 'Network', value: 'Polygon Mainnet' },
+        { trait: 'Token Standard', value: 'ERC-721' }, { trait: 'Serial', value: 'SF-FC57502B' },
+        { trait: 'Edition', value: 'House Allocation Reserve' }, { trait: 'Authentication', value: 'Polygon-linked record where applicable' },
+      ],
+      heroImage: 'https://uvgtgeauhjbdatrmmaob.supabase.co/storage/v1/object/public/products/perfumes/vanilla-absolute.png',
+      galleryImages: ['https://uvgtgeauhjbdatrmmaob.supabase.co/storage/v1/object/public/products/perfumes/vanilla-absolute.png'],
+      holderPrivileges: [
+        'Sovereign Archive Access — Access to designated House archive areas where applicable',
+        'Future House Allocations — Priority consideration for selected future releases where offered',
+        'Private House Ceremonies — Invitations to selected events subject to availability and invitation terms',
+        'Restoration & Refill — Priority access to eligible services where offered for this creation',
+        'Blockchain Provenance — Access to the blockchain-linked record associated with the passport',
+        'Concierge Authentication — Direct access to House authentication support',
+        'Priority Restock Alerts — Early notification of selected allocation or restock events',
+      ],
+      videoPath: '/products/sf-sovereign-vanilla-absolute/vanilla-absolute.mp4',
+      category: 'Perfume · Heritage Archive',
+    }
+    
 export const SOVEREIGN_CONFIGS: Record<string, SovereignConfig> = {
+    'sf-sovereign-vanilla-absolute': SOVEREIGN_VANILLA_ABSOLUTE_CONFIG,
 
     // ── ARCHIVE I ──────────────────────────────────────────────────────────────
 
