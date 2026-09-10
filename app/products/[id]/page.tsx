@@ -7,6 +7,7 @@ import LuxuryGenericProductPage from '@/components/LuxuryGenericProductPage'
 import GuestCurationProductPage from '@/components/GuestCurationProductPage'
 import { GUEST_CURATION_SLUGS } from '@/lib/guest-curation-configs'
 import { PRODUCT_IMAGE_OVERRIDES } from '@/lib/product-image-overrides'
+import { SOVEREIGN_CONTRACT_ADDRESS, SOVEREIGN_NETWORK } from '@/lib/sovereign-contract'
 import CosmeticsProductPage from '@/components/CosmeticsProductPage'
 import JewelryProductPage from '@/components/JewelryProductPage'
 
@@ -16,6 +17,32 @@ const BASE_URL = 'https://www.shamimforever.com'
 const SOVEREIGN_SLUGS = Object.keys(SOVEREIGN_CONFIGS)
 const COSMETICS_CATEGORY_ID = '22226324-4789-419d-a9e2-f763df2d24f1'
 const JEWELRY_CATEGORY_ID = 'e291b9af-a637-45da-a2df-d39f2e72e53c'
+const BLOOM_CANONICAL_SLUG = 'shamim-bloom'
+const BLOOM_SLUGS = new Set(['shamim-bloom', 'shamims-bloom', 'shamim-bloom-the-sovereign-grace'])
+const BLOOM_TITLE = 'Shamim Bloom — The Sovereign Grace | Luxury Fragrance & Digital Sovereign Passport'
+const BLOOM_DESCRIPTION =
+  'Discover Shamim Bloom, The Sovereign Grace. A 100ML luxury fragrance with an evolving floral composition, Founder Reserve allocation, digital provenance and a Polygon-based Sovereign Passport.'
+
+function isBloomSlug(slug: string) {
+  return BLOOM_SLUGS.has(slug)
+}
+
+function canonicalProductSlug(slug: string) {
+  return isBloomSlug(slug) ? BLOOM_CANONICAL_SLUG : slug
+}
+
+function productImagePaths(product: Product): string[] {
+  const override =
+    PRODUCT_IMAGE_OVERRIDES[product.slug] ??
+    (isBloomSlug(product.slug) ? PRODUCT_IMAGE_OVERRIDES[BLOOM_CANONICAL_SLUG] : undefined)
+  const source = override ?? product.images ?? []
+  const paths = Array.isArray(source) ? source : [source]
+  return [...new Set(paths.filter((path): path is string => Boolean(path)))]
+}
+
+function absoluteProductImage(path: string) {
+  return path.startsWith('http') ? path : `${BASE_URL}${path}`
+}
 
 async function getProduct(id: string): Promise<Product | null> {
   const { data: bySlug } = await supabaseAdmin
@@ -24,6 +51,17 @@ async function getProduct(id: string): Promise<Product | null> {
     .eq('slug', id)
     .maybeSingle()
   if (bySlug) return bySlug
+
+  if (isBloomSlug(id)) {
+    for (const slug of BLOOM_SLUGS) {
+      const { data: bloomProduct } = await supabaseAdmin
+        .from('products')
+        .select('*, main_category:main_categories(*)')
+        .eq('slug', slug)
+        .maybeSingle()
+      if (bloomProduct) return bloomProduct
+    }
+  }
 
   const { data: byId } = await supabaseAdmin
     .from('products')
@@ -50,20 +88,34 @@ export async function generateMetadata({ params }: { params: { id: string } }) {
   const product = await getProduct(params.id)
   if (!product) return { title: 'Product Not Found — Shamim Forever' }
 
-  const productImage = product.images?.[0]
-    ? (product.images[0].startsWith('http') ? product.images[0] : `${BASE_URL}${product.images[0]}`)
-    : `${BASE_URL}/logo-sf.png`
-
-  const productUrl = `${BASE_URL}/products/${product.slug}`
-  const desc = product.description
-    ? product.description.slice(0, 160)
-    : `${product.name} — sovereign luxury creation by Shamim Forever. Shop online in Pakistan & worldwide.`
+  const bloom = isBloomSlug(product.slug) || isBloomSlug(params.id)
+  const images = productImagePaths(product)
+  const productImages = images.length ? images : ['/logo-sf.png']
+  const productUrl = `${BASE_URL}/products/${canonicalProductSlug(product.slug)}`
+  const title = bloom ? BLOOM_TITLE : `${product.name} — Shamim Forever`
+  const desc = bloom
+    ? BLOOM_DESCRIPTION
+    : product.description
+      ? product.description.slice(0, 160)
+      : `${product.name} — sovereign luxury creation by Shamim Forever. Shop online in Pakistan & worldwide.`
 
   return {
-    title: `${product.name} — Shamim Forever`,
+    title,
     description: desc,
     keywords: [
       product.name,
+      ...(bloom
+        ? [
+            'Shamim Bloom',
+            'The Sovereign Grace',
+            'luxury rose perfume',
+            'Taif Rose perfume',
+            '100ML extrait de parfum',
+            'Founder Reserve fragrance',
+            'digital sovereign passport',
+            'Polygon NFT fragrance',
+          ]
+        : []),
       'Shamim Forever',
       'luxury fragrance Pakistan',
       'buy perfume online Pakistan',
@@ -74,126 +126,183 @@ export async function generateMetadata({ params }: { params: { id: string } }) {
     ],
     alternates: { canonical: productUrl },
     openGraph: {
-      title: `${product.name} — Shamim Forever`,
+      title,
       description: desc,
       url: productUrl,
       siteName: 'Shamim Forever',
       type: 'website',
-      images: [
-        {
-          url: productImage,
-          width: 1080,
-          height: 1080,
-          alt: `${product.name} — Shamim Forever Luxury Collection`,
-        },
-      ],
+      images: productImages.slice(0, 4).map((path) => ({
+        url: absoluteProductImage(path),
+        width: 1080,
+        height: 1080,
+        alt: bloom
+          ? 'Shamim Bloom — The Sovereign Grace luxury fragrance'
+          : `${product.name} — Shamim Forever Luxury Collection`,
+      })),
     },
     twitter: {
       card: 'summary_large_image',
-      title: `${product.name} — Shamim Forever`,
+      title,
       description: desc,
-      images: [productImage],
+      images: productImages.slice(0, 4).map(absoluteProductImage),
     },
   }
 }
 
 function ProductJsonLd({ product }: { product: Product }) {
-  const rawImage = product.images?.[0] || ''
-  const productImage = rawImage.startsWith('http')
-    ? rawImage
-    : rawImage
-      ? `${BASE_URL}${rawImage}`
-      : `${BASE_URL}/logo-sf.png`
-
-  const productUrl = `${BASE_URL}/products/${product.slug}`
+  const bloom = isBloomSlug(product.slug)
+  const productImages = productImagePaths(product).map(absoluteProductImage)
+  const images = productImages.length ? productImages : [`${BASE_URL}/logo-sf.png`]
+  const productUrl = `${BASE_URL}/products/${canonicalProductSlug(product.slug)}`
   const isSovereign = SOVEREIGN_SLUGS.includes(product.slug)
   const priceValidUntil = new Date(Date.now() + 90 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]
+  const priceUsd = Number(product.price_usd ?? (bloom ? 270 : 0))
+  const pricePkr = Number(product.price_pkr ?? (bloom ? 75000 : 0))
+  const displayName = bloom ? 'Shamim Bloom — The Sovereign Grace' : product.name
+  const displayDescription = bloom
+    ? BLOOM_DESCRIPTION
+    : product.description || `${product.name} — sovereign luxury creation by Shamim Forever`
+  const additionalProperty = isSovereign
+    ? [
+        { '@type': 'PropertyValue', name: 'Blockchain Network', value: SOVEREIGN_NETWORK },
+        { '@type': 'PropertyValue', name: 'NFT Sovereign Passport', value: 'Enabled where applicable' },
+        {
+          '@type': 'PropertyValue',
+          name: 'Authentication',
+          value: 'Digital provenance record linked to the physical creation where applicable',
+        },
+        { '@type': 'PropertyValue', name: 'Token Standard', value: 'ERC-721' },
+        ...(bloom
+          ? [
+              { '@type': 'PropertyValue', name: 'Archive', value: 'Archive I' },
+              { '@type': 'PropertyValue', name: 'Edition', value: 'Founder Reserve' },
+              { '@type': 'PropertyValue', name: 'Volume', value: '100ML' },
+              { '@type': 'PropertyValue', name: 'Concentration', value: 'Extrait de Parfum' },
+              { '@type': 'PropertyValue', name: 'Fragrance Family', value: 'Floral / Amber / Musk / Woody' },
+              { '@type': 'PropertyValue', name: 'Contract Address', value: SOVEREIGN_CONTRACT_ADDRESS },
+              { '@type': 'PropertyValue', name: 'Founder Reserve Supply', value: '50 pieces' },
+            ]
+          : []),
+      ]
+    : undefined
 
-  const jsonLd = {
-    '@context': 'https://schema.org',
-    '@graph': [
+  const productSchema = {
+    '@type': 'Product',
+    '@id': `${productUrl}#product`,
+    name: displayName,
+    alternateName: bloom ? ['Shamim Bloom', 'The Sovereign Grace'] : undefined,
+    description: displayDescription,
+    image: images,
+    url: productUrl,
+    sku: product.slug,
+    brand: { '@type': 'Brand', name: 'Shamim Forever', logo: `${BASE_URL}/logo-sf.png` },
+    manufacturer: { '@type': 'Organization', name: 'Shamim Forever', url: BASE_URL },
+    category: product.main_category?.name || 'Luxury Fragrance',
+    audience: bloom
+      ? { '@type': 'PeopleAudience', audienceType: 'Luxury fragrance collectors', suggestedGender: 'Female' }
+      : undefined,
+    offers: [
       {
-        '@type': 'Product',
-        '@id': `${productUrl}#product`,
-        name: product.name,
-        description:
-          product.description ||
-          `${product.name} — sovereign luxury creation by Shamim Forever`,
-        image: productImage,
+        '@type': 'Offer',
+        price: priceUsd,
+        priceCurrency: 'USD',
+        priceValidUntil,
+        availability:
+          (product.inventory ?? 1) > 0
+            ? 'https://schema.org/InStock'
+            : 'https://schema.org/OutOfStock',
+        itemCondition: 'https://schema.org/NewCondition',
+        seller: { '@type': 'Organization', name: 'Shamim Forever', url: BASE_URL },
         url: productUrl,
-        sku: product.slug,
-        brand: {
-          '@type': 'Brand',
-          name: 'Shamim Forever',
-          logo: `${BASE_URL}/logo-sf.png`,
+        hasMerchantReturnPolicy: {
+          '@type': 'MerchantReturnPolicy',
+          applicableCountry: 'PK',
+          returnPolicyCategory: 'https://schema.org/MerchantReturnFiniteReturnWindow',
         },
-        manufacturer: {
-          '@type': 'Organization',
-          name: 'Shamim Forever',
-          url: BASE_URL,
-        },
-        category: product.main_category?.name || 'Luxury Fragrance',
-        offers: [
+      },
+      ...(pricePkr > 0
+        ? [
+            {
+              '@type': 'Offer',
+              price: pricePkr,
+              priceCurrency: 'PKR',
+              priceValidUntil,
+              availability:
+                (product.inventory ?? 1) > 0
+                  ? 'https://schema.org/InStock'
+                  : 'https://schema.org/OutOfStock',
+              itemCondition: 'https://schema.org/NewCondition',
+              seller: { '@type': 'Organization', name: 'Shamim Forever', url: BASE_URL },
+              url: productUrl,
+            },
+          ]
+        : []),
+    ],
+    ...(additionalProperty ? { additionalProperty } : {}),
+  }
+
+  const breadcrumb = {
+    '@type': 'BreadcrumbList',
+    '@id': `${productUrl}#breadcrumb`,
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: BASE_URL },
+      { '@type': 'ListItem', position: 2, name: 'Shop', item: `${BASE_URL}/shop` },
+      ...(product.main_category
+        ? [{ '@type': 'ListItem', position: 3, name: product.main_category.name, item: `${BASE_URL}/shop` }]
+        : []),
+      {
+        '@type': 'ListItem',
+        position: product.main_category ? 4 : 3,
+        name: displayName,
+        item: productUrl,
+      },
+    ],
+  }
+
+  const faq = bloom
+    ? {
+        '@type': 'FAQPage',
+        '@id': `${productUrl}#faq`,
+        mainEntity: [
           {
-            '@type': 'Offer',
-            price: product.price_usd,
-            priceCurrency: 'USD',
-            priceValidUntil,
-            availability:
-              (product.inventory ?? 1) > 0
-                ? 'https://schema.org/InStock'
-                : 'https://schema.org/OutOfStock',
-            itemCondition: 'https://schema.org/NewCondition',
-            seller: { '@type': 'Organization', name: 'Shamim Forever', url: BASE_URL },
-            url: productUrl,
-            hasMerchantReturnPolicy: {
-              '@type': 'MerchantReturnPolicy',
-              applicableCountry: 'PK',
-              returnPolicyCategory:
-                'https://schema.org/MerchantReturnFiniteReturnWindow',
+            '@type': 'Question',
+            name: 'How long does Shamim Bloom last?',
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: 'Shamim Bloom is presented with an estimated performance of approximately 12–18 hours. Actual longevity varies by skin chemistry, climate, application and environment.',
             },
           },
           {
-            '@type': 'Offer',
-            price: product.price_pkr,
-            priceCurrency: 'PKR',
-            priceValidUntil,
-            availability:
-              (product.inventory ?? 1) > 0
-                ? 'https://schema.org/InStock'
-                : 'https://schema.org/OutOfStock',
-            itemCondition: 'https://schema.org/NewCondition',
-            seller: { '@type': 'Organization', name: 'Shamim Forever', url: BASE_URL },
-            url: productUrl,
+            '@type': 'Question',
+            name: 'What is Shamim Bloom?',
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: 'Shamim Bloom — The Sovereign Grace is a 100ML Extrait de Parfum built around Taif Rose Absolute, Turkish Rose Resin, amber, musk and creamy woods.',
+            },
           },
-        ],
-        ...(isSovereign && {
-          additionalProperty: [
-            { '@type': 'PropertyValue', name: 'Blockchain Verification', value: 'Polygon Mainnet' },
-            { '@type': 'PropertyValue', name: 'NFT Sovereign Passport', value: 'Enabled' },
-            { '@type': 'PropertyValue', name: 'Authentication', value: 'Blockchain-Verified Luxury Asset' },
-            { '@type': 'PropertyValue', name: 'Edition Type', value: 'Ultra-Limited Sovereign Craftsmanship' },
-            { '@type': 'PropertyValue', name: 'Token Standard', value: 'ERC-721' },
-          ],
-        }),
-      },
-      {
-        '@type': 'BreadcrumbList',
-        itemListElement: [
-          { '@type': 'ListItem', position: 1, name: 'Home', item: BASE_URL },
-          { '@type': 'ListItem', position: 2, name: 'Shop', item: `${BASE_URL}/shop` },
-          ...(product.main_category
-            ? [{ '@type': 'ListItem', position: 3, name: product.main_category.name, item: `${BASE_URL}/shop` }]
-            : []),
           {
-            '@type': 'ListItem',
-            position: product.main_category ? 4 : 3,
-            name: product.name,
-            item: productUrl,
+            '@type': 'Question',
+            name: 'What is the Shamim Bloom Sovereign Passport?',
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: 'The Sovereign Passport is a digital provenance identity associated with eligible Shamim Bloom creations and their applicable blockchain record.',
+            },
+          },
+          {
+            '@type': 'Question',
+            name: 'Does NFT ownership transfer the Shamim Forever brand or fragrance formula?',
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: 'No. NFT ownership does not automatically transfer the Shamim Forever trademark, formula, copyright or other intellectual property unless separate written terms expressly grant those rights.',
+            },
           },
         ],
-      },
-    ],
+      }
+    : null
+
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@graph': [productSchema, breadcrumb, ...(faq ? [faq] : [])],
   }
 
   return (

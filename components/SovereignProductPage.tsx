@@ -58,7 +58,11 @@ const SOVEREIGN_CSS = [
   '.scent-grid{grid-template-columns:1fr!important}',
   '.nft-grid{grid-template-columns:1fr!important;gap:32px!important}',
   '.pay-grid{grid-template-columns:1fr 1fr!important}',
+  '.bloom-knowledge-grid{grid-template-columns:repeat(3,1fr)}',
+  '.bloom-detail-grid{grid-template-columns:repeat(2,1fr)}',
+  '.bloom-passport-grid{grid-template-columns:repeat(4,1fr)}',
   '.mob-full{width:100%!important;box-sizing:border-box!important;display:flex!important;justify-content:center!important}',
+  '.bloom-knowledge-grid,.bloom-detail-grid,.bloom-passport-grid{grid-template-columns:1fr!important}',
   '}',
 ].join('')
 
@@ -177,8 +181,107 @@ function NftCard({ config }: { config: SovereignConfig }) {
   )
 }
 
+function BloomKnowledgeSections() {
+  const faqs = [
+    ['Is Shamim Bloom for day or night?', 'Its positioning is particularly suited to evening wear, formal occasions and private gatherings, but fragrance use is personal and can be adapted to the wearer.'],
+    ['Is Shamim Bloom a rose fragrance?', 'Rose is central to the heart through Taif Rose Absolute and Turkish Rose Resin, while amber, musk and creamy woods shape the full dry-down.'],
+    ['How should Shamim Bloom be worn?', 'Apply to clean, moisturised skin at the wrists, neck, behind the ears or inner elbows. Allow the fragrance to develop naturally and avoid aggressively rubbing it after application.'],
+    ['Does the Sovereign Passport transfer the brand or formula?', 'No. A digital token does not automatically transfer the Shamim Forever trademark, formula, photography, copyright or commercial rights. Those rights require separate written terms.'],
+  ]
+
+  return (
+    <section
+      aria-labelledby="shamim-bloom-knowledge"
+      style={{
+        padding: 'clamp(56px,8vw,100px) 0',
+        background: 'linear-gradient(180deg, #030303 0%, #080502 48%, #030303 100%)',
+        borderTop: '1px solid rgba(201,160,84,0.08)',
+      }}
+    >
+      <div style={{ maxWidth: 980, margin: '0 auto', padding: '0 clamp(20px,4vw,28px)' }}>
+        <div className="s-reveal" style={{ textAlign: 'center', marginBottom: 50 }}>
+          <p style={{ fontSize: 7, letterSpacing: '0.9em', textTransform: 'uppercase', color: '#c9a054', marginBottom: 12 }}>The Shamim Bloom Dossier</p>
+          <h2 id="shamim-bloom-knowledge" style={{ fontFamily: SERIF, fontSize: 'clamp(2rem,5vw,3.5rem)', fontWeight: 300, color: '#f0ece4', letterSpacing: '0.05em' }}>From First Impression to Archive</h2>
+          <p style={{ maxWidth: 650, margin: '20px auto 0', color: 'rgba(240,236,228,0.52)', fontSize: 13, lineHeight: 1.8 }}>
+            Shamim Bloom is presented as an olfactive creation, a physical archive object and—where applicable—a digitally documented identity within the House archive.
+          </p>
+        </div>
+
+        <div className="s-reveal bloom-knowledge-grid" style={{ display: 'grid', gap: 1, background: 'rgba(201,160,84,0.12)', marginBottom: 36 }}>
+          {[
+            ['01', 'The Opening', 'A soft floral veil introduces Velvet Peony, White Rose Silk and the intimate blush accord.'],
+            ['02', 'The Revelation', 'Taif Rose Absolute and Turkish Rose Resin form the emotional centre of the composition.'],
+            ['03', 'The Memory', 'White Ambergris, cashmere skin musk and warm cream woods remain close through the dry-down.'],
+          ].map(([number, title, text]) => (
+            <div key={number} style={{ padding: '28px 24px', background: '#080603' }}>
+              <p style={{ fontSize: 8, letterSpacing: '0.35em', color: '#c9a054', marginBottom: 16 }}>{number}</p>
+              <h3 style={{ fontFamily: SERIF, fontSize: 24, fontWeight: 300, color: '#c9b894', marginBottom: 10 }}>{title}</h3>
+              <p style={{ color: 'rgba(240,236,228,0.5)', fontSize: 12, lineHeight: 1.7 }}>{text}</p>
+            </div>
+          ))}
+        </div>
+
+        <div className="s-reveal bloom-detail-grid" style={{ display: 'grid', gap: 1, background: 'rgba(201,160,84,0.12)', marginBottom: 36 }}>
+          <div style={{ padding: '30px 26px', background: '#080603' }}>
+            <p style={{ fontSize: 7, letterSpacing: '0.7em', textTransform: 'uppercase', color: '#c9a054', marginBottom: 12 }}>The Ritual of Application</p>
+            <h3 style={{ fontFamily: SERIF, fontSize: 28, fontWeight: 300, color: '#f0ece4', marginBottom: 16 }}>How to Wear Bloom</h3>
+            <ol style={{ margin: 0, paddingLeft: 20, color: 'rgba(240,236,228,0.56)', fontSize: 12, lineHeight: 2 }}>
+              <li>Apply to clean, moisturised skin.</li>
+              <li>Target pulse areas: wrists, neck, behind the ears and inner elbows.</li>
+              <li>Allow the fragrance to develop without aggressive rubbing.</li>
+              <li>Use 2–4 sprays for an intimate profile or 4–6 for a more pronounced presence.</li>
+            </ol>
+          </div>
+          <div style={{ padding: '30px 26px', background: '#080603' }}>
+            <p style={{ fontSize: 7, letterSpacing: '0.7em', textTransform: 'uppercase', color: '#c9a054', marginBottom: 12 }}>Preserve the Creation</p>
+            <h3 style={{ fontFamily: SERIF, fontSize: 28, fontWeight: 300, color: '#f0ece4', marginBottom: 16 }}>Care Guide</h3>
+            <p style={{ color: 'rgba(240,236,228,0.56)', fontSize: 12, lineHeight: 1.8 }}>
+              Keep the bottle away from direct sunlight, extreme heat and excessive humidity. Store it with the cap securely closed, preferably in its original presentation environment. Do not leave the bottle in a hot vehicle or use harsh chemicals on decorative surfaces.
+            </p>
+          </div>
+        </div>
+
+        <div className="s-reveal" style={{ padding: '32px 28px', border: '1px solid rgba(201,160,84,0.16)', background: 'rgba(8,6,2,0.72)', marginBottom: 36 }}>
+          <p style={{ fontSize: 7, letterSpacing: '0.7em', textTransform: 'uppercase', color: '#c9a054', marginBottom: 12 }}>Physical + Digital</p>
+          <h3 style={{ fontFamily: SERIF, fontSize: 30, fontWeight: 300, color: '#f0ece4', marginBottom: 14 }}>The Archive Object</h3>
+          <p style={{ color: 'rgba(240,236,228,0.55)', fontSize: 13, lineHeight: 1.85, maxWidth: 760 }}>
+            The bottle is the visible counterpart of an invisible composition. For eligible creations, the Sovereign Passport adds a digital provenance layer that can connect creation identity, sovereign serial, edition, ownership status and applicable blockchain references. This record supports provenance; it does not by itself inspect a physical bottle or transfer intellectual property.
+          </p>
+          <div className="bloom-passport-grid" style={{ display: 'grid', gap: 1, marginTop: 24, background: 'rgba(201,160,84,0.1)' }}>
+            {[
+              ['Network', 'Polygon Mainnet'],
+              ['Standard', 'ERC-721'],
+              ['Contract', '0xCCFc11b2…DC7640'],
+              ['Reserve', '50 Founder pieces'],
+            ].map(([label, value]) => (
+              <div key={label} style={{ padding: '18px 14px', background: '#050403' }}>
+                <p style={{ fontSize: 7, letterSpacing: '0.35em', textTransform: 'uppercase', color: '#4c4030', marginBottom: 8 }}>{label}</p>
+                <p style={{ fontSize: 12, color: '#c9b894', wordBreak: 'break-word' }}>{value}</p>
+              </div>
+            ))}
+          </div>
+          <a href="https://polygonscan.com/address/0xCCFc11b22990a39cB5a58A1d1778A1d80FDC7640" target="_blank" rel="noreferrer" style={{ display: 'inline-flex', marginTop: 20, color: '#c9a054', fontSize: 8, letterSpacing: '0.35em', textTransform: 'uppercase', textDecoration: 'none' }}>
+            Verify contract on PolygonScan ↗
+          </a>
+        </div>
+
+        <div className="s-reveal" style={{ borderTop: '1px solid rgba(201,160,84,0.14)' }}>
+          <p style={{ fontSize: 7, letterSpacing: '0.7em', textTransform: 'uppercase', color: '#c9a054', margin: '28px 0 20px' }}>Fragrance & Provenance FAQ</p>
+          {faqs.map(([question, answer]) => (
+            <details key={question} style={{ borderBottom: '1px solid rgba(201,160,84,0.1)', padding: '18px 0' }}>
+              <summary style={{ cursor: 'pointer', color: '#c9b894', fontFamily: SERIF, fontSize: 20, fontWeight: 300 }}>{question}</summary>
+              <p style={{ color: 'rgba(240,236,228,0.52)', fontSize: 12, lineHeight: 1.8, margin: '12px 0 0', maxWidth: 760 }}>{answer}</p>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}
+
 export default function SovereignProductPage({ product }: { product: Product }) {
   const config = SOVEREIGN_CONFIGS[product.slug] ?? SOVEREIGN_CONFIGS['her-legacy-vault']
+  const isBloom = ['shamim-bloom', 'shamims-bloom', 'shamim-bloom-the-sovereign-grace'].includes(product.slug)
   const heroRef = useRef<HTMLDivElement>(null)
   const { scrollYProgress } = useScroll({ target: heroRef, offset: ['start start', 'end start'] })
   const textOpacity = useTransform(scrollYProgress, [0, 0.5], [1, 0])
@@ -805,6 +908,8 @@ export default function SovereignProductPage({ product }: { product: Product }) 
 
 
               {/* RELATED */}
+      {isBloom && <BloomKnowledgeSections />}
+
       <section style={{ padding: 'clamp(44px,7vw,80px) 0 clamp(56px,8vw,100px)', background: '#030303', borderTop: '1px solid rgba(201,160,84,0.06)' }}>
         <div style={{ maxWidth: 860, margin: '0 auto', padding: '0 clamp(20px,4vw,24px)', textAlign: 'center' }}>
           <div className="s-reveal" style={{ marginBottom: 40 }}>
