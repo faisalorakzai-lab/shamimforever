@@ -9,11 +9,11 @@ import {
 } from "@/lib/seo";
 
 const path = "/gallery";
-const title = "Heritage Gallery | Sovereign Gold Cuff & Kyoto Sacred Incense";
+const title = "Heritage Gallery | Noir Velvet Collection & Heritage Films";
 const socialTitle = `${title} | Shamim Forever`;
 const description =
-  "Explore the Shamim Forever Heritage Gallery, including the SF-003 Sovereign Gold Cuff unique commission and the SF-005 Kyoto Sacred Incense reserve, with provenance-led product films.";
-const image = "/founder-3.png";
+  "Explore the Shamim Forever Heritage Gallery, including the SF-004 Noir Velvet Collection, SF-003 Sovereign Gold Cuff, and SF-005 Kyoto Sacred Incense with provenance-led product films.";
+const image = "/founder-4.png";
 
 export const metadata: Metadata = {
   title,
@@ -69,6 +69,16 @@ const galleryPieces = [
   },
   { name: "Eternal Empress", image: "/founder-3.png" },
   { name: "Amethyst Veil", image: "/founder-4.png" },
+  {
+    name: "Noir Velvet Collection",
+    image: "/founder-4.png",
+    video: "/videos/products/noir-velvet-collection.mp4",
+    sku: "SF-004",
+    category: "Couture",
+    origin: "Karachi House",
+    year: "2024",
+    edition: "12 pieces worldwide",
+  },
   {
     name: "Kyoto Sacred Incense",
     image: "/products/sf-kyoto-sacred-incense/kyoto-hero.png",
@@ -204,6 +214,40 @@ const schemas = [
     contentUrl: absoluteUrl("/videos/products/sovereign-gold-cuff.mp4"),
     embedUrl: absoluteUrl("/videos/products/sovereign-gold-cuff.mp4"),
     duration: "PT9.01S",
+    uploadDate: "2026-09-10",
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "@id": absoluteUrl(path) + "#noir-velvet-collection",
+    name: "Noir Velvet Collection",
+    alternateName: "SF-004 Couture Archive",
+    sku: "SF-004",
+    category: "Couture",
+    description:
+      "Noir Velvet Collection — a 2024 couture archive of 12 pieces worldwide from Karachi House, preserved in the Shamim Forever Heritage Gallery.",
+    image: absoluteUrl("/founder-4.png"),
+    brand: { "@type": "Brand", name: "Shamim Forever" },
+    manufacturer: organizationRef(),
+    productionDate: "2024",
+    material: "Couture",
+    video: { "@id": absoluteUrl(path) + "#noir-velvet-collection-video" },
+    additionalProperty: [
+      { "@type": "PropertyValue", name: "Origin", value: "Karachi House" },
+      { "@type": "PropertyValue", name: "Edition", value: "12 pieces worldwide" },
+    ],
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "VideoObject",
+    "@id": absoluteUrl(path) + "#noir-velvet-collection-video",
+    name: "Noir Velvet Collection Product Film",
+    description:
+      "A cinematic product film for the SF-004 Noir Velvet Collection couture archive in the Shamim Forever Heritage Gallery.",
+    thumbnailUrl: absoluteUrl("/founder-4.png"),
+    contentUrl: absoluteUrl("/videos/products/noir-velvet-collection.mp4"),
+    embedUrl: absoluteUrl("/videos/products/noir-velvet-collection.mp4"),
+    duration: "PT15S",
     uploadDate: "2026-09-10",
   },
   {
