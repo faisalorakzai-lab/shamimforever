@@ -168,7 +168,9 @@ export async function generateMetadata({ params }: { params: { id: string } }) {
         height: 1080,
         alt: bloom
           ? 'Shamim Bloom — The Sovereign Grace luxury fragrance'
-          : `${product.name} — Shamim Forever Luxury Collection`,
+          : himalayan
+            ? 'SF Himalayan Snow Musk luxury white musk perfume'
+            : `${product.name} — Shamim Forever Luxury Collection`,
       })),
     },
     twitter: {
@@ -377,8 +379,20 @@ function ProductJsonLd({ product }: { product: Product }) {
             }
           : null
 
-  const video = vanilla
+  const video = bloom
     ? {
+        '@type': 'VideoObject',
+        name: 'Shamim Bloom — Official Product Film',
+        description: BLOOM_DESCRIPTION,
+        thumbnailUrl: images[0],
+        contentUrl: `${BASE_URL}/products/shamims-bloom/shamim-bloom-hero.mp4`,
+        uploadDate: '2026-09-10',
+        duration: 'PT6S',
+        inLanguage: 'en',
+        isFamilyFriendly: true,
+      }
+    : vanilla
+      ? {
         '@type': 'VideoObject',
         name: 'SF Sovereign Vanilla Absolute — Official Product Film',
         description: VANILLA_DESCRIPTION,
@@ -389,7 +403,7 @@ function ProductJsonLd({ product }: { product: Product }) {
         inLanguage: 'en',
         isFamilyFriendly: true,
       }
-    : null
+      : null
 
 
   const jsonLd = {
@@ -420,7 +434,12 @@ export default async function ProductDetailPage({
     : resolvedProduct
 
   if (isHimalayanSlug(params.id) || isHimalayanSlug(product.slug)) {
-    return <HimalayanSnowMuskPage product={product} />
+    return (
+      <>
+        <ProductJsonLd product={product} />
+        <HimalayanSnowMuskPage product={product} />
+      </>
+    )
   }
 
   if (product.main_category_id === JEWELRY_CATEGORY_ID) {
