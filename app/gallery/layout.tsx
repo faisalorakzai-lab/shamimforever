@@ -9,11 +9,11 @@ import {
 } from "@/lib/seo";
 
 const path = "/gallery";
-const title = "Heritage Gallery | Kyoto Sacred Incense & Provenance Vault";
+const title = "Heritage Gallery | Sovereign Gold Cuff & Kyoto Sacred Incense";
 const socialTitle = `${title} | Shamim Forever`;
 const description =
-  "Explore the Shamim Forever Heritage Gallery, including Kyoto Sacred Incense — a private 2025 fragrance reserve with a cinematic product film and provenance-led digital archive.";
-const image = "/products/sf-kyoto-sacred-incense/kyoto-hero.png";
+  "Explore the Shamim Forever Heritage Gallery, including the SF-003 Sovereign Gold Cuff unique commission and the SF-005 Kyoto Sacred Incense reserve, with provenance-led product films.";
+const image = "/founder-3.png";
 
 export const metadata: Metadata = {
   title,
@@ -56,6 +56,16 @@ const galleryPieces = [
     origin: "Lahore Maison",
     year: "2023",
     edition: "Limited · 300 pieces",
+  },
+  {
+    name: "Sovereign Gold Cuff",
+    image: "/founder-3.png",
+    video: "/videos/products/sovereign-gold-cuff.mp4",
+    sku: "SF-003",
+    category: "Jewelry",
+    origin: "Master Artisan Faisal",
+    year: "2024",
+    edition: "Unique Commission",
   },
   { name: "Eternal Empress", image: "/founder-3.png" },
   { name: "Amethyst Veil", image: "/founder-4.png" },
@@ -160,6 +170,40 @@ const schemas = [
     contentUrl: absoluteUrl("/products/sapphire-blue-levant/heritage-3d.mp4"),
     embedUrl: absoluteUrl("/products/sapphire-blue-levant/heritage-3d.mp4"),
     duration: "PT6.29S",
+    uploadDate: "2026-09-10",
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "@id": absoluteUrl(path) + "#sovereign-gold-cuff",
+    name: "Sovereign Gold Cuff",
+    alternateName: "SF-003 Unique Commission",
+    sku: "SF-003",
+    category: "Jewelry",
+    description:
+      "Sovereign Gold Cuff — a 2024 unique commission by Master Artisan Faisal, preserved in the Shamim Forever Heritage Gallery.",
+    image: absoluteUrl("/founder-3.png"),
+    brand: { "@type": "Brand", name: "Shamim Forever" },
+    manufacturer: organizationRef(),
+    productionDate: "2024",
+    material: "Gold jewelry",
+    video: { "@id": absoluteUrl(path) + "#sovereign-gold-cuff-video" },
+    additionalProperty: [
+      { "@type": "PropertyValue", name: "Origin", value: "Master Artisan Faisal" },
+      { "@type": "PropertyValue", name: "Edition", value: "Unique Commission" },
+    ],
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "VideoObject",
+    "@id": absoluteUrl(path) + "#sovereign-gold-cuff-video",
+    name: "Sovereign Gold Cuff Product Film",
+    description:
+      "A cinematic product film for the SF-003 Sovereign Gold Cuff unique commission in the Shamim Forever Heritage Gallery.",
+    thumbnailUrl: absoluteUrl("/founder-3.png"),
+    contentUrl: absoluteUrl("/videos/products/sovereign-gold-cuff.mp4"),
+    embedUrl: absoluteUrl("/videos/products/sovereign-gold-cuff.mp4"),
+    duration: "PT9.01S",
     uploadDate: "2026-09-10",
   },
   {
