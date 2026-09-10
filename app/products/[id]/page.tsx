@@ -23,7 +23,7 @@ const BLOOM_SLUGS = new Set(['shamim-bloom', 'shamims-bloom', 'shamim-bloom-the-
 const BLOOM_TITLE = 'Shamim Bloom — The Sovereign Grace | Luxury Fragrance & Digital Sovereign Passport'
 const BLOOM_DESCRIPTION =
   'Discover Shamim Bloom, The Sovereign Grace. A 100ML luxury fragrance with an evolving floral composition, Founder Reserve allocation, digital provenance and a Polygon-based Sovereign Passport.'
-const VANILLA_TITLE = 'SF Sovereign Vanilla Absolute | Luxury Vanilla Perfume | Shamim Forever'
+const VANILLA_TITLE = 'SF Sovereign Vanilla Absolute | Luxury Vanilla Perfume'
 const VANILLA_DESCRIPTION =
   'Discover SF Sovereign Vanilla Absolute by Shamim Forever: a refined Madagascar Bourbon vanilla fragrance with benzoin, tonka bean and white sandalwood, listed at $198 USD with a blockchain-linked Sovereign Passport.'
 
