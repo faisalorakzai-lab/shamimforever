@@ -6,11 +6,11 @@ import Link from 'next/link'
 const ease = [0.16, 1, 0.3, 1] as const
 const fv = (d=0) => ({ initial:{opacity:0,y:30}, whileInView:{opacity:1,y:0}, viewport:{once:true}, transition:{duration:1,ease,delay:d} })
 
-type HeritagePiece = { id: string; title: string; subtitle?: string; year: string; category: string; origin: string; img: string; rarity: string; video?: string; poster?: string }
+type HeritagePiece = { id: string; title: string; subtitle?: string; year: string; category: string; origin: string; img: string; rarity: string; video?: string; poster?: string; slug?: string }
 
 const PIECES: HeritagePiece[] = [
   { id:'SF-001', title:'Shamim Bloom', subtitle:'The Sovereign Grace', year:'2023', category:'Fragrance', origin:'Karachi Atelier', img:'/products/shamims-bloom/bloom-hero.png', poster:'/products/shamims-bloom/bloom-hero.png', video:'/products/shamims-bloom/heritage-3d.mp4', rarity:'First Edition · 150 pieces' },
-  { id:'SF-002', title:'Rose de Lahore', year:'2023', category:'Fragrance', origin:'Lahore Maison', img:'/founder-2.png', rarity:'Limited · 300 pieces' },
+  { id:'SF-002', title:'Sapphire Blue Levant', year:'2023', category:'Fragrance', origin:'Lahore Maison', img:'/products/sapphire-blue-levant/levant-bottle.png', poster:'/products/sapphire-blue-levant/levant-bottle.png', video:'/products/sapphire-blue-levant/heritage-3d.mp4', rarity:'Limited · 300 pieces', slug:'sf-sapphire-blue-levant' },
   { id:'SF-003', title:'Sovereign Gold Cuff', year:'2024', category:'Jewelry', origin:'Master Artisan Faisal', img:'/founder-3.png', rarity:'Unique Commission' },
   { id:'SF-004', title:'Noir Velvet Collection', year:'2024', category:'Couture', origin:'Karachi House', img:'/founder-4.png', rarity:'12 pieces worldwide' },
   { id:'SF-005', title:'Amber Archive', year:'2025', category:'Fragrance', origin:'Sovereign Vault', img:'/founder-5.png', rarity:'Private Reserve · 50 pieces' },
@@ -62,7 +62,7 @@ export default function GalleryPage() {
               onClick={() => setSelected(piece)}>
               <div className="relative aspect-[3/4] overflow-hidden">
                 {piece.video ? (
-                    <video autoPlay muted loop playsInline preload="metadata" poster={piece.poster ?? piece.img} aria-label={piece.title} className="w-full h-full object-cover object-center transition-transform duration-[1400ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-105" style={{ filter:'brightness(0.62) contrast(1.08) saturate(0.82)' }}>
+                    <video autoPlay muted loop playsInline preload="metadata" poster={piece.poster ?? piece.img} aria-label={`${piece.title} 3D product film`} className="w-full h-full object-cover object-center transition-transform duration-[1400ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-105" style={{ filter:'brightness(0.62) contrast(1.08) saturate(0.82)' }}>
                       <source src={piece.video} type="video/mp4" />
                     </video>
                   ) : (
@@ -81,7 +81,13 @@ export default function GalleryPage() {
               </div>
               <div className="px-5 py-4 flex items-center justify-between border-t border-[#0a0a0a]">
                 <span className="text-[7px] tracking-[0.4em] uppercase text-zinc-700">{piece.origin}</span>
-                <span className="text-[7px] tracking-[0.4em] uppercase text-[#c9a054] group-hover:text-zinc-200 transition-colors duration-400">View →</span>
+                {piece.slug ? (
+                  <Link href={`/products/${piece.slug}`} onClick={event => event.stopPropagation()} className="text-[7px] tracking-[0.4em] uppercase text-[#c9a054] group-hover:text-zinc-200 transition-colors duration-400">
+                    View Product →
+                  </Link>
+                ) : (
+                  <span className="text-[7px] tracking-[0.4em] uppercase text-[#c9a054] group-hover:text-zinc-200 transition-colors duration-400">View →</span>
+                )}
               </div>
             </motion.div>
           ))}
@@ -133,7 +139,7 @@ export default function GalleryPage() {
           <motion.div initial={{scale:0.95,opacity:0}} animate={{scale:1,opacity:1}} transition={{duration:0.6,ease}} className="max-w-lg w-full bg-[#080808] border border-[#111] overflow-hidden" onClick={e=>e.stopPropagation()}>
             <div className="relative aspect-[4/3] overflow-hidden">
               {selected.video ? (
-                  <video autoPlay muted loop playsInline preload="metadata" poster={selected.poster ?? selected.img} aria-label={selected.title} className="w-full h-full object-cover" style={{filter:'brightness(0.66) contrast(1.08) saturate(0.82)'}}>
+                  <video autoPlay muted loop playsInline preload="metadata" poster={selected.poster ?? selected.img} aria-label={`${selected.title} 3D product film`} className="w-full h-full object-cover" style={{filter:'brightness(0.66) contrast(1.08) saturate(0.82)'}}>
                     <source src={selected.video} type="video/mp4" />
                   </video>
                 ) : (
@@ -147,7 +153,7 @@ export default function GalleryPage() {
               <p className="text-zinc-600 text-xs font-light mb-4">{selected.origin} · {selected.year}</p>
               <p className="text-[8px] tracking-[0.4em] uppercase text-zinc-700 mb-6">{selected.rarity}</p>
               <div className="flex gap-4">
-                <Link href="/shop" className="text-[8px] tracking-[0.4em] uppercase text-[#c9a054] border border-[#c9a054]/30 px-5 py-3 hover:bg-[#c9a054]/5 transition-colors duration-400">Acquire</Link>
+                <Link href={selected.slug ? `/products/${selected.slug}` : '/shop'} className="text-[8px] tracking-[0.4em] uppercase text-[#c9a054] border border-[#c9a054]/30 px-5 py-3 hover:bg-[#c9a054]/5 transition-colors duration-400">{selected.slug ? 'View Product' : 'Acquire'}</Link>
                 <button onClick={()=>setSelected(null)} className="text-[8px] tracking-[0.4em] uppercase text-zinc-700 px-5 py-3 hover:text-zinc-400 transition-colors duration-400">Close</button>
               </div>
             </div>
