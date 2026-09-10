@@ -2,7 +2,7 @@ import type { Metadata } from "next"
     import Link from "next/link"
 
     export const metadata: Metadata = {
-    title: "Investor Relations | Capital in Service of Legacy | Shamim Forever",
+    title: "Investor Relations | Capital in Service of Legacy",
     description: "Institutional information about Shamim Forever's long-term value thesis, capital philosophy, governance, risk disclosure, strategic roadmap, and investor communication principles.",
     keywords: ["Shamim Forever investor relations", "long-term value", "capital stewardship", "luxury house governance", "strategic investors"],
     alternates: { canonical: "https://www.shamimforever.com/investor-relations" },
