@@ -5,8 +5,8 @@ import { absoluteUrl, breadcrumbSchema, metadataImage, pageSchema, organizationR
 const path = '/gallery'
 const title = 'Digital Heritage Gallery — Provenance Vault'
 const socialTitle = `${title} | Shamim Forever`
-const description = 'Explore Shamim Forever’s Digital Heritage Vault, a living gallery of catalogued fragrance, jewelry, and couture creations with immutable NFT provenance records.'
-const image = '/og-heirloom.jpg'
+const description = 'Explore Shamim Forever’s Digital Heritage Vault, including Shamim Bloom — The Sovereign Grace, a Karachi Atelier fragrance archive with a cinematic 3D heritage film and documented first-edition identity.'
+const image = '/products/shamims-bloom/bloom-hero.png'
 
 export const metadata: Metadata = {
   title,
@@ -25,14 +25,14 @@ export const metadata: Metadata = {
 }
 
 const galleryPieces = [
-  { name: 'Oud Noir Eternal', image: '/founder-1.png' },
-  { name: 'Sovereign Amethyst', image: '/founder-2.png' },
-  { name: 'Eternal Empress', image: '/founder-3.png' },
-  { name: 'Amethyst Veil', image: '/founder-4.png' },
-  { name: 'Amber Archive', image: '/founder-5.png' },
-]
+    { name: 'Shamim Bloom — The Sovereign Grace', image: '/products/shamims-bloom/bloom-hero.png', video: '/products/shamims-bloom/heritage-3d.mp4', sku: 'SF-001', category: 'Fragrance', origin: 'Karachi Atelier', year: '2023', edition: 'First Edition · 150 pieces' },
+    { name: 'Sovereign Amethyst', image: '/founder-2.png' },
+    { name: 'Eternal Empress', image: '/founder-3.png' },
+    { name: 'Amethyst Veil', image: '/founder-4.png' },
+    { name: 'Amber Archive', image: '/founder-5.png' },
+    ]
 
-const schemas = [
+    const schemas = [
   pageSchema({ type: 'CollectionPage', path, name: 'The Digital Heritage Vault', description, image }),
   {
     '@context': 'https://schema.org',
@@ -51,7 +51,32 @@ const schemas = [
       },
     })),
   },
-  breadcrumbSchema(path, 'Gallery'),
+  {
+      '@context': 'https://schema.org',
+      '@type': 'Product',
+      '@id': absoluteUrl(path) + '#shamim-bloom',
+      name: 'Shamim Bloom',
+      alternateName: 'The Sovereign Grace',
+      sku: 'SF-001',
+      category: 'Fragrance',
+      description: 'Shamim Bloom — The Sovereign Grace, a Karachi Atelier fragrance archive from 2023.',
+      image: absoluteUrl('/products/shamims-bloom/bloom-hero.png'),
+      brand: { '@type': 'Brand', name: 'Shamim Forever' },
+      video: { '@id': absoluteUrl(path) + '#shamim-bloom-video' },
+    },
+    {
+      '@context': 'https://schema.org',
+      '@type': 'VideoObject',
+      '@id': absoluteUrl(path) + '#shamim-bloom-video',
+      name: 'Shamim Bloom 3D Heritage Film',
+      description: 'A cinematic 3D product film for Shamim Bloom — The Sovereign Grace.',
+      thumbnailUrl: absoluteUrl('/products/shamims-bloom/bloom-hero.png'),
+      contentUrl: absoluteUrl('/products/shamims-bloom/heritage-3d.mp4'),
+      embedUrl: absoluteUrl('/products/shamims-bloom/heritage-3d.mp4'),
+      duration: 'PT6.33S',
+      uploadDate: '2026-09-10',
+    },
+    breadcrumbSchema(path, 'Gallery'),
 ]
 
 export default function GalleryLayout({ children }: { children: React.ReactNode }) {

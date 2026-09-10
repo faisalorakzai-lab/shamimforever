@@ -6,8 +6,10 @@ import Link from 'next/link'
 const ease = [0.16, 1, 0.3, 1] as const
 const fv = (d=0) => ({ initial:{opacity:0,y:30}, whileInView:{opacity:1,y:0}, viewport:{once:true}, transition:{duration:1,ease,delay:d} })
 
-const PIECES = [
-  { id:'SF-001', title:'Oud Noir Eternal', year:'2023', category:'Fragrance', origin:'Karachi Atelier', img:'/founder-1.png', rarity:'First Edition · 150 pieces' },
+type HeritagePiece = { id: string; title: string; subtitle?: string; year: string; category: string; origin: string; img: string; rarity: string; video?: string; poster?: string }
+
+const PIECES: HeritagePiece[] = [
+  { id:'SF-001', title:'Shamim Bloom', subtitle:'The Sovereign Grace', year:'2023', category:'Fragrance', origin:'Karachi Atelier', img:'/products/shamims-bloom/bloom-hero.png', poster:'/products/shamims-bloom/bloom-hero.png', video:'/products/shamims-bloom/heritage-3d.mp4', rarity:'First Edition · 150 pieces' },
   { id:'SF-002', title:'Rose de Lahore', year:'2023', category:'Fragrance', origin:'Lahore Maison', img:'/founder-2.png', rarity:'Limited · 300 pieces' },
   { id:'SF-003', title:'Sovereign Gold Cuff', year:'2024', category:'Jewelry', origin:'Master Artisan Faisal', img:'/founder-3.png', rarity:'Unique Commission' },
   { id:'SF-004', title:'Noir Velvet Collection', year:'2024', category:'Couture', origin:'Karachi House', img:'/founder-4.png', rarity:'12 pieces worldwide' },
@@ -59,8 +61,13 @@ export default function GalleryPage() {
               className="group bg-[#050505] cursor-pointer overflow-hidden"
               onClick={() => setSelected(piece)}>
               <div className="relative aspect-[3/4] overflow-hidden">
-                <img src={piece.img} alt={piece.title} className="w-full h-full object-cover object-center transition-transform duration-[1400ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-105"
-                  style={{ filter:'brightness(0.55) contrast(1.1) saturate(0.7)' }} />
+                {piece.video ? (
+                    <video autoPlay muted loop playsInline preload="metadata" poster={piece.poster ?? piece.img} aria-label={piece.title} className="w-full h-full object-cover object-center transition-transform duration-[1400ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-105" style={{ filter:'brightness(0.62) contrast(1.08) saturate(0.82)' }}>
+                      <source src={piece.video} type="video/mp4" />
+                    </video>
+                  ) : (
+                    <img src={piece.img} alt={piece.title} className="w-full h-full object-cover object-center transition-transform duration-[1400ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-105" style={{ filter:'brightness(0.55) contrast(1.1) saturate(0.7)' }} />
+                  )}
                 <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/20 to-transparent" />
                 <div className="absolute top-4 left-4">
                   <span className="text-[7px] tracking-[0.45em] uppercase text-[#c9a054] bg-[#050505]/80 px-2 py-1">{piece.category}</span>
@@ -68,6 +75,7 @@ export default function GalleryPage() {
                 <div className="absolute bottom-0 left-0 right-0 p-6">
                   <p className="text-[7px] tracking-[0.4em] uppercase text-zinc-600 mb-1">{piece.id} · {piece.year}</p>
                   <h3 className="font-serif font-light text-xl tracking-[0.1em] text-zinc-100 mb-1">{piece.title}</h3>
+                     {piece.subtitle && <p className="font-serif italic text-[11px] text-zinc-400 mb-2">{piece.subtitle}</p>}
                   <p className="text-[8px] tracking-[0.3em] uppercase text-zinc-600">{piece.rarity}</p>
                 </div>
               </div>
@@ -124,7 +132,13 @@ export default function GalleryPage() {
         <motion.div initial={{opacity:0}} animate={{opacity:1}} transition={{duration:0.4}} className="fixed inset-0 z-50 bg-[#050505]/95 backdrop-blur-sm flex items-center justify-center p-5" onClick={()=>setSelected(null)}>
           <motion.div initial={{scale:0.95,opacity:0}} animate={{scale:1,opacity:1}} transition={{duration:0.6,ease}} className="max-w-lg w-full bg-[#080808] border border-[#111] overflow-hidden" onClick={e=>e.stopPropagation()}>
             <div className="relative aspect-[4/3] overflow-hidden">
-              <img src={selected.img} alt={selected.title} className="w-full h-full object-cover" style={{filter:'brightness(0.6) contrast(1.1) saturate(0.7)'}} />
+              {selected.video ? (
+                  <video autoPlay muted loop playsInline preload="metadata" poster={selected.poster ?? selected.img} aria-label={selected.title} className="w-full h-full object-cover" style={{filter:'brightness(0.66) contrast(1.08) saturate(0.82)'}}>
+                    <source src={selected.video} type="video/mp4" />
+                  </video>
+                ) : (
+                  <img src={selected.img} alt={selected.title} className="w-full h-full object-cover" style={{filter:'brightness(0.6) contrast(1.1) saturate(0.7)'}} />
+                )}
               <div className="absolute inset-0 bg-gradient-to-t from-[#080808] to-transparent" />
             </div>
             <div className="p-8">
