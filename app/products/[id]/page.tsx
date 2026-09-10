@@ -18,13 +18,21 @@ const SOVEREIGN_SLUGS = Object.keys(SOVEREIGN_CONFIGS)
 const COSMETICS_CATEGORY_ID = '22226324-4789-419d-a9e2-f763df2d24f1'
 const JEWELRY_CATEGORY_ID = 'e291b9af-a637-45da-a2df-d39f2e72e53c'
 const BLOOM_CANONICAL_SLUG = 'shamim-bloom'
+const VANILLA_CANONICAL_SLUG = 'sf-sovereign-vanilla-absolute'
 const BLOOM_SLUGS = new Set(['shamim-bloom', 'shamims-bloom', 'shamim-bloom-the-sovereign-grace'])
 const BLOOM_TITLE = 'Shamim Bloom — The Sovereign Grace | Luxury Fragrance & Digital Sovereign Passport'
 const BLOOM_DESCRIPTION =
   'Discover Shamim Bloom, The Sovereign Grace. A 100ML luxury fragrance with an evolving floral composition, Founder Reserve allocation, digital provenance and a Polygon-based Sovereign Passport.'
+const VANILLA_TITLE = 'SF Sovereign Vanilla Absolute | Luxury Vanilla Perfume | Shamim Forever'
+const VANILLA_DESCRIPTION =
+  'Discover SF Sovereign Vanilla Absolute by Shamim Forever: a refined Madagascar Bourbon vanilla fragrance with benzoin, tonka bean and white sandalwood, listed at $198 USD with a blockchain-linked Sovereign Passport.'
 
 function isBloomSlug(slug: string) {
   return BLOOM_SLUGS.has(slug)
+}
+
+function isVanillaSlug(slug: string) {
+  return slug === VANILLA_CANONICAL_SLUG
 }
 
 function canonicalProductSlug(slug: string) {
@@ -89,15 +97,18 @@ export async function generateMetadata({ params }: { params: { id: string } }) {
   if (!product) return { title: 'Product Not Found — Shamim Forever' }
 
   const bloom = isBloomSlug(product.slug) || isBloomSlug(params.id)
+  const vanilla = isVanillaSlug(product.slug) || isVanillaSlug(params.id)
   const images = productImagePaths(product)
   const productImages = images.length ? images : ['/logo-sf.png']
   const productUrl = `${BASE_URL}/products/${canonicalProductSlug(product.slug)}`
-  const title = bloom ? BLOOM_TITLE : `${product.name} — Shamim Forever`
+  const title = bloom ? BLOOM_TITLE : vanilla ? VANILLA_TITLE : `${product.name} — Shamim Forever`
   const desc = bloom
     ? BLOOM_DESCRIPTION
-    : product.description
-      ? product.description.slice(0, 160)
-      : `${product.name} — sovereign luxury creation by Shamim Forever. Shop online in Pakistan & worldwide.`
+    : vanilla
+      ? VANILLA_DESCRIPTION
+      : product.description
+        ? product.description.slice(0, 160)
+        : `${product.name} — sovereign luxury creation by Shamim Forever. Shop online in Pakistan & worldwide.`
 
   return {
     title,
@@ -115,7 +126,9 @@ export async function generateMetadata({ params }: { params: { id: string } }) {
             'digital sovereign passport',
             'Polygon NFT fragrance',
           ]
-        : []),
+        : vanilla
+          ? ['SF Sovereign Vanilla Absolute', 'Sovereign Vanilla Absolute', 'luxury vanilla perfume', 'Madagascar vanilla perfume', 'luxury vanilla fragrance', 'Shamim Forever Vanilla', 'luxury perfume with digital passport', 'blockchain authenticated perfume', 'Polygon luxury perfume']
+          : []),
       'Shamim Forever',
       'luxury fragrance Pakistan',
       'buy perfume online Pakistan',
@@ -151,6 +164,7 @@ export async function generateMetadata({ params }: { params: { id: string } }) {
 
 function ProductJsonLd({ product }: { product: Product }) {
   const bloom = isBloomSlug(product.slug)
+  const vanilla = isVanillaSlug(product.slug)
   const productImages = productImagePaths(product).map(absoluteProductImage)
   const images = productImages.length ? productImages : [`${BASE_URL}/logo-sf.png`]
   const productUrl = `${BASE_URL}/products/${canonicalProductSlug(product.slug)}`
@@ -158,10 +172,12 @@ function ProductJsonLd({ product }: { product: Product }) {
   const priceValidUntil = new Date(Date.now() + 90 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]
   const priceUsd = Number(product.price_usd ?? (bloom ? 270 : 0))
   const pricePkr = Number(product.price_pkr ?? (bloom ? 75000 : 0))
-  const displayName = bloom ? 'Shamim Bloom — The Sovereign Grace' : product.name
+  const displayName = bloom ? 'Shamim Bloom — The Sovereign Grace' : vanilla ? 'SF Sovereign Vanilla Absolute' : product.name
   const displayDescription = bloom
     ? BLOOM_DESCRIPTION
-    : product.description || `${product.name} — sovereign luxury creation by Shamim Forever`
+    : vanilla
+      ? VANILLA_DESCRIPTION
+      : product.description || `${product.name} — sovereign luxury creation by Shamim Forever`
   const additionalProperty = isSovereign
     ? [
         { '@type': 'PropertyValue', name: 'Blockchain Network', value: SOVEREIGN_NETWORK },
@@ -182,7 +198,15 @@ function ProductJsonLd({ product }: { product: Product }) {
               { '@type': 'PropertyValue', name: 'Contract Address', value: SOVEREIGN_CONTRACT_ADDRESS },
               { '@type': 'PropertyValue', name: 'Founder Reserve Supply', value: '50 pieces' },
             ]
-          : []),
+          : vanilla
+            ? [
+                { '@type': 'PropertyValue', name: 'Archive Class', value: 'Heritage Archive' },
+                { '@type': 'PropertyValue', name: 'Core Material', value: 'Madagascar Bourbon Vanilla' },
+                { '@type': 'PropertyValue', name: 'Supporting Materials', value: 'Benzoin, Tonka Bean, White Sandalwood' },
+                { '@type': 'PropertyValue', name: 'Edition', value: 'House Allocation Reserve' },
+                { '@type': 'PropertyValue', name: 'Serial', value: 'SF-FC57502B' },
+              ]
+            : []),
       ]
     : undefined
 
@@ -198,7 +222,7 @@ function ProductJsonLd({ product }: { product: Product }) {
     brand: { '@type': 'Brand', name: 'Shamim Forever', logo: `${BASE_URL}/logo-sf.png` },
     manufacturer: { '@type': 'Organization', name: 'Shamim Forever', url: BASE_URL },
     category: product.main_category?.name || 'Luxury Fragrance',
-    audience: bloom
+    audience: bloom || vanilla
       ? { '@type': 'PeopleAudience', audienceType: 'Luxury fragrance collectors', suggestedGender: 'Female' }
       : undefined,
     offers: [
@@ -298,11 +322,37 @@ function ProductJsonLd({ product }: { product: Product }) {
           },
         ],
       }
+    : vanilla
+       ? {
+           '@type': 'FAQPage',
+           '@id': `${productUrl}#faq`,
+           mainEntity: [
+             { '@type': 'Question', name: 'What is SF Sovereign Vanilla Absolute?', acceptedAnswer: { '@type': 'Answer', text: 'SF Sovereign Vanilla Absolute is a vanilla-centred fragrance by Shamim Forever, built around Madagascar Bourbon vanilla with benzoin, tonka bean and white sandalwood.' } },
+             { '@type': 'Question', name: 'What is the Sovereign Passport?', acceptedAnswer: { '@type': 'Answer', text: 'The Sovereign Passport is the digital provenance layer associated with the creation and its applicable product record.' } },
+             { '@type': 'Question', name: 'Does the Passport automatically mean legal ownership of the physical perfume?', acceptedAnswer: { '@type': 'Answer', text: 'Not necessarily. The legal effect is determined by applicable terms and law; a digital passport does not automatically transfer intellectual property or physical ownership rights.' } },
+             { '@type': 'Question', name: 'Is SF Sovereign Vanilla Absolute an investment?', acceptedAnswer: { '@type': 'Answer', text: 'No investment-return claim should be inferred from the fragrance, its digital passport or any blockchain-linked record.' } },
+           ],
+         }
+       : null
+
+  const video = vanilla
+    ? {
+        '@type': 'VideoObject',
+        name: 'SF Sovereign Vanilla Absolute — Official Product Film',
+        description: VANILLA_DESCRIPTION,
+        thumbnailUrl: images[0],
+        contentUrl: `${BASE_URL}/products/${VANILLA_CANONICAL_SLUG}/vanilla-absolute.mp4`,
+        uploadDate: '2026-09-10',
+        duration: 'PT6S',
+        inLanguage: 'en',
+        isFamilyFriendly: true,
+      }
     : null
+
 
   const jsonLd = {
     '@context': 'https://schema.org',
-    '@graph': [productSchema, breadcrumb, ...(faq ? [faq] : [])],
+    '@graph': [productSchema, breadcrumb, ...(faq ? [faq] : []), ...(video ? [video] : [])],
   }
 
   return (
