@@ -2,6 +2,7 @@ export const PRODUCT_IMAGE_OVERRIDES: Record<string, string | string[]> = {
         // Restored original catalogue media for the current Supabase catalogue.
         'sf-oud-sovereign': 'https://uvgtgeauhjbdatrmmaob.supabase.co/storage/v1/object/public/products/perfumes/oud-sovereign-new.png',
         'sf-himalayan-snow-musk': 'https://uvgtgeauhjbdatrmmaob.supabase.co/storage/v1/object/public/products/perfumes/himalayan-snow-musk.png',
+        'himalayan-snow-musk': 'https://uvgtgeauhjbdatrmmaob.supabase.co/storage/v1/object/public/products/perfumes/himalayan-snow-musk.png',
         'sf-midnight-iris-royale': 'https://uvgtgeauhjbdatrmmaob.supabase.co/storage/v1/object/public/products/perfumes/midnight-iris-royale.png',
         'sf-sovereign-vanilla-absolute': 'https://uvgtgeauhjbdatrmmaob.supabase.co/storage/v1/object/public/products/perfumes/vanilla-absolute.png',
         'heritage-noir': 'https://uvgtgeauhjbdatrmmaob.supabase.co/storage/v1/object/public/products/perfumes/heritage-noir.png',

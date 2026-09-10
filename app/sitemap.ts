@@ -12,6 +12,7 @@ const BASE_URL = 'https://www.shamimforever.com'
     { path: '/',                priority: 1.0,  changeFrequency: 'daily'    as const },
     { path: '/shop',            priority: 0.98, changeFrequency: 'daily'    as const },
     { path: '/products/shamim-bloom', priority: 0.99, changeFrequency: 'weekly' as const },
+    { path: '/products/sf-himalayan-snow-musk', priority: 0.99, changeFrequency: 'weekly' as const },
     { path: '/founder',         priority: 0.97, changeFrequency: 'weekly'   as const },
     { path: '/collections',     priority: 0.96, changeFrequency: 'daily'    as const },
     { path: '/atelier',         priority: 0.93, changeFrequency: 'monthly'  as const },

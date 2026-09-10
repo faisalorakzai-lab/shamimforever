@@ -10,6 +10,7 @@ import { PRODUCT_IMAGE_OVERRIDES } from '@/lib/product-image-overrides'
 import { SOVEREIGN_CONTRACT_ADDRESS, SOVEREIGN_NETWORK } from '@/lib/sovereign-contract'
 import CosmeticsProductPage from '@/components/CosmeticsProductPage'
 import JewelryProductPage from '@/components/JewelryProductPage'
+import HimalayanSnowMuskPage from '@/components/HimalayanSnowMuskPage'
 
 export const revalidate = 300
 
@@ -18,14 +19,19 @@ const SOVEREIGN_SLUGS = Object.keys(SOVEREIGN_CONFIGS)
 const COSMETICS_CATEGORY_ID = '22226324-4789-419d-a9e2-f763df2d24f1'
 const JEWELRY_CATEGORY_ID = 'e291b9af-a637-45da-a2df-d39f2e72e53c'
 const BLOOM_CANONICAL_SLUG = 'shamim-bloom'
+const HIMALAYAN_CANONICAL_SLUG = 'sf-himalayan-snow-musk'
 const VANILLA_CANONICAL_SLUG = 'sf-sovereign-vanilla-absolute'
 const BLOOM_SLUGS = new Set(['shamim-bloom', 'shamims-bloom', 'shamim-bloom-the-sovereign-grace'])
+const HIMALAYAN_SLUGS = new Set(['sf-himalayan-snow-musk', 'himalayan-snow-musk'])
 const BLOOM_TITLE = 'Shamim Bloom — The Sovereign Grace | Luxury Fragrance & Digital Sovereign Passport'
 const BLOOM_DESCRIPTION =
   'Discover Shamim Bloom, The Sovereign Grace. A 100ML luxury fragrance with an evolving floral composition, Founder Reserve allocation, digital provenance and a Polygon-based Sovereign Passport.'
 const VANILLA_TITLE = 'SF Sovereign Vanilla Absolute | Luxury Vanilla Perfume'
 const VANILLA_DESCRIPTION =
   'Discover SF Sovereign Vanilla Absolute by Shamim Forever: a refined Madagascar Bourbon vanilla fragrance with benzoin, tonka bean and white sandalwood, listed at $198 USD with a blockchain-linked Sovereign Passport.'
+const HIMALAYAN_TITLE = 'SF Himalayan Snow Musk | Luxury White Musk Perfume | Shamim Forever'
+const HIMALAYAN_DESCRIPTION =
+  'Discover SF Himalayan Snow Musk by Shamim Forever, a sovereign luxury perfume composed around high-altitude Himalayan white musk, bergamot, white florals and translucent sandalwood. $259 USD.'
 
 function isBloomSlug(slug: string) {
   return BLOOM_SLUGS.has(slug)
@@ -35,8 +41,14 @@ function isVanillaSlug(slug: string) {
   return slug === VANILLA_CANONICAL_SLUG
 }
 
+function isHimalayanSlug(slug: string) {
+  return HIMALAYAN_SLUGS.has(slug)
+}
+
 function canonicalProductSlug(slug: string) {
-  return isBloomSlug(slug) ? BLOOM_CANONICAL_SLUG : slug
+  if (isBloomSlug(slug)) return BLOOM_CANONICAL_SLUG
+  if (isHimalayanSlug(slug)) return HIMALAYAN_CANONICAL_SLUG
+  return slug
 }
 
 function productImagePaths(product: Product): string[] {
@@ -60,8 +72,9 @@ async function getProduct(id: string): Promise<Product | null> {
     .maybeSingle()
   if (bySlug) return bySlug
 
-  if (isBloomSlug(id)) {
-    for (const slug of BLOOM_SLUGS) {
+  if (isBloomSlug(id) || isHimalayanSlug(id)) {
+    const aliases = isHimalayanSlug(id) ? HIMALAYAN_SLUGS : BLOOM_SLUGS
+    for (const slug of aliases) {
       const { data: bloomProduct } = await supabaseAdmin
         .from('products')
         .select('*, main_category:main_categories(*)')
@@ -98,14 +111,17 @@ export async function generateMetadata({ params }: { params: { id: string } }) {
 
   const bloom = isBloomSlug(product.slug) || isBloomSlug(params.id)
   const vanilla = isVanillaSlug(product.slug) || isVanillaSlug(params.id)
+  const himalayan = isHimalayanSlug(product.slug) || isHimalayanSlug(params.id)
   const images = productImagePaths(product)
   const productImages = images.length ? images : ['/logo-sf.png']
   const productUrl = `${BASE_URL}/products/${canonicalProductSlug(product.slug)}`
-  const title = bloom ? BLOOM_TITLE : vanilla ? VANILLA_TITLE : `${product.name} — Shamim Forever`
+  const title = bloom ? BLOOM_TITLE : vanilla ? VANILLA_TITLE : himalayan ? HIMALAYAN_TITLE : `${product.name} — Shamim Forever`
   const desc = bloom
     ? BLOOM_DESCRIPTION
     : vanilla
       ? VANILLA_DESCRIPTION
+      : himalayan
+        ? HIMALAYAN_DESCRIPTION
       : product.description
         ? product.description.slice(0, 160)
         : `${product.name} — sovereign luxury creation by Shamim Forever. Shop online in Pakistan & worldwide.`
@@ -128,6 +144,8 @@ export async function generateMetadata({ params }: { params: { id: string } }) {
           ]
         : vanilla
           ? ['SF Sovereign Vanilla Absolute', 'Sovereign Vanilla Absolute', 'luxury vanilla perfume', 'Madagascar vanilla perfume', 'luxury vanilla fragrance', 'Shamim Forever Vanilla', 'luxury perfume with digital passport', 'blockchain authenticated perfume', 'Polygon luxury perfume']
+          : himalayan
+            ? ['SF Himalayan Snow Musk', 'Himalayan Snow Musk', 'luxury white musk perfume', 'Himalayan musk perfume', 'white musk fragrance', 'luxury musk fragrance', 'sovereign luxury perfume', 'premium white musk perfume', 'exclusive musk fragrance']
           : []),
       'Shamim Forever',
       'luxury fragrance Pakistan',
@@ -165,18 +183,21 @@ export async function generateMetadata({ params }: { params: { id: string } }) {
 function ProductJsonLd({ product }: { product: Product }) {
   const bloom = isBloomSlug(product.slug)
   const vanilla = isVanillaSlug(product.slug)
+  const himalayan = isHimalayanSlug(product.slug)
   const productImages = productImagePaths(product).map(absoluteProductImage)
   const images = productImages.length ? productImages : [`${BASE_URL}/logo-sf.png`]
   const productUrl = `${BASE_URL}/products/${canonicalProductSlug(product.slug)}`
-  const isSovereign = SOVEREIGN_SLUGS.includes(product.slug)
+  const isSovereign = SOVEREIGN_SLUGS.includes(product.slug) || himalayan
   const priceValidUntil = new Date(Date.now() + 90 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]
-  const priceUsd = Number(product.price_usd ?? (bloom ? 270 : 0))
-  const pricePkr = Number(product.price_pkr ?? (bloom ? 75000 : 0))
-  const displayName = bloom ? 'Shamim Bloom — The Sovereign Grace' : vanilla ? 'SF Sovereign Vanilla Absolute' : product.name
+  const priceUsd = himalayan ? 259 : Number(product.price_usd ?? (bloom ? 270 : 0))
+  const pricePkr = himalayan ? 72000 : Number(product.price_pkr ?? (bloom ? 75000 : 0))
+  const displayName = bloom ? 'Shamim Bloom — The Sovereign Grace' : vanilla ? 'SF Sovereign Vanilla Absolute' : himalayan ? 'SF Himalayan Snow Musk' : product.name
   const displayDescription = bloom
     ? BLOOM_DESCRIPTION
     : vanilla
       ? VANILLA_DESCRIPTION
+      : himalayan
+        ? HIMALAYAN_DESCRIPTION
       : product.description || `${product.name} — sovereign luxury creation by Shamim Forever`
   const additionalProperty = isSovereign
     ? [
@@ -206,7 +227,17 @@ function ProductJsonLd({ product }: { product: Product }) {
                 { '@type': 'PropertyValue', name: 'Edition', value: 'House Allocation Reserve' },
                 { '@type': 'PropertyValue', name: 'Serial', value: 'SF-FC57502B' },
               ]
-            : []),
+            : himalayan
+              ? [
+                  { '@type': 'PropertyValue', name: 'Archive Class', value: 'Heritage Archive' },
+                  { '@type': 'PropertyValue', name: 'Signature', value: 'Himalayan White Musk' },
+                  { '@type': 'PropertyValue', name: 'Opening', value: 'Bergamot' },
+                  { '@type': 'PropertyValue', name: 'Heart', value: 'White Florals' },
+                  { '@type': 'PropertyValue', name: 'Base', value: 'Translucent Sandalwood' },
+                  { '@type': 'PropertyValue', name: 'Edition', value: 'House Allocation Reserve' },
+                  { '@type': 'PropertyValue', name: 'Contract Address', value: SOVEREIGN_CONTRACT_ADDRESS },
+                ]
+              : []),
       ]
     : undefined
 
@@ -333,7 +364,18 @@ function ProductJsonLd({ product }: { product: Product }) {
              { '@type': 'Question', name: 'Is SF Sovereign Vanilla Absolute an investment?', acceptedAnswer: { '@type': 'Answer', text: 'No investment-return claim should be inferred from the fragrance, its digital passport or any blockchain-linked record.' } },
            ],
          }
-       : null
+        : himalayan
+          ? {
+              '@type': 'FAQPage',
+              '@id': `${productUrl}#faq`,
+              mainEntity: [
+                { '@type': 'Question', name: 'What is SF Himalayan Snow Musk?', acceptedAnswer: { '@type': 'Answer', text: 'SF Himalayan Snow Musk is a luxury white musk perfume by Shamim Forever, composed around bergamot, white florals, Himalayan white musk and translucent sandalwood.' } },
+                { '@type': 'Question', name: 'How much does SF Himalayan Snow Musk cost?', acceptedAnswer: { '@type': 'Answer', text: 'SF Himalayan Snow Musk is listed at $259 USD, with a local price of Rs 72,000.' } },
+                { '@type': 'Question', name: 'What does Himalayan Snow Musk smell like?', acceptedAnswer: { '@type': 'Answer', text: 'It is cool, clean and luminous, moving from citrus brightness through white florals into soft musk and pale sandalwood.' } },
+                { '@type': 'Question', name: 'What blockchain is used?', acceptedAnswer: { '@type': 'Answer', text: 'The product record references Polygon Mainnet and the ERC-721 token standard.' } },
+              ],
+            }
+          : null
 
   const video = vanilla
     ? {
@@ -376,6 +418,10 @@ export default async function ProductDetailPage({
   const product = imageOverride
     ? { ...resolvedProduct, images: Array.isArray(imageOverride) ? [...imageOverride] : [imageOverride] }
     : resolvedProduct
+
+  if (isHimalayanSlug(params.id) || isHimalayanSlug(product.slug)) {
+    return <HimalayanSnowMuskPage product={product} />
+  }
 
   if (product.main_category_id === JEWELRY_CATEGORY_ID) {
     return (
