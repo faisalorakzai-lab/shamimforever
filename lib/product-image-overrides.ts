@@ -87,6 +87,7 @@ export const PRODUCT_IMAGE_OVERRIDES: Record<string, string | string[]> = {
       }
 
       export const PRODUCT_VIDEO_OVERRIDES: Record<string, string> = {
+        'sf-sovereign-vanilla-absolute': '/products/sf-sovereign-vanilla-absolute/vanilla-absolute.mp4',
         'shamim-bloom': '/products/shamims-bloom/shamim-bloom-hero.mp4',
         'messika-move-bracelet': '/products/messika-move-high-jewelry-bracelet/hero.mp4',
         'sovereign-amethyst': '/products/sovereign-amethyst/sovereign-amethyst-hero.mp4',
