@@ -32,7 +32,7 @@ const LEARN_LINKS = [
   { label: 'Guides', href: '/guides' },
   { label: 'White Papers', href: '/whitepapers' },
   { label: 'Glossary', href: '/glossary' },
-  { label: 'FAQ', href: '/learn#faq' },
+  { label: 'FAQ', href: '/faq' },
 ]
 
 const INFRA_LINKS = [
@@ -60,6 +60,7 @@ const CORPORATE_LINKS = [
   { label: 'Investor Relations', href: '/investor-relations' },
   { label: 'Newsroom', href: '/newsroom' },
   { label: 'Policies & Legal', href: '/policies' },
+  { label: 'Corporate FAQ', href: '/corporate/faq' },
 ]
 
 const fadeUp = {

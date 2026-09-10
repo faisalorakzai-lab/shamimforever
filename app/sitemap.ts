@@ -85,6 +85,7 @@ const BASE_URL = 'https://www.shamimforever.com'
      { path: '/corporate/leadership-governance', priority: 0.96, changeFrequency: 'monthly' as const },
      { path: '/authenticate', priority: 0.89, changeFrequency: 'monthly' as const },
      { path: '/corporate', priority: 0.95, changeFrequency: 'monthly' as const },
+     { path: '/corporate/faq', priority: 0.89, changeFrequency: 'monthly' as const },
     { path: '/brand-facts', priority: 0.94, changeFrequency: 'monthly' as const },
     { path: '/corporate-information', priority: 0.92, changeFrequency: 'monthly' as const },
     { path: '/sustainability', priority: 0.86, changeFrequency: 'monthly' as const },
