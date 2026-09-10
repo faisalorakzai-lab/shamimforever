@@ -57,6 +57,8 @@ const PIECES: HeritagePiece[] = [
     category: "Jewelry",
     origin: "Master Artisan Faisal",
     img: "/founder-3.png",
+    poster: "/founder-3.png",
+    video: "/videos/products/sovereign-gold-cuff.mp4",
     rarity: "Unique Commission",
   },
   {
