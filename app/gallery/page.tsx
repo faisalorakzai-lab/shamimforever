@@ -68,6 +68,8 @@ const PIECES: HeritagePiece[] = [
     category: "Couture",
     origin: "Karachi House",
     img: "/founder-4.png",
+    poster: "/founder-4.png",
+    video: "/videos/products/noir-velvet-collection.mp4",
     rarity: "12 pieces worldwide",
   },
   {
