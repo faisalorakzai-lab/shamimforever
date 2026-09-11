@@ -21,6 +21,7 @@ const JEWELRY_CATEGORY_ID = 'e291b9af-a637-45da-a2df-d39f2e72e53c'
 const BLOOM_CANONICAL_SLUG = 'shamim-bloom'
 const HIMALAYAN_CANONICAL_SLUG = 'sf-himalayan-snow-musk'
 const VANILLA_CANONICAL_SLUG = 'sf-sovereign-vanilla-absolute'
+const ROSE_CANONICAL_SLUG = 'eternal-rose-de-taif'
 const BLOOM_SLUGS = new Set(['shamim-bloom', 'shamims-bloom', 'shamim-bloom-the-sovereign-grace'])
 const HIMALAYAN_SLUGS = new Set(['sf-himalayan-snow-musk', 'himalayan-snow-musk'])
 const BLOOM_TITLE = 'Shamim Bloom — The Sovereign Grace | Luxury Fragrance & Digital Sovereign Passport'
@@ -29,6 +30,9 @@ const BLOOM_DESCRIPTION =
 const VANILLA_TITLE = 'SF Sovereign Vanilla Absolute | Luxury Vanilla Perfume'
 const VANILLA_DESCRIPTION =
   'Discover SF Sovereign Vanilla Absolute by Shamim Forever: a refined Madagascar Bourbon vanilla fragrance with benzoin, tonka bean and white sandalwood, listed at $198 USD with a blockchain-linked Sovereign Passport.'
+const ROSE_TITLE = 'Eternal Rose de Taif | Luxury Rose Perfume'
+const ROSE_DESCRIPTION =
+  'Discover Eternal Rose de Taif by Shamim Forever, a refined rose fragrance inspired by Taif rose and layered with white musk and Mysore sandalwood, listed at $245 USD with a Sovereign digital passport.'
 const HIMALAYAN_TITLE = 'SF Himalayan Snow Musk | Luxury White Musk Perfume | Shamim Forever'
 const HIMALAYAN_DESCRIPTION =
   'Discover SF Himalayan Snow Musk by Shamim Forever, a sovereign luxury perfume composed around high-altitude Himalayan white musk, bergamot, white florals and translucent sandalwood. $259 USD.'
@@ -39,6 +43,10 @@ function isBloomSlug(slug: string) {
 
 function isVanillaSlug(slug: string) {
   return slug === VANILLA_CANONICAL_SLUG
+}
+
+function isRoseSlug(slug: string) {
+  return slug === ROSE_CANONICAL_SLUG
 }
 
 function isHimalayanSlug(slug: string) {
@@ -111,18 +119,21 @@ export async function generateMetadata({ params }: { params: { id: string } }) {
 
   const bloom = isBloomSlug(product.slug) || isBloomSlug(params.id)
   const vanilla = isVanillaSlug(product.slug) || isVanillaSlug(params.id)
+  const rose = isRoseSlug(product.slug) || isRoseSlug(params.id)
   const himalayan = isHimalayanSlug(product.slug) || isHimalayanSlug(params.id)
   const images = productImagePaths(product)
   const productImages = images.length ? images : ['/logo-sf.png']
   const productUrl = `${BASE_URL}/products/${canonicalProductSlug(product.slug)}`
-  const title = bloom ? BLOOM_TITLE : vanilla ? VANILLA_TITLE : himalayan ? HIMALAYAN_TITLE : `${product.name} — Shamim Forever`
+  const title = bloom ? BLOOM_TITLE : vanilla ? VANILLA_TITLE : himalayan ? HIMALAYAN_TITLE : rose ? ROSE_TITLE : `${product.name} — Shamim Forever`
   const desc = bloom
     ? BLOOM_DESCRIPTION
     : vanilla
       ? VANILLA_DESCRIPTION
       : himalayan
         ? HIMALAYAN_DESCRIPTION
-      : product.description
+        : rose
+          ? ROSE_DESCRIPTION
+          : product.description
         ? product.description.slice(0, 160)
         : `${product.name} — sovereign luxury creation by Shamim Forever. Shop online in Pakistan & worldwide.`
 
@@ -146,6 +157,8 @@ export async function generateMetadata({ params }: { params: { id: string } }) {
           ? ['SF Sovereign Vanilla Absolute', 'Sovereign Vanilla Absolute', 'luxury vanilla perfume', 'Madagascar vanilla perfume', 'luxury vanilla fragrance', 'Shamim Forever Vanilla', 'luxury perfume with digital passport', 'blockchain authenticated perfume', 'Polygon luxury perfume']
           : himalayan
             ? ['SF Himalayan Snow Musk', 'Himalayan Snow Musk', 'luxury white musk perfume', 'Himalayan musk perfume', 'white musk fragrance', 'luxury musk fragrance', 'sovereign luxury perfume', 'premium white musk perfume', 'exclusive musk fragrance']
+          : rose
+            ? ['Eternal Rose de Taif', 'Eternal Rose de Taif perfume', 'Taif rose perfume', 'luxury rose perfume', 'Shamim Forever perfume', 'luxury rose fragrance', 'Taif rose fragrance', 'Mysore sandalwood rose perfume', 'white musk rose perfume', 'blockchain authenticated perfume', 'Polygon perfume passport', 'luxury digital passport']
           : []),
       'Shamim Forever',
       'luxury fragrance Pakistan',
@@ -185,22 +198,25 @@ export async function generateMetadata({ params }: { params: { id: string } }) {
 function ProductJsonLd({ product }: { product: Product }) {
   const bloom = isBloomSlug(product.slug)
   const vanilla = isVanillaSlug(product.slug)
+  const rose = isRoseSlug(product.slug)
   const himalayan = isHimalayanSlug(product.slug)
   const productImages = productImagePaths(product).map(absoluteProductImage)
   const images = productImages.length ? productImages : [`${BASE_URL}/logo-sf.png`]
   const productUrl = `${BASE_URL}/products/${canonicalProductSlug(product.slug)}`
-  const isSovereign = SOVEREIGN_SLUGS.includes(product.slug) || himalayan
+  const isSovereign = SOVEREIGN_SLUGS.includes(product.slug) || himalayan || rose
   const priceValidUntil = new Date(Date.now() + 90 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]
   const priceUsd = himalayan ? 259 : Number(product.price_usd ?? (bloom ? 270 : 0))
   const pricePkr = himalayan ? 72000 : Number(product.price_pkr ?? (bloom ? 75000 : 0))
-  const displayName = bloom ? 'Shamim Bloom — The Sovereign Grace' : vanilla ? 'SF Sovereign Vanilla Absolute' : himalayan ? 'SF Himalayan Snow Musk' : product.name
+  const displayName = bloom ? 'Shamim Bloom — The Sovereign Grace' : vanilla ? 'SF Sovereign Vanilla Absolute' : himalayan ? 'SF Himalayan Snow Musk' : rose ? 'Eternal Rose de Taif' : product.name
   const displayDescription = bloom
     ? BLOOM_DESCRIPTION
     : vanilla
       ? VANILLA_DESCRIPTION
       : himalayan
         ? HIMALAYAN_DESCRIPTION
-      : product.description || `${product.name} — sovereign luxury creation by Shamim Forever`
+        : rose
+          ? ROSE_DESCRIPTION
+          : product.description || `${product.name} — sovereign luxury creation by Shamim Forever`
   const additionalProperty = isSovereign
     ? [
         { '@type': 'PropertyValue', name: 'Blockchain Network', value: SOVEREIGN_NETWORK },
@@ -239,7 +255,16 @@ function ProductJsonLd({ product }: { product: Product }) {
                   { '@type': 'PropertyValue', name: 'Edition', value: 'House Allocation Reserve' },
                   { '@type': 'PropertyValue', name: 'Contract Address', value: SOVEREIGN_CONTRACT_ADDRESS },
                 ]
-              : []),
+              : rose
+                ? [
+                    { '@type': 'PropertyValue', name: 'Archive Class', value: 'Heritage Archive' },
+                    { '@type': 'PropertyValue', name: 'Rose Identity', value: 'Taif Rose' },
+                    { '@type': 'PropertyValue', name: 'Supporting Note', value: 'White Musk' },
+                    { '@type': 'PropertyValue', name: 'Foundation', value: 'Mysore Sandalwood' },
+                    { '@type': 'PropertyValue', name: 'Edition', value: 'House Allocation Reserve' },
+                    { '@type': 'PropertyValue', name: 'Serial', value: 'SF-E32B4700' },
+                  ]
+                : []),
       ]
     : undefined
 
@@ -255,7 +280,7 @@ function ProductJsonLd({ product }: { product: Product }) {
     brand: { '@type': 'Brand', name: 'Shamim Forever', logo: `${BASE_URL}/logo-sf.png` },
     manufacturer: { '@type': 'Organization', name: 'Shamim Forever', url: BASE_URL },
     category: product.main_category?.name || 'Luxury Fragrance',
-    audience: bloom || vanilla
+    audience: bloom || vanilla || rose
       ? { '@type': 'PeopleAudience', audienceType: 'Luxury fragrance collectors', suggestedGender: 'Female' }
       : undefined,
     offers: [
@@ -377,6 +402,21 @@ function ProductJsonLd({ product }: { product: Product }) {
                 { '@type': 'Question', name: 'What blockchain is used?', acceptedAnswer: { '@type': 'Answer', text: 'The product record references Polygon Mainnet and the ERC-721 token standard.' } },
               ],
             }
+          : rose
+            ? {
+                '@type': 'FAQPage',
+                '@id': `${productUrl}#faq`,
+                mainEntity: [
+                  { '@type': 'Question', name: 'What is Eternal Rose de Taif?', acceptedAnswer: { '@type': 'Answer', text: 'Eternal Rose de Taif is a rose-centred fragrance from Shamim Forever built around Taif rose, white musk and Mysore sandalwood.' } },
+                  { '@type': 'Question', name: 'What is the price?', acceptedAnswer: { '@type': 'Answer', text: 'Eternal Rose de Taif is listed at $245 USD, with a Pakistan reference price of Rs 68,000.' } },
+                  { '@type': 'Question', name: 'What is the main fragrance identity?', acceptedAnswer: { '@type': 'Answer', text: 'Taif Rose, supported by white musk and Mysore sandalwood.' } },
+                  { '@type': 'Question', name: 'Is it part of the Heritage Archive?', acceptedAnswer: { '@type': 'Answer', text: 'Yes. The product record identifies the rarity as Heritage Archive and the edition as House Allocation Reserve.' } },
+                  { '@type': 'Question', name: 'Does it have a digital passport?', acceptedAnswer: { '@type': 'Answer', text: 'Yes. The product is presented with a Sovereign Digital Passport associated with its applicable blockchain-linked record.' } },
+                  { '@type': 'Question', name: 'Does the NFT legally equal ownership of the perfume?', acceptedAnswer: { '@type': 'Answer', text: 'Not automatically. That relationship must be established by the applicable legal terms.' } },
+                  { '@type': 'Question', name: 'Can Shamim Forever ask for my seed phrase?', acceptedAnswer: { '@type': 'Answer', text: 'No. Never share a private key, seed phrase, recovery phrase or wallet password.' } },
+                  { '@type': 'Question', name: 'Is the product an investment?', acceptedAnswer: { '@type': 'Answer', text: 'No investment-return claim should be made simply because the product has a blockchain passport.' } },
+                ],
+              }
           : null
 
   const video = bloom
@@ -403,7 +443,19 @@ function ProductJsonLd({ product }: { product: Product }) {
         inLanguage: 'en',
         isFamilyFriendly: true,
       }
-      : null
+       : rose
+         ? {
+         '@type': 'VideoObject',
+         name: 'Eternal Rose de Taif — Official Product Film',
+         description: ROSE_DESCRIPTION,
+         thumbnailUrl: images[0],
+         contentUrl: `${BASE_URL}/products/${ROSE_CANONICAL_SLUG}/eternal-rose-de-taif.mp4`,
+         uploadDate: '2026-09-10',
+         duration: 'PT6S',
+         inLanguage: 'en',
+         isFamilyFriendly: true,
+       }
+       : null
 
 
   const jsonLd = {

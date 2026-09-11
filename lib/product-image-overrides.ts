@@ -88,6 +88,7 @@ export const PRODUCT_IMAGE_OVERRIDES: Record<string, string | string[]> = {
       }
 
       export const PRODUCT_VIDEO_OVERRIDES: Record<string, string> = {
+        'eternal-rose-de-taif': '/products/eternal-rose-de-taif/eternal-rose-de-taif.mp4',
         'sf-sovereign-vanilla-absolute': '/products/sf-sovereign-vanilla-absolute/vanilla-absolute.mp4',
         'shamim-bloom': '/products/shamims-bloom/shamim-bloom-hero.mp4',
         'messika-move-bracelet': '/products/messika-move-high-jewelry-bracelet/hero.mp4',

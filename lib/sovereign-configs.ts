@@ -6408,7 +6408,68 @@
       category: 'Perfume · Heritage Archive',
     }
     
+
+
+  // ── SIGNATURE ROSE — ETERNAL ROSE DE TAIF · HERITAGE ARCHIVE ────────────────
+  const SOVEREIGN_ETERNAL_ROSE_DE_TAIF_CONFIG: SovereignConfig = {
+    heroTitle: 'ETERNAL ROSE DE TAIF',
+    heroSubtitle: 'The Rose of Taif',
+    heroTagline: 'Heritage Archive Allocation · House of Shamim',
+    legacyStatement: 'Love does not fade — it blooms into eternity.',
+    legacyVoice: 'Eternal Rose de Taif is an expression of rose interpreted through the sovereign language of the House of Shamim. At its heart is the celebrated Taif rose, framed by white musk and Mysore sandalwood to create a composition built around floral elegance, softness and depth. It is conceived as a House creation, a sensory signature and an archive object.',
+    topNotes: ['Taif Rose'],
+    heartNotes: ['Rose', 'White Musk'],
+    baseNotes: ['Mysore Sandalwood'],
+    specs: [
+      { label: 'Product', value: 'Eternal Rose de Taif' },
+      { label: 'Category', value: 'Perfume · Heritage Archive' },
+      { label: 'Primary Character', value: 'Rose' },
+      { label: 'Rose Identity', value: 'Taif Rose' },
+      { label: 'Supporting Note', value: 'White Musk' },
+      { label: 'Foundation', value: 'Mysore Sandalwood' },
+      { label: 'Allocation Price', value: '$245 USD' },
+      { label: 'Pakistan Reference Price', value: 'Rs 68,000' },
+      { label: 'Digital Passport', value: 'Blockchain-linked Sovereign Passport' },
+      { label: 'Network', value: 'Polygon Mainnet' },
+      { label: 'Token Standard', value: 'ERC-721' },
+      { label: 'Edition', value: 'House Allocation Reserve' },
+      { label: 'Rarity', value: 'Heritage Archive' },
+      { label: 'Serial Reference', value: 'SF-E32B4700' },
+      { label: 'Availability', value: 'Limited House allocation · subject to current inventory' },
+    ],
+    nftTitle: 'Eternal Rose de Taif',
+    nftEdition: 'House Allocation Reserve',
+    nftRarity: 'HERITAGE ARCHIVE',
+    nftTraits: [
+      { trait: 'Category', value: 'Perfume' },
+      { trait: 'Archive Class', value: 'Heritage Archive' },
+      { trait: 'Rose Identity', value: 'Taif Rose' },
+      { trait: 'Supporting Note', value: 'White Musk' },
+      { trait: 'Foundation', value: 'Mysore Sandalwood' },
+      { trait: 'Network', value: 'Polygon Mainnet' },
+      { trait: 'Token Standard', value: 'ERC-721' },
+      { trait: 'Serial', value: 'SF-E32B4700' },
+      { trait: 'Edition', value: 'House Allocation Reserve' },
+      { trait: 'Authentication', value: 'Polygon Verified as currently displayed' },
+    ],
+    heroImage: 'https://uvgtgeauhjbdatrmmaob.supabase.co/storage/v1/object/public/products/perfumes/eternal-rose-de-taif.png',
+    galleryImages: ['https://uvgtgeauhjbdatrmmaob.supabase.co/storage/v1/object/public/products/perfumes/eternal-rose-de-taif.png'],
+    holderPrivileges: [
+      'Institutional Founder Status — Recognition within the House institutional membership framework, subject to applicable terms',
+      'Sovereign Vault Access — Access to designated private House archive areas where applicable',
+      'Future Founder Allocations — Priority consideration for selected future House releases',
+      'Private House Ceremonies — Invitations to selected House events where applicable',
+      'Restoration & Refill Privileges — Priority access to eligible services where offered',
+      'Blockchain Provenance — Access to the blockchain-linked digital product record',
+      'Concierge Authentication — Direct access to House authentication support',
+      'Priority Restock Alerts — Early notification regarding selected future allocations',
+    ],
+    videoPath: '/products/eternal-rose-de-taif/eternal-rose-de-taif.mp4',
+    category: 'Perfume · Heritage Archive',
+  }
+
 export const SOVEREIGN_CONFIGS: Record<string, SovereignConfig> = {
+    'eternal-rose-de-taif': SOVEREIGN_ETERNAL_ROSE_DE_TAIF_CONFIG,
     'sf-sovereign-vanilla-absolute': SOVEREIGN_VANILLA_ABSOLUTE_CONFIG,
 
     // ── ARCHIVE I ──────────────────────────────────────────────────────────────

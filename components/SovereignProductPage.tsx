@@ -313,10 +313,90 @@ function BloomKnowledgeSections() {
     )
     }
     
+
+function EternalRoseKnowledgeSections() {
+  const identity = [
+    ['Taif Rose', 'The central floral identity: refined, expressive and connected to the cultural heritage of Taif.'],
+    ['White Musk', 'The softening layer: a smoother, cleaner and more intimate transition around the floral heart.'],
+    ['Mysore Sandalwood', 'The foundation: a warm woody dimension beneath the rose that gives the composition depth and a grounded finish.'],
+  ]
+  const journey = [
+    ['The First Encounter', 'The fragrance opens with the unmistakable emotional language of rose.'],
+    ['The Heart', 'The floral character becomes more intimate as musk softens the composition.'],
+    ['The Dry Down', 'Mysore sandalwood introduces warmth and depth beneath the floral character.'],
+    ['The Memory', 'The final impression is intended to be softer, warmer and more personal than the initial encounter.'],
+  ]
+  const faqs = [
+    ['What is Eternal Rose de Taif?', 'Eternal Rose de Taif is a rose-centred fragrance from Shamim Forever built around Taif rose, white musk and Mysore sandalwood.'],
+    ['What is the price?', 'The current listed price is $245 USD, with a Pakistan reference price of Rs 68,000.'],
+    ['What does it smell like?', 'The fragrance is built around a rose-centred character supported by soft musk and warm sandalwood.'],
+    ['What is the main fragrance identity?', 'Taif Rose. White musk softens the journey and Mysore sandalwood grounds the final impression.'],
+    ['Is it part of the Heritage Archive?', 'Yes. The current product record identifies the rarity as HERITAGE ARCHIVE and the edition as House Allocation Reserve.'],
+    ['Does it have a digital passport?', 'Yes, the product is presented with a Sovereign Digital Passport associated with its applicable blockchain-linked record.'],
+    ['Is the passport an NFT?', 'The current product record identifies the passport as ERC-721 on Polygon Mainnet.'],
+    ['What is the serial number?', 'SF-E32B4700.'],
+    ['Does the NFT legally equal ownership of the perfume?', 'Not automatically. That relationship must be established by the applicable legal terms.'],
+    ['Can I verify the blockchain record?', 'Yes, where the relevant contract, token and blockchain information are publicly verifiable.'],
+    ['Can Shamim Forever ask for my seed phrase?', 'No. Never share a private key, seed phrase, recovery phrase or wallet password.'],
+    ['Is the product an investment?', 'No investment-return claim should be made simply because the product has a blockchain passport.'],
+    ['Is it suitable as a gift?', 'Yes, particularly for occasions associated with love, celebration, remembrance and elegance.'],
+  ]
+  return (
+    <section id="eternal-rose-dossier" aria-labelledby="eternal-rose-dossier-title" style={{ padding: 'clamp(56px,8vw,100px) 0', background: 'linear-gradient(180deg, #030303 0%, #080502 48%, #030303 100%)', borderTop: '1px solid rgba(201,160,84,0.08)' }}>
+      <div style={{ maxWidth: 1100, margin: '0 auto', padding: '0 clamp(20px,4vw,28px)' }}>
+        <div className="s-reveal" style={{ textAlign: 'center', marginBottom: 54 }}>
+          <p style={{ fontSize: 7, letterSpacing: '0.9em', textTransform: 'uppercase', color: '#c9a054', marginBottom: 12 }}>The Eternal Rose Dossier</p>
+          <h2 id="eternal-rose-dossier-title" style={{ fontFamily: SERIF, fontSize: 'clamp(2rem,5vw,3.7rem)', fontWeight: 300, color: '#f0ece4', letterSpacing: '0.05em' }}>The Rose That Becomes a Memory</h2>
+          <p style={{ maxWidth: 780, margin: '20px auto 0', color: 'rgba(240,236,228,0.56)', fontSize: 13, lineHeight: 1.85 }}>A rose of heritage. A fragrance of memory. A creation preserved within the House.</p>
+        </div>
+
+        <div className="s-reveal" style={{ padding: '32px 28px', border: '1px solid rgba(201,160,84,0.15)', background: 'rgba(8,6,2,0.74)', marginBottom: 36 }}>
+          <p style={{ fontSize: 7, letterSpacing: '0.7em', textTransform: 'uppercase', color: '#c9a054', marginBottom: 12 }}>01 · The Creation</p>
+          <h3 style={{ fontFamily: SERIF, fontSize: 30, fontWeight: 300, color: '#f0ece4', marginBottom: 14 }}>Eternal Rose de Taif</h3>
+          <p style={{ color: 'rgba(240,236,228,0.58)', fontSize: 13, lineHeight: 1.9, maxWidth: 840 }}>Eternal Rose de Taif is an expression of rose interpreted through the sovereign language of the House of Shamim. At its heart is the celebrated Taif rose, framed by white musk and Mysore sandalwood to create a composition built around floral elegance, softness and depth. The result moves beyond the idea of a conventional rose perfume: it is conceived as a House creation, a sensory signature and an archive object.</p>
+        </div>
+
+        <div className="s-reveal" style={{ marginBottom: 36 }}>
+          <p style={{ fontSize: 7, letterSpacing: '0.7em', textTransform: 'uppercase', color: '#c9a054', marginBottom: 18 }}>02 · The Rose of Taif</p>
+          <div className="bloom-detail-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(2,1fr)', gap: 1, background: 'rgba(201,160,84,0.12)' }}>
+            <div style={{ padding: '28px 24px', background: '#080603' }}><h3 style={{ fontFamily: SERIF, fontSize: 26, fontWeight: 300, color: '#f0ece4', marginBottom: 12 }}>A Rose With a Place in History</h3><p style={{ color: 'rgba(240,236,228,0.54)', fontSize: 12, lineHeight: 1.85 }}>Taif rose carries a distinctive cultural and olfactory identity associated with the mountainous region of Taif. Its character has long been associated with refined floral fragrance, rose water and traditional perfumery.</p></div>
+            <div style={{ padding: '28px 24px', background: '#080603' }}><h3 style={{ fontFamily: SERIF, fontSize: 26, fontWeight: 300, color: '#c9b894', marginBottom: 12 }}>A Symbol of Permanence</h3><p style={{ color: 'rgba(240,236,228,0.54)', fontSize: 12, lineHeight: 1.85 }}>Within the House, the rose becomes a symbol of beauty, memory, devotion, heritage and permanence. It is presented as a legendary rose of Taif, celebrated for its distinctive floral character and cultural heritage.</p></div>
+          </div>
+        </div>
+
+        <div className="s-reveal" style={{ marginBottom: 36 }}>
+          <p style={{ fontSize: 7, letterSpacing: '0.7em', textTransform: 'uppercase', color: '#c9a054', marginBottom: 18 }}>03 · The Olfactive Architecture</p>
+          <h3 style={{ fontFamily: SERIF, fontSize: 32, fontWeight: 300, color: '#f0ece4', marginBottom: 20 }}>The Rose. The Musk. The Wood.</h3>
+          <div className="bloom-knowledge-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: 1, background: 'rgba(201,160,84,0.12)' }}>{identity.map(([title, text]) => <div key={title} style={{ padding: '28px 24px', background: '#080603' }}><h4 style={{ fontFamily: SERIF, fontSize: 25, fontWeight: 300, color: '#c9b894', marginBottom: 10 }}>{title}</h4><p style={{ color: 'rgba(240,236,228,0.54)', fontSize: 12, lineHeight: 1.8 }}>{text}</p></div>)}</div>
+        </div>
+
+        <div className="s-reveal" style={{ marginBottom: 36 }}>
+          <p style={{ fontSize: 7, letterSpacing: '0.7em', textTransform: 'uppercase', color: '#c9a054', marginBottom: 18 }}>04 · The Olfactive Journey</p>
+          <div className="bloom-knowledge-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(4,1fr)', gap: 1, background: 'rgba(201,160,84,0.12)' }}>{journey.map(([title, text]) => <div key={title} style={{ padding: '26px 20px', background: '#080603' }}><h4 style={{ fontFamily: SERIF, fontSize: 22, fontWeight: 300, color: '#f0ece4', marginBottom: 10 }}>{title}</h4><p style={{ color: 'rgba(240,236,228,0.52)', fontSize: 12, lineHeight: 1.75 }}>{text}</p></div>)}</div>
+        </div>
+
+        <div className="s-reveal" style={{ display: 'grid', gridTemplateColumns: 'repeat(2,1fr)', gap: 1, background: 'rgba(201,160,84,0.12)', marginBottom: 36 }}>
+          <div style={{ padding: '30px 26px', background: '#080603' }}><p style={{ fontSize: 7, letterSpacing: '0.7em', textTransform: 'uppercase', color: '#c9a054', marginBottom: 12 }}>05 · The Character</p><h3 style={{ fontFamily: SERIF, fontSize: 28, fontWeight: 300, color: '#f0ece4', marginBottom: 16 }}>What Does It Feel Like?</h3><ul style={{ margin: 0, paddingLeft: 20, color: 'rgba(240,236,228,0.56)', fontSize: 12, lineHeight: 2 }}><li>Floral — rose-led and expressive</li><li>Elegant — refinement over excess</li><li>Romantic — suited to intimate moments</li><li>Warm — supported by musk and sandalwood</li><li>Heritage-oriented — presented within the House archive philosophy</li><li>Feminine signature — a sophisticated floral positioning</li></ul></div>
+          <div style={{ padding: '30px 26px', background: '#080603' }}><p style={{ fontSize: 7, letterSpacing: '0.7em', textTransform: 'uppercase', color: '#c9a054', marginBottom: 12 }}>06 · When to Wear</p><h3 style={{ fontFamily: SERIF, fontSize: 28, fontWeight: 300, color: '#f0ece4', marginBottom: 16 }}>The Eternal Rose Ritual</h3><ul style={{ margin: 0, paddingLeft: 20, color: 'rgba(240,236,228,0.56)', fontSize: 12, lineHeight: 2 }}><li>Evening dinners and refined social occasions</li><li>Weddings, celebrations and receptions</li><li>Romantic occasions and meaningful moments</li><li>Exhibitions, private salons and ceremonies</li><li>Signature wear and meaningful gifting</li><li>Fragrance collecting and archive-oriented ownership</li></ul></div>
+        </div>
+
+        <div className="s-reveal" style={{ padding: '32px 28px', border: '1px solid rgba(201,160,84,0.16)', background: 'rgba(8,6,2,0.72)', marginBottom: 36 }}><p style={{ fontSize: 7, letterSpacing: '0.7em', textTransform: 'uppercase', color: '#c9a054', marginBottom: 12 }}>07 · The Archive Object</p><h3 style={{ fontFamily: SERIF, fontSize: 30, fontWeight: 300, color: '#f0ece4', marginBottom: 14 }}>When Fragrance Becomes an Object of Memory</h3><p style={{ color: 'rgba(240,236,228,0.55)', fontSize: 13, lineHeight: 1.85, maxWidth: 840 }}>The fragrance represents the sensory layer. The physical bottle represents the object layer. The serial number represents the archive layer. Where applicable, the digital passport represents the digital provenance layer. Together, they form a unified House record without changing the legal ownership or intellectual-property status of the physical creation.</p></div>
+
+        <div className="s-reveal" style={{ display: 'grid', gridTemplateColumns: 'repeat(2,1fr)', gap: 1, background: 'rgba(201,160,84,0.12)', marginBottom: 36 }}><div style={{ padding: '30px 26px', background: '#080603' }}><p style={{ fontSize: 7, letterSpacing: '0.7em', textTransform: 'uppercase', color: '#c9a054', marginBottom: 12 }}>08 · Authentication</p><h3 style={{ fontFamily: SERIF, fontSize: 28, fontWeight: 300, color: '#f0ece4', marginBottom: 14 }}>Verify the Record</h3><p style={{ color: 'rgba(240,236,228,0.55)', fontSize: 12, lineHeight: 1.8 }}>Verify the House identity, product name, packaging, serial reference and purchase record. For the digital record, verify the Sovereign Passport, network, contract, token ID and blockchain record where the information is publicly available. For questions or disputed authenticity, use the Authentication Concierge.</p></div><div style={{ padding: '30px 26px', background: '#080603', border: '1px solid rgba(201,160,84,0.18)' }}><p style={{ fontSize: 7, letterSpacing: '0.7em', textTransform: 'uppercase', color: '#c9a054', marginBottom: 12 }}>09 · Wallet Security</p><h3 style={{ fontFamily: SERIF, fontSize: 28, fontWeight: 300, color: '#f0ece4', marginBottom: 14 }}>Protect Your Digital Identity</h3><p style={{ color: 'rgba(240,236,228,0.55)', fontSize: 12, lineHeight: 1.8 }}>Shamim Forever should never request a private key, seed phrase, recovery phrase or wallet password. Only provide the public wallet address required for receiving the applicable passport. Never share recovery information with anyone claiming to represent the House.</p></div></div>
+
+        <div className="s-reveal" style={{ padding: '32px 28px', border: '1px solid rgba(201,160,84,0.16)', background: 'linear-gradient(135deg, rgba(15,10,5,0.95), rgba(8,6,3,0.75))', marginBottom: 36 }}><p style={{ fontSize: 7, letterSpacing: '0.7em', textTransform: 'uppercase', color: '#c9a054', marginBottom: 12 }}>10 · Heritage Archive</p><p style={{ fontFamily: 'monospace', fontSize: 11, letterSpacing: '0.22em', color: '#c9a054', marginBottom: 12 }}>SF-E32B4700</p><h3 style={{ fontFamily: SERIF, fontSize: 30, fontWeight: 300, color: '#f0ece4', marginBottom: 14 }}>ETERNAL ROSE DE TAIF</h3><p style={{ color: 'rgba(240,236,228,0.54)', fontSize: 12, lineHeight: 1.9 }}>Archive Class: Heritage Archive · Edition: House Allocation Reserve · Category: Perfume · Digital Network: Polygon Mainnet · Token Standard: ERC-721 · House: Shamim Forever</p></div>
+
+        <div className="s-reveal" style={{ borderTop: '1px solid rgba(201,160,84,0.14)' }}><p style={{ fontSize: 7, letterSpacing: '0.7em', textTransform: 'uppercase', color: '#c9a054', margin: '28px 0 20px' }}>11 · Fragrance & Provenance FAQ</p>{faqs.map(([question, answer]) => <details key={question} style={{ borderBottom: '1px solid rgba(201,160,84,0.1)', padding: '18px 0' }}><summary style={{ cursor: 'pointer', color: '#c9b894', fontFamily: SERIF, fontSize: 20, fontWeight: 300 }}>{question}</summary><p style={{ color: 'rgba(240,236,228,0.52)', fontSize: 12, lineHeight: 1.8, margin: '12px 0 0', maxWidth: 840 }}>{answer}</p></details>)}</div>
+      </div>
+    </section>
+  )
+}
+
 export default function SovereignProductPage({ product }: { product: Product }) {
   const config = SOVEREIGN_CONFIGS[product.slug] ?? SOVEREIGN_CONFIGS['her-legacy-vault']
   const isBloom = ['shamim-bloom', 'shamims-bloom', 'shamim-bloom-the-sovereign-grace'].includes(product.slug)
   const isVanilla = product.slug === 'sf-sovereign-vanilla-absolute'
+  const isRose = product.slug === 'eternal-rose-de-taif'
   const heroRef = useRef<HTMLDivElement>(null)
   const { scrollYProgress } = useScroll({ target: heroRef, offset: ['start start', 'end start'] })
   const textOpacity = useTransform(scrollYProgress, [0, 0.5], [1, 0])
@@ -944,6 +1024,7 @@ export default function SovereignProductPage({ product }: { product: Product }) 
 
               {/* RELATED */}
       {isVanilla && <VanillaKnowledgeSections />}
+      {isRose && <EternalRoseKnowledgeSections />}
       {isBloom && <BloomKnowledgeSections />}
 
       <section style={{ padding: 'clamp(44px,7vw,80px) 0 clamp(56px,8vw,100px)', background: '#030303', borderTop: '1px solid rgba(201,160,84,0.06)' }}>
