@@ -1,0 +1,1 @@
+- [GitHub publishing](github-publishing.md) — the connected GitHub App may show as not_added; secure PAT pushes need GH_TOKEN present for the push command itself.
