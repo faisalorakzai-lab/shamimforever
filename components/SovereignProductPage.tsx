@@ -490,6 +490,23 @@ function MidnightKnowledgeSections() {
           </div>
         </div>
 
+        <div className="s-reveal bloom-detail-grid" style={{ display: 'grid', gap: 1, background: 'rgba(120,102,150,0.18)', marginBottom: 36 }}>
+          <div style={{ padding: '30px 26px', background: '#08060a' }}>
+            <p style={{ fontSize: 7, letterSpacing: '0.7em', textTransform: 'uppercase', color: '#b7a6d5', marginBottom: 12 }}>Gifting & Collection</p>
+            <h3 style={{ fontFamily: SERIF, fontSize: 28, fontWeight: 300, color: '#f0ece4', marginBottom: 16 }}>Give More Than a Fragrance</h3>
+            <p style={{ color: 'rgba(240,236,228,0.56)', fontSize: 12, lineHeight: 1.85 }}>
+              Midnight Iris Royale can be received as a fragrance, an object, a memory and—where applicable—a future archive entry. The presentation is suited to significant gifting, private collections and collectors of distinctive iris fragrances.
+            </p>
+          </div>
+          <div style={{ padding: '30px 26px', background: '#08060a' }}>
+            <p style={{ fontSize: 7, letterSpacing: '0.7em', textTransform: 'uppercase', color: '#b7a6d5', marginBottom: 12 }}>Lifecycle Care</p>
+            <h3 style={{ fontFamily: SERIF, fontSize: 28, fontWeight: 300, color: '#f0ece4', marginBottom: 16 }}>The Creation Does Not End at Purchase</h3>
+            <p style={{ color: 'rgba(240,236,228,0.56)', fontSize: 12, lineHeight: 1.85 }}>
+              Where operationally available and subject to eligibility, geographic availability, capacity and terms, the House may support care guidance, refill, restoration, authentication and archive documentation.
+            </p>
+          </div>
+        </div>
+
         <div className="s-reveal" style={{ borderTop: '1px solid rgba(120,102,150,0.2)' }}>
           <p style={{ fontSize: 7, letterSpacing: '0.7em', textTransform: 'uppercase', color: '#b7a6d5', margin: '28px 0 20px' }}>Midnight Iris FAQ</p>
           {faqs.map(([question, answer]) => (
@@ -852,7 +869,7 @@ export default function SovereignProductPage({ product }: { product: Product }) 
                 >
                   <motion.img
                     src={img}
-                    alt=""
+                    alt={`${config.heroTitle} — ${i === 0 ? 'luxury iris perfume by Shamim Forever' : 'archive presentation'}`}
                     animate={{ scale: activeGallery === i ? 1.04 : 1 }}
                     transition={{ duration: 0.8 }}
                     style={{ width: '100%', height: '100%', objectFit: 'contain', padding: 24 }}

@@ -39,7 +39,7 @@ const HIMALAYAN_DESCRIPTION =
   'Discover SF Himalayan Snow Musk by Shamim Forever, a sovereign luxury perfume composed around high-altitude Himalayan white musk, bergamot, white florals and translucent sandalwood. $259 USD.'
 const MIDNIGHT_TITLE = 'SF Midnight Iris Royale — Luxury Iris Perfume & Sovereign Digital Passport | Shamim Forever'
 const MIDNIGHT_DESCRIPTION =
-  'Discover SF Midnight Iris Royale, a feminine luxury iris perfume by Shamim Forever built around orris root, violet leaf, purple iris and powdery sandalwood, with a Polygon-based Digital Sovereign Passport.'
+  'Discover SF Midnight Iris Royale, a sovereign feminine fragrance by Shamim Forever built around deep orris root, violet leaf, purple iris and powdery sandalwood, with a Polygon-based Digital Sovereign Passport.'
 
 function isBloomSlug(slug: string) {
   return BLOOM_SLUGS.has(slug)
@@ -292,7 +292,6 @@ function ProductJsonLd({ product }: { product: Product }) {
                       { '@type': 'PropertyValue', name: 'Archive Class', value: 'Heritage Archive' },
                       { '@type': 'PropertyValue', name: 'Serial', value: 'SF-7B962857' },
                       { '@type': 'PropertyValue', name: 'Olfactive Direction', value: 'Iris / Powdery Floral / Woody' },
-                      { '@type': 'PropertyValue', name: 'Volume', value: 'Verify with current bottle allocation' },
                       { '@type': 'PropertyValue', name: 'Contract Address', value: SOVEREIGN_CONTRACT_ADDRESS },
                     ]
                   : []),
@@ -303,11 +302,11 @@ function ProductJsonLd({ product }: { product: Product }) {
     '@type': 'Product',
     '@id': `${productUrl}#product`,
     name: displayName,
-    alternateName: bloom ? ['Shamim Bloom', 'The Sovereign Grace'] : undefined,
+    alternateName: bloom ? ['Shamim Bloom', 'The Sovereign Grace'] : midnight ? ['Midnight Iris Royale', 'The Sovereign Iris'] : undefined,
     description: displayDescription,
     image: images,
     url: productUrl,
-    sku: product.slug,
+    sku: midnight ? 'SF-7B962857' : product.slug,
     brand: { '@type': 'Brand', name: 'Shamim Forever', logo: `${BASE_URL}/logo-sf.png` },
     manufacturer: { '@type': 'Organization', name: 'Shamim Forever', url: BASE_URL },
     category: product.main_category?.name || 'Luxury Fragrance',
