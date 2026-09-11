@@ -22,6 +22,7 @@ const BLOOM_CANONICAL_SLUG = 'shamim-bloom'
 const HIMALAYAN_CANONICAL_SLUG = 'sf-himalayan-snow-musk'
 const VANILLA_CANONICAL_SLUG = 'sf-sovereign-vanilla-absolute'
 const ROSE_CANONICAL_SLUG = 'eternal-rose-de-taif'
+const MIDNIGHT_CANONICAL_SLUG = 'sf-midnight-iris-royale'
 const BLOOM_SLUGS = new Set(['shamim-bloom', 'shamims-bloom', 'shamim-bloom-the-sovereign-grace'])
 const HIMALAYAN_SLUGS = new Set(['sf-himalayan-snow-musk', 'himalayan-snow-musk'])
 const BLOOM_TITLE = 'Shamim Bloom — The Sovereign Grace | Luxury Fragrance & Digital Sovereign Passport'
@@ -36,6 +37,9 @@ const ROSE_DESCRIPTION =
 const HIMALAYAN_TITLE = 'SF Himalayan Snow Musk | Luxury White Musk Perfume | Shamim Forever'
 const HIMALAYAN_DESCRIPTION =
   'Discover SF Himalayan Snow Musk by Shamim Forever, a sovereign luxury perfume composed around high-altitude Himalayan white musk, bergamot, white florals and translucent sandalwood. $259 USD.'
+const MIDNIGHT_TITLE = 'SF Midnight Iris Royale — Luxury Iris Perfume & Sovereign Digital Passport | Shamim Forever'
+const MIDNIGHT_DESCRIPTION =
+  'Discover SF Midnight Iris Royale, a feminine luxury iris perfume by Shamim Forever built around orris root, violet leaf, purple iris and powdery sandalwood, with a Polygon-based Digital Sovereign Passport.'
 
 function isBloomSlug(slug: string) {
   return BLOOM_SLUGS.has(slug)
@@ -53,9 +57,14 @@ function isHimalayanSlug(slug: string) {
   return HIMALAYAN_SLUGS.has(slug)
 }
 
+function isMidnightSlug(slug: string) {
+  return slug === 'sf-midnight-iris-royale' || slug === 'midnight-iris-royale'
+}
+
 function canonicalProductSlug(slug: string) {
   if (isBloomSlug(slug)) return BLOOM_CANONICAL_SLUG
   if (isHimalayanSlug(slug)) return HIMALAYAN_CANONICAL_SLUG
+  if (isMidnightSlug(slug)) return MIDNIGHT_CANONICAL_SLUG
   return slug
 }
 
@@ -80,8 +89,12 @@ async function getProduct(id: string): Promise<Product | null> {
     .maybeSingle()
   if (bySlug) return bySlug
 
-  if (isBloomSlug(id) || isHimalayanSlug(id)) {
-    const aliases = isHimalayanSlug(id) ? HIMALAYAN_SLUGS : BLOOM_SLUGS
+  if (isBloomSlug(id) || isHimalayanSlug(id) || isMidnightSlug(id)) {
+    const aliases = isHimalayanSlug(id)
+      ? HIMALAYAN_SLUGS
+      : isBloomSlug(id)
+        ? BLOOM_SLUGS
+        : new Set([MIDNIGHT_CANONICAL_SLUG, 'midnight-iris-royale'])
     for (const slug of aliases) {
       const { data: bloomProduct } = await supabaseAdmin
         .from('products')
@@ -121,10 +134,11 @@ export async function generateMetadata({ params }: { params: { id: string } }) {
   const vanilla = isVanillaSlug(product.slug) || isVanillaSlug(params.id)
   const rose = isRoseSlug(product.slug) || isRoseSlug(params.id)
   const himalayan = isHimalayanSlug(product.slug) || isHimalayanSlug(params.id)
+  const midnight = isMidnightSlug(product.slug) || isMidnightSlug(params.id)
   const images = productImagePaths(product)
   const productImages = images.length ? images : ['/logo-sf.png']
   const productUrl = `${BASE_URL}/products/${canonicalProductSlug(product.slug)}`
-  const title = bloom ? BLOOM_TITLE : vanilla ? VANILLA_TITLE : himalayan ? HIMALAYAN_TITLE : rose ? ROSE_TITLE : `${product.name} — Shamim Forever`
+  const title = bloom ? BLOOM_TITLE : vanilla ? VANILLA_TITLE : himalayan ? HIMALAYAN_TITLE : rose ? ROSE_TITLE : midnight ? MIDNIGHT_TITLE : `${product.name} — Shamim Forever`
   const desc = bloom
     ? BLOOM_DESCRIPTION
     : vanilla
@@ -133,7 +147,9 @@ export async function generateMetadata({ params }: { params: { id: string } }) {
         ? HIMALAYAN_DESCRIPTION
         : rose
           ? ROSE_DESCRIPTION
-          : product.description
+          : midnight
+            ? MIDNIGHT_DESCRIPTION
+            : product.description
         ? product.description.slice(0, 160)
         : `${product.name} — sovereign luxury creation by Shamim Forever. Shop online in Pakistan & worldwide.`
 
@@ -159,7 +175,9 @@ export async function generateMetadata({ params }: { params: { id: string } }) {
             ? ['SF Himalayan Snow Musk', 'Himalayan Snow Musk', 'luxury white musk perfume', 'Himalayan musk perfume', 'white musk fragrance', 'luxury musk fragrance', 'sovereign luxury perfume', 'premium white musk perfume', 'exclusive musk fragrance']
           : rose
             ? ['Eternal Rose de Taif', 'Eternal Rose de Taif perfume', 'Taif rose perfume', 'luxury rose perfume', 'Shamim Forever perfume', 'luxury rose fragrance', 'Taif rose fragrance', 'Mysore sandalwood rose perfume', 'white musk rose perfume', 'blockchain authenticated perfume', 'Polygon perfume passport', 'luxury digital passport']
-          : []),
+            : midnight
+              ? ['SF Midnight Iris Royale', 'Midnight Iris Royale', 'luxury iris perfume', 'orris root perfume', 'purple iris fragrance', 'violet leaf perfume', 'sandalwood iris perfume', 'luxury feminine perfume', 'luxury perfume Pakistan', 'luxury perfume France', 'sovereign luxury perfume', 'digital perfume passport', 'Polygon perfume NFT']
+              : []),
       'Shamim Forever',
       'luxury fragrance Pakistan',
       'buy perfume online Pakistan',
@@ -183,6 +201,8 @@ export async function generateMetadata({ params }: { params: { id: string } }) {
           ? 'Shamim Bloom — The Sovereign Grace luxury fragrance'
           : himalayan
             ? 'SF Himalayan Snow Musk luxury white musk perfume'
+          : midnight
+            ? 'SF Midnight Iris Royale luxury iris perfume by Shamim Forever'
             : `${product.name} — Shamim Forever Luxury Collection`,
       })),
     },
@@ -200,23 +220,26 @@ function ProductJsonLd({ product }: { product: Product }) {
   const vanilla = isVanillaSlug(product.slug)
   const rose = isRoseSlug(product.slug)
   const himalayan = isHimalayanSlug(product.slug)
+  const midnight = isMidnightSlug(product.slug)
   const productImages = productImagePaths(product).map(absoluteProductImage)
   const images = productImages.length ? productImages : [`${BASE_URL}/logo-sf.png`]
   const productUrl = `${BASE_URL}/products/${canonicalProductSlug(product.slug)}`
-  const isSovereign = SOVEREIGN_SLUGS.includes(product.slug) || himalayan || rose
+  const isSovereign = SOVEREIGN_SLUGS.includes(product.slug) || himalayan || rose || midnight
   const priceValidUntil = new Date(Date.now() + 90 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]
-  const priceUsd = himalayan ? 259 : Number(product.price_usd ?? (bloom ? 270 : 0))
-  const pricePkr = himalayan ? 72000 : Number(product.price_pkr ?? (bloom ? 75000 : 0))
-  const displayName = bloom ? 'Shamim Bloom — The Sovereign Grace' : vanilla ? 'SF Sovereign Vanilla Absolute' : himalayan ? 'SF Himalayan Snow Musk' : rose ? 'Eternal Rose de Taif' : product.name
+  const priceUsd = himalayan ? 259 : midnight ? 223 : Number(product.price_usd ?? (bloom ? 270 : 0))
+  const pricePkr = himalayan ? 72000 : midnight ? 62000 : Number(product.price_pkr ?? (bloom ? 75000 : 0))
+  const displayName = bloom ? 'Shamim Bloom — The Sovereign Grace' : vanilla ? 'SF Sovereign Vanilla Absolute' : himalayan ? 'SF Himalayan Snow Musk' : rose ? 'Eternal Rose de Taif' : midnight ? 'SF Midnight Iris Royale' : product.name
   const displayDescription = bloom
     ? BLOOM_DESCRIPTION
     : vanilla
       ? VANILLA_DESCRIPTION
       : himalayan
         ? HIMALAYAN_DESCRIPTION
-        : rose
+          : rose
           ? ROSE_DESCRIPTION
-          : product.description || `${product.name} — sovereign luxury creation by Shamim Forever`
+            : midnight
+              ? MIDNIGHT_DESCRIPTION
+              : product.description || `${product.name} — sovereign luxury creation by Shamim Forever`
   const additionalProperty = isSovereign
     ? [
         { '@type': 'PropertyValue', name: 'Blockchain Network', value: SOVEREIGN_NETWORK },
@@ -264,7 +287,15 @@ function ProductJsonLd({ product }: { product: Product }) {
                     { '@type': 'PropertyValue', name: 'Edition', value: 'House Allocation Reserve' },
                     { '@type': 'PropertyValue', name: 'Serial', value: 'SF-E32B4700' },
                   ]
-                : []),
+                : midnight
+                  ? [
+                      { '@type': 'PropertyValue', name: 'Archive Class', value: 'Heritage Archive' },
+                      { '@type': 'PropertyValue', name: 'Serial', value: 'SF-7B962857' },
+                      { '@type': 'PropertyValue', name: 'Olfactive Direction', value: 'Iris / Powdery Floral / Woody' },
+                      { '@type': 'PropertyValue', name: 'Volume', value: 'Verify with current bottle allocation' },
+                      { '@type': 'PropertyValue', name: 'Contract Address', value: SOVEREIGN_CONTRACT_ADDRESS },
+                    ]
+                  : []),
       ]
     : undefined
 
@@ -280,7 +311,7 @@ function ProductJsonLd({ product }: { product: Product }) {
     brand: { '@type': 'Brand', name: 'Shamim Forever', logo: `${BASE_URL}/logo-sf.png` },
     manufacturer: { '@type': 'Organization', name: 'Shamim Forever', url: BASE_URL },
     category: product.main_category?.name || 'Luxury Fragrance',
-    audience: bloom || vanilla || rose
+    audience: bloom || vanilla || rose || midnight
       ? { '@type': 'PeopleAudience', audienceType: 'Luxury fragrance collectors', suggestedGender: 'Female' }
       : undefined,
     offers: [
@@ -417,7 +448,19 @@ function ProductJsonLd({ product }: { product: Product }) {
                   { '@type': 'Question', name: 'Is the product an investment?', acceptedAnswer: { '@type': 'Answer', text: 'No investment-return claim should be made simply because the product has a blockchain passport.' } },
                 ],
               }
-          : null
+            : midnight
+              ? {
+                  '@type': 'FAQPage',
+                  '@id': `${productUrl}#faq`,
+                  mainEntity: [
+                    { '@type': 'Question', name: 'What is SF Midnight Iris Royale?', acceptedAnswer: { '@type': 'Answer', text: 'SF Midnight Iris Royale is a feminine luxury fragrance by Shamim Forever built around an iris-centred concept of orris root, violet leaf, purple iris and powdery sandalwood.' } },
+                    { '@type': 'Question', name: 'What is the price?', acceptedAnswer: { '@type': 'Answer', text: 'SF Midnight Iris Royale is listed at $223 USD, with a Pakistan reference price of Rs 62,000.' } },
+                    { '@type': 'Question', name: 'What is the Digital Sovereign Passport?', acceptedAnswer: { '@type': 'Answer', text: 'It is a blockchain-based digital identity and provenance layer associated with the physical creation. It does not automatically transfer intellectual-property rights or legal title unless applicable terms expressly say so.' } },
+                    { '@type': 'Question', name: 'What blockchain and token standard are referenced?', acceptedAnswer: { '@type': 'Answer', text: 'The product record references Polygon Mainnet and the ERC-721 token standard.' } },
+                    { '@type': 'Question', name: 'Does Shamim Forever need my seed phrase?', acceptedAnswer: { '@type': 'Answer', text: 'No. Never share a seed phrase, private key, recovery phrase or wallet password.' } },
+                  ],
+                }
+              : null
 
   const video = bloom
     ? {
@@ -443,7 +486,7 @@ function ProductJsonLd({ product }: { product: Product }) {
         inLanguage: 'en',
         isFamilyFriendly: true,
       }
-       : rose
+        : rose
          ? {
          '@type': 'VideoObject',
          name: 'Eternal Rose de Taif — Official Product Film',
@@ -455,7 +498,19 @@ function ProductJsonLd({ product }: { product: Product }) {
          inLanguage: 'en',
          isFamilyFriendly: true,
        }
-       : null
+        : midnight
+          ? {
+              '@type': 'VideoObject',
+              name: 'SF Midnight Iris Royale — Official Product Film',
+              description: MIDNIGHT_DESCRIPTION,
+              thumbnailUrl: images[0],
+              contentUrl: `${BASE_URL}/products/midnight-iris-royale/sf-midnight-iris-royale.mp4`,
+              uploadDate: '2026-09-11',
+              duration: 'PT6S',
+              inLanguage: 'en',
+              isFamilyFriendly: true,
+            }
+          : null
 
 
   const jsonLd = {

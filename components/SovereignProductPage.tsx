@@ -392,9 +392,125 @@ function EternalRoseKnowledgeSections() {
   )
 }
 
+function MidnightKnowledgeSections() {
+  const faqs = [
+    ['What is SF Midnight Iris Royale?', 'SF Midnight Iris Royale is a feminine luxury fragrance by Shamim Forever built around an iris-centred concept of orris root, violet leaf, purple iris and powdery sandalwood.'],
+    ['What does Midnight Iris Royale smell like?', 'The composition moves from a cool, green floral opening into a textured iris heart, then settles into powdered sandalwood, soft woods and a warm skin accord.'],
+    ['What is the Digital Sovereign Passport?', 'It is a blockchain-based digital identity and provenance layer associated with the physical creation. It does not automatically transfer intellectual-property rights or legal title unless applicable terms expressly say so.'],
+    ['Does Shamim Forever need my seed phrase?', 'No. Never share a seed phrase, private key, recovery phrase or wallet password. The House will never require these credentials to issue or verify a Digital Sovereign Passport.'],
+  ]
+
+  return (
+    <section
+      aria-labelledby="midnight-iris-knowledge"
+      style={{
+        padding: 'clamp(56px,8vw,100px) 0',
+        background: 'linear-gradient(180deg, #030303 0%, #07050a 48%, #030303 100%)',
+        borderTop: '1px solid rgba(120,102,150,0.16)',
+      }}
+    >
+      <div style={{ maxWidth: 980, margin: '0 auto', padding: '0 clamp(20px,4vw,28px)' }}>
+        <div className="s-reveal" style={{ textAlign: 'center', marginBottom: 50 }}>
+          <p style={{ fontSize: 7, letterSpacing: '0.9em', textTransform: 'uppercase', color: '#b7a6d5', marginBottom: 12 }}>The Midnight Iris Dossier</p>
+          <h2 id="midnight-iris-knowledge" style={{ fontFamily: SERIF, fontSize: 'clamp(2rem,5vw,3.5rem)', fontWeight: 300, color: '#f0ece4', letterSpacing: '0.05em' }}>The Sovereign Iris</h2>
+          <p style={{ maxWidth: 680, margin: '20px auto 0', color: 'rgba(240,236,228,0.56)', fontSize: 13, lineHeight: 1.85 }}>
+            SF Midnight Iris Royale explores iris through contrast: root and flower, coolness and warmth, powder and wood, intimacy and presence. It is conceived as an archive object as well as a fragrance.
+          </p>
+        </div>
+
+        <div className="s-reveal bloom-knowledge-grid" style={{ display: 'grid', gap: 1, background: 'rgba(120,102,150,0.18)', marginBottom: 36 }}>
+          {[
+            ['01', 'Opening Veil', 'Violet leaf, cool floral accord, powdered iris impression and a soft green nuance establish a restrained first impression.'],
+            ['02', 'Royal Iris Core', 'Purple iris, orris character, powdery floral facets and soft violet create the central identity.'],
+            ['03', 'Midnight Foundation', 'Powdered sandalwood, soft woods, warm skin accord and elegant musky depth give the dry-down structure.'],
+          ].map(([number, title, text]) => (
+            <div key={number} style={{ padding: '28px 24px', background: '#08060a' }}>
+              <p style={{ fontSize: 8, letterSpacing: '0.35em', color: '#b7a6d5', marginBottom: 16 }}>{number}</p>
+              <h3 style={{ fontFamily: SERIF, fontSize: 24, fontWeight: 300, color: '#d5c5e8', marginBottom: 10 }}>{title}</h3>
+              <p style={{ color: 'rgba(240,236,228,0.54)', fontSize: 12, lineHeight: 1.75 }}>{text}</p>
+            </div>
+          ))}
+        </div>
+
+        <div className="s-reveal bloom-detail-grid" style={{ display: 'grid', gap: 1, background: 'rgba(120,102,150,0.18)', marginBottom: 36 }}>
+          <div style={{ padding: '30px 26px', background: '#08060a' }}>
+            <p style={{ fontSize: 7, letterSpacing: '0.7em', textTransform: 'uppercase', color: '#b7a6d5', marginBottom: 12 }}>Why Midnight Iris?</p>
+            <h3 style={{ fontFamily: SERIF, fontSize: 28, fontWeight: 300, color: '#f0ece4', marginBottom: 16 }}>A Flower Interpreted Through Darkness</h3>
+            <p style={{ color: 'rgba(240,236,228,0.56)', fontSize: 12, lineHeight: 1.85 }}>
+              Iris can be powdery, cool, earthy, floral, woody, elegant, mineral and intimate at once. Its character is associated with orris—the prepared rhizome of certain Iris species—giving the material its distinctive tension between botanical flower and grounded root.
+            </p>
+          </div>
+          <div style={{ padding: '30px 26px', background: '#08060a' }}>
+            <p style={{ fontSize: 7, letterSpacing: '0.7em', textTransform: 'uppercase', color: '#b7a6d5', marginBottom: 12 }}>The Sensory Experience</p>
+            <h3 style={{ fontFamily: SERIF, fontSize: 28, fontWeight: 300, color: '#f0ece4', marginBottom: 16 }}>Root → Flower → Powder → Wood</h3>
+            <p style={{ color: 'rgba(240,236,228,0.56)', fontSize: 12, lineHeight: 1.85 }}>
+              The first impression is cool and powdered. The heart makes the iris more recognisable and textured. The development becomes softer and warmer, while sandalwood and soft woods provide the final foundation. Actual performance varies by skin, climate and application.
+            </p>
+          </div>
+        </div>
+
+        <div className="s-reveal" style={{ padding: '32px 28px', border: '1px solid rgba(120,102,150,0.22)', background: 'rgba(9,7,12,0.82)', marginBottom: 36 }}>
+          <p style={{ fontSize: 7, letterSpacing: '0.7em', textTransform: 'uppercase', color: '#b7a6d5', marginBottom: 12 }}>Complete Technical Record</p>
+          <h3 style={{ fontFamily: SERIF, fontSize: 30, fontWeight: 300, color: '#f0ece4', marginBottom: 14 }}>Physical Creation + Digital Identity</h3>
+          <p style={{ color: 'rgba(240,236,228,0.55)', fontSize: 13, lineHeight: 1.85, maxWidth: 760 }}>
+            The fragrance remains the centre of the creation. The Digital Sovereign Passport adds a documentation and continuity layer for the associated product record where applicable. Blockchain records can identify a token and its public transaction history; they do not alone prove that a physical bottle is genuine.
+          </p>
+          <div className="bloom-passport-grid" style={{ display: 'grid', gap: 1, marginTop: 24, background: 'rgba(120,102,150,0.14)' }}>
+            {[
+              ['Price', '$223 USD · PKR 62,000'],
+              ['Archive', 'Heritage Archive'],
+              ['Serial', 'SF-7B962857'],
+              ['Network', 'Polygon Mainnet · ERC-721'],
+            ].map(([label, value]) => (
+              <div key={label} style={{ padding: '18px 14px', background: '#050408' }}>
+                <p style={{ fontSize: 7, letterSpacing: '0.35em', textTransform: 'uppercase', color: '#5b506b', marginBottom: 8 }}>{label}</p>
+                <p style={{ fontSize: 12, color: '#d5c5e8', wordBreak: 'break-word' }}>{value}</p>
+              </div>
+            ))}
+          </div>
+          <a href="https://polygonscan.com/address/0xCCFc11b22990a39cB5a58A1d1778A1d80FDC7640" target="_blank" rel="noreferrer" style={{ display: 'inline-flex', marginTop: 20, color: '#b7a6d5', fontSize: 8, letterSpacing: '0.35em', textTransform: 'uppercase', textDecoration: 'none' }}>
+            View contract on PolygonScan ↗
+          </a>
+        </div>
+
+        <div className="s-reveal bloom-detail-grid" style={{ display: 'grid', gap: 1, background: 'rgba(120,102,150,0.18)', marginBottom: 36 }}>
+          <div style={{ padding: '30px 26px', background: '#08060a' }}>
+            <p style={{ fontSize: 7, letterSpacing: '0.7em', textTransform: 'uppercase', color: '#b7a6d5', marginBottom: 12 }}>Who It Is For</p>
+            <h3 style={{ fontFamily: SERIF, fontSize: 28, fontWeight: 300, color: '#f0ece4', marginBottom: 16 }}>The Woman Who Does Not Need Permission to Be Remembered</h3>
+            <p style={{ color: 'rgba(240,236,228,0.56)', fontSize: 12, lineHeight: 1.85 }}>
+              Designed for evening occasions, private gatherings, formal events, intimate dinners, sophisticated daytime wear, special occasions, gifting and personal collections.
+            </p>
+          </div>
+          <div style={{ padding: '30px 26px', background: '#08060a' }}>
+            <p style={{ fontSize: 7, letterSpacing: '0.7em', textTransform: 'uppercase', color: '#b7a6d5', marginBottom: 12 }}>Preserve the Creation</p>
+            <h3 style={{ fontFamily: SERIF, fontSize: 28, fontWeight: 300, color: '#f0ece4', marginBottom: 16 }}>Care & Archive</h3>
+            <p style={{ color: 'rgba(240,236,228,0.56)', fontSize: 12, lineHeight: 1.85 }}>
+              Store away from direct sunlight, extreme temperatures and prolonged heat. Keep the bottle closed, retain original packaging and preserve the serial/reference documentation with the Digital Sovereign Passport information where applicable.
+            </p>
+          </div>
+        </div>
+
+        <div className="s-reveal" style={{ borderTop: '1px solid rgba(120,102,150,0.2)' }}>
+          <p style={{ fontSize: 7, letterSpacing: '0.7em', textTransform: 'uppercase', color: '#b7a6d5', margin: '28px 0 20px' }}>Midnight Iris FAQ</p>
+          {faqs.map(([question, answer]) => (
+            <details key={question} style={{ borderBottom: '1px solid rgba(120,102,150,0.14)', padding: '18px 0' }}>
+              <summary style={{ cursor: 'pointer', color: '#d5c5e8', fontFamily: SERIF, fontSize: 20, fontWeight: 300 }}>{question}</summary>
+              <p style={{ color: 'rgba(240,236,228,0.54)', fontSize: 12, lineHeight: 1.8, margin: '12px 0 0', maxWidth: 760 }}>{answer}</p>
+            </details>
+          ))}
+          <p style={{ color: 'rgba(240,236,228,0.38)', fontSize: 11, lineHeight: 1.75, margin: '28px 0 0' }}>
+            Benefit availability: Holder privileges, invitations, restoration services, refills, future allocations and access-controlled experiences are subject to product eligibility, geographic availability, operational capacity and applicable Shamim Forever terms. Possession of a Digital Sovereign Passport does not by itself transfer intellectual property rights, trademarks, copyrights or other rights unless expressly stated in the applicable terms.
+          </p>
+        </div>
+      </div>
+    </section>
+  )
+}
+
 export default function SovereignProductPage({ product }: { product: Product }) {
   const config = SOVEREIGN_CONFIGS[product.slug] ?? SOVEREIGN_CONFIGS['her-legacy-vault']
   const isBloom = ['shamim-bloom', 'shamims-bloom', 'shamim-bloom-the-sovereign-grace'].includes(product.slug)
+  const isMidnight = ['sf-midnight-iris-royale', 'midnight-iris-royale'].includes(product.slug)
   const isVanilla = product.slug === 'sf-sovereign-vanilla-absolute'
   const isRose = product.slug === 'eternal-rose-de-taif'
   const heroRef = useRef<HTMLDivElement>(null)
@@ -1026,6 +1142,7 @@ export default function SovereignProductPage({ product }: { product: Product }) 
       {isVanilla && <VanillaKnowledgeSections />}
       {isRose && <EternalRoseKnowledgeSections />}
       {isBloom && <BloomKnowledgeSections />}
+      {isMidnight && <MidnightKnowledgeSections />}
 
       <section style={{ padding: 'clamp(44px,7vw,80px) 0 clamp(56px,8vw,100px)', background: '#030303', borderTop: '1px solid rgba(201,160,84,0.06)' }}>
         <div style={{ maxWidth: 860, margin: '0 auto', padding: '0 clamp(20px,4vw,24px)', textAlign: 'center' }}>

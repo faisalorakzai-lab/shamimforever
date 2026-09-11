@@ -13,6 +13,7 @@ const BASE_URL = 'https://www.shamimforever.com'
     { path: '/shop',            priority: 0.98, changeFrequency: 'daily'    as const },
     { path: '/products/shamim-bloom', priority: 0.99, changeFrequency: 'weekly' as const },
     { path: '/products/sf-himalayan-snow-musk', priority: 0.99, changeFrequency: 'weekly' as const },
+    { path: '/products/sf-midnight-iris-royale', priority: 0.99, changeFrequency: 'weekly' as const },
     { path: '/founder',         priority: 0.97, changeFrequency: 'weekly'   as const },
     { path: '/collections',     priority: 0.96, changeFrequency: 'daily'    as const },
     { path: '/atelier',         priority: 0.93, changeFrequency: 'monthly'  as const },
@@ -120,7 +121,7 @@ const BASE_URL = 'https://www.shamimforever.com'
         console.error('[sitemap] Product query failed; product URLs were omitted.', productsError)
       } else if (products) {
         productEntries = products.map((p) => ({
-          url: `${BASE_URL}/products/${['shamim-bloom', 'shamims-bloom', 'shamim-bloom-the-sovereign-grace'].includes(p.slug) ? 'shamim-bloom' : p.slug}`,
+          url: `${BASE_URL}/products/${['shamim-bloom', 'shamims-bloom', 'shamim-bloom-the-sovereign-grace'].includes(p.slug) ? 'shamim-bloom' : ['midnight-iris-royale', 'sf-midnight-iris-royale'].includes(p.slug) ? 'sf-midnight-iris-royale' : p.slug}`,
           lastModified: p.updated_at ?? now,
           changeFrequency: 'weekly' as const,
           priority: 0.85,
