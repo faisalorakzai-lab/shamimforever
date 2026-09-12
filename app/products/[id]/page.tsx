@@ -15,6 +15,7 @@ import LaVieEstBelleInspiredPage from '@/components/LaVieEstBelleInspiredPage'
 import { LA_VIE_DESCRIPTION, LA_VIE_FAQS, LA_VIE_TITLE } from '@/lib/la-vie-est-belle'
 import EdenKnowledgeSections from '@/components/EdenKnowledgeSections'
 import { EDEN_DESCRIPTION, EDEN_FAQS, EDEN_KEYWORDS, EDEN_PRODUCT_DATA, EDEN_SLUG, EDEN_TITLE, EDEN_VIDEO_PATH } from '@/lib/eden-juicy-apple'
+import { buildProductPageModel } from '@/lib/product-engine'
 
 export const revalidate = 300
 
@@ -645,7 +646,9 @@ export default async function ProductDetailPage({
     )
   }
 
-  if (product.main_category_id === JEWELRY_CATEGORY_ID) {
+  const pageModel = buildProductPageModel(product)
+
+  if (pageModel.category === 'jewelry' || product.main_category_id === JEWELRY_CATEGORY_ID) {
     return (
       <>
         <ProductJsonLd product={product} />
@@ -682,7 +685,7 @@ export default async function ProductDetailPage({
     )
   }
 
-  if (product.main_category_id === COSMETICS_CATEGORY_ID) {
+  if (pageModel.category === 'cosmetics' || product.main_category_id === COSMETICS_CATEGORY_ID) {
     return (
       <>
         <ProductJsonLd product={product} />

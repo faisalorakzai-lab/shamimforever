@@ -19,6 +19,7 @@ const navItems = [
   { label: 'Shipments', href: '/admin/shipments', icon: Truck },
   { label: 'Serials / NFC', href: '/admin/generate-serials', icon: Hash },
   { label: 'Inner Circle', href: '/admin/inner-circle', icon: Star },
+  { label: 'Product QA', href: '/admin/product-qa', icon: BarChart3 },
   { label: 'Analytics', href: '/admin/analytics', icon: BarChart3 },
 ]
 

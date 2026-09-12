@@ -10,6 +10,7 @@ import { Copy, Check, Upload, X, ExternalLink, ArrowDown, ChevronLeft, ChevronRi
 import type { Product } from '@/types'
 import Web3PaySection, { type CoinType } from '@/components/Web3PaySection'
 import { useAccount } from 'wagmi'
+import { buildProductPageModel } from '@/lib/product-engine'
 
 type PayMethod = 'crypto' | 'pkr_manual' | 'cod'
 interface OrderResult { order_id: string; order_ref: string; tracking_ref: string; status: string; track_url: string }
@@ -92,7 +93,9 @@ interface ParsedStory {
   }
   nft?: {
     title?: string; description?: string; blockchain?: string; rarity?: string
-    edition?: string; contract?: string; tx?: string; holder_privileges?: string[]
+    edition?: string; contract?: string; tx?: string; serial?: string; serial_number?: string
+    tokenStandard?: string; standard?: string; authentication?: string
+    holder_privileges?: string[]
   }
   packaging?: { flacon?: string; vault?: string }
 }
@@ -107,15 +110,15 @@ function NftCard({ product, story }: { product: Product; story: ParsedStory | nu
   const nft = story?.nft
   const rarity = nft?.rarity || (product.price_usd >= 10000 ? 'SOVEREIGN FOUNDERS' : product.price_usd >= 1000 ? 'INSTITUTIONAL RESERVE' : 'HERITAGE ARCHIVE')
   const gold = product.price_usd >= 50000 ? '#f0d080' : product.price_usd >= 10000 ? '#c9a054' : '#a08040'
-  const serial = 'SF-' + product.id.replace(/-/g,'').slice(0,8).toUpperCase()
+  const serial = nft?.serial || nft?.serial_number || 'Not listed'
   const catName = (product as any).main_category?.name || 'Luxury'
   const traits = [
     ['Category', catName],
     ['Rarity', rarity],
-    ['Network', nft?.blockchain || 'Polygon Mainnet'],
-    ['Standard', 'ERC-721'],
-    ['Edition', nft?.edition || 'House Allocation Reserve'],
-    ['Authentication', 'Polygon Verified'],
+    ['Network', nft?.blockchain || 'Not listed'],
+    ['Standard', nft?.tokenStandard || nft?.standard || 'Not listed'],
+    ['Edition', nft?.edition || 'Not listed'],
+    ['Authentication', nft?.authentication || 'House record'],
   ]
   return (
     <div style={{ perspective: '1100px', maxWidth: 280, margin: '0 auto', userSelect: 'none' }}>
@@ -198,6 +201,7 @@ function NftCard({ product, story }: { product: Product; story: ParsedStory | nu
   }
 
   export default function LuxuryGenericProductPage({ product }: { product: Product }) {
+  const page = buildProductPageModel(product)
   const heroRef = useRef<HTMLDivElement>(null)
   const { scrollYProgress } = useScroll({ target: heroRef, offset: ['start start', 'end start'] })
   const textOpacity = useTransform(scrollYProgress, [0, 0.5], [1, 0])
@@ -291,9 +295,9 @@ function NftCard({ product, story }: { product: Product; story: ParsedStory | nu
     setSubmitting(false)
   }
 
-  const heroImage = images[0] || null
-  const videoUrl = PRODUCT_VIDEOS[product.slug] || null
-  const categoryName = (product as any).main_category?.name
+  const heroImage = page.heroImage || images[0] || null
+  const videoUrl = page.videoUrl || PRODUCT_VIDEOS[product.slug] || null
+  const categoryName = page.categoryLabel
 
   if (orderResult) {
     return (
@@ -682,6 +686,7 @@ function NftCard({ product, story }: { product: Product; story: ParsedStory | nu
       )}
 
       {/* DIGITAL SOVEREIGN PASSPORT */}
+      {page.digitalPassport ? (
       <section style={{ padding: 'clamp(52px,8vw,90px) 0', background: 'radial-gradient(ellipse 70% 50% at 50% 50%, #0e0903 0%, #030303 70%)' }}>
         <div style={{ maxWidth: 900, margin: '0 auto', padding: '0 24px' }}>
           <div className="g-reveal" style={{ textAlign: 'center', marginBottom: 48 }}>
@@ -700,16 +705,16 @@ function NftCard({ product, story }: { product: Product; story: ParsedStory | nu
               </p>
               <div style={{ border: '1px solid rgba(201,160,84,0.1)', background: '#0a0806' }}>
                 {([
-                  ['Contract', story?.nft?.contract || '0xCCFc11b2...DC7640'],
-                  ['Network', story?.nft?.blockchain || 'Polygon Mainnet'],
-                  ['Standard', 'ERC-721 — Non-Fungible'],
-                  ['Edition', story?.nft?.edition || 'House Allocation Reserve'],
+                  ['Contract', story?.nft?.contract || 'Not listed'],
+                  ['Network', story?.nft?.blockchain || 'Not listed'],
+                  ['Standard', story?.nft?.tokenStandard || story?.nft?.standard || 'Not listed'],
+                  ['Edition', story?.nft?.edition || 'Not listed'],
                 ] as [string, string][]).map(([lbl, val], i, arr) => (
                   <div key={lbl} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 8, padding: '14px 18px', borderBottom: i < arr.length - 1 ? '1px solid rgba(255,255,255,0.03)' : 'none' }}>
                     <p style={{ fontSize: 7, letterSpacing: '0.4em', textTransform: 'uppercase', color: '#3f3830' }}>{lbl}</p>
                     <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
                       <p style={{ fontFamily: 'monospace', fontSize: 10, color: '#c9b894', wordBreak: 'break-all' }}>{val}</p>
-                      {lbl === 'Contract' && <CopyBtn text={story?.nft?.contract || '0xCCFc11b2DC7640'} />}
+                      {lbl === 'Contract' && story?.nft?.contract && <CopyBtn text={story.nft.contract} />}
                     </div>
                   </div>
                 ))}
@@ -718,8 +723,20 @@ function NftCard({ product, story }: { product: Product; story: ParsedStory | nu
           </div>
         </div>
       </section>
+      ) : (
+        <section style={{ padding: 'clamp(52px,8vw,90px) 0', background: 'radial-gradient(ellipse 70% 50% at 50% 50%, #0e0903 0%, #030303 70%)' }}>
+          <div style={{ maxWidth: 720, margin: '0 auto', padding: '0 24px', textAlign: 'center' }}>
+            <p style={{ fontSize: 7, letterSpacing: '0.9em', textTransform: 'uppercase', color: '#c9a054', marginBottom: 14 }}>House Archive</p>
+            <h2 style={{ fontFamily: SERIF, fontSize: 'clamp(2rem, 4vw, 3.5rem)', fontWeight: 300, color: '#f0ece4', marginBottom: 18 }}>Physical Provenance</h2>
+            <p style={{ fontFamily: SERIF, fontSize: 'clamp(1rem, 1.8vw, 1.3rem)', color: 'rgba(240,236,228,0.5)', fontWeight: 300, lineHeight: 1.85 }}>
+              Digital passport information for this creation is not currently published. The House archive preserves the product record without inventing blockchain details.
+            </p>
+          </div>
+        </section>
+      )}
 
       {/* CLAIM SOVEREIGN PASSPORT NFT */}
+      {page.digitalPassport && page.walletEnabled && (
       <section style={{ padding: 'clamp(44px,7vw,80px) 0', background: '#030303', borderTop: '1px solid rgba(201,160,84,0.05)', borderBottom: '1px solid rgba(201,160,84,0.05)' }}>
         <div style={{ maxWidth: 560, margin: '0 auto', padding: '0 24px' }}>
           <div className="g-reveal" style={{ textAlign: 'center', marginBottom: 32 }}>
@@ -740,8 +757,10 @@ function NftCard({ product, story }: { product: Product; story: ParsedStory | nu
           </div>
         </div>
       </section>
+      )}
 
       {/* HOLDER PRIVILEGES */}
+      {page.digitalPassport && page.holderPrivileges.length > 0 && (
       <section style={{ padding: 'clamp(52px,8vw,90px) 0', background: 'radial-gradient(ellipse 60% 50% at 50% 100%, #0e0903 0%, #030303 60%)' }}>
         <div style={{ maxWidth: 760, margin: '0 auto', padding: '0 24px' }}>
           <div className="g-reveal" style={{ textAlign: 'center', marginBottom: 48 }}>
@@ -750,16 +769,7 @@ function NftCard({ product, story }: { product: Product; story: ParsedStory | nu
             <div style={{ width: 64, height: 1, background: 'linear-gradient(to right, transparent, #c9a054, transparent)', margin: '20px auto 0' }} />
           </div>
           <div className="g-reveal" style={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
-            {(story?.nft?.holder_privileges || [
-              'Institutional Founder Status — Recognized as a founding institutional member of the House',
-              'Sovereign Vault Access — Lifetime access to the Institutional Vault private archive',
-              'Future Founder Allocations — Priority access to all upcoming institutional releases',
-              'Private House Ceremonies — Invitation to exclusive House of Shamim Forever events',
-              'Restoration & Refill Privileges — Priority access to sovereign restoration services',
-              'Blockchain Provenance — Permanent irrevocable proof of ownership on Polygon',
-              'Concierge Authentication — Direct access to House authentication concierge',
-              'Priority Restock Alerts — First to receive allocation updates before public release',
-            ]).map((priv, i) => {
+            {page.holderPrivileges.map((priv, i) => {
               const [title, ...rest] = priv.split(' — ')
               return (
                 <div key={i} style={{ padding: '22px 24px', border: '1px solid rgba(201,160,84,0.06)', background: 'linear-gradient(90deg, #0c0906 0%, #080603 100%)', display: 'flex', gap: 16, alignItems: 'flex-start' }}>
@@ -774,6 +784,7 @@ function NftCard({ product, story }: { product: Product; story: ParsedStory | nu
           </div>
         </div>
       </section>
+      )}
 
     </div>
   )

@@ -1,1 +1,2 @@
 - [GitHub publishing](github-publishing.md) — the connected GitHub App may show as not_added; secure PAT pushes need GH_TOKEN present for the push command itself.
+- [Product data integrity](product-data-integrity.md) — product pages must derive category, media, pricing, SEO, and passport state from verified data; never invent provenance.

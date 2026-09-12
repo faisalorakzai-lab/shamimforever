@@ -32,6 +32,9 @@
     category?: string
     heroDescription?: string
     acquireCta?: string
+    acquireHeading?: string
+    priceLabel?: string
+    priceCurrencyLabel?: string
     passportAvailable?: boolean
   }
 
