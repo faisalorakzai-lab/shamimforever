@@ -11,6 +11,7 @@ import { SOVEREIGN_CONTRACT_ADDRESS, SOVEREIGN_NETWORK } from '@/lib/sovereign-c
 import CosmeticsProductPage from '@/components/CosmeticsProductPage'
 import JewelryProductPage from '@/components/JewelryProductPage'
 import HimalayanSnowMuskPage from '@/components/HimalayanSnowMuskPage'
+import LaVieEstBelleInspiredPage from '@/components/LaVieEstBelleInspiredPage'
 
 export const revalidate = 300
 
@@ -23,6 +24,10 @@ const HIMALAYAN_CANONICAL_SLUG = 'sf-himalayan-snow-musk'
 const VANILLA_CANONICAL_SLUG = 'sf-sovereign-vanilla-absolute'
 const ROSE_CANONICAL_SLUG = 'eternal-rose-de-taif'
 const MIDNIGHT_CANONICAL_SLUG = 'sf-midnight-iris-royale'
+const LA_VIE_CANONICAL_SLUG = 'la-vie-est-belle-inspired'
+const LA_VIE_SLUGS = new Set(['la-vie-est-belle-inspired'])
+const LA_VIE_TITLE = 'La Vie Est Belle Inspired Perfume | Luxury Floral Gourmand | Shamim Forever'
+const LA_VIE_DESCRIPTION = 'Discover La Vie Est Belle Inspired by Shamim Forever, a refined floral-gourmand fragrance with blackcurrant, pear, iris, jasmine, orange blossom, praline, vanilla, patchouli and tonka bean.'
 const BLOOM_SLUGS = new Set(['shamim-bloom', 'shamims-bloom', 'shamim-bloom-the-sovereign-grace'])
 const HIMALAYAN_SLUGS = new Set(['sf-himalayan-snow-musk', 'himalayan-snow-musk'])
 const BLOOM_TITLE = 'Shamim Bloom — The Sovereign Grace | Luxury Fragrance & Digital Sovereign Passport'
@@ -61,10 +66,15 @@ function isMidnightSlug(slug: string) {
   return slug === 'sf-midnight-iris-royale' || slug === 'midnight-iris-royale'
 }
 
+function isLaVieSlug(slug: string) {
+  return LA_VIE_SLUGS.has(slug)
+}
+
 function canonicalProductSlug(slug: string) {
   if (isBloomSlug(slug)) return BLOOM_CANONICAL_SLUG
   if (isHimalayanSlug(slug)) return HIMALAYAN_CANONICAL_SLUG
   if (isMidnightSlug(slug)) return MIDNIGHT_CANONICAL_SLUG
+  if (isLaVieSlug(slug)) return LA_VIE_CANONICAL_SLUG
   return slug
 }
 
@@ -80,6 +90,24 @@ function productImagePaths(product: Product): string[] {
 function absoluteProductImage(path: string) {
   return path.startsWith('http') ? path : `${BASE_URL}${path}`
 }
+
+const LA_VIE_FALLBACK_PRODUCT = {
+  id: 'e5534810-6c63-4ec8-8ca8-d177b347b725',
+  collection_id: null,
+  main_category_id: 'c513e298-7cb4-4c94-8288-19c6a12eed9b',
+  sub_category_id: 'ab8df629-e022-41d9-a6de-fac63d5680e8',
+  name: 'LA VIE EST BELLE INSPIRED',
+  slug: LA_VIE_CANONICAL_SLUG,
+  description: 'Sweet gourmand floral. Iris, patchouli, vanilla over praline and tonka bean. Joyful and warm.',
+  story: null,
+  price_pkr: 9800,
+  price_usd: 35,
+  inventory: 45,
+  images: ['/products/la-vie-est-belle-inspired/hero.png'],
+  is_featured: false,
+  is_active: true,
+  main_category: { name: 'Perfume' },
+} as unknown as Product
 
 async function getProduct(id: string): Promise<Product | null> {
   const { data: bySlug } = await supabaseAdmin
@@ -110,6 +138,7 @@ async function getProduct(id: string): Promise<Product | null> {
     .select('*, main_category:main_categories(*)')
     .eq('id', id)
     .maybeSingle()
+  if (isLaVieSlug(id)) return LA_VIE_FALLBACK_PRODUCT
   return byId ?? null
 }
 
@@ -135,11 +164,14 @@ export async function generateMetadata({ params }: { params: { id: string } }) {
   const rose = isRoseSlug(product.slug) || isRoseSlug(params.id)
   const himalayan = isHimalayanSlug(product.slug) || isHimalayanSlug(params.id)
   const midnight = isMidnightSlug(product.slug) || isMidnightSlug(params.id)
+  const laVie = isLaVieSlug(product.slug) || isLaVieSlug(params.id)
   const images = productImagePaths(product)
   const productImages = images.length ? images : ['/logo-sf.png']
   const productUrl = `${BASE_URL}/products/${canonicalProductSlug(product.slug)}`
-  const title = bloom ? BLOOM_TITLE : vanilla ? VANILLA_TITLE : himalayan ? HIMALAYAN_TITLE : rose ? ROSE_TITLE : midnight ? MIDNIGHT_TITLE : `${product.name} — Shamim Forever`
-  const desc = bloom
+  const title = laVie ? LA_VIE_TITLE : bloom ? BLOOM_TITLE : vanilla ? VANILLA_TITLE : himalayan ? HIMALAYAN_TITLE : rose ? ROSE_TITLE : midnight ? MIDNIGHT_TITLE : `${product.name} — Shamim Forever`
+  const desc = laVie
+    ? LA_VIE_DESCRIPTION
+    : bloom
     ? BLOOM_DESCRIPTION
     : vanilla
       ? VANILLA_DESCRIPTION
@@ -158,6 +190,7 @@ export async function generateMetadata({ params }: { params: { id: string } }) {
     description: desc,
     keywords: [
       product.name,
+      ...(laVie ? ['La Vie Est Belle Inspired Perfume', 'luxury inspired perfume', 'floral gourmand perfume', 'sweet feminine perfume', 'iris vanilla perfume', 'praline vanilla fragrance', 'blackcurrant pear perfume', 'jasmine orange blossom perfume', 'Shamim Forever perfume'] : []),
       ...(bloom
         ? [
             'Shamim Bloom',
@@ -553,6 +586,15 @@ export default async function ProductDetailPage({
       <>
         <ProductJsonLd product={product} />
         <JewelryProductPage product={product} />
+      </>
+    )
+  }
+
+  if (isLaVieSlug(product.slug) || isLaVieSlug(params.id)) {
+    return (
+      <>
+        <ProductJsonLd product={product} />
+        <LaVieEstBelleInspiredPage product={product} />
       </>
     )
   }

@@ -27,6 +27,7 @@ export const PRODUCT_IMAGE_OVERRIDES: Record<string, string | string[]> = {
           '/products/sf-kyoto-sacred-incense/kyoto-box.png',
         ],
         'sf-imperial-black': '/products/imperial-black-throne/throne-bottle.png',
+        'la-vie-est-belle-inspired': '/products/la-vie-est-belle-inspired/hero.png',
         'dior-sauvage-inspired': '/images/products/dior-sauvage.png',
         'creed-aventus-inspired': 'https://uvgtgeauhjbdatrmmaob.supabase.co/storage/v1/object/public/products/guest-curation/male/creed-aventus.png',
         'velvet-orchid-noir': '/products/tom-ford-velvet-orchid/hero.png',
