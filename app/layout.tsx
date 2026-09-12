@@ -448,31 +448,6 @@ import { CartProvider } from '@/lib/cart-context'
               type="application/ld+json"
               dangerouslySetInnerHTML={{ __html: JSON.stringify(richJsonLd) }}
             />
-            {/* Product Schema — Shamim Forever Royal Blue Sapphire Set */}
-            <script
-              type="application/ld+json"
-              dangerouslySetInnerHTML={{ __html: JSON.stringify({
-                "@context": "https://schema.org",
-                "@type": "Product",
-                "name": "Shamim Forever Royal Blue Sapphire Set",
-                "image": ["https://www.shamimforever.com/images/sapphire-set.jpg"],
-                "description": "Museum-grade bespoke sapphire jewelry structured with automated Polygon smart contracts for immutable ownership verification and high-end cryptographic provenance.",
-                "sku": "SF-SAPPHIRE-001",
-                "mpn": "981245",
-                "brand": { "@type": "Brand", "name": "Shamim Forever" },
-                "offers": {
-                  "@type": "Offer",
-                  "url": "https://www.shamimforever.com/products/sapphire-set",
-                  "priceCurrency": "USD",
-                  "price": "15000.00",
-                  "priceValidUntil": "2028-12-31",
-                  "itemCondition": "https://schema.org/NewCondition",
-                  "availability": "https://schema.org/InStock",
-                  "seller": { "@type": "Organization", "name": "Shamim Forever" }
-                }
-              }) }}
-            />
-
               {/* BreadcrumbList — Site Structure for Google Sitelinks */}
               <script
                 type="application/ld+json"
