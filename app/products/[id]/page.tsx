@@ -12,6 +12,7 @@ import CosmeticsProductPage from '@/components/CosmeticsProductPage'
 import JewelryProductPage from '@/components/JewelryProductPage'
 import HimalayanSnowMuskPage from '@/components/HimalayanSnowMuskPage'
 import LaVieEstBelleInspiredPage from '@/components/LaVieEstBelleInspiredPage'
+import { LA_VIE_DESCRIPTION, LA_VIE_FAQS, LA_VIE_TITLE } from '@/lib/la-vie-est-belle'
 
 export const revalidate = 300
 
@@ -26,8 +27,6 @@ const ROSE_CANONICAL_SLUG = 'eternal-rose-de-taif'
 const MIDNIGHT_CANONICAL_SLUG = 'sf-midnight-iris-royale'
 const LA_VIE_CANONICAL_SLUG = 'la-vie-est-belle-inspired'
 const LA_VIE_SLUGS = new Set(['la-vie-est-belle-inspired'])
-const LA_VIE_TITLE = 'La Vie Est Belle Inspired Perfume | Luxury Floral Gourmand | Shamim Forever'
-const LA_VIE_DESCRIPTION = 'Discover La Vie Est Belle Inspired by Shamim Forever, a refined floral-gourmand fragrance with blackcurrant, pear, iris, jasmine, orange blossom, praline, vanilla, patchouli and tonka bean.'
 const BLOOM_SLUGS = new Set(['shamim-bloom', 'shamims-bloom', 'shamim-bloom-the-sovereign-grace'])
 const HIMALAYAN_SLUGS = new Set(['sf-himalayan-snow-musk', 'himalayan-snow-musk'])
 const BLOOM_TITLE = 'Shamim Bloom — The Sovereign Grace | Luxury Fragrance & Digital Sovereign Passport'
@@ -142,6 +141,22 @@ async function getProduct(id: string): Promise<Product | null> {
   return byId ?? null
 }
 
+async function getRelatedProducts(product: Product): Promise<Array<Pick<Product, 'id' | 'name' | 'slug' | 'price_usd' | 'images'>>> {
+  try {
+    let query = supabaseAdmin
+      .from('products')
+      .select('id, name, slug, price_usd, images')
+      .eq('is_active', true)
+      .neq('slug', product.slug)
+      .limit(3)
+    if (product.main_category_id) query = query.eq('main_category_id', product.main_category_id)
+    const { data } = await query
+    return (data ?? []) as Array<Pick<Product, 'id' | 'name' | 'slug' | 'price_usd' | 'images'>>
+  } catch {
+    return []
+  }
+}
+
 /** Pre-render active products, then refresh them with ISR. */
 export async function generateStaticParams() {
   try {
@@ -186,7 +201,7 @@ export async function generateMetadata({ params }: { params: { id: string } }) {
         : `${product.name} — sovereign luxury creation by Shamim Forever. Shop online in Pakistan & worldwide.`
 
   return {
-    title,
+    title: laVie ? { absolute: LA_VIE_TITLE } : title,
     description: desc,
     keywords: [
       product.name,
@@ -254,15 +269,18 @@ function ProductJsonLd({ product }: { product: Product }) {
   const rose = isRoseSlug(product.slug)
   const himalayan = isHimalayanSlug(product.slug)
   const midnight = isMidnightSlug(product.slug)
+  const laVie = isLaVieSlug(product.slug)
   const productImages = productImagePaths(product).map(absoluteProductImage)
   const images = productImages.length ? productImages : [`${BASE_URL}/logo-sf.png`]
   const productUrl = `${BASE_URL}/products/${canonicalProductSlug(product.slug)}`
-  const isSovereign = SOVEREIGN_SLUGS.includes(product.slug) || himalayan || rose || midnight
+  const isSovereign = !laVie && (SOVEREIGN_SLUGS.includes(product.slug) || himalayan || rose || midnight)
   const priceValidUntil = new Date(Date.now() + 90 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]
   const priceUsd = himalayan ? 259 : midnight ? 223 : Number(product.price_usd ?? (bloom ? 270 : 0))
   const pricePkr = himalayan ? 72000 : midnight ? 62000 : Number(product.price_pkr ?? (bloom ? 75000 : 0))
-  const displayName = bloom ? 'Shamim Bloom — The Sovereign Grace' : vanilla ? 'SF Sovereign Vanilla Absolute' : himalayan ? 'SF Himalayan Snow Musk' : rose ? 'Eternal Rose de Taif' : midnight ? 'SF Midnight Iris Royale' : product.name
-  const displayDescription = bloom
+  const displayName = laVie ? 'La Vie Est Belle Inspired' : bloom ? 'Shamim Bloom — The Sovereign Grace' : vanilla ? 'SF Sovereign Vanilla Absolute' : himalayan ? 'SF Himalayan Snow Musk' : rose ? 'Eternal Rose de Taif' : midnight ? 'SF Midnight Iris Royale' : product.name
+  const displayDescription = laVie
+    ? LA_VIE_DESCRIPTION
+    : bloom
     ? BLOOM_DESCRIPTION
     : vanilla
       ? VANILLA_DESCRIPTION
@@ -404,7 +422,17 @@ function ProductJsonLd({ product }: { product: Product }) {
     ],
   }
 
-  const faq = bloom
+  const faq = laVie
+    ? {
+        '@type': 'FAQPage',
+        '@id': `${productUrl}#faq`,
+        mainEntity: LA_VIE_FAQS.map(([name, text]) => ({
+          '@type': 'Question',
+          name,
+          acceptedAnswer: { '@type': 'Answer', text },
+        })),
+      }
+    : bloom
     ? {
         '@type': 'FAQPage',
         '@id': `${productUrl}#faq`,
@@ -571,6 +599,7 @@ export default async function ProductDetailPage({
   const product = imageOverride
     ? { ...resolvedProduct, images: Array.isArray(imageOverride) ? [...imageOverride] : [imageOverride] }
     : resolvedProduct
+  const relatedProducts = isLaVieSlug(params.id) || isLaVieSlug(product.slug) ? await getRelatedProducts(product) : []
 
   if (isHimalayanSlug(params.id) || isHimalayanSlug(product.slug)) {
     return (
@@ -594,7 +623,7 @@ export default async function ProductDetailPage({
     return (
       <>
         <ProductJsonLd product={product} />
-        <LaVieEstBelleInspiredPage product={product} />
+        <LaVieEstBelleInspiredPage product={product} relatedProducts={relatedProducts} />
       </>
     )
   }
