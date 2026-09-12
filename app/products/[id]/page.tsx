@@ -13,11 +13,14 @@ import JewelryProductPage from '@/components/JewelryProductPage'
 import HimalayanSnowMuskPage from '@/components/HimalayanSnowMuskPage'
 import LaVieEstBelleInspiredPage from '@/components/LaVieEstBelleInspiredPage'
 import { LA_VIE_DESCRIPTION, LA_VIE_FAQS, LA_VIE_TITLE } from '@/lib/la-vie-est-belle'
+import EdenKnowledgeSections from '@/components/EdenKnowledgeSections'
+import { EDEN_DESCRIPTION, EDEN_FAQS, EDEN_KEYWORDS, EDEN_PRODUCT_DATA, EDEN_SLUG, EDEN_TITLE, EDEN_VIDEO_PATH } from '@/lib/eden-juicy-apple'
 
 export const revalidate = 300
 
 const BASE_URL = 'https://www.shamimforever.com'
 const SOVEREIGN_SLUGS = Object.keys(SOVEREIGN_CONFIGS)
+const EDEN_SLUGS = new Set([EDEN_SLUG])
 const COSMETICS_CATEGORY_ID = '22226324-4789-419d-a9e2-f763df2d24f1'
 const JEWELRY_CATEGORY_ID = 'e291b9af-a637-45da-a2df-d39f2e72e53c'
 const BLOOM_CANONICAL_SLUG = 'shamim-bloom'
@@ -44,6 +47,10 @@ const HIMALAYAN_DESCRIPTION =
 const MIDNIGHT_TITLE = 'SF Midnight Iris Royale — Luxury Iris Perfume & Sovereign Digital Passport | Shamim Forever'
 const MIDNIGHT_DESCRIPTION =
   'Discover SF Midnight Iris Royale, a sovereign feminine fragrance by Shamim Forever built around deep orris root, violet leaf, purple iris and powdery sandalwood, with a Polygon-based Digital Sovereign Passport.'
+
+function isEdenSlug(slug: string) {
+  return EDEN_SLUGS.has(slug)
+}
 
 function isBloomSlug(slug: string) {
   return BLOOM_SLUGS.has(slug)
@@ -108,13 +115,17 @@ const LA_VIE_FALLBACK_PRODUCT = {
   main_category: { name: 'Perfume' },
 } as unknown as Product
 
+function applyEdenProductData(product: Product): Product {
+  return isEdenSlug(product.slug) ? ({ ...product, ...EDEN_PRODUCT_DATA } as Product) : product
+}
+
 async function getProduct(id: string): Promise<Product | null> {
   const { data: bySlug } = await supabaseAdmin
     .from('products')
     .select('*, main_category:main_categories(*)')
     .eq('slug', id)
     .maybeSingle()
-  if (bySlug) return bySlug
+  if (bySlug) return applyEdenProductData(bySlug as Product)
 
   if (isBloomSlug(id) || isHimalayanSlug(id) || isMidnightSlug(id)) {
     const aliases = isHimalayanSlug(id)
@@ -138,7 +149,7 @@ async function getProduct(id: string): Promise<Product | null> {
     .eq('id', id)
     .maybeSingle()
   if (isLaVieSlug(id)) return LA_VIE_FALLBACK_PRODUCT
-  return byId ?? null
+  return byId ? applyEdenProductData(byId as Product) : null
 }
 
 async function getRelatedProducts(product: Product): Promise<Array<Pick<Product, 'id' | 'name' | 'slug' | 'price_usd' | 'images'>>> {
@@ -179,12 +190,15 @@ export async function generateMetadata({ params }: { params: { id: string } }) {
   const rose = isRoseSlug(product.slug) || isRoseSlug(params.id)
   const himalayan = isHimalayanSlug(product.slug) || isHimalayanSlug(params.id)
   const midnight = isMidnightSlug(product.slug) || isMidnightSlug(params.id)
+  const eden = isEdenSlug(product.slug) || isEdenSlug(params.id)
   const laVie = isLaVieSlug(product.slug) || isLaVieSlug(params.id)
   const images = productImagePaths(product)
   const productImages = images.length ? images : ['/logo-sf.png']
   const productUrl = `${BASE_URL}/products/${canonicalProductSlug(product.slug)}`
-  const title = laVie ? LA_VIE_TITLE : bloom ? BLOOM_TITLE : vanilla ? VANILLA_TITLE : himalayan ? HIMALAYAN_TITLE : rose ? ROSE_TITLE : midnight ? MIDNIGHT_TITLE : `${product.name} — Shamim Forever`
-  const desc = laVie
+  const title = eden ? EDEN_TITLE : laVie ? LA_VIE_TITLE : bloom ? BLOOM_TITLE : vanilla ? VANILLA_TITLE : himalayan ? HIMALAYAN_TITLE : rose ? ROSE_TITLE : midnight ? MIDNIGHT_TITLE : `${product.name} — Shamim Forever`
+  const desc = eden
+    ? EDEN_DESCRIPTION
+    : laVie
     ? LA_VIE_DESCRIPTION
     : bloom
     ? BLOOM_DESCRIPTION
@@ -205,6 +219,7 @@ export async function generateMetadata({ params }: { params: { id: string } }) {
     description: desc,
     keywords: [
       product.name,
+      ...(eden ? EDEN_KEYWORDS : []),
       ...(laVie ? ['La Vie Est Belle Inspired Perfume', 'luxury inspired perfume', 'floral gourmand perfume', 'sweet feminine perfume', 'iris vanilla perfume', 'praline vanilla fragrance', 'blackcurrant pear perfume', 'jasmine orange blossom perfume', 'Shamim Forever perfume'] : []),
       ...(bloom
         ? [
@@ -269,16 +284,19 @@ function ProductJsonLd({ product }: { product: Product }) {
   const rose = isRoseSlug(product.slug)
   const himalayan = isHimalayanSlug(product.slug)
   const midnight = isMidnightSlug(product.slug)
+  const eden = isEdenSlug(product.slug)
   const laVie = isLaVieSlug(product.slug)
   const productImages = productImagePaths(product).map(absoluteProductImage)
   const images = productImages.length ? productImages : [`${BASE_URL}/logo-sf.png`]
   const productUrl = `${BASE_URL}/products/${canonicalProductSlug(product.slug)}`
-  const isSovereign = !laVie && (SOVEREIGN_SLUGS.includes(product.slug) || himalayan || rose || midnight)
+  const isSovereign = !laVie && !eden && (SOVEREIGN_SLUGS.includes(product.slug) || himalayan || rose || midnight)
   const priceValidUntil = new Date(Date.now() + 90 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]
-  const priceUsd = himalayan ? 259 : midnight ? 223 : Number(product.price_usd ?? (bloom ? 270 : 0))
-  const pricePkr = himalayan ? 72000 : midnight ? 62000 : Number(product.price_pkr ?? (bloom ? 75000 : 0))
-  const displayName = laVie ? 'La Vie Est Belle Inspired' : bloom ? 'Shamim Bloom — The Sovereign Grace' : vanilla ? 'SF Sovereign Vanilla Absolute' : himalayan ? 'SF Himalayan Snow Musk' : rose ? 'Eternal Rose de Taif' : midnight ? 'SF Midnight Iris Royale' : product.name
-  const displayDescription = laVie
+  const priceUsd = eden ? 190 : himalayan ? 259 : midnight ? 223 : Number(product.price_usd ?? (bloom ? 270 : 0))
+  const pricePkr = eden ? 52820 : himalayan ? 72000 : midnight ? 62000 : Number(product.price_pkr ?? (bloom ? 75000 : 0))
+  const displayName = eden ? 'SF EDEN JUICY APPLE INSPIRED' : laVie ? 'La Vie Est Belle Inspired' : bloom ? 'Shamim Bloom — The Sovereign Grace' : vanilla ? 'SF Sovereign Vanilla Absolute' : himalayan ? 'SF Himalayan Snow Musk' : rose ? 'Eternal Rose de Taif' : midnight ? 'SF Midnight Iris Royale' : product.name
+  const displayDescription = eden
+    ? EDEN_DESCRIPTION
+    : laVie
     ? LA_VIE_DESCRIPTION
     : bloom
     ? BLOOM_DESCRIPTION
@@ -422,7 +440,12 @@ function ProductJsonLd({ product }: { product: Product }) {
     ],
   }
 
-  const faq = laVie
+  const faq = eden
+    ? {
+        '@type': 'FAQPage',
+        mainEntity: EDEN_FAQS.map(([name, text]) => ({ '@type': 'Question', name, acceptedAnswer: { '@type': 'Answer', text } })),
+      }
+    : laVie
     ? {
         '@type': 'FAQPage',
         '@id': `${productUrl}#faq`,
@@ -522,7 +545,19 @@ function ProductJsonLd({ product }: { product: Product }) {
                 }
               : null
 
-  const video = bloom
+  const video = eden
+    ? {
+        '@type': 'VideoObject',
+        name: 'The Eden Film — SF Eden Juicy Apple Inspired',
+        description: EDEN_DESCRIPTION,
+        thumbnailUrl: images[0],
+        contentUrl: `${BASE_URL}${EDEN_VIDEO_PATH}`,
+        uploadDate: '2026-09-12',
+        duration: 'PT8S',
+        inLanguage: 'en',
+        isFamilyFriendly: true,
+      }
+    : bloom
     ? {
         '@type': 'VideoObject',
         name: 'Shamim Bloom — Official Product Film',
@@ -633,6 +668,7 @@ export default async function ProductDetailPage({
       <>
         <ProductJsonLd product={product} />
         <SovereignProductPage product={product} />
+        {isEdenSlug(product.slug) && <EdenKnowledgeSections product={product} />}
       </>
     )
   }

@@ -30,6 +30,9 @@
     modelPath?: string
     videoPath?: string
     category?: string
+    heroDescription?: string
+    acquireCta?: string
+    passportAvailable?: boolean
   }
 
   // ── ARCHIVE I — SHAMIM BLOOM ────────────────────────────────────────────────
@@ -6473,7 +6476,53 @@
     category: 'Perfume · Heritage Archive',
   }
 
-export const SOVEREIGN_CONFIGS: Record<string, SovereignConfig> = {
+const EDEN_JUICY_APPLE_CONFIG: SovereignConfig = {
+      heroTitle: 'SF EDEN JUICY APPLE INSPIRED',
+      heroSubtitle: 'Perfume · Inspired Collection',
+      heroTagline: 'Perfume · House of Shamim',
+      heroDescription: 'A vibrant expression of juicy fruit, luminous florals and sensual warmth.',
+      acquireCta: 'Acquire Your Creation',
+    acquireHeading: 'Acquire SF Eden Juicy Apple Inspired',
+    priceLabel: 'Product Price',
+    priceCurrencyLabel: 'USD',
+      legacyStatement: 'Juicy optimism, captured in a House of Shamim creation.',
+      legacyVoice: 'SF Eden Juicy Apple Inspired is playful, vibrant and mouthwatering by design: a bright red-apple opening, a luminous fruity-floral heart and a soft, warm, sensual foundation. It is a distinct Shamim Forever interpretation within the Inspired Collection.',
+      topNotes: ['Juicy Red Apple', 'Blackcurrant', 'Pink Grapefruit', 'Lychee'],
+      heartNotes: ['Wild Berries', 'Raspberry Blossom', 'Jasmine', 'Rose Centifolia'],
+      baseNotes: ['Vanilla Flower', 'Sugared Moss', 'Sensual Musk', 'Amber'],
+      specs: [
+        { label: 'Product', value: 'SF Eden Juicy Apple Inspired' },
+        { label: 'Category', value: 'Perfume · Inspired Collection' },
+        { label: 'Fragrance Family', value: 'Fruity Floral' },
+        { label: 'Key Character', value: 'Juicy · Vibrant · Playful · Sensual' },
+        { label: 'Allocation Price', value: '$190 USD' },
+        { label: 'Digital Passport', value: 'Not currently verified for this product' },
+        { label: 'Edition', value: 'House Allocation Reserve' },
+        { label: 'Rarity', value: 'Heritage Archive' },
+        { label: 'Availability', value: 'Limited House allocation · subject to current inventory' },
+      ],
+      nftTitle: 'SF Eden Juicy Apple Inspired',
+      nftEdition: 'House Allocation Reserve',
+      nftRarity: 'NOT CURRENTLY VERIFIED',
+      nftTraits: [
+        { trait: 'Category', value: 'Perfume' },
+        { trait: 'Collection', value: 'Inspired Collection' },
+        { trait: 'Digital Record', value: 'Not currently verified' },
+      ],
+      heroImage: '/products/eden-juicy-apple-inspired/eden-juicy-apple-inspired-hero.jpg',
+      galleryImages: [
+        '/products/eden-juicy-apple-inspired/eden-juicy-apple-inspired-hero.jpg',
+        '/products/eden-juicy-apple-inspired/eden-juicy-apple-inspired-close.jpg',
+        '/products/eden-juicy-apple-inspired/eden-juicy-apple-inspired-heart.jpg',
+        '/products/eden-juicy-apple-inspired/eden-juicy-apple-inspired-finish.jpg',
+      ],
+      videoPath: '/products/eden-juicy-apple-inspired/eden-juicy-apple-inspired.mp4',
+      category: 'Perfume · Inspired Collection',
+      passportAvailable: false,
+    }
+
+    export const SOVEREIGN_CONFIGS: Record<string, SovereignConfig> = {
+    'floral-bouquet-royale': EDEN_JUICY_APPLE_CONFIG,
     'eternal-rose-de-taif': SOVEREIGN_ETERNAL_ROSE_DE_TAIF_CONFIG,
     'sf-sovereign-vanilla-absolute': SOVEREIGN_VANILLA_ABSOLUTE_CONFIG,
 

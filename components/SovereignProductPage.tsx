@@ -626,7 +626,7 @@ export default function SovereignProductPage({ product }: { product: Product }) 
   )
 
   const images = (config.galleryImages?.length > 0 ? config.galleryImages : product.images) || []
-  const finalPkr = product.price_pkr * quantity
+  const finalPkr = product.price_usd * (liveRates.PKR || 278) * quantity
 
   return (
     <div style={{ background: '#080808', minHeight: '100vh' }}>
@@ -720,17 +720,18 @@ export default function SovereignProductPage({ product }: { product: Product }) 
                 </div>
               )}
               <p style={{ fontFamily: SERIF, fontStyle: 'italic', fontSize: 'clamp(1rem,3vw,1.5rem)', color: 'rgba(240,236,228,0.6)', marginBottom: 8 }}>{config.heroSubtitle}</p>
-              <p style={{ fontSize: 9, letterSpacing: '0.32em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.28)', marginBottom: 32 }}>Love does not fade — it blooms into eternity</p>
+              <p style={{ fontSize: 9, letterSpacing: '0.32em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.28)', marginBottom: 32 }}>{config.heroDescription ?? 'Love does not fade — it blooms into eternity'}</p>
               <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'center', gap: 18, marginBottom: 20, flexWrap: 'wrap' }}>
                 <span style={{ fontFamily: SERIF, fontSize: 'clamp(2rem,6vw,2.8rem)', fontWeight: 300, color: '#f8f4ee' }}>${product.price_usd} <span style={{ fontSize: '0.4em', letterSpacing: '0.35em', color: '#c9a054' }}>USD</span></span>
                 <span style={{ fontSize: 11, letterSpacing: '0.15em', color: 'rgba(201,160,84,0.32)' }}>{formatPKR(finalPkr)}</span>
               </div>
-              <div style={{ display: 'inline-flex', alignItems: 'center', gap: 10, border: '1px solid rgba(201,160,84,0.22)', padding: '10px 24px', marginBottom: 36, background: 'rgba(201,160,84,0.04)' }}>
+              {config.passportAvailable !== false && (
+                <div style={{ display: 'inline-flex', alignItems: 'center', gap: 10, border: '1px solid rgba(201,160,84,0.22)', padding: '10px 24px', marginBottom: 36, background: 'rgba(201,160,84,0.04)' }}>
                 <div style={{ width: 6, height: 6, borderRadius: '50%', background: '#c9a054', flexShrink: 0 }} />
                 <p style={{ fontSize: 7, letterSpacing: '0.45em', textTransform: 'uppercase', color: '#c9a054', margin: 0 }}>NFT Sovereign Passport · Polygon Mainnet</p>
-              </div>
+              </div>)}
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: 14, justifyContent: 'center' }}>
-                <a href="#acquire" className="group" style={{ position: 'relative', overflow: 'hidden', padding: '15px 40px', fontSize: 8, letterSpacing: '0.7em', textTransform: 'uppercase', color: '#050202', display: 'inline-block', textDecoration: 'none', background: 'linear-gradient(135deg, #c9a054 0%, #b8860b 100%)', fontWeight: 600 }}>Acquire Archive I</a>
+                <a href="#acquire" className="group" style={{ position: 'relative', overflow: 'hidden', padding: '15px 40px', fontSize: 8, letterSpacing: '0.7em', textTransform: 'uppercase', color: '#050202', display: 'inline-block', textDecoration: 'none', background: 'linear-gradient(135deg, #c9a054 0%, #b8860b 100%)', fontWeight: 600 }}>{config.acquireCta ?? 'Acquire Archive I'}</a>
                 <a href="#legacy" style={{ padding: '15px 40px', border: '1px solid rgba(201,160,84,0.35)', fontSize: 8, letterSpacing: '0.7em', textTransform: 'uppercase', color: '#c9a054', display: 'inline-block', textDecoration: 'none' }} onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = 'rgba(201,160,84,0.08)' }} onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = 'transparent' }}>Explore Archive</a>
               </div>
             </motion.div>
@@ -742,13 +743,13 @@ export default function SovereignProductPage({ product }: { product: Product }) 
         <div style={{ maxWidth: 680, margin: '0 auto', padding: '0 clamp(16px,4vw,24px)' }}>
           <div className="s-reveal" style={{ textAlign: 'center', marginBottom: 48 }}>
             <p style={{ fontSize: 7, letterSpacing: '0.9em', textTransform: 'uppercase', color: '#c9a054', marginBottom: 12 }}>Acquisition</p>
-            <h2 style={{ fontFamily: SERIF, fontSize: 'clamp(2.4rem,6vw,5rem)', fontWeight: 300, color: '#f0ece4', letterSpacing: '0.05em' }}>Claim Your Sovereign</h2>
+            <h2 style={{ fontFamily: SERIF, fontSize: 'clamp(2.4rem,6vw,5rem)', fontWeight: 300, color: '#f0ece4', letterSpacing: '0.05em' }}>{config.acquireHeading ?? 'Claim Your Sovereign'}</h2>
           </div>
 
           <div className="s-reveal">
             <div style={{ textAlign: 'center', padding: 'clamp(20px,4vw,32px) 24px', border: '1px solid rgba(201,160,84,0.12)', background: 'linear-gradient(135deg, #0e0a04 0%, #0a0703 100%)', marginBottom: 2 }}>
-              <p style={{ fontSize: 7, letterSpacing: '0.5em', textTransform: 'uppercase', color: '#3f3830', marginBottom: 12 }}>Sovereign Allocation Price</p>
-              <p style={{ fontFamily: SERIF, fontSize: 'clamp(2rem,7vw,4.5rem)', fontWeight: 300, color: '#f8f4ee', lineHeight: 1 }}>${(product.price_usd * quantity).toFixed(0)} <span style={{ fontSize: '0.4em', letterSpacing: '0.3em', color: '#c9a054' }}>USDT</span></p>
+              <p style={{ fontSize: 7, letterSpacing: '0.5em', textTransform: 'uppercase', color: '#3f3830', marginBottom: 12 }}>{config.priceLabel ?? 'Sovereign Allocation Price'}</p>
+              <p style={{ fontFamily: SERIF, fontSize: 'clamp(2rem,7vw,4.5rem)', fontWeight: 300, color: '#f8f4ee', lineHeight: 1 }}>${(product.price_usd * quantity).toFixed(0)} <span style={{ fontSize: '0.4em', letterSpacing: '0.3em', color: '#c9a054' }}>{config.priceCurrencyLabel ?? 'USDT'}</span></p>
               <div style={{ display: 'flex', gap: 14, justifyContent: 'center', flexWrap: 'wrap', marginTop: 8 }}>
                 {(['PKR','INR','AED','SAR'] as const).map(cur => (
                   <span key={cur} style={{ fontSize: 10, letterSpacing: '0.15em', color: 'rgba(201,160,84,0.38)' }}>{cur} {Math.round(product.price_usd * quantity * (liveRates[cur]||1)).toLocaleString()}</span>
@@ -963,7 +964,7 @@ export default function SovereignProductPage({ product }: { product: Product }) 
       )}
 
       {/* DIGITAL SOVEREIGN PASSPORT */}
-      <section style={{ padding: 'clamp(56px,8vw,100px) 0', position: 'relative', background: 'linear-gradient(180deg, #030303 0%, #060510 50%, #030303 100%)' }}>
+      {config.passportAvailable !== false && (<section style={{ padding: 'clamp(56px,8vw,100px) 0', position: 'relative', background: 'linear-gradient(180deg, #030303 0%, #060510 50%, #030303 100%)' }}>
         <div style={{ maxWidth: 1100, margin: '0 auto', padding: '0 clamp(20px,4vw,24px)' }}>
           <div className="s-reveal" style={{ textAlign: 'center', marginBottom: 60 }}>
             <p style={{ fontSize: 7, letterSpacing: '0.9em', textTransform: 'uppercase', color: 'rgba(130,71,229,0.6)', marginBottom: 12 }}>Polygon · Blockchain Identity</p>
@@ -1071,7 +1072,7 @@ export default function SovereignProductPage({ product }: { product: Product }) 
             </div>
           </div>
         </div>
-      </section>
+      </section>)}
 
 
         {/* HOLDER PRIVILEGES */}

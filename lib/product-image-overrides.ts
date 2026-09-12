@@ -1,4 +1,10 @@
 export const PRODUCT_IMAGE_OVERRIDES: Record<string, string | string[]> = {
+        'floral-bouquet-royale': [
+          '/products/eden-juicy-apple-inspired/eden-juicy-apple-inspired-hero.jpg',
+          '/products/eden-juicy-apple-inspired/eden-juicy-apple-inspired-close.jpg',
+          '/products/eden-juicy-apple-inspired/eden-juicy-apple-inspired-heart.jpg',
+          '/products/eden-juicy-apple-inspired/eden-juicy-apple-inspired-finish.jpg',
+        ],
         // Restored original catalogue media for the current Supabase catalogue.
         'sf-oud-sovereign': 'https://uvgtgeauhjbdatrmmaob.supabase.co/storage/v1/object/public/products/perfumes/oud-sovereign-new.png',
         'sf-himalayan-snow-musk': 'https://uvgtgeauhjbdatrmmaob.supabase.co/storage/v1/object/public/products/perfumes/himalayan-snow-musk.png',
@@ -92,6 +98,7 @@ export const PRODUCT_IMAGE_OVERRIDES: Record<string, string | string[]> = {
       }
 
       export const PRODUCT_VIDEO_OVERRIDES: Record<string, string> = {
+        'floral-bouquet-royale': '/products/eden-juicy-apple-inspired/eden-juicy-apple-inspired.mp4',
         'eternal-rose-de-taif': '/products/eternal-rose-de-taif/eternal-rose-de-taif.mp4',
         'sf-sovereign-vanilla-absolute': '/products/sf-sovereign-vanilla-absolute/vanilla-absolute.mp4',
         'shamim-bloom': '/products/shamims-bloom/shamim-bloom-hero.mp4',
