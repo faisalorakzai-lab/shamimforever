@@ -144,7 +144,7 @@ export async function GET() {
     const imageStatus = await probeAsset(product.images?.find(Boolean) || null)
     const video = productVideo(product)
     const rawVideoStatus = await probeAsset(video)
-    const videoStatus = video ? rawVideoStatus : 'not-provided'
+    const videoStatus: ProductAudit['videoStatus'] = video ? (rawVideoStatus === 'present' ? 'present' : 'broken') : 'not-provided'
     const issues = [...row.issues]
     if (imageStatus === 'broken') issues.push('Hero image failed to load')
     if (imageStatus === 'missing' && !issues.includes('Missing hero image')) issues.push('Hero image is missing')
