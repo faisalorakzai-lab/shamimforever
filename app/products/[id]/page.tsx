@@ -49,6 +49,28 @@ const MIDNIGHT_TITLE = 'SF Midnight Iris Royale — Luxury Iris Perfume & Sovere
 const MIDNIGHT_DESCRIPTION =
   'Discover SF Midnight Iris Royale, a sovereign feminine fragrance by Shamim Forever built around deep orris root, violet leaf, purple iris and powdery sandalwood, with a Polygon-based Digital Sovereign Passport.'
 
+type ProductStoryRecord = Record<string, unknown>
+
+function parseProductStory(story: Product['story']): ProductStoryRecord {
+  if (!story) return {}
+  try {
+    const parsed: unknown = typeof story === 'string' ? JSON.parse(story) : story
+    return parsed && typeof parsed === 'object' && !Array.isArray(parsed) ? parsed as ProductStoryRecord : {}
+  } catch {
+    return {}
+  }
+}
+
+function storyString(record: ProductStoryRecord, key: string): string | undefined {
+  const value = record[key]
+  return typeof value === 'string' && value.trim() ? value.trim() : undefined
+}
+
+function storyStringArray(record: ProductStoryRecord, key: string): string[] {
+  const value = record[key]
+  return Array.isArray(value) ? value.filter((item): item is string => typeof item === 'string' && item.trim().length > 0) : []
+}
+
 function isEdenSlug(slug: string) {
   return EDEN_SLUGS.has(slug)
 }
@@ -186,6 +208,10 @@ export async function generateMetadata({ params }: { params: { id: string } }) {
   const product = await getProduct(params.id)
   if (!product) return { title: 'Product Not Found — Shamim Forever' }
 
+  const story = parseProductStory(product.story)
+  const customSeo = story.seo && typeof story.seo === 'object' && !Array.isArray(story.seo)
+    ? story.seo as ProductStoryRecord
+    : {}
   const bloom = isBloomSlug(product.slug) || isBloomSlug(params.id)
   const vanilla = isVanillaSlug(product.slug) || isVanillaSlug(params.id)
   const rose = isRoseSlug(product.slug) || isRoseSlug(params.id)
@@ -196,8 +222,8 @@ export async function generateMetadata({ params }: { params: { id: string } }) {
   const images = productImagePaths(product)
   const productImages = images.length ? images : ['/logo-sf.png']
   const productUrl = `${BASE_URL}/products/${canonicalProductSlug(product.slug)}`
-  const title = eden ? EDEN_TITLE : laVie ? LA_VIE_TITLE : bloom ? BLOOM_TITLE : vanilla ? VANILLA_TITLE : himalayan ? HIMALAYAN_TITLE : rose ? ROSE_TITLE : midnight ? MIDNIGHT_TITLE : `${product.name} — Shamim Forever`
-  const desc = eden
+  const title = storyString(customSeo, 'title') || (eden ? EDEN_TITLE : laVie ? LA_VIE_TITLE : bloom ? BLOOM_TITLE : vanilla ? VANILLA_TITLE : himalayan ? HIMALAYAN_TITLE : rose ? ROSE_TITLE : midnight ? MIDNIGHT_TITLE : `${product.name} — Shamim Forever`)
+  const desc = storyString(customSeo, 'description') || (eden
     ? EDEN_DESCRIPTION
     : laVie
     ? LA_VIE_DESCRIPTION
@@ -213,13 +239,15 @@ export async function generateMetadata({ params }: { params: { id: string } }) {
             ? MIDNIGHT_DESCRIPTION
             : product.description
         ? product.description.slice(0, 160)
-        : `${product.name} — sovereign luxury creation by Shamim Forever. Shop online in Pakistan & worldwide.`
+        : `${product.name} — sovereign luxury creation by Shamim Forever. Shop online in Pakistan & worldwide.`)
+  const customKeywords = storyStringArray(customSeo, 'keywords')
 
   return {
     title: laVie ? { absolute: LA_VIE_TITLE } : title,
     description: desc,
     keywords: [
       product.name,
+      ...customKeywords,
       ...(eden ? EDEN_KEYWORDS : []),
       ...(laVie ? ['La Vie Est Belle Inspired Perfume', 'luxury inspired perfume', 'floral gourmand perfume', 'sweet feminine perfume', 'iris vanilla perfume', 'praline vanilla fragrance', 'blackcurrant pear perfume', 'jasmine orange blossom perfume', 'Shamim Forever perfume'] : []),
       ...(bloom
@@ -252,7 +280,7 @@ export async function generateMetadata({ params }: { params: { id: string } }) {
     ],
     alternates: { canonical: productUrl },
     openGraph: {
-      title,
+      title: storyString(customSeo, 'og_title') || title,
       description: desc,
       url: productUrl,
       siteName: 'Shamim Forever',
@@ -272,14 +300,29 @@ export async function generateMetadata({ params }: { params: { id: string } }) {
     },
     twitter: {
       card: 'summary_large_image',
-      title,
-      description: desc,
+      title: storyString(customSeo, 'twitter_title') || title,
+      description: storyString(customSeo, 'twitter_description') || desc,
       images: productImages.slice(0, 4).map(absoluteProductImage),
     },
   }
 }
 
 function ProductJsonLd({ product }: { product: Product }) {
+  const story = parseProductStory(product.story)
+  const storyFaq = Array.isArray(story.faq)
+    ? story.faq.flatMap((item) => {
+        if (!item || typeof item !== 'object' || Array.isArray(item)) return []
+        const entry = item as ProductStoryRecord
+        const question = storyString(entry, 'question')
+        const answer = storyString(entry, 'answer')
+        return question && answer
+          ? [{ '@type': 'Question', name: question, acceptedAnswer: { '@type': 'Answer', text: answer } }]
+          : []
+      })
+    : []
+  const storySeo = story.seo && typeof story.seo === 'object' && !Array.isArray(story.seo)
+    ? story.seo as ProductStoryRecord
+    : {}
   const bloom = isBloomSlug(product.slug)
   const vanilla = isVanillaSlug(product.slug)
   const rose = isRoseSlug(product.slug)
@@ -376,7 +419,9 @@ function ProductJsonLd({ product }: { product: Product }) {
     description: displayDescription,
     image: images,
     url: productUrl,
-    sku: midnight ? 'SF-7B962857' : product.slug,
+    sku: storyString(story, 'code') || (story.specs && typeof story.specs === 'object' && !Array.isArray(story.specs)
+      ? storyString(story.specs as ProductStoryRecord, 'code')
+      : undefined) || (midnight ? 'SF-7B962857' : product.slug),
     brand: { '@type': 'Brand', name: 'Shamim Forever', logo: `${BASE_URL}/logo-sf.png` },
     manufacturer: { '@type': 'Organization', name: 'Shamim Forever', url: BASE_URL },
     category: product.main_category?.name || 'Luxury Fragrance',
@@ -546,6 +591,10 @@ function ProductJsonLd({ product }: { product: Product }) {
                 }
               : null
 
+  const resolvedFaq = storyFaq.length
+    ? { '@type': 'FAQPage', '@id': `${productUrl}#faq`, mainEntity: storyFaq }
+    : faq
+
   const video = eden
     ? {
         '@type': 'VideoObject',
@@ -608,10 +657,26 @@ function ProductJsonLd({ product }: { product: Product }) {
             }
           : null
 
+  const storyVideoUrl = storyString(story, 'videoUrl') || storyString(story, 'video')
+  const storyPosterUrl = storyString(story, 'posterUrl') || storyString(story, 'poster')
+  const resolvedVideo = video || (storyVideoUrl
+    ? {
+        '@type': 'VideoObject',
+        name: `${product.name} — Product Film`,
+        description: product.description || `${product.name} by Shamim Forever`,
+        thumbnailUrl: storyPosterUrl
+          ? (storyPosterUrl.startsWith('http') ? storyPosterUrl : `${BASE_URL}${storyPosterUrl}`)
+          : images[0],
+        contentUrl: storyVideoUrl.startsWith('http') ? storyVideoUrl : `${BASE_URL}${storyVideoUrl}`,
+        inLanguage: 'en',
+        isFamilyFriendly: true,
+      }
+    : null)
+
 
   const jsonLd = {
     '@context': 'https://schema.org',
-    '@graph': [productSchema, breadcrumb, ...(faq ? [faq] : []), ...(video ? [video] : [])],
+    '@graph': [productSchema, breadcrumb, ...(resolvedFaq ? [resolvedFaq] : []), ...(resolvedVideo ? [resolvedVideo] : [])],
   }
 
   return (

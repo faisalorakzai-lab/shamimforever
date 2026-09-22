@@ -70,6 +70,18 @@ export interface ProductPageModel {
   walletEnabled: boolean
   holderPrivileges: string[]
   faq: ProductFaq[]
+  dossier?: {
+    creation?: string
+    olfactiveIdentity?: string
+    opening?: string
+    development?: string
+    dryDown?: string
+    whenToWear?: string
+    applicationCare?: string
+    archiveObject?: string
+    authentication?: string
+    walletSafety?: string
+  }
   seo: {
     title: string
     description: string
@@ -150,6 +162,9 @@ export function buildProductPageModel(product: Product): ProductPageModel {
   const canonical = `https://www.shamimforever.com/products/${canonicalProductSlug(product.slug)}`
   const seoTitle = `${product.name} — Shamim Forever`
   const posterUrl = asString(story.posterUrl) || asString(story.poster) || null
+  const dossier = story.dossier && typeof story.dossier === 'object' && !Array.isArray(story.dossier)
+    ? story.dossier as StoryRecord
+    : {}
 
   const model: ProductPageModel = {
     product,
@@ -193,6 +208,20 @@ export function buildProductPageModel(product: Product): ProductPageModel {
           return question && answer ? [{ question, answer }] : []
         })
       : [],
+    dossier: Object.keys(dossier).length
+      ? {
+          creation: asString(dossier.creation),
+          olfactiveIdentity: asString(dossier.olfactive_identity) || asString(dossier.olfactiveIdentity),
+          opening: asString(dossier.opening),
+          development: asString(dossier.development),
+          dryDown: asString(dossier.dry_down) || asString(dossier.dryDown),
+          whenToWear: asString(dossier.when_to_wear) || asString(dossier.whenToWear),
+          applicationCare: asString(dossier.application_care) || asString(dossier.applicationCare),
+          archiveObject: asString(dossier.archive_object) || asString(dossier.archiveObject),
+          authentication: asString(dossier.authentication),
+          walletSafety: asString(dossier.wallet_safety) || asString(dossier.walletSafety),
+        }
+      : undefined,
     seo: {
       title: seoTitle,
       description: description.slice(0, 160),

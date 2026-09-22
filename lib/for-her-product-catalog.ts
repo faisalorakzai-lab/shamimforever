@@ -239,7 +239,17 @@ function buildFaq(definition: ForHerDefinition) {
 function buildStory(definition: ForHerDefinition) {
   return JSON.stringify({
     tagline: `${definition.name} — an original For Her Eau de Parfum`,
+    inspiration: `Reference profile only: ${definition.reference}. This is an original Shamim Forever creation and is not affiliated with, endorsed by, licensed by or an official product of the reference brand.`,
+    videoUrl: `/products/${definition.slug}/hero.mp4`,
+    posterUrl: `/products/${definition.slug}/poster.jpg`,
     reference_profile: `Inspired by the olfactory profile of ${definition.reference}. Reference family: ${definition.referenceFamily}.`,
+    fragranceFamily: definition.referenceFamily,
+    top: definition.top,
+    heart: definition.heart,
+    base: definition.base,
+    whenToWear: definition.whenToWear,
+    application: 'Apply to pulse points from a short distance. Store upright, away from direct sun, heat and rapid temperature changes.',
+    care: 'Keep the flacon closed and upright, away from direct sun, heat and rapid temperature changes.',
     positioning: definition.positioning,
     legacy_statement: definition.legacy,
     atmospheric_presence: 'A considered House composition for a woman whose presence is felt before it is explained.',

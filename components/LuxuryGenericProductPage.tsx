@@ -98,6 +98,12 @@ interface ParsedStory {
     holder_privileges?: string[]
   }
   packaging?: { flacon?: string; vault?: string }
+  dossier?: {
+    creation?: string; olfactive_identity?: string; opening?: string; development?: string
+    dry_down?: string; when_to_wear?: string; application_care?: string
+    archive_object?: string; authentication?: string; wallet_safety?: string
+  }
+  faq?: { question: string; answer: string }[]
 }
 
 function NftCard({ product, story }: { product: Product; story: ParsedStory | null }) {
@@ -198,6 +204,16 @@ function NftCard({ product, story }: { product: Product; story: ParsedStory | nu
     'sovereign-genesis':                '/videos/products/sovereign-genesis.mp4',
     'founder-s-eternal-archive':        '/videos/products/founder-s-eternal-archive.mp4',
     'eternal-sovereign':                '/videos/products/eternal-sovereign.mp4',
+    'sf-good-girl':                     '/products/sf-good-girl/hero.mp4',
+    'sf-very-good-girl':                '/products/sf-very-good-girl/hero.mp4',
+    'sf-paradoxe':                      '/products/sf-paradoxe/hero.mp4',
+    'sf-born-in-roma':                  '/products/sf-born-in-roma/hero.mp4',
+    'sf-goddess':                       '/products/sf-goddess/hero.mp4',
+    'sf-si':                            '/products/sf-si/hero.mp4',
+    'sf-alien':                         '/products/sf-alien/hero.mp4',
+    'sf-bloom':                         '/products/sf-bloom/hero.mp4',
+    'sf-flowerbomb':                    '/products/sf-flowerbomb/hero.mp4',
+    'sf-for-her':                       '/products/sf-for-her/hero.mp4',
   }
 
   export default function LuxuryGenericProductPage({ product }: { product: Product }) {
@@ -362,10 +378,13 @@ function NftCard({ product, story }: { product: Product; story: ParsedStory | nu
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1 }} style={{ position: 'absolute', inset: 0, zIndex: 2 }}>
             <video
               src={videoUrl}
+              poster={page.posterUrl || `/products/${product.slug}/poster.jpg`}
               autoPlay
               muted
               loop
               playsInline
+              controls
+              preload="metadata"
               style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center 15%' }}
             />
           </motion.div>
@@ -679,6 +698,57 @@ function NftCard({ product, story }: { product: Product; story: ParsedStory | nu
                   ))}
                   {desc && <p style={{ fontSize: 10, color: 'rgba(201,160,84,0.35)', fontStyle: 'italic', marginTop: 16, lineHeight: 1.7 }}>{desc}</p>}
                 </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {page.dossier && Object.values(page.dossier).some(Boolean) && (
+        <section style={{ padding: 'clamp(52px,8vw,90px) 0', background: '#050403' }}>
+          <div style={{ maxWidth: 820, margin: '0 auto', padding: '0 24px' }}>
+            <div className="g-reveal" style={{ textAlign: 'center', marginBottom: 44 }}>
+              <p style={{ fontSize: 7, letterSpacing: '0.9em', textTransform: 'uppercase', color: '#c9a054', marginBottom: 10 }}>Product Dossier</p>
+              <h2 style={{ fontFamily: SERIF, fontSize: 'clamp(2rem, 4vw, 3.5rem)', fontWeight: 300, color: '#f0ece4' }}>The House Record</h2>
+              <div style={{ width: 64, height: 1, background: 'linear-gradient(to right, transparent, #c9a054, transparent)', margin: '20px auto 0' }} />
+            </div>
+            <div className="g-reveal" style={{ display: 'grid', gap: 2 }}>
+              {([
+                ['01 · The Creation', page.dossier.creation],
+                ['02 · The Olfactive Identity', page.dossier.olfactiveIdentity],
+                ['03 · Opening', page.dossier.opening],
+                ['04 · Development', page.dossier.development],
+                ['05 · Dry Down', page.dossier.dryDown],
+                ['06 · When to Wear', page.dossier.whenToWear],
+                ['07 · Application & Care', page.dossier.applicationCare],
+                ['08 · The Archive Object', page.dossier.archiveObject],
+                ['09 · Authentication', page.dossier.authentication],
+                ['10 · Wallet Safety', page.dossier.walletSafety],
+              ] as [string, string | undefined][]).filter(([, value]) => value).map(([label, value]) => (
+                <div key={label} style={{ padding: '22px 24px', border: '1px solid rgba(201,160,84,0.08)', background: 'linear-gradient(90deg, #0c0906 0%, #080603 100%)' }}>
+                  <p style={{ fontSize: 7, letterSpacing: '0.45em', textTransform: 'uppercase', color: '#c9a054', marginBottom: 10 }}>{label}</p>
+                  <p style={{ fontFamily: SERIF, fontSize: 15, color: '#c9b894', fontWeight: 300, lineHeight: 1.75 }}>{value}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {page.faq.length > 0 && (
+        <section style={{ padding: 'clamp(52px,8vw,90px) 0', background: '#030303' }}>
+          <div style={{ maxWidth: 820, margin: '0 auto', padding: '0 24px' }}>
+            <div className="g-reveal" style={{ textAlign: 'center', marginBottom: 44 }}>
+              <p style={{ fontSize: 7, letterSpacing: '0.9em', textTransform: 'uppercase', color: '#c9a054', marginBottom: 10 }}>House Answers</p>
+              <h2 style={{ fontFamily: SERIF, fontSize: 'clamp(2rem, 4vw, 3.5rem)', fontWeight: 300, color: '#f0ece4' }}>Frequently Asked Questions</h2>
+              <div style={{ width: 64, height: 1, background: 'linear-gradient(to right, transparent, #c9a054, transparent)', margin: '20px auto 0' }} />
+            </div>
+            <div className="g-reveal" style={{ display: 'grid', gap: 2 }}>
+              {page.faq.map((item) => (
+                <details key={item.question} style={{ border: '1px solid rgba(201,160,84,0.08)', background: '#080603', padding: '18px 22px' }}>
+                  <summary style={{ cursor: 'pointer', color: '#c9b894', fontFamily: SERIF, fontSize: 16, fontWeight: 300 }}>{item.question}</summary>
+                  <p style={{ color: 'rgba(255,255,255,0.45)', fontSize: 12, lineHeight: 1.8, paddingTop: 14 }}>{item.answer}</p>
+                </details>
               ))}
             </div>
           </div>
