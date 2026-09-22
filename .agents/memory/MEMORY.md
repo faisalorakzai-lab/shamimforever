@@ -1,2 +1,3 @@
 - [GitHub publishing](github-publishing.md) — the connected GitHub App may show as not_added; secure PAT pushes need GH_TOKEN present for the push command itself.
 - [Product data integrity](product-data-integrity.md) — product pages must derive category, media, pricing, SEO, and passport state from verified data; never invent provenance.
+- [Production data path](production-data-path.md) — Vercel/GitHub deployment and Supabase credentials can be separate; verify the live deployment and project key before seeding.
