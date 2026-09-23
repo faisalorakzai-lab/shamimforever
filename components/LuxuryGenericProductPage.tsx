@@ -10,7 +10,6 @@ import { Copy, Check, Upload, X, ExternalLink, ArrowDown, ChevronLeft, ChevronRi
 import type { Product } from '@/types'
 import Web3PaySection, { type CoinType } from '@/components/Web3PaySection'
 import { useAccount } from 'wagmi'
-import { buildProductPageModel } from '@/lib/product-engine'
 
 type PayMethod = 'crypto' | 'pkr_manual' | 'cod'
 interface OrderResult { order_id: string; order_ref: string; tracking_ref: string; status: string; track_url: string }
@@ -79,6 +78,8 @@ interface ParsedStory {
   positioning?: string
   atmospheric_presence?: string
   allocation?: string
+  productCode?: string
+  sku?: string
   olfactory?: string | {
     top?: string[]; heart?: string[]; base?: string[]
     top_description?: string; heart_description?: string; base_description?: string
@@ -93,17 +94,29 @@ interface ParsedStory {
   }
   nft?: {
     title?: string; description?: string; blockchain?: string; rarity?: string
-    edition?: string; contract?: string; tx?: string; serial?: string; serial_number?: string
-    tokenStandard?: string; standard?: string; authentication?: string
-    holder_privileges?: string[]
+    edition?: string; contract?: string; tx?: string; holder_privileges?: string[]
+  }
+  dossier?: {
+    creation?: string
+    olfactiveIdentity?: string
+    opening?: string
+    development?: string
+    dryDown?: string
+    whenToWear?: string
+    applicationAndCare?: string
+    archiveObject?: string
+    authentication?: string
+    walletSafety?: string
+  }
+  faqs?: { question: string; answer: string }[]
+  verification?: {
+    blockchain?: boolean
+    passport?: boolean
+    provenance?: boolean
+    authentication?: boolean
+    holderPrivileges?: boolean
   }
   packaging?: { flacon?: string; vault?: string }
-  dossier?: {
-    creation?: string; olfactive_identity?: string; opening?: string; development?: string
-    dry_down?: string; when_to_wear?: string; application_care?: string
-    archive_object?: string; authentication?: string; wallet_safety?: string
-  }
-  faq?: { question: string; answer: string }[]
 }
 
 function NftCard({ product, story }: { product: Product; story: ParsedStory | null }) {
@@ -114,17 +127,18 @@ function NftCard({ product, story }: { product: Product; story: ParsedStory | nu
     go(); return () => cancelAnimationFrame(frame)
   }, [])
   const nft = story?.nft
+  const verified = story?.verification?.blockchain !== false
   const rarity = nft?.rarity || (product.price_usd >= 10000 ? 'SOVEREIGN FOUNDERS' : product.price_usd >= 1000 ? 'INSTITUTIONAL RESERVE' : 'HERITAGE ARCHIVE')
   const gold = product.price_usd >= 50000 ? '#f0d080' : product.price_usd >= 10000 ? '#c9a054' : '#a08040'
-  const serial = nft?.serial || nft?.serial_number || 'Not listed'
+  const serial = verified ? 'SF-' + product.id.replace(/-/g,'').slice(0,8).toUpperCase() : 'Not issued'
   const catName = (product as any).main_category?.name || 'Luxury'
   const traits = [
     ['Category', catName],
     ['Rarity', rarity],
-    ['Network', nft?.blockchain || 'Not listed'],
-    ['Standard', nft?.tokenStandard || nft?.standard || 'Not listed'],
-    ['Edition', nft?.edition || 'Not listed'],
-    ['Authentication', nft?.authentication || 'House record'],
+    ['Network', verified ? (nft?.blockchain || 'Polygon Mainnet') : 'Not issued'],
+    ['Standard', verified ? 'ERC-721' : 'Not issued'],
+    ['Edition', verified ? (nft?.edition || 'House Allocation Reserve') : 'Pending verified issuance'],
+    ['Authentication', verified ? 'Polygon Verified' : 'Not verified'],
   ]
   return (
     <div style={{ perspective: '1100px', maxWidth: 280, margin: '0 auto', userSelect: 'none' }}>
@@ -175,8 +189,8 @@ function NftCard({ product, story }: { product: Product; story: ParsedStory | nu
                   ))}
                 </div>
                 <div style={{ marginTop: 10, paddingTop: 8, borderTop: `1px solid ${gold}12`, display: 'flex', alignItems: 'center', gap: 6 }}>
-                  <motion.div animate={{ opacity: [0.4,1,0.4] }} transition={{ duration: 1.5, repeat: Infinity }} style={{ width: 5, height: 5, borderRadius: '50%', background: '#4ade80' }} />
-                  <p style={{ fontSize: 6, letterSpacing: '0.3em', textTransform: 'uppercase', color: '#3f3830' }}>Polygon Active — NFT Enabled</p>
+                  <motion.div animate={{ opacity: [0.4,1,0.4] }} transition={{ duration: 1.5, repeat: Infinity }} style={{ width: 5, height: 5, borderRadius: '50%', background: verified ? '#4ade80' : '#c9a054' }} />
+                  <p style={{ fontSize: 6, letterSpacing: '0.3em', textTransform: 'uppercase', color: '#3f3830' }}>{verified ? 'Polygon Active — NFT Enabled' : 'Verification pending — no NFT issued'}</p>
                 </div>
               </>
             )}
@@ -204,20 +218,9 @@ function NftCard({ product, story }: { product: Product; story: ParsedStory | nu
     'sovereign-genesis':                '/videos/products/sovereign-genesis.mp4',
     'founder-s-eternal-archive':        '/videos/products/founder-s-eternal-archive.mp4',
     'eternal-sovereign':                '/videos/products/eternal-sovereign.mp4',
-    'sf-good-girl':                     '/products/sf-good-girl/hero.mp4',
-    'sf-very-good-girl':                '/products/sf-very-good-girl/hero.mp4',
-    'sf-paradoxe':                      '/products/sf-paradoxe/hero.mp4',
-    'sf-born-in-roma':                  '/products/sf-born-in-roma/hero.mp4',
-    'sf-goddess':                       '/products/sf-goddess/hero.mp4',
-    'sf-si':                            '/products/sf-si/hero.mp4',
-    'sf-alien':                         '/products/sf-alien/hero.mp4',
-    'sf-bloom':                         '/products/sf-bloom/hero.mp4',
-    'sf-flowerbomb':                    '/products/sf-flowerbomb/hero.mp4',
-    'sf-for-her':                       '/products/sf-for-her/hero.mp4',
   }
 
   export default function LuxuryGenericProductPage({ product }: { product: Product }) {
-  const page = buildProductPageModel(product)
   const heroRef = useRef<HTMLDivElement>(null)
   const { scrollYProgress } = useScroll({ target: heroRef, offset: ['start start', 'end start'] })
   const textOpacity = useTransform(scrollYProgress, [0, 0.5], [1, 0])
@@ -311,9 +314,12 @@ function NftCard({ product, story }: { product: Product; story: ParsedStory | nu
     setSubmitting(false)
   }
 
-  const heroImage = page.heroImage || images[0] || null
-  const videoUrl = page.videoUrl || PRODUCT_VIDEOS[product.slug] || null
-  const categoryName = page.categoryLabel
+  const heroImage = images[0] || null
+  const videoUrl = PRODUCT_VIDEOS[product.slug] || null
+  const categoryName = (product as any).main_category?.name
+  const passportVerified = story?.verification?.passport !== false
+  const blockchainVerified = story?.verification?.blockchain !== false
+  const holderPrivilegesVerified = story?.verification?.holderPrivileges !== false
 
   if (orderResult) {
     return (
@@ -378,13 +384,10 @@ function NftCard({ product, story }: { product: Product; story: ParsedStory | nu
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1 }} style={{ position: 'absolute', inset: 0, zIndex: 2 }}>
             <video
               src={videoUrl}
-              poster={page.posterUrl || `/products/${product.slug}/poster.jpg`}
               autoPlay
               muted
               loop
               playsInline
-              controls
-              preload="metadata"
               style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center 15%' }}
             />
           </motion.div>
@@ -438,7 +441,9 @@ function NftCard({ product, story }: { product: Product; story: ParsedStory | nu
           </div>
           <div style={{ display: 'inline-flex', alignItems: 'center', gap: 10, border: '1px solid rgba(201,160,84,0.22)', padding: '10px 24px', marginBottom: 36, background: 'rgba(201,160,84,0.04)' }}>
             <div style={{ width: 6, height: 6, borderRadius: '50%', background: '#c9a054', flexShrink: 0 }} />
-            <p style={{ fontSize: 7, letterSpacing: '0.45em', textTransform: 'uppercase', color: '#c9a054', margin: 0 }}>NFT Sovereign Passport · Polygon Mainnet</p>
+            <p style={{ fontSize: 7, letterSpacing: '0.45em', textTransform: 'uppercase', color: '#c9a054', margin: 0 }}>
+              {story?.verification?.passport === false ? 'Digital Sovereign Passport · Verification pending' : 'NFT Sovereign Passport · Polygon Mainnet'}
+            </p>
           </div>
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: 14, justifyContent: 'center' }}>
             <a href="#acquire" className="group" style={{ position: 'relative', overflow: 'hidden', padding: '15px 40px', fontSize: 8, letterSpacing: '0.7em', textTransform: 'uppercase', color: '#050202', display: 'inline-block', textDecoration: 'none', background: 'linear-gradient(135deg, #c9a054 0%, #b8860b 100%)', fontWeight: 600 }}>
@@ -704,30 +709,31 @@ function NftCard({ product, story }: { product: Product; story: ParsedStory | nu
         </section>
       )}
 
-      {page.dossier && Object.values(page.dossier).some(Boolean) && (
-        <section style={{ padding: 'clamp(52px,8vw,90px) 0', background: '#050403' }}>
+      {/* PRODUCT DOSSIER */}
+      {story?.dossier && (
+        <section id="archive" style={{ padding: 'clamp(52px,8vw,90px) 0', background: '#050403' }}>
           <div style={{ maxWidth: 820, margin: '0 auto', padding: '0 24px' }}>
             <div className="g-reveal" style={{ textAlign: 'center', marginBottom: 44 }}>
               <p style={{ fontSize: 7, letterSpacing: '0.9em', textTransform: 'uppercase', color: '#c9a054', marginBottom: 10 }}>Product Dossier</p>
-              <h2 style={{ fontFamily: SERIF, fontSize: 'clamp(2rem, 4vw, 3.5rem)', fontWeight: 300, color: '#f0ece4' }}>The House Record</h2>
+              <h2 style={{ fontFamily: SERIF, fontSize: 'clamp(2rem, 4vw, 3.5rem)', fontWeight: 300, color: '#f0ece4' }}>The House Interpretation</h2>
               <div style={{ width: 64, height: 1, background: 'linear-gradient(to right, transparent, #c9a054, transparent)', margin: '20px auto 0' }} />
             </div>
-            <div className="g-reveal" style={{ display: 'grid', gap: 2 }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
               {([
-                ['01 · The Creation', page.dossier.creation],
-                ['02 · The Olfactive Identity', page.dossier.olfactiveIdentity],
-                ['03 · Opening', page.dossier.opening],
-                ['04 · Development', page.dossier.development],
-                ['05 · Dry Down', page.dossier.dryDown],
-                ['06 · When to Wear', page.dossier.whenToWear],
-                ['07 · Application & Care', page.dossier.applicationCare],
-                ['08 · The Archive Object', page.dossier.archiveObject],
-                ['09 · Authentication', page.dossier.authentication],
-                ['10 · Wallet Safety', page.dossier.walletSafety],
+                ['01 · The Creation', story.dossier.creation],
+                ['02 · The Olfactive Identity', story.dossier.olfactiveIdentity],
+                ['03 · Opening', story.dossier.opening],
+                ['04 · Development', story.dossier.development],
+                ['05 · Dry Down', story.dossier.dryDown],
+                ['06 · When to Wear', story.dossier.whenToWear],
+                ['07 · Application & Care', story.dossier.applicationAndCare],
+                ['08 · The Archive Object', story.dossier.archiveObject],
+                ['09 · Authentication', story.dossier.authentication],
+                ['10 · Wallet Safety', story.dossier.walletSafety],
               ] as [string, string | undefined][]).filter(([, value]) => value).map(([label, value]) => (
-                <div key={label} style={{ padding: '22px 24px', border: '1px solid rgba(201,160,84,0.08)', background: 'linear-gradient(90deg, #0c0906 0%, #080603 100%)' }}>
-                  <p style={{ fontSize: 7, letterSpacing: '0.45em', textTransform: 'uppercase', color: '#c9a054', marginBottom: 10 }}>{label}</p>
-                  <p style={{ fontFamily: SERIF, fontSize: 15, color: '#c9b894', fontWeight: 300, lineHeight: 1.75 }}>{value}</p>
+                <div key={label} className="g-reveal" style={{ padding: '22px 24px', border: '1px solid rgba(201,160,84,0.08)', background: 'linear-gradient(90deg, #0c0906 0%, #080603 100%)' }}>
+                  <p style={{ fontSize: 7, letterSpacing: '0.45em', textTransform: 'uppercase', color: '#c9a054', marginBottom: 8 }}>{label}</p>
+                  <p style={{ fontFamily: SERIF, fontSize: 'clamp(0.95rem,1.8vw,1.2rem)', color: 'rgba(240,236,228,0.58)', lineHeight: 1.75, fontWeight: 300 }}>{value}</p>
                 </div>
               ))}
             </div>
@@ -735,28 +741,7 @@ function NftCard({ product, story }: { product: Product; story: ParsedStory | nu
         </section>
       )}
 
-      {page.faq.length > 0 && (
-        <section style={{ padding: 'clamp(52px,8vw,90px) 0', background: '#030303' }}>
-          <div style={{ maxWidth: 820, margin: '0 auto', padding: '0 24px' }}>
-            <div className="g-reveal" style={{ textAlign: 'center', marginBottom: 44 }}>
-              <p style={{ fontSize: 7, letterSpacing: '0.9em', textTransform: 'uppercase', color: '#c9a054', marginBottom: 10 }}>House Answers</p>
-              <h2 style={{ fontFamily: SERIF, fontSize: 'clamp(2rem, 4vw, 3.5rem)', fontWeight: 300, color: '#f0ece4' }}>Frequently Asked Questions</h2>
-              <div style={{ width: 64, height: 1, background: 'linear-gradient(to right, transparent, #c9a054, transparent)', margin: '20px auto 0' }} />
-            </div>
-            <div className="g-reveal" style={{ display: 'grid', gap: 2 }}>
-              {page.faq.map((item) => (
-                <details key={item.question} style={{ border: '1px solid rgba(201,160,84,0.08)', background: '#080603', padding: '18px 22px' }}>
-                  <summary style={{ cursor: 'pointer', color: '#c9b894', fontFamily: SERIF, fontSize: 16, fontWeight: 300 }}>{item.question}</summary>
-                  <p style={{ color: 'rgba(255,255,255,0.45)', fontSize: 12, lineHeight: 1.8, paddingTop: 14 }}>{item.answer}</p>
-                </details>
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
-
       {/* DIGITAL SOVEREIGN PASSPORT */}
-      {page.digitalPassport ? (
       <section style={{ padding: 'clamp(52px,8vw,90px) 0', background: 'radial-gradient(ellipse 70% 50% at 50% 50%, #0e0903 0%, #030303 70%)' }}>
         <div style={{ maxWidth: 900, margin: '0 auto', padding: '0 24px' }}>
           <div className="g-reveal" style={{ textAlign: 'center', marginBottom: 48 }}>
@@ -771,14 +756,16 @@ function NftCard({ product, story }: { product: Product; story: ParsedStory | nu
             <div className="g-reveal">
               <p style={{ fontSize: 7, letterSpacing: '0.5em', textTransform: 'uppercase', color: '#c9a054', marginBottom: 20 }}>Blockchain Authentication</p>
               <p style={{ fontFamily: SERIF, fontSize: 'clamp(0.95rem,1.8vw,1.3rem)', color: 'rgba(240,236,228,0.5)', fontWeight: 300, lineHeight: 1.85, marginBottom: 28 }}>
-                {story?.nft?.description || 'Every sovereign creation carries a permanent, irrevocable proof of authenticity on the Polygon blockchain — the NFT is your identity, inseparable from the physical artifact.'}
+                {story?.nft?.description || (blockchainVerified
+                  ? 'Every sovereign creation carries a permanent, irrevocable proof of authenticity on the Polygon blockchain.'
+                  : 'No verified blockchain, passport, or authentication record has been issued for this product. The physical product record remains separate from any future digital record.')}
               </p>
               <div style={{ border: '1px solid rgba(201,160,84,0.1)', background: '#0a0806' }}>
                 {([
-                  ['Contract', story?.nft?.contract || 'Not listed'],
-                  ['Network', story?.nft?.blockchain || 'Not listed'],
-                  ['Standard', story?.nft?.tokenStandard || story?.nft?.standard || 'Not listed'],
-                  ['Edition', story?.nft?.edition || 'Not listed'],
+                  ['Contract', blockchainVerified ? (story?.nft?.contract || 'Verified record pending') : 'Not issued'],
+                  ['Network', blockchainVerified ? (story?.nft?.blockchain || 'Polygon Mainnet') : 'Not issued'],
+                  ['Standard', blockchainVerified ? 'ERC-721 — Non-Fungible' : 'Not issued'],
+                  ['Edition', blockchainVerified ? (story?.nft?.edition || 'House Allocation Reserve') : 'Pending verified issuance'],
                 ] as [string, string][]).map(([lbl, val], i, arr) => (
                   <div key={lbl} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 8, padding: '14px 18px', borderBottom: i < arr.length - 1 ? '1px solid rgba(255,255,255,0.03)' : 'none' }}>
                     <p style={{ fontSize: 7, letterSpacing: '0.4em', textTransform: 'uppercase', color: '#3f3830' }}>{lbl}</p>
@@ -793,44 +780,36 @@ function NftCard({ product, story }: { product: Product; story: ParsedStory | nu
           </div>
         </div>
       </section>
-      ) : (
-        <section style={{ padding: 'clamp(52px,8vw,90px) 0', background: 'radial-gradient(ellipse 70% 50% at 50% 50%, #0e0903 0%, #030303 70%)' }}>
-          <div style={{ maxWidth: 720, margin: '0 auto', padding: '0 24px', textAlign: 'center' }}>
-            <p style={{ fontSize: 7, letterSpacing: '0.9em', textTransform: 'uppercase', color: '#c9a054', marginBottom: 14 }}>House Archive</p>
-            <h2 style={{ fontFamily: SERIF, fontSize: 'clamp(2rem, 4vw, 3.5rem)', fontWeight: 300, color: '#f0ece4', marginBottom: 18 }}>Physical Provenance</h2>
-            <p style={{ fontFamily: SERIF, fontSize: 'clamp(1rem, 1.8vw, 1.3rem)', color: 'rgba(240,236,228,0.5)', fontWeight: 300, lineHeight: 1.85 }}>
-              Digital passport information for this creation is not currently published. The House archive preserves the product record without inventing blockchain details.
-            </p>
-          </div>
-        </section>
-      )}
 
       {/* CLAIM SOVEREIGN PASSPORT NFT */}
-      {page.digitalPassport && page.walletEnabled && (
       <section style={{ padding: 'clamp(44px,7vw,80px) 0', background: '#030303', borderTop: '1px solid rgba(201,160,84,0.05)', borderBottom: '1px solid rgba(201,160,84,0.05)' }}>
         <div style={{ maxWidth: 560, margin: '0 auto', padding: '0 24px' }}>
           <div className="g-reveal" style={{ textAlign: 'center', marginBottom: 32 }}>
-            <p style={{ fontSize: 7, letterSpacing: '0.9em', textTransform: 'uppercase', color: '#c9a054', marginBottom: 12 }}>◆ Claim Your Sovereign Passport NFT</p>
+            <p style={{ fontSize: 7, letterSpacing: '0.9em', textTransform: 'uppercase', color: '#c9a054', marginBottom: 12 }}>
+              {passportVerified ? '◆ Claim Your Sovereign Passport NFT' : '◆ Digital Passport Status'}
+            </p>
             <p style={{ fontFamily: SERIF, fontSize: 'clamp(0.85rem,1.6vw,1.1rem)', color: 'rgba(255,255,255,0.3)', fontWeight: 300, lineHeight: 1.8 }}>
-              After purchase, enter your Polygon wallet address to receive your Sovereign Passport NFT. Works with MetaMask, Trust Wallet, Coinbase Wallet and all WalletConnect wallets.
+              {passportVerified
+                ? 'After purchase, enter your Polygon wallet address to receive your Sovereign Passport NFT. Works with MetaMask, Trust Wallet, Coinbase Wallet and all WalletConnect wallets.'
+                : 'No Digital Sovereign Passport, NFT, token, wallet, or transaction record has been issued for this product. Do not provide wallet credentials to anyone claiming otherwise.'}
             </p>
           </div>
-          <div className="g-reveal">
-            <input
-              readOnly
-              placeholder="0x... Your Polygon Wallet Address"
-              style={{ width: '100%', background: '#080602', border: '1px solid rgba(201,160,84,0.12)', padding: '16px 20px', fontSize: 11, color: '#3f3830', outline: 'none', boxSizing: 'border-box', marginBottom: 8, fontFamily: 'monospace' }}
-            />
-            <button style={{ width: '100%', padding: '16px', border: '1px solid rgba(201,160,84,0.3)', background: 'transparent', fontSize: 8, letterSpacing: '0.65em', textTransform: 'uppercase', color: '#c9a054', cursor: 'pointer' }}>
-              ◆ Mint Sovereign Passport
-            </button>
-          </div>
+          {passportVerified && (
+            <div className="g-reveal">
+              <input
+                readOnly
+                placeholder="0x... Your Polygon Wallet Address"
+                style={{ width: '100%', background: '#080602', border: '1px solid rgba(201,160,84,0.12)', padding: '16px 20px', fontSize: 11, color: '#3f3830', outline: 'none', boxSizing: 'border-box', marginBottom: 8, fontFamily: 'monospace' }}
+              />
+              <button style={{ width: '100%', padding: '16px', border: '1px solid rgba(201,160,84,0.3)', background: 'transparent', fontSize: 8, letterSpacing: '0.65em', textTransform: 'uppercase', color: '#c9a054', cursor: 'pointer' }}>
+                ◆ Mint Sovereign Passport
+              </button>
+            </div>
+          )}
         </div>
       </section>
-      )}
 
       {/* HOLDER PRIVILEGES */}
-      {page.digitalPassport && page.holderPrivileges.length > 0 && (
       <section style={{ padding: 'clamp(52px,8vw,90px) 0', background: 'radial-gradient(ellipse 60% 50% at 50% 100%, #0e0903 0%, #030303 60%)' }}>
         <div style={{ maxWidth: 760, margin: '0 auto', padding: '0 24px' }}>
           <div className="g-reveal" style={{ textAlign: 'center', marginBottom: 48 }}>
@@ -839,7 +818,16 @@ function NftCard({ product, story }: { product: Product; story: ParsedStory | nu
             <div style={{ width: 64, height: 1, background: 'linear-gradient(to right, transparent, #c9a054, transparent)', margin: '20px auto 0' }} />
           </div>
           <div className="g-reveal" style={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
-            {page.holderPrivileges.map((priv, i) => {
+            {(story?.nft?.holder_privileges || (holderPrivilegesVerified ? [
+              'Institutional Founder Status — Recognized as a founding institutional member of the House',
+              'Sovereign Vault Access — Lifetime access to the Institutional Vault private archive',
+              'Future Founder Allocations — Priority access to all upcoming institutional releases',
+              'Private House Ceremonies — Invitation to exclusive House of Shamim Forever events',
+              'Restoration & Refill Privileges — Priority access to sovereign restoration services',
+              'Blockchain Provenance — Permanent irrevocable proof of ownership on Polygon',
+              'Concierge Authentication — Direct access to House authentication concierge',
+              'Priority Restock Alerts — First to receive allocation updates before public release',
+            ] : ['No active holder privileges have been verified for this allocation.'])).map((priv, i) => {
               const [title, ...rest] = priv.split(' — ')
               return (
                 <div key={i} style={{ padding: '22px 24px', border: '1px solid rgba(201,160,84,0.06)', background: 'linear-gradient(90deg, #0c0906 0%, #080603 100%)', display: 'flex', gap: 16, alignItems: 'flex-start' }}>
@@ -854,7 +842,27 @@ function NftCard({ product, story }: { product: Product; story: ParsedStory | nu
           </div>
         </div>
       </section>
-      )}
+
+      {/* FAQ */}
+      {story?.faqs?.length ? (
+        <section style={{ padding: 'clamp(52px,8vw,90px) 0', background: '#050403' }}>
+          <div style={{ maxWidth: 820, margin: '0 auto', padding: '0 24px' }}>
+            <div className="g-reveal" style={{ textAlign: 'center', marginBottom: 44 }}>
+              <p style={{ fontSize: 7, letterSpacing: '0.9em', textTransform: 'uppercase', color: '#c9a054', marginBottom: 10 }}>Fragrance & Provenance FAQ</p>
+              <h2 style={{ fontFamily: SERIF, fontSize: 'clamp(2rem, 4vw, 3.5rem)', fontWeight: 300, color: '#f0ece4' }}>Questions of the Archive</h2>
+              <div style={{ width: 64, height: 1, background: 'linear-gradient(to right, transparent, #c9a054, transparent)', margin: '20px auto 0' }} />
+            </div>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+              {story.faqs.map((faq, index) => (
+                <details key={faq.question} className="g-reveal" style={{ border: '1px solid rgba(201,160,84,0.08)', background: '#0b0805', padding: '18px 22px' }}>
+                  <summary style={{ cursor: 'pointer', color: '#c9b894', fontSize: 11, letterSpacing: '0.05em' }}>{String(index + 1).padStart(2, '0')} · {faq.question}</summary>
+                  <p style={{ fontFamily: SERIF, color: 'rgba(240,236,228,0.52)', fontSize: 15, lineHeight: 1.7, paddingTop: 14, margin: 0 }}>{faq.answer}</p>
+                </details>
+              ))}
+            </div>
+          </div>
+        </section>
+      ) : null}
 
     </div>
   )
