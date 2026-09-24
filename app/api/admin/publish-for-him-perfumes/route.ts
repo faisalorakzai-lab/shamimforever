@@ -33,7 +33,7 @@ export async function POST(req: NextRequest) {
   }
 
   const supabase = db()
-  const { data: collection, error: collectionError } = await supabase
+  let { data: collection, error: collectionError } = await supabase
     .from('collections')
     .select('id, name, slug')
     .eq('slug', 'sf-essential-archive-for-him')
@@ -43,7 +43,38 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: collectionError.message }, { status: 500 })
   }
   if (!collection) {
-    return NextResponse.json({ error: 'For Him collection is missing; no products were published.' }, { status: 409 })
+    const { data: createdCollection, error: createCollectionError } = await supabase
+      .from('collections')
+      .insert({
+        name: 'SF Essential Archive For Him',
+        slug: 'sf-essential-archive-for-him',
+        description: 'Original Shamim Forever fragrances curated for the For Him collection.',
+        is_active: true,
+      })
+      .select('id, name, slug')
+      .single()
+
+    if (createCollectionError) {
+      const { data: existingCollection, error: retryCollectionError } = await supabase
+        .from('collections')
+        .select('id, name, slug')
+        .eq('slug', 'sf-essential-archive-for-him')
+        .maybeSingle()
+      if (retryCollectionError || !existingCollection) {
+        return NextResponse.json({
+          error: createCollectionError.message,
+          retryError: retryCollectionError?.message,
+          inserted: 0,
+        }, { status: 500 })
+      }
+      collection = existingCollection
+    } else {
+      collection = createdCollection
+    }
+  }
+
+  if (!collection) {
+    return NextResponse.json({ error: 'For Him collection could not be created; no products were published.' }, { status: 500 })
   }
 
   const { data: categories, error: categoryError } = await supabase
