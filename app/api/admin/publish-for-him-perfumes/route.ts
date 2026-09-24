@@ -17,9 +17,14 @@ function db() {
 }
 
 function authorized(req: NextRequest) {
-  const configuredKey = process.env.SESSION_SECRET
-  if (!configuredKey) return false
-  return req.headers.get('x-shamim-publish-key') === configuredKey
+  const suppliedPublishKey = req.headers.get('x-shamim-publish-key')
+  const suppliedAdminKey = req.headers.get('x-admin-key')
+  const configuredKeys = [
+    process.env.SESSION_SECRET,
+    process.env.ADMIN_SECRET_KEY,
+    process.env.SUPABASE_SERVICE_ROLE_KEY,
+  ].filter(Boolean)
+  return configuredKeys.includes(suppliedPublishKey || '') || configuredKeys.includes(suppliedAdminKey || '')
 }
 
 export async function POST(req: NextRequest) {
