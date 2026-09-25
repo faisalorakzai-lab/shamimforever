@@ -32,6 +32,12 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
   }
 
+  const publishCatalog = FOR_HIM_PERFUME_CATALOG.map(product =>
+    product.code === 'SF-FM-018'
+      ? { ...product, name: 'SF Oud Sovereign Reserve', slug: 'sf-oud-sovereign-reserve' }
+      : product,
+  )
+
   const supabase = db()
   let { data: collection, error: collectionError } = await supabase
     .from('collections')
@@ -112,7 +118,7 @@ export async function POST(req: NextRequest) {
     }
   }
 
-  const conflicts = FOR_HIM_PERFUME_CATALOG
+  const conflicts = publishCatalog
     .filter(product =>
       existingNames.has(product.name.toLowerCase()) ||
       existingSlugs.has(product.slug.toLowerCase()) ||
@@ -121,7 +127,7 @@ export async function POST(req: NextRequest) {
     .map(product => ({ code: product.code, name: product.name, slug: product.slug }))
 
   const conflictKeys = new Set(conflicts.map(product => product.code))
-  const toPublish = FOR_HIM_PERFUME_CATALOG.filter(product => !conflictKeys.has(product.code))
+  const toPublish = publishCatalog.filter(product => !conflictKeys.has(product.code))
 
   const rows = toPublish.map(product => ({
     collection_id: collection.id,
