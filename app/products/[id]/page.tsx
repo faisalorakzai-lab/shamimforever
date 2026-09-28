@@ -33,6 +33,12 @@ async function getProduct(id: string): Promise<Product | null> {
   return byId ?? null
 }
 
+function getProductImage(product: Product): string {
+  const override = PRODUCT_IMAGE_OVERRIDES[product.slug]
+  const image = Array.isArray(override) ? override[0] : override
+  return image || product.images?.[0] || ''
+}
+
 /** Pre-render active products, then refresh them with ISR. */
 export async function generateStaticParams() {
   try {
@@ -50,8 +56,9 @@ export async function generateMetadata({ params }: { params: { id: string } }) {
   const product = await getProduct(params.id)
   if (!product) return { title: 'Product Not Found — Shamim Forever' }
 
-  const productImage = product.images?.[0]
-    ? (product.images[0].startsWith('http') ? product.images[0] : `${BASE_URL}${product.images[0]}`)
+  const rawProductImage = getProductImage(product)
+  const productImage = rawProductImage
+    ? (rawProductImage.startsWith('http') ? rawProductImage : `${BASE_URL}${rawProductImage}`)
     : `${BASE_URL}/logo-sf.png`
 
   const productUrl = `${BASE_URL}/products/${product.slug}`
@@ -82,9 +89,11 @@ export async function generateMetadata({ params }: { params: { id: string } }) {
       images: [
         {
           url: productImage,
-          width: 1080,
-          height: 1080,
-          alt: `${product.name} — Shamim Forever Luxury Collection`,
+          width: product.slug === 'sf-no-5-floral-eclat' ? 428 : 1080,
+          height: product.slug === 'sf-no-5-floral-eclat' ? 638 : 1080,
+          alt: product.slug === 'sf-no-5-floral-eclat'
+            ? 'Reference profile: Chanel N°5 perfume bottle shown for SF No.5 Floral Éclat; not Shamim Forever packaging'
+            : `${product.name} — Shamim Forever Luxury Collection`,
         },
       ],
     },
@@ -98,7 +107,7 @@ export async function generateMetadata({ params }: { params: { id: string } }) {
 }
 
 function ProductJsonLd({ product }: { product: Product }) {
-  const rawImage = product.images?.[0] || ''
+  const rawImage = getProductImage(product)
   const productImage = rawImage.startsWith('http')
     ? rawImage
     : rawImage

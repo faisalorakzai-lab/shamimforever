@@ -10,6 +10,7 @@ import { Copy, Check, Upload, X, ExternalLink, ArrowDown, ChevronLeft, ChevronRi
 import type { Product } from '@/types'
 import Web3PaySection, { type CoinType } from '@/components/Web3PaySection'
 import { useAccount } from 'wagmi'
+import { PRODUCT_IMAGE_OVERRIDES, PRODUCT_VIDEO_OVERRIDES } from '@/lib/product-image-overrides'
 
 type PayMethod = 'crypto' | 'pkr_manual' | 'cod'
 interface OrderResult { order_id: string; order_ref: string; tracking_ref: string; status: string; track_url: string }
@@ -226,7 +227,10 @@ function NftCard({ product, story }: { product: Product; story: ParsedStory | nu
   const textOpacity = useTransform(scrollYProgress, [0, 0.5], [1, 0])
   const textY = useTransform(scrollYProgress, [0, 0.6], [0, 50])
 
-  const images = product.images || []
+  const imageOverride = PRODUCT_IMAGE_OVERRIDES[product.slug]
+  const images = imageOverride
+    ? (Array.isArray(imageOverride) ? imageOverride : [imageOverride])
+    : (product.images || [])
   const [activeImage, setActiveImage] = useState(0)
   const [quantity, setQuantity] = useState(1)
   const [payMethod, setPayMethod] = useState<PayMethod>('crypto')
@@ -315,7 +319,11 @@ function NftCard({ product, story }: { product: Product; story: ParsedStory | nu
   }
 
   const heroImage = images[0] || null
-  const videoUrl = PRODUCT_VIDEOS[product.slug] || null
+  const videoUrl = PRODUCT_VIDEO_OVERRIDES[product.slug] || PRODUCT_VIDEOS[product.slug] || null
+  const isReferenceProfile = product.slug === 'sf-no-5-floral-eclat'
+  const heroImageAlt = isReferenceProfile
+    ? 'Reference profile: Chanel N°5 perfume bottle shown for SF No.5 Floral Éclat; not Shamim Forever packaging'
+    : `${product.name} by Shamim Forever`
   const categoryName = (product as any).main_category?.name
   const passportVerified = story?.verification?.passport !== false
   const blockchainVerified = story?.verification?.blockchain !== false
@@ -384,16 +392,23 @@ function NftCard({ product, story }: { product: Product; story: ParsedStory | nu
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1 }} style={{ position: 'absolute', inset: 0, zIndex: 2 }}>
             <video
               src={videoUrl}
+              poster={heroImage || undefined}
               autoPlay
               muted
               loop
               playsInline
+              preload="metadata"
+              aria-label={`${product.name} reference profile video`}
               style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center 15%' }}
-            />
+            >
+              <p style={{ color: '#f0ece4', padding: 24 }}>
+                This reference profile video is unavailable. <a href={videoUrl} style={{ color: '#c9a054' }}>Open the video directly.</a>
+              </p>
+            </video>
           </motion.div>
         ) : heroImage ? (
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.8 }} style={{ position: 'absolute', inset: 0, zIndex: 2 }}>
-            <img src={heroImage} alt={product.name} style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center 15%' }} onError={e => { (e.target as HTMLImageElement).style.opacity = '0' }} />
+            <img src={heroImage} alt={heroImageAlt} style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center 15%' }} onError={e => { (e.target as HTMLImageElement).style.opacity = '0' }} />
           </motion.div>
         ) : (
           <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse 70% 60% at 50% 40%, rgba(30,22,8,0.9) 0%, #030303 65%)', zIndex: 2 }}>
@@ -433,6 +448,11 @@ function NftCard({ product, story }: { product: Product; story: ParsedStory | nu
           <p style={{ fontSize: 9, letterSpacing: '0.32em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.22)', marginBottom: 36 }}>
             Love does not fade — it blooms into eternity
           </p>
+          {isReferenceProfile && (
+            <p style={{ maxWidth: 680, margin: '0 auto 28px', fontSize: 9, lineHeight: 1.8, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'rgba(240,236,228,0.48)' }}>
+              Reference profile media only · Chanel N°5 packaging shown for visual reference · no affiliation, endorsement, licensing, or manufacturing relationship is claimed
+            </p>
+          )}
           <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'center', gap: 18, marginBottom: 20, flexWrap: 'wrap' }}>
             <span style={{ fontFamily: SERIF, fontSize: 'clamp(2rem,6vw,3rem)', fontWeight: 300, color: '#f8f4ee' }}>
               ${product.price_usd} <span style={{ fontSize: '0.4em', letterSpacing: '0.35em', color: '#c9a054' }}>USD</span>
@@ -609,6 +629,20 @@ function NftCard({ product, story }: { product: Product; story: ParsedStory | nu
                 </p>
               </div>
             )}
+          </div>
+        </section>
+      )}
+
+      {isReferenceProfile && (
+        <section style={{ padding: 'clamp(44px,7vw,72px) 0', background: '#050403', borderTop: '1px solid rgba(201,160,84,0.08)', borderBottom: '1px solid rgba(201,160,84,0.08)' }}>
+          <div style={{ maxWidth: 820, margin: '0 auto', padding: '0 24px', textAlign: 'center' }}>
+            <p style={{ fontSize: 7, letterSpacing: '0.9em', textTransform: 'uppercase', color: '#c9a054', marginBottom: 16 }}>Reference Profile</p>
+            <p style={{ fontFamily: SERIF, fontSize: 'clamp(1.05rem,2vw,1.35rem)', color: 'rgba(240,236,228,0.62)', lineHeight: 1.8, margin: 0 }}>
+              The supplied image and video show Chanel N°5 packaging as a visual reference profile. They are not Shamim Forever product packaging and do not indicate affiliation, endorsement, licensing, or manufacture by Chanel.
+            </p>
+            <p style={{ fontSize: 8, letterSpacing: '0.25em', textTransform: 'uppercase', color: 'rgba(201,160,84,0.55)', lineHeight: 1.8, margin: '20px 0 0' }}>
+              Shamim Forever Interpretation · Original house composition and presentation
+            </p>
           </div>
         </section>
       )}

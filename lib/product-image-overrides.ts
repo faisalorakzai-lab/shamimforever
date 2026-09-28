@@ -95,6 +95,9 @@ export const PRODUCT_IMAGE_OVERRIDES: Record<string, string | string[]> = {
           'chopard-ice-cube-bracelet': 'https://uvgtgeauhjbdatrmmaob.supabase.co/storage/v1/object/public/products/chopard-ice-cube-bracelet/hero.png',
           'van-cleef-perlee-couples-ring': 'https://uvgtgeauhjbdatrmmaob.supabase.co/storage/v1/object/public/products/van-cleef-perlee-couples-ring/hero.png',
           'piaget-possession-mens-ring': 'https://uvgtgeauhjbdatrmmaob.supabase.co/storage/v1/object/public/products/piaget-possession-mens-ring/hero.png',
+          // Exact supplied reference-profile image. It shows Chanel N°5 packaging,
+          // so the product page labels it as reference media rather than Shamim Forever packaging.
+          'sf-no-5-floral-eclat': '/products/sf-no-5-floral-eclat/reference-profile.jpg',
       }
 
       export const PRODUCT_VIDEO_OVERRIDES: Record<string, string> = {
@@ -118,5 +121,6 @@ export const PRODUCT_IMAGE_OVERRIDES: Record<string, string | string[]> = {
         'jacob-co-astronomia-diamond-cuff': 'https://uvgtgeauhjbdatrmmaob.supabase.co/storage/v1/object/public/products/jacob-co-astronomia-diamond-cuff/hero.mp4',
         'bvlgari-bvlgari-ring': 'https://uvgtgeauhjbdatrmmaob.supabase.co/storage/v1/object/public/products/bvlgari-bvlgari-ring/hero.mp4',
       'boucheron-quatre-black-edition-ring': 'https://uvgtgeauhjbdatrmmaob.supabase.co/storage/v1/object/public/products/boucheron-quatre-black-edition-ring/hero.mp4',
+      'sf-no-5-floral-eclat': '/videos/products/sf-no-5-floral-eclat.mp4',
     }
     
