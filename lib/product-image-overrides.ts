@@ -98,7 +98,25 @@ export const PRODUCT_IMAGE_OVERRIDES: Record<string, string | string[]> = {
           // Exact supplied reference-profile image. It shows Chanel N°5 packaging,
           // so the product page labels it as reference media rather than Shamim Forever packaging.
           'sf-no-5-floral-eclat': '/products/sf-no-5-floral-eclat/reference-profile.jpg',
+        'sf-mademoiselle-elan': '/products/sf-mademoiselle-elan/hero.jpg',
+        'sf-tendre-chance': '/products/sf-tendre-chance/hero.jpg',
+        'sf-idole-lumiere': '/products/sf-idole-lumiere/hero.jpg',
       }
+
+export const PRODUCT_REFERENCE_PROFILE_COPY: Record<string, { imageAlt: string; disclosure: string }> = {
+  'sf-mademoiselle-elan': {
+    imageAlt: 'Reference profile: Chanel Coco Mademoiselle bottle shown for SF Mademoiselle Élan; not Shamim Forever packaging',
+    disclosure: 'The supplied image shows Chanel Coco Mademoiselle packaging as a visual reference profile. It is not Shamim Forever packaging and does not indicate affiliation, endorsement, licensing, or manufacture by Chanel.',
+  },
+  'sf-tendre-chance': {
+    imageAlt: 'Reference profile: Chanel Chance Eau Tendre bottle shown for SF Tendre Chance; not Shamim Forever packaging',
+    disclosure: 'The supplied image shows Chanel Chance Eau Tendre packaging as a visual reference profile. It is not Shamim Forever packaging and does not indicate affiliation, endorsement, licensing, or manufacture by Chanel.',
+  },
+  'sf-idole-lumiere': {
+    imageAlt: 'Reference profile: Lancôme Idôle bottle shown for SF Idôle Lumière; not Shamim Forever packaging',
+    disclosure: 'The supplied image shows Lancôme Idôle packaging as a visual reference profile. It is not Shamim Forever packaging and does not indicate affiliation, endorsement, licensing, or manufacture by Lancôme.',
+  },
+}
 
       export const PRODUCT_VIDEO_OVERRIDES: Record<string, string> = {
         'floral-bouquet-royale': '/products/eden-juicy-apple-inspired/eden-juicy-apple-inspired.mp4',

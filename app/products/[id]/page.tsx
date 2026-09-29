@@ -6,7 +6,7 @@ import { SOVEREIGN_CONFIGS } from '@/lib/sovereign-configs'
 import LuxuryGenericProductPage from '@/components/LuxuryGenericProductPage'
 import GuestCurationProductPage from '@/components/GuestCurationProductPage'
 import { GUEST_CURATION_SLUGS } from '@/lib/guest-curation-configs'
-import { PRODUCT_IMAGE_OVERRIDES } from '@/lib/product-image-overrides'
+import { PRODUCT_IMAGE_OVERRIDES, PRODUCT_REFERENCE_PROFILE_COPY } from '@/lib/product-image-overrides'
 import CosmeticsProductPage from '@/components/CosmeticsProductPage'
 import JewelryProductPage from '@/components/JewelryProductPage'
 
@@ -62,6 +62,7 @@ export async function generateMetadata({ params }: { params: { id: string } }) {
     : `${BASE_URL}/logo-sf.png`
 
   const productUrl = `${BASE_URL}/products/${product.slug}`
+  const referenceProfile = PRODUCT_REFERENCE_PROFILE_COPY[product.slug]
   const desc = product.description
     ? product.description.slice(0, 160)
     : `${product.name} — sovereign luxury creation by Shamim Forever. Shop online in Pakistan & worldwide.`
@@ -91,9 +92,10 @@ export async function generateMetadata({ params }: { params: { id: string } }) {
           url: productImage,
           width: product.slug === 'sf-no-5-floral-eclat' ? 428 : 1080,
           height: product.slug === 'sf-no-5-floral-eclat' ? 638 : 1080,
-          alt: product.slug === 'sf-no-5-floral-eclat'
-            ? 'Reference profile: Chanel N°5 perfume bottle shown for SF No.5 Floral Éclat; not Shamim Forever packaging'
-            : `${product.name} — Shamim Forever Luxury Collection`,
+            alt: referenceProfile?.imageAlt
+              ?? (product.slug === 'sf-no-5-floral-eclat'
+                ? 'Reference profile: Chanel N°5 perfume bottle shown for SF No.5 Floral Éclat; not Shamim Forever packaging'
+                : `${product.name} — Shamim Forever Luxury Collection`),
         },
       ],
     },
