@@ -122,5 +122,8 @@ export const PRODUCT_IMAGE_OVERRIDES: Record<string, string | string[]> = {
         'bvlgari-bvlgari-ring': 'https://uvgtgeauhjbdatrmmaob.supabase.co/storage/v1/object/public/products/bvlgari-bvlgari-ring/hero.mp4',
       'boucheron-quatre-black-edition-ring': 'https://uvgtgeauhjbdatrmmaob.supabase.co/storage/v1/object/public/products/boucheron-quatre-black-edition-ring/hero.mp4',
       'sf-no-5-floral-eclat': '/videos/products/sf-no-5-floral-eclat.mp4',
+        'sf-mademoiselle-elan': '/videos/products/sf-mademoiselle-elan.mp4',
+        'sf-tendre-chance': '/videos/products/sf-tendre-chance.mp4',
+        'sf-idole-lumiere': '/videos/products/sf-idole-lumiere.mp4',
     }
     
