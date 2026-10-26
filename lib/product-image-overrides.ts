@@ -145,5 +145,9 @@ export const PRODUCT_REFERENCE_PROFILE_COPY: Record<string, { imageAlt: string; 
         'sf-mademoiselle-elan': '/videos/products/sf-mademoiselle-elan.mp4',
         'sf-tendre-chance': '/videos/products/sf-tendre-chance.mp4',
         'sf-idole-lumiere': '/videos/products/sf-idole-lumiere.mp4',
+        'sf-belle-de-vie': '/videos/products/sf-belle-de-vie.mp4',
+        'sf-libre-essence': '/videos/products/sf-libre-essence.mp4',
+        'sf-midnight-opulence': '/videos/products/sf-midnight-opulence.mp4',
+        'sf-miss-elegance': '/videos/products/sf-miss-elegance.mp4',
     }
     
