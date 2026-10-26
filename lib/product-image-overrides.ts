@@ -120,7 +120,7 @@ export const PRODUCT_REFERENCE_PROFILE_COPY: Record<string, { imageAlt: string; 
 
       export const PRODUCT_VIDEO_OVERRIDES: Record<string, string> = {
         // Supplied product video for SF J'adore Lumière (Dior J'adore reference profile).
-        'sf-jadore-lumiere': '/products/sf-jadore-lumiere/hero.mp4',
+        'sf-jadore-lumiere': '/videos/products/sf-jadore-lumiere.mp4',
         'floral-bouquet-royale': '/products/eden-juicy-apple-inspired/eden-juicy-apple-inspired.mp4',
         'eternal-rose-de-taif': '/products/eternal-rose-de-taif/eternal-rose-de-taif.mp4',
         'sf-sovereign-vanilla-absolute': '/products/sf-sovereign-vanilla-absolute/vanilla-absolute.mp4',
@@ -142,8 +142,12 @@ export const PRODUCT_REFERENCE_PROFILE_COPY: Record<string, { imageAlt: string; 
         'bvlgari-bvlgari-ring': 'https://uvgtgeauhjbdatrmmaob.supabase.co/storage/v1/object/public/products/bvlgari-bvlgari-ring/hero.mp4',
       'boucheron-quatre-black-edition-ring': 'https://uvgtgeauhjbdatrmmaob.supabase.co/storage/v1/object/public/products/boucheron-quatre-black-edition-ring/hero.mp4',
       'sf-no-5-floral-eclat': '/videos/products/sf-no-5-floral-eclat.mp4',
+        'sf-miss-elegance': '/videos/products/sf-miss-elegance.mp4',
+        'sf-libre-essence': '/videos/products/sf-libre-essence.mp4',
+        'sf-midnight-opulence': '/videos/products/sf-midnight-opulence.mp4',
+        'sf-belle-de-vie': '/videos/products/sf-belle-de-vie.mp4',
+        'sf-idole-lumiere': '/videos/products/sf-idole-lumiere.mp4',
+        'sf-good-girl': '/videos/products/sf-good-girl.mp4',
         'sf-mademoiselle-elan': '/videos/products/sf-mademoiselle-elan.mp4',
         'sf-tendre-chance': '/videos/products/sf-tendre-chance.mp4',
-        'sf-idole-lumiere': '/videos/products/sf-idole-lumiere.mp4',
     }
-    
