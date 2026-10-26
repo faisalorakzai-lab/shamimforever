@@ -170,4 +170,5 @@ export const PRODUCT_REFERENCE_PROFILE_COPY: Record<string, { imageAlt: string; 
         'sf-viva-radiance': '/videos/products/sf-viva-radiance.mp4',
         'sf-roma-ember': '/videos/products/sf-roma-ember.mp4',
         'sf-vanilla-astra': '/videos/products/sf-vanilla-astra.mp4',
+        'sf-signora-sillage': '/videos/products/sf-signora-sillage.mp4',
     }
