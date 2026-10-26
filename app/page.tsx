@@ -311,7 +311,7 @@ export default function HomePage() {
                         src={src}
                         className="absolute inset-0 w-full h-full object-cover"
                         style={{ filter: 'brightness(0.68) contrast(1.12) saturate(0.9)' }}
-                        muted playsInline preload={heroIndex === i + 1 ? "auto" : "none"}
+                        muted playsInline preload={heroIndex === i + 1 ? "metadata" : "none"}
                       />
                     </div>
                   ))}

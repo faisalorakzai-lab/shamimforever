@@ -71,7 +71,7 @@ import { useCart } from '@/lib/cart-context'
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
           className={`fixed top-0 left-0 right-0 z-50 transition-all duration-700 ${
-            scrolled ? 'bg-[#050505]/95 backdrop-blur-md border-b border-[#111]' : 'bg-transparent'
+            scrolled ? 'bg-white/95 backdrop-blur-md border-b border-stone-200' : 'bg-white/80'
           }`}
         >
           <div className="max-w-[1600px] mx-auto px-5 md:px-12 lg:px-20">
@@ -103,7 +103,7 @@ import { useCart } from '@/lib/cart-context'
                       exit={{ opacity: 0, x: -8 }}
                       transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
                       onClick={() => router.back()}
-                      className="group flex items-center gap-2 border-l border-[#1a1a1a] pl-4"
+                      className="group flex items-center gap-2 border-l border-stone-200 pl-4"
                       aria-label="Go back"
                     >
                       <img
@@ -112,7 +112,7 @@ import { useCart } from '@/lib/cart-context'
                         className="w-[18px] h-[18px] object-contain opacity-50 group-hover:opacity-100 transition-opacity duration-400 flex-shrink-0"
                         style={{ filter: 'drop-shadow(0 0 4px rgba(201,160,84,0.3))' }}
                       />
-                      <span className="text-[8px] tracking-[0.4em] uppercase text-[#c9a054]/70 group-hover:text-[#c9a054] transition-colors duration-400 hidden sm:block"
+                      <span className="text-[8px] tracking-[0.4em] uppercase text-stone-600 group-hover:text-[#c9a054] transition-colors duration-400 hidden sm:block"
                         style={{ transitionTimingFunction: 'cubic-bezier(0.16,1,0.3,1)' }}>
                         {backLabel}
                       </span>
@@ -132,7 +132,7 @@ import { useCart } from '@/lib/cart-context'
                     transition={{ duration: 0.7, delay: 0.4 + i * 0.06, ease: [0.16, 1, 0.3, 1] }}
                   >
                     <Link href={link.href}
-                      className="text-[10px] tracking-[0.35em] uppercase text-zinc-400 hover:text-[#c9a054] transition-colors duration-500 relative group inline-block">
+                      className="text-[10px] tracking-[0.35em] uppercase text-stone-600 hover:text-[#c9a054] transition-colors duration-500 relative group inline-block">
                       {link.label}
                       {/* Gold underline — grows from center outward */}
                       <span className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-0 h-px bg-[#c9a054] group-hover:w-full transition-all duration-500 ease-out" />
@@ -147,7 +147,7 @@ import { useCart } from '@/lib/cart-context'
                   Inner Circle
                 </Link>
                 <Link href="/virtual-atelier"
-                  className="hidden lg:block text-[8px] tracking-[0.35em] uppercase text-zinc-600 hover:text-[#c9a054] transition-colors duration-500 border border-[#111] px-3 py-1.5 hover:border-[#c9a054]/30">
+                  className="hidden lg:block text-[8px] tracking-[0.35em] uppercase text-stone-600 hover:text-[#c9a054] transition-colors duration-500 border border-stone-200 px-3 py-1.5 hover:border-[#c9a054]/30">
                   AI Scanner
                 </Link>
 
@@ -172,10 +172,10 @@ import { useCart } from '@/lib/cart-context'
                   <span className="relative z-10 group-hover:text-[#050505] transition-colors duration-300">Access</span>
                 </Link>
 
-                <button onClick={() => setDrawerOpen(true)}
+                <button onClick={() => setDrawerOpen(true)} aria-label="Open navigation menu"
                   className="lg:hidden flex flex-col gap-1.5 group p-1 ml-1">
-                  <span className="w-5 h-px bg-zinc-400 group-hover:bg-[#c9a054] transition-colors duration-500" />
-                  <span className="w-3.5 h-px bg-zinc-400 group-hover:bg-[#c9a054] transition-colors duration-500 ml-auto" />
+                  <span className="w-5 h-px bg-stone-600 group-hover:bg-[#c9a054] transition-colors duration-500" />
+                  <span className="w-3.5 h-px bg-stone-600 group-hover:bg-[#c9a054] transition-colors duration-500 ml-auto" />
                 </button>
               </div>
             </div>
