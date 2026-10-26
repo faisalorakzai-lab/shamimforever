@@ -119,6 +119,8 @@ export const PRODUCT_REFERENCE_PROFILE_COPY: Record<string, { imageAlt: string; 
 }
 
       export const PRODUCT_VIDEO_OVERRIDES: Record<string, string> = {
+        // Supplied product video for SF J'adore Lumière (Dior J'adore reference profile).
+        'sf-jadore-lumiere': '/products/sf-jadore-lumiere/hero.mp4',
         'floral-bouquet-royale': '/products/eden-juicy-apple-inspired/eden-juicy-apple-inspired.mp4',
         'eternal-rose-de-taif': '/products/eternal-rose-de-taif/eternal-rose-de-taif.mp4',
         'sf-sovereign-vanilla-absolute': '/products/sf-sovereign-vanilla-absolute/vanilla-absolute.mp4',
