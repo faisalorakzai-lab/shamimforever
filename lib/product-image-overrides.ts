@@ -168,4 +168,5 @@ export const PRODUCT_REFERENCE_PROFILE_COPY: Record<string, { imageAlt: string; 
         'sf-velvet-provocateur': '/videos/products/sf-velvet-provocateur.mp4',
         'sf-lavender-serein': '/videos/products/sf-lavender-serein.mp4',
         'sf-viva-radiance': '/videos/products/sf-viva-radiance.mp4',
+        'sf-roma-ember': '/videos/products/sf-roma-ember.mp4',
     }
