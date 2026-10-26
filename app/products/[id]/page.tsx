@@ -16,6 +16,32 @@ const BASE_URL = 'https://www.shamimforever.com'
 const SOVEREIGN_SLUGS = Object.keys(SOVEREIGN_CONFIGS)
 const COSMETICS_CATEGORY_ID = '22226324-4789-419d-a9e2-f763df2d24f1'
 const JEWELRY_CATEGORY_ID = 'e291b9af-a637-45da-a2df-d39f2e72e53c'
+const PERFUME_CATEGORY_ID = 'c513e298-7cb4-4c94-8288-19c6a12eed9b'
+
+// SF-FH-011 is maintained in the dedicated For Her catalog while its Supabase
+// product row is being synchronized. Keep the public product URL functional
+// so its supplied video and SKU remain discoverable in the meantime.
+const SF_FH_011_FALLBACK: Product = {
+  id: 'sf-good-girl',
+  collection_id: null,
+  main_category_id: PERFUME_CATEGORY_ID,
+  sub_category_id: null,
+  name: 'Velvet Command No. 01',
+  slug: 'sf-good-girl',
+  description: 'A polished amber floral built around luminous white flowers and a dark cocoa-toned foundation.',
+  story: JSON.stringify({
+    productCode: 'SF-FH-011',
+    reference: 'Carolina Herrera Good Girl',
+    referenceDisclosure: 'Shamim Forever reference profile; not Carolina Herrera packaging or an affiliation claim.',
+  }),
+  price_pkr: 55440,
+  price_usd: 198,
+  inventory: 1,
+  images: [],
+  is_featured: false,
+  is_active: true,
+  created_at: '2026-01-01T00:00:00.000Z',
+}
 
 async function getProduct(id: string): Promise<Product | null> {
   const { data: bySlug } = await supabaseAdmin
@@ -30,7 +56,7 @@ async function getProduct(id: string): Promise<Product | null> {
     .select('*, main_category:main_categories(*)')
     .eq('id', id)
     .maybeSingle()
-  return byId ?? null
+  return byId ?? (id === SF_FH_011_FALLBACK.slug ? SF_FH_011_FALLBACK : null)
 }
 
 function getProductImage(product: Product): string {
@@ -46,7 +72,7 @@ export async function generateStaticParams() {
       .from('products')
       .select('slug')
       .eq('is_active', true)
-    return (data ?? []).map((p: Pick<Product, 'slug'>) => ({ id: p.slug }))
+    return [...(data ?? []).map((p: Pick<Product, 'slug'>) => ({ id: p.slug })), { id: SF_FH_011_FALLBACK.slug }]
   } catch {
     return []
   }
@@ -292,4 +318,3 @@ export default async function ProductDetailPage({
     </>
   )
 }
-    
