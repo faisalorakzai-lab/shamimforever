@@ -81,6 +81,19 @@ const CAT_LABEL_MAP: Record<string, string> = {
 }
 
 const SOVEREIGN_THRESHOLD = 45000
+const FOR_HIM_CATALOG_SLUGS = new Set([
+  'sf-sovereign-sauvage', 'sf-sauvage-elixir-noir', 'sf-homme-intense',
+  'sf-bleu-sovereign', 'sf-bleu-sovereign-parfum', 'sf-aventus-sovereign',
+  'sf-irish-sovereign', 'sf-aqua-sovereign', 'sf-aqua-sovereign-parfum',
+  'sf-y-sovereign', 'sf-nuit-royale', 'sf-homme-royale', 'sf-homme-elixir',
+  'sf-eros-royale', 'sf-dylan-noir', 'sf-million-royale', 'sf-phantom-noir',
+  'sf-oud-sovereign', 'sf-tobacco-vanille-royale', 'sf-noir-extreme-sovereign',
+  'sf-layton-royale', 'sf-percival-sovereign', 'sf-crystal-rouge-sovereign',
+  'sf-terre-royale', 'sf-luna-carbon', 'sf-most-wanted-noir',
+  'sf-gentleman-royale', 'sf-explorer-sovereign', 'sf-bleu-noir-sovereign',
+  'sf-uomo-roma-intense',
+  'sf-oud-sovereign-reserve',
+])
 
 function Card3D({ children }: { children: React.ReactNode }) {
   const ref = useRef<HTMLDivElement>(null)
@@ -148,7 +161,10 @@ function ShopPageInner({ initialProducts }: { initialProducts: Product[] }) {
     else query = query.order('is_featured', { ascending: false }).order('created_at', { ascending: false })
 
     const { data } = await query.limit(500)
-    setProducts(data || [])
+    const visibleProducts = category === 'perfume' && sub === 'him'
+      ? (data || []).filter(product => FOR_HIM_CATALOG_SLUGS.has(product.slug))
+      : (data || [])
+    setProducts(visibleProducts)
     setLoading(false)
   }
 

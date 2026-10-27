@@ -124,6 +124,7 @@ export const PRODUCT_REFERENCE_PROFILE_COPY: Record<string, { imageAlt: string; 
         'floral-bouquet-royale': '/products/eden-juicy-apple-inspired/eden-juicy-apple-inspired.mp4',
         'eternal-rose-de-taif': '/products/eternal-rose-de-taif/eternal-rose-de-taif.mp4',
         'sf-sovereign-vanilla-absolute': '/products/sf-sovereign-vanilla-absolute/vanilla-absolute.mp4',
+        'sf-imperial-black': '/videos/products/imperial-black-throne.mp4',
         'shamim-bloom': '/products/shamims-bloom/shamim-bloom-hero.mp4',
         'messika-move-bracelet': '/products/messika-move-high-jewelry-bracelet/hero.mp4',
         'sovereign-amethyst': '/products/sovereign-amethyst/sovereign-amethyst-hero.mp4',
