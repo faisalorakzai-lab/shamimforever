@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { supabaseAdmin } from '@/lib/supabase-server'
+import { FOR_HIM_PERFUME_CATALOG } from '@/lib/for-him-perfume-catalog'
 import ForHimClient, { type EssentialProduct } from './ForHimClient'
 
 const BASE_URL = 'https://www.shamimforever.com'
@@ -35,7 +36,15 @@ async function getEssentialProducts(): Promise<EssentialProduct[]> {
     .order('is_featured', { ascending: false })
     .order('name', { ascending: true })
 
-  return (data ?? []).map((product: EssentialProductRow) => ({
+  const canonicalSlugs = new Set([
+    ...FOR_HIM_PERFUME_CATALOG.map(product => product.slug),
+    // The publish route historically used this corrected Oud slug.
+    'sf-oud-sovereign-reserve',
+  ])
+
+  return (data ?? [])
+    .filter((product: EssentialProductRow) => canonicalSlugs.has(product.slug))
+    .map((product: EssentialProductRow) => ({
     id: product.id,
     name: product.name,
     slug: product.slug,
@@ -45,7 +54,7 @@ async function getEssentialProducts(): Promise<EssentialProduct[]> {
     price_pkr: Number(product.price_pkr ?? 0),
     images: Array.isArray(product.images) ? product.images : [],
     is_featured: Boolean(product.is_featured),
-  }))
+    }))
 }
 
 export async function generateMetadata(): Promise<Metadata> {
