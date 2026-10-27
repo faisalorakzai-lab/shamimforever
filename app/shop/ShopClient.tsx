@@ -163,7 +163,9 @@ function ShopPageInner({ initialProducts }: { initialProducts: Product[] }) {
     const { data } = await query.limit(500)
     const visibleProducts = category === 'perfume' && sub === 'him'
       ? (data || []).filter(product => FOR_HIM_CATALOG_SLUGS.has(product.slug))
-      : (data || [])
+      : category === 'perfume' && sub === 'unisex'
+        ? (data || []).slice(0, 30)
+        : (data || [])
     setProducts(visibleProducts)
     setLoading(false)
   }
