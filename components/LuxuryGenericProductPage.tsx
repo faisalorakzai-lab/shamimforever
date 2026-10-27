@@ -212,6 +212,7 @@ function NftCard({ product, story }: { product: Product; story: ParsedStory | nu
     'sapphire-blue-levant':             '/videos/products/sapphire-blue-levant.mp4',
     'house-vault-no-001':               '/videos/products/house-vault-no-001.mp4',
     'imperial-black-throne':            '/videos/products/imperial-black-throne.mp4',
+    'sf-imperial-black':                '/videos/products/imperial-black-throne.mp4',
     'shamim-s-ghost-the-eternal-legacy':'/videos/products/shamim-s-ghost-the-eternal-legacy.mp4',
     'midnight-iris-royale':             '/videos/products/midnight-iris-royale.mp4',
     'sovereign-oud-absolute':           '/videos/products/sovereign-oud-absolute.mp4',
