@@ -163,6 +163,8 @@ function EssentialCard({ p, index }: { p: EssentialProduct; index: number }) {
           <img
             src={img}
             alt={p.name}
+            loading="lazy"
+            decoding="async"
             style={{ width: '100%', height: '100%', objectFit: 'contain', objectPosition: 'center', display: 'block', padding: '12px', transition: 'transform 0.7s cubic-bezier(0.16,1,0.3,1)' }}
             onMouseEnter={e => (e.currentTarget.style.transform = 'scale(1.06)')}
             onMouseLeave={e => (e.currentTarget.style.transform = 'scale(1)')}

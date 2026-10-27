@@ -37,6 +37,11 @@ export async function POST(req: NextRequest) {
       ? { ...product, name: 'SF Oud Sovereign Reserve', slug: 'sf-oud-sovereign-reserve' }
       : product,
   )
+  const canonicalSlugs = new Set([
+    ...publishCatalog.map(product => product.slug),
+    // Preserve the original repository slug for the Oud entry as well.
+    'sf-oud-sovereign',
+  ])
 
   const supabase = db()
   let { data: collection, error: collectionError } = await supabase
@@ -146,9 +151,29 @@ export async function POST(req: NextRequest) {
   }))
 
   if (rows.length === 0) {
+    const { data: collectionProducts, error: collectionProductsError } = await supabase
+      .from('products')
+      .select('id, slug, is_active')
+      .eq('collection_id', collection.id)
+    if (collectionProductsError) {
+      return NextResponse.json({ error: collectionProductsError.message }, { status: 500 })
+    }
+    const extraProductIds = (collectionProducts ?? [])
+      .filter(product => !canonicalSlugs.has(product.slug))
+      .map(product => product.id)
+    let deactivated = 0
+    if (extraProductIds.length > 0) {
+      const { error: deactivateError } = await supabase
+        .from('products')
+        .update({ is_active: false })
+        .in('id', extraProductIds)
+      if (deactivateError) return NextResponse.json({ error: deactivateError.message }, { status: 500 })
+      deactivated = extraProductIds.length
+    }
     return NextResponse.json({
       published: 0,
       expected: FOR_HIM_PERFUME_CATALOG.length,
+      deactivated,
       skippedExisting: conflicts,
       collection: { id: collection.id, name: collection.name, slug: collection.slug },
       category: { id: categories.id, slug: categories.slug },
@@ -171,9 +196,30 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: insertError.message, inserted: 0 }, { status: 500 })
   }
 
+  const { data: collectionProducts, error: collectionProductsError } = await supabase
+    .from('products')
+    .select('id, slug')
+    .eq('collection_id', collection.id)
+  if (collectionProductsError) {
+    return NextResponse.json({ error: collectionProductsError.message }, { status: 500 })
+  }
+  const extraProductIds = (collectionProducts ?? [])
+    .filter(product => !canonicalSlugs.has(product.slug))
+    .map(product => product.id)
+  let deactivated = 0
+  if (extraProductIds.length > 0) {
+    const { error: deactivateError } = await supabase
+      .from('products')
+      .update({ is_active: false })
+      .in('id', extraProductIds)
+    if (deactivateError) return NextResponse.json({ error: deactivateError.message }, { status: 500 })
+    deactivated = extraProductIds.length
+  }
+
   return NextResponse.json({
     published: inserted?.length ?? 0,
     expected: FOR_HIM_PERFUME_CATALOG.length,
+    deactivated,
     skippedExisting: conflicts,
     collection: { id: collection.id, name: collection.name, slug: collection.slug },
     category: { id: categories.id, slug: categories.slug },

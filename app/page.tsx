@@ -145,38 +145,34 @@ export default function HomePage() {
   const [activeCategory, setActiveCategory] = useState('all')
   const [loadingProducts, setLoadingProducts] = useState(true)
 
-    // Hero media — all items always in DOM, zero-loading crossfade
+    // Hero media — only the active video is mounted so the first paint does not
+    // compete with multiple large video downloads.
     const HERO_MEDIA = [
       { type: 'image' as const, src: '/founder-3.png' },
-      { type: 'video' as const, src: '/products/de-beers-enchanted-lotus/hero.mp4' },
-      { type: 'video' as const, src: '/products/swarovski-millenia-tennis-necklace/hero.mp4' },
       { type: 'video' as const, src: '/videos/hero-1.mp4' },
       { type: 'video' as const, src: '/videos/hero-2.mp4' },
       { type: 'video' as const, src: '/videos/hero-3.mp4' },
-      { type: 'video' as const, src: '/products/sovereign-amethyst/sovereign-amethyst-hero.mp4' },
       { type: 'video' as const, src: '/products/shamims-bloom/shamim-bloom-hero.mp4' },
     ]
     const [heroIndex, setHeroIndex] = useState(0)
     const heroTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
-    const videoRefs = useRef<(HTMLVideoElement | null)[]>([null, null, null, null, null, null, null])
+    const mobileVideoRef = useRef<HTMLVideoElement | null>(null)
+    const desktopVideoRef = useRef<HTMLVideoElement | null>(null)
+    const activeHero = HERO_MEDIA[heroIndex]
 
     function nextHero() {
       setHeroIndex(i => (i + 1) % HERO_MEDIA.length)
     }
 
-    // When heroIndex changes: play active video, pause others, set image timer
+    // When heroIndex changes: play the active video and keep the image-first
+    // experience on the initial request.
     useEffect(() => {
-      // Play/pause videos
-      videoRefs.current.forEach((vid, i) => {
-        if (!vid) return
-        if (heroIndex === i + 1) {
-          vid.currentTime = 0
-          vid.play().catch(() => {})
-        } else {
-          vid.pause()
-        }
+      const videos = [mobileVideoRef.current, desktopVideoRef.current]
+      videos.forEach(video => {
+        if (!video) return
+        video.currentTime = 0
+        video.play().catch(() => {})
       })
-      // Image gets a fixed 2-second display, videos auto-advance via onEnded
       if (heroIndex === 0) {
         heroTimerRef.current = setTimeout(nextHero, 2000)
       }
@@ -225,28 +221,19 @@ export default function HomePage() {
           <ParticleField />
         </div>
 
-        {/* Mobile background — all media layers always mounted, CSS opacity crossfade */}
+          {/* Mobile background — only one video is mounted at a time. */}
           <div className="lg:hidden absolute inset-0 z-0">
-            {/* Image layer */}
-            <div className="absolute inset-0 transition-opacity duration-700" style={{ opacity: heroIndex === 0 ? 1 : 0 }}>
+            {activeHero.type === 'image' ? (
               <img src="/founder-3.png" alt="Shamim Forever"
                 className="absolute inset-0 w-full h-full object-cover object-top"
                 style={{ filter: 'brightness(0.38) contrast(1.15) saturate(0.85)' }}
+                loading="eager" fetchPriority="high" decoding="async"
               />
-            </div>
-            {/* Video layers — always mounted so browser can preload */}
-            {['/products/de-beers-enchanted-lotus/hero.mp4', '/products/swarovski-millenia-tennis-necklace/hero.mp4', '/videos/hero-1.mp4', '/videos/hero-2.mp4', '/videos/hero-3.mp4', '/products/sovereign-amethyst/sovereign-amethyst-hero.mp4', '/products/shamims-bloom/shamim-bloom-hero.mp4'].map((src, i) => (
-              <div key={src} className="absolute inset-0 transition-opacity duration-700" style={{ opacity: heroIndex === i + 1 ? 1 : 0 }}>
-                <video
-                  ref={el => { videoRefs.current[i] = el }}
-                  src={src}
-                  className="absolute inset-0 w-full h-full object-cover"
-                  style={{ filter: 'brightness(0.38) contrast(1.15) saturate(0.85)' }}
-                  muted playsInline preload={heroIndex === i + 1 ? "auto" : "none"}
-                  onEnded={nextHero}
-                />
-              </div>
-            ))}
+            ) : (
+              <video ref={mobileVideoRef} src={activeHero.src} className="absolute inset-0 w-full h-full object-cover"
+                style={{ filter: 'brightness(0.38) contrast(1.15) saturate(0.85)' }}
+                muted playsInline autoPlay preload="metadata" poster="/founder-3.png" onEnded={nextHero} />
+            )}
             <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/55 to-[#050505]/15 z-10" />
           </div>
           {/* Mobile text */}
@@ -296,25 +283,19 @@ export default function HomePage() {
             <motion.div style={{ y: heroY, scale: heroScale }} className="absolute inset-0"
               initial={{ opacity: 0 }} animate={{ opacity: 1 }}
               transition={{ duration: 2.2, ease }}>
-              {/* All media layers always mounted — opacity crossfade, zero loading */}
-                  {/* Image layer */}
-                  <div className="absolute inset-0 transition-opacity duration-700" style={{ opacity: heroIndex === 0 ? 1 : 0 }}>
-                    <img src="/founder-3.png" alt="Shamim — Founder"
-                      className="absolute inset-0 w-full h-full object-cover object-top"
-                      style={{ filter: 'brightness(0.68) contrast(1.12) saturate(0.9)' }}
-                    />
-                  </div>
-                  {/* Video layers — always in DOM so they buffer on load */}
-                  {['/videos/hero-1.mp4', '/videos/hero-2.mp4', '/videos/hero-3.mp4', '/products/sovereign-amethyst/sovereign-amethyst-hero.mp4', '/products/shamims-bloom/shamim-bloom-hero.mp4'].map((src, i) => (
-                    <div key={src} className="absolute inset-0 transition-opacity duration-700" style={{ opacity: heroIndex === i + 1 ? 1 : 0 }}>
-                      <video
-                        src={src}
-                        className="absolute inset-0 w-full h-full object-cover"
-                        style={{ filter: 'brightness(0.68) contrast(1.12) saturate(0.9)' }}
-                        muted playsInline preload={heroIndex === i + 1 ? "metadata" : "none"}
-                      />
-                    </div>
-                  ))}
+              {activeHero.type === 'image' ? (
+                <img src="/founder-3.png" alt="Shamim — Founder"
+                  className="absolute inset-0 w-full h-full object-cover object-top"
+                  style={{ filter: 'brightness(0.68) contrast(1.12) saturate(0.9)' }}
+                  loading="eager" fetchPriority="high" decoding="async"
+                />
+              ) : (
+                <video ref={desktopVideoRef} src={activeHero.src}
+                  className="absolute inset-0 w-full h-full object-cover"
+                  style={{ filter: 'brightness(0.68) contrast(1.12) saturate(0.9)' }}
+                  muted playsInline autoPlay preload="metadata" poster="/founder-3.png" onEnded={nextHero}
+                />
+              )}
               <div className="absolute inset-y-0 right-0 w-24 bg-gradient-to-l from-[#050505] to-transparent z-10" />
               <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-[#050505] to-transparent z-10" />
             </motion.div>
