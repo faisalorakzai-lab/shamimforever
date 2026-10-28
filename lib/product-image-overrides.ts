@@ -130,6 +130,7 @@ export const PRODUCT_REFERENCE_PROFILE_COPY: Record<string, { imageAlt: string; 
         'sf-bleu-sovereign': '/videos/products/sf-bleu-sovereign.mp4',
         'sf-bleu-sovereign-parfum': '/videos/products/sf-bleu-sovereign-parfum.mp4',
         'sf-aventus-sovereign': '/videos/products/sf-aventus-sovereign.mp4',
+        'sf-homme-intense': '/videos/products/sf-homme-intense.mp4',
         'sf-irish-sovereign': '/videos/products/sf-irish-sovereign.mp4',
         'sf-aqua-sovereign': '/videos/products/sf-aqua-sovereign.mp4',
         'sf-y-sovereign': '/videos/products/sf-y-sovereign.mp4',
