@@ -9,6 +9,7 @@ import { GUEST_CURATION_SLUGS } from '@/lib/guest-curation-configs'
 import { PRODUCT_IMAGE_OVERRIDES, PRODUCT_REFERENCE_PROFILE_COPY } from '@/lib/product-image-overrides'
 import CosmeticsProductPage from '@/components/CosmeticsProductPage'
 import JewelryProductPage from '@/components/JewelryProductPage'
+import LaVieEstBelleInspiredPage from '@/components/LaVieEstBelleInspiredPage'
 
 export const revalidate = 300
 
@@ -17,6 +18,32 @@ const SOVEREIGN_SLUGS = Object.keys(SOVEREIGN_CONFIGS)
 const COSMETICS_CATEGORY_ID = '22226324-4789-419d-a9e2-f763df2d24f1'
 const JEWELRY_CATEGORY_ID = 'e291b9af-a637-45da-a2df-d39f2e72e53c'
 const PERFUME_CATEGORY_ID = 'c513e298-7cb4-4c94-8288-19c6a12eed9b'
+
+// The dedicated editorial page and image are shipped with the application. Keep
+// the public URL available if its Supabase row is temporarily absent or inactive.
+const LA_VIE_EST_BELLE_FALLBACK: Product = {
+  id: 'la-vie-est-belle-inspired',
+  collection_id: null,
+  main_category_id: PERFUME_CATEGORY_ID,
+  sub_category_id: null,
+  name: 'La Vie Est Belle Inspired',
+  slug: 'la-vie-est-belle-inspired',
+  description:
+    'A Shamim Forever floral-gourmand interpretation with blackcurrant, pear, iris, jasmine, orange blossom, praline, vanilla, patchouli, and tonka bean.',
+  story: JSON.stringify({
+    productCode: 'SF-FH-006',
+    reference: 'Lancôme La Vie Est Belle',
+    referenceDisclosure:
+      'Shamim Forever reference profile; not Lancôme packaging or an affiliation claim.',
+  }),
+  price_pkr: 9800,
+  price_usd: 35,
+  inventory: 1,
+  images: ['/products/la-vie-est-belle-inspired/hero.png'],
+  is_featured: false,
+  is_active: true,
+  created_at: '2026-01-01T00:00:00.000Z',
+}
 
 // SF-FH-011 is maintained in the dedicated For Her catalog while its Supabase
 // product row is being synchronized. Keep the public product URL functional
@@ -56,7 +83,10 @@ async function getProduct(id: string): Promise<Product | null> {
     .select('*, main_category:main_categories(*)')
     .eq('id', id)
     .maybeSingle()
-  return byId ?? (id === SF_FH_011_FALLBACK.slug ? SF_FH_011_FALLBACK : null)
+  if (byId) return byId
+  if (id === SF_FH_011_FALLBACK.slug) return SF_FH_011_FALLBACK
+  if (id === LA_VIE_EST_BELLE_FALLBACK.slug) return LA_VIE_EST_BELLE_FALLBACK
+  return null
 }
 
 function getProductImage(product: Product): string {
@@ -72,9 +102,13 @@ export async function generateStaticParams() {
       .from('products')
       .select('slug')
       .eq('is_active', true)
-    return [...(data ?? []).map((p: Pick<Product, 'slug'>) => ({ id: p.slug })), { id: SF_FH_011_FALLBACK.slug }]
+    return [
+      ...(data ?? []).map((p: Pick<Product, 'slug'>) => ({ id: p.slug })),
+      { id: SF_FH_011_FALLBACK.slug },
+      { id: LA_VIE_EST_BELLE_FALLBACK.slug },
+    ]
   } catch {
-    return []
+    return [{ id: SF_FH_011_FALLBACK.slug }, { id: LA_VIE_EST_BELLE_FALLBACK.slug }]
   }
 }
 
@@ -298,6 +332,15 @@ export default async function ProductDetailPage({
       <>
         <ProductJsonLd product={product} />
         <GuestCurationProductPage product={product} />
+      </>
+    )
+  }
+
+  if (product.slug === LA_VIE_EST_BELLE_FALLBACK.slug) {
+    return (
+      <>
+        <ProductJsonLd product={product} />
+        <LaVieEstBelleInspiredPage product={product} />
       </>
     )
   }
